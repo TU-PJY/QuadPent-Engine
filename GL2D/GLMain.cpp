@@ -4,6 +4,7 @@
 #include "RenderModeUtil.h"
 #include "ImageUtil.h"
 #include "MouseUtil.h"
+#include "SoundUtil.h"
 #include "FWL.h"
 
 #include "Mode1.h"
@@ -25,17 +26,13 @@ CamaraControlUtil camUtil;
 RenderModeUtil renderMode;
 ImageUtil imageUtil;
 MouseUtil mouse;
+SoundUtil soundUtil;
 FWL fw;
 
 clock_t StartTime, EndTime;
 
-
-// image list to load
-std::unordered_map<std::string, const char*> ImageList
-{
-	{"gl2d_boundbox", "GL2D res//boundbox.png"}
-
-};
+// bgm list to add
+FMOD::Channel* bgm;
 
 
 GLvoid DisplayReshape(int w, int h) {
@@ -103,6 +100,7 @@ void main(int argc, char** argv) {
 
 	imageUtil.Init();
 	fw.Init(Mode1);
+	soundUtil.Init();
 
 	glutDisplayFunc(GLMain);
 	glutReshapeFunc(DisplayReshape);

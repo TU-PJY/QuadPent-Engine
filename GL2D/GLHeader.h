@@ -7,7 +7,6 @@
 #include <gl/glm/gtc/matrix_transform.hpp>
 #include <string>
 #include <cmath>
-#include <unordered_map>
 
 // display width, height and apsect ratio
 extern int WIDTH, HEIGHT;
@@ -32,9 +31,6 @@ constexpr bool ShowBoundBox = true;
 // global scope shader
 extern GLuint ImageShader;
 extern GLuint TextShader;
-
-// image list to load
-extern std::unordered_map<std::string, const char*> ImageList;
 
 
 // multiply Xposition with Aspect
