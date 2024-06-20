@@ -5,21 +5,32 @@
 
 std::string Mode1();
 
+inline void ProcessKeyboard(unsigned char KEY, int S_KEY, bool KeyDown, bool SpecialKey=false) {
+	// Normal Key Down
+	if (KeyDown && !SpecialKey) 
+		switch (KEY) {
+		case 27:
+			glutDestroyWindow(1);
+			break;
+		}
 
-inline void KeyDown(unsigned char KEY, int x, int y) {
+	// Normal Key Up
+	else if(!KeyDown && SpecialKey)
+		switch (KEY) {
+		
+		}
 
-}
+	// Special Key Down
+	if(KeyDown && SpecialKey)
+		switch (S_KEY) {
 
-inline void KeyUp(unsigned char KEY, int x, int y) {
+		}
 
-}
+	// Special Key Up
+	else if(!KeyDown && SpecialKey)
+		switch (S_KEY) {
 
-inline void SpecialKeyUp(int KEY, int x, int y) {
-
-}
-
-inline void SpecialKeyDown(int KEY, int x, int y) {
-
+		}
 }
 
 inline void MouseButton(int button, int state, int x, int y) {
@@ -50,12 +61,29 @@ inline void MouseButton(int button, int state, int x, int y) {
 	}
 }
 
-inline void MouseWheel(int button, int dir, int x, int y) {
-	if (dir > 0) {
+inline void MouseWheel(int button, int Wheel, int x, int y) {
+	if (Wheel > 0) {
 	}
 
-	else if (dir < 0) {
+	else if (Wheel < 0) {
 	}
+}
+
+
+inline void KeyDown(unsigned char KEY, int x, int y) {
+	ProcessKeyboard(KEY, NULL, true);
+}
+
+inline void KeyUp(unsigned char KEY, int x, int y) {
+	ProcessKeyboard(KEY, NULL, false);
+}
+
+inline void SpecialKeyUp(int KEY, int x, int y) {
+	ProcessKeyboard(NULL, KEY, true, true);
+}
+
+inline void SpecialKeyDown(int KEY, int x, int y) {
+	ProcessKeyboard(NULL, KEY, false, true);
 }
 
 inline void MouseMotion(int x, int y) {

@@ -18,7 +18,7 @@ void OBJ::RotateSpot(GLfloat Radians) {
 	TranslateMatrix = rotate(TranslateMatrix, glm::radians(Radians), glm::vec3(0.0, 0.0, 1.0));
 }
 
-void OBJ::MoveAspect(GLfloat MoveX, GLfloat MoveY) {
+void OBJ::MoveASP(GLfloat MoveX, GLfloat MoveY) {
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(MoveX * ASPECT, MoveY, 0.0));
 }
 
