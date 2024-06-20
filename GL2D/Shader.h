@@ -38,13 +38,13 @@ public:
 		vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertex_shader, 1, (const GLchar**)&vertex_source, 0);
 		glCompileShader(vertex_shader);
-		GLint ResultMatrix;
-		GLchar errorLog[512];
+		GLint Result;
+		GLchar ErrorLog[512];
 
-		glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &ResultMatrix);
-		if (!ResultMatrix) {
-			glGetShaderInfoLog(vertex_shader, 512, NULL, errorLog);
-			std::cout << "ERROR: vertex shader err\n" << errorLog << std::endl;
+		glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &Result);
+		if (!Result) {
+			glGetShaderInfoLog(vertex_shader, 512, NULL, ErrorLog);
+			std::cout << "ERROR: vertex shader err\n" << ErrorLog << std::endl;
 
 			return;
 		}
@@ -55,13 +55,13 @@ public:
 		fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(fragment_shader, 1, (const GLchar**)&fragment_source, 0);
 		glCompileShader(fragment_shader);
-		GLint ResultMatrix;
-		GLchar errorLog[512];
-		glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &ResultMatrix);
+		GLint Result;
+		GLchar ErrorLog[512];
+		glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &Result);
 
-		if (!ResultMatrix) {
-			glGetShaderInfoLog(fragment_shader, 512, NULL, errorLog);
-			std::cout << "ERROR: fragment shader err\n" << errorLog << std::endl;
+		if (!Result) {
+			glGetShaderInfoLog(fragment_shader, 512, NULL, ErrorLog);
+			std::cout << "ERROR: fragment shader err\n" << ErrorLog << std::endl;
 
 			return;
 		}

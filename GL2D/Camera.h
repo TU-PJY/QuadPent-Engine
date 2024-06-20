@@ -105,4 +105,4 @@ public:
 		ZoomValue = UpdatedZoomValue;
 	}
 };
-extern CamaraControlUtil camcon;
+extern CamaraControlUtil camUtil;

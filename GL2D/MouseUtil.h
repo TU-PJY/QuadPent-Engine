@@ -1,7 +1,7 @@
 #pragma once
 #include "GLHeader.h"
 
-class Mouse {
+class MouseUtil {
 public:
 	GLfloat x{}, y{};
 
@@ -10,4 +10,4 @@ public:
 		y = -(GLfloat)(Y - (GLfloat)HEIGHT / 2.0) * (GLfloat)(1.0 / (GLfloat)(HEIGHT / 2.0));
 	}
 };
-extern Mouse mouse;
+extern MouseUtil mouse;

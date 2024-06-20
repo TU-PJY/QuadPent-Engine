@@ -1,5 +1,4 @@
 #pragma once
-#define _CRT_SECURE_NO_WARNINGS
 #include <gl/glew.h>
 #include <gl/freeglut.h>
 #include <gl/freeglut_ext.h>
@@ -28,7 +27,3 @@ constexpr bool StartWithFullScreen = false;
 // shader
 extern GLuint ImageShader;
 extern GLuint TextShader;
-
-// layer setting
-enum class Layer
-{ L1, L2, L3, END };

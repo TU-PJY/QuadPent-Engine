@@ -1,9 +1,6 @@
 #pragma once
-#include "GLHeader.h"
-#include "Shader.h"
 #include "ImageUtil.h"
 #include "TextUtil.h"
-#include "RenderModeUtil.h"
 #include <array>
 
 class AABB {
@@ -27,7 +24,7 @@ private:
 
 public:
 	AABB() {
-		Box = image.ImportImage("GL2D Res//boundbox.png");
+		Box = imageUtil.ImportImage("GL2D Res//boundbox.png");
 		text.Init("Arial", FW_NORMAL);
 		text.SetColor(1.0, 0.0, 0.0);
 	}
@@ -49,7 +46,7 @@ public:
 			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
 
 			ProcessTransform();
-			image.Draw(Box);
+			imageUtil.Draw(Box);
 
 			text.SetAlign(Align::Left);
 			text.Draw(LeftX - 0.02, LeftY - 0.02, 0.07, "[%.2f, %.2f]", LeftX, LeftY);

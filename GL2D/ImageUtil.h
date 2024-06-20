@@ -1,6 +1,7 @@
 #pragma once
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include "GLHeader.h"
 
 GLfloat ImagePannel[][48] = {  // 이미지 출력에 사용할 이미지 패널, 기본 1.0 x 1.0
 		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0,
@@ -11,7 +12,7 @@ GLfloat ImagePannel[][48] = {  // 이미지 출력에 사용할 이미지 패널, 기본 1.0 x 1
 		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0
 };
 
-class Image {
+class ImageUtil {
 private:
 	GLuint VAO{};
 
@@ -65,4 +66,4 @@ public:
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}
 };
-extern Image image;
+extern ImageUtil imageUtil;

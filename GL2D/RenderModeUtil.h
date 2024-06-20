@@ -1,4 +1,5 @@
 #pragma once
+#include "GLHeader.h"
 #include "Camera.h"
 
 class RenderModeUtil {

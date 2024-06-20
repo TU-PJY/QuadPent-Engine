@@ -116,7 +116,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -139,12 +139,11 @@
   <ItemGroup>
     <ClInclude Include="CollisionUtil.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="FrameWork.h" />
+    <ClInclude Include="FWL.h" />
+    <ClInclude Include="FWL_CONF.h" />
     <ClInclude Include="GLHeader.h" />
     <ClInclude Include="ImageUtil.h" />
-    <ClInclude Include="Mode1.h" />
     <ClInclude Include="MouseUtil.h" />
-    <ClInclude Include="Object.h" />
     <ClInclude Include="RenderModeUtil.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="TextUtil.h" />

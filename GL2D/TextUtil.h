@@ -1,4 +1,5 @@
 #pragma once
+#include "GLHeader.h"
 #include "RenderModeUtil.h"
 #include <windows.h>
 

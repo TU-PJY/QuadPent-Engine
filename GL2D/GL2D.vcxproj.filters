@@ -15,12 +15,6 @@
     <Filter Include="[1]____________FrameWork">
       <UniqueIdentifier>{7c361bc0-0342-468c-b7c5-da0baf35ea28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[2]________________Object\%280%29---[Object_Base]">
-      <UniqueIdentifier>{885bd3f4-eff8-4376-8d25-b3cc8d76b743}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[2]________________Object\%281%29-[Custom_Object]">
-      <UniqueIdentifier>{26e6915d-34d9-4c7e-9d4e-5d17fc3a9811}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]____________GameMode">
       <UniqueIdentifier>{bc7aa447-e898-45fa-a305-57822c46a6df}</UniqueIdentifier>
     </Filter>
@@ -32,6 +26,12 @@
     </Filter>
     <Filter Include="[5]_____________Template">
       <UniqueIdentifier>{7e674058-09d2-4bec-ac26-fb9837c10361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[2]________________Object\%281%29-[Main_Object]">
+      <UniqueIdentifier>{26e6915d-34d9-4c7e-9d4e-5d17fc3a9811}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[2]________________Object\%282%29--[Sub_Object]">
+      <UniqueIdentifier>{93d794a6-3b6b-4fcf-b1da-d2cec6e5cd0c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -55,12 +55,6 @@
     <ClInclude Include="ImageUtil.h">
       <Filter>[4]_______________OpenGL\Util</Filter>
     </ClInclude>
-    <ClInclude Include="FrameWork.h">
-      <Filter>[1]____________FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>[2]________________Object\%280%29---[Object_Base]</Filter>
-    </ClInclude>
     <ClInclude Include="MouseUtil.h">
       <Filter>[4]_______________OpenGL\Util</Filter>
     </ClInclude>
@@ -70,8 +64,11 @@
     <ClInclude Include="RenderModeUtil.h">
       <Filter>[4]_______________OpenGL\Util</Filter>
     </ClInclude>
-    <ClInclude Include="Mode1.h">
-      <Filter>[3]____________GameMode</Filter>
+    <ClInclude Include="FWL_CONF.h">
+      <Filter>[1]____________FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="FWL.h">
+      <Filter>[1]____________FrameWork</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

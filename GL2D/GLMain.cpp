@@ -1,16 +1,14 @@
 #include "GLHeader.h"
 #include "Shader.h"
-#include "RenderModeUtil.h"
 #include "Camera.h"
+#include "RenderModeUtil.h"
 #include "ImageUtil.h"
-#include "TextUtil.h"
 #include "MouseUtil.h"
-#include "FrameWork.h"
+#include "FWL.h"
+
 #include <iostream>
 #include <map>
 #include <ctime>
-
-#include "Mode1.h"
 
 int WIDTH = 1200;
 int HEIGHT = 800;
@@ -21,12 +19,11 @@ std::string VENDOR;
 
 Shader shader;
 Camera cam;
+CamaraControlUtil camUtil;
 RenderModeUtil renderMode;
-CamaraControlUtil camcon;
-Image image;
-Text text;
-Mouse mouse;
-FrameWork fw;
+ImageUtil imageUtil;
+MouseUtil mouse;
+FWL fw;
 
 clock_t StartTime, EndTime;
 
@@ -93,9 +90,7 @@ void main(int argc, char** argv) {
 	shader.LoadFragmentShader("GLSL//GLSL_fragment_text.glsl");
 	shader.CreateShader(TextShader);
 
-	image.Init();
-
-	fw.SetMode(Mode1);
+	imageUtil.Init();
 
 	glutDisplayFunc(GLMain);
 	glutReshapeFunc(DisplayReshape);
