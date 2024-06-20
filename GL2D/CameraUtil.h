@@ -1,24 +1,22 @@
 #pragma once
 #include "GLHeader.h"
 
-enum class Zoom{ In, Out };
+enum class ZOOM{ In, Out };
 
 class CameraUtil {
 protected:
 	glm::vec3 CamPos{}, CamDirection{}, CamUp{};
 	glm::mat4 ViewMatrix{}, Projection{};
 	unsigned int ProjectionLocation{}, ViewLocation{}, ViewPosLocation{};
+	
 public:
-
 	GLfloat Rotation{};
 	GLfloat x{}, y{};
-	GLfloat ZoomValue = 1.0f;
-
-	bool UseTextShader{};
+	GLfloat Zoom{ 1.0f };
 
 	void CalculateASPECT();
 	void SetCamera();
-	void ProcessTransform();
+	void ProcessTransform(bool UseTextShader);
 };
 extern CameraUtil cam;
 
@@ -28,6 +26,6 @@ public:
 	void Move(GLfloat MoveX, GLfloat MoveY);
 	void MoveAspect(GLfloat MoveX, GLfloat MoveY);
 	void Rotate(GLfloat Radians);
-	void ZoomCamera(GLfloat Value, Zoom ZoomOpt);
+	void ZoomCamera(GLfloat Value, ZOOM ZoomOpt);
 };
 extern CamaraControlUtil camUtil;

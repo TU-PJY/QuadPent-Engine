@@ -4,6 +4,7 @@
 #include "RenderModeUtil.h"
 #include "ImageUtil.h"
 #include "MouseUtil.h"
+#include "TextUtil.h"
 #include "FWL.h"
 
 #include "Mode1.h"
@@ -27,13 +28,10 @@ ImageUtil imageUtil;
 MouseUtil mouse;
 FWL fw;
 
+TextUtil MouseLog;
+
 clock_t StartTime, EndTime;
 
-#include "TextUtil.h"
-TextUtil text;
-
-#include "CollisionUtil.h"
-AABB aabb;
 
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
@@ -48,7 +46,6 @@ GLvoid GLMain() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	fw.Routine();
-	aabb.Update(ASP(mouse.x), mouse.y, 1.0, 1.0);
 
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -99,7 +96,6 @@ void main(int argc, char** argv) {
 
 	imageUtil.Init();
 	fw.Init(Mode1);
-	aabb.Init();
 
 	glutDisplayFunc(GLMain);
 	glutReshapeFunc(DisplayReshape);

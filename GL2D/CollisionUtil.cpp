@@ -1,6 +1,7 @@
 #include "CollisionUtil.h"
 #include "RenderModeUtil.h"
 #include "ImageUtil.h"
+#include "CameraUtil.h"
 
 
 void AABB::Init() {
@@ -27,11 +28,11 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 		imageUtil.Draw(Box);
 
 		text.SetAlign(Align::Left);
-		text.Draw(LeftX - 0.02 , LeftY, 0.07, "[%.2f, %.2f]", Normalize(X) - xScale / 2, LeftY);
+		text.Draw(LeftX - 0.02 , LeftY, NormalizeZoom(0.07, cam.Zoom), "[%.2f, %.2f]", NormalizeView(X) - xScale / 2, LeftY);
 		text.SetAlign(Align::Default);
-		text.Draw(RightX + 0.02, RightY, 0.07, "[%.2f, %.2f]", Normalize(X) + xScale / 2, RightY);
+		text.Draw(RightX + 0.02, RightY, NormalizeZoom(0.07, cam.Zoom), "[%.2f, %.2f]", NormalizeView(X) + xScale / 2, RightY);
 		text.SetAlign(Align::Middle);
-		text.Draw(X, Y, 0.07, "[%.2f, %.2f]", Normalize(X), Y);
+		text.Draw(X, Y, NormalizeZoom(0.07, cam.Zoom), "[%.2f, %.2f]", NormalizeView(X), Y);
 	}
 }
 

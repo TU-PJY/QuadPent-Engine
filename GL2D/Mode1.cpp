@@ -7,6 +7,7 @@ void SetController() {
 	glutKeyboardFunc(KeyDown);
 	glutKeyboardUpFunc(KeyUp);
 	glutMouseWheelFunc(MouseWheel);
+	glutMouseFunc(MouseButton);
 	glutSpecialFunc(SpecialKeyDown);
 	glutSpecialUpFunc(SpecialKeyUp);
 }

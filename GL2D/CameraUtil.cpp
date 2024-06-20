@@ -26,12 +26,10 @@ void CameraUtil::SetCamera() {
 	ViewMatrix = translate(ViewMatrix, vec3(x, y, 0.0));
 	ViewMatrix = rotate(ViewMatrix, radians(Rotation), vec3(0.0, 0.0, 1.0));
 
-	Projection = ortho((ASPECT * -1.0f) / ZoomValue, (ASPECT * 1.0f) / ZoomValue, -1.0f / ZoomValue, 1.0f / ZoomValue, -100.0f, 100.0f);
-
-	ProcessTransform();
+	Projection = ortho((ASPECT * -1.0f) / Zoom, (ASPECT * 1.0f) / Zoom, -1.0f / Zoom, 1.0f / Zoom, -100.0f, 100.0f);
 }
 
-void CameraUtil::ProcessTransform() {
+void CameraUtil::ProcessTransform(bool UseTextShader) {
 	if (UseTextShader) {
 		ProjectionLocation = glGetUniformLocation(TextShader, "projection");
 		glUniformMatrix4fv(ProjectionLocation, 1, GL_FALSE, &Projection[0][0]);
@@ -41,8 +39,6 @@ void CameraUtil::ProcessTransform() {
 
 		ViewPosLocation = glGetUniformLocation(TextShader, "viewPos");
 		glUniform3f(ViewPosLocation, CamPos.x, CamPos.y, CamPos.z);
-
-		UseTextShader = false;
 	}
 
 	else {
@@ -72,18 +68,18 @@ void CamaraControlUtil::Rotate(GLfloat Radians) {
 	Rotation = Radians;
 }
 
-void CamaraControlUtil::ZoomCamera(GLfloat Value, Zoom ZoomOpt) {
+void CamaraControlUtil::ZoomCamera(GLfloat Value, ZOOM ZoomOpt) {
 	GLfloat UpdatedZoomValue{};
 
 	switch (ZoomOpt) {
-	case Zoom::In:
-		UpdatedZoomValue = ZoomValue / (1.0f - Value);
+	case ZOOM::In:
+		UpdatedZoomValue = Zoom / (1.0f - Value);
 		break;
 
-	case Zoom::Out:
-		UpdatedZoomValue = ZoomValue * (1.0f - Value);
+	case ZOOM::Out:
+		UpdatedZoomValue = Zoom * (1.0f - Value);
 		break;
 	}
 
-	ZoomValue = UpdatedZoomValue;
+	Zoom = UpdatedZoomValue;
 }

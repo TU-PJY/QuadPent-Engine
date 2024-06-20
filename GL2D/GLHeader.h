@@ -33,14 +33,19 @@ extern GLuint ImageShader;
 extern GLuint TextShader;
 
 
-// multiply x position with Aspect
+// multiply Xposition with Aspect
 inline GLfloat ASP(GLfloat ValueX) {
 	return ValueX *= ASPECT;
 }
 
-// Normalize to Aspect
-inline GLfloat Normalize(GLfloat ValueX) {
+// Normalize with Aspect
+inline GLfloat NormalizeView(GLfloat ValueX) {
 	return ValueX / ASPECT;
+}
+
+// Normalize with Camera zoom
+inline GLfloat NormalizeZoom(GLfloat Value, GLfloat ZoomValue) {
+	return Value / ZoomValue;
 }
 
 // Calculate linear interpolation
