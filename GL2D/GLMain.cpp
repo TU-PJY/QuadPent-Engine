@@ -4,7 +4,6 @@
 #include "RenderModeUtil.h"
 #include "ImageUtil.h"
 #include "MouseUtil.h"
-#include "TextUtil.h"
 #include "FWL.h"
 
 #include "Mode1.h"
@@ -27,8 +26,6 @@ RenderModeUtil renderMode;
 ImageUtil imageUtil;
 MouseUtil mouse;
 FWL fw;
-
-TextUtil MouseLog;
 
 clock_t StartTime, EndTime;
 
