@@ -31,9 +31,6 @@ FWL fw;
 
 clock_t StartTime, EndTime;
 
-// bgm list to add
-FMOD::Channel* bgm;
-
 
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
