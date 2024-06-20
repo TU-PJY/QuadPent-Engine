@@ -8,6 +8,7 @@ uniform vec3 viewPos;
 
 uniform sampler2D outTexture;
 uniform float transparency;
+uniform vec3 objectColor;
 
 void main() {
     vec4 texColor = texture(outTexture, TexCoord);
@@ -16,5 +17,5 @@ void main() {
         discard;
 
     else
-        fragColor = vec4(texColor.rgb, texColor.a * transparency);
+        fragColor = vec4(texColor.rgb + objectColor.rgb, texColor.a * transparency);
 }

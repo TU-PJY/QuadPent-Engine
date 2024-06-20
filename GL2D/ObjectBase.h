@@ -14,7 +14,9 @@ public:
 	std::string ObjectTag{};
 
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
+	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 	GLfloat AlphaValue{ 1.0f };
+
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{}, TextAlphaLocation{};
 
 	void Move(GLfloat MoveX, GLfloat MoveY);
@@ -22,6 +24,7 @@ public:
 	void Scale(GLfloat ScaleX, GLfloat ScaleY);
 	void RotateSpot(GLfloat Radians);
 	void MoveAspect(GLfloat MoveX, GLfloat MoveY);
+	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetAlpha(GLfloat Value);
 	void InitTransform();
 	void ProcessTransform();

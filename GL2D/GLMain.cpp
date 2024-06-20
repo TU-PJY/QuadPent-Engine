@@ -6,6 +6,8 @@
 #include "MouseUtil.h"
 #include "FWL.h"
 
+#include "Mode1.h"
+
 #include <iostream>
 #include <map>
 #include <ctime>
@@ -27,6 +29,11 @@ FWL fw;
 
 clock_t StartTime, EndTime;
 
+#include "TextUtil.h"
+TextUtil text;
+
+#include "CollisionUtil.h"
+AABB aabb;
 
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
@@ -41,6 +48,7 @@ GLvoid GLMain() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	fw.Routine();
+	aabb.Update(mouse.x, mouse.y, 1.0, 1.0);
 
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -62,17 +70,17 @@ void main(int argc, char** argv) {
 
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK) {
-		std::cout << "Unable to initialize GLEW" << std::endl;
+		std::cout << "Unable to initialize GLEW\n\n";
 		exit(EXIT_FAILURE);
 	}
 	else
-		std::cout << "GLEW Initialized" << std::endl;
+		std::cout << "GLEW Initialized\n\n";
 
 	const GLubyte* VecdorInfo = glGetString(GL_VENDOR);
 	if (VecdorInfo) {
 		VENDOR = reinterpret_cast<const char*>(VecdorInfo);
 		if (PrintVendorInfoOpt)
-			std::cout << "GPU Vendor: " << VENDOR << std::endl;
+			std::cout << "GPU Vendor: " << VENDOR << "\n\n";
 	}
 
 	glEnable(GL_MULTISAMPLE);
@@ -90,6 +98,8 @@ void main(int argc, char** argv) {
 	shader.CreateShader(TextShader);
 
 	imageUtil.Init();
+	fw.Init(Mode1);
+	aabb.Init();
 
 	glutDisplayFunc(GLMain);
 	glutReshapeFunc(DisplayReshape);

@@ -55,3 +55,4 @@ private:
 	void ChangeMode(); 
 	void ClearAll();
 };
+extern FWL fw;

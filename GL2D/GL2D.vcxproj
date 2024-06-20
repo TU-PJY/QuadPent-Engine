@@ -139,6 +139,7 @@
     <ClCompile Include="FWL.cpp" />
     <ClCompile Include="GLMain.cpp" />
     <ClCompile Include="ImageUtil.cpp" />
+    <ClCompile Include="Mode1.cpp" />
     <ClCompile Include="MouseUtil.cpp" />
     <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="RenderModeUtil.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="FWL_CONF.h" />
     <ClInclude Include="GLHeader.h" />
     <ClInclude Include="ImageUtil.h" />
+    <ClInclude Include="Mode1.h" />
     <ClInclude Include="MouseUtil.h" />
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="RenderModeUtil.h" />

@@ -22,6 +22,12 @@ void OBJ::MoveAspect(GLfloat MoveX, GLfloat MoveY) {
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(MoveX * ASPECT, MoveY, 0.0));
 }
 
+void OBJ::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+	ObjectColor.r = R;
+	ObjectColor.g = G;
+	ObjectColor.b = B;
+}
+
 void OBJ::SetAlpha(GLfloat Value) {
 	AlphaValue = Value;
 }
@@ -37,6 +43,9 @@ void OBJ::ProcessTransform() {
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, AlphaValue);
+
+	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
+	glUniform3f(ObjectColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(RotateMatrix * TranslateMatrix * ScaleMatrix));

@@ -19,6 +19,8 @@ private:
 	GLuint FontBase{};
 	GLYPHMETRICSFLOAT TextGlyph[96]{};
 
+	GLfloat x{}, y{};
+
 public:
 	~TextUtil();
 	void Init(const char* FontName, int type);

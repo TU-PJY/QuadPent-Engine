@@ -6,7 +6,7 @@ FWL_Log FLog;
 FWL::FWL() {
 	if (DebugMessage) {
 		std::cout << "======== FWL Message ========\n";
-		std::cout << "FWL is prepared.\n";
+		std::cout << "FWL is prepared.\n\n";
 	}
 }
 
@@ -57,8 +57,8 @@ void FWL::Routine() {
 						(*It)->Update(FrameTime);
 				}
 
-				(*It)->Render();
 				(*It)->ProcessTransform();
+				(*It)->Render();
 
 				if (CheckDeleteFlag(It, i))
 					continue;
@@ -239,10 +239,11 @@ void FWL::ChangeMode() {
 	RunningMode = Buffer();
 	Buffer = nullptr;
 
+	FLog.CurrentMode = RunningMode;
+
 	if (FLog.CurrentMode == FLog.PrevMode)
 		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
 
-	FLog.CurrentMode = RunningMode;
 	FLog.Log(LogType::MODE_SWITCH);
 
 	ModeSwitchState = false;

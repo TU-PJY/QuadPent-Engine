@@ -21,8 +21,7 @@ private:
 	TextUtil text;
 
 public:
-	AABB();
-	void ShowAABB(bool Flag);
+	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
 	bool CheckCollisionAABB(AABB aabb);
 	bool CheckCollisionDot(GLfloat X, GLfloat Y);
