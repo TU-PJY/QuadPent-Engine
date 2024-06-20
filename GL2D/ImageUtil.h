@@ -10,7 +10,6 @@ private:
 
 public:
 	void Init();
-	unsigned int ImportImage(const char* directory);
 	void LoadImageFromList();
 	unsigned int SetImage(std::string ImageName);
 	void Draw(unsigned int ImageVar);

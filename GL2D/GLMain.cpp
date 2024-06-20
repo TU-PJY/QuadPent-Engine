@@ -91,13 +91,12 @@ void main(int argc, char** argv) {
 	shader.LoadFragmentShader("GLSL//GLSL_fragment.glsl");
 	shader.CreateShader(ImageShader);
 
-	shader.LoadVertexShader("GLSL//GLSL_vertex.glsl");
 	shader.LoadFragmentShader("GLSL//GLSL_fragment_text.glsl");
 	shader.CreateShader(TextShader);
 
 	imageUtil.Init();
-	fw.Init(Mode1);
 	soundUtil.Init();
+	fw.Init(Mode1);
 
 	glutDisplayFunc(GLMain);
 	glutReshapeFunc(DisplayReshape);

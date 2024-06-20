@@ -42,27 +42,22 @@ void ImageUtil::Init() {
 	LoadImageFromList();
 }
 
-unsigned int ImageUtil::ImportImage(const char* directory) {
-	unsigned int Image{};
-	int Width{}, Height{}, Channel{};
-
-	glGenTextures(1, &Image);
-	glBindTexture(GL_TEXTURE_2D, Image);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	unsigned char* texture_data = stbi_load(directory, &Width, &Height, &Channel, 4);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
-	stbi_image_free(texture_data);
-
-	return Image;
-}
-
 void ImageUtil::LoadImageFromList() {
 	for (auto& [Name, File] : ImageList) {
-		unsigned int Image = ImportImage(File);
+		unsigned int Image{};
+		int Width{}, Height{}, Channel{};
+
+		glGenTextures(1, &Image);
+		glBindTexture(GL_TEXTURE_2D, Image);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		unsigned char* texture_data = stbi_load(File, &Width, &Height, &Channel, 4);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
+		stbi_image_free(texture_data);
+
 		LoadedImageList.insert(std::pair(Name, Image));
 	}
 }
