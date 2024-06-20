@@ -55,6 +55,9 @@
     <Filter Include="[2]___________[ GameMode ]\[ Mode1 ]">
       <UniqueIdentifier>{7b8ece9e-369e-41aa-9eb1-0f0dc2f9398d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Sound Util ]">
+      <UniqueIdentifier>{22512964-c0e1-42b6-8ae0-9c32d227bc22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
@@ -87,6 +90,9 @@
     </ClCompile>
     <ClCompile Include="TextUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Text Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Sound Util ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="TextUtil.h">
       <Filter>[3]___________[ Util ]\[ Text Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundUtil.h">
+      <Filter>[3]___________[ Util ]\[ Sound Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

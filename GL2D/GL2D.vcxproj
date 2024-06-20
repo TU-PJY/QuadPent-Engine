@@ -147,6 +147,7 @@
     <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="RenderModeUtil.cpp" />
     <ClCompile Include="ShaderUtil.cpp" />
+    <ClCompile Include="SoundUtil.cpp" />
     <ClCompile Include="TextUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="RenderModeUtil.h" />
     <ClInclude Include="ShaderUtil.h" />
+    <ClInclude Include="SoundUtil.h" />
     <ClInclude Include="TextUtil.h" />
   </ItemGroup>
   <ItemGroup>
