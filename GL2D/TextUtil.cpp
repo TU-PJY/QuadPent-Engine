@@ -8,10 +8,7 @@ TextUtil::~TextUtil() {
 
 void TextUtil::Init(const char* FontName, int type) {
 	hDC = wglGetCurrentDC();
-	BuildFont(FontName, type);
-}
 
-void TextUtil::BuildFont(const char* FontName, int type) {
 	HFONT Font;
 	HFONT OldFont;
 

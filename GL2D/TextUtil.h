@@ -24,7 +24,6 @@ private:
 public:
 	~TextUtil();
 	void Init(const char* FontName, int type);
-	void BuildFont(const char* FontName, int type);
 	void SetAlpha(GLfloat Value);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetAlign(Align AlignOpt);

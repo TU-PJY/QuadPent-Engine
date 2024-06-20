@@ -30,11 +30,20 @@ FWL fw;
 clock_t StartTime, EndTime;
 
 
+// image list to load
+std::unordered_map<std::string, const char*> ImageList
+{
+	{"gl2d_boundbox", "GL2D res//boundbox.png"}
+
+};
+
+
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
 	WIDTH = w;
 	HEIGHT = h;
 }
+
 
 GLvoid GLMain() {
 	StartTime = clock();
@@ -50,6 +59,7 @@ GLvoid GLMain() {
 	EndTime = clock();
 	fw.SetFrameTime(float(EndTime - StartTime) / 1000);
 }
+
 
 void main(int argc, char** argv) {
 	glutInit(&argc, argv);

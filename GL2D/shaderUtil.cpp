@@ -6,24 +6,26 @@
 GLuint ImageShader;
 GLuint TextShader;
 
-char* ShaderUtil::LoadBuffer(const char* file) {
-	FILE* fptr; long length; char* buf;
+char* ShaderUtil::LoadBuffer(const char* FileName) {
+	FILE* File{};
+	long Length{};
+	char* Buffer{};
 
-	fptr = fopen(file, "rb");
-	if (!fptr)
+	File = fopen(FileName, "rb");
+	if (!File)
 		return NULL;
 
-	fseek(fptr, 0, SEEK_END);
-	length = ftell(fptr);
-	buf = (char*)malloc(length + 1);
+	fseek(File, 0, SEEK_END);
+	Length = ftell(File);
+	Buffer = (char*)malloc(Length + 1);
 
-	fseek(fptr, 0, SEEK_SET);
-	fread(buf, length, 1, fptr);
-	fclose(fptr);
+	fseek(File, 0, SEEK_SET);
+	fread(Buffer, Length, 1, File);
+	fclose(File);
 
-	buf[length] = 0;
+	Buffer[Length] = 0;
 
-	return buf;
+	return Buffer;
 }
 
 void ShaderUtil::LoadVertexShader(const char* VertexShader) {
@@ -31,8 +33,8 @@ void ShaderUtil::LoadVertexShader(const char* VertexShader) {
 	vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertex_shader, 1, (const GLchar**)&vertex_source, 0);
 	glCompileShader(vertex_shader);
-	GLint Result;
-	GLchar ErrorLog[512];
+	GLint Result{};
+	GLchar ErrorLog[512]{};
 
 	glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &Result);
 	if (!Result) {
@@ -48,8 +50,8 @@ void ShaderUtil::LoadFragmentShader(const char* FragmentShader) {
 	fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragment_shader, 1, (const GLchar**)&fragment_source, 0);
 	glCompileShader(fragment_shader);
-	GLint Result;
-	GLchar ErrorLog[512];
+	GLint Result{};
+	GLchar ErrorLog[512]{};
 	glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &Result);
 
 	if (!Result) {

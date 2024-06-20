@@ -28,9 +28,11 @@ void ImageUtil::Init() {
 	glEnableVertexAttribArray(2);
 
 	stbi_set_flip_vertically_on_load(true);
+
+	LoadImageFromList();
 }
 
-unsigned int ImageUtil::ImportImage(const char* directory, bool nearest_opt) {
+unsigned int ImageUtil::ImportImage(const char* directory) {
 	unsigned int Image{};
 	int Width{}, Height{}, Channel{};
 
@@ -38,20 +40,25 @@ unsigned int ImageUtil::ImportImage(const char* directory, bool nearest_opt) {
 	glBindTexture(GL_TEXTURE_2D, Image);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	if (!nearest_opt) {
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	}
-	else {
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	}
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	unsigned char* texture_data = stbi_load(directory, &Width, &Height, &Channel, 4);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
 	stbi_image_free(texture_data);
 
 	return Image;
+}
+
+void ImageUtil::LoadImageFromList() {
+	for (auto& [Name, File] : ImageList) {
+		unsigned int Image = ImportImage(File);
+		LoadedImageList.insert(std::pair(Name, Image));
+	}
+}
+
+unsigned int ImageUtil::SetImage(std::string ImageName) {
+	return LoadedImageList.find(ImageName)->second;
 }
 
 void ImageUtil::Draw(unsigned int ImageVar) {
