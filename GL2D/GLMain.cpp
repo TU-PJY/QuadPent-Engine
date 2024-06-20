@@ -48,7 +48,7 @@ GLvoid GLMain() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	fw.Routine();
-	aabb.Update(mouse.x, mouse.y, 1.0, 1.0);
+	aabb.Update(ASP(mouse.x), mouse.y, 1.0, 1.0);
 
 	glutSwapBuffers();
 	glutPostRedisplay();

@@ -6,6 +6,7 @@
 #include <gl/glm/ext.hpp>
 #include <gl/glm/gtc/matrix_transform.hpp>
 #include <string>
+#include <cmath>
 
 // display width, height and apsect ratio
 extern int WIDTH, HEIGHT;
@@ -27,6 +28,29 @@ constexpr bool StartWithFullScreen = false;
 // boundbox option
 constexpr bool ShowBoundBox = true;
 
-// shader
+// global scope shader
 extern GLuint ImageShader;
 extern GLuint TextShader;
+
+
+// multiply x position with Aspect
+inline GLfloat ASP(GLfloat ValueX) {
+	return ValueX *= ASPECT;
+}
+
+// Normalize to Aspect
+inline GLfloat Normalize(GLfloat ValueX) {
+	return ValueX / ASPECT;
+}
+
+// Calculate linear interpolation
+inline void Lerp(GLfloat& Value, GLfloat TargetValue, float FrameTime) {
+	Value = std::lerp(Value, TargetValue, FrameTime);
+}
+
+// Calculate distance of 2 dots
+inline GLfloat GetDistance(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2) {
+	GLfloat DistanceX = X2 - X1;
+	GLfloat DistanceY = Y2 - Y1;
+	return sqrt(pow(DistanceX, 2) + pow(DistanceY, 2));
+}

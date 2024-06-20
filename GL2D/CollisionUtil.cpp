@@ -4,9 +4,11 @@
 
 
 void AABB::Init() {
-	Box = imageUtil.ImportImage("GL2D Res//boundbox.png");
-	text.Init("arial", FW_NORMAL);
-	text.SetColor(1.0, 0.0, 0.0);
+	if (ShowBoundBox) {
+		Box = imageUtil.ImportImage("GL2D Res//boundbox.png");
+		text.Init("arial", FW_NORMAL);
+		text.SetColor(1.0, 0.0, 0.0);
+	}
 }
 
 void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
@@ -25,11 +27,11 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 		imageUtil.Draw(Box);
 
 		text.SetAlign(Align::Left);
-		text.Draw(LeftX - 0.02 , LeftY, 0.07, "[%.2f, %.2f]", LeftX, LeftY);
+		text.Draw(LeftX - 0.02 , LeftY, 0.07, "[%.2f, %.2f]", Normalize(X) - xScale / 2, LeftY);
 		text.SetAlign(Align::Default);
-		text.Draw(RightX + 0.02, RightY, 0.07, "[%.2f, %.2f]", RightX, RightY);
+		text.Draw(RightX + 0.02, RightY, 0.07, "[%.2f, %.2f]", Normalize(X) + xScale / 2, RightY);
 		text.SetAlign(Align::Middle);
-		text.Draw(X, Y, 0.07, "[%.2f, %.2f]", X, Y);
+		text.Draw(X, Y, 0.07, "[%.2f, %.2f]", Normalize(X), Y);
 	}
 }
 

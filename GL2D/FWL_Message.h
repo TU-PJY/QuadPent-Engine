@@ -28,12 +28,12 @@ public:
 			switch (Type) {
 			case LogType::FWL_INIT:
 				cout << "FWL Init\n";
-				cout << "FWL Staterted running with Mode [ " << CurrentMode << " ].\n";
+				cout << "FWL Staterted running with mode [ " << CurrentMode << " ].\n";
 				break;
 
 			case LogType::MODE_SWITCH:
 				cout << "Mode Switch\n";
-				cout << "Mode Switched from [ " << PrevMode << " ] to [ " << CurrentMode << " ].\n";
+				cout << "Mode switched from [ " << PrevMode << " ] to [ " << CurrentMode << " ].\n";
 				if (IsPause)
 					cout << "PauseState is activated.\n";
 				if (!IsPause)
