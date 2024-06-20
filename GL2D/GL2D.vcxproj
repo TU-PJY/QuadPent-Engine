@@ -163,6 +163,11 @@
   <ItemGroup>
     <Text Include="ModeTemplate.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="GLSL\GLSL_fragment.glsl" />
+    <None Include="GLSL\GLSL_fragment_text.glsl" />
+    <None Include="GLSL\GLSL_vertex.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
