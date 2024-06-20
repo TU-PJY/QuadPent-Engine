@@ -1,6 +1,6 @@
 #include "GLHeader.h"
-#include "Shader.h"
-#include "Camera.h"
+#include "ShaderUtil.h"
+#include "CameraUtil.h"
 #include "RenderModeUtil.h"
 #include "ImageUtil.h"
 #include "MouseUtil.h"
@@ -17,8 +17,8 @@ Rect rect;
 
 std::string VENDOR;
 
-Shader shader;
-Camera cam;
+ShaderUtil shader;
+CameraUtil cam;
 CamaraControlUtil camUtil;
 RenderModeUtil renderMode;
 ImageUtil imageUtil;
@@ -40,7 +40,6 @@ GLvoid GLMain() {
 	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	cam.CalculateASPECT();
 	fw.Routine();
 
 	glutSwapBuffers();
