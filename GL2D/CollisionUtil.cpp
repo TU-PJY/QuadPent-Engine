@@ -12,7 +12,7 @@ void AABB::Init() {
 	}
 }
 
-void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
+void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, bool UseViewportPosition) {
 	LeftX = X - xScale / 2;
 	RightX = X + xScale / 2;
 	LeftY = Y - yScale / 2;
@@ -27,12 +27,23 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 		ProcessTransform();
 		imageUtil.Draw(Box);
 
-		text.SetAlign(Align::Left);
-		text.Draw(LeftX - 0.02 , LeftY, NormalizeZoom(0.07, cam.Zoom), "[%.2f, %.2f]", NormalizeView(X) - xScale / 2, LeftY);
-		text.SetAlign(Align::Default);
-		text.Draw(RightX + 0.02, RightY, NormalizeZoom(0.07, cam.Zoom), "[%.2f, %.2f]", NormalizeView(X) + xScale / 2, RightY);
-		text.SetAlign(Align::Middle);
-		text.Draw(X, Y, NormalizeZoom(0.07, cam.Zoom), "[%.2f, %.2f]", NormalizeView(X), Y);
+		if (UseViewportPosition) {
+			text.SetAlign(Align::Left);
+			text.Draw(LeftX - DivideZoom(0.02, cam.Zoom), LeftY, DivideZoom(0.07, cam.Zoom), "[%.2f, %.2f]", DivideASP(X) - xScale / 2, LeftY);
+			text.SetAlign(Align::Default);
+			text.Draw(RightX + DivideZoom(0.02, cam.Zoom), RightY, DivideZoom(0.07, cam.Zoom), "[%.2f, %.2f]", DivideASP(X) + xScale / 2, RightY);
+			text.SetAlign(Align::Middle);
+			text.Draw(X, Y, DivideZoom(0.07, cam.Zoom), "[%.2f, %.2f]", DivideASP(X), Y);
+		}
+
+		else {
+			text.SetAlign(Align::Left);
+			text.Draw(LeftX - DivideZoom(0.02, cam.Zoom), LeftY, DivideZoom(0.07, cam.Zoom), "[%.2f, %.2f]", X - xScale / 2, LeftY);
+			text.SetAlign(Align::Default);
+			text.Draw(RightX + DivideZoom(0.02, cam.Zoom), RightY, DivideZoom(0.07, cam.Zoom), "[%.2f, %.2f]", X + xScale / 2, RightY);
+			text.SetAlign(Align::Middle);
+			text.Draw(X, Y, DivideZoom(0.07, cam.Zoom), "[%.2f, %.2f]", X, Y);
+		}
 	}
 }
 

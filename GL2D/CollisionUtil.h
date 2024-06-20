@@ -22,7 +22,7 @@ private:
 
 public:
 	void Init();
-	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
+	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, bool UseViewportPosition = false);
 	bool CheckCollisionAABB(AABB aabb);
 	bool CheckCollisionDot(GLfloat X, GLfloat Y);
 	void InitTransform();

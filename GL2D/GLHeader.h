@@ -38,13 +38,13 @@ inline GLfloat ASP(GLfloat ValueX) {
 	return ValueX *= ASPECT;
 }
 
-// Normalize with Aspect
-inline GLfloat NormalizeView(GLfloat ValueX) {
+// Divide Xposition with Aspect
+inline GLfloat DivideASP(GLfloat ValueX) {
 	return ValueX / ASPECT;
 }
 
-// Normalize with Camera zoom
-inline GLfloat NormalizeZoom(GLfloat Value, GLfloat ZoomValue) {
+// Divide value with camera zoom value
+inline GLfloat DivideZoom(GLfloat Value, GLfloat ZoomValue) {
 	return Value / ZoomValue;
 }
 

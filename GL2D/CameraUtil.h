@@ -24,7 +24,6 @@ extern CameraUtil cam;
 class CamaraControlUtil : public CameraUtil {
 public:
 	void Move(GLfloat MoveX, GLfloat MoveY);
-	void MoveAspect(GLfloat MoveX, GLfloat MoveY);
 	void Rotate(GLfloat Radians);
 	void ZoomCamera(GLfloat Value, ZOOM ZoomOpt);
 };

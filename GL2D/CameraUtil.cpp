@@ -59,11 +59,6 @@ void CamaraControlUtil::Move(GLfloat MoveX, GLfloat MoveY) {
 	y = MoveY;
 }
 
-void CamaraControlUtil::MoveAspect(GLfloat MoveX, GLfloat MoveY) {
-	x = MoveX * ASPECT;
-	y = MoveY;
-}
-
 void CamaraControlUtil::Rotate(GLfloat Radians) {
 	Rotation = Radians;
 }
@@ -73,13 +68,15 @@ void CamaraControlUtil::ZoomCamera(GLfloat Value, ZOOM ZoomOpt) {
 
 	switch (ZoomOpt) {
 	case ZOOM::In:
-		UpdatedZoomValue = Zoom / (1.0f - Value);
+		UpdatedZoomValue = cam.Zoom / (1.0f - Value);
+		cam.Zoom = UpdatedZoomValue;
 		break;
 
 	case ZOOM::Out:
-		UpdatedZoomValue = Zoom * (1.0f - Value);
+		UpdatedZoomValue = cam.Zoom * (1.0f - Value);
+		cam.Zoom = UpdatedZoomValue;
 		break;
 	}
 
-	Zoom = UpdatedZoomValue;
+	cam.Zoom = UpdatedZoomValue;
 }

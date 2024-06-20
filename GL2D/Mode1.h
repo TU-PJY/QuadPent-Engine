@@ -1,6 +1,6 @@
 #pragma once
 #include "MouseUtil.h"
-#include "SoundUtil.h"
+#include "CameraUtil.h"
 #include "FWL.h"
 #include <string>
 
@@ -64,9 +64,11 @@ inline void MouseButton(int button, int state, int x, int y) {
 
 inline void MouseWheel(int button, int Wheel, int x, int y) {
 	if (Wheel > 0) {
+		camUtil.ZoomCamera(0.2, ZOOM::In);
 	}
 
 	else if (Wheel < 0) {
+		camUtil.ZoomCamera(0.2, ZOOM::Out);
 	}
 }
 
