@@ -10,6 +10,6 @@ public:
 	char* LoadBuffer(const char* file);
 	void LoadVertexShader(const char* VertexShader);
 	void LoadFragmentShader(const char* FragmentShader);
-	void CreateShader(GLuint& ID);
+	void CreateShader(GLuint& Shader);
 };
 extern ShaderUtil shader;

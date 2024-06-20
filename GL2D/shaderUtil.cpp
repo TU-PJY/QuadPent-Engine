@@ -62,14 +62,14 @@ void ShaderUtil::LoadFragmentShader(const char* FragmentShader) {
 	}
 }
 
-void ShaderUtil::CreateShader(GLuint& ID) {
-	ID = glCreateProgram();
-	glAttachShader(ID, vertex_shader);
-	glAttachShader(ID, fragment_shader);
+void ShaderUtil::CreateShader(GLuint& Shader) {
+	Shader = glCreateProgram();
+	glAttachShader(Shader, vertex_shader);
+	glAttachShader(Shader, fragment_shader);
 
-	glLinkProgram(ID);
+	glLinkProgram(Shader);
 	glDeleteShader(vertex_shader);
 	glDeleteShader(fragment_shader);
 
-	glUseProgram(ID);
+	glUseProgram(Shader);
 }
