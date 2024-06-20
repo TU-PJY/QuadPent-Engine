@@ -1,79 +1,146 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="[0]___________[ FrameWork ]">
+      <UniqueIdentifier>{1f603e56-a168-4c93-8788-373edb9df2ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Main">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="[1]___________[ Object ]">
+      <UniqueIdentifier>{56801dea-cc93-4de6-be84-193b881c5076}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[2]________________Object">
-      <UniqueIdentifier>{ec01c18e-b6d2-42a3-926d-e45ff2d11b8f}</UniqueIdentifier>
+    <Filter Include="[1]___________[ Object ]\[1][ Main Object ]">
+      <UniqueIdentifier>{d6d673e8-1784-4513-a51f-e1fb334d2ea5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[1]____________FrameWork">
-      <UniqueIdentifier>{7c361bc0-0342-468c-b7c5-da0baf35ea28}</UniqueIdentifier>
+    <Filter Include="[1]___________[ Object ]\[2][ Sub Object ]">
+      <UniqueIdentifier>{b9e501bb-a47d-43b6-ada9-6bde123338ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[3]____________GameMode">
-      <UniqueIdentifier>{bc7aa447-e898-45fa-a305-57822c46a6df}</UniqueIdentifier>
+    <Filter Include="[1]___________[ Object ]\[3][ Object Base ]">
+      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[4]_______________OpenGL">
-      <UniqueIdentifier>{65d56913-3af3-403d-a1d8-be81dd5bb34d}</UniqueIdentifier>
+    <Filter Include="[3]___________[ Util ]">
+      <UniqueIdentifier>{019278b2-60d4-4cad-b935-d813a31f2c87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[4]_______________OpenGL\Util">
-      <UniqueIdentifier>{6b48a3b9-366d-41eb-8731-99a4c2073124}</UniqueIdentifier>
+    <Filter Include="[3]___________[ Util ]\[ Camera Util ]">
+      <UniqueIdentifier>{a94ebc27-9b04-4c84-b876-bb9fcb87cae4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]_____________Template">
-      <UniqueIdentifier>{7e674058-09d2-4bec-ac26-fb9837c10361}</UniqueIdentifier>
+    <Filter Include="[3]___________[ Util ]\[ Collision Util ]">
+      <UniqueIdentifier>{4048cd52-6e69-47f1-ad3d-07de4f88f83e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[2]________________Object\%281%29-[Main_Object]">
-      <UniqueIdentifier>{26e6915d-34d9-4c7e-9d4e-5d17fc3a9811}</UniqueIdentifier>
+    <Filter Include="[3]___________[ Util ]\[ Image Util ]">
+      <UniqueIdentifier>{fa74e18f-898f-4b61-addd-ca55a9892895}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[2]________________Object\%282%29--[Sub_Object]">
-      <UniqueIdentifier>{93d794a6-3b6b-4fcf-b1da-d2cec6e5cd0c}</UniqueIdentifier>
+    <Filter Include="[3]___________[ Util ]\[ Mouse Util ]">
+      <UniqueIdentifier>{3fbba05c-17d5-4a1e-9a94-8c237067a9a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[3]___________[ Util ]\[ RenderMode Util ]">
+      <UniqueIdentifier>{435ecc87-3559-4240-92ab-4d6d144f1506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Shader Util ]">
+      <UniqueIdentifier>{b56d104c-471b-4b68-914e-a701e7902ee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Text Util ]">
+      <UniqueIdentifier>{ebbafb29-e74d-4f67-ae00-7ab61d0dd40e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ OpenGL ]">
+      <UniqueIdentifier>{b19c2cd5-f7dc-4a85-9cfa-b0749b68ceea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ GLSL ]">
+      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[6]___________[ Mode Template ]">
+      <UniqueIdentifier>{e23c787b-89a9-41e0-99df-997b10e2c350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[2]___________[ GameMode ]">
+      <UniqueIdentifier>{824d0f24-8e5b-4c58-99e5-e019f51ea99a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[2]___________[ GameMode ]\[ Mode1 ]">
+      <UniqueIdentifier>{7b8ece9e-369e-41aa-9eb1-0f0dc2f9398d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GLMain.cpp">
-      <Filter>Main</Filter>
+    <ClCompile Include="Mode1.cpp">
+      <Filter>[2]___________[ GameMode ]\[ Mode1 ]</Filter>
+    </ClCompile>
+    <ClCompile Include="FWL.cpp">
+      <Filter>[0]___________[ FrameWork ]</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectBase.cpp">
+      <Filter>[1]___________[ Object ]\[3][ Object Base ]</Filter>
+    </ClCompile>
+    <ClCompile Include="GLMain.cpp" />
+    <ClCompile Include="CameraUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Camera Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Collision Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Image Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Mouse Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderModeUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ RenderMode Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Shader Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="TextUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Text Util ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Shader.h">
-      <Filter>[4]_______________OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="GLHeader.h">
-      <Filter>[4]_______________OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>[4]_______________OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="TextUtil.h">
-      <Filter>[4]_______________OpenGL\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageUtil.h">
-      <Filter>[4]_______________OpenGL\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseUtil.h">
-      <Filter>[4]_______________OpenGL\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionUtil.h">
-      <Filter>[4]_______________OpenGL\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderModeUtil.h">
-      <Filter>[4]_______________OpenGL\Util</Filter>
+    <ClInclude Include="Mode1.h">
+      <Filter>[2]___________[ GameMode ]\[ Mode1 ]</Filter>
     </ClInclude>
     <ClInclude Include="FWL_CONF.h">
-      <Filter>[1]____________FrameWork</Filter>
+      <Filter>[0]___________[ FrameWork ]</Filter>
     </ClInclude>
     <ClInclude Include="FWL.h">
-      <Filter>[1]____________FrameWork</Filter>
+      <Filter>[0]___________[ FrameWork ]</Filter>
+    </ClInclude>
+    <ClInclude Include="GLHeader.h">
+      <Filter>[4]___________[ OpenGL ]</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectBase.h">
+      <Filter>[1]___________[ Object ]\[3][ Object Base ]</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraUtil.h">
+      <Filter>[3]___________[ Util ]\[ Camera Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionUtil.h">
+      <Filter>[3]___________[ Util ]\[ Collision Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageUtil.h">
+      <Filter>[3]___________[ Util ]\[ Image Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseUtil.h">
+      <Filter>[3]___________[ Util ]\[ Mouse Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderModeUtil.h">
+      <Filter>[3]___________[ Util ]\[ RenderMode Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderUtil.h">
+      <Filter>[3]___________[ Util ]\[ Shader Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUtil.h">
+      <Filter>[3]___________[ Util ]\[ Text Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="GLSL\GLSL_vertex.glsl">
+      <Filter>[5]___________[ GLSL ]</Filter>
+    </None>
+    <None Include="GLSL\GLSL_fragment_text.glsl">
+      <Filter>[5]___________[ GLSL ]</Filter>
+    </None>
+    <None Include="GLSL\GLSL_fragment.glsl">
+      <Filter>[5]___________[ GLSL ]</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Text Include="ModeTemplate.txt">
-      <Filter>[5]_____________Template</Filter>
+      <Filter>[6]___________[ Mode Template ]</Filter>
     </Text>
   </ItemGroup>
 </Project>
