@@ -10,11 +10,11 @@ class SoundUtil {
 private:
 	std::unordered_map<std::string, FMOD::Sound*> LoadedSoundList;
 	std::unordered_map<std::string, FMOD::Channel*> LoadedChannelList;
-	FMOD::System* SoundSystem;
-	FMOD::DSP* FDsp;
+	FMOD::System* SoundSystem{};
+	FMOD::DSP* FDsp{};
 
-	FMOD_RESULT f_result;
-	void* extdvdata;
+	FMOD_RESULT f_result{};
+	void* extdvdata{};
 
 public:
 	void Init();

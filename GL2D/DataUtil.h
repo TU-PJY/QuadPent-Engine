@@ -5,7 +5,7 @@
 class DataUtil {
 private:
 	std::vector<std::string> RegexDataList;
-	std::string DataVersionStr = "Data Version";
+	std::string DataVersionStr{ "Data Version" };
 
 public:
 	void Init();
