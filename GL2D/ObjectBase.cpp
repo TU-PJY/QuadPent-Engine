@@ -18,6 +18,12 @@ void OBJ::RotateSpot(GLfloat Radians) {
 	TranslateMatrix = rotate(TranslateMatrix, glm::radians(Radians), glm::vec3(0.0, 0.0, 1.0));
 }
 
+void OBJ::RotateAxis(GLfloat Radians, GLfloat AxisX, GLfloat AxisY) {
+	TranslateMatrix = translate(TranslateMatrix, glm::vec3(AxisX, AxisY, 0.0));
+	TranslateMatrix = rotate(TranslateMatrix, glm::radians(Radians), glm::vec3(0.0, 0.0, 1.0));
+	TranslateMatrix = translate(TranslateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
+}
+
 void OBJ::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	ObjectColor.r = R;
 	ObjectColor.g = G;

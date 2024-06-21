@@ -48,11 +48,6 @@ inline GLfloat DivideZoom(GLfloat Value, GLfloat ZoomValue) {
 	return Value / ZoomValue;
 }
 
-// Calculate linear interpolation
-inline void Lerp(GLfloat& Value, GLfloat TargetValue, float FrameTime) {
-	Value = std::lerp(Value, TargetValue, FrameTime);
-}
-
 // Calculate distance of 2 dots
 inline GLfloat GetDistance(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2) {
 	GLfloat DistanceX = X2 - X1;

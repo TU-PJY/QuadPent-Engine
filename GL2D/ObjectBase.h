@@ -23,6 +23,7 @@ public:
 	void Rotate(GLfloat Radians);
 	void Scale(GLfloat ScaleX, GLfloat ScaleY);
 	void RotateSpot(GLfloat Radians);
+	void RotateAxis(GLfloat Radians, GLfloat AxisX, GLfloat AxisY);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetAlpha(GLfloat Value);
 	void InitTransform();

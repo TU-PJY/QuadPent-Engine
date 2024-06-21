@@ -6,12 +6,12 @@
 // image list to load
 std::unordered_map<std::string, const char*> ImageList
 {
-	{"gl2d_boundbox", "GL2D res//boundbox.png"}
+	{"gl2d_boundbox", "GL2D res//boundbox.png"}, // do not delete this
 
 };
 
 
-GLfloat ImagePannel[][48] = {  // 이미지 출력에 사용할 이미지 패널, 기본 1.0 x 1.0
+GLfloat ImagePannel[][48] = {  // default size 1.0 * 1.0
 		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0,
 		0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0, 0.0,
 		0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0, 1.0,
