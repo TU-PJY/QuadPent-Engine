@@ -9,15 +9,7 @@ private:
 	GLfloat LeftX{}, LeftY{};
 	GLfloat RightX{}, RightY{};
 
-	GLfloat SizeX{};
-	GLfloat SizeY{};
-
-	GLfloat x{}, y{};
-
-	bool ShowBound{};
-
 	unsigned int Box{};
-
 	TextUtil text;
 
 public:
