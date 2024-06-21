@@ -6,7 +6,7 @@
 #include "MouseUtil.h"
 #include "SoundUtil.h"
 #include "DataUtil.h"
-#include "FWL.h"
+#include "FWM.h"
 
 #include "Mode1.h"
 
@@ -29,7 +29,7 @@ ImageUtil imageUtil;
 MouseUtil mouse;
 SoundUtil soundUtil;
 DataUtil dataUtil;
-FWL fw;
+FWM fw;
 
 clock_t StartTime, EndTime;
 

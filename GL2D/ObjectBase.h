@@ -7,10 +7,10 @@
 #include <gl/freeglut_ext.h>
 #include <string>
 
-class OBJ {
+class OBJ_BASE {
 public:
 	bool DeleteFlag{};
-	bool StopAtPauseFlag{ true };
+	bool PartialExecuteObject{};
 	std::string ObjectTag{};
 
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
@@ -27,8 +27,9 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetAlpha(GLfloat Value);
 	void InitTransform();
-	void ProcessTransform();
 
 	virtual void Update(float FT) {}
+	virtual void InputControl() {}
 	virtual void Render() {}
+	void ProcessTransform();
 };

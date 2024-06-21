@@ -1,5 +1,4 @@
 #include "Mode1.h"
-#include "CollisionUtil.h"
 
 void SetController() {
 	glutMotionFunc(MouseMotion);
