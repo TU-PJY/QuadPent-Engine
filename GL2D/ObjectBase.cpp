@@ -2,16 +2,16 @@
 #include "RenderModeUtil.h"
 
 
-void OBJ::Move(GLfloat MoveX, GLfloat MoveY) {
-	TranslateMatrix = translate(TranslateMatrix, glm::vec3(MoveX, MoveY, 0.0));
+void OBJ::Translate(GLfloat X, GLfloat Y) {
+	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
 }
 
 void OBJ::Rotate(GLfloat Radians) {
 	RotateMatrix = rotate(RotateMatrix, glm::radians(Radians), glm::vec3(0.0, 0.0, 1.0));
 }
 
-void OBJ::Scale(GLfloat ScaleX, GLfloat ScaleY) {
-	ScaleMatrix = scale(ScaleMatrix, glm::vec3(ScaleX, ScaleY, 0.0));
+void OBJ::Scale(GLfloat X, GLfloat Y) {
+	ScaleMatrix = scale(ScaleMatrix, glm::vec3(X, Y, 0.0));
 }
 
 void OBJ::RotateSpot(GLfloat Radians) {

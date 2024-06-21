@@ -4,27 +4,28 @@
 enum class ZOOM{ In, Out };
 
 class CameraUtil {
-protected:
+private:
 	glm::vec3 CamPos{}, CamDirection{}, CamUp{};
-	glm::mat4 ViewMatrix{}, Projection{};
 	unsigned int ProjectionLocation{}, ViewLocation{}, ViewPosLocation{};
 	
 public:
+	glm::mat4 ViewMatrix{}, Projection{};
 	GLfloat Rotation{};
 	GLfloat x{}, y{};
 	GLfloat Zoom{ 1.0f };
 
 	void CalculateASPECT();
+	void UpdateCamera();
 	void SetCamera();
 	void ProcessTransform(bool UseTextShader);
 };
 extern CameraUtil cam;
 
 
-class CamaraControlUtil : public CameraUtil {
+class CamaraControlUtil {
 public:
-	void Move(GLfloat MoveX, GLfloat MoveY);
+	void Translate(GLfloat MoveX, GLfloat MoveY);
 	void Rotate(GLfloat Radians);
-	void ZoomCamera(GLfloat Value, ZOOM ZoomOpt);
+	void SetZoom(ZOOM ZoomOpt, GLfloat Value);
 };
 extern CamaraControlUtil camUtil;

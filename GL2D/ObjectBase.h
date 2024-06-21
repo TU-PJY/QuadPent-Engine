@@ -19,7 +19,7 @@ public:
 
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{}, TextAlphaLocation{};
 
-	void Move(GLfloat MoveX, GLfloat MoveY);
+	void Translate(GLfloat MoveX, GLfloat MoveY);
 	void Rotate(GLfloat Radians);
 	void Scale(GLfloat ScaleX, GLfloat ScaleY);
 	void RotateSpot(GLfloat Radians);

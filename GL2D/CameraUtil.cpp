@@ -21,10 +21,9 @@ void CameraUtil::SetCamera() {
 	CamDirection = vec3(0.0f, 0.0f, 0.0f);
 	CamUp = vec3(0.0f, 1.0f, 0.0f);
 
-	ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
+	UpdateCamera();
 
-	ViewMatrix = translate(ViewMatrix, vec3(x, y, 0.0));
-	ViewMatrix = rotate(ViewMatrix, radians(Rotation), vec3(0.0, 0.0, 1.0));
+	ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
 
 	Projection = ortho((ASPECT * -1.0f) / Zoom, (ASPECT * 1.0f) / Zoom, -1.0f / Zoom, 1.0f / Zoom, -100.0f, 100.0f);
 }
@@ -53,17 +52,21 @@ void CameraUtil::ProcessTransform(bool UseTextShader) {
 	}
 }
 
+void CameraUtil::UpdateCamera() {
 
-void CamaraControlUtil::Move(GLfloat MoveX, GLfloat MoveY) {
-	x = MoveX;
-	y = MoveY;
+}
+
+
+
+void CamaraControlUtil::Translate(GLfloat X, GLfloat Y) {
+	cam.ViewMatrix = translate(cam.ViewMatrix, glm::vec3(X, Y, 0.0));
 }
 
 void CamaraControlUtil::Rotate(GLfloat Radians) {
-	Rotation = Radians;
+	cam.ViewMatrix = rotate(cam.ViewMatrix, glm::radians(Radians), glm::vec3(0.0, 0.0, 1.0));
 }
 
-void CamaraControlUtil::ZoomCamera(GLfloat Value, ZOOM ZoomOpt) {
+void CamaraControlUtil::SetZoom(ZOOM ZoomOpt, GLfloat Value) {
 	GLfloat UpdatedZoomValue{};
 
 	switch (ZoomOpt) {

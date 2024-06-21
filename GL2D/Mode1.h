@@ -16,7 +16,7 @@ inline void ProcessKeyboard(unsigned char KEY, int S_KEY, bool KeyDown, bool Spe
 		}
 
 	// Normal Key Up
-	else if(!KeyDown && SpecialKey)
+	else if(!KeyDown && !SpecialKey)
 		switch (KEY) {
 		
 		}
