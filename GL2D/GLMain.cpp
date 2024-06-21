@@ -5,6 +5,7 @@
 #include "ImageUtil.h"
 #include "MouseUtil.h"
 #include "SoundUtil.h"
+#include "DataUtil.h"
 #include "FWL.h"
 
 #include "Mode1.h"
@@ -27,6 +28,7 @@ RenderModeUtil renderMode;
 ImageUtil imageUtil;
 MouseUtil mouse;
 SoundUtil soundUtil;
+DataUtil dataUtil;
 FWL fw;
 
 clock_t StartTime, EndTime;
@@ -96,6 +98,7 @@ void main(int argc, char** argv) {
 
 	imageUtil.Init();
 	soundUtil.Init();
+	//dataUtil.Init();
 	fw.Init(Mode1);
 
 	glutDisplayFunc(GLMain);

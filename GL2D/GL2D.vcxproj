@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="CameraUtil.cpp" />
     <ClCompile Include="CollisionUtil.cpp" />
+    <ClCompile Include="DataUtil.cpp" />
     <ClCompile Include="FWL.cpp" />
     <ClCompile Include="GLMain.cpp" />
     <ClCompile Include="ImageUtil.cpp" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="CameraUtil.h" />
     <ClInclude Include="CollisionUtil.h" />
+    <ClInclude Include="DataUtil.h" />
     <ClInclude Include="FWL.h" />
     <ClInclude Include="FWL_CONF.h" />
     <ClInclude Include="GLHeader.h" />
