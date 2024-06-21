@@ -52,7 +52,8 @@ void SoundUtil::LoadChannelFromList() {
 
 void SoundUtil::PlaySound(std::string SoundName, std::string ChannelName, unsigned int Sec) {
 	SoundSystem->playSound(LoadedSoundList.find(SoundName)->second, 0, false, &LoadedChannelList.find(ChannelName)->second);
-	LoadedChannelList.find(ChannelName)->second->setPosition(Sec * 1000, FMOD_TIMEUNIT_MS);
+	if(Sec > 0)
+		LoadedChannelList.find(ChannelName)->second->setPosition(Sec * 1000, FMOD_TIMEUNIT_MS);
 }
 
 void SoundUtil::StopSound(std::string ChannelName) {
