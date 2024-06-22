@@ -102,6 +102,9 @@ void FWM::SwitchMode(Function ModeFunction, ControllerFunction Controller) {
 	FLog.PrevMode = RunningMode;
 
 	ModeSwitchReserveDescriptor = true;
+
+	if (FloatingModeRunningState)
+		FLog.Log(LogType::END_FLOATING_MODE);
 }
 
 void FWM::StartFloatingMode(Function ModeFunction, ControllerFunction Controller, bool FloatingOnlyOption) {
