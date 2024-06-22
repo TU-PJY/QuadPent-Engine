@@ -3,6 +3,7 @@
 #include "CameraUtil.h"
 #include "RenderModeUtil.h"
 #include "ImageUtil.h"
+#include "TextUtil.h"
 #include "MouseUtil.h"
 #include "SoundUtil.h"
 #include "DataUtil.h"
@@ -26,6 +27,7 @@ CameraUtil cam;
 CamaraControlUtil camUtil;
 RenderModeUtil renderMode;
 ImageUtil imageUtil;
+TextUtilUnicode textUnicode;
 MouseUtil mouse;
 SoundUtil soundUtil;
 DataUtil dataUtil;
@@ -33,13 +35,11 @@ FWM fw;
 
 clock_t StartTime, EndTime;
 
-
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
 	WIDTH = w;
 	HEIGHT = h;
 }
-
 
 GLvoid GLMain() {
 	StartTime = clock();
@@ -55,7 +55,6 @@ GLvoid GLMain() {
 	EndTime = clock();
 	fw.SetFrameTime(float(EndTime - StartTime) / 1000);
 }
-
 
 void main(int argc, char** argv) {
 	glutInit(&argc, argv);
@@ -96,9 +95,6 @@ void main(int argc, char** argv) {
 	shader.LoadFragmentShader("GLSL//GLSL_fragment_text.glsl");
 	shader.CreateShader(TextShader);
 
-	imageUtil.Init();
-	soundUtil.Init();
-	//dataUtil.Init();
 	fw.Init(Mode1::GameMode1, Mode1::SetController);
 
 	glutDisplayFunc(GLMain);
