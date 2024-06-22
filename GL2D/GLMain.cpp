@@ -99,7 +99,7 @@ void main(int argc, char** argv) {
 	imageUtil.Init();
 	soundUtil.Init();
 	//dataUtil.Init();
-	fw.Init(Mode1);
+	fw.Init(Mode1::GameMode1, Mode1::SetController);
 
 	glutDisplayFunc(GLMain);
 	glutReshapeFunc(DisplayReshape);

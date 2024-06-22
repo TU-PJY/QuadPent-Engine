@@ -1,6 +1,7 @@
 #include "Mode1.h"
 
-void SetController() {
+
+void Mode1::SetController() {
 	glutMotionFunc(MouseMotion);
 	glutPassiveMotionFunc(MousePassiveMotion);
 	glutKeyboardFunc(KeyDown);
@@ -11,8 +12,7 @@ void SetController() {
 	glutSpecialUpFunc(SpecialKeyUp);
 }
 
-std::string Mode1() {
-	SetController();
+std::string Mode1::GameMode1() {
 
 	return __func__;
 }

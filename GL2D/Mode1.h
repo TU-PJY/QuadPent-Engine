@@ -4,7 +4,10 @@
 #include "FWM.h"
 #include <string>
 
-std::string Mode1();
+namespace Mode1 {
+	void SetController();
+	std::string GameMode1();
+}
 
 inline void ProcessKeyboard(unsigned char KEY, int S_KEY, bool KeyDown, bool SpecialKey=false) {
 	// Normal Key Down
@@ -39,11 +42,9 @@ inline void MouseButton(int button, int state, int x, int y) {
 	case GLUT_LEFT_BUTTON:
 		switch (state) {
 		case GLUT_DOWN:
-			mouse.LButtonDown = true;
 			break;
 
 		case GLUT_UP:
-			mouse.LButtonDown = false;
 			break;
 		}
 		break;
@@ -51,11 +52,9 @@ inline void MouseButton(int button, int state, int x, int y) {
 	case GLUT_RIGHT_BUTTON:
 		switch (state) {
 		case GLUT_DOWN:
-			mouse.RButtonDown = true;
 			break;
 
 		case GLUT_UP:
-			mouse.RButtonDown = false;
 			break;
 		}
 		break;

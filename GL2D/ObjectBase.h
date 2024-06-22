@@ -9,8 +9,8 @@
 
 class OBJ_BASE {
 public:
-	bool DeleteFlag{};
-	bool PartialExecuteObject{};
+	bool ObjectDeleteDescriptor{};
+	bool FloatingSpecifiedDescriptor{};
 	std::string ObjectTag{};
 
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
@@ -32,4 +32,6 @@ public:
 	virtual void InputControl() {}
 	virtual void Render() {}
 	void ProcessTransform();
+
+	virtual void ResetControlState() {}
 };
