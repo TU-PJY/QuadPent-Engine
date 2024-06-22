@@ -1,6 +1,5 @@
 #include "Mode1.h"
 
-
 void Mode1::SetController() {
 	glutMotionFunc(MouseMotion);
 	glutPassiveMotionFunc(MousePassiveMotion);

@@ -1,7 +1,5 @@
 #pragma once
 #include "MouseUtil.h"
-#include "CameraUtil.h"
-#include "FWM.h"
 #include <string>
 
 namespace Mode1 {
@@ -15,6 +13,9 @@ inline void ProcessKeyboard(unsigned char KEY, int S_KEY, bool KeyDown, bool Spe
 		switch (KEY) {
 		case 27:
 			glutDestroyWindow(1);
+			break;
+
+		case 32:
 			break;
 		}
 

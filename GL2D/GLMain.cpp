@@ -97,6 +97,9 @@ void main(int argc, char** argv) {
 	shader.LoadFragmentShader("GLSL//GLSL_fragment_text.glsl");
 	shader.CreateShader(TextShader);
 
+	imageUtil.Init();
+	soundUtil.Init();
+
 	fw.Init(Mode1::GameMode1, Mode1::SetController);
 
 	glutDisplayFunc(GLMain);
