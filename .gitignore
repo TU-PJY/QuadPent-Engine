@@ -3,6 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+!/GL2D/FMOD/
+
 # User-specific files
 *.rsuser
 *.suo
@@ -15,8 +17,6 @@
 
 # Mono auto generated files
 mono_crash.*
-
-!GL2D/FMOD/
 
 # Build results
 [Dd]ebug/
