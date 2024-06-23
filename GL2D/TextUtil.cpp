@@ -46,7 +46,9 @@ void TextUtilUnicode::Rotate(GLfloat Radians) {
 
 void TextUtilUnicode::Draw(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...) {
 	wchar_t Text[256];
+
 	va_list Args{};
+
 	va_start(Args, Format);
 	vswprintf(Text, sizeof(Text)/ sizeof(wchar_t), Format, Args);
 	va_end(Args);
@@ -170,8 +172,10 @@ void TextUtil::Rotate(GLfloat Radians) {
 }
 
 void TextUtil::Draw(GLfloat X, GLfloat Y, GLfloat Size, const char* Format, ...) {
-	char Text[96];
+	char Text[256];
+
 	va_list Args{};
+
 	va_start(Args, Format);
 	vsprintf(Text, Format, Args);
 	va_end(Args);

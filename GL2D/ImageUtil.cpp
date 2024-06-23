@@ -66,7 +66,7 @@ unsigned int ImageUtil::SetImage(std::string ImageName) {
 	return LoadedImageList.find(ImageName)->second;
 }
 
-GLfloat ImageUtil::GetAspect(int Width, int Height) {
+GLfloat ImageUtil::Aspect(int Width, int Height) {
 	return Width / Height;
 }
 

@@ -18,6 +18,7 @@
 
 int WIDTH = 1200;
 int HEIGHT = 800;
+
 GLfloat ASPECT;
 Rect rect;
 
@@ -36,6 +37,7 @@ FontLoaderUtil fontloaderUtil;
 FWM fw;
 
 clock_t StartTime, EndTime;
+
 
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);

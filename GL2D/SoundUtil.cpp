@@ -56,10 +56,12 @@ void SoundUtil::Update() {
 }
 
 void SoundUtil::PlaySound(std::string SoundName, std::string ChannelName, unsigned int Ms) {
-	SoundSystem->playSound(LoadedSoundList.find(SoundName)->second, 0, false, &LoadedChannelList.find(ChannelName)->second);
+	auto ChannelIter = LoadedChannelList.find(ChannelName);
 
-	if(Ms > 0)
-		LoadedChannelList.find(ChannelName)->second->setPosition(Ms, FMOD_TIMEUNIT_MS);
+	SoundSystem->playSound(LoadedSoundList.find(SoundName)->second, 0, false, &ChannelIter->second);
+
+	if (Ms > 0)
+		ChannelIter->second->setPosition(Ms, FMOD_TIMEUNIT_MS);
 }
 
 void SoundUtil::PauseSound(std::string ChannelName, bool Flag) {
