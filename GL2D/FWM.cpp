@@ -2,7 +2,6 @@
 #include <ranges>
 #include <algorithm>
 
-
 FWM_Log FLog;
 
 FWM::FWM() {
@@ -23,60 +22,40 @@ std::string FWM::Mode() {
 void FWM::Routine() {
 	using namespace std;
 
-	if (!ModeSwitchState && RunningState) {
+	if (!ModeSwitchingDescriptor && RunningActivatedDescriptor) {
 		for (int i = 0; i < Num; ++i) {
-			if (Container[i].empty())
-				continue;
-
-			for (auto It = begin(Container[i]); It != end(Container[i]);) {
-				if (CheckDeleteFlag(It, i))
-					continue;
-
-				if (FloatingModeRunningState) {
-					if (FloatingOnlyState) {
-						if ((*It)->FloatingSpecifiedDescriptor) {
-							(*It)->InputControl();
-							(*It)->Update(FrameTime);
-						}
-					}
-
-					else {
-						if ((*It)->FloatingSpecifiedDescriptor)
-							(*It)->InputControl();
+			for (auto It = begin(Container[i]); It != end(Container[i]); ++It) {
+				if (FloatingModeRunningDescriptor && FloatingOnlyDescriptor) {
+					if ((*It)->FloatingDescriptor)
 						(*It)->Update(FrameTime);
-					}
 				}
 
-				else {
-					(*It)->InputControl();
+				else
 					(*It)->Update(FrameTime);
-				}
-
-				(*It)->ProcessTransform();
 				(*It)->Render();
-
-				if (CheckDeleteFlag(It, i))
-					continue;
-
-				++It;
 			}
 
 			if (ModeSwitchReserveDescriptor) {
-				ModeSwitchState = true;
+				ModeSwitchingDescriptor = true;
 				break;
 			}
+
+			ClearDeleteTargetObject(i);
 		}
 	}
 
-	if (ModeSwitchReserveDescriptor) {
+	if (ModeSwitchReserveDescriptor)
 		ChangeMode();
-		ModeSwitchReserveDescriptor = false;
-	}
 }
 
 void FWM::Init(Function ModeFunction, ControllerFunction Controller) {
-	if (RunningState)
+	if (RunningActivatedDescriptor)
 		return;
+
+	// add dummy objects
+	for (int i = 0; i < Num; ++i)
+		AddObject(new FWM_DUMMY, "FWM_DUMMY", static_cast<Layer>(i));
+	ObjectList.clear();
 
 	RunningMode = ModeFunction();
 
@@ -88,11 +67,11 @@ void FWM::Init(Function ModeFunction, ControllerFunction Controller) {
 	FLog.CurrentMode = RunningMode;
 	FLog.Log(LogType::FWL_INIT);
 
-	RunningState = true;
+	RunningActivatedDescriptor = true;
 }
 
 void FWM::SwitchMode(Function ModeFunction, ControllerFunction Controller) {
-	if (!RunningState)
+	if (!RunningActivatedDescriptor)
 		return;
 
 	ModeFunctionBuffer = ModeFunction;
@@ -103,147 +82,53 @@ void FWM::SwitchMode(Function ModeFunction, ControllerFunction Controller) {
 
 	ModeSwitchReserveDescriptor = true;
 
-	if (FloatingModeRunningState)
+	if (FloatingModeRunningDescriptor)
 		FLog.Log(LogType::END_FLOATING_MODE);
-}
-
-void FWM::StartFloatingMode(Function ModeFunction, ControllerFunction Controller, bool FloatingOnlyOption) {
-	if (!RunningState || FloatingModeRunningState)
-		return;
-
-	ModeFunctionBuffer = ModeFunction;
-
-	FLog.PrevMode = RunningMode;
-
-	FloatingModeReserveDescriptor = true;
-	ModeSwitchReserveDescriptor = true;
-
-	if (FloatingOnlyOption)
-		FloatingOnlyState = true;
-
-	FLog.IsOnlyFloating = FloatingOnlyState;
-}
-
-void FWM::EndFloatingMode() {
-	if (!RunningState || !FloatingModeRunningState)
-		return;
-
-	FLog.PrevMode = RunningMode;
-
-	FloatingModeEndReserveDescriptor = true;
-	ModeSwitchReserveDescriptor = true;
-}
-
-void FWM::ResetControlState(OBJ_BASE* Object) {
-	Object->ResetControlState();
 }
 
 void FWM::AddObject(OBJ_BASE* Object, std::string Tag, Layer AddLayer, bool SetFloatingObject) {
 	Container[static_cast<int>(AddLayer)].push_back(Object);
 	Object->ObjectTag = Tag;
 
+	ObjectList.insert(std::make_pair(Tag, Object));
+
 	FLog.ObjectTag = Tag;
 	FLog.Log(LogType::ADD_OBJECT);
 
 	if (SetFloatingObject) {
-		Object->FloatingSpecifiedDescriptor = true;
+		Object->FloatingDescriptor = true;
 		FLog.Log(LogType::SET_FLOATING_OBJECT);
 	}
 }
 
 void FWM::DeleteSelf(OBJ_BASE* Object) {
-	Object->ObjectDeleteDescriptor = true;
+	Object->DeleteDescriptor = true;
 
 	FLog.ObjectTag = Object->ObjectTag;
 	FLog.Log(LogType::DELETE_OBJECT);
 }
 
-void FWM::DeleteObject(std::string Tag, DeleteRange deleteRange, SearchRange searchRange, Layer LayerToSearch) {
-	switch (searchRange) {
-	case SearchRange::One:
-		int layer;
-		layer = static_cast<int>(LayerToSearch);
-
-		switch (deleteRange) {
-		case DeleteRange::One:
-			for (auto& It : Container[layer]) {
-				if (It->ObjectTag == Tag) {
-					It->ObjectDeleteDescriptor = true;
-
-					FLog.ObjectTag = It->ObjectTag;
-					FLog.Log(LogType::DELETE_OBJECT);
-					return;
-				}
-			}
-			break;
-
-		case DeleteRange::All:
-			for (auto& It : Container[layer]) {
-				if (It->ObjectTag == Tag) {
-					It->ObjectDeleteDescriptor = true;
-
-					FLog.ObjectTag = It->ObjectTag;
-					FLog.Log(LogType::DELETE_OBJECT);
-				}
-			}
-			break;
+void FWM::DeleteObject(std::string Tag, DeleteRange deleteRange) {
+	if (deleteRange == DeleteRange::One) {
+		auto It = ObjectList.lower_bound(Tag);
+		if (It != end(ObjectList)) {
+			It->second->DeleteDescriptor = true;
+			ObjectList.erase(It);
 		}
-		break;
+	}
 
-	case SearchRange::All:
-		switch (deleteRange) {
-		case DeleteRange::One:
-			for (auto& A : Container) {
-				for (auto& It : A) {
-					if (It->ObjectTag == Tag) {
-						It->ObjectDeleteDescriptor = true;
-
-						FLog.ObjectTag = It->ObjectTag;
-						FLog.Log(LogType::DELETE_OBJECT);
-						return;
-					}
-				}
-			}
-			break;
-
-		case DeleteRange::All:
-			for (auto& A : Container) {
-				for (auto& It : A) {
-					if (It->ObjectTag == Tag) {
-						It->ObjectDeleteDescriptor = true;
-
-						FLog.ObjectTag = It->ObjectTag;
-						FLog.Log(LogType::DELETE_OBJECT);
-					}
-				}
-			}
-			break;
+	else if (deleteRange == DeleteRange::All) {
+		for (auto It = begin(ObjectList); It != end(ObjectList); ++It) {
+			if (It != end(ObjectList) && It->second->ObjectTag == Tag)
+				It->second->DeleteDescriptor = true;
 		}
-		break;
 	}
 }
 
-OBJ_BASE* FWM::Find(std::string Tag, SearchRange searchRange, Layer LayerToSearch) {
-	switch (searchRange) {
-	case SearchRange::One:
-		int layer;
-		layer = static_cast<int>(LayerToSearch);
-
-		for (auto& It : Container[layer]) {
-			if (It->ObjectTag == Tag)
-				return It;
-		}
-		break;
-
-	case SearchRange::All:
-		for (auto& A : Container) {
-			for (auto& It : A) {
-				if (It->ObjectTag == Tag)
-					return It;
-			}
-		}
-		break;
-	}
+OBJ_BASE* FWM::Find(std::string Tag) {
+	auto It = ObjectList.lower_bound(Tag);
+	if (It != end(ObjectList))
+		return It->second;
 
 	return nullptr;
 }
@@ -260,20 +145,55 @@ OBJ_BASE* FWM::Find(std::string Tag, Layer LayerToSearch, int Index) {
 	return nullptr;
 }
 
+void FWM::StartFloatingMode(Function ModeFunction, ControllerFunction Controller, bool FloatingOnlyOption) {
+	if (!RunningActivatedDescriptor || FloatingModeRunningDescriptor)
+		return;
+
+	ModeFunctionBuffer = ModeFunction;
+
+	FLog.PrevMode = RunningMode;
+
+	FloatingModeReserveDescriptor = true;
+	ModeSwitchReserveDescriptor = true;
+
+	if (FloatingOnlyOption)
+		FloatingOnlyDescriptor = true;
+
+	FLog.IsOnlyFloating = FloatingOnlyDescriptor;
+}
+
+void FWM::EndFloatingMode() {
+	if (!RunningActivatedDescriptor || !FloatingModeRunningDescriptor)
+		return;
+
+	FLog.PrevMode = RunningMode;
+
+	FloatingModeEndReserveDescriptor = true;
+	ModeSwitchReserveDescriptor = true;
+}
+
+void FWM::ResetControlState(OBJ_BASE* Object) {
+	Object->ResetControlState();
+}
+
 size_t FWM::Size(Layer TargetLayer) {
 	return Container[static_cast<int>(TargetLayer)].size();
 }
 
 //////// private ///////////////
 
-bool FWM::CheckDeleteFlag(std::deque<OBJ_BASE*>::iterator& It, int Layer) {
-	if ((*It)->ObjectDeleteDescriptor) {
-		delete* It;
-		*It = nullptr;
-		It = Container[Layer].erase(It);
-		return true;
+void FWM::ClearDeleteTargetObject(int i) {
+	for (auto It = begin(Container[i]); It != end(Container[i]);) {
+		if ((*It)->DeleteDescriptor) {
+			delete* It;
+			*It = nullptr;
+			It = Container[i].erase(It);
+			continue;
+		}
+		++It;
 	}
-	return false;
+
+	std::erase_if(ObjectList, [](const std::pair<std::string, OBJ_BASE*>& Object) { return !Object.second; });
 }
 
 void FWM::ChangeMode() {
@@ -284,7 +204,7 @@ void FWM::ChangeMode() {
 		if(ControllerBuffer)
 			ControllerBuffer();
 
-		FloatingModeRunningState = true;
+		FloatingModeRunningDescriptor = true;
 
 		FLog.CurrentMode = RunningMode;
 		FLog.Log(LogType::START_FLOATING_MODE);
@@ -297,8 +217,8 @@ void FWM::ChangeMode() {
 		if(ControllerBackUpBuffer)
 			ControllerBackUpBuffer();
 
-		FloatingModeRunningState = false;
-		FloatingOnlyState = false;
+		FloatingModeRunningDescriptor = false;
+		FloatingOnlyDescriptor = false;
 
 		FLog.CurrentMode = RunningMode;
 		FLog.Log(LogType::END_FLOATING_MODE);
@@ -312,10 +232,10 @@ void FWM::ChangeMode() {
 			ControllerBuffer();
 
 		FLog.CurrentMode = RunningMode;
-		FloatingOnlyState = false;
+		FloatingOnlyDescriptor = false;
 	}
 
-	FLog.IsOnlyFloating = FloatingOnlyState;
+	FLog.IsOnlyFloating = FloatingOnlyDescriptor;
 
 	if (FLog.CurrentMode == FLog.PrevMode)
 		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
@@ -325,32 +245,38 @@ void FWM::ChangeMode() {
 
 	FloatingModeReserveDescriptor = false;
 	FloatingModeEndReserveDescriptor = false;
-	ModeSwitchState = false;
+	ModeSwitchReserveDescriptor = false;
+	ModeSwitchingDescriptor = false;
 }
 
 void FWM::ClearFloatingObject() {
 	for (int i = 0; i < Num; ++i) {
 		for (auto It = begin(Container[i]); It != end(Container[i]);) {
-			if ((*It)->FloatingSpecifiedDescriptor) {
+			if ((*It)->FloatingDescriptor) {
 				delete* It;
 				*It = nullptr;
 				It = Container[i].erase(It);
 				continue;
 			}
-
 			++It;
 		}
 	}
+
+	std::erase_if(ObjectList, [](const std::pair<std::string, OBJ_BASE*>& Object) { return !Object.second; });
 }
 
 void FWM::ClearAll() {
-	using namespace std;
-
 	for (int i = 0; i < Num; ++i) {
 		for (auto It = begin(Container[i]); It != end(Container[i]);) {
-			delete* It;
-			*It = nullptr;
-			It = Container[i].erase(It);
+			if ((*It)->ObjectTag != "FWM_DUMMY") {
+				delete* It;
+				*It = nullptr;
+				It = Container[i].erase(It);
+				continue;
+			}
+			++It;
 		}
 	}
+
+	ObjectList.clear();
 }

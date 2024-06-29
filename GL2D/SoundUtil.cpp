@@ -4,6 +4,7 @@
 std::vector<float>FFTdata(FFT_SIZE);
 
 struct FileNameAndOption {
+	std::string Name;
 	const char* FileName;
 	FMOD_MODE Option;
 };
@@ -11,7 +12,7 @@ FileNameAndOption FNO;
 
 
 // list sounds to load
-std::unordered_map<std::string, FileNameAndOption> SoundList
+std::vector<FileNameAndOption> SoundList
 {
 
 };
@@ -37,17 +38,17 @@ void SoundUtil::Init() {
 }
 
 void SoundUtil::LoadSoundFromList() {
-	for (auto& [SoundName, Struct] : SoundList) {
+	for (auto& S : SoundList) {
 		FMOD::Sound* sound;
-		SoundSystem->createSound(Struct.FileName, Struct.Option, 0, &sound);
-		LoadedSoundList.insert(std::pair(SoundName, sound));
+		SoundSystem->createSound(S.FileName, S.Option, 0, &sound);
+		LoadedSoundList.insert(std::pair(S.Name, sound));
 	}
 }
 
 void SoundUtil::LoadChannelFromList() {
-	for (auto& s : ChannelList) {
+	for (auto& C : ChannelList) {
 		FMOD::Channel* channel;
-		LoadedChannelList.insert(std::pair(s, channel));
+		LoadedChannelList.insert(std::pair(C, channel));
 	}
 }
 
@@ -129,4 +130,18 @@ float SoundUtil::DetectBeat(float Threshold) {
 	}
 
 	return 0;
+}
+
+int SoundUtil::GetSoundNum() {
+	return LoadedSoundList.size();
+}
+
+int SoundUtil::GetSoundNumIf(std::string ContainedStr) {
+	int Count{};
+	for (auto& It : LoadedSoundList) {
+		if (It.first.contains(ContainedStr))
+			++Count;
+	}
+
+	return Count;
 }

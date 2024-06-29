@@ -9,8 +9,8 @@
 
 class OBJ_BASE {
 public:
-	bool ObjectDeleteDescriptor{};
-	bool FloatingSpecifiedDescriptor{};
+	bool DeleteDescriptor{};
+	bool FloatingDescriptor{};
 	std::string ObjectTag{};
 
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
@@ -35,3 +35,6 @@ public:
 
 	virtual void ResetControlState() {}
 };
+
+// dummy object for avoiding iterator error
+class FWM_DUMMY : public OBJ_BASE {};

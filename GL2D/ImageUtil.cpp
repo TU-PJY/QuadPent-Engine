@@ -1,15 +1,13 @@
 #include "ImageUtil.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include <unordered_map>
 
-
-// image list to load
-std::unordered_map<std::string, const char*> ImageList
-{
-	{"gl2d_boundbox", "GL2D res//boundbox.png"}, // do not delete this
-	{"image", "image.png"}
+struct ImageInfo {
+	std::string Name;
+	const char* FileName;
 };
-
+ImageInfo II;
 
 GLfloat ImagePannel[][48] = {  // default size 1.0 * 1.0
 		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0,
@@ -18,6 +16,12 @@ GLfloat ImagePannel[][48] = {  // default size 1.0 * 1.0
 		0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0, 1.0,
 		-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 1.0,
 		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0
+};
+
+
+std::vector<ImageInfo> ImageList
+{
+	{"gl2d_boundbox", "GL2D res//boundbox.png"}, // do not delete this
 };
 
 
@@ -43,7 +47,7 @@ void ImageUtil::Init() {
 }
 
 void ImageUtil::LoadImageFromList() {
-	for (auto& [Name, File] : ImageList) {
+	for (auto& I : ImageList) {
 		unsigned int Image{};
 		int Width{}, Height{}, Channel{};
 
@@ -54,23 +58,27 @@ void ImageUtil::LoadImageFromList() {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		unsigned char* texture_data = stbi_load(File, &Width, &Height, &Channel, 4);
+		unsigned char* texture_data = stbi_load(I.FileName, &Width, &Height, &Channel, 4);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
 		stbi_image_free(texture_data);
 
-		LoadedImageList.insert(std::pair(Name, Image));
+		LoadedImageList.insert(std::pair(I.Name, Image));
 	}
 }
 
 unsigned int ImageUtil::SetImage(std::string ImageName) {
-	return LoadedImageList.find(ImageName)->second;
+	auto It = LoadedImageList.lower_bound(ImageName);
+	if (It != end(LoadedImageList))
+		return It->second;
+	else
+		return -1;
 }
 
 GLfloat ImageUtil::Aspect(int Width, int Height) {
 	return Width / Height;
 }
 
-void ImageUtil::Draw(unsigned int ImageVar) {
+void ImageUtil::Render(unsigned int ImageVar) {
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, ImageVar);
 	glDrawArrays(GL_TRIANGLES, 0, 6);

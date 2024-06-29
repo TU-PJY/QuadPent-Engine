@@ -1,5 +1,5 @@
 #pragma once
-#include "TextUtil.h"
+#include "GLHeader.h"
 
 class AABB {
 private:
@@ -10,7 +10,6 @@ private:
 	GLfloat RightX{}, RightY{};
 
 	unsigned int Box{};
-	TextUtil text;
 
 public:
 	void Init();
