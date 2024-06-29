@@ -27,7 +27,7 @@ private:
 	std::string						  RunningMode{};
 	std::string                       PrevRunningMode{};
 
-	bool							  RunningActivatedDescriptor{};
+	bool							  RunningActivateDescriptor{};
 	bool							  ModeSwitchingDescriptor{};
 
 	bool							  FloatingModeRunningDescriptor{};

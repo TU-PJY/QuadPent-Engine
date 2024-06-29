@@ -20,9 +20,7 @@ std::string FWM::Mode() {
 }
 
 void FWM::Routine() {
-	using namespace std;
-
-	if (!ModeSwitchingDescriptor && RunningActivatedDescriptor) {
+	if (!ModeSwitchingDescriptor && RunningActivateDescriptor) {
 		for (int i = 0; i < Num; ++i) {
 			for (auto It = begin(Container[i]); It != end(Container[i]); ++It) {
 				if (FloatingModeRunningDescriptor && FloatingOnlyDescriptor) {
@@ -49,7 +47,7 @@ void FWM::Routine() {
 }
 
 void FWM::Init(Function ModeFunction, ControllerFunction Controller) {
-	if (RunningActivatedDescriptor)
+	if (RunningActivateDescriptor)
 		return;
 
 	// add dummy objects
@@ -67,11 +65,11 @@ void FWM::Init(Function ModeFunction, ControllerFunction Controller) {
 	FLog.CurrentMode = RunningMode;
 	FLog.Log(LogType::FWL_INIT);
 
-	RunningActivatedDescriptor = true;
+	RunningActivateDescriptor = true;
 }
 
 void FWM::SwitchMode(Function ModeFunction, ControllerFunction Controller) {
-	if (!RunningActivatedDescriptor)
+	if (!RunningActivateDescriptor)
 		return;
 
 	ModeFunctionBuffer = ModeFunction;
@@ -146,7 +144,7 @@ OBJ_BASE* FWM::Find(std::string Tag, Layer LayerToSearch, int Index) {
 }
 
 void FWM::StartFloatingMode(Function ModeFunction, ControllerFunction Controller, bool FloatingOnlyOption) {
-	if (!RunningActivatedDescriptor || FloatingModeRunningDescriptor)
+	if (!RunningActivateDescriptor || FloatingModeRunningDescriptor)
 		return;
 
 	ModeFunctionBuffer = ModeFunction;
@@ -163,7 +161,7 @@ void FWM::StartFloatingMode(Function ModeFunction, ControllerFunction Controller
 }
 
 void FWM::EndFloatingMode() {
-	if (!RunningActivatedDescriptor || !FloatingModeRunningDescriptor)
+	if (!RunningActivateDescriptor || !FloatingModeRunningDescriptor)
 		return;
 
 	FLog.PrevMode = RunningMode;
