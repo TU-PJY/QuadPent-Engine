@@ -182,20 +182,6 @@ size_t FWM::Size(Layer TargetLayer) {
 
 //////// private ///////////////
 
-void FWM::ClearDeleteTargetObject(int i) {
-	for (auto It = begin(Container[i]); It != end(Container[i]);) {
-		if ((*It)->DeleteDescriptor) {
-			delete* It;
-			*It = nullptr;
-			It = Container[i].erase(It);
-			continue;
-		}
-		++It;
-	}
-
-	std::erase_if(ObjectList, [](const std::pair<std::string, OBJ_BASE*>& Object) { return !Object.second; });
-}
-
 void FWM::ChangeMode() {
 	if (FloatingModeReserveDescriptor) {
 		PrevRunningMode = RunningMode;
@@ -247,6 +233,20 @@ void FWM::ChangeMode() {
 	FloatingModeEndReserveDescriptor = false;
 	ModeSwitchReserveDescriptor = false;
 	ModeSwitchingDescriptor = false;
+}
+
+void FWM::ClearDeleteTargetObject(int i) {
+	for (auto It = begin(Container[i]); It != end(Container[i]);) {
+		if ((*It)->DeleteDescriptor) {
+			delete* It;
+			*It = nullptr;
+			It = Container[i].erase(It);
+			continue;
+		}
+		++It;
+	}
+
+	std::erase_if(ObjectList, [](const std::pair<std::string, OBJ_BASE*>& Object) { return !Object.second; });
 }
 
 void FWM::ClearFloatingObject() {

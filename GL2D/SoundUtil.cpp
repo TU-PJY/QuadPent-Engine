@@ -8,8 +8,6 @@ struct FileNameAndOption {
 	const char* FileName;
 	FMOD_MODE Option;
 };
-FileNameAndOption FNO;
-
 
 // list sounds to load
 std::vector<FileNameAndOption> SoundList
