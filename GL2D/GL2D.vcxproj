@@ -142,7 +142,7 @@
     <ClCompile Include="CollisionUtil.cpp" />
     <ClCompile Include="DataUtil.cpp" />
     <ClCompile Include="FontLoaderUtil.cpp" />
-    <ClCompile Include="FWM.cpp" />
+    <ClCompile Include="Framework.cpp" />
     <ClCompile Include="GLMain.cpp" />
     <ClCompile Include="ImageUtil.cpp" />
     <ClCompile Include="Mode1.cpp" />
@@ -158,8 +158,8 @@
     <ClInclude Include="CollisionUtil.h" />
     <ClInclude Include="DataUtil.h" />
     <ClInclude Include="FontLoaderUtil.h" />
-    <ClInclude Include="FWM.h" />
-    <ClInclude Include="FWM_CONF.h" />
+    <ClInclude Include="Framework.h" />
+    <ClInclude Include="Framework_Conf.h" />
     <ClInclude Include="GLHeader.h" />
     <ClInclude Include="ImageUtil.h" />
     <ClInclude Include="Mode1.h" />

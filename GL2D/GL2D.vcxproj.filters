@@ -100,7 +100,7 @@
     <ClCompile Include="DataUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Data Util ]</Filter>
     </ClCompile>
-    <ClCompile Include="FWM.cpp">
+    <ClCompile Include="Framework.cpp">
       <Filter>[0]___________[ FrameWork ]</Filter>
     </ClCompile>
     <ClCompile Include="FontLoaderUtil.cpp">
@@ -144,10 +144,10 @@
     <ClInclude Include="DataUtil.h">
       <Filter>[3]___________[ Util ]\[ Data Util ]</Filter>
     </ClInclude>
-    <ClInclude Include="FWM.h">
+    <ClInclude Include="Framework.h">
       <Filter>[0]___________[ FrameWork ]</Filter>
     </ClInclude>
-    <ClInclude Include="FWM_CONF.h">
+    <ClInclude Include="Framework_Conf.h">
       <Filter>[0]___________[ FrameWork ]</Filter>
     </ClInclude>
     <ClInclude Include="FontLoaderUtil.h">

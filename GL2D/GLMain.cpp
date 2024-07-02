@@ -8,7 +8,7 @@
 #include "SoundUtil.h"
 #include "DataUtil.h"
 #include "FontLoaderUtil.h"
-#include "FWM.h"
+#include "Framework.h"
 
 #include "Mode1.h"
 
@@ -34,7 +34,7 @@ MouseUtil mouse;
 SoundUtil soundUtil;
 DataUtil dataUtil;
 FontLoaderUtil fontloaderUtil;
-FWM fw;
+Framework fw;
 
 clock_t StartTime, EndTime;
 

@@ -30,7 +30,7 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetAlign(Align AlignOpt);
 	void Rotate(GLfloat Radians);
-	void Draw(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...);
+	void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...);
 	void GetLength(GLfloat& Length, unsigned Index, const wchar_t* Text, GLfloat Size);
 	void InitTransform();
 	void ProcessTransform();
@@ -61,7 +61,7 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetAlign(Align AlignOpt);
 	void Rotate(GLfloat Radians);
-	void Draw(GLfloat X, GLfloat Y, GLfloat Size, const char* Format, ...);
+	void Render(GLfloat X, GLfloat Y, GLfloat Size, const char* Format, ...);
 	void GetLength(GLfloat& Length, unsigned Index, const char* Text, GLfloat Size);
 	void InitTransform();
 	void ProcessTransform();

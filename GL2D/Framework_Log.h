@@ -1,10 +1,10 @@
 // FWM Version 3
 #pragma once
-#include "FWM_CONF.h"
+#include "Framework_Conf.h"
 #include <iostream>
 
 enum class LogType {
-	FWL_INIT,
+	FM_INIT,
 	MODE_SWITCH,
 	ADD_OBJECT,
 	SET_FLOATING_OBJECT,
@@ -24,13 +24,13 @@ public:
 	void Log(LogType Type) {
 		using namespace std;
 		if (DebugMessage) {
-			cout << "======== FWM Message ========\n";
+			cout << "======== Framework Message ========\n";
 			cout << "Message Type: ";
 
 			switch (Type) {
-			case LogType::FWL_INIT:
-				cout << "FWM Init\n";
-				cout << "FWM Staterted running with Mode [ " << CurrentMode << " ].\n";
+			case LogType::FM_INIT:
+				cout << "Framework Init\n";
+				cout << "Framework Started running with Mode [ " << CurrentMode << " ].\n";
 				break;
 
 			case LogType::MODE_SWITCH:
@@ -75,7 +75,7 @@ public:
 	void ErrorLog(LogType Type) {
 		using namespace std;
 
-		cout << "======== FWM Error ========\n";
+		cout << "======== Framework Error ========\n";
 		cout << "Error Type: ";
 
 		switch (Type) {

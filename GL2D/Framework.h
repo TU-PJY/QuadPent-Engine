@@ -1,6 +1,6 @@
 // FWM Version 3
 #pragma once
-#include "FWM_Log.h"
+#include "Framework_Log.h"
 #include "ObjectBase.h"
 #include <array>
 #include <deque>
@@ -19,7 +19,7 @@ enum class SearchRange
 {One, All};
 
 
-class FWM {
+class Framework {
 private:
 	std::array<std::deque<OBJ_BASE*>, Num> Container;
 	std::map<std::string, OBJ_BASE*> ObjectList;
@@ -34,7 +34,6 @@ private:
 	bool                              FloatingOnlyDescriptor{};
 
 	bool							  ModeSwitchReserveDescriptor{};
-	bool                              FloatingModeReserveDescriptor{};
 	bool                              FloatingModeEndReserveDescriptor{};
 
 	float							  FrameTime{};
@@ -44,7 +43,7 @@ private:
 	ControllerFunction				  ControllerBackUpBuffer{};
 
 public:
-	FWM();
+	Framework();
 	std::string Mode();
 	void Init(Function ModeFunction, ControllerFunction Controller=nullptr);
 	void SetFrameTime(float ElapsedTime);
@@ -66,4 +65,4 @@ private:
 	void ClearFloatingObject();
 	void ClearAll();
 };
-extern FWM fw;
+extern Framework fw;
