@@ -148,7 +148,7 @@ void DataUtil::ResetData() {
 
 	OutFile.close();
 
-	WriteData("VersionData", VERSION);
+	WriteData(DataVersionStr, VERSION);
 }
 
 void DataUtil::WriteData(const std::string& DataName, int DataValue) {
