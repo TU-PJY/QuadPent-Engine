@@ -28,6 +28,9 @@ constexpr bool StartWithFullScreen = false;
 // boundbox option
 constexpr bool ShowBoundBox = true;
 
+// console window option
+constexpr bool ShowConsole = true;
+
 // global scope shader
 extern GLuint ImageShader;
 extern GLuint TextShader;
