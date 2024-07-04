@@ -148,6 +148,7 @@
     <ClCompile Include="Mode1.cpp" />
     <ClCompile Include="MouseUtil.cpp" />
     <ClCompile Include="ObjectBase.cpp" />
+    <ClCompile Include="RandomUtil.cpp" />
     <ClCompile Include="RenderModeUtil.cpp" />
     <ClCompile Include="ShaderUtil.cpp" />
     <ClCompile Include="SoundUtil.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Mode1.h" />
     <ClInclude Include="MouseUtil.h" />
     <ClInclude Include="ObjectBase.h" />
+    <ClInclude Include="RandomUtil.h" />
     <ClInclude Include="RenderModeUtil.h" />
     <ClInclude Include="ShaderUtil.h" />
     <ClInclude Include="SoundUtil.h" />

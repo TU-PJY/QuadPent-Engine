@@ -21,6 +21,8 @@ GLfloat ImagePannel[][48] = {  // default size 1.0 * 1.0
 std::vector<ImageInfo> ImageList
 {
 	{"gl2d_boundbox", "GL2D res//boundbox.png"}, // do not delete this
+	{"FMOD_logo", "GL2D res//FMOD logo.png"}, // do not delete this
+
 };
 
 

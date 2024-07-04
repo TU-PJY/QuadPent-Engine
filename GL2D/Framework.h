@@ -27,14 +27,13 @@ private:
 	std::string						  RunningMode{};
 	std::string                       PrevRunningMode{};
 
-	bool							  RunningActivateDescriptor{};
-	bool							  ModeSwitchingDescriptor{};
+	bool							  RunningActivateDesc{};
+	bool							  ModeSwitchingDesc{};
 
-	bool							  FloatingModeRunningDescriptor{};
-	bool                              FloatingOnlyDescriptor{};
+	bool							  FloatingModeRunningDesc{};
+	bool                              FloatingOnlyDesc{};
 
-	bool							  ModeSwitchReserveDescriptor{};
-	bool                              FloatingModeEndReserveDescriptor{};
+	bool							  ModeSwitchReserveDesc{};
 
 	float							  FrameTime{};
 

@@ -9,8 +9,8 @@
 
 class OBJ_BASE {
 public:
-	bool DeleteDescriptor{};
-	bool FloatingDescriptor{};
+	bool DeleteDesc{};
+	bool FloatingObjectDesc{};
 	std::string ObjectTag{};
 
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
@@ -29,8 +29,10 @@ public:
 	void InitTransform();
 
 	virtual void Update(float FT) {}
-	virtual void InputControl() {}
 	virtual void Render() {}
+	virtual void InputKey(unsigned char KEY, int S_KEY, bool KeyDown, bool SpecialKey = false) {}
+	virtual void InputMouse(int button, int state, int x, int y) {}
+	virtual void InputScroll(int button, int Wheel, int x, int y) {}
 	void ProcessTransform();
 
 	virtual void ResetControlState() {}

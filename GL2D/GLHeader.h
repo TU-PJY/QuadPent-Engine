@@ -33,19 +33,14 @@ extern GLuint ImageShader;
 extern GLuint TextShader;
 
 
-// multiply Xposition with Aspect
+// Multiply Xposition with Aspect
 inline GLfloat ASP(GLfloat ValueX) {
 	return ValueX *= ASPECT;
 }
 
 // Divide Xposition with Aspect
-inline GLfloat DivideASP(GLfloat ValueX) {
+inline GLfloat DivASP(GLfloat ValueX) {
 	return ValueX / ASPECT;
-}
-
-// Divide value with camera zoom value
-inline GLfloat DivideZoom(GLfloat Value, GLfloat ZoomValue) {
-	return Value / ZoomValue;
 }
 
 // Calculate distance of 2 dots

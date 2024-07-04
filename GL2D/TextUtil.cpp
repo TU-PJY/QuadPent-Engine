@@ -69,11 +69,9 @@ void TextUtilUnicode::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* 
 		case Align::Default:
 			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X + CurrentPositionX, Y, 0.0));
 			break;
-
 		case Align::Middle:
 			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length / 2 + CurrentPositionX, Y, 0.0));
 			break;
-
 		case Align::Left:
 			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length + CurrentPositionX, Y, 0.0));
 			break;
@@ -196,11 +194,9 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const char* Format, ..
 		case Align::Default:
 			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X + CurrentPositionX, Y, 0.0));
 			break;
-
 		case Align::Middle:
 			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length / 2 + CurrentPositionX, Y, 0.0));
 			break;
-
 		case Align::Left:
 			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length + CurrentPositionX, Y, 0.0));
 			break;

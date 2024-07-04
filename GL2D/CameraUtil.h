@@ -29,3 +29,5 @@ public:
 	void SetZoom(ZOOM ZoomOpt, GLfloat Value);
 };
 extern CamaraControlUtil camUtil;
+
+GLfloat DivideZoom(GLfloat Value);

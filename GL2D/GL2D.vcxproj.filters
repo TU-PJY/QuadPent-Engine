@@ -64,6 +64,9 @@
     <Filter Include="[3]___________[ Util ]\[ Font Util ]">
       <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Random Util ]">
+      <UniqueIdentifier>{a260c5f1-65f3-4ff6-afa8-97676fbd2054}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
@@ -105,6 +108,9 @@
     </ClCompile>
     <ClCompile Include="FontLoaderUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Font Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Random Util ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +158,9 @@
     </ClInclude>
     <ClInclude Include="FontLoaderUtil.h">
       <Filter>[3]___________[ Util ]\[ Font Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomUtil.h">
+      <Filter>[3]___________[ Util ]\[ Random Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

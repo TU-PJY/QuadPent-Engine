@@ -83,3 +83,8 @@ void CamaraControlUtil::SetZoom(ZOOM ZoomOpt, GLfloat Value) {
 
 	cam.Zoom = UpdatedZoomValue;
 }
+
+// Divide value with camera zoom value
+GLfloat DivZoom(GLfloat Value) {
+	return Value / cam.Zoom;
+}
