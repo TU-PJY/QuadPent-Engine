@@ -2,18 +2,26 @@
 #include "GLHeader.h"
 #include <cmath>
 
+enum class MoveDir
+{Negetive, Positive, Zero};
+
 class PhysicsUtil {
 private:
-	GLfloat GravityAcc;
-	GLfloat MoveAcc;
+	GLfloat GravityAcc{};
+	GLfloat MoveAcc{};
+	GLfloat Speed{};
+
+	int MoveDirection{};
 	bool FallingState{};
 
 public:
-	void Falling(GLfloat& Position, GLfloat Gravity, float FT);
-	void CheckFloor(GLfloat& Position, GLfloat FloorHeight);
+	void Fall(GLfloat& Position, GLfloat Gravity, float FT);
+	void LandFloor(GLfloat& Position, GLfloat FloorHeight);
+	void SetMove(MoveDir Direction);
 	void SetFallingState();
 	void SetGravityAcc(GLfloat AccValue);
-	void Bounce(GLfloat& Position, GLfloat FloorHeight, GLfloat RebounceValue, GLfloat Threshold);
+	void BounceFloor(GLfloat& Position, GLfloat FloorHeight, GLfloat RebounceValue, GLfloat Threshold);
+	void BounceWall(GLfloat RebounceValue);
 	void LerpDcc(GLfloat& Speed, GLfloat Friction, float FT);
 	void LerpAcc(GLfloat& Speed, GLfloat Dest, GLfloat AccValue, float FT);
 	void LinearDcc(GLfloat& Speed, GLfloat Friction, float FT);
