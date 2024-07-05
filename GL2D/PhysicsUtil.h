@@ -25,5 +25,6 @@ public:
 	void LerpDcc(GLfloat& Speed, GLfloat Friction, float FT);
 	void LerpAcc(GLfloat& Speed, GLfloat Dest, GLfloat AccValue, float FT);
 	void LinearDcc(GLfloat& Speed, GLfloat Friction, float FT);
+	void MoveUniform(GLfloat& Position, GLfloat Dest, float FT);
 	void LinearAcc(GLfloat& Speed, GLfloat Dest, GLfloat AccValue, float FT);
 };

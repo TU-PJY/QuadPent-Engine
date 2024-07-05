@@ -98,3 +98,7 @@ void PhysicsUtil::LinearDcc(GLfloat& Position, GLfloat Friction, float FT) {
 
 	Position += Speed * FT;
 }
+
+void PhysicsUtil::MoveUniform(GLfloat& Position, GLfloat Dest, float FT) {
+	Position += Dest * MoveDirection * FT;
+}
