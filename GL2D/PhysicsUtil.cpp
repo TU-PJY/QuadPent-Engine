@@ -19,7 +19,7 @@ void PhysicsUtil::SetFallingState() {
 	FallingState = true;
 }
 
-void PhysicsUtil::SetGravityAcc(GLfloat AccValue) {
+void PhysicsUtil::AddGravityAcc(GLfloat AccValue) {
 	GravityAcc += AccValue;
 	FallingState = true;
 }

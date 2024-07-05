@@ -19,7 +19,7 @@ public:
 	void LandFloor(GLfloat& Position, GLfloat FloorHeight);
 	void SetMove(MoveDir Direction);
 	void SetFallingState();
-	void SetGravityAcc(GLfloat AccValue);
+	void AddGravityAcc(GLfloat AccValue);
 	void BounceFloor(GLfloat& Position, GLfloat FloorHeight, GLfloat RebounceValue, GLfloat Threshold);
 	void BounceWall(GLfloat RebounceValue);
 	void LerpDcc(GLfloat& Speed, GLfloat Friction, float FT);
