@@ -1,18 +1,12 @@
 #include "SoundUtil.h"
-#include <iostream>
+#include <vector>
 
-std::vector<float>FFTdata(FFT_SIZE);
-
-struct FileNameAndOption {
-	std::string Name;
-	const char* FileName;
-	FMOD_MODE Option;
-};
+std::vector<float> FFTdata(FFT_SIZE);
 
 // list sounds to load
 std::vector<FileNameAndOption> SoundList
 {
-
+	
 };
 
 // list channels to load
@@ -107,7 +101,7 @@ void SoundUtil::UnSetBeatDetect(std::string ChannelName) {
 	LoadedChannelList.find(ChannelName)->second->removeDSP(BeatDetector);
 }
 
-float SoundUtil::DetectBeat(float Threshold) {
+float SoundUtil::DetectBeat(float Threshold, int DataSize) {
 	FMOD_DSP_PARAMETER_FFT* FFT = nullptr;
 	BeatDetector->getParameterData(FMOD_DSP_FFT_SPECTRUMDATA, (void**)&FFT, 0, 0, 0);
 
@@ -119,7 +113,7 @@ float SoundUtil::DetectBeat(float Threshold) {
 
 			float BassEnergy = 0.0f;
 
-			for (int i = 0; i < 10; ++i)
+			for (int i = 0; i < DataSize; ++i)
 				BassEnergy += FFTdata[i];
 
 			if (BassEnergy > Threshold) 
@@ -130,7 +124,7 @@ float SoundUtil::DetectBeat(float Threshold) {
 	return 0;
 }
 
-int SoundUtil::GetSoundNum() {
+size_t SoundUtil::GetSoundNum() {
 	return LoadedSoundList.size();
 }
 

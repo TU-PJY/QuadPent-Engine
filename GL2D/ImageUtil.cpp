@@ -1,12 +1,15 @@
 #include "ImageUtil.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-#include <unordered_map>
+#include <vector>
 
-struct ImageInfo {
-	std::string Name;
-	const char* FileName;
+std::vector<ImageInfo> ImageList
+{
+	{"gl2d_boundbox", "GL2D res//boundbox.png"}, // do not delete this
+	{"FMOD_logo", "GL2D res//FMOD logo.png"}, // do not delete this
+
 };
+
 
 GLfloat ImagePannel[][48] = {  // default size 1.0 * 1.0
 		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0,
@@ -16,15 +19,6 @@ GLfloat ImagePannel[][48] = {  // default size 1.0 * 1.0
 		-0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 1.0,
 		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0
 };
-
-
-std::vector<ImageInfo> ImageList
-{
-	{"gl2d_boundbox", "GL2D res//boundbox.png"}, // do not delete this
-	{"FMOD_logo", "GL2D res//FMOD logo.png"}, // do not delete this
-
-};
-
 
 void ImageUtil::Init() {
 	GLuint VBO{};
@@ -43,8 +37,6 @@ void ImageUtil::Init() {
 	glEnableVertexAttribArray(2);
 
 	stbi_set_flip_vertically_on_load(true);
-
-	LoadImageFromList();
 }
 
 void ImageUtil::LoadImageFromList() {
@@ -68,14 +60,14 @@ void ImageUtil::LoadImageFromList() {
 }
 
 unsigned int ImageUtil::SetImage(std::string ImageName) {
-	auto It = LoadedImageList.lower_bound(ImageName);
+	auto It = LoadedImageList.find(ImageName);
 	if (It != end(LoadedImageList))
 		return It->second;
 	else
 		return -1;
 }
 
-GLfloat ImageUtil::Aspect(int Width, int Height) {
+GLfloat ImageUtil::ASP(int Width, int Height) {
 	return Width / Height;
 }
 

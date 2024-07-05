@@ -1,15 +1,21 @@
 #pragma once
 #include "fmod.hpp"
 #include "fmod_errors.h"
-#include <unordered_map>
+#include <map>
 #include <string>
 
-#define FFT_SIZE 1024 // FFT Å©±â
+#define FFT_SIZE 1024 // FFT Size
+
+struct FileNameAndOption {
+	std::string Name;
+	const char* FileName;
+	FMOD_MODE Option;
+};
 
 class SoundUtil {
 private:
-	std::unordered_map<std::string, FMOD::Sound*> LoadedSoundList;
-	std::unordered_map<std::string, FMOD::Channel*> LoadedChannelList;
+	std::map<std::string, FMOD::Sound*> LoadedSoundList;
+	std::map<std::string, FMOD::Channel*> LoadedChannelList;
 	FMOD::System* SoundSystem{};
 	FMOD::DSP* BeatDetector{};
 	FMOD::DSP* LowPass{};
@@ -32,8 +38,8 @@ public:
 	void UnSetFreqCutOff(std::string ChannelName);
 	void SetBeatDetect(std::string ChannelName);
 	void UnSetBeatDetect(std::string ChannelName);
-	float DetectBeat(float Threshold);
-	int GetSoundNum();
+	float DetectBeat(float Threshold, int DataSize);
+	size_t GetSoundNum();
 	int GetSoundNumIf(std::string ContainedStr);
 };
 extern SoundUtil soundUtil;

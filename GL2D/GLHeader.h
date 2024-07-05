@@ -35,15 +35,18 @@ constexpr bool ShowConsole = true;
 extern GLuint ImageShader;
 extern GLuint TextShader;
 
+void SetBackColor(GLfloat R, GLfloat G, GLfloat B);
+extern glm::vec3 BackColor;
+
 
 // Multiply Xposition with Aspect
-inline GLfloat ASP(GLfloat ValueX) {
-	return ValueX *= ASPECT;
+inline void ASP(GLfloat& ValueX) {
+	ValueX *= ASPECT;
 }
 
 // Divide Xposition with Aspect
-inline GLfloat DivASP(GLfloat ValueX) {
-	return ValueX / ASPECT;
+inline void DivASP(GLfloat& ValueX) {
+	ValueX /= ASPECT;
 }
 
 // Calculate distance of 2 dots

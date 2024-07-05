@@ -1,7 +1,6 @@
-// FWM Version 3
 #pragma once
 #include "Framework_Log.h"
-#include "ObjectBase.h"
+#include "Base.h"
 #include <array>
 #include <deque>
 #include <ranges>
@@ -18,20 +17,19 @@ enum class DeleteRange
 enum class SearchRange
 {One, All};
 
-
 class Framework {
 private:
-	std::array<std::deque<OBJ_BASE*>, Num> Container;
-	std::map<std::string, OBJ_BASE*> ObjectList;
+	std::array<std::deque<BASE*>, Num> Container;
+	std::map<std::string, BASE*> ObjectList;
 
-	std::string						  RunningMode{};
+	std::string						  CurrentRunningMode{};
 	std::string                       PrevRunningMode{};
 
-	bool							  RunningActivateDesc{};
-	bool							  ModeSwitchingDesc{};
+	bool							  RoutineRunningDesc{};
+	bool							  InSwitchDesc{};
 
-	bool							  FloatingModeRunningDesc{};
-	bool                              FloatingOnlyDesc{};
+	bool							  FloatingRunningDesc{};
+	bool                              FloatingFocusDesc{};
 
 	bool							  ModeSwitchReserveDesc{};
 
@@ -50,16 +48,16 @@ public:
 	void SwitchMode(Function ModeFunction, ControllerFunction Controller=nullptr);
 	void StartFloatingMode(Function ModeFunction, ControllerFunction Controller=nullptr, bool FloatingOnlyOption=false);
 	void EndFloatingMode();
-	void ResetControlState(OBJ_BASE* Object);
-	void AddObject(OBJ_BASE* Object, std::string Tag, Layer AddLayer, bool SetFloatingObject=false);
-	void DeleteSelf(OBJ_BASE* Object);
+	void ResetControlState(BASE* Object);
+	void AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetFloatingObject=false);
+	void DeleteSelf(BASE* Object);
 	void DeleteObject(std::string Tag, DeleteRange deleteRange);
-	OBJ_BASE* Find(std::string Tag);
-	OBJ_BASE* Find(std::string Tag, Layer LayerToSearch, int Index);
+	BASE* Find(std::string Tag);
+	BASE* Find(std::string Tag, Layer LayerToSearch, int Index);
 	size_t Size(Layer TargetLayer);
 
 private:
-	void ClearDeleteTargetObject(int i);
+	void ClearDelObjects(int i);
 	void ChangeMode();
 	void ClearFloatingObject();
 	void ClearAll();

@@ -1,54 +1,67 @@
-#include "ObjectBase.h"
+#include "Base.h"
 #include "RenderModeUtil.h"
+#include "ImageUtil.h"
+#include "SoundUtil.h"
 
 
-void OBJ_BASE::Translate(GLfloat X, GLfloat Y) {
+void BASE::Translate(GLfloat X, GLfloat Y) {
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
 }
 
-void OBJ_BASE::Rotate(GLfloat Radians) {
+void BASE::Rotate(GLfloat Radians) {
 	RotateMatrix = rotate(RotateMatrix, glm::radians(Radians), glm::vec3(0.0, 0.0, 1.0));
 }
 
-void OBJ_BASE::Scale(GLfloat X, GLfloat Y) {
+void BASE::Scale(GLfloat X, GLfloat Y) {
 	ScaleMatrix = scale(ScaleMatrix, glm::vec3(X, Y, 0.0));
 }
 
-void OBJ_BASE::RotateSpot(GLfloat Radians) {
+void BASE::RotateSpot(GLfloat Radians) {
 	TranslateMatrix = rotate(TranslateMatrix, glm::radians(Radians), glm::vec3(0.0, 0.0, 1.0));
 }
 
-void OBJ_BASE::RotateAxis(GLfloat Radians, GLfloat AxisX, GLfloat AxisY) {
+void BASE::ScaleSpot(GLfloat X, GLfloat Y) {
+	TranslateMatrix = scale(TranslateMatrix, glm::vec3(X, Y, 0.0));
+}
+
+void BASE::RotateAxis(GLfloat Radians, GLfloat AxisX, GLfloat AxisY) {
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(AxisX, AxisY, 0.0));
 	TranslateMatrix = rotate(TranslateMatrix, glm::radians(Radians), glm::vec3(0.0, 0.0, 1.0));
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
 }
 
-void OBJ_BASE::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+void BASE::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	ObjectColor.r = R;
 	ObjectColor.g = G;
 	ObjectColor.b = B;
 }
 
-void OBJ_BASE::SetAlpha(GLfloat Value) {
-	AlphaValue = Value;
-}
-
-void OBJ_BASE::InitTransform() {
+void BASE::InitTransform() {
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
+	Transparency = 1.0f;
 }
 
-void OBJ_BASE::ProcessTransform() {
+void BASE::ProcessTransform() {
 	renderMode.SetImageMode();
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
-	glUniform1f(TransparencyLocation, AlphaValue);
+	glUniform1f(TransparencyLocation, Transparency);
 
 	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
 	glUniform3f(ObjectColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(RotateMatrix * TranslateMatrix * ScaleMatrix));
+}
+
+void BASE::SetImage(std::string ImageName) {
+	imageUtil.SetImage(ImageName);
+}
+
+void BASE::RenderImage(unsigned int Image, GLfloat TransparencyValue) {
+	Transparency = TransparencyValue;
+	ProcessTransform();
+	imageUtil.Render(Image);
 }

@@ -12,4 +12,3 @@ private:
 public:
 	GLfloat Gen(Dist DistType, GLfloat Min, GLfloat Max);
 };
-extern RandomUtil randomUtil;

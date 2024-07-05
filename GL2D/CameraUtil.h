@@ -15,7 +15,6 @@ public:
 	GLfloat Zoom{ 1.0f };
 
 	void CalculateASPECT();
-	void UpdateCamera();
 	void SetCamera();
 	void ProcessTransform(bool UseTextShader);
 };
@@ -30,4 +29,6 @@ public:
 };
 extern CamaraControlUtil camUtil;
 
-GLfloat DivideZoom(GLfloat Value);
+void DivZoom(GLfloat& Value);
+void SubRot(GLfloat& Value);
+void SubPos(GLfloat& X, GLfloat& Y);

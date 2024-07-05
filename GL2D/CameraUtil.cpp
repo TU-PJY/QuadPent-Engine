@@ -11,7 +11,6 @@ void CameraUtil::CalculateASPECT() {
 
 void CameraUtil::SetCamera() {
 	using namespace glm;
-
 	CalculateASPECT();
 
 	ViewMatrix = mat4(1.0f);
@@ -21,9 +20,10 @@ void CameraUtil::SetCamera() {
 	CamDirection = vec3(0.0f, 0.0f, 0.0f);
 	CamUp = vec3(0.0f, 1.0f, 0.0f);
 
-	UpdateCamera();
-
 	ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
+
+	ViewMatrix = translate(ViewMatrix, glm::vec3(x, y, 0.0));
+	ViewMatrix = rotate(ViewMatrix, glm::radians(Rotation), glm::vec3(0.0, 0.0, 1.0));
 
 	Projection = ortho((ASPECT * -1.0f) / Zoom, (ASPECT * 1.0f) / Zoom, -1.0f / Zoom, 1.0f / Zoom, -100.0f, 100.0f);
 }
@@ -52,18 +52,28 @@ void CameraUtil::ProcessTransform(bool UseTextShader) {
 	}
 }
 
-void CameraUtil::UpdateCamera() {
-
+// Divide value with camera zoom value
+void DivZoom(GLfloat& Value) {
+	Value /= cam.Zoom;
 }
 
+void SubRot(GLfloat& Value) {
+	Value -= cam.Rotation;
+}
+
+void SubPos(GLfloat& X, GLfloat& Y) {
+	X = X - cam.x;
+	Y = Y - cam.y;
+}
 
 
 void CamaraControlUtil::Translate(GLfloat X, GLfloat Y) {
-	cam.ViewMatrix = translate(cam.ViewMatrix, glm::vec3(X, Y, 0.0));
+	cam.x = X; 
+	cam.y = Y;
 }
 
 void CamaraControlUtil::Rotate(GLfloat Radians) {
-	cam.ViewMatrix = rotate(cam.ViewMatrix, glm::radians(Radians), glm::vec3(0.0, 0.0, 1.0));
+	cam.Rotation = Radians;
 }
 
 void CamaraControlUtil::SetZoom(ZOOM ZoomOpt, GLfloat Value) {
@@ -82,9 +92,4 @@ void CamaraControlUtil::SetZoom(ZOOM ZoomOpt, GLfloat Value) {
 	}
 
 	cam.Zoom = UpdatedZoomValue;
-}
-
-// Divide value with camera zoom value
-GLfloat DivZoom(GLfloat Value) {
-	return Value / cam.Zoom;
 }

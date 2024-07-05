@@ -1,7 +1,4 @@
 #include "Framework.h"
-#include <ranges>
-#include <algorithm>
-
 
 FWM_Log FLog;
 
@@ -12,21 +9,24 @@ Framework::Framework() {
 	}
 }
 
+
 void Framework::SetFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
 }
 
+
 std::string Framework::Mode() {
-	return RunningMode;
+	return CurrentRunningMode;
 }
 
+
 void Framework::Routine() {
-	if (!ModeSwitchReserveDesc && RunningActivateDesc) {
+	if (!ModeSwitchReserveDesc && RoutineRunningDesc) {
 		for (int i = 0; i < Num; ++i) {
-			for (auto It = begin(Container[i]); It != end(Container[i]);) {
+			for (auto It = begin(Container[i]); It != end(Container[i]); ++It) {
 				if (!(*It)->DeleteDesc) {
-					if (FloatingModeRunningDesc && FloatingOnlyDesc) {
-						if((*It)->FloatingObjectDesc)
+					if (FloatingRunningDesc && FloatingFocusDesc) {
+						if((*It)->FloatingObjectDesc)  
 							(*It)->Update(FrameTime);
 					}
 
@@ -37,17 +37,14 @@ void Framework::Routine() {
 
 				if (ModeSwitchReserveDesc)
 					break;
-
-				++It;
 			}
 
-			ClearDeleteTargetObject(i);
-
 			if (ModeSwitchReserveDesc) {
-				ModeSwitchingDesc = true;
+				InSwitchDesc = true;
 				break;
 			}
 
+			ClearDelObjects(i);
 		}
 	}
 
@@ -55,96 +52,105 @@ void Framework::Routine() {
 		ChangeMode();
 }
 
+
 void Framework::Init(Function ModeFunction, ControllerFunction Controller) {
-	if (RunningActivateDesc)
+	if (RoutineRunningDesc)
 		return;
 
-	RunningMode = ModeFunction();
+	CurrentRunningMode = ModeFunction();
 
-	if (Controller)  Controller();
+	if (Controller)  
+		Controller();
 
 	ControllerBackUpBuffer = Controller;
 
-	FLog.CurrentMode = RunningMode;
+	FLog.CurrentMode = CurrentRunningMode;
 	FLog.Log(LogType::FM_INIT);
 
 	for (int i = 0; i < Num; ++i)
-		AddObject(new FWM_DUMMY, "FWM_DUMMY", static_cast<Layer>(i));
+		AddObject(new FWM_DUMMY, "DUMMY", static_cast<Layer>(i));
 
-	RunningActivateDesc = true;
+	RoutineRunningDesc = true;
 }
 
+
 void Framework::SwitchMode(Function ModeFunction, ControllerFunction Controller) {
-	if (!RunningActivateDesc)
+	if (!RoutineRunningDesc)
 		return;
 
 	ModeFunctionBuffer = ModeFunction;
 	ControllerBuffer = Controller;
 	ControllerBackUpBuffer = Controller;
 
-	FLog.PrevMode = RunningMode;
+	FLog.PrevMode = CurrentRunningMode;
 
 	ModeSwitchReserveDesc = true;
 }
 
+
 void Framework::StartFloatingMode(Function ModeFunction, ControllerFunction Controller, bool FloatingOnlyOption) {
-	if (!RunningActivateDesc || FloatingModeRunningDesc)
+	if (!RoutineRunningDesc || FloatingRunningDesc)
 		return;
 
-	PrevRunningMode = RunningMode;
-	FLog.PrevMode = RunningMode;
+	PrevRunningMode = CurrentRunningMode;
+	FLog.PrevMode = CurrentRunningMode;
 
-	RunningMode = ModeFunction();
-	Controller();
+	CurrentRunningMode = ModeFunction();
 
-	FloatingOnlyDesc = FloatingOnlyOption;
-	FLog.IsOnlyFloating = FloatingOnlyDesc;
+	if(Controller)  
+		Controller();
 
-	FLog.CurrentMode = RunningMode;
+	FloatingFocusDesc = FloatingOnlyOption;
+	FLog.IsOnlyFloating = FloatingFocusDesc;
+
+	FLog.CurrentMode = CurrentRunningMode;
 	if (FLog.CurrentMode == FLog.PrevMode)
 		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
 
 	FLog.Log(LogType::START_FLOATING_MODE);
 	FLog.Log(LogType::MODE_SWITCH);
 
-	FloatingModeRunningDesc = true;
+	FloatingRunningDesc = true;
 }
 
+
 void Framework::EndFloatingMode() {
-	if (!RunningActivateDesc || !FloatingModeRunningDesc)
+	if (!RoutineRunningDesc || !FloatingRunningDesc)  
 		return;
 
-	FLog.PrevMode = RunningMode;
+	FLog.PrevMode = CurrentRunningMode;
 
 	ClearFloatingObject();
-	RunningMode = PrevRunningMode;
+	CurrentRunningMode = PrevRunningMode;
 
-	if (ControllerBackUpBuffer)
+	if (ControllerBackUpBuffer)  
 		ControllerBackUpBuffer();
 
-	FloatingModeRunningDesc = false;
-	FloatingOnlyDesc = false;
+	FloatingRunningDesc = false;
+	FloatingFocusDesc = false;
 
-	FLog.Log(LogType::END_FLOATING_MODE);
-
-	FLog.IsOnlyFloating = FloatingOnlyDesc;
-	FLog.CurrentMode = RunningMode;
+	FLog.IsOnlyFloating = FloatingFocusDesc;
+	FLog.CurrentMode = CurrentRunningMode;
 	if (FLog.CurrentMode == FLog.PrevMode)
 		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
+
+	FLog.Log(LogType::END_FLOATING_MODE);
 	FLog.Log(LogType::MODE_SWITCH);
 }
 
-void Framework::ResetControlState(OBJ_BASE* Object) {
+
+void Framework::ResetControlState(BASE* Object) {
 	Object->ResetControlState();
 }
 
-void Framework::AddObject(OBJ_BASE* Object, std::string Tag, Layer AddLayer, bool SetFloatingObject) {
+
+void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetFloatingObject) {
 	Container[static_cast<int>(AddLayer)].push_back(Object);
 	Object->ObjectTag = Tag;
 
 	ObjectList.insert(std::make_pair(Tag, Object));
 
-	if (Tag != "FWM_DUMMY") {
+	if (Tag != "DUMMY") {
 		FLog.ObjectTag = Tag;
 		FLog.Log(LogType::ADD_OBJECT);
 	}
@@ -155,10 +161,11 @@ void Framework::AddObject(OBJ_BASE* Object, std::string Tag, Layer AddLayer, boo
 	}
 }
 
-void Framework::DeleteSelf(OBJ_BASE* Object) {
+
+void Framework::DeleteSelf(BASE* Object) {
 	Object->DeleteDesc = true;
 
-	std::erase_if(ObjectList, [](const std::pair<std::string, OBJ_BASE*>& Object) {
+	std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
 		return Object.second->DeleteDesc;
 		});
 
@@ -166,9 +173,10 @@ void Framework::DeleteSelf(OBJ_BASE* Object) {
 	FLog.Log(LogType::DELETE_OBJECT);
 }
 
+
 void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
 	if (deleteRange == DeleteRange::One) {
-		auto It = ObjectList.lower_bound(Tag);
+		auto It = ObjectList.find(Tag);
 		if (It != end(ObjectList)) {
 			It->second->DeleteDesc = true;
 			FLog.ObjectTag = It->second->ObjectTag;
@@ -186,20 +194,22 @@ void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
 		}
 	}
 
-	std::erase_if(ObjectList, [](const std::pair<std::string, OBJ_BASE*>& Object) {
+	std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
 		return Object.second->DeleteDesc;
 		});
 }
 
-OBJ_BASE* Framework::Find(std::string Tag) {
-	auto It = ObjectList.lower_bound(Tag);
+
+BASE* Framework::Find(std::string Tag) {
+	auto It = ObjectList.find(Tag);
 	if (It != end(ObjectList))
 		return It->second;
 
 	return nullptr;
 }
 
-OBJ_BASE* Framework::Find(std::string Tag, Layer LayerToSearch, int Index) {
+
+BASE* Framework::Find(std::string Tag, Layer LayerToSearch, int Index) {
 	int layer = static_cast<int>(LayerToSearch);
 
 	if (Index >= Container[layer].size())
@@ -211,40 +221,44 @@ OBJ_BASE* Framework::Find(std::string Tag, Layer LayerToSearch, int Index) {
 	return nullptr;
 }
 
+
 size_t Framework::Size(Layer TargetLayer) {
 	return Container[static_cast<int>(TargetLayer)].size();
 }
 
-//////// private ///////////////
 
+//////// private ///////////////
 void Framework::ChangeMode() {
-	FLog.PrevMode = RunningMode;
+	FLog.PrevMode = CurrentRunningMode;
 
 	ClearAll();
-	RunningMode = ModeFunctionBuffer();
+	CurrentRunningMode = ModeFunctionBuffer();
 
 	if (ControllerBuffer)
 		ControllerBuffer();
 
-	FLog.CurrentMode = RunningMode;
-	FloatingOnlyDesc = false;
-	if (FloatingModeRunningDesc) {
+	FLog.CurrentMode = CurrentRunningMode;
+
+	if (FloatingRunningDesc) {
 		FLog.Log(LogType::END_FLOATING_MODE);
-		FloatingModeRunningDesc = false;
+		FloatingRunningDesc = false;
+		FloatingFocusDesc = false;
 	}
 
-	FLog.IsOnlyFloating = FloatingOnlyDesc;
-	FLog.CurrentMode = RunningMode;
+	FLog.IsOnlyFloating = FloatingFocusDesc;
+	FLog.CurrentMode = CurrentRunningMode;
 	if (FLog.CurrentMode == FLog.PrevMode)
 		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
+
 	FLog.Log(LogType::MODE_SWITCH);
 
 	ModeSwitchReserveDesc = false;
-	ModeSwitchingDesc = false;
+	InSwitchDesc = false;
 }
 
-void Framework::ClearDeleteTargetObject(int i) {
-	std::erase_if(ObjectList, [](const std::pair<std::string, OBJ_BASE*>& Object) {
+
+void Framework::ClearDelObjects(int i) {
+	std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
 		return Object.second->DeleteDesc;
 		});
 
@@ -259,6 +273,7 @@ void Framework::ClearDeleteTargetObject(int i) {
 	}
 }
 
+
 void Framework::ClearFloatingObject() {
 	for (int i = 0; i < Num; ++i) {
 		for (auto It = begin(Container[i]); It != end(Container[i]); ++It) {
@@ -267,15 +282,16 @@ void Framework::ClearFloatingObject() {
 		}
 	}
 
-	std::erase_if(ObjectList, [](const std::pair<std::string, OBJ_BASE*>& Object) {
+	std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
 		return Object.second->DeleteDesc;
 		});
 }
 
+
 void Framework::ClearAll() {
 	for (int i = 0; i < Num; ++i) {
 		for (auto It = begin(Container[i]); It != end(Container[i]);) {
-			if ((*It)->ObjectTag != "FWM_DUMMY") {
+			if ((*It)->ObjectTag != "DUMMY") {
 				delete* It;
 				*It = nullptr;
 				It = Container[i].erase(It);

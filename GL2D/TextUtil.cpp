@@ -6,7 +6,7 @@ TextUtilUnicode::~TextUtilUnicode() {
 	DeleteDC(hDC);
 }
 
-void TextUtilUnicode::Init(const wchar_t* FontName, int type) {
+void TextUtilUnicode::Init(const wchar_t* FontName, int type, int Italic) {
 	hDC = wglGetCurrentDC();
 
 	HFONT Font;
@@ -15,8 +15,8 @@ void TextUtilUnicode::Init(const wchar_t* FontName, int type) {
 	FontBase = glGenLists(65536);
 
 	Font = CreateFont(
-		-1, 0, 0, 0, type, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS,
-		ANTIALIASED_QUALITY, FF_DONTCARE | VARIABLE_PITCH, FontName
+		-1, 0, 0, 0, type, Italic, FALSE, FALSE, DEFAULT_CHARSET, OUT_RASTER_PRECIS, CLIP_DEFAULT_PRECIS,
+		NONANTIALIASED_QUALITY, FF_DONTCARE | DEFAULT_PITCH, FontName
 	);
 
 	OldFont = (HFONT)SelectObject(hDC, Font);
@@ -131,7 +131,7 @@ TextUtil::~TextUtil() {
 	DeleteDC(hDC);
 }
 
-void TextUtil::Init(const wchar_t* FontName, int type) {
+void TextUtil::Init(const wchar_t* FontName, int type, int Italic) {
 	hDC = wglGetCurrentDC();
 
 	HFONT Font;
@@ -140,8 +140,8 @@ void TextUtil::Init(const wchar_t* FontName, int type) {
 	FontBase = glGenLists(96);
 
 	Font = CreateFont(
-		-1, 0, 0, 0, type, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS,
-		ANTIALIASED_QUALITY, FF_DONTCARE | VARIABLE_PITCH, FontName
+		-1, 0, 0, 0, type, Italic, FALSE, FALSE, ANSI_CHARSET, OUT_RASTER_PRECIS, CLIP_DEFAULT_PRECIS,
+		NONANTIALIASED_QUALITY, FF_DONTCARE | DEFAULT_PITCH, FontName
 	);
 
 	OldFont = (HFONT)SelectObject(hDC, Font);

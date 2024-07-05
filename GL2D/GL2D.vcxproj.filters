@@ -67,12 +67,18 @@
     <Filter Include="[3]___________[ Util ]\[ Random Util ]">
       <UniqueIdentifier>{a260c5f1-65f3-4ff6-afa8-97676fbd2054}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Timer Util ]">
+      <UniqueIdentifier>{6c809ee9-0b72-4df6-a180-049726371c03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Physics Util ]">
+      <UniqueIdentifier>{63469aed-9fc3-41f7-bbf0-32d2050b40a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
       <Filter>[2]___________[ GameMode ]\[ Mode1 ]</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectBase.cpp">
+    <ClCompile Include="Base.cpp">
       <Filter>[1]___________[ Object ]\[3][ Object Base ]</Filter>
     </ClCompile>
     <ClCompile Include="GLMain.cpp" />
@@ -112,6 +118,12 @@
     <ClCompile Include="RandomUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Random Util ]</Filter>
     </ClCompile>
+    <ClCompile Include="TimerUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Timer Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Physics Util ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mode1.h">
@@ -120,7 +132,7 @@
     <ClInclude Include="GLHeader.h">
       <Filter>[4]___________[ OpenGL ]</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectBase.h">
+    <ClInclude Include="Base.h">
       <Filter>[1]___________[ Object ]\[3][ Object Base ]</Filter>
     </ClInclude>
     <ClInclude Include="CameraUtil.h">
@@ -161,6 +173,12 @@
     </ClInclude>
     <ClInclude Include="RandomUtil.h">
       <Filter>[3]___________[ Util ]\[ Random Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerUtil.h">
+      <Filter>[3]___________[ Util ]\[ Timer Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsUtil.h">
+      <Filter>[3]___________[ Util ]\[ Physics Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,3 @@
-// FWM Version 3
 #pragma once
 #include <string>
 

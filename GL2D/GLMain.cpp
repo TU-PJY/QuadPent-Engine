@@ -1,21 +1,22 @@
-#include "GLHeader.h"
-#include "ShaderUtil.h"
 #include "CameraUtil.h"
-#include "RenderModeUtil.h"
-#include "ImageUtil.h"
-#include "TextUtil.h"
-#include "MouseUtil.h"
-#include "SoundUtil.h"
 #include "DataUtil.h"
 #include "FontLoaderUtil.h"
-#include "RandomUtil.h"
 #include "Framework.h"
+#include "GLHeader.h"
+#include "ImageUtil.h"
+#include "MouseUtil.h"
+#include "RandomUtil.h"
+#include "RenderModeUtil.h"
+#include "ShaderUtil.h"
+#include "SoundUtil.h"
+#include "TextUtil.h"
+#include "TimerUtil.h"
 
 #include "Mode1.h"
 
+#include <ctime>
 #include <iostream>
 #include <map>
-#include <ctime>
 #include <windows.h>
 
 int WIDTH = 1200;
@@ -23,6 +24,7 @@ int HEIGHT = 800;
 
 GLfloat ASPECT;
 Rect rect;
+glm::vec3 BackColor;
 
 std::string VENDOR;
 
@@ -36,12 +38,11 @@ MouseUtil mouse;
 SoundUtil soundUtil;
 DataUtil dataUtil;
 FontLoaderUtil fontloaderUtil;
-RandomUtil randomUtil;
 
 Framework fw;
 
 clock_t StartTime, EndTime;
-
+float FrameTime;
 
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
@@ -52,7 +53,7 @@ GLvoid DisplayReshape(int w, int h) {
 GLvoid GLMain() {
 	StartTime = clock();
 
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(BackColor.r, BackColor.g, BackColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	soundUtil.Update();
@@ -62,7 +63,8 @@ GLvoid GLMain() {
 	glutPostRedisplay();
 
 	EndTime = clock();
-	fw.SetFrameTime(float(EndTime - StartTime) / 1000);
+	FrameTime = float(EndTime - StartTime) / 1000;
+	fw.SetFrameTime(FrameTime);
 }
 
 void main(int argc, char** argv) {
@@ -110,11 +112,19 @@ void main(int argc, char** argv) {
 	shader.CreateShader(TextShader);
 
 	imageUtil.Init();
+	imageUtil.LoadImageFromList();
 	soundUtil.Init();
+	SetBackColor(1.0, 1.0, 1.0);
 
 	fw.Init(Mode1::GameMode1, Mode1::SetController);
 
 	glutDisplayFunc(GLMain);
 	glutReshapeFunc(DisplayReshape);
 	glutMainLoop();
+}
+
+void SetBackColor(GLfloat R, GLfloat G, GLfloat B) {
+	BackColor.r = R;
+	BackColor.g = G;
+	BackColor.b = B;
 }
