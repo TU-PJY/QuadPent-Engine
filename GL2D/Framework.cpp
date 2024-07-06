@@ -277,5 +277,7 @@ void Framework::ClearAll() {
 		}
 	}
 
-	ObjectList.clear();
+	std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
+		return Object.second->DeleteDesc;
+		});
 }
