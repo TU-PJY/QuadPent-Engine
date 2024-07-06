@@ -53,6 +53,19 @@ void BASE::RotateAxis(GLfloat Radians, GLfloat AxisX, GLfloat AxisY) {
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
 }
 
+void BASE::LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT) {
+	GLfloat targetAngle{}, shortestAngle{};
+	targetAngle = atan2(ToY - FromY, ToX - FromX) * (180 / 3.14);
+	targetAngle = NormalizeDegree(targetAngle);
+
+	if (RotationSpeed > 0)
+		shortestAngle = std::lerp(shortestAngle, CalculateShortestRotation(RotationVar, targetAngle), FT * RotationSpeed);
+	else
+		shortestAngle = CalculateShortestRotation(RotationVar, targetAngle);
+
+	RotationVar = NormalizeDegree(RotationVar + shortestAngle);
+}
+
 GLfloat BASE::ASP(GLfloat Value) {
 	return Value * ASPECT;
 }
@@ -93,19 +106,6 @@ void BASE::RenderImage(unsigned int Image, GLfloat Transparency, Flip FlipOption
 	TransparencyValue = Transparency;
 	ProcessTransform();
 	imageUtil.Render(Image);
-}
-
-void BASE::ProcessTransform() {
-	renderMode.SetImageMode();
-
-	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
-	glUniform1f(TransparencyLocation, TransparencyValue);
-
-	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
-	glUniform3f(ObjectColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
-
-	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(ScaleMatrix * RotateMatrix * TranslateMatrix));
 }
 
 void BASE::SetSound(Sound& Sound, std::string SoundName) {
@@ -166,4 +166,37 @@ void BASE::SetListnerPosition(float X, float Y) {
 
 void BASE::SetSoundPosition(Channel& Channel, float X, float Y) {
 	soundUtil.SetSoundPosition(Channel, X, Y);
+}
+
+////////////////////////// private
+
+void BASE::ProcessTransform() {
+	renderMode.SetImageMode();
+
+	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
+	glUniform1f(TransparencyLocation, TransparencyValue);
+
+	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
+	glUniform3f(ObjectColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
+
+	ModelLocation = glGetUniformLocation(ImageShader, "model");
+	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(ScaleMatrix * RotateMatrix * TranslateMatrix));
+}
+
+GLfloat BASE::NormalizeDegree(GLfloat Degree) {
+	while (Degree < 0) Degree += 360;
+	while (Degree >= 360) Degree -= 360;
+	return Degree;
+}
+
+// 최소 회전 각도 계산 함수
+GLfloat BASE::CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest) {
+	float Diff = DegreeDest - CurrentDegree;
+
+	if (Diff > 180)
+		Diff -= 360;
+	else if (Diff < -180)
+		Diff += 360;
+
+	return Diff;
 }

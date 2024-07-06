@@ -40,6 +40,7 @@ public:
 	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat Radians, float FT);
 	GLfloat ASP(GLfloat Value);
 	void RotateAxis(GLfloat Radians, GLfloat AxisX, GLfloat AxisY);
+	void LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void InitTransform();
 
@@ -74,7 +75,9 @@ public:
 	virtual void ResetControlState() {}
 
 private:
-	void ProcessTransform();
+	void ProcessTransform(); 
+	GLfloat NormalizeDegree(GLfloat Degree);
+	GLfloat CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest);
 };
 
 // dummy object for avoiding iterator error

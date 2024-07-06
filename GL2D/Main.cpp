@@ -43,30 +43,6 @@ Framework fw;
 clock_t StartTime, EndTime;
 float FrameTime;
 
-#include "PhysicsUtil.h"
-class Test : public BASE {
-public:
-	unsigned int Image{};
-	GLfloat Pos{};
-	GLfloat Angle{};
-
-	Test() {
-		SetImage(Image, "MATA_logo");
-		Pos = rect.lx;
-	}
-
-	void Update(float FT) {
-		Angle += FT * 100;
-	}
-
-	void Render() {
-		InitTransform();
-		RotateVerticalSpot(Angle);
-		RotateHorizontalSpot(-Angle * 0.8);
-		ScaleSpot(0.5, 0.5);
-		RenderImage(Image, 1.0);
-	}
-};
 
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
@@ -143,7 +119,6 @@ void main(int argc, char** argv) {
 	cam.Init();
 
 	fw.Init(Mode1::GameMode1, Mode1::SetController);
-	fw.AddObject(new Test, "test", Layer::L1);
 
 	glutDisplayFunc(GLMain);
 	glutReshapeFunc(DisplayReshape);
