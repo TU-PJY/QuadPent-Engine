@@ -56,7 +56,7 @@ void Framework::Init(Function ModeFunction, ControllerFunction Controller) {
 	FLog.Log(LogType::FM_INIT);
 
 	for (int i = 0; i < Num; ++i)
-		AddObject(new FWM_DUMMY, "DUMMY", static_cast<Layer>(i));
+		AddObject(new FWM_DUMMY, "DUMMY", static_cast<Layer>(i), true);
 
 	RoutineRunningDesc = true;
 }
@@ -149,7 +149,7 @@ void Framework::ResetControlState(BASE* Object) {
 }
 
 
-void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetFloatingObject) {
+void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetStaticObject, bool SetFloatingObject) {
 	Container[static_cast<int>(AddLayer)].push_back(Object);
 	Object->ObjectTag = Tag;
 
@@ -158,11 +158,16 @@ void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool Se
 	if (Tag != "DUMMY") {
 		FLog.ObjectTag = Tag;
 		FLog.Log(LogType::ADD_OBJECT);
-	}
 
-	if (SetFloatingObject) {
-		Object->FloatingObjectDesc = true;
-		FLog.Log(LogType::SET_FLOATING_OBJECT);
+		if (SetFloatingObject) {
+			Object->FloatingObjectDesc = true;
+			FLog.Log(LogType::SET_FLOATING_OBJECT);
+		}
+
+		if (SetStaticObject) {
+			Object->StaticDesc = true;
+			FLog.Log(LogType::SET_STATIC_OBJECT);
+		}
 	}
 }
 
@@ -267,7 +272,7 @@ void Framework::ClearFloatingObject() {
 void Framework::ClearAll() {
 	for (int i = 0; i < Num; ++i) {
 		for (auto It = begin(Container[i]); It != end(Container[i]); ++It) {
-			if ((*It)->ObjectTag != "DUMMY")
+			if (!(*It)->StaticDesc)
 				(*It)->DeleteDesc = true;
 		}
 	}

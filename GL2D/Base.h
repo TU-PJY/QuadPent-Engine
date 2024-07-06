@@ -21,6 +21,7 @@ private:
 public:
 	bool DeleteDesc{};
 	bool FloatingObjectDesc{};
+	bool StaticDesc{};
 	std::string ObjectTag{};
 
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };

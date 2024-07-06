@@ -8,6 +8,7 @@ enum class LogType {
 	MODE_SWITCH,
 	ADD_OBJECT,
 	SET_FLOATING_OBJECT,
+	SET_STATIC_OBJECT,
 	DELETE_OBJECT,
 	START_FLOATING_MODE,
 	END_FLOATING_MODE,
@@ -60,6 +61,11 @@ public:
 			case LogType::SET_FLOATING_OBJECT:
 				cout << "Set Object Floating Object\n";
 				cout << "Object [ " << ObjectTag << " ] set as floating object.\n";
+				break;
+
+			case LogType::SET_STATIC_OBJECT:
+				cout << "Set Object Static Object\n";
+				cout << "Object [ " << ObjectTag << " ] set as static object.\n";
 				break;
 
 			case LogType::DELETE_OBJECT:

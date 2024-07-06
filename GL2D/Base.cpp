@@ -189,7 +189,6 @@ GLfloat BASE::NormalizeDegree(GLfloat Degree) {
 	return Degree;
 }
 
-// 최소 회전 각도 계산 함수
 GLfloat BASE::CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest) {
 	float Diff = DegreeDest - CurrentDegree;
 

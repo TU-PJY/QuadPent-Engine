@@ -43,7 +43,7 @@ public:
 	void StartFloatingMode(Function ModeFunction, ControllerFunction Controller=nullptr, bool FloatingFocus=false);
 	void EndFloatingMode();
 	void ResetControlState(BASE* Object);
-	void AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetFloatingObject=false);
+	void AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetStaticObject =false, bool SetFloatingObject=false);
 	void DeleteSelf(BASE* Object);
 	void DeleteObject(std::string Tag, DeleteRange deleteRange);
 	BASE* Find(std::string Tag);
