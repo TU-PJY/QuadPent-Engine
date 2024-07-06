@@ -29,7 +29,6 @@ void Framework::Routine() {
 						if((*It)->FloatingObjectDesc)  
 							(*It)->Update(FrameTime);
 					}
-
 					else
 						(*It)->Update(FrameTime);
 					(*It)->Render();
