@@ -114,9 +114,6 @@ void TextUtilUnicode::ProcessTransform() {
 	TransparencyLocation = glGetUniformLocation(TextShader, "transparency");
 	glUniform1f(TransparencyLocation, AlphaValue);
 
-	ModelLocation = glGetUniformLocation(TextShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(RotateMatrix * TranslateMatrix * ScaleMatrix));
-
 	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
 	glUniform3f(ObjectColorLocation, TextColor.r, TextColor.g, TextColor.b);
 
@@ -238,9 +235,6 @@ void TextUtil::ProcessTransform() {
 
 	TransparencyLocation = glGetUniformLocation(TextShader, "transparency");
 	glUniform1f(TransparencyLocation, AlphaValue);
-
-	ModelLocation = glGetUniformLocation(TextShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(RotateMatrix * TranslateMatrix * ScaleMatrix));
 
 	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
 	glUniform3f(ObjectColorLocation, TextColor.r, TextColor.g, TextColor.b);

@@ -82,10 +82,6 @@ void ImageUtil::SetImage(unsigned int& Image, std::string ImageName) {
 		Image = -1;
 }
 
-void ImageUtil::ImgASP(GLfloat ImageWidth, GLfloat ImageHeight, GLfloat& Size) {
-	Size = Size * (ImageWidth / ImageHeight);
-}
-
 void ImageUtil::Render(unsigned int ImageVar) {
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, ImageVar);

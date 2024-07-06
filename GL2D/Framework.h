@@ -31,9 +31,7 @@ private:
 
 	float							  FrameTime{};
 
-	Function						  ModeFunctionBuffer{};
 	ControllerFunction				  ControllerBuffer{};
-	ControllerFunction				  ControllerBackUpBuffer{};
 
 public:
 	Framework();
@@ -42,7 +40,7 @@ public:
 	void SetFrameTime(float ElapsedTime);
 	void Routine();
 	void SwitchMode(Function ModeFunction, ControllerFunction Controller=nullptr);
-	void StartFloatingMode(Function ModeFunction, ControllerFunction Controller=nullptr, bool FloatingOnlyOption=false);
+	void StartFloatingMode(Function ModeFunction, ControllerFunction Controller=nullptr, bool FloatingFocus=false);
 	void EndFloatingMode();
 	void ResetControlState(BASE* Object);
 	void AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetFloatingObject=false);

@@ -43,6 +43,31 @@ Framework fw;
 clock_t StartTime, EndTime;
 float FrameTime;
 
+#include "PhysicsUtil.h"
+class Test : public BASE {
+public:
+	unsigned int Image{};
+	GLfloat Pos{};
+	GLfloat Angle{};
+
+	Test() {
+		SetImage(Image, "MATA_logo");
+		Pos = rect.lx;
+	}
+
+	void Update(float FT) {
+		Angle += FT * 100;
+	}
+
+	void Render() {
+		InitTransform();
+		RotateVerticalSpot(Angle);
+		RotateHorizontalSpot(-Angle * 0.8);
+		ScaleSpot(0.5, 0.5);
+		RenderImage(Image, 1.0);
+	}
+};
+
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
 	WIDTH = w;
@@ -55,8 +80,8 @@ GLvoid GLMain() {
 	glClearColor(BackColor.r, BackColor.g, BackColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	soundUtil.Update();
 	fw.Routine();
+	soundUtil.Update();
 
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -110,11 +135,15 @@ void main(int argc, char** argv) {
 	shader.LoadFragmentShader("MATA_ENGINE_RES//GLSL//GLSL_fragment_text.glsl");
 	shader.CreateShader(TextShader);
 
-	imageUtil.Init();
-	soundUtil.Init();
 	SetBackColor(1.0, 1.0, 1.0);
 
+	imageUtil.Init();
+	imageUtil.LoadImageFromList();
+	soundUtil.Init();
+	cam.Init();
+
 	fw.Init(Mode1::GameMode1, Mode1::SetController);
+	fw.AddObject(new Test, "test", Layer::L1);
 
 	glutDisplayFunc(GLMain);
 	glutReshapeFunc(DisplayReshape);

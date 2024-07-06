@@ -16,9 +16,8 @@ public:
 	void AddGravityAcc(GLfloat AccValue);
 	void BounceFloor(GLfloat& Position, GLfloat FloorHeight, GLfloat RebounceValue, GLfloat Threshold);
 	void BounceWall(int& MoveDirection, GLfloat& Speed, GLfloat RebounceValue);
-	void LerpAcc(GLfloat& Position, GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT);
-	void LerpDcc(GLfloat& Position, GLfloat& Speed, GLfloat Friction, float FT);
-	void LinearAcc(GLfloat& Position, GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT);
-	void LinearDcc(GLfloat& Position, GLfloat& Speed, GLfloat Friction, float FT);
-	void MoveUniform(GLfloat& Position, int& MoveDirection, GLfloat Speed, float FT);
+	void LerpAcc(GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT);
+	void LerpDcc(GLfloat& Speed, GLfloat Friction, float FT);
+	void LinearAcc(GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT);
+	void LinearDcc(GLfloat& Speed, GLfloat Friction, float FT);
 };

@@ -47,20 +47,18 @@ void PhysicsUtil::BounceFloor(GLfloat& Position, GLfloat FloorHeight, GLfloat Re
 
 void PhysicsUtil::BounceWall(int& MoveDirection, GLfloat& Speed, GLfloat RebounceValue) {
 	MoveDirection *= -1;
-	Speed *= -RebounceValue;
+	Speed *= RebounceValue;
 }
 
-void PhysicsUtil::LerpAcc(GLfloat& Position, GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT) {
+void PhysicsUtil::LerpAcc(GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT) {
 	Speed = std::lerp(Speed, Dest * MoveDirection, FT * AccValue);
-	Position += Speed * FT;
 }
 
-void PhysicsUtil::LerpDcc(GLfloat& Position, GLfloat& Speed, GLfloat Friction, float FT) {
+void PhysicsUtil::LerpDcc(GLfloat& Speed, GLfloat Friction, float FT) {
 	Speed = std::lerp(Speed, 0.0, FT * Friction);
-	Position += Speed * FT;
 }
 
-void PhysicsUtil::LinearAcc(GLfloat& Position, GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT) {
+void PhysicsUtil::LinearAcc(GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT) {
 	Speed += MoveDirection * AccValue * FT;
 
 	if (MoveDirection > 0) {
@@ -72,11 +70,9 @@ void PhysicsUtil::LinearAcc(GLfloat& Position, GLfloat& Speed, int MoveDirection
 		if (Speed <= Dest * MoveDirection)
 			Speed = Dest * MoveDirection;
 	}
-
-	Position += Speed * FT;
 }
 
-void PhysicsUtil::LinearDcc(GLfloat& Position, GLfloat& Speed, GLfloat Friction, float FT) {
+void PhysicsUtil::LinearDcc(GLfloat& Speed, GLfloat Friction, float FT) {
 	if (Speed > 0) {
 		Speed -= Friction * FT;
 		if (Speed <= 0)
@@ -88,10 +84,4 @@ void PhysicsUtil::LinearDcc(GLfloat& Position, GLfloat& Speed, GLfloat Friction,
 		if (Speed >= 0)
 			Speed = 0;
 	}
-
-	Position += Speed * FT;
-}
-
-void PhysicsUtil::MoveUniform(GLfloat& Position, int& MoveDirection, GLfloat Speed, float FT) {
-	Position += Speed * MoveDirection * FT;
 }

@@ -22,6 +22,13 @@ extern Rect rect;
 // GPU vendor name and vendor print option
 extern std::string VENDOR;
 
+// global scope shader
+extern GLuint ImageShader;
+extern GLuint TextShader;
+
+void SetBackColor(GLfloat R, GLfloat G, GLfloat B);
+extern glm::vec3 BackColor;
+
 
 
 // window name
@@ -38,30 +45,3 @@ constexpr bool ShowConsole = true;
 
 //vendor print option
 constexpr bool PrintVendorInfoOpt = false;
-
-
-
-// global scope shader
-extern GLuint ImageShader;
-extern GLuint TextShader;
-
-void SetBackColor(GLfloat R, GLfloat G, GLfloat B);
-extern glm::vec3 BackColor;
-
-
-// Multiply Xposition with Aspect
-inline void ASP(GLfloat& ValueX) {
-	ValueX *= ASPECT;
-}
-
-// Divide Xposition with Aspect
-inline void DivASP(GLfloat& ValueX) {
-	ValueX /= ASPECT;
-}
-
-// Calculate distance of 2 dots
-inline GLfloat GetDistance(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2) {
-	GLfloat DistanceX = X2 - X1;
-	GLfloat DistanceY = Y2 - Y1;
-	return sqrt(pow(DistanceX, 2) + pow(DistanceY, 2));
-}

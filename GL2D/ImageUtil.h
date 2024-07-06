@@ -18,7 +18,6 @@ public:
 	void LoadImageFromList();
 	void LoadImageFromFile(unsigned int& Image, const char* FileName);
 	void SetImage(unsigned int& Image, std::string ImageName);
-	void ImgASP(GLfloat Width, GLfloat Height, GLfloat& Size);
 	void Render(unsigned int ImageVar);
 };
 extern ImageUtil imageUtil;

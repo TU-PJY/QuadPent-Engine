@@ -15,6 +15,7 @@ public:
 	GLfloat Zoom{ 1.0f };
 
 	void CalculateASPECT();
+	void Init();
 	void SetCamera();
 	void ProcessTransform(bool UseTextShader);
 };

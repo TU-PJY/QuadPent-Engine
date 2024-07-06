@@ -20,26 +20,35 @@ private:
 	FMOD::DSP* BeatDetector{};
 	FMOD::DSP* LowPass{};
 
+	FMOD_VECTOR listenerPos{};
+	FMOD_VECTOR soundPos{};
+
 	FMOD_RESULT Result{};
 	void* ExtDvData{};
 
 public:
 	void Init();
+	FMOD::Channel* GetChannel(std::string ChannelName);
+	FMOD::Sound* GetSound(std::string SoundName);
 	void LoadSoundFromList();
 	void LoadChannelFromList();
 	void Update();
-	unsigned int GetLength(std::string SoundName);
-	void PlaySound(std::string SoundName, std::string ChannelName, unsigned int Ms=0);
-	void PauseSound(std::string ChannelName, bool Flag);
-	void StopSound(std::string ChannelName);
-	unsigned int GetPlayTime(std::string ChannelName);
-	void SetPlaySpeed(std::string ChannelName, float PlaySpeed);
-	void SetFreqCutOff(std::string ChannelName, float Frequency);
-	void UnSetFreqCutOff(std::string ChannelName);
-	void SetBeatDetect(std::string ChannelName);
-	void UnSetBeatDetect(std::string ChannelName);
-	float DetectBeat(float Threshold, int DataSize);
+	void PlaySound(FMOD::Sound* Sound, FMOD::Channel*& Channel, unsigned int Ms);
+	void PauseSound(FMOD::Channel*& Channel, bool Flag);
+	void StopSound(FMOD::Channel*& Channel);
+	unsigned int GetLength(FMOD::Sound* Sound);
+	unsigned int GetPlayTime(FMOD::Channel* Channel);
+	void SetPlaySpeed(FMOD::Channel*& Channel, float Speed);
+	void ResetPlaySpeed(FMOD::Channel*& Channel);
+	void SetFreqCutOff(FMOD::Channel*& Channel, float Frequency);
+	void SetBeatDetect(FMOD::Channel*& Channel);
+	float DetectBeat(float Threshold, float SamplingRate);
+	void UnSetBeatDetect(FMOD::Channel*& Channel);
+	void UnSetFreqCutOff(FMOD::Channel*& Channel);
 	size_t GetSoundNum();
 	int GetSoundNumIf(std::string ContainedStr);
+	void SetDistance(FMOD::Channel*& Channel, float MinDist, float MaxDist);
+	void SetListnerPosition(float X, float Y);
+	void SetSoundPosition(FMOD::Channel*& Channel, float X, float Y);
 };
 extern SoundUtil soundUtil;

@@ -9,6 +9,11 @@ void CameraUtil::CalculateASPECT() {
 	rect.ry = 1.0;
 }
 
+void CameraUtil::Init() {
+	CalculateASPECT();
+	SetCamera();
+}
+
 void CameraUtil::SetCamera() {
 	using namespace glm;
 	CalculateASPECT();

@@ -50,7 +50,7 @@ void Framework::Init(Function ModeFunction, ControllerFunction Controller) {
 	if (Controller)  
 		Controller();
 
-	ControllerBackUpBuffer = Controller;
+	ControllerBuffer = Controller;
 
 	FLog.CurrentMode = CurrentRunningMode;
 	FLog.Log(LogType::FM_INIT);
@@ -73,7 +73,7 @@ void Framework::SwitchMode(Function ModeFunction, ControllerFunction Controller)
 
 	if (Controller) {
 		Controller();
-		ControllerBackUpBuffer = Controller;
+		ControllerBuffer = Controller;
 	}
 
 	FLog.CurrentMode = CurrentRunningMode;
@@ -93,7 +93,7 @@ void Framework::SwitchMode(Function ModeFunction, ControllerFunction Controller)
 }
 
 
-void Framework::StartFloatingMode(Function ModeFunction, ControllerFunction Controller, bool FloatingOnlyOption) {
+void Framework::StartFloatingMode(Function ModeFunction, ControllerFunction Controller, bool FloatingFocus) {
 	if (!RoutineRunningDesc || FloatingRunningDesc)
 		return;
 
@@ -105,7 +105,7 @@ void Framework::StartFloatingMode(Function ModeFunction, ControllerFunction Cont
 	if(Controller)  
 		Controller();
 
-	FloatingFocusDesc = FloatingOnlyOption;
+	FloatingFocusDesc = FloatingFocus;
 	FLog.IsOnlyFloating = FloatingFocusDesc;
 
 	FLog.CurrentMode = CurrentRunningMode;
@@ -128,8 +128,8 @@ void Framework::EndFloatingMode() {
 	ClearFloatingObject();
 	CurrentRunningMode = PrevRunningMode;
 
-	if (ControllerBackUpBuffer)  
-		ControllerBackUpBuffer();
+	if (ControllerBuffer)  
+		ControllerBuffer();
 
 	FloatingRunningDesc = false;
 	FloatingFocusDesc = false;

@@ -37,9 +37,9 @@ public:
 				cout << "Mode Switch\n";
 				cout << "Mode Switched from [ " << PrevMode << " ] to [ " << CurrentMode << " ].\n";
 				if (IsOnlyFloating)
-					cout << "Floating only state is activated.\n";
+					cout << "Floating Focus is activated.\n";
 				else
-					cout << "Floating only state is not activated.\n";
+					cout << "Floating Focus is not activated.\n";
 				break;
 
 			case LogType::START_FLOATING_MODE:
