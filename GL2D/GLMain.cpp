@@ -112,7 +112,6 @@ void main(int argc, char** argv) {
 	shader.CreateShader(TextShader);
 
 	imageUtil.Init();
-	imageUtil.LoadImageFromList();
 	soundUtil.Init();
 	SetBackColor(1.0, 1.0, 1.0);
 

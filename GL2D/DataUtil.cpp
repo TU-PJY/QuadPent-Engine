@@ -8,7 +8,7 @@
 #define USE_CUSTOM_PATH
 
 // game version
-#define VERSION 2
+#define VERSION 1
 constexpr const char* FolderName = "MyData";
 constexpr const char* FileName = "Data.txt";
 
@@ -65,7 +65,7 @@ void DataUtil::Init() {
 		else  
 			exit(EXIT_FAILURE);
 
-		WriteData(DataVersionStr, VERSION);
+		UpdateData(DataVersionStr, VERSION);
 	}
 
 	CheckDataVersion();
@@ -85,7 +85,7 @@ void DataUtil::CheckDataVersion() {
 		RegexDataList.push_back(Data);
 	}
 
-	std::vector<int> BackUpDataList{};
+	std::vector<float> BackUpDataList{};
 
 	for (auto& D : DataList)
 		BackUpDataList.push_back(LoadData(D));
@@ -117,9 +117,9 @@ void DataUtil::CheckDataVersion() {
 	OutFile.close();
 
 	for (int i = 0; i < DataList.size(); ++i)
-		WriteData(DataList[i], BackUpDataList[i]);
+		UpdateData(DataList[i], BackUpDataList[i]);
 	
-	WriteData(DataVersionStr, VERSION);
+	UpdateData(DataVersionStr, VERSION);
 }
 
 void DataUtil::ResetData() {
@@ -148,10 +148,10 @@ void DataUtil::ResetData() {
 
 	OutFile.close();
 
-	WriteData(DataVersionStr, VERSION);
+	UpdateData(DataVersionStr, VERSION);
 }
 
-void DataUtil::WriteData(const std::string& DataName, int DataValue) {
+void DataUtil::UpdateData(const std::string& DataName, float DataValue) {
 	auto It = std::find(DataList.begin(), DataList.end(), DataName);
 	if (It == DataList.end())  
 		exit(EXIT_FAILURE);
@@ -172,14 +172,13 @@ void DataUtil::WriteData(const std::string& DataName, int DataValue) {
 
 	bool KeyFind = false;
 
-	std::regex Pattern(R"(\[([\w\s]+)\]=(\d+))");
+	std::regex Pattern(R"(\[([\w\s]+)\]=([0-9]*\.?[0-9]+))");
 	std::smatch Match;
 	std::string NewContent = FileContent;
 
 	while (std::regex_search(FileContent, Match, Pattern)) {
 		std::string Var = Match[1];
 		std::string Value = Match[2];
-		int CurrentValue = std::stoi(Value);
 
 		if (Var == DataName) {
 			std::string ReplaceStr = "[" + DataName + "]=" + std::to_string(DataValue);
@@ -198,7 +197,7 @@ void DataUtil::WriteData(const std::string& DataName, int DataValue) {
 	OutFile.close();
 }
 
-int DataUtil::LoadData(std::string DataName) {
+float DataUtil::LoadData(std::string DataName) {
 	auto It = std::find(DataList.begin(), DataList.end(), DataName);
 	if (It == DataList.end())  
 		exit(EXIT_FAILURE);
@@ -210,10 +209,10 @@ int DataUtil::LoadData(std::string DataName) {
 	if (!InFIle) 
 		exit(EXIT_FAILURE);
 
-	int DataGet{};
+	float DataGet{};
 
 	std::string Line;
-	std::regex Pattern(R"(\[(\w+\s+\w+)\]=(\d+))");
+	std::regex Pattern(R"(\[([\w\s]+)\]=([0-9]*\.?[0-9]+))");
 
 	while (std::getline(InFIle, Line)) {
 		std::smatch Match;
@@ -223,7 +222,7 @@ int DataUtil::LoadData(std::string DataName) {
 			std::string Value = Match[2];
 
 			if (Var == DataName) {
-				DataGet = stoi(Value);
+				DataGet = stof(Value);
 				break;
 			}
 		}

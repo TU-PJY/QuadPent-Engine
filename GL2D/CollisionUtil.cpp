@@ -6,7 +6,7 @@
 
 void AABB::Init() {
 	if (ShowBoundBox) 
-		Box = imageUtil.SetImage("gl2d_boundbox");
+		imageUtil.SetImage(Box, "gl2d_boundbox");
 }
 
 void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, bool UseViewportPosition) {

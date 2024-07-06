@@ -18,9 +18,9 @@ public:
 
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
-	GLfloat Transparency{ 1.0f };
+	GLfloat TransparencyValue{ 1.0f };
 
-	void Translate(GLfloat MoveX, GLfloat MoveY);
+	void Move(GLfloat MoveX, GLfloat MoveY);
 	void Rotate(GLfloat Radians);
 	void Scale(GLfloat ScaleX, GLfloat ScaleY);
 	void RotateSpot(GLfloat Radians);
@@ -28,9 +28,8 @@ public:
 	void RotateAxis(GLfloat Radians, GLfloat AxisX, GLfloat AxisY);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void InitTransform();
+	void Transparency(GLfloat Value);
 	void ProcessTransform();
-	void SetImage(std::string ImageName);
-	void RenderImage(unsigned int Image, GLfloat TransparencyValue);
 
 	virtual void Update(float FT) {}
 	virtual void Render() {}

@@ -1,20 +1,6 @@
 #include "PhysicsUtil.h"
 #include <cmath>
 
-void PhysicsUtil::SetMove(MoveDir Direction) {
-	switch (Direction) {
-	case MoveDir::Positive:
-		MoveDirection = 1;
-		break;
-	case MoveDir::Negetive:
-		MoveDirection = -1;
-		break;
-	case MoveDir::Zero:
-		MoveDirection = 0;
-		break;
-	}
-}
-
 void PhysicsUtil::SetFallingState() {
 	FallingState = true;
 }
@@ -29,6 +15,13 @@ void PhysicsUtil::Fall(GLfloat& Position, GLfloat Gravity, float FT) {
 		GravityAcc -= Gravity * FT;
 		Position += GravityAcc * FT;
 	}
+}
+
+bool PhysicsUtil::IsOnFloor(GLfloat Position, GLfloat FloorHeight) {
+	if (Position <= FloorHeight)
+		return true;
+
+	return false;
 }
 
 void PhysicsUtil::LandFloor(GLfloat& Position, GLfloat FloorHeight) {
@@ -52,22 +45,22 @@ void PhysicsUtil::BounceFloor(GLfloat& Position, GLfloat FloorHeight, GLfloat Re
 	}
 }
 
-void PhysicsUtil::BounceWall(GLfloat RebounceValue) {
+void PhysicsUtil::BounceWall(int& MoveDirection, GLfloat& Speed, GLfloat RebounceValue) {
 	MoveDirection *= -1;
 	Speed *= -RebounceValue;
 }
 
-void PhysicsUtil::LerpAcc(GLfloat& Position, GLfloat Dest, GLfloat AccValue, float FT) {
+void PhysicsUtil::LerpAcc(GLfloat& Position, GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT) {
 	Speed = std::lerp(Speed, Dest * MoveDirection, FT * AccValue);
 	Position += Speed * FT;
 }
 
-void PhysicsUtil::LerpDcc(GLfloat& Position, GLfloat Friction, float FT) {
+void PhysicsUtil::LerpDcc(GLfloat& Position, GLfloat& Speed, GLfloat Friction, float FT) {
 	Speed = std::lerp(Speed, 0.0, FT * Friction);
 	Position += Speed * FT;
 }
 
-void PhysicsUtil::LinearAcc(GLfloat& Position, GLfloat Dest, GLfloat AccValue, float FT) {
+void PhysicsUtil::LinearAcc(GLfloat& Position, GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT) {
 	Speed += MoveDirection * AccValue * FT;
 
 	if (MoveDirection > 0) {
@@ -83,7 +76,7 @@ void PhysicsUtil::LinearAcc(GLfloat& Position, GLfloat Dest, GLfloat AccValue, f
 	Position += Speed * FT;
 }
 
-void PhysicsUtil::LinearDcc(GLfloat& Position, GLfloat Friction, float FT) {
+void PhysicsUtil::LinearDcc(GLfloat& Position, GLfloat& Speed, GLfloat Friction, float FT) {
 	if (Speed > 0) {
 		Speed -= Friction * FT;
 		if (Speed <= 0)
@@ -99,6 +92,6 @@ void PhysicsUtil::LinearDcc(GLfloat& Position, GLfloat Friction, float FT) {
 	Position += Speed * FT;
 }
 
-void PhysicsUtil::MoveUniform(GLfloat& Position, GLfloat Dest, float FT) {
-	Position += Dest * MoveDirection * FT;
+void PhysicsUtil::MoveUniform(GLfloat& Position, int& MoveDirection, GLfloat Speed, float FT) {
+	Position += Speed * MoveDirection * FT;
 }

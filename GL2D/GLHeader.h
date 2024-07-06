@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable: 4244) 
 #include <gl/glew.h>
 #include <gl/freeglut.h>
 #include <gl/freeglut_ext.h>

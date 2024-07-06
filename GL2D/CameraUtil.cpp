@@ -53,18 +53,22 @@ void CameraUtil::ProcessTransform(bool UseTextShader) {
 }
 
 // Divide value with camera zoom value
-void DivZoom(GLfloat& Value) {
-	Value /= cam.Zoom;
+GLfloat DivZoom(GLfloat Value) {
+	return Value / cam.Zoom;
 }
 
-void SubRot(GLfloat& Value) {
-	Value -= cam.Rotation;
+GLfloat SubRot(GLfloat Radians) {
+	return Radians - cam.Rotation;
 }
 
-void SubPos(GLfloat& X, GLfloat& Y) {
-	X = X - cam.x;
-	Y = Y - cam.y;
+GLfloat SubPosX(GLfloat X) {
+	return X - cam.y;
 }
+
+GLfloat SubPosY(GLfloat Y) {
+	return Y - cam.y;
+}
+
 
 
 void CamaraControlUtil::Translate(GLfloat X, GLfloat Y) {

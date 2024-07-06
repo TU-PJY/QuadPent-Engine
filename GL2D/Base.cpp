@@ -2,9 +2,10 @@
 #include "RenderModeUtil.h"
 #include "ImageUtil.h"
 #include "SoundUtil.h"
+#include "CameraUtil.h"
 
 
-void BASE::Translate(GLfloat X, GLfloat Y) {
+void BASE::Move(GLfloat X, GLfloat Y) {
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
 }
 
@@ -36,32 +37,26 @@ void BASE::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	ObjectColor.b = B;
 }
 
+void BASE::Transparency(GLfloat Value) {
+	TransparencyValue = Value;
+}
+
 void BASE::InitTransform() {
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
-	Transparency = 1.0f;
+	TransparencyValue = 1.0f;
 }
 
 void BASE::ProcessTransform() {
 	renderMode.SetImageMode();
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
-	glUniform1f(TransparencyLocation, Transparency);
+	glUniform1f(TransparencyLocation, TransparencyValue);
 
 	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
 	glUniform3f(ObjectColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(RotateMatrix * TranslateMatrix * ScaleMatrix));
-}
-
-void BASE::SetImage(std::string ImageName) {
-	imageUtil.SetImage(ImageName);
-}
-
-void BASE::RenderImage(unsigned int Image, GLfloat TransparencyValue) {
-	Transparency = TransparencyValue;
-	ProcessTransform();
-	imageUtil.Render(Image);
 }
