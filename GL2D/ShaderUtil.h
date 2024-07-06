@@ -1,6 +1,6 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
-#include "GLHeader.h"
+#include "MATA_HEADER.h"
 
 class ShaderUtil {
 private:

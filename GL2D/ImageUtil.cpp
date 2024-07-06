@@ -5,8 +5,8 @@
 
 std::vector<ImageInfo> ImageList
 {
-	{"gl2d_boundbox", "GL2D res//boundbox.png"}, // do not delete this
-	{"FMOD_logo", "GL2D res//FMOD logo.png"}, // do not delete this
+	{"gl2d_boundbox", "MATA_ENGINE_RES//boundbox.png"}, // do not delete this
+	{"FMOD_logo", "MATA_ENGINE_RES//FMOD logo.png"}, // do not delete this
 
 };
 
@@ -37,8 +37,6 @@ void ImageUtil::Init() {
 	glEnableVertexAttribArray(2);
 
 	stbi_set_flip_vertically_on_load(true);
-
-	LoadImageFromList();
 }
 
 void ImageUtil::LoadImageFromList() {

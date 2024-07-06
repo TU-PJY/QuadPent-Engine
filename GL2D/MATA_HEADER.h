@@ -21,7 +21,11 @@ extern Rect rect;
 
 // GPU vendor name and vendor print option
 extern std::string VENDOR;
-constexpr bool PrintVendorInfoOpt = false;
+
+
+
+// window name
+constexpr const char* WindowName = "MATA_ENGINE-1";
 
 // fullscreen option
 constexpr bool StartWithFullScreen = false;
@@ -31,6 +35,11 @@ constexpr bool ShowBoundBox = true;
 
 // console window option
 constexpr bool ShowConsole = true;
+
+//vendor print option
+constexpr bool PrintVendorInfoOpt = false;
+
+
 
 // global scope shader
 extern GLuint ImageShader;

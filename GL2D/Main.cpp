@@ -1,10 +1,10 @@
+#include "MATA_HEADER.h"
+#include "Framework.h"
 #include "CameraUtil.h"
+#include "MouseUtil.h"
+#include "ImageUtil.h"
 #include "DataUtil.h"
 #include "FontLoaderUtil.h"
-#include "Framework.h"
-#include "GLHeader.h"
-#include "ImageUtil.h"
-#include "MouseUtil.h"
 #include "RandomUtil.h"
 #include "RenderModeUtil.h"
 #include "ShaderUtil.h"
@@ -25,7 +25,6 @@ int HEIGHT = 800;
 GLfloat ASPECT;
 Rect rect;
 glm::vec3 BackColor;
-
 std::string VENDOR;
 
 ShaderUtil shader;
@@ -78,7 +77,7 @@ void main(int argc, char** argv) {
 
 	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - HEIGHT / 2);
 	glutInitWindowSize(WIDTH, HEIGHT);
-	glutCreateWindow("GL2D");
+	glutCreateWindow(WindowName);
 
 	if (StartWithFullScreen)
 		glutFullScreen();
@@ -104,11 +103,11 @@ void main(int argc, char** argv) {
 	glEnable(GL_SMOOTH);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	shader.LoadVertexShader("GLSL//GLSL_vertex.glsl");
-	shader.LoadFragmentShader("GLSL//GLSL_fragment.glsl");
+	shader.LoadVertexShader("MATA_ENGINE_RES//GLSL//GLSL_vertex.glsl");
+	shader.LoadFragmentShader("MATA_ENGINE_RES//GLSL//GLSL_fragment.glsl");
 	shader.CreateShader(ImageShader);
 
-	shader.LoadFragmentShader("GLSL//GLSL_fragment_text.glsl");
+	shader.LoadFragmentShader("MATA_ENGINE_RES//GLSL//GLSL_fragment_text.glsl");
 	shader.CreateShader(TextShader);
 
 	imageUtil.Init();

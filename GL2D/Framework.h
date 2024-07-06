@@ -26,12 +26,8 @@ private:
 	std::string                       PrevRunningMode{};
 
 	bool							  RoutineRunningDesc{};
-	bool							  InSwitchDesc{};
-
 	bool							  FloatingRunningDesc{};
 	bool                              FloatingFocusDesc{};
-
-	bool							  ModeSwitchReserveDesc{};
 
 	float							  FrameTime{};
 
@@ -58,7 +54,6 @@ public:
 
 private:
 	void ClearDelObjects(int i);
-	void ChangeMode();
 	void ClearFloatingObject();
 	void ClearAll();
 };

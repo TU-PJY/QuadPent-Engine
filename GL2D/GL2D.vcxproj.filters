@@ -40,14 +40,8 @@
     <Filter Include="[3]___________[ Util ]\[ Text Util ]">
       <UniqueIdentifier>{ebbafb29-e74d-4f67-ae00-7ab61d0dd40e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[4]___________[ OpenGL ]">
-      <UniqueIdentifier>{b19c2cd5-f7dc-4a85-9cfa-b0749b68ceea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ GLSL ]">
       <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[6]___________[ Mode Template ]">
-      <UniqueIdentifier>{e23c787b-89a9-41e0-99df-997b10e2c350}</UniqueIdentifier>
     </Filter>
     <Filter Include="[2]___________[ GameMode ]">
       <UniqueIdentifier>{824d0f24-8e5b-4c58-99e5-e019f51ea99a}</UniqueIdentifier>
@@ -73,6 +67,9 @@
     <Filter Include="[3]___________[ Util ]\[ Physics Util ]">
       <UniqueIdentifier>{63469aed-9fc3-41f7-bbf0-32d2050b40a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[4]___________[ MATA_ENGINE-1 ]">
+      <UniqueIdentifier>{b19c2cd5-f7dc-4a85-9cfa-b0749b68ceea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
@@ -81,7 +78,7 @@
     <ClCompile Include="Base.cpp">
       <Filter>[1]___________[ Object ]\[3][ Object Base ]</Filter>
     </ClCompile>
-    <ClCompile Include="GLMain.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="CameraUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Camera Util ]</Filter>
     </ClCompile>
@@ -129,8 +126,8 @@
     <ClInclude Include="Mode1.h">
       <Filter>[2]___________[ GameMode ]\[ Mode1 ]</Filter>
     </ClInclude>
-    <ClInclude Include="GLHeader.h">
-      <Filter>[4]___________[ OpenGL ]</Filter>
+    <ClInclude Include="MATA_HEADER.h">
+      <Filter>[4]___________[ MATA_ENGINE-1 ]</Filter>
     </ClInclude>
     <ClInclude Include="Base.h">
       <Filter>[1]___________[ Object ]\[3][ Object Base ]</Filter>
@@ -182,19 +179,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="GLSL\GLSL_vertex.glsl">
-      <Filter>[5]___________[ GLSL ]</Filter>
-    </None>
-    <None Include="GLSL\GLSL_fragment_text.glsl">
-      <Filter>[5]___________[ GLSL ]</Filter>
-    </None>
-    <None Include="GLSL\GLSL_fragment.glsl">
-      <Filter>[5]___________[ GLSL ]</Filter>
-    </None>
+    <Text Include="ModeTemplate.txt">
+      <Filter>[2]___________[ GameMode ]</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ModeTemplate.txt">
-      <Filter>[6]___________[ Mode Template ]</Filter>
-    </Text>
+    <None Include="MATA_ENGINE_RES\GLSL\GLSL_fragment.glsl">
+      <Filter>[5]___________[ GLSL ]</Filter>
+    </None>
+    <None Include="MATA_ENGINE_RES\GLSL\GLSL_fragment_text.glsl">
+      <Filter>[5]___________[ GLSL ]</Filter>
+    </None>
+    <None Include="MATA_ENGINE_RES\GLSL\GLSL_vertex.glsl">
+      <Filter>[5]___________[ GLSL ]</Filter>
+    </None>
   </ItemGroup>
 </Project>

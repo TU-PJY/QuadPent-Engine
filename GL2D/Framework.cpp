@@ -21,7 +21,7 @@ std::string Framework::Mode() {
 
 
 void Framework::Routine() {
-	if (!ModeSwitchReserveDesc && RoutineRunningDesc) {
+	if (RoutineRunningDesc) {
 		for (int i = 0; i < Num; ++i) {
 			for (auto It = begin(Container[i]); It != end(Container[i]); ++It) {
 				if (!(*It)->DeleteDesc) {
@@ -34,22 +34,11 @@ void Framework::Routine() {
 						(*It)->Update(FrameTime);
 					(*It)->Render();
 				}
-
-				if (ModeSwitchReserveDesc)
-					break;
-			}
-
-			if (ModeSwitchReserveDesc) {
-				InSwitchDesc = true;
-				break;
 			}
 
 			ClearDelObjects(i);
 		}
 	}
-
-	else
-		ChangeMode();
 }
 
 
@@ -78,13 +67,30 @@ void Framework::SwitchMode(Function ModeFunction, ControllerFunction Controller)
 	if (!RoutineRunningDesc)
 		return;
 
-	ModeFunctionBuffer = ModeFunction;
-	ControllerBuffer = Controller;
-	ControllerBackUpBuffer = Controller;
-
 	FLog.PrevMode = CurrentRunningMode;
 
-	ModeSwitchReserveDesc = true;
+	ClearAll();
+	CurrentRunningMode = ModeFunction();
+
+	if (Controller) {
+		Controller();
+		ControllerBackUpBuffer = Controller;
+	}
+
+	FLog.CurrentMode = CurrentRunningMode;
+
+	FLog.IsOnlyFloating = FloatingFocusDesc;
+	FLog.CurrentMode = CurrentRunningMode;
+	if (FLog.CurrentMode == FLog.PrevMode)
+		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
+
+	if (FloatingRunningDesc) {
+		FLog.Log(LogType::END_FLOATING_MODE);
+		FloatingRunningDesc = false;
+		FloatingFocusDesc = false;
+	}
+
+	FLog.Log(LogType::MODE_SWITCH);
 }
 
 
@@ -228,35 +234,6 @@ size_t Framework::Size(Layer TargetLayer) {
 
 
 //////// private ///////////////
-void Framework::ChangeMode() {
-	FLog.PrevMode = CurrentRunningMode;
-
-	ClearAll();
-	CurrentRunningMode = ModeFunctionBuffer();
-
-	if (ControllerBuffer)
-		ControllerBuffer();
-
-	FLog.CurrentMode = CurrentRunningMode;
-
-	if (FloatingRunningDesc) {
-		FLog.Log(LogType::END_FLOATING_MODE);
-		FloatingRunningDesc = false;
-		FloatingFocusDesc = false;
-	}
-
-	FLog.IsOnlyFloating = FloatingFocusDesc;
-	FLog.CurrentMode = CurrentRunningMode;
-	if (FLog.CurrentMode == FLog.PrevMode)
-		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
-
-	FLog.Log(LogType::MODE_SWITCH);
-
-	ModeSwitchReserveDesc = false;
-	InSwitchDesc = false;
-}
-
-
 void Framework::ClearDelObjects(int i) {
 	std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
 		return Object.second->DeleteDesc;
@@ -290,14 +267,9 @@ void Framework::ClearFloatingObject() {
 
 void Framework::ClearAll() {
 	for (int i = 0; i < Num; ++i) {
-		for (auto It = begin(Container[i]); It != end(Container[i]);) {
-			if ((*It)->ObjectTag != "DUMMY") {
-				delete* It;
-				*It = nullptr;
-				It = Container[i].erase(It);
-				continue;
-			}
-			++It;
+		for (auto It = begin(Container[i]); It != end(Container[i]); ++It) {
+			if ((*It)->ObjectTag != "DUMMY")
+				(*It)->DeleteDesc = true;
 		}
 	}
 
