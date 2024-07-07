@@ -1,11 +1,4 @@
 #pragma once
-#include <gl/glm/glm.hpp>
-#include <gl/glm/ext.hpp>
-#include <gl/glm/gtc/matrix_transform.hpp>
-#include <gl/glew.h>
-#include <gl/freeglut.h>
-#include <gl/freeglut_ext.h>
-#include <string>
 #include "SoundUtil.h"
 #include "CollisionUtil.h"
 #include "PhysicsUtil.h"

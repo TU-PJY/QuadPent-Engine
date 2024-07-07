@@ -5,9 +5,8 @@
 
 
 void AABB::Init() {
-	if (ShowBoundBox) {
+	if (ShowBoundBox)
 		imageUtil.SetImage(Box, "boundbox");
-	}
 }
 
 void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
