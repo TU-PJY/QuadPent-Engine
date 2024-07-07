@@ -10,9 +10,6 @@
     <Filter Include="[1]___________[ Object ]\[1][ Main Object ]">
       <UniqueIdentifier>{d6d673e8-1784-4513-a51f-e1fb334d2ea5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[1]___________[ Object ]\[2][ Sub Object ]">
-      <UniqueIdentifier>{b9e501bb-a47d-43b6-ada9-6bde123338ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[1]___________[ Object ]\[3][ Object Base ]">
       <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
     </Filter>
@@ -69,6 +66,9 @@
     </Filter>
     <Filter Include="[4]___________[ MATA_ENGINE-1 ]">
       <UniqueIdentifier>{b19c2cd5-f7dc-4a85-9cfa-b0749b68ceea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ Object ]\[2][ Floating Object ]">
+      <UniqueIdentifier>{b9e501bb-a47d-43b6-ada9-6bde123338ff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
