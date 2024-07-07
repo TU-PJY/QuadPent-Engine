@@ -42,9 +42,18 @@ void BASE::MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, flo
 	Position += Speed * MoveDirection * FT;
 }
 
+void BASE::MoveStraight(GLfloat& Position, GLfloat Speed, float FT) {
+	Position += Speed * FT;
+}
+
 void BASE::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat Radians, float FT) {
 	X += Speed * cos(glm::radians(Radians)) * MoveDirection * FT;
 	Y += Speed * sin(glm::radians(Radians)) * MoveDirection * FT;
+}
+
+void BASE::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat Radians, float FT) {
+	X += Speed * cos(glm::radians(Radians)) * FT;
+	Y += Speed * sin(glm::radians(Radians)) * FT;
 }
 
 void BASE::RotateAxis(GLfloat Radians, GLfloat AxisX, GLfloat AxisY) {

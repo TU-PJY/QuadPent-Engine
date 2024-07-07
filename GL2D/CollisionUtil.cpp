@@ -9,7 +9,7 @@ void AABB::Init() {
 		imageUtil.SetImage(Box, "boundbox");
 }
 
-void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, bool UseViewportPosition) {
+void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 	OffsetX = xScale / 2;
 	OffsetY = yScale / 2;
 
@@ -32,11 +32,11 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, bool Use
 	}
 }
 
-bool AABB::CheckCollisionAABB(AABB aabb) {
-	if (RightX < aabb.LeftX || LeftX > aabb.RightX)
+bool AABB::CheckCollisionAABB(const AABB& AABB) {
+	if (RightX < AABB.LeftX || LeftX > AABB.RightX)
 		return false;
 
-	if (RightY < aabb.LeftY || LeftY > aabb.RightY)
+	if (RightY < AABB.LeftY || LeftY > AABB.RightY)
 		return false;
 
 	return true;
@@ -75,7 +75,7 @@ bool AABB::CheckCollisionEdge(GLfloat Value, Edge Edge) {
 	return false;
 }
 
-bool AABB::CheckCollisionDot(GLfloat X, GLfloat Y) {
+bool AABB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 	if ((LeftX <= X && X <= RightX) && (LeftY <= Y && Y <= RightY))
 		return true;
 
@@ -106,4 +106,103 @@ void AABB::ProcessTransform() {
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(ScaleMatrix * TranslateMatrix));
+}
+
+
+void OBB::Init() {
+	if (ShowBoundBox)
+		imageUtil.SetImage(Box, "boundbox");
+}
+
+void OBB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, float Degree) {
+	Center = glm::vec2(X, Y);
+	Offset = glm::vec2(xScale / 2, yScale / 2);
+	Rotation = Degree;
+
+	float Rad = glm::radians(Degree);
+	Axis[0] = glm::vec2(std::cos(Rad), std::sin(Rad));
+	Axis[1] = glm::vec2(-std::sin(Rad), std::cos(Rad));
+
+	if (ShowBoundBox) {
+		InitTransform();
+
+		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0f));
+		TranslateMatrix = rotate(TranslateMatrix, Rad, glm::vec3(0.0f, 0.0f, 1.0f));
+		TranslateMatrix = scale(TranslateMatrix, glm::vec3(xScale, yScale, 1.0f));
+
+		ProcessTransform();
+		imageUtil.Render(Box);
+	}
+}
+
+bool OBB::OverlapOnAxis(const OBB& OBB1, const OBB& OBB2, const glm::vec2& Axis) {
+	auto Project = [](const OBB& OBB, const glm::vec2& Axis) {
+		glm::vec2 Corners[4] = {
+			OBB.Center + OBB.Axis[0] * OBB.Offset.x + OBB.Axis[1] * OBB.Offset.y,
+			OBB.Center + OBB.Axis[0] * OBB.Offset.x - OBB.Axis[1] * OBB.Offset.y,
+			OBB.Center - OBB.Axis[0] * OBB.Offset.x + OBB.Axis[1] * OBB.Offset.y,
+			OBB.Center - OBB.Axis[0] * OBB.Offset.x - OBB.Axis[1] * OBB.Offset.y
+		};
+
+		float Min = glm::dot(Corners[0], Axis);
+		float Max = Min;
+
+		for (int i = 1; i < 4; i++) {
+			float Projection = glm::dot(Corners[i], Axis);
+
+			if (Projection < Min) 
+				Min = Projection;
+
+			if (Projection > Max) 
+				Max = Projection;
+		}
+
+		return std::make_pair(Min, Max);
+	};
+
+	auto [Min1, Max1] = Project(OBB1, Axis);
+	auto [Min2, Max2] = Project(OBB2, Axis);
+
+	return !(Max1 < Min2 || Max2 < Min1);
+}
+
+bool OBB::CheckCollisionOBB(const OBB& OBB) {
+	glm::vec2 Axises[] = { Axis[0], Axis[1], OBB.Axis[0], OBB.Axis[1] };
+
+	for (const auto& Axis : Axises) {
+		if (!OverlapOnAxis(*this, OBB, Axis))
+			return false;
+	}
+
+	return true;
+}
+
+bool OBB::CheckCollisionPoint(const glm::vec2& Point) {
+	glm::vec2 D = Point - Center;
+
+	for (int i = 0; i < 2; ++i) {
+		float Dist = glm::dot(D, Axis[i]);
+		if (std::abs(Dist) > Offset[i])
+			return false;
+	}
+	return true;
+}
+
+void OBB::InitTransform() {
+	TranslateMatrix = glm::mat4(1.0f);
+	RotateMatrix = glm::mat4(1.0f);
+	ScaleMatrix = glm::mat4(1.0f);
+}
+
+void OBB::ProcessTransform() {
+	renderMode.SetImageMode();
+
+	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
+	glUniform1f(TransparencyLocation, 1.0);
+
+	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
+	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
+
+	ModelLocation = glGetUniformLocation(ImageShader, "model");
+	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(RotateMatrix * ScaleMatrix * TranslateMatrix));
 }

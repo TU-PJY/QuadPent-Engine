@@ -43,7 +43,6 @@ Framework fw;
 clock_t StartTime, EndTime;
 float FrameTime;
 
-
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
 	WIDTH = w;

@@ -7,6 +7,11 @@
 #include <gl/freeglut_ext.h>
 #include <string>
 #include "SoundUtil.h"
+#include "CollisionUtil.h"
+#include "PhysicsUtil.h"
+#include "TextUtil.h"
+#include "TimerUtil.h"
+#include "RandomUtil.h"
 
 using Sound = FMOD::Sound*;
 using Channel = FMOD::Channel*;
@@ -38,7 +43,9 @@ public:
 	void RotateVerticalSpot(GLfloat Radians);
 	void ScaleSpot(GLfloat X, GLfloat Y);
 	void MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT);
+	void MoveStraight(GLfloat& Position, GLfloat Speed, float FT);
 	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat Radians, float FT);
+	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat Radians, float FT);
 	GLfloat ASP(GLfloat Value);
 	void RotateAxis(GLfloat Radians, GLfloat AxisX, GLfloat AxisY);
 	void LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
@@ -74,6 +81,8 @@ public:
 	virtual void InputMouse(int button, int state, int x, int y) {}
 	virtual void InputScroll(int button, int Wheel, int x, int y) {}
 	virtual void ResetControlState() {}
+	virtual OBB GetOBB() { return{}; }
+	virtual AABB GetAABB() { return {}; }
 
 private:
 	void ProcessTransform(); 
