@@ -70,6 +70,9 @@
     <Filter Include="[1]___________[ Object ]\[2][ Floating Object ]">
       <UniqueIdentifier>{b9e501bb-a47d-43b6-ada9-6bde123338ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[6]___________[ Resources ]">
+      <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
@@ -122,7 +125,7 @@
       <Filter>[3]___________[ Util ]\[ Physics Util ]</Filter>
     </ClCompile>
     <ClCompile Include="ResourceList.cpp">
-      <Filter>[4]___________[ MATA_ENGINE-1 ]</Filter>
+      <Filter>[6]___________[ Resources ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
