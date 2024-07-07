@@ -25,10 +25,8 @@ void Framework::Routine() {
 		for (int i = 0; i < Num; ++i) {
 			for (auto It = begin(Container[i]); It != end(Container[i]); ++It) {
 				if (!(*It)->DeleteDesc) {
-					if (FloatingRunningDesc && FloatingFocusDesc) {
-						if((*It)->FloatingObjectDesc)  
-							(*It)->Update(FrameTime);
-					}
+					if (FloatingRunningDesc && FloatingFocusDesc && (*It)->FloatingObjectDesc)
+						(*It)->Update(FrameTime);
 					else
 						(*It)->Update(FrameTime);
 					(*It)->Render();
