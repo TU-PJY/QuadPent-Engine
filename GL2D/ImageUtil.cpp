@@ -6,6 +6,7 @@
 std::vector<ImageInfo> ImageList
 {
 	{"boundbox", "MATA_ENGINE_RES//boundbox.png"}, // do not delete this
+	{"distance_range", "MATA_ENGINE_RES//distancerange.png"},
 	{"FMOD_logo", "MATA_ENGINE_RES//FMOD Logo.png"}, // do not delete this
 	{"MATA_logo", "MATA_ENGINE_RES//MATA_ENGINE Logo.png"}, // do not delete this
 };

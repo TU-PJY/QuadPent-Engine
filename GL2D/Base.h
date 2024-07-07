@@ -81,8 +81,9 @@ public:
 	virtual void InputMouse(int button, int state, int x, int y) {}
 	virtual void InputScroll(int button, int Wheel, int x, int y) {}
 	virtual void ResetControlState() {}
-	virtual OBB GetOBB() { return{}; }
 	virtual AABB GetAABB() { return {}; }
+	virtual OBB GetOBB() { return{}; }
+	virtual Range GetRange() { return {}; }
 
 private:
 	void ProcessTransform(); 

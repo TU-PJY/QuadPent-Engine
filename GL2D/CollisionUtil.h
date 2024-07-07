@@ -6,7 +6,7 @@ enum class Edge
 
 class AABB {
 private:
-	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
+	glm::mat4 TranslateMatrix{ 1.0f };
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
 
 	GLfloat LeftX{}, LeftY{};
@@ -19,18 +19,20 @@ private:
 public:
 	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
-	bool CheckCollisionAABB(const AABB& AABB);
+	bool CheckCollisionAABB(const AABB& Other);
 	bool CheckCollisionEdge(GLfloat X, Edge Edge);
 	void InterpolateX(GLfloat& X);
 	void InterpolateY(GLfloat& Y);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
+
+private:
 	void InitTransform();
 	void ProcessTransform();
 };
 
 class OBB {
 private:
-	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, RotateMatrix{ 1.0f };
+	glm::mat4 TranslateMatrix{ 1.0f };
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
 
 	glm::vec2 Center;
@@ -43,11 +45,32 @@ private:
 public:
 	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, float rotation);
-	void InitTransform();
-	bool CheckCollisionOBB(const OBB& OBB);
+	bool CheckCollisionOBB(const OBB& Other);
 	bool CheckCollisionPoint(const glm::vec2& Point);
-	void ProcessTransform();
 
 private:
+	void InitTransform();
 	bool OverlapOnAxis(const OBB& OBB1, const OBB& OBB2, const glm::vec2& Axis);
+	void ProcessTransform();
+};
+
+class Range {
+private:
+	glm::mat4 TranslateMatrix{ 1.0f };
+	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
+	unsigned int Circle{};
+
+	GLfloat CenterX{}, CenterY{};
+	GLfloat Radius{};
+
+public:
+	void Init();
+	void Update(GLfloat X, GLfloat Y, GLfloat Size);
+	bool CheckCollisionRange(const Range& Other);
+	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
+
+private:
+	GLfloat CalculateDistance(GLfloat x2, GLfloat y2);
+	void InitTransform();
+	void ProcessTransform();
 };
