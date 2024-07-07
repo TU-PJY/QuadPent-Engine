@@ -6,6 +6,10 @@ std::vector<float> FFTdata(FFT_SIZE);
 // list sounds to load
 std::vector<FileNameAndOption> SoundList
 {
+	// MATA_ENGINE resource
+	{"MATA_ENGINE_LOGO_SOUND", "MATA_ENGINE_RES//Sound//MATA_ENGINE Logo Sound.wav", FMOD_DEFAULT},
+	//////////
+	
 
 };
 

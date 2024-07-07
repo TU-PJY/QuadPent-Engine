@@ -5,10 +5,14 @@
 
 std::vector<ImageInfo> ImageList
 {
-	{"boundbox", "MATA_ENGINE_RES//boundbox.png"}, // do not delete this
-	{"distance_range", "MATA_ENGINE_RES//distancerange.png"},
-	{"FMOD_logo", "MATA_ENGINE_RES//FMOD Logo.png"}, // do not delete this
-	{"MATA_logo", "MATA_ENGINE_RES//MATA_ENGINE Logo.png"}, // do not delete this
+	// MATA_ENGINE resources
+	{"BOUNDBOX", "MATA_ENGINE_RES//Image//Square.png"}, 
+	{"CIRCLE", "MATA_ENGINE_RES//Image//Circle.png"},
+	{"FMOD_LOGO", "MATA_ENGINE_RES//Image//FMOD Logo.png"}, 
+	{"MATA_ENGINE_LOGO", "MATA_ENGINE_RES//Image//MATA_ENGINE Logo.png"}, 
+	////////
+
+
 };
 
 

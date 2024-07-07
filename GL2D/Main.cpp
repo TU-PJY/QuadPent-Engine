@@ -11,9 +11,6 @@
 #include "SoundUtil.h"
 #include "TextUtil.h"
 #include "TimerUtil.h"
-
-#include "Mode1.h"
-
 #include <ctime>
 #include <iostream>
 #include <map>
@@ -37,12 +34,12 @@ MouseUtil mouse;
 SoundUtil soundUtil;
 DataUtil dataUtil;
 FontLoaderUtil fontloaderUtil;
-
 Framework fw;
 
 clock_t StartTime, EndTime;
-float FrameTime;
+float DeltaTime;
 
+#include "Mode1.h"
 
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
@@ -63,8 +60,8 @@ GLvoid GLMain() {
 	glutPostRedisplay();
 
 	EndTime = clock();
-	FrameTime = float(EndTime - StartTime) / 1000;
-	fw.SetFrameTime(FrameTime);
+	DeltaTime = float(EndTime - StartTime) / 1000;
+	fw.SetFrameTime(DeltaTime);
 }
 
 void main(int argc, char** argv) {
@@ -80,8 +77,11 @@ void main(int argc, char** argv) {
 	glutInitWindowSize(WIDTH, HEIGHT);
 	glutCreateWindow(WindowName);
 
-	if (StartWithFullScreen)
+	if (StartWithFullScreen) {
 		glutFullScreen();
+		WIDTH = GetSystemMetrics(SM_CXSCREEN);
+		HEIGHT = GetSystemMetrics(SM_CYSCREEN);
+	}
 
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK) {
@@ -91,9 +91,9 @@ void main(int argc, char** argv) {
 	else
 		std::cout << "GLEW Initialized\n\n";
 
-	const GLubyte* VecdorInfo = glGetString(GL_VENDOR);
-	if (VecdorInfo) {
-		VENDOR = reinterpret_cast<const char*>(VecdorInfo);
+	const GLubyte* VendorInfo = glGetString(GL_VENDOR);
+	if (VendorInfo) {
+		VENDOR = reinterpret_cast<const char*>(VendorInfo);
 		if (PrintVendorInfoOpt)
 			std::cout << "GPU Vendor: " << VENDOR << "\n\n";
 	}
@@ -104,11 +104,11 @@ void main(int argc, char** argv) {
 	glEnable(GL_SMOOTH);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	shader.LoadVertexShader("MATA_ENGINE_RES//GLSL//GLSL_vertex.glsl");
-	shader.LoadFragmentShader("MATA_ENGINE_RES//GLSL//GLSL_fragment.glsl");
+	shader.LoadVertexShader("MATA_ENGINE_RES//GLSL//Vertex.glsl");
+	shader.LoadFragmentShader("MATA_ENGINE_RES//GLSL//Fragment_Image.glsl");
 	shader.CreateShader(ImageShader);
 
-	shader.LoadFragmentShader("MATA_ENGINE_RES//GLSL//GLSL_fragment_text.glsl");
+	shader.LoadFragmentShader("MATA_ENGINE_RES//GLSL//Fragment_Text.glsl");
 	shader.CreateShader(TextShader);
 
 	SetBackColor(1.0, 1.0, 1.0);

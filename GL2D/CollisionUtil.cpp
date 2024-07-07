@@ -6,7 +6,7 @@
 
 void AABB::Init() {
 	if (ShowBoundBox)
-		imageUtil.SetImage(Box, "boundbox");
+		imageUtil.SetImage(Box, "BOUNDBOX");
 }
 
 void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
@@ -111,7 +111,7 @@ void AABB::ProcessTransform() {
 
 void OBB::Init() {
 	if (ShowBoundBox)
-		imageUtil.SetImage(Box, "boundbox");
+		imageUtil.SetImage(Box, "BOUNDBOX");
 }
 
 void OBB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, float Degree) {
@@ -209,7 +209,7 @@ void OBB::ProcessTransform() {
 
 void Range::Init() {
 	if (ShowBoundBox)
-		imageUtil.SetImage(Circle, "distance_range");
+		imageUtil.SetImage(Circle, "CIRCLE");
 }
 
 void Range::InitTransform() {
