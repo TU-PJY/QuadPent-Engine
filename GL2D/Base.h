@@ -1,10 +1,10 @@
 #pragma once
-#include "SoundUtil.h"
 #include "CollisionUtil.h"
 #include "PhysicsUtil.h"
+#include "RandomUtil.h"
+#include "SoundUtil.h"
 #include "TextUtil.h"
 #include "TimerUtil.h"
-#include "RandomUtil.h"
 
 using Sound = FMOD::Sound*;
 using Channel = FMOD::Channel*;
@@ -27,21 +27,22 @@ public:
 	GLfloat TransparencyValue{ 1.0f };
 
 	void Move(GLfloat MoveX, GLfloat MoveY);
-	void Rotate(GLfloat Radians);
-	void RotateHorziontal(GLfloat Radians);
-	void RotateVertical(GLfloat Radians);
+	void Rotate(GLfloat RotationValue);
+	void RotateHorziontal(GLfloat RotationValue);
+	void RotateVertical(GLfloat RotationValue);
 	void Scale(GLfloat ScaleX, GLfloat ScaleY);
-	void RotateSpot(GLfloat Radians);
-	void RotateHorizontalSpot(GLfloat Radians);
-	void RotateVerticalSpot(GLfloat Radians);
+	void RotateSpot(GLfloat RotationValue);
+	void RotateHorizontalSpot(GLfloat RotationValue);
+	void RotateVerticalSpot(GLfloat RotationValue);
 	void ScaleSpot(GLfloat X, GLfloat Y);
 	void MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT);
 	void MoveStraight(GLfloat& Position, GLfloat Speed, float FT);
-	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat Radians, float FT);
-	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat Radians, float FT);
+	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FT, bool Plus90Option=false);
+	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationValue, float FT, bool Plus90Option=false);
 	GLfloat ASP(GLfloat Value);
-	void RotateAxis(GLfloat Radians, GLfloat AxisX, GLfloat AxisY);
+	void RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY);
 	void LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
+	void LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void InitTransform();
 
@@ -49,7 +50,6 @@ public:
 	void RenderImage(unsigned int Image, GLfloat Transparency, Flip FlipOption=static_cast<Flip>(-1), GLfloat ImageWidth = 0, GLfloat ImageHeight = 0);
 
 	void SetSound(Sound& Sound, std::string SoundName);
-	void SetChannel(Channel& Channel, std::string ChannelName);
 	void PlaySound(Sound Sound, Channel& Channel, unsigned int MS = 0);
 	void PauseSound(Channel& Channel, bool Flag);
 	void StopSound(Channel& Channel);

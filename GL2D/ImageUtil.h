@@ -3,11 +3,6 @@
 #include <string>
 #include <map>
 
-struct ImageInfo {
-	std::string Name;
-	const char* FileName;
-};
-
 class ImageUtil {
 private:
 	GLuint VAO{};

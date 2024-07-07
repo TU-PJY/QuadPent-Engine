@@ -9,16 +9,13 @@ Framework::Framework() {
 	}
 }
 
-
 void Framework::SetFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
 }
 
-
 std::string Framework::Mode() {
 	return CurrentRunningMode;
 }
-
 
 void Framework::Routine() {
 	if (RoutineRunningDesc) {
@@ -37,7 +34,6 @@ void Framework::Routine() {
 		}
 	}
 }
-
 
 void Framework::Init(Function ModeFunction, ControllerFunction Controller) {
 	if (RoutineRunningDesc)
@@ -58,7 +54,6 @@ void Framework::Init(Function ModeFunction, ControllerFunction Controller) {
 
 	RoutineRunningDesc = true;
 }
-
 
 void Framework::SwitchMode(Function ModeFunction, ControllerFunction Controller) {
 	if (!RoutineRunningDesc)
@@ -90,7 +85,6 @@ void Framework::SwitchMode(Function ModeFunction, ControllerFunction Controller)
 	FLog.Log(LogType::MODE_SWITCH);
 }
 
-
 void Framework::StartFloatingMode(Function ModeFunction, ControllerFunction Controller, bool FloatingFocus) {
 	if (!RoutineRunningDesc || FloatingRunningDesc)
 		return;
@@ -116,7 +110,6 @@ void Framework::StartFloatingMode(Function ModeFunction, ControllerFunction Cont
 	FloatingRunningDesc = true;
 }
 
-
 void Framework::EndFloatingMode() {
 	if (!RoutineRunningDesc || !FloatingRunningDesc)  
 		return;
@@ -141,11 +134,9 @@ void Framework::EndFloatingMode() {
 	FLog.Log(LogType::MODE_SWITCH);
 }
 
-
 void Framework::ResetControlState(BASE* Object) {
 	Object->ResetControlState();
 }
-
 
 void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetStaticObject, bool SetFloatingObject) {
 	Container[static_cast<int>(AddLayer)].push_back(Object);
@@ -169,7 +160,6 @@ void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool Se
 	}
 }
 
-
 void Framework::DeleteSelf(BASE* Object) {
 	Object->DeleteDesc = true;
 
@@ -180,7 +170,6 @@ void Framework::DeleteSelf(BASE* Object) {
 	FLog.ObjectTag = Object->ObjectTag;
 	FLog.Log(LogType::DELETE_OBJECT);
 }
-
 
 void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
 	if (deleteRange == DeleteRange::One) {
@@ -207,7 +196,6 @@ void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
 		});
 }
 
-
 BASE* Framework::Find(std::string Tag) {
 	auto It = ObjectList.find(Tag);
 	if (It != end(ObjectList))
@@ -215,7 +203,6 @@ BASE* Framework::Find(std::string Tag) {
 
 	return nullptr;
 }
-
 
 BASE* Framework::Find(std::string Tag, Layer LayerToSearch, int Index) {
 	int layer = static_cast<int>(LayerToSearch);
@@ -229,11 +216,9 @@ BASE* Framework::Find(std::string Tag, Layer LayerToSearch, int Index) {
 	return nullptr;
 }
 
-
 size_t Framework::Size(Layer TargetLayer) {
 	return Container[static_cast<int>(TargetLayer)].size();
 }
-
 
 //////// private ///////////////
 void Framework::ClearDelObjects(int i) {
@@ -252,11 +237,10 @@ void Framework::ClearDelObjects(int i) {
 	}
 }
 
-
 void Framework::ClearFloatingObject() {
 	for (int i = 0; i < Num; ++i) {
 		for (auto It = begin(Container[i]); It != end(Container[i]); ++It) {
-			if ((*It)->FloatingObjectDesc)
+			if ((*It)->FloatingObjectDesc && !(*It)->StaticDesc)
 				(*It)->DeleteDesc = true;
 		}
 	}
@@ -265,7 +249,6 @@ void Framework::ClearFloatingObject() {
 		return Object.second->DeleteDesc;
 		});
 }
-
 
 void Framework::ClearAll() {
 	for (int i = 0; i < Num; ++i) {

@@ -1,20 +1,6 @@
 #include "ImageUtil.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-#include <vector>
-
-std::vector<ImageInfo> ImageList
-{
-	// MATA_ENGINE resources
-	{"BOUNDBOX", "MATA_ENGINE_RES//Image//Square.png"}, 
-	{"CIRCLE", "MATA_ENGINE_RES//Image//Circle.png"},
-	{"FMOD_LOGO", "MATA_ENGINE_RES//Image//FMOD Logo.png"}, 
-	{"MATA_ENGINE_LOGO", "MATA_ENGINE_RES//Image//MATA_ENGINE Logo.png"}, 
-	////////
-
-
-};
-
 
 GLfloat ImagePannel[][48] = {  // default size 1.0 * 1.0
 		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0, 0.0,

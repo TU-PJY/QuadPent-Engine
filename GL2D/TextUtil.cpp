@@ -6,7 +6,7 @@ TextUtilUnicode::~TextUtilUnicode() {
 	DeleteDC(hDC);
 }
 
-void TextUtilUnicode::Init(const wchar_t* FontName, int type, int Italic) {
+void TextUtilUnicode::Init(const wchar_t* FontName, int Type, int Italic) {
 	hDC = wglGetCurrentDC();
 
 	HFONT Font;
@@ -15,7 +15,7 @@ void TextUtilUnicode::Init(const wchar_t* FontName, int type, int Italic) {
 	FontBase = glGenLists(65536);
 
 	Font = CreateFont(
-		-1, 0, 0, 0, type, Italic, FALSE, FALSE, DEFAULT_CHARSET, OUT_RASTER_PRECIS, CLIP_DEFAULT_PRECIS,
+		-1, 0, 0, 0, Type, Italic, FALSE, FALSE, DEFAULT_CHARSET, OUT_RASTER_PRECIS, CLIP_DEFAULT_PRECIS,
 		NONANTIALIASED_QUALITY, FF_DONTCARE | DEFAULT_PITCH, FontName
 	);
 
@@ -24,10 +24,6 @@ void TextUtilUnicode::Init(const wchar_t* FontName, int type, int Italic) {
 
 	SelectObject(hDC, OldFont);
 	DeleteObject(Font);
-}
-
-void TextUtilUnicode::SetAlpha(GLfloat Value) {
-	AlphaValue = Value;
 }
 
 void TextUtilUnicode::SetColor(GLfloat R, GLfloat G, GLfloat B) {
@@ -44,7 +40,7 @@ void TextUtilUnicode::Rotate(GLfloat Radians) {
 	Rotation = Radians;
 }
 
-void TextUtilUnicode::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...) {
+void TextUtilUnicode::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
 	wchar_t Text[256];
 
 	va_list Args{};
@@ -76,6 +72,8 @@ void TextUtilUnicode::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* 
 			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length + CurrentPositionX, Y, 0.0));
 			break;
 		}
+
+		Transparency = TransparencyValue;
 
 		ProcessTransform();
 
@@ -112,7 +110,7 @@ void TextUtilUnicode::ProcessTransform() {
 	renderMode.SetTextMode();
 
 	TransparencyLocation = glGetUniformLocation(TextShader, "transparency");
-	glUniform1f(TransparencyLocation, AlphaValue);
+	glUniform1f(TransparencyLocation, Transparency);
 
 	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
 	glUniform3f(ObjectColorLocation, TextColor.r, TextColor.g, TextColor.b);
@@ -128,7 +126,7 @@ TextUtil::~TextUtil() {
 	DeleteDC(hDC);
 }
 
-void TextUtil::Init(const wchar_t* FontName, int type, int Italic) {
+void TextUtil::Init(const wchar_t* FontName, int Type, int Italic) {
 	hDC = wglGetCurrentDC();
 
 	HFONT Font;
@@ -137,7 +135,7 @@ void TextUtil::Init(const wchar_t* FontName, int type, int Italic) {
 	FontBase = glGenLists(96);
 
 	Font = CreateFont(
-		-1, 0, 0, 0, type, Italic, FALSE, FALSE, ANSI_CHARSET, OUT_RASTER_PRECIS, CLIP_DEFAULT_PRECIS,
+		-1, 0, 0, 0, Type, Italic, FALSE, FALSE, ANSI_CHARSET, OUT_RASTER_PRECIS, CLIP_DEFAULT_PRECIS,
 		NONANTIALIASED_QUALITY, FF_DONTCARE | DEFAULT_PITCH, FontName
 	);
 
@@ -146,10 +144,6 @@ void TextUtil::Init(const wchar_t* FontName, int type, int Italic) {
 
 	SelectObject(hDC, OldFont);
 	DeleteObject(Font);
-}
-
-void TextUtil::SetAlpha(GLfloat Value) {
-	AlphaValue = Value;
 }
 
 void TextUtil::SetColor(GLfloat R, GLfloat G, GLfloat B) {
@@ -166,7 +160,7 @@ void TextUtil::Rotate(GLfloat Radians) {
 	Rotation = Radians;
 }
 
-void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const char* Format, ...) {
+void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const char* Format, ...) {
 	char Text[256];
 
 	va_list Args{};
@@ -198,6 +192,8 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const char* Format, ..
 			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length + CurrentPositionX, Y, 0.0));
 			break;
 		}
+
+		Transparency = TransparencyValue;
 
 		ProcessTransform();
 
@@ -234,7 +230,7 @@ void TextUtil::ProcessTransform() {
 	renderMode.SetTextMode();
 
 	TransparencyLocation = glGetUniformLocation(TextShader, "transparency");
-	glUniform1f(TransparencyLocation, AlphaValue);
+	glUniform1f(TransparencyLocation, Transparency);
 
 	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
 	glUniform3f(ObjectColorLocation, TextColor.r, TextColor.g, TextColor.b);

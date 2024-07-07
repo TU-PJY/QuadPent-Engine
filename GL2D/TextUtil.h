@@ -11,7 +11,7 @@ class TextUtilUnicode {
 private:
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 	GLfloat Rotation{};
-	GLfloat AlphaValue{ 1.0f };
+	GLfloat Transparency{ 1.0f };
 	glm::vec3 TextColor{ glm::vec3(1.0, 1.0, 1.0) };
 	Align TextAlign{ Align::Default };
 
@@ -21,16 +21,13 @@ private:
 	GLuint FontBase{};
 	GLYPHMETRICSFLOAT TextGlyph[65536]{};
 
-	GLfloat x{}, y{};
-
 public:
 	~TextUtilUnicode();
-	void Init(const wchar_t* FontName, int type, int Italic=FALSE);
-	void SetAlpha(GLfloat Value);
+	void Init(const wchar_t* FontName, int Type, int Italic=FALSE);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetAlign(Align AlignOpt);
 	void Rotate(GLfloat Radians);
-	void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...);
+	void Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);
 	void GetLength(GLfloat& Length, unsigned Index, const wchar_t* Text, GLfloat Size);
 	void InitTransform();
 	void ProcessTransform();
@@ -42,7 +39,7 @@ class TextUtil {
 private:
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 	GLfloat Rotation{};
-	GLfloat AlphaValue{ 1.0f };
+	GLfloat Transparency{ 1.0f };
 	glm::vec3 TextColor{ glm::vec3(1.0, 1.0, 1.0) };
 	Align TextAlign{ Align::Default };
 
@@ -52,16 +49,13 @@ private:
 	GLuint FontBase{};
 	GLYPHMETRICSFLOAT TextGlyph[96]{};
 
-	GLfloat x{}, y{};
-
 public:
 	~TextUtil();
-	void Init(const wchar_t* FontName, int type, int Italic=FALSE);
-	void SetAlpha(GLfloat Value);
+	void Init(const wchar_t* FontName, int Type, int Italic=FALSE);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetAlign(Align AlignOpt);
 	void Rotate(GLfloat Radians);
-	void Render(GLfloat X, GLfloat Y, GLfloat Size, const char* Format, ...);
+	void Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const char* Format, ...);
 	void GetLength(GLfloat& Length, unsigned Index, const char* Text, GLfloat Size);
 	void InitTransform();
 	void ProcessTransform();

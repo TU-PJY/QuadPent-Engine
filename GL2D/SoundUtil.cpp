@@ -3,23 +3,6 @@
 
 std::vector<float> FFTdata(FFT_SIZE);
 
-// list sounds to load
-std::vector<FileNameAndOption> SoundList
-{
-	// MATA_ENGINE resource
-	{"MATA_ENGINE_LOGO_SOUND", "MATA_ENGINE_RES//Sound//MATA_ENGINE Logo Sound.wav", FMOD_DEFAULT},
-	//////////
-	
-
-};
-
-// list channels to load
-std::vector<std::string> ChannelList
-{
-
-};
-
-
 void SoundUtil::Init() {
 	Result = FMOD::System_Create(&SoundSystem);
 
@@ -31,7 +14,6 @@ void SoundUtil::Init() {
 	SoundSystem->set3DSettings(1.0, 1.0, 2.0); 
 
 	LoadSoundFromList();
-	LoadChannelFromList();
 }
 
 void SoundUtil::LoadSoundFromList() {
@@ -40,21 +22,6 @@ void SoundUtil::LoadSoundFromList() {
 		SoundSystem->createSound(S.FileName, S.Option, 0, &sound);
 		LoadedSoundList.insert(std::pair(S.Name, sound));
 	}
-}
-
-void SoundUtil::LoadChannelFromList() {
-	for (auto& C : ChannelList) {
-		FMOD::Channel* channel;
-		LoadedChannelList.insert(std::pair(C, channel));
-	}
-}
-
-FMOD::Channel* SoundUtil::GetChannel(std::string ChannelName) {
-	auto It = LoadedChannelList.find(ChannelName);
-	if (It != end(LoadedChannelList))
-		return It->second;
-	else
-		return nullptr;
 }
 
 FMOD::Sound* SoundUtil::GetSound(std::string SoundName) {

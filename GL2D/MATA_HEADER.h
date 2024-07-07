@@ -6,8 +6,10 @@
 #include <gl/glm/glm.hpp>
 #include <gl/glm/ext.hpp>
 #include <gl/glm/gtc/matrix_transform.hpp>
+#include "fmod.hpp"
+#include "fmod_errors.h"
 #include <string>
-#include <cmath>
+#include <vector>
 
 // display width, height and apsect ratio
 extern int WIDTH, HEIGHT;
@@ -29,6 +31,19 @@ extern GLuint TextShader;
 void SetBackColor(GLfloat R, GLfloat G, GLfloat B);
 extern glm::vec3 BackColor;
 
+struct ImageInfo {
+	std::string Name;
+	const char* FileName;
+};
+
+struct FileNameAndOption {
+	std::string Name;
+	const char* FileName;
+	FMOD_MODE Option;
+};
+
+extern std::vector<ImageInfo> ImageList;
+extern std::vector<FileNameAndOption> SoundList;
 
 
 // window name

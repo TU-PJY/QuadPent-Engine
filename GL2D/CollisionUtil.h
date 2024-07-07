@@ -34,13 +34,12 @@ class OBB {
 private:
 	glm::mat4 TranslateMatrix{ 1.0f };
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
-
-	glm::vec2 Center;
-	glm::vec2 Offset;
-	glm::vec2 Axis[2];
-	GLfloat Rotation;
-
 	unsigned int Box{};
+
+	glm::vec2 Center{};
+	glm::vec2 Offset{};
+	glm::vec2 Axis[2]{};
+	GLfloat Rotation{};
 
 public:
 	void Init();
@@ -49,8 +48,8 @@ public:
 	bool CheckCollisionPoint(const glm::vec2& Point);
 
 private:
-	void InitTransform();
 	bool OverlapOnAxis(const OBB& OBB1, const OBB& OBB2, const glm::vec2& Axis);
+	void InitTransform();
 	void ProcessTransform();
 };
 

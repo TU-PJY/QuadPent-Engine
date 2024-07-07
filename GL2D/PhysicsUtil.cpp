@@ -85,3 +85,11 @@ void PhysicsUtil::LinearDcc(GLfloat& Speed, GLfloat Friction, float FT) {
 			Speed = 0;
 	}
 }
+
+void PhysicsUtil::Mediate2DirSpeed(GLfloat& SpeedX, GLfloat& SpeedY) {
+	GLfloat Length = std::sqrt(SpeedX * SpeedX + SpeedY * SpeedY);
+	if (Length > 1.0) {
+		SpeedX /= Length;
+		SpeedY /= Length;
+	}
+}

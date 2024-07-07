@@ -121,6 +121,9 @@
     <ClCompile Include="PhysicsUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Physics Util ]</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceList.cpp">
+      <Filter>[4]___________[ MATA_ENGINE-1 ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mode1.h">

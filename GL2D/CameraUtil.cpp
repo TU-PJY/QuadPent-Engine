@@ -2,7 +2,6 @@
 
 void CameraUtil::CalculateASPECT() {
 	ASPECT = 1.0 * WIDTH / HEIGHT;
-
 	rect.lx = -1.0 * ASPECT;
 	rect.ly = -1.0;
 	rect.rx = 1.0 * ASPECT;

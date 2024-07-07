@@ -1,21 +1,15 @@
 #pragma once
-#include "fmod.hpp"
-#include "fmod_errors.h"
+#include "MATA_HEADER.h"
 #include <map>
 #include <string>
 
 #define FFT_SIZE 1024 // FFT Size
 
-struct FileNameAndOption {
-	std::string Name;
-	const char* FileName;
-	FMOD_MODE Option;
-};
-
 class SoundUtil {
 private:
 	std::map<std::string, FMOD::Sound*> LoadedSoundList;
 	std::map<std::string, FMOD::Channel*> LoadedChannelList;
+
 	FMOD::System* SoundSystem{};
 	FMOD::DSP* BeatDetector{};
 	FMOD::DSP* LowPass{};
@@ -28,10 +22,8 @@ private:
 
 public:
 	void Init();
-	FMOD::Channel* GetChannel(std::string ChannelName);
 	FMOD::Sound* GetSound(std::string SoundName);
 	void LoadSoundFromList();
-	void LoadChannelFromList();
 	void Update();
 	void PlaySound(FMOD::Sound* Sound, FMOD::Channel*& Channel, unsigned int Ms);
 	void PauseSound(FMOD::Channel*& Channel, bool Flag);

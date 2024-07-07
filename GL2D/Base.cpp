@@ -1,41 +1,47 @@
 #include "Base.h"
-#include "RenderModeUtil.h"
 #include "ImageUtil.h"
+#include "RenderModeUtil.h"
 
 void BASE::Move(GLfloat X, GLfloat Y) {
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
 }
 
-void BASE::Rotate(GLfloat Radians) {
-	RotateMatrix = rotate(RotateMatrix, glm::radians(Radians), glm::vec3(0.0, 0.0, 1.0));
+void BASE::Rotate(GLfloat RotationValue) {
+	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
 }
 
-void BASE::RotateHorziontal(GLfloat Radians) {
-	RotateMatrix = rotate(RotateMatrix, glm::radians(Radians), glm::vec3(1.0, 0.0, 0.0));
+void BASE::RotateHorziontal(GLfloat RotationValue) {
+	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(1.0, 0.0, 0.0));
 }
 
-void BASE::RotateVertical(GLfloat Radians) {
-	RotateMatrix = rotate(RotateMatrix, glm::radians(Radians), glm::vec3(0.0, 1.0, 0.0));
+void BASE::RotateVertical(GLfloat RotationValue) {
+	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 1.0, 0.0));
 }
 
 void BASE::Scale(GLfloat X, GLfloat Y) {
 	ScaleMatrix = scale(ScaleMatrix, glm::vec3(X, Y, 0.0));
 }
 
-void BASE::RotateSpot(GLfloat Radians) {
-	TranslateMatrix = rotate(TranslateMatrix, glm::radians(Radians), glm::vec3(0.0, 0.0, 1.0));
+void BASE::RotateSpot(GLfloat RotationValue) {
+	TranslateMatrix = rotate(TranslateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
 }
 
-void BASE::RotateHorizontalSpot(GLfloat Radians) {
-	TranslateMatrix = rotate(TranslateMatrix, glm::radians(Radians), glm::vec3(1.0, 0.0, 0.0));
+void BASE::RotateHorizontalSpot(GLfloat RotationValue) {
+	TranslateMatrix = rotate(TranslateMatrix, glm::radians(RotationValue), glm::vec3(1.0, 0.0, 0.0));
 }
 
-void BASE::RotateVerticalSpot(GLfloat Radians) {
-	TranslateMatrix = rotate(TranslateMatrix, glm::radians(Radians), glm::vec3(0.0, 1.0, 0.0));
+void BASE::RotateVerticalSpot(GLfloat RotationValue) {
+	TranslateMatrix = rotate(TranslateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 1.0, 0.0));
 }
 
 void BASE::ScaleSpot(GLfloat X, GLfloat Y) {
 	TranslateMatrix = scale(TranslateMatrix, glm::vec3(X, Y, 0.0));
+}
+
+void BASE::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
+	TranslateMatrix = translate(TranslateMatrix, glm::vec3(AxisX, AxisY, 0.0));
+	TranslateMatrix = rotate(TranslateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
+	TranslateMatrix = translate(TranslateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
 }
 
 void BASE::MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT) {
@@ -46,26 +52,44 @@ void BASE::MoveStraight(GLfloat& Position, GLfloat Speed, float FT) {
 	Position += Speed * FT;
 }
 
-void BASE::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat Radians, float FT) {
-	X += Speed * cos(glm::radians(Radians)) * MoveDirection * FT;
-	Y += Speed * sin(glm::radians(Radians)) * MoveDirection * FT;
+void BASE::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FT, bool Plus90Option) {
+	if (Plus90Option) {
+		X += Speed * cos(glm::radians(RotationValue + 90)) * MoveDirection * FT;
+		Y += Speed * sin(glm::radians(RotationValue + 90)) * MoveDirection * FT;
+	}
+	else {
+		X += Speed * cos(glm::radians(RotationValue)) * MoveDirection * FT;
+		Y += Speed * sin(glm::radians(RotationValue)) * MoveDirection * FT;
+	}
 }
 
-void BASE::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat Radians, float FT) {
-	X += Speed * cos(glm::radians(Radians)) * FT;
-	Y += Speed * sin(glm::radians(Radians)) * FT;
-}
-
-void BASE::RotateAxis(GLfloat Radians, GLfloat AxisX, GLfloat AxisY) {
-	TranslateMatrix = translate(TranslateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
-	TranslateMatrix = rotate(TranslateMatrix, glm::radians(Radians), glm::vec3(0.0, 0.0, 1.0));
-	TranslateMatrix = translate(TranslateMatrix, glm::vec3(AxisX, AxisY, 0.0));
+void BASE::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationValue, float FT, bool Plus90Option) {
+	if (Plus90Option) {
+		X += Speed * cos(glm::radians(RotationValue + 90)) * FT;
+		Y += Speed * sin(glm::radians(RotationValue + 90)) * FT;
+	}
+	else {
+		X += Speed * cos(glm::radians(RotationValue)) * FT;
+		Y += Speed * sin(glm::radians(RotationValue)) * FT;
+	}
 }
 
 void BASE::LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT) {
 	GLfloat targetAngle{}, shortestAngle{};
-	targetAngle = atan2(ToY - FromY, ToX - FromX) * (180 / 3.14);
+	targetAngle = atan2(ToY - FromY, ToX - FromX) * (180 / 3.14) - 90;
 	targetAngle = NormalizeDegree(targetAngle);
+
+	if (RotationSpeed > 0)
+		shortestAngle = std::lerp(shortestAngle, CalculateShortestRotation(RotationVar, targetAngle), FT * RotationSpeed);
+	else
+		shortestAngle = CalculateShortestRotation(RotationVar, targetAngle);
+
+	RotationVar = NormalizeDegree(RotationVar + shortestAngle);
+}
+
+void BASE::LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT) {
+	GLfloat targetAngle{}, shortestAngle{};
+	targetAngle = NormalizeDegree(Rotation);
 
 	if (RotationSpeed > 0)
 		shortestAngle = std::lerp(shortestAngle, CalculateShortestRotation(RotationVar, targetAngle), FT * RotationSpeed);
@@ -119,10 +143,6 @@ void BASE::RenderImage(unsigned int Image, GLfloat Transparency, Flip FlipOption
 
 void BASE::SetSound(Sound& Sound, std::string SoundName) {
 	Sound = soundUtil.GetSound(SoundName);
-}
-
-void BASE::SetChannel(Channel& Channel, std::string ChannelName) {
-	Channel = soundUtil.GetChannel(ChannelName);
 }
 
 void BASE::PlaySound(Sound Sound, Channel& Channel, unsigned int MS) {
