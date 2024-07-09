@@ -13,4 +13,4 @@ public:
 	void LoadFragmentShader(const char* FragmentShader);
 	void CreateShader(GLuint& Shader);
 };
-extern ShaderUtil shader;
+extern ShaderUtil shaderUtil;

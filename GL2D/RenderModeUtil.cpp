@@ -3,12 +3,12 @@
 
 void RenderModeUtil::SetTextMode() {
 	glUseProgram(TextShader);
-	cam.SetCamera();
-	cam.ProcessTransform(true);
+	camera.SetCamera();
+	camera.ProcessTransform(true);
 }
 
 void RenderModeUtil::SetImageMode() {
 	glUseProgram(ImageShader);
-	cam.SetCamera();
-	cam.ProcessTransform(false);
+	camera.SetCamera();
+	camera.ProcessTransform(false);
 }

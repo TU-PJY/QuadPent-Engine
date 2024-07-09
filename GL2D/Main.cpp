@@ -24,8 +24,8 @@ Rect rect;
 glm::vec3 BackColor;
 std::string VENDOR;
 
-ShaderUtil shader;
-CameraUtil cam;
+ShaderUtil shaderUtil;
+CameraUtil camera;
 CamaraControlUtil camUtil;
 RenderModeUtil renderMode;
 ImageUtil imageUtil;
@@ -104,19 +104,19 @@ void main(int argc, char** argv) {
 	glEnable(GL_SMOOTH);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	shader.LoadVertexShader("MATA_ENGINE_RES//GLSL//Vertex.glsl");
-	shader.LoadFragmentShader("MATA_ENGINE_RES//GLSL//Fragment_Image.glsl");
-	shader.CreateShader(ImageShader);
+	shaderUtil.LoadVertexShader("MATA_ENGINE_RES//GLSL//Vertex.glsl");
+	shaderUtil.LoadFragmentShader("MATA_ENGINE_RES//GLSL//Fragment_Image.glsl");
+	shaderUtil.CreateShader(ImageShader);
 
-	shader.LoadFragmentShader("MATA_ENGINE_RES//GLSL//Fragment_Text.glsl");
-	shader.CreateShader(TextShader);
+	shaderUtil.LoadFragmentShader("MATA_ENGINE_RES//GLSL//Fragment_Text.glsl");
+	shaderUtil.CreateShader(TextShader);
 
 	SetBackColor(1.0, 1.0, 1.0);
 
 	imageUtil.Init();
 	imageUtil.LoadImageFromList();
 	soundUtil.Init();
-	cam.Init();
+	camera.Init();
 
 	fw.Init(Mode1::GameMode1, Mode1::SetController);
 

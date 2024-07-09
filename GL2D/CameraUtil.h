@@ -19,7 +19,7 @@ public:
 	void SetCamera();
 	void ProcessTransform(bool UseTextShader);
 };
-extern CameraUtil cam;
+extern CameraUtil camera;
 
 
 class CamaraControlUtil {
