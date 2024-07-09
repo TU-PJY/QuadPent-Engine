@@ -5,7 +5,7 @@
 
 GLuint ImageShader;
 GLuint TextShader;
-
+ 
 char* ShaderUtil::LoadBuffer(const char* FileName) {
 	FILE* File{};
 	long Length{};
