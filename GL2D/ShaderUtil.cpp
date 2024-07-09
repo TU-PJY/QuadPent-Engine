@@ -1,10 +1,10 @@
 #include "ShaderUtil.h"
 #include <iostream>
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 
-GLuint ImageShader; 
-GLuint TextShader; 
+GLuint ImageShader;
+GLuint TextShader;
 
 char* ShaderUtil::LoadBuffer(const char* FileName) {
 	FILE* File{};
@@ -69,6 +69,7 @@ void ShaderUtil::LoadFragmentShader(const char* FragmentShader) {
 
 void ShaderUtil::CreateShader(GLuint& Shader) {
 	Shader = glCreateProgram();
+
 	glAttachShader(Shader, vertex_shader);
 	glAttachShader(Shader, fragment_shader);
 
