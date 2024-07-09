@@ -1,6 +1,10 @@
 // cpp
 
 include "Mode1.h"
+#include "MouseUtil.h"
+
+MouseUtil mouse;
+
 
 void Mode1::SetController() {
 	glutMotionFunc(MouseMotion);
