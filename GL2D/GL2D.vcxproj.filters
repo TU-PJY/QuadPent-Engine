@@ -130,6 +130,9 @@
     <ClCompile Include="ShaderUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Shader Util ]</Filter>
     </ClCompile>
+    <ClCompile Include="UIUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ UI Util ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mode1.h">
@@ -185,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsUtil.h">
       <Filter>[3]___________[ Util ]\[ Physics Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="UIUtil.h">
+      <Filter>[3]___________[ Util ]\[ UI Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
