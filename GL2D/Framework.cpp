@@ -138,6 +138,30 @@ void Framework::ResetControlState(BASE* Object) {
 	Object->ResetControlState();
 }
 
+void Framework::ResetControlState(std::string Tag) {
+	auto It = ObjectList.find(Tag);
+	if (It != end(ObjectList))
+		It->second->ResetControlState();
+}
+
+void Framework::InputKey(std::string Tag, unsigned char KEY, int S_KEY, bool KeyDown, bool SpecialKey) {
+	auto It = ObjectList.find(Tag);
+	if (It != end(ObjectList))
+		It->second->InputKey(KEY, S_KEY, KeyDown, SpecialKey);
+}
+
+void Framework::InputMouse(std::string Tag, int button, int state, int x, int y) {
+	auto It = ObjectList.find(Tag);
+	if (It != end(ObjectList))
+		It->second->InputMouse(button, state, x, y);
+}
+
+void Framework::InputScroll(std::string Tag, int button, int Wheel, int x, int y) {
+	auto It = ObjectList.find(Tag);
+	if (It != end(ObjectList))
+		It->second->InputScroll(button, Wheel, x, y);
+}
+
 void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetStaticObject, bool SetFloatingObject) {
 	Container[static_cast<int>(AddLayer)].push_back(Object);
 	Object->ObjectTag = Tag;
