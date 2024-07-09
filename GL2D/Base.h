@@ -26,6 +26,8 @@ public:
 	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 	GLfloat TransparencyValue{ 1.0f };
 
+	GLfloat MouseX{}, MouseY{};
+
 	void Move(GLfloat MoveX, GLfloat MoveY);
 	void Rotate(GLfloat RotationValue);
 	void RotateHorziontal(GLfloat RotationValue);
@@ -77,6 +79,7 @@ public:
 	virtual AABB GetAABB() { return {}; }
 	virtual OBB GetOBB() { return{}; }
 	virtual Range GetRange() { return {}; }
+	void InputMousePosition(GLfloat X, GLfloat Y);
 
 private:
 	void ProcessTransform(); 

@@ -1,7 +1,6 @@
 #include "MATA_HEADER.h"
 #include "Framework.h"
 #include "CameraUtil.h"
-#include "MouseUtil.h"
 #include "ImageUtil.h"
 #include "DataUtil.h"
 #include "FontLoaderUtil.h"
@@ -30,7 +29,6 @@ CamaraControlUtil camUtil;
 RenderModeUtil renderMode;
 ImageUtil imageUtil;
 TextUtilUnicode textUnicode;
-MouseUtil mouse;
 SoundUtil soundUtil;
 DataUtil dataUtil;
 FontLoaderUtil fontloaderUtil;

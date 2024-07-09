@@ -197,6 +197,11 @@ void BASE::SetSoundPosition(Channel& Channel, float X, float Y) {
 	soundUtil.SetSoundPosition(Channel, X, Y);
 }
 
+void BASE::InputMousePosition(GLfloat X, GLfloat Y) {
+	MouseX = X;
+	MouseY = Y;
+}
+
 ////////////////////////// private
 
 void BASE::ProcessTransform() {

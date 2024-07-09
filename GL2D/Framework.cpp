@@ -156,6 +156,25 @@ void Framework::InputMouse(std::string Tag, int button, int state, int x, int y)
 		It->second->InputMouse(button, state, x, y);
 }
 
+void Framework::InputMousePosition(std::string Tag, GLfloat X, GLfloat Y) {
+	auto It = ObjectList.find(Tag);
+	if (It != end(ObjectList))
+		It->second->InputMousePosition(X, Y);
+}
+
+void Framework::HideMousePosition(std::string Tag) {
+	auto It = ObjectList.find(Tag);
+	if (It != end(ObjectList)) {
+		It->second->MouseX = -100.0;
+		It->second->MouseX = -100.0;
+	}
+}
+
+void Framework::HideMousePosition(BASE* Object) {
+	Object->MouseX = -100.0;
+	Object->MouseX = -100.0;
+}
+
 void Framework::InputScroll(std::string Tag, int button, int Wheel, int x, int y) {
 	auto It = ObjectList.find(Tag);
 	if (It != end(ObjectList))

@@ -1,5 +1,8 @@
 #include "Mode1.h"
 #include "Framework.h"
+#include "MouseUtil.h"
+
+MouseUtil mouse;
 
 void Mode1::SetController() {
 	glutMotionFunc(MouseMotion);
