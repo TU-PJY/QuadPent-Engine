@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-GLuint ImageShader;
-GLuint TextShader;
- 
+GLuint ImageShader; 
+GLuint TextShader; 
+
 char* ShaderUtil::LoadBuffer(const char* FileName) {
 	FILE* File{};
 	long Length{};

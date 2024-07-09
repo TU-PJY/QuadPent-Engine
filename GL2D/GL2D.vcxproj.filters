@@ -73,6 +73,9 @@
     <Filter Include="[6]___________[ Resources ]">
       <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[3]___________[ Util ]\[ UI Util ]">
+      <UniqueIdentifier>{90c35137-64a6-49f1-9b9e-ed5578ef6fb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
@@ -96,9 +99,6 @@
     </ClCompile>
     <ClCompile Include="RenderModeUtil.cpp">
       <Filter>[3]___________[ Util ]\[ RenderMode Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderUtil.cpp">
-      <Filter>[3]___________[ Util ]\[ Shader Util ]</Filter>
     </ClCompile>
     <ClCompile Include="TextUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Text Util ]</Filter>
@@ -126,6 +126,9 @@
     </ClCompile>
     <ClCompile Include="ResourceList.cpp">
       <Filter>[6]___________[ Resources ]</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Shader Util ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
