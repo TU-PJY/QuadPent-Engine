@@ -56,6 +56,7 @@ void CameraUtil::ProcessTransform(bool UseTextShader) {
 	}
 }
 
+
 // Divide value with camera zoom value
 GLfloat DivZoom(GLfloat Value) {
 	return Value / camera.Zoom;
@@ -84,7 +85,7 @@ void CamaraControlUtil::Rotate(GLfloat Radians) {
 	camera.Rotation = Radians;
 }
 
-void CamaraControlUtil::SetZoom(ZOOM ZoomOpt, GLfloat Value) {
+void CamaraControlUtil::AdjustZoom(ZOOM ZoomOpt, GLfloat Value) {
 	GLfloat UpdatedZoomValue{};
 
 	switch (ZoomOpt) {

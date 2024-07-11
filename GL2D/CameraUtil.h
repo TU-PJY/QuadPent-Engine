@@ -26,7 +26,7 @@ class CamaraControlUtil {
 public:
 	void Translate(GLfloat MoveX, GLfloat MoveY);
 	void Rotate(GLfloat Radians);
-	void SetZoom(ZOOM ZoomOpt, GLfloat Value);
+	void AdjustZoom(ZOOM ZoomOpt, GLfloat Value);
 };
 extern CamaraControlUtil camUtil;
 
