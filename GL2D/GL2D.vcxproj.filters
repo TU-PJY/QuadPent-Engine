@@ -73,9 +73,6 @@
     <Filter Include="[6]___________[ Resources ]">
       <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[3]___________[ Util ]\[ UI Util ]">
-      <UniqueIdentifier>{90c35137-64a6-49f1-9b9e-ed5578ef6fb3}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
@@ -129,9 +126,6 @@
     </ClCompile>
     <ClCompile Include="ShaderUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Shader Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="UIUtil.cpp">
-      <Filter>[3]___________[ Util ]\[ UI Util ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,9 +182,6 @@
     </ClInclude>
     <ClInclude Include="PhysicsUtil.h">
       <Filter>[3]___________[ Util ]\[ Physics Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="UIUtil.h">
-      <Filter>[3]___________[ Util ]\[ UI Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

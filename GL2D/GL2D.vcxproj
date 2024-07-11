@@ -156,7 +156,6 @@
     <ClCompile Include="SoundUtil.cpp" />
     <ClCompile Include="TextUtil.cpp" />
     <ClCompile Include="TimerUtil.cpp" />
-    <ClCompile Include="UIUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraUtil.h" />
@@ -177,7 +176,6 @@
     <ClInclude Include="SoundUtil.h" />
     <ClInclude Include="TextUtil.h" />
     <ClInclude Include="TimerUtil.h" />
-    <ClInclude Include="UIUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ModeTemplate.txt" />
