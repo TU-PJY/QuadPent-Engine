@@ -66,7 +66,7 @@ GLfloat SubRot(GLfloat Radians) {
 }
 
 GLfloat SubPosX(GLfloat X) {
-	return X - camera.y;
+	return X - camera.x;
 }
 
 GLfloat SubPosY(GLfloat Y) {
