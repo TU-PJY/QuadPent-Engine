@@ -93,9 +93,12 @@ bool AABB::CheckCollisionEdge(GLfloat Value, Edge Edge) {
 }
 
 bool AABB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
-	if ((LeftX <= X && X <= RightX) && (LeftY <= Y && Y <= RightY))
+	if ((LeftX <= X && X <= RightX) && (LeftY <= Y && Y <= RightY)) {
+		Collide = true;
 		return true;
+	}
 
+	Collide = false;
 	return false;
 }
 
@@ -213,8 +216,11 @@ bool OBB::CheckCollisionPoint(const glm::vec2& Point) {
 	for (int i = 0; i < 2; ++i) {
 		GLfloat Dist = glm::dot(D, Axis[i]);
 		if (std::abs(Dist) > Offset[i])
+			Collide = false;
 			return false;
 	}
+
+	Collide = true;
 	return true;
 }
 
