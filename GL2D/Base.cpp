@@ -1,6 +1,7 @@
 #include "Base.h"
 #include "ImageUtil.h"
 #include "RenderModeUtil.h"
+#include "CameraUtil.h"
 
 void BASE::Move(GLfloat X, GLfloat Y) {
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
@@ -22,26 +23,10 @@ void BASE::Scale(GLfloat X, GLfloat Y) {
 	ScaleMatrix = scale(ScaleMatrix, glm::vec3(X, Y, 0.0));
 }
 
-void BASE::RotateSpot(GLfloat RotationValue) {
-	TranslateMatrix = rotate(TranslateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
-}
-
-void BASE::RotateHorizontalSpot(GLfloat RotationValue) {
-	TranslateMatrix = rotate(TranslateMatrix, glm::radians(RotationValue), glm::vec3(1.0, 0.0, 0.0));
-}
-
-void BASE::RotateVerticalSpot(GLfloat RotationValue) {
-	TranslateMatrix = rotate(TranslateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 1.0, 0.0));
-}
-
-void BASE::ScaleSpot(GLfloat X, GLfloat Y) {
-	TranslateMatrix = scale(TranslateMatrix, glm::vec3(X, Y, 0.0));
-}
-
 void BASE::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
-	TranslateMatrix = translate(TranslateMatrix, glm::vec3(AxisX, AxisY, 0.0));
-	TranslateMatrix = rotate(TranslateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
-	TranslateMatrix = translate(TranslateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
+	RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
+	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
+	RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
 }
 
 void BASE::MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT) {
@@ -120,7 +105,7 @@ void BASE::SetImage(unsigned int& Image, std::string ImageName) {
 	imageUtil.SetImage(Image, ImageName);
 }
 
-void BASE::RenderImage(unsigned int Image, GLfloat Transparency, Flip FlipOption, GLfloat ImageWidth, GLfloat ImageHeight) {
+void BASE::RenderImage(ImageRenderMode Mode, unsigned int Image, GLfloat Transparency, Flip FlipOption, GLfloat ImageWidth, GLfloat ImageHeight) {
 	if (ImageWidth != 0 && ImageHeight != 0)
 		TranslateMatrix = scale(TranslateMatrix, glm::vec3(ImageWidth / ImageHeight, 1.0, 0.0));
 
@@ -137,8 +122,26 @@ void BASE::RenderImage(unsigned int Image, GLfloat Transparency, Flip FlipOption
 	}
 
 	TransparencyValue = Transparency;
+
+	if(Mode == ImageRenderMode::Static)
+		renderMode.SetStaticImageMode();
+	else
+		renderMode.SetImageMode();
+
 	ProcessTransform();
 	imageUtil.Render(Image);
+}
+
+glm::vec4 BASE::VP(VP_Type Type) {
+	if (Type == VP_Type::Static)
+		renderMode.SetStaticImageMode();
+	else
+		renderMode.SetImageMode();
+
+	glm::mat4 Result = TranslateMatrix * RotateMatrix * ScaleMatrix;
+	glm::vec4 ViewportPosition = camera.Projection * camera.ViewMatrix * Result * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	
+	return ViewportPosition;
 }
 
 void BASE::SetSound(Sound& Sound, std::string SoundName) {
@@ -205,8 +208,6 @@ void BASE::InputMousePosition(GLfloat X, GLfloat Y) {
 ////////////////////////// private
 
 void BASE::ProcessTransform() {
-	renderMode.SetImageMode();
-
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, TransparencyValue);
 
@@ -214,7 +215,7 @@ void BASE::ProcessTransform() {
 	glUniform3f(ObjectColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(ScaleMatrix * RotateMatrix * TranslateMatrix));
+	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * RotateMatrix * ScaleMatrix));
 }
 
 GLfloat BASE::NormalizeDegree(GLfloat Degree) {

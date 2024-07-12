@@ -12,3 +12,15 @@ void RenderModeUtil::SetImageMode() {
 	camera.SetCamera();
 	camera.ProcessTransform(false);
 }
+
+void RenderModeUtil::SetStaticImageMode() {
+	glUseProgram(ImageShader);
+	camera.SetStaticCamera();
+	camera.ProcessTransform(false);
+}
+
+void RenderModeUtil::SetStaticTextMode() {
+	glUseProgram(TextShader);
+	camera.SetStaticCamera();
+	camera.ProcessTransform(false);
+}

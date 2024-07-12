@@ -40,7 +40,7 @@ void TextUtilUnicode::Rotate(GLfloat Radians) {
 	Rotation = Radians;
 }
 
-void TextUtilUnicode::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
+void TextUtilUnicode::Render(TextRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
 	wchar_t Text[256];
 
 	va_list Args{};
@@ -75,6 +75,11 @@ void TextUtilUnicode::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat Transpa
 
 		Transparency = TransparencyValue;
 
+		if(Mode == TextRenderMode::Static)
+			renderMode.SetStaticTextMode();
+		else
+			renderMode.SetTextMode();
+
 		ProcessTransform();
 
 		if (Format == NULL)
@@ -107,8 +112,6 @@ void TextUtilUnicode::InitTransform() {
 }
 
 void TextUtilUnicode::ProcessTransform() {
-	renderMode.SetTextMode();
-
 	TransparencyLocation = glGetUniformLocation(TextShader, "transparency");
 	glUniform1f(TransparencyLocation, Transparency);
 
@@ -160,7 +163,7 @@ void TextUtil::Rotate(GLfloat Radians) {
 	Rotation = Radians;
 }
 
-void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const char* Format, ...) {
+void TextUtil::Render(TextRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const char* Format, ...) {
 	char Text[256];
 
 	va_list Args{};
@@ -195,7 +198,10 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyVa
 
 		Transparency = TransparencyValue;
 
-		ProcessTransform();
+		if (Mode == TextRenderMode::Static)
+			renderMode.SetStaticTextMode();
+		else
+			renderMode.SetTextMode();
 
 		if (Format == NULL)
 			return;
@@ -227,8 +233,6 @@ void TextUtil::InitTransform() {
 }
 
 void TextUtil::ProcessTransform() {
-	renderMode.SetTextMode();
-
 	TransparencyLocation = glGetUniformLocation(TextShader, "transparency");
 	glUniform1f(TransparencyLocation, Transparency);
 

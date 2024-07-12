@@ -6,6 +6,9 @@
 enum class Align
 { Default, Middle, Left };
 
+enum class TextRenderMode
+{ Static, Default };
+
 // for unicode rendering
 class TextUtilUnicode {
 private:
@@ -27,7 +30,7 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetAlign(Align AlignOpt);
 	void Rotate(GLfloat Radians);
-	void Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);
+	void Render(TextRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);
 	void GetLength(GLfloat& Length, unsigned Index, const wchar_t* Text, GLfloat Size);
 	void InitTransform();
 	void ProcessTransform();
@@ -55,7 +58,7 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetAlign(Align AlignOpt);
 	void Rotate(GLfloat Radians);
-	void Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const char* Format, ...);
+	void Render(TextRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const char* Format, ...);
 	void GetLength(GLfloat& Length, unsigned Index, const char* Text, GLfloat Size);
 	void InitTransform();
 	void ProcessTransform();

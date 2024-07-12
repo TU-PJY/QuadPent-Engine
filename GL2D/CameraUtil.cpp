@@ -32,6 +32,20 @@ void CameraUtil::SetCamera() {
 	Projection = ortho((ASPECT * -1.0f) / Zoom, (ASPECT * 1.0f) / Zoom, -1.0f / Zoom, 1.0f / Zoom, -100.0f, 100.0f);
 }
 
+void CameraUtil::SetStaticCamera() {
+	using namespace glm;
+	CalculateASPECT();
+
+	ViewMatrix = mat4(1.0f);
+	Projection = mat4(1.0f);
+
+	CamPos = vec3(0.0f, 0.0f, 1.0f);
+	CamDirection = vec3(0.0f, 0.0f, 0.0f);
+	CamUp = vec3(0.0f, 1.0f, 0.0f);
+
+	Projection = ortho((ASPECT * -1.0f), (ASPECT * 1.0f), -1.0f, 1.0f, -100.0f, 100.0f);
+}
+
 void CameraUtil::ProcessTransform(bool UseTextShader) {
 	if (UseTextShader) {
 		ProjectionLocation = glGetUniformLocation(TextShader, "projection");
@@ -76,7 +90,7 @@ GLfloat SubPosY(GLfloat Y) {
 
 
 
-void CamaraControlUtil::Translate(GLfloat X, GLfloat Y) {
+void CamaraControlUtil::Move(GLfloat X, GLfloat Y) {
 	camera.x = X; 
 	camera.y = Y;
 }

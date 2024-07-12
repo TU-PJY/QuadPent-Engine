@@ -5,8 +5,10 @@
 
 
 void AABB::Init() {
-	if (ShowBoundBox)
+	if (ShowBoundBox) {
 		imageUtil.SetImage(Box, "BOUNDBOX");
+		imageUtil.SetImage(BoxInside, "BOUNDBOXCOLLISION");
+	}
 }
 
 void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
@@ -20,25 +22,40 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 
 	CenterX = X;
 	CenterY = Y;
+}
 
+void AABB::Render(BoxRenderMode Mode, GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 	if (ShowBoundBox) {
 		InitTransform();
 
 		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
-		TranslateMatrix = scale(TranslateMatrix, glm::vec3(xScale, yScale, 0.0));
+		ScaleMatrix = scale(ScaleMatrix, glm::vec3(xScale, yScale, 0.0));
+		RotateMatrix = rotate(RotateMatrix, glm::radians(-camera.Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+
+		if (Mode == BoxRenderMode::Static)
+			renderMode.SetStaticImageMode();
+		else
+			renderMode.SetImageMode();
 
 		ProcessTransform();
 		imageUtil.Render(Box);
+		if (Collide)
+			imageUtil.Render(BoxInside);
 	}
 }
 
 bool AABB::CheckCollisionAABB(const AABB& Other) {
-	if (RightX < Other.LeftX || LeftX > Other.RightX)
+	if (RightX < Other.LeftX || LeftX > Other.RightX) {
+		Collide = false;
 		return false;
+	}
 
-	if (RightY < Other.LeftY || LeftY > Other.RightY)
+	if (RightY < Other.LeftY || LeftY > Other.RightY) {
+		Collide = false;
 		return false;
-
+	}
+	
+	Collide = true;
 	return true;
 }
 
@@ -92,11 +109,11 @@ void AABB::InterpolateY(GLfloat& Y) {
 
 void AABB::InitTransform() {
 	TranslateMatrix = glm::mat4(1.0f);
+	ScaleMatrix = glm::mat4(1.0f);
+	RotateMatrix = glm::mat4(1.0f);
 }
 
 void AABB::ProcessTransform() {
-	renderMode.SetImageMode();
-
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, 1.0);
 
@@ -104,34 +121,44 @@ void AABB::ProcessTransform() {
 	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix));
+	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * RotateMatrix * ScaleMatrix));
 }
 
 
 
 void OBB::Init() {
-	if (ShowBoundBox)
+	if (ShowBoundBox) {
 		imageUtil.SetImage(Box, "BOUNDBOX");
+		imageUtil.SetImage(BoxInside, "BOUNDBOXCOLLISION");
+	}
 }
 
-void OBB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, float Degree) {
+void OBB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, GLfloat Degree) {
 	Center = glm::vec2(X, Y);
 	Offset = glm::vec2(xScale / 2, yScale / 2);
-	Rotation = Degree;
 
-	float Rad = glm::radians(Degree);
+	GLfloat Rad = glm::radians(Degree);
 	Axis[0] = glm::vec2(std::cos(Rad), std::sin(Rad));
 	Axis[1] = glm::vec2(-std::sin(Rad), std::cos(Rad));
+}
 
+void OBB::Render(BoxRenderMode Mode, GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, GLfloat Degree) {
 	if (ShowBoundBox) {
 		InitTransform();
 
 		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0f));
-		TranslateMatrix = rotate(TranslateMatrix, Rad, glm::vec3(0.0f, 0.0f, 1.0f));
-		TranslateMatrix = scale(TranslateMatrix, glm::vec3(xScale, yScale, 1.0f));
+		RotateMatrix = rotate(RotateMatrix, glm::radians(Degree), glm::vec3(0.0f, 0.0f, 1.0f));
+		ScaleMatrix = scale(ScaleMatrix, glm::vec3(xScale, yScale, 1.0f));
+
+		if (Mode == BoxRenderMode::Static)
+			renderMode.SetStaticImageMode();
+		else
+			renderMode.SetImageMode();
 
 		ProcessTransform();
 		imageUtil.Render(Box);
+		if (Collide)
+			imageUtil.Render(BoxInside);
 	}
 }
 
@@ -170,10 +197,13 @@ bool OBB::CheckCollisionOBB(const OBB& Other) {
 	glm::vec2 Axises[] = { Axis[0], Axis[1], Other.Axis[0], Other.Axis[1] };
 
 	for (const auto& Axis : Axises) {
-		if (!OverlapOnAxis(*this, Other, Axis))
+		if (!OverlapOnAxis(*this, Other, Axis)) {
+			Collide = false;
 			return false;
+		}
 	}
 
+	Collide = true;
 	return true;
 }
 
@@ -181,7 +211,7 @@ bool OBB::CheckCollisionPoint(const glm::vec2& Point) {
 	glm::vec2 D = Point - Center;
 
 	for (int i = 0; i < 2; ++i) {
-		float Dist = glm::dot(D, Axis[i]);
+		GLfloat Dist = glm::dot(D, Axis[i]);
 		if (std::abs(Dist) > Offset[i])
 			return false;
 	}
@@ -190,11 +220,11 @@ bool OBB::CheckCollisionPoint(const glm::vec2& Point) {
 
 void OBB::InitTransform() {
 	TranslateMatrix = glm::mat4(1.0f);
+	RotateMatrix = glm::mat4(1.0f);
+	ScaleMatrix = glm::mat4(1.0f);
 }
 
 void OBB::ProcessTransform() {
-	renderMode.SetImageMode();
-
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, 1.0);
 
@@ -202,14 +232,16 @@ void OBB::ProcessTransform() {
 	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix));
+	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * RotateMatrix * ScaleMatrix));
 }
 
 
 
 void Range::Init() {
-	if (ShowBoundBox)
+	if (ShowBoundBox) {
 		imageUtil.SetImage(Circle, "CIRCLE");
+		imageUtil.SetImage(CircleInside, "CIRCLECOLLISION");
+	}
 }
 
 void Range::InitTransform() {
@@ -220,14 +252,24 @@ void Range::Update(GLfloat X, GLfloat Y, GLfloat Size) {
 	CenterX = X;
 	CenterY = Y;
 	Radius = Size / 2.0;
+}
 
+void Range::Render(RangeRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size) {
 	if (ShowBoundBox) {
 		InitTransform();
 		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
-		TranslateMatrix = scale(TranslateMatrix, glm::vec3(Size, Size, 1.0));
+		ScaleMatrix = scale(ScaleMatrix, glm::vec3(Size, Size, 1.0));
+
+		if (Mode == RangeRenderMode::Static)
+			renderMode.SetStaticImageMode();
+		else
+			renderMode.SetImageMode();
 
 		ProcessTransform();
 		imageUtil.Render(Circle);
+
+		if (Collide)
+			imageUtil.Render(CircleInside);
 	}
 }
 
@@ -238,22 +280,26 @@ GLfloat Range::CalculateDistance( GLfloat X, GLfloat Y) {
 }
 
 bool Range::CheckCollisionRange(const Range& Other) {
-	if (CalculateDistance(Other.CenterX, Other.CenterY) < Radius + Other.Radius)
+	if (CalculateDistance(Other.CenterX, Other.CenterY) < Radius + Other.Radius) {
+		Collide = true;
 		return true;
+	}
 
+	Collide = false;
 	return false;
 }
 
 bool Range::CheckCollisionPoint(GLfloat X, GLfloat Y) {
-	if (CalculateDistance(X, Y) < Radius)
+	if (CalculateDistance(X, Y) < Radius) {
+		Collide = true;
 		return true;
+	}
 
+	Collide = false;
 	return false;
 }
 
 void Range::ProcessTransform() {
-	renderMode.SetImageMode();
-
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, 1.0);
 
@@ -261,5 +307,5 @@ void Range::ProcessTransform() {
 	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix));
+	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
 }

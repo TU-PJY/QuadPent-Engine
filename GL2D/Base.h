@@ -12,6 +12,12 @@ using Channel = FMOD::Channel*;
 enum class Flip
 {Horizontal, Vertical};
 
+enum class ImageRenderMode
+{Static, Default};
+
+enum class VP_Type
+{ Static, Default };
+
 class BASE {
 private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{}, TextAlphaLocation{};
@@ -33,10 +39,6 @@ public:
 	void RotateHorziontal(GLfloat RotationValue);
 	void RotateVertical(GLfloat RotationValue);
 	void Scale(GLfloat ScaleX, GLfloat ScaleY);
-	void RotateSpot(GLfloat RotationValue);
-	void RotateHorizontalSpot(GLfloat RotationValue);
-	void RotateVerticalSpot(GLfloat RotationValue);
-	void ScaleSpot(GLfloat X, GLfloat Y);
 	void MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT);
 	void MoveStraight(GLfloat& Position, GLfloat Speed, float FT);
 	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FT, bool Plus90Option=false);
@@ -46,10 +48,12 @@ public:
 	void LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
+	glm::vec4 VP(VP_Type Type);
+
 	void InitTransform();
 
 	void SetImage(unsigned int& Image, std::string ImageName);
-	void RenderImage(unsigned int Image, GLfloat Transparency, Flip FlipOption=static_cast<Flip>(-1), GLfloat ImageWidth = 0, GLfloat ImageHeight = 0);
+	void RenderImage(ImageRenderMode Mode, unsigned int Image, GLfloat Transparency = 1.0, Flip FlipOption = static_cast<Flip>(-1), GLfloat ImageWidth = 0, GLfloat ImageHeight = 0);
 
 	void SetSound(Sound& Sound, std::string SoundName);
 	void PlaySound(Sound Sound, Channel& Channel, unsigned int MS = 0);
@@ -62,11 +66,8 @@ public:
 	void DetectBeat(float Threshold, int SamplingRate);
 	void UnsetFreqCutOff(Channel& Channel);
 	void UnsetBeatDetect(Channel& Channel);
-
 	void SetChannelDistance(Channel& Channel, float MinDist, float MaxDist);
-
 	void SetListnerPosition(float X, float Y);
-
 	void SetSoundPosition(Channel& Channel, float X, float Y);
 
 	// essential functions

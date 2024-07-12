@@ -17,6 +17,7 @@ public:
 	void CalculateASPECT();
 	void Init();
 	void SetCamera();
+	void SetStaticCamera();
 	void ProcessTransform(bool UseTextShader);
 };
 extern CameraUtil camera;
@@ -24,7 +25,7 @@ extern CameraUtil camera;
 
 class CamaraControlUtil {
 public:
-	void Translate(GLfloat MoveX, GLfloat MoveY);
+	void Move(GLfloat MoveX, GLfloat MoveY);
 	void Rotate(GLfloat Radians);
 	void AdjustZoom(ZOOM ZoomOpt, GLfloat Value);
 };
