@@ -4,12 +4,6 @@
 enum class Edge
 {Left, Right, Top, Bottom};
 
-enum class BoxRenderMode
-{ Static, Default };
-
-enum class RangeRenderMode
-{ Static, Default };
-
 
 class AABB {
 private:
@@ -28,7 +22,7 @@ private:
 public:
 	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
-	void Render(BoxRenderMode Mode, GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
+	void Render(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
 	bool CheckCollisionAABB(const AABB& Other);
 	bool CheckCollisionEdge(GLfloat X, Edge Edge);
 	void InterpolateX(GLfloat& X);
@@ -56,10 +50,10 @@ private:
 
 public:
 	void Init();
-	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, GLfloat rotation);
-	void Render(BoxRenderMode Mode, GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, GLfloat Degree);
+	void Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
+	void Render(GLfloat ObjectPositionX, GLfloat ObjectPositionY, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat ObjectRotationValue);
 	bool CheckCollisionOBB(const OBB& Other);
-	bool CheckCollisionPoint(const glm::vec2& Point);
+	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 
 private:
 	bool OverlapOnAxis(const OBB& OBB1, const OBB& OBB2, const glm::vec2& Axis);
@@ -82,7 +76,7 @@ private:
 public:
 	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat Size);
-	void Render(RangeRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size);
+	void Render(GLfloat X, GLfloat Y, GLfloat Size);
 	bool CheckCollisionRange(const Range& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 

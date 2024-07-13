@@ -138,6 +138,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationUtil.cpp" />
     <ClCompile Include="CameraUtil.cpp" />
     <ClCompile Include="CollisionUtil.cpp" />
     <ClCompile Include="DataUtil.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="TimerUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationUtil.h" />
     <ClInclude Include="CameraUtil.h" />
     <ClInclude Include="CollisionUtil.h" />
     <ClInclude Include="DataUtil.h" />

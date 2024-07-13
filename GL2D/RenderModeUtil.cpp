@@ -13,14 +13,14 @@ void RenderModeUtil::SetImageMode() {
 	camera.ProcessTransform(false);
 }
 
-void RenderModeUtil::SetStaticImageMode() {
-	glUseProgram(ImageShader);
-	camera.SetStaticCamera();
-	camera.ProcessTransform(false);
-}
-
 void RenderModeUtil::SetStaticTextMode() {
 	glUseProgram(TextShader);
+	camera.SetStaticCamera();
+	camera.ProcessTransform(true);
+}
+
+void RenderModeUtil::SetStaticImageMode() {
+	glUseProgram(ImageShader);
 	camera.SetStaticCamera();
 	camera.ProcessTransform(false);
 }

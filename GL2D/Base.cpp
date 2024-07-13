@@ -88,11 +88,23 @@ GLfloat BASE::ASP(GLfloat Value) {
 	return Value * ASPECT;
 }
 
-void BASE::InitTransform() {
+glm::vec4 BASE::ViewportPosition() {
+	glm::mat4 Result = TranslateMatrix * RotateMatrix * ScaleMatrix;
+	glm::vec4 Position = camera.Projection * camera.ViewMatrix * Result * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+
+	return Position;
+}
+
+void BASE::BeginProcess(ImageRenderMode Mode) {
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
 	TransparencyValue = 1.0f;
+
+	if (Mode == ImageRenderMode::Static)
+		renderMode.SetStaticImageMode();
+	else
+		renderMode.SetImageMode();
 }
 
 void BASE::SetColor(GLfloat R, GLfloat G, GLfloat B) {
@@ -105,7 +117,7 @@ void BASE::SetImage(unsigned int& Image, std::string ImageName) {
 	imageUtil.SetImage(Image, ImageName);
 }
 
-void BASE::RenderImage(ImageRenderMode Mode, unsigned int Image, GLfloat Transparency, Flip FlipOption, GLfloat ImageWidth, GLfloat ImageHeight) {
+void BASE::RenderImage(unsigned int Image, GLfloat Transparency, Flip FlipOption, GLfloat ImageWidth, GLfloat ImageHeight) {
 	if (ImageWidth != 0 && ImageHeight != 0)
 		TranslateMatrix = scale(TranslateMatrix, glm::vec3(ImageWidth / ImageHeight, 1.0, 0.0));
 
@@ -123,25 +135,8 @@ void BASE::RenderImage(ImageRenderMode Mode, unsigned int Image, GLfloat Transpa
 
 	TransparencyValue = Transparency;
 
-	if(Mode == ImageRenderMode::Static)
-		renderMode.SetStaticImageMode();
-	else
-		renderMode.SetImageMode();
-
 	ProcessTransform();
 	imageUtil.Render(Image);
-}
-
-glm::vec4 BASE::VP(VP_Type Type) {
-	if (Type == VP_Type::Static)
-		renderMode.SetStaticImageMode();
-	else
-		renderMode.SetImageMode();
-
-	glm::mat4 Result = TranslateMatrix * RotateMatrix * ScaleMatrix;
-	glm::vec4 ViewportPosition = camera.Projection * camera.ViewMatrix * Result * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-	
-	return ViewportPosition;
 }
 
 void BASE::SetSound(Sound& Sound, std::string SoundName) {

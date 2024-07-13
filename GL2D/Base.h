@@ -5,6 +5,7 @@
 #include "SoundUtil.h"
 #include "TextUtil.h"
 #include "TimerUtil.h"
+#include "AnimationUtil.h"
 
 using Sound = FMOD::Sound*;
 using Channel = FMOD::Channel*;
@@ -44,16 +45,15 @@ public:
 	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FT, bool Plus90Option=false);
 	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationValue, float FT, bool Plus90Option=false);
 	GLfloat ASP(GLfloat Value);
+	void BeginProcess(ImageRenderMode Mode);
 	void RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY);
 	void LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
-	glm::vec4 VP(VP_Type Type);
-
-	void InitTransform();
+	glm::vec4 ViewportPosition();
 
 	void SetImage(unsigned int& Image, std::string ImageName);
-	void RenderImage(ImageRenderMode Mode, unsigned int Image, GLfloat Transparency = 1.0, Flip FlipOption = static_cast<Flip>(-1), GLfloat ImageWidth = 0, GLfloat ImageHeight = 0);
+	void RenderImage(unsigned int Image, GLfloat Transparency = 1.0, Flip FlipOption = static_cast<Flip>(-1), GLfloat ImageWidth = 0, GLfloat ImageHeight = 0);
 
 	void SetSound(Sound& Sound, std::string SoundName);
 	void PlaySound(Sound Sound, Channel& Channel, unsigned int MS = 0);

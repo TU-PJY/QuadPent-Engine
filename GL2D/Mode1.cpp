@@ -1,6 +1,7 @@
 #include "Mode1.h"
 #include "Framework.h"
 #include "MouseUtil.h"
+#include "CameraUtil.h"
 
 MouseUtil mouse;
 

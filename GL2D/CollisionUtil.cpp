@@ -24,18 +24,13 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 	CenterY = Y;
 }
 
-void AABB::Render(BoxRenderMode Mode, GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
+void AABB::Render(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 	if (ShowBoundBox) {
 		InitTransform();
 
 		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
 		ScaleMatrix = scale(ScaleMatrix, glm::vec3(xScale, yScale, 0.0));
 		RotateMatrix = rotate(RotateMatrix, glm::radians(-camera.Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-
-		if (Mode == BoxRenderMode::Static)
-			renderMode.SetStaticImageMode();
-		else
-			renderMode.SetImageMode();
 
 		ProcessTransform();
 		imageUtil.Render(Box);
@@ -136,27 +131,22 @@ void OBB::Init() {
 	}
 }
 
-void OBB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, GLfloat Degree) {
+void OBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue) {
 	Center = glm::vec2(X, Y);
-	Offset = glm::vec2(xScale / 2, yScale / 2);
+	Offset = glm::vec2(BoxWidth / 2, BoxHeight / 2);
 
-	GLfloat Rad = glm::radians(Degree);
+	GLfloat Rad = glm::radians(RotationValue);
 	Axis[0] = glm::vec2(std::cos(Rad), std::sin(Rad));
 	Axis[1] = glm::vec2(-std::sin(Rad), std::cos(Rad));
 }
 
-void OBB::Render(BoxRenderMode Mode, GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale, GLfloat Degree) {
+void OBB::Render(GLfloat ObjectPositionX, GLfloat ObjectPositionY, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat ObjectRotationValue) {
 	if (ShowBoundBox) {
 		InitTransform();
 
-		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0f));
-		RotateMatrix = rotate(RotateMatrix, glm::radians(Degree), glm::vec3(0.0f, 0.0f, 1.0f));
-		ScaleMatrix = scale(ScaleMatrix, glm::vec3(xScale, yScale, 1.0f));
-
-		if (Mode == BoxRenderMode::Static)
-			renderMode.SetStaticImageMode();
-		else
-			renderMode.SetImageMode();
+		TranslateMatrix = translate(TranslateMatrix, glm::vec3(ObjectPositionX, ObjectPositionY, 0.0f));
+		RotateMatrix = rotate(RotateMatrix, glm::radians(ObjectRotationValue), glm::vec3(0.0f, 0.0f, 1.0f));
+		ScaleMatrix = scale(ScaleMatrix, glm::vec3(BoxWidth, BoxHeight, 1.0f));
 
 		ProcessTransform();
 		imageUtil.Render(Box);
@@ -210,14 +200,15 @@ bool OBB::CheckCollisionOBB(const OBB& Other) {
 	return true;
 }
 
-bool OBB::CheckCollisionPoint(const glm::vec2& Point) {
-	glm::vec2 D = Point - Center;
+bool OBB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
+	glm::vec2 D = glm::vec2(X, Y) - Center;
 
 	for (int i = 0; i < 2; ++i) {
 		GLfloat Dist = glm::dot(D, Axis[i]);
-		if (std::abs(Dist) > Offset[i])
+		if (std::abs(Dist) > Offset[i]) {
 			Collide = false;
 			return false;
+		}
 	}
 
 	Collide = true;
@@ -260,16 +251,11 @@ void Range::Update(GLfloat X, GLfloat Y, GLfloat Size) {
 	Radius = Size / 2.0;
 }
 
-void Range::Render(RangeRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size) {
+void Range::Render(GLfloat X, GLfloat Y, GLfloat Size) {
 	if (ShowBoundBox) {
 		InitTransform();
 		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
 		ScaleMatrix = scale(ScaleMatrix, glm::vec3(Size, Size, 1.0));
-
-		if (Mode == RangeRenderMode::Static)
-			renderMode.SetStaticImageMode();
-		else
-			renderMode.SetImageMode();
 
 		ProcessTransform();
 		imageUtil.Render(Circle);

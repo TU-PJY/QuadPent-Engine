@@ -203,6 +203,8 @@ void TextUtil::Render(TextRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size, G
 		else
 			renderMode.SetTextMode();
 
+		ProcessTransform();
+
 		if (Format == NULL)
 			return;
 
