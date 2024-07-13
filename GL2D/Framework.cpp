@@ -50,7 +50,7 @@ void Framework::Init(Function ModeFunction, ControllerFunction Controller) {
 	FLog.Log(LogType::FM_INIT);
 
 	for (int i = 0; i < Num; ++i)
-		AddObject(new FWM_DUMMY, "DUMMY", static_cast<Layer>(i), true);
+		AddObject(new FWM_DUMMY, "MATA_ENGINE_CONTAINER_DUMMY", static_cast<Layer>(i), true);
 
 	RoutineRunningDesc = true;
 }
@@ -172,9 +172,9 @@ void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool Se
 	Container[static_cast<int>(AddLayer)].push_back(Object);
 	Object->ObjectTag = Tag;
 
-	ObjectList.insert(std::make_pair(Tag, Object));
+	if (Tag != "MATA_ENGINE_CONTAINER_DUMMY") {
+		ObjectList.insert(std::make_pair(Tag, Object));
 
-	if (Tag != "DUMMY") {
 		FLog.ObjectTag = Tag;
 		FLog.Log(LogType::ADD_OBJECT);
 
