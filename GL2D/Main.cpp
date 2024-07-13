@@ -4,12 +4,10 @@
 #include "ImageUtil.h"
 #include "DataUtil.h"
 #include "FontLoaderUtil.h"
-#include "RandomUtil.h"
 #include "RenderModeUtil.h"
 #include "ShaderUtil.h"
 #include "SoundUtil.h"
 #include "TextUtil.h"
-#include "TimerUtil.h"
 #include <ctime>
 #include <iostream>
 #include <map>
