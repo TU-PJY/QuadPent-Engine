@@ -61,9 +61,6 @@
     <Filter Include="[3]___________[ Util ]\[ Physics Util ]">
       <UniqueIdentifier>{63469aed-9fc3-41f7-bbf0-32d2050b40a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[4]___________[ MATA_ENGINE-1 ]">
-      <UniqueIdentifier>{b19c2cd5-f7dc-4a85-9cfa-b0749b68ceea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[1]___________[ Object ]\[2][ Floating Object ]">
       <UniqueIdentifier>{b9e501bb-a47d-43b6-ada9-6bde123338ff}</UniqueIdentifier>
     </Filter>
@@ -75,6 +72,9 @@
     </Filter>
     <Filter Include="[5]___________[ Resources ]">
       <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ mata_ENGINE-2 ]">
+      <UniqueIdentifier>{b19c2cd5-f7dc-4a85-9cfa-b0749b68ceea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -139,7 +139,7 @@
       <Filter>[2]___________[ GameMode ]\[ Mode1 ]</Filter>
     </ClInclude>
     <ClInclude Include="MATA_HEADER.h">
-      <Filter>[4]___________[ MATA_ENGINE-1 ]</Filter>
+      <Filter>[4]___________[ mata_ENGINE-2 ]</Filter>
     </ClInclude>
     <ClInclude Include="Base.h">
       <Filter>[1]___________[ Object ]\[3][ Object Base ]</Filter>

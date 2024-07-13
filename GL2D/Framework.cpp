@@ -140,44 +140,31 @@ void Framework::ResetControlState(BASE* Object) {
 
 void Framework::ResetControlState(std::string Tag) {
 	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList))
+	if (It != end(ObjectList) && !It->second->DeleteDesc)
 		It->second->ResetControlState();
 }
 
 void Framework::InputKey(std::string Tag, unsigned char KEY, int S_KEY, bool KeyDown, bool SpecialKey) {
 	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList))
+	if (It != end(ObjectList) && !It->second->DeleteDesc)
 		It->second->InputKey(KEY, S_KEY, KeyDown, SpecialKey);
 }
 
 void Framework::InputMouse(std::string Tag, int button, int state, int x, int y) {
 	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList))
+	if (It != end(ObjectList) && !It->second->DeleteDesc)
 		It->second->InputMouse(button, state, x, y);
 }
 
 void Framework::InputMousePosition(std::string Tag, GLfloat X, GLfloat Y) {
 	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList))
+	if (It != end(ObjectList) && !It->second->DeleteDesc)
 		It->second->InputMousePosition(X, Y);
-}
-
-void Framework::HideMousePosition(std::string Tag) {
-	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList)) {
-		It->second->MouseX = -100.0;
-		It->second->MouseX = -100.0;
-	}
-}
-
-void Framework::HideMousePosition(BASE* Object) {
-	Object->MouseX = -100.0;
-	Object->MouseX = -100.0;
 }
 
 void Framework::InputScroll(std::string Tag, int button, int Wheel, int x, int y) {
 	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList))
+	if (It != end(ObjectList) && !It->second->DeleteDesc)
 		It->second->InputScroll(button, Wheel, x, y);
 }
 
@@ -206,10 +193,6 @@ void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool Se
 void Framework::DeleteSelf(BASE* Object) {
 	Object->DeleteDesc = true;
 
-	std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
-		return Object.second->DeleteDesc;
-		});
-
 	FLog.ObjectTag = Object->ObjectTag;
 	FLog.Log(LogType::DELETE_OBJECT);
 }
@@ -217,7 +200,7 @@ void Framework::DeleteSelf(BASE* Object) {
 void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
 	if (deleteRange == DeleteRange::One) {
 		auto It = ObjectList.find(Tag);
-		if (It != end(ObjectList)) {
+		if (It != end(ObjectList) && !It->second->DeleteDesc) {
 			It->second->DeleteDesc = true;
 			FLog.ObjectTag = It->second->ObjectTag;
 			FLog.Log(LogType::DELETE_OBJECT);
@@ -225,23 +208,22 @@ void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
 	}
 
 	else if (deleteRange == DeleteRange::All) {
-		for (auto It = begin(ObjectList); It != end(ObjectList); ++It) {
-			if (It->first == Tag) {
-				It->second->DeleteDesc = true;
-				FLog.ObjectTag = It->second->ObjectTag;
-				FLog.Log(LogType::DELETE_OBJECT);
+		auto Range = ObjectList.equal_range(Tag);
+		if (Range.first != Range.second) {
+			for (auto It = Range.first; It != Range.second; ++It) {
+				if (It->first == Tag && !It->second->DeleteDesc) {
+					It->second->DeleteDesc = true;
+					FLog.ObjectTag = It->second->ObjectTag;
+					FLog.Log(LogType::DELETE_OBJECT);
+				}
 			}
 		}
 	}
-
-	std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
-		return Object.second->DeleteDesc;
-		});
 }
 
 BASE* Framework::Find(std::string Tag) {
 	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList))
+	if (It != end(ObjectList) && !It->second->DeleteDesc)
 		return It->second;
 
 	return nullptr;
@@ -253,7 +235,7 @@ BASE* Framework::Find(std::string Tag, Layer LayerToSearch, int Index) {
 	if (Index >= Container[layer].size())
 		return nullptr;
 
-	if (Container[layer][Index]->ObjectTag == Tag)
+	if (Container[layer][Index]->ObjectTag == Tag && !Container[layer][Index]->DeleteDesc)
 		return Container[layer][Index];
 
 	return nullptr;
@@ -287,10 +269,6 @@ void Framework::ClearFloatingObject() {
 				(*It)->DeleteDesc = true;
 		}
 	}
-
-	std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
-		return Object.second->DeleteDesc;
-		});
 }
 
 void Framework::ClearAll() {
@@ -300,8 +278,4 @@ void Framework::ClearAll() {
 				(*It)->DeleteDesc = true;
 		}
 	}
-
-	std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
-		return Object.second->DeleteDesc;
-		});
 }
