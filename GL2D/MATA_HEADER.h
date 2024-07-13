@@ -22,7 +22,7 @@ struct Rect {
 extern Rect rect;
 
 // GPU vendor name and vendor print option
-extern std::string VENDOR;
+extern std::string GPU_Vendor;
 
 // global scope shader
 extern GLuint ImageShader;
@@ -59,4 +59,4 @@ constexpr bool ShowBoundBox = true;
 constexpr bool ShowConsole = true;
 
 //vendor print option
-constexpr bool PrintVendorInfoOpt = false;
+constexpr bool PrintGPU_VendorInfoOpt = false;

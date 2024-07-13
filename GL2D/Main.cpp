@@ -21,7 +21,8 @@ int HEIGHT = 800;
 GLfloat ASPECT;
 Rect rect;
 glm::vec3 BackColor;
-std::string VENDOR;
+
+std::string GPU_Vendor;
 
 ShaderUtil shaderUtil;
 CameraUtil camera;
@@ -89,11 +90,12 @@ void main(int argc, char** argv) {
 	else
 		std::cout << "GLEW Initialized\n\n";
 
-	const GLubyte* VendorInfo = glGetString(GL_VENDOR);
-	if (VendorInfo) {
-		VENDOR = reinterpret_cast<const char*>(VendorInfo);
-		if (PrintVendorInfoOpt)
-			std::cout << "GPU Vendor: " << VENDOR << "\n\n";
+	if (PrintGPU_VendorInfoOpt) {
+		const GLubyte* GPU_VendorInfo = glGetString(GL_VENDOR);
+		if (GPU_VendorInfo) {
+			GPU_Vendor = reinterpret_cast<const char*>(GPU_VendorInfo);
+			std::cout << "GPU Vendor: " << GPU_Vendor << "\n\n";
+		}
 	}
 
 	glEnable(GL_MULTISAMPLE);

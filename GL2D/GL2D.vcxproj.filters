@@ -37,9 +37,6 @@
     <Filter Include="[3]___________[ Util ]\[ Text Util ]">
       <UniqueIdentifier>{ebbafb29-e74d-4f67-ae00-7ab61d0dd40e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ GLSL ]">
-      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[2]___________[ GameMode ]">
       <UniqueIdentifier>{824d0f24-8e5b-4c58-99e5-e019f51ea99a}</UniqueIdentifier>
     </Filter>
@@ -70,11 +67,14 @@
     <Filter Include="[1]___________[ Object ]\[2][ Floating Object ]">
       <UniqueIdentifier>{b9e501bb-a47d-43b6-ada9-6bde123338ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[6]___________[ Resources ]">
-      <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]___________[ Util ]\[ AnimationUtil ]">
       <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[6]___________[ GLSL ]">
+      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ Resources ]">
+      <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -125,7 +125,7 @@
       <Filter>[3]___________[ Util ]\[ Physics Util ]</Filter>
     </ClCompile>
     <ClCompile Include="ResourceList.cpp">
-      <Filter>[6]___________[ Resources ]</Filter>
+      <Filter>[5]___________[ Resources ]</Filter>
     </ClCompile>
     <ClCompile Include="ShaderUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Shader Util ]</Filter>
@@ -200,13 +200,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MATA_ENGINE_RES\GLSL\GLSL_fragment.glsl">
-      <Filter>[5]___________[ GLSL ]</Filter>
+      <Filter>[6]___________[ GLSL ]</Filter>
     </None>
     <None Include="MATA_ENGINE_RES\GLSL\GLSL_fragment_text.glsl">
-      <Filter>[5]___________[ GLSL ]</Filter>
+      <Filter>[6]___________[ GLSL ]</Filter>
     </None>
     <None Include="MATA_ENGINE_RES\GLSL\GLSL_vertex.glsl">
-      <Filter>[5]___________[ GLSL ]</Filter>
+      <Filter>[6]___________[ GLSL ]</Filter>
     </None>
   </ItemGroup>
 </Project>
