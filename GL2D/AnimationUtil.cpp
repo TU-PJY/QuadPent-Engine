@@ -11,7 +11,7 @@ GLfloat SinAnimation::Reset() {
 }
 
 
-GLfloat PopupAnimation::Animation(GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSoeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime) {
+GLfloat PopBounceAnimation::Animation(GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSoeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime) {
 	Num3 += FrameTime * SizeIncreaseSoeed;
 
 	if (Num3 >= SizeDest) {
@@ -23,7 +23,7 @@ GLfloat PopupAnimation::Animation(GLfloat SizeDest, GLfloat ShakeValue, GLfloat 
 	return Num3 + sin(Num1) * (ShakeValue - Num2);
 }
 
-void PopupAnimation::Reset(){
+void PopBounceAnimation::Reset(){
 	Num1 = 0;
 	Num2 = 0;
 	Num3 = 0;

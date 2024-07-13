@@ -12,7 +12,7 @@ public:
 };
 
 
-class PopupAnimation {
+class PopBounceAnimation {
 private:
 	GLfloat Num1{}, Num2{}, Num3{};
 
