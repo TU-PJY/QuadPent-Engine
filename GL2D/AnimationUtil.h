@@ -2,13 +2,13 @@
 #include "MATA_HEADER.h"
 #include <cmath>
 
-class SinAnimation {
+class LoopSinAnimation {
 private:
 	GLfloat Num{};
 
 public:
-	GLfloat Animation(GLfloat MoveScale, float FrameTime);
-	GLfloat Reset();
+	GLfloat Update(GLfloat MoveScale, float FrameTime);
+	void Reset();
 };
 
 
@@ -17,6 +17,19 @@ private:
 	GLfloat Num1{}, Num2{}, Num3{};
 
 public:
-	GLfloat Animation(GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSoeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime);
+	GLfloat Update(GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSoeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime);
+	void Reset();
+};
+
+
+class LerpSinAnimation {
+private:
+	GLfloat Num{};
+	GLfloat Acc{};
+	GLfloat Result{};
+	bool Increase{ true };
+
+public:
+	GLfloat Update(GLfloat From, GLfloat To, GLfloat Speed, GLfloat AccValue, float FrameTime);
 	void Reset();
 };

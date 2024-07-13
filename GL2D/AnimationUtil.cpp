@@ -1,17 +1,17 @@
 #include "AnimationUtil.h"
 #include <cmath>
 
-GLfloat SinAnimation::Animation(GLfloat MoveScale, float FrameTime) {
+GLfloat LoopSinAnimation::Update(GLfloat MoveScale, float FrameTime) {
 	Num += FrameTime;
 	return sin(Num) * MoveScale;
 }
 
-GLfloat SinAnimation::Reset() {
+void LoopSinAnimation::Reset() {
 	Num = 0;
 }
 
 
-GLfloat PopBounceAnimation::Animation(GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSoeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime) {
+GLfloat PopBounceAnimation::Update(GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSoeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime) {
 	Num3 += FrameTime * SizeIncreaseSoeed;
 
 	if (Num3 >= SizeDest) {
@@ -27,4 +27,34 @@ void PopBounceAnimation::Reset(){
 	Num1 = 0;
 	Num2 = 0;
 	Num3 = 0;
+}
+
+
+GLfloat LerpSinAnimation::Update(GLfloat From, GLfloat To, GLfloat Speed, GLfloat AccValue, float FrameTime) {
+	if (Increase) {
+		Acc += FrameTime * AccValue;
+		Num += Acc * Speed * FrameTime;
+
+		if (Num >= 3.14 / 2.0) {
+			Num = 3.14 / 2.0;
+			Increase = false;
+		}
+	}
+
+	else {
+		Acc -= FrameTime * AccValue;
+		Num -= Acc * Speed * FrameTime;
+		if (Num <= 0)
+			Num = 0;
+		if (Acc <= 0)
+			Acc = 0;
+	}
+
+	return From + sin(Num) * (To - From);
+}
+
+void LerpSinAnimation::Reset() {
+	Acc = 0;
+	Num = 0;
+	Increase = true;
 }
