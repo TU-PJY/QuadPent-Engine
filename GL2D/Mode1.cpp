@@ -5,8 +5,6 @@
 
 MouseUtil mouse;
 
-GLfloat MouseX, MouseY;
-
 void Mode1::SetController() {
 	glutMotionFunc(MouseMotion);
 	glutPassiveMotionFunc(MousePassiveMotion);

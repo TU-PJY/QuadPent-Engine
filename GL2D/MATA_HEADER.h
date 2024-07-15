@@ -13,6 +13,7 @@
 
 // display width, height and apsect ratio
 extern int WIDTH, HEIGHT;
+extern int PREV_WIDTH, PREV_HEIGHT;
 extern GLfloat ASPECT;
 
 // corner position of display

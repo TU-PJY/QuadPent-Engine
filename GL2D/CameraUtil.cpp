@@ -6,6 +6,9 @@ void CameraUtil::CalculateASPECT() {
 	rect.ly = -1.0;
 	rect.rx = 1.0 * ASPECT;
 	rect.ry = 1.0;
+
+	PREV_WIDTH = WIDTH;
+	PREV_HEIGHT = HEIGHT;
 }
 
 void CameraUtil::Init() {
@@ -15,7 +18,9 @@ void CameraUtil::Init() {
 
 void CameraUtil::SetCamera() {
 	using namespace glm;
-	CalculateASPECT();
+
+	if(PREV_WIDTH != WIDTH || PREV_HEIGHT != HEIGHT)
+		CalculateASPECT();
 
 	ViewMatrix = mat4(1.0f);
 	Projection = mat4(1.0f);
@@ -26,15 +31,17 @@ void CameraUtil::SetCamera() {
 
 	ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
 
-	ViewMatrix = translate(ViewMatrix, glm::vec3(x, y, 0.0));
-	ViewMatrix = rotate(ViewMatrix, glm::radians(Rotation), glm::vec3(0.0, 0.0, 1.0));
+	ViewMatrix = translate(ViewMatrix, vec3(x, y, 0.0));
+	ViewMatrix = rotate(ViewMatrix, glm::radians(Rotation), vec3(0.0, 0.0, 1.0));
 
 	Projection = ortho((ASPECT * -1.0f) / Zoom, (ASPECT * 1.0f) / Zoom, -1.0f / Zoom, 1.0f / Zoom, -100.0f, 100.0f);
 }
 
 void CameraUtil::SetStaticCamera() {
 	using namespace glm;
-	CalculateASPECT();
+	
+	if (PREV_WIDTH != WIDTH || PREV_HEIGHT != HEIGHT)
+		CalculateASPECT();
 
 	ViewMatrix = mat4(1.0f);
 	Projection = mat4(1.0f);

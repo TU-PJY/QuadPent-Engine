@@ -8,13 +8,13 @@
 #include "ShaderUtil.h"
 #include "SoundUtil.h"
 #include "TextUtil.h"
-#include <ctime>
 #include <iostream>
-#include <map>
 #include <windows.h>
 
 int WIDTH = 1200;
 int HEIGHT = 800;
+int PREV_WIDTH = WIDTH;
+int PREV_HEIGHT = HEIGHT;
 
 GLfloat ASPECT;
 Rect rect;
@@ -33,8 +33,8 @@ DataUtil dataUtil;
 FontLoaderUtil fontloaderUtil;
 Framework fw;
 
-clock_t StartTime, EndTime;
-float DeltaTime;
+// frametime values
+float PrevTime, CurrentTime, DeltaTime;
 
 #include "Mode1.h"
 
@@ -45,27 +45,28 @@ GLvoid DisplayReshape(int w, int h) {
 }
 
 GLvoid GLMain() {
-	StartTime = clock();
-
 	glClearColor(BackColor.r, BackColor.g, BackColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	fw.Routine();
 	soundUtil.Update();
 
+	CurrentTime = glutGet(GLUT_ELAPSED_TIME);
+	DeltaTime = (CurrentTime - PrevTime) / 1000;
+	fw.SetFrameTime(DeltaTime);
+	PrevTime = CurrentTime;
+
 	glutSwapBuffers();
 	glutPostRedisplay();
-
-	EndTime = clock();
-	DeltaTime = float(EndTime - StartTime) / 1000;
-	fw.SetFrameTime(DeltaTime);
 }
 
 void main(int argc, char** argv) {
-	if (!ShowConsole) {
-		HWND hWnd = GetConsoleWindow();
+	HWND hWnd = GetConsoleWindow();
+
+	if (!ShowConsole)
 		ShowWindow(hWnd, SW_HIDE);
-	}
+	else
+		ShowWindow(hWnd, SW_SHOWNORMAL);
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
