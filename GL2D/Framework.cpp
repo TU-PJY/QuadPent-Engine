@@ -268,8 +268,9 @@ void Framework::UpdateContainer(int i) {
 		}
 
 		if ((*It)->SwapLayerDesc) {
-			Container[(*It)->DestLayer].push_back(*It);
-			Container[(*It)->DestLayer].back()->SwapLayerDesc = false;
+			int DestLayer = (*It)->DestLayer;
+			Container[DestLayer].push_back(*It);
+			Container[DestLayer].back()->SwapLayerDesc = false;
 			It = Container[i].erase(It);
 			continue;
 		}
