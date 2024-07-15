@@ -191,8 +191,8 @@ void BASE::SetListnerPosition(float X, float Y) {
 	soundUtil.SetListnerPosition(X, Y);
 }
 
-void BASE::SetSoundPosition(Channel& Channel, float X, float Y) {
-	soundUtil.SetSoundPosition(Channel, X, Y);
+void BASE::SetSoundPosition(Channel& Channel, float X, float Y, float Diff) {
+	soundUtil.SetSoundPosition(Channel, X, Y, Diff);
 }
 
 void BASE::InputMousePosition(GLfloat X, GLfloat Y) {

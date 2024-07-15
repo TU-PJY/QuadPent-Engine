@@ -71,7 +71,7 @@ public:
 	void UnsetBeatDetect(Channel& Channel);
 	void SetChannelDistance(Channel& Channel, float MinDist, float MaxDist);
 	void SetListnerPosition(float X, float Y);
-	void SetSoundPosition(Channel& Channel, float X, float Y);
+	void SetSoundPosition(Channel& Channel, float X, float Y, float Diff);
 
 	// essential functions
 	virtual void Update(float FT) {}
