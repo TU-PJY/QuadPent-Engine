@@ -26,7 +26,7 @@ private:
 public:
 	std::string ObjectTag{};
 	int PrevLayer{};
-	int DestLayer{ -1 };
+	int DestLayer{};
 	bool SwapLayerDesc{};
 	bool DeleteDesc{};
 	bool FloatingObjectDesc{};
