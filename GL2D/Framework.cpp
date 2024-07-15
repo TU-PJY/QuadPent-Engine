@@ -30,7 +30,7 @@ void Framework::Routine() {
 				}
 			}
 
-			ClearDelObjects(i);
+			UpdateContainer(i);
 		}
 	}
 }
@@ -156,12 +156,6 @@ void Framework::InputMouse(std::string Tag, int button, int state, int x, int y)
 		It->second->InputMouse(button, state, x, y);
 }
 
-void Framework::InputMousePosition(std::string Tag, GLfloat X, GLfloat Y) {
-	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList) && !It->second->DeleteDesc)
-		It->second->InputMousePosition(X, Y);
-}
-
 void Framework::InputScroll(std::string Tag, int button, int Wheel, int x, int y) {
 	auto It = ObjectList.find(Tag);
 	if (It != end(ObjectList) && !It->second->DeleteDesc)
@@ -169,8 +163,11 @@ void Framework::InputScroll(std::string Tag, int button, int Wheel, int x, int y
 }
 
 void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetStaticObject, bool SetFloatingObject) {
-	Container[static_cast<int>(AddLayer)].push_back(Object);
+	int DestLayer = static_cast<int>(AddLayer);
+
+	Container[DestLayer].push_back(Object);
 	Object->ObjectTag = Tag;
+	Object->PrevLayer = DestLayer;
 
 	if (Tag != "MATA_ENGINE_CONTAINER_DUMMY") {
 		ObjectList.insert(std::make_pair(Tag, Object));
@@ -188,6 +185,17 @@ void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool Se
 			FLog.Log(LogType::SET_STATIC_OBJECT);
 		}
 	}
+}
+
+void Framework::SwapLayer(BASE* Object, Layer TargetLayer) {
+	int DestLayer = static_cast<int>(TargetLayer);
+
+	if (Object->PrevLayer == DestLayer)
+		return;
+
+	Object->SwapLayerDesc = true;
+	Object->DestLayer = DestLayer;
+	Object->PrevLayer = DestLayer;
 }
 
 void Framework::DeleteSelf(BASE* Object) {
@@ -246,7 +254,7 @@ size_t Framework::Size(Layer TargetLayer) {
 }
 
 //////// private ///////////////
-void Framework::ClearDelObjects(int i) {
+void Framework::UpdateContainer(int i) {
 	std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
 		return Object.second->DeleteDesc;
 		});
@@ -258,6 +266,14 @@ void Framework::ClearDelObjects(int i) {
 			It = Container[i].erase(It);
 			continue;
 		}
+
+		if ((*It)->SwapLayerDesc) {
+			Container[(*It)->DestLayer].push_back(*It);
+			Container[(*It)->DestLayer].back()->SwapLayerDesc = false;
+			It = Container[i].erase(It);
+			continue;
+		}
+
 		++It;
 	}
 }

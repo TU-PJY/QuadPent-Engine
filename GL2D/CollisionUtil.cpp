@@ -24,13 +24,14 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 	CenterY = Y;
 }
 
-void AABB::Render(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
+void AABB::Render(GLfloat ObjectPositionX, GLfloat ObjectPositionY, GLfloat BoxWidth, GLfloat BoxHeight, bool StaticOpt) {
 	if (ShowBoundBox) {
 		InitTransform();
 
-		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
-		ScaleMatrix = scale(ScaleMatrix, glm::vec3(xScale, yScale, 0.0));
-		RotateMatrix = rotate(RotateMatrix, glm::radians(-camera.Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+		TranslateMatrix = translate(TranslateMatrix, glm::vec3(ObjectPositionX, ObjectPositionY, 0.0));
+		ScaleMatrix = scale(ScaleMatrix, glm::vec3(BoxWidth, BoxHeight, 0.0));
+		if(!StaticOpt)
+			RotateMatrix = rotate(RotateMatrix, glm::radians(-camera.Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		ProcessTransform();
 		imageUtil.Render(Box);
@@ -251,10 +252,10 @@ void Range::Update(GLfloat X, GLfloat Y, GLfloat Size) {
 	Radius = Size / 2.0;
 }
 
-void Range::Render(GLfloat X, GLfloat Y, GLfloat Size) {
+void Range::Render(GLfloat ObjectPositionX, GLfloat ObjectPositionY, GLfloat Size) {
 	if (ShowBoundBox) {
 		InitTransform();
-		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
+		TranslateMatrix = translate(TranslateMatrix, glm::vec3(ObjectPositionX, ObjectPositionY, 0.0));
 		ScaleMatrix = scale(ScaleMatrix, glm::vec3(Size, Size, 1.0));
 
 		ProcessTransform();

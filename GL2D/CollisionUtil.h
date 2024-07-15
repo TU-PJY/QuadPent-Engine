@@ -22,7 +22,7 @@ private:
 public:
 	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
-	void Render(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
+	void Render(GLfloat ObjectPositionX, GLfloat ObjectPositionY, GLfloat BoxWidth, GLfloat BoxHeight, bool StaticOpt=false);
 	bool CheckCollisionAABB(const AABB& Other);
 	bool CheckCollisionEdge(GLfloat X, Edge Edge);
 	void InterpolateX(GLfloat& X);
@@ -76,7 +76,7 @@ private:
 public:
 	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat Size);
-	void Render(GLfloat X, GLfloat Y, GLfloat Size);
+	void Render(GLfloat ObjectPositionX, GLfloat ObjectPositionY, GLfloat Size);
 	bool CheckCollisionRange(const Range& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 

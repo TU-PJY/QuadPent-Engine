@@ -45,7 +45,6 @@ struct FileNameAndOption {
 extern std::vector<ImageInfo> ImageList;
 extern std::vector<FileNameAndOption> SoundList;
 
-
 // window name
 constexpr const char* WindowName = "MATA_ENGINE-1";
 
@@ -58,5 +57,5 @@ constexpr bool ShowBoundBox = true;
 // console window option
 constexpr bool ShowConsole = true;
 
-//vendor print option
+// vendor print option
 constexpr bool PrintGPU_VendorInfoOpt = false;

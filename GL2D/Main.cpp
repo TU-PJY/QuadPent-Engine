@@ -118,6 +118,8 @@ void main(int argc, char** argv) {
 
 	fw.Init(Mode1::GameMode1, Mode1::SetController);
 
+	fw.AddObject(new obj, "obj1", Layer::L1);
+
 	glutDisplayFunc(GLMain);
 	glutReshapeFunc(DisplayReshape);
 	glutMainLoop();

@@ -24,10 +24,13 @@ private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{}, TextAlphaLocation{};
 
 public:
+	std::string ObjectTag{};
+	int PrevLayer{};
+	int DestLayer{ -1 };
+	bool SwapLayerDesc{};
 	bool DeleteDesc{};
 	bool FloatingObjectDesc{};
 	bool StaticDesc{};
-	std::string ObjectTag{};
 
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };

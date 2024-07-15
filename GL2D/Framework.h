@@ -46,9 +46,9 @@ public:
 	void ResetControlState(std::string Tag);
 	void InputKey(std::string Tag, unsigned char KEY, int S_KEY, bool KeyDown, bool SpecialKey=false);
 	void InputMouse(std::string Tag, int button, int state, int x, int y);
-	void InputMousePosition(std::string Tag, GLfloat X, GLfloat Y);
 	void InputScroll(std::string Tag, int button, int Wheel, int x, int y);
 	void AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetStaticObject=false, bool SetFloatingObject=false);
+	void SwapLayer(BASE* Object, Layer TargetLayer);
 	void DeleteSelf(BASE* Object);
 	void DeleteObject(std::string Tag, DeleteRange deleteRange);
 	BASE* Find(std::string Tag);
@@ -56,7 +56,7 @@ public:
 	size_t Size(Layer TargetLayer);
 
 private:
-	void ClearDelObjects(int i);
+	void UpdateContainer(int i);
 	void ClearFloatingObject();
 	void ClearAll();
 };
