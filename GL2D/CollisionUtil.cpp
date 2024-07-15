@@ -24,13 +24,36 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 	CenterY = Y;
 }
 
-void AABB::Render(GLfloat ObjectPositionX, GLfloat ObjectPositionY, GLfloat BoxWidth, GLfloat BoxHeight, bool StaticOpt) {
+void AABB::BeginProcess() {
 	if (ShowBoundBox) {
-		InitTransform();
+		TranslateMatrix = glm::mat4(1.0f);
+		ScaleMatrix = glm::mat4(1.0f);
+		RotateMatrix = glm::mat4(1.0f);
+	}
+}
 
-		TranslateMatrix = translate(TranslateMatrix, glm::vec3(ObjectPositionX, ObjectPositionY, 0.0));
-		ScaleMatrix = scale(ScaleMatrix, glm::vec3(BoxWidth, BoxHeight, 0.0));
-		if(!StaticOpt)
+void AABB::Move(GLfloat X, GLfloat Y) {
+	if (ShowBoundBox) 
+		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
+}
+
+void AABB::Scale(GLfloat BoxWidth, GLfloat BoxHeight) {
+	if (ShowBoundBox)
+		ScaleMatrix = scale(ScaleMatrix, glm::vec3(BoxWidth, BoxHeight, 1.0));
+}
+
+void AABB::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
+	if (ShowBoundBox) {
+		RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
+		RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
+		RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
+		RotateMatrix = rotate(RotateMatrix, glm::radians(-RotationValue), glm::vec3(0.0, 0.0, 1.0));
+	}
+}
+
+void AABB::Render(bool StaticRender) {
+	if (ShowBoundBox) {
+		if(!StaticRender)
 			RotateMatrix = rotate(RotateMatrix, glm::radians(-camera.Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		ProcessTransform();
@@ -106,12 +129,6 @@ void AABB::InterpolateY(GLfloat& Y) {
 	Y = CenterY;
 }
 
-void AABB::InitTransform() {
-	TranslateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
-	RotateMatrix = glm::mat4(1.0f);
-}
-
 void AABB::ProcessTransform() {
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, 1.0);
@@ -141,14 +158,39 @@ void OBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfl
 	Axis[1] = glm::vec2(-std::sin(Rad), std::cos(Rad));
 }
 
-void OBB::Render(GLfloat ObjectPositionX, GLfloat ObjectPositionY, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat ObjectRotationValue) {
+void OBB::BeginProcess() {
 	if (ShowBoundBox) {
-		InitTransform();
+		TranslateMatrix = glm::mat4(1.0f);
+		RotateMatrix = glm::mat4(1.0f);
+		ScaleMatrix = glm::mat4(1.0f);
+	}
+}
 
-		TranslateMatrix = translate(TranslateMatrix, glm::vec3(ObjectPositionX, ObjectPositionY, 0.0f));
-		RotateMatrix = rotate(RotateMatrix, glm::radians(ObjectRotationValue), glm::vec3(0.0f, 0.0f, 1.0f));
+void OBB::Move(GLfloat X, GLfloat Y) {
+	if (ShowBoundBox)
+		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0f));
+}
+
+void OBB::Rotate(GLfloat RotationValue) {
+	if (ShowBoundBox)
+		RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0f, 0.0f, 1.0f));
+}
+
+void OBB::Scale(GLfloat BoxWidth, GLfloat BoxHeight) {
+	if (ShowBoundBox)
 		ScaleMatrix = scale(ScaleMatrix, glm::vec3(BoxWidth, BoxHeight, 1.0f));
+}
 
+void OBB::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
+	if (ShowBoundBox) {
+		RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
+		RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
+		RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
+	}
+}
+
+void OBB::Render() {
+	if (ShowBoundBox) {
 		ProcessTransform();
 		imageUtil.Render(Box);
 		if (Collide)
@@ -216,12 +258,6 @@ bool OBB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 	return true;
 }
 
-void OBB::InitTransform() {
-	TranslateMatrix = glm::mat4(1.0f);
-	RotateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
-}
-
 void OBB::ProcessTransform() {
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, 1.0);
@@ -242,8 +278,31 @@ void Range::Init() {
 	}
 }
 
-void Range::InitTransform() {
-	TranslateMatrix = glm::mat4(1.0f);
+void Range::BeginProcess() {
+	if (ShowBoundBox) {
+		TranslateMatrix = glm::mat4(1.0f);
+		ScaleMatrix = glm::mat4(1.0f);
+		RotateMatrix = glm::mat4(1.0f);
+	}
+}
+
+void Range::Move(GLfloat X, GLfloat Y) {
+	if (ShowBoundBox)
+		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
+}
+
+void Range::Scale(GLfloat Size) {
+	if (ShowBoundBox)
+		ScaleMatrix = scale(ScaleMatrix, glm::vec3(Size, Size, 1.0));
+}
+
+void Range::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
+	if (ShowBoundBox) {
+		RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
+		RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
+		RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
+		RotateMatrix = rotate(RotateMatrix, glm::radians(-RotationValue), glm::vec3(0.0, 0.0, 1.0));
+	}
 }
 
 void Range::Update(GLfloat X, GLfloat Y, GLfloat Size) {
@@ -252,15 +311,10 @@ void Range::Update(GLfloat X, GLfloat Y, GLfloat Size) {
 	Radius = Size / 2.0;
 }
 
-void Range::Render(GLfloat ObjectPositionX, GLfloat ObjectPositionY, GLfloat Size) {
+void Range::Render() {
 	if (ShowBoundBox) {
-		InitTransform();
-		TranslateMatrix = translate(TranslateMatrix, glm::vec3(ObjectPositionX, ObjectPositionY, 0.0));
-		ScaleMatrix = scale(ScaleMatrix, glm::vec3(Size, Size, 1.0));
-
 		ProcessTransform();
 		imageUtil.Render(Circle);
-
 		if (Collide)
 			imageUtil.Render(CircleInside);
 	}
@@ -300,5 +354,5 @@ void Range::ProcessTransform() {
 	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
+	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * RotateMatrix * ScaleMatrix));
 }
