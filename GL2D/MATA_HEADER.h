@@ -49,6 +49,10 @@ extern std::vector<FileNameAndOption> SoundList;
 // window name
 constexpr const char* WindowName = "MATA_ENGINE-1";
 
+// window size
+constexpr int WindowWidth = 1200;
+constexpr int WindowHeight = 800;
+
 // fullscreen option
 constexpr bool StartWithFullScreen = false;
 

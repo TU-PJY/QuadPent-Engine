@@ -11,8 +11,8 @@
 #include <iostream>
 #include <windows.h>
 
-int WIDTH = 1200;
-int HEIGHT = 800;
+int WIDTH = WindowWidth;
+int HEIGHT = WindowHeight;
 int PREV_WIDTH, PREV_HEIGHT;
 
 GLfloat ASPECT;
