@@ -123,10 +123,10 @@ void SoundUtil::SetListnerPosition(float X, float Y) {
 	SoundSystem->set3DListenerAttributes(0, &listenerPos, 0, 0, 0);
 };
 
-void SoundUtil::SetSoundPosition(FMOD::Channel*& Channel, float X, float Y) {
+void SoundUtil::SetSoundPosition(FMOD::Channel*& Channel, float X, float Y, float Diff) {
 	soundPos.x = X;
 	soundPos.y = Y;
-	soundPos.z = 0.5f;
+	soundPos.z = Diff;
 
 	Channel->set3DAttributes(&soundPos, 0);
 }

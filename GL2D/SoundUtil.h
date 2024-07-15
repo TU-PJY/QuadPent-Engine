@@ -41,6 +41,6 @@ public:
 	int GetSoundNumIf(std::string ContainedStr);
 	void SetDistance(FMOD::Channel*& Channel, float MinDist, float MaxDist);
 	void SetListnerPosition(float X, float Y);
-	void SetSoundPosition(FMOD::Channel*& Channel, float X, float Y);
+	void SetSoundPosition(FMOD::Channel*& Channel, float X, float Y, float Diff);
 };
 extern SoundUtil soundUtil;
