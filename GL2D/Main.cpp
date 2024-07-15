@@ -13,8 +13,6 @@
 
 int WIDTH = 1200;
 int HEIGHT = 800;
-int PREV_WIDTH = WIDTH;
-int PREV_HEIGHT = HEIGHT;
 
 GLfloat ASPECT;
 Rect rect;
