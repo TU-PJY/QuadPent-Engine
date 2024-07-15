@@ -199,13 +199,13 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MATA_ENGINE_RES\GLSL\GLSL_fragment.glsl">
+    <None Include="MATA_ENGINE_RES\GLSL\Fragment_Image.glsl">
       <Filter>[6]___________[ GLSL ]</Filter>
     </None>
-    <None Include="MATA_ENGINE_RES\GLSL\GLSL_fragment_text.glsl">
+    <None Include="MATA_ENGINE_RES\GLSL\Fragment_Text.glsl">
       <Filter>[6]___________[ GLSL ]</Filter>
     </None>
-    <None Include="MATA_ENGINE_RES\GLSL\GLSL_vertex.glsl">
+    <None Include="MATA_ENGINE_RES\GLSL\Vertex.glsl">
       <Filter>[6]___________[ GLSL ]</Filter>
     </None>
   </ItemGroup>
