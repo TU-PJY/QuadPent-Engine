@@ -5,6 +5,8 @@
 
 MouseUtil mouse;
 
+GLfloat MouseX, MouseY;
+
 void Mode1::SetController() {
 	glutMotionFunc(MouseMotion);
 	glutPassiveMotionFunc(MousePassiveMotion);
@@ -29,8 +31,6 @@ void Mode1::ProcessKeyboard(unsigned char KEY, int S_KEY, bool KeyDown, bool Spe
 			glutDestroyWindow(1);
 			break;
 		}
-
-		fw.InputKey("obj1", KEY, S_KEY, KeyDown, SpecialKey);
 	}
 }
 
