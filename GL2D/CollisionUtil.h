@@ -27,7 +27,7 @@ public:
 	void Scale(GLfloat BoxWidth, GLfloat BoxHeight);
 	void RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY);
 	void Render(bool Lock=false);
-	bool CheckCollisionAABB(const AABB& Other);
+	bool CheckCollision(const AABB& Other);
 	bool CheckCollisionEdge(GLfloat X, Edge Edge);
 	void InterpolateX(GLfloat& X);
 	void InterpolateY(GLfloat& Y);
@@ -60,7 +60,7 @@ public:
 	void Scale(GLfloat BoxWidth, GLfloat BoxHeight);
 	void Render();
 	void RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY);
-	bool CheckCollisionOBB(const OBB& Other);
+	bool CheckCollision(const OBB& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 
 private:
@@ -88,7 +88,7 @@ public:
 	void Scale(GLfloat Size);
 	void RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY);
 	void Render();
-	bool CheckCollisionRange(const Range& Other);
+	bool CheckCollision(const Range& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 
 private:

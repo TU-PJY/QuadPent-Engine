@@ -63,7 +63,7 @@ void AABB::Render(bool Lock) {
 	}
 }
 
-bool AABB::CheckCollisionAABB(const AABB& Other) {
+bool AABB::CheckCollision(const AABB& Other) {
 	if (RightX < Other.LeftX || LeftX > Other.RightX) {
 		Collide = false;
 		return false;
@@ -229,7 +229,7 @@ bool OBB::OverlapOnAxis(const OBB& OBB1, const OBB& OBB2, const glm::vec2& Axis)
 	return !(Max1 < Min2 || Max2 < Min1);
 }
 
-bool OBB::CheckCollisionOBB(const OBB& Other) {
+bool OBB::CheckCollision(const OBB& Other) {
 	glm::vec2 Axises[] = { Axis[0], Axis[1], Other.Axis[0], Other.Axis[1] };
 
 	for (const auto& Axis : Axises) {
@@ -326,7 +326,7 @@ GLfloat Range::CalculateDistance( GLfloat X, GLfloat Y) {
 	return std::sqrt(DX * DX + DY * DY);
 }
 
-bool Range::CheckCollisionRange(const Range& Other) {
+bool Range::CheckCollision(const Range& Other) {
 	if (CalculateDistance(Other.CenterX, Other.CenterY) < Radius + Other.Radius) {
 		Collide = true;
 		return true;
