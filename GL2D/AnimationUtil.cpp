@@ -11,8 +11,8 @@ void LoopSinAnimation::Reset() {
 }
 
 
-GLfloat PopBounceAnimation::Update(GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSoeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime) {
-	Num3 += FrameTime * SizeIncreaseSoeed;
+GLfloat PopBounceAnimation::Update(GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSpeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime) {
+	Num3 += FrameTime * SizeIncreaseSpeed;
 
 	if (Num3 >= SizeDest) {
 		Num3 = SizeDest;

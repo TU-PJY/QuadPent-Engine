@@ -17,7 +17,7 @@ private:
 	GLfloat Num1{}, Num2{}, Num3{};
 
 public:
-	GLfloat Update(GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSoeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime);
+	GLfloat Update(GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSpeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime);
 	void Reset();
 };
 
