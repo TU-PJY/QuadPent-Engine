@@ -51,9 +51,9 @@ void AABB::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
 	}
 }
 
-void AABB::Render(bool StaticRender) {
+void AABB::Render(bool Lock) {
 	if (ShowBoundBox) {
-		if(!StaticRender)
+		if(!Lock)
 			RotateMatrix = rotate(RotateMatrix, glm::radians(-camera.Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
 
 		ProcessTransform();

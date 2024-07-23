@@ -26,7 +26,7 @@ public:
 	void Move(GLfloat X, GLfloat Y);
 	void Scale(GLfloat BoxWidth, GLfloat BoxHeight);
 	void RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY);
-	void Render(bool StaticRender=false);
+	void Render(bool Lock=false);
 	bool CheckCollisionAABB(const AABB& Other);
 	bool CheckCollisionEdge(GLfloat X, Edge Edge);
 	void InterpolateX(GLfloat& X);

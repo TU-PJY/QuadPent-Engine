@@ -32,6 +32,3 @@ public:
 extern CamaraControlUtil camUtil;
 
 GLfloat DivZoom(GLfloat Value);
-GLfloat SubRot(GLfloat Radians);
-GLfloat SubPosX(GLfloat X);
-GLfloat SubPosY(GLfloat Y);
