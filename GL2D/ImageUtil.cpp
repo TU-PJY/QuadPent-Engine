@@ -28,6 +28,8 @@ void ImageUtil::Init() {
 	glEnableVertexAttribArray(2);
 
 	stbi_set_flip_vertically_on_load(true);
+
+	LoadImageFromList();
 }
 
 void ImageUtil::LoadImageFromList() {

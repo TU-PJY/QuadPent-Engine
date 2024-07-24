@@ -112,7 +112,6 @@ void main(int argc, char** argv) {
 	SetBackColor(0.3, 0.3, 0.3);
 
 	imageUtil.Init();
-	imageUtil.LoadImageFromList();
 	soundUtil.Init();
 	camera.Init();
 		
