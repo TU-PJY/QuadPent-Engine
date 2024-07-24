@@ -17,12 +17,6 @@ enum class Flip
 enum class ImageRenderMode
 {Static, Default};
 
-enum class VP_Type
-{ Static, Default };
-
-enum class Clipping
-{ Under, Upper };
-
 class BASE {
 private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{}, TextAlphaLocation{};
