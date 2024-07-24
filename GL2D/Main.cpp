@@ -7,7 +7,6 @@
 #include "RenderModeUtil.h"
 #include "ShaderUtil.h"
 #include "SoundUtil.h"
-#include "TextUtil.h"
 #include <iostream>
 #include <windows.h>
 

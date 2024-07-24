@@ -125,6 +125,9 @@ void TextUtil::LoadGlyph(wchar_t Char) {
 }
 
 TextUtil::~TextUtil() {
+	HFONT OldFont = (HFONT)SelectObject(hDC, Font);
+	SelectObject(hDC, OldFont);
+	DeleteObject(Font);
 	glDeleteLists(FontBase, 65536);
 	DeleteDC(hDC);
 }
