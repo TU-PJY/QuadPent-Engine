@@ -25,6 +25,23 @@ void TextUtil::Rotate(GLfloat Radians) {
 	Rotation = Radians;
 }
 
+void TextUtil::SetNewLineSpace(GLfloat Value) {
+	NewLineSpace = Value;
+}
+
+void TextUtil::NewLine() {
+	if (NewLineSpace > 0.0)
+		CurrentHeight -= NewLineSpace;
+}
+
+void TextUtil::ResetNewLineSpace() {
+	NewLineSpace = 0.0;
+}
+
+void TextUtil::ResetLine() {
+	CurrentHeight = 0.0;
+}
+
 void TextUtil::Render(TextRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
 	wchar_t Text[256]{};
 
@@ -48,13 +65,13 @@ void TextUtil::Render(TextRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size, G
 
 		switch (TextAlign) {
 		case Align::Default:
-			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X + CurrentPositionX, Y, 0.0));
+			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X + CurrentPositionX, Y + CurrentHeight, 0.0));
 			break;
 		case Align::Middle:
-			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length / 2 + CurrentPositionX, Y, 0.0));
+			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length / 2 + CurrentPositionX, Y + CurrentHeight, 0.0));
 			break;
 		case Align::Left:
-			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length + CurrentPositionX, Y, 0.0));
+			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length + CurrentPositionX, Y + CurrentHeight, 0.0));
 			break;
 		}
 
