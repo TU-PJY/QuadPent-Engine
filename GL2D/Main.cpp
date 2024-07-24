@@ -26,7 +26,6 @@ CameraUtil camera;
 CamaraControlUtil camUtil;
 RenderModeUtil renderMode;
 ImageUtil imageUtil;
-TextUtilUnicode textUnicode;
 SoundUtil soundUtil;
 DataUtil dataUtil;
 FontLoaderUtil fontloaderUtil;
@@ -36,6 +35,8 @@ Framework fw;
 float PrevTime, CurrentTime, DeltaTime;
 
 #include "Mode1.h"
+
+TextUtil text;
 
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
@@ -109,13 +110,13 @@ void main(int argc, char** argv) {
 	shaderUtil.LoadFragmentShader("MATA_ENGINE_RES//GLSL//Fragment_Text.glsl");
 	shaderUtil.CreateShader(TextShader);
 
-	SetBackColor(1.0, 1.0, 1.0);
+	SetBackColor(0.3, 0.3, 0.3);
 
 	imageUtil.Init();
 	imageUtil.LoadImageFromList();
 	soundUtil.Init();
 	camera.Init();
-
+		
 	fw.Init(Mode1::GameMode1, Mode1::SetController);
 
 	glutDisplayFunc(GLMain);
