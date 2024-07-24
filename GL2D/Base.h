@@ -72,6 +72,7 @@ public:
 	void SetSoundPosition(Channel& Channel, float X, float Y, float Diff);
 
 	// essential functions
+	virtual ~BASE() {}
 	virtual void Update(float FT) {}
 	virtual void Render() {}
 	virtual void InputKey(unsigned char KEY, int S_KEY, bool KeyDown, bool SpecialKey = false) {}
