@@ -9,6 +9,7 @@
 
 using Sound = FMOD::Sound*;
 using Channel = FMOD::Channel*;
+using Image = unsigned int;
 
 enum class Flip
 {Horizontal, Vertical};
@@ -18,6 +19,9 @@ enum class ImageRenderMode
 
 enum class VP_Type
 { Static, Default };
+
+enum class Clipping
+{ Under, Upper };
 
 class BASE {
 private:
@@ -84,6 +88,14 @@ public:
 	virtual OBB GetOBB() { return{}; }
 	virtual Range GetRange() { return {}; }
 	void InputMousePosition(GLfloat X, GLfloat Y);
+
+	void BeginColorClipping();
+	void SetColorClipping();
+	void EndColorClipping();
+
+	void BeginTransparentClipping();
+	void SetTransparentClipping();
+	void EndTransparentClipping();
 
 private:
 	void ProcessTransform(); 

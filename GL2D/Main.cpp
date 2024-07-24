@@ -22,8 +22,7 @@ glm::vec3 BackColor;
 std::string GPU_Vendor;
 
 ShaderUtil shaderUtil;
-CameraUtil camera;
-CamaraControlUtil camUtil;
+Camera camera;
 RenderModeUtil renderMode;
 ImageUtil imageUtil;
 SoundUtil soundUtil;
@@ -35,8 +34,6 @@ Framework fw;
 float PrevTime, CurrentTime, DeltaTime;
 
 #include "Mode1.h"
-
-TextUtil text;
 
 GLvoid DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
@@ -53,7 +50,9 @@ GLvoid GLMain() {
 
 	CurrentTime = glutGet(GLUT_ELAPSED_TIME);
 	DeltaTime = (CurrentTime - PrevTime) / 1000;
+
 	fw.SetFrameTime(DeltaTime);
+
 	PrevTime = CurrentTime;
 
 	glutSwapBuffers();

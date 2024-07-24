@@ -1,6 +1,6 @@
 #include "CameraUtil.h"
 
-void CameraUtil::CalculateASPECT() {
+void Camera::CalculateASPECT() {
 	ASPECT = 1.0 * WIDTH / HEIGHT;
 	rect.lx = -1.0 * ASPECT;
 	rect.ly = -1.0;
@@ -11,12 +11,12 @@ void CameraUtil::CalculateASPECT() {
 	PREV_HEIGHT = HEIGHT;
 }
 
-void CameraUtil::Init() {
+void Camera::Init() {
 	CalculateASPECT();
 	SetCamera();
 }
 
-void CameraUtil::SetCamera() {
+void Camera::SetCamera() {
 	using namespace glm;
 
 	if(PREV_WIDTH != WIDTH || PREV_HEIGHT != HEIGHT)
@@ -31,13 +31,13 @@ void CameraUtil::SetCamera() {
 
 	ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
 
-	ViewMatrix = translate(ViewMatrix, vec3(x, y, 0.0));
+	ViewMatrix = translate(ViewMatrix, vec3(PositionX, PositionY, 0.0));
 	ViewMatrix = rotate(ViewMatrix, glm::radians(Rotation), vec3(0.0, 0.0, 1.0));
 
 	Projection = ortho((ASPECT * -1.0f) / Zoom, (ASPECT * 1.0f) / Zoom, -1.0f / Zoom, 1.0f / Zoom, -100.0f, 100.0f);
 }
 
-void CameraUtil::SetStaticCamera() {
+void Camera::SetStaticCamera() {
 	using namespace glm;
 	
 	if (PREV_WIDTH != WIDTH || PREV_HEIGHT != HEIGHT)
@@ -53,7 +53,7 @@ void CameraUtil::SetStaticCamera() {
 	Projection = ortho((ASPECT * -1.0f), (ASPECT * 1.0f), -1.0f, 1.0f, -100.0f, 100.0f);
 }
 
-void CameraUtil::ProcessTransform(bool UseTextShader) {
+void Camera::ProcessTransform(bool UseTextShader) {
 	if (UseTextShader) {
 		ProjectionLocation = glGetUniformLocation(TextShader, "projection");
 		glUniformMatrix4fv(ProjectionLocation, 1, GL_FALSE, &Projection[0][0]);
@@ -77,24 +77,23 @@ void CameraUtil::ProcessTransform(bool UseTextShader) {
 	}
 }
 
-
-void CamaraControlUtil::Move(GLfloat X, GLfloat Y) {
-	camera.x = X; 
-	camera.y = Y;
+void Camera::Move(GLfloat X, GLfloat Y) {
+	PositionX = X; 
+	PositionY = Y;
 }
 
-void CamaraControlUtil::Rotate(GLfloat Radians) {
-	camera.Rotation = Radians;
+void Camera::Rotate(GLfloat RotationValue) {
+	Rotation = RotationValue;
 }
 
-void CamaraControlUtil::AdjustZoom(ZOOM ZoomOpt, GLfloat Value) {
-	switch (ZoomOpt) {
-	case ZOOM::In:
-		camera.Zoom = camera.Zoom / (1.0f - Value);
+void Camera::SetZoom(ZoomOpt Type, GLfloat Value) {
+	switch (Type) {
+	case ZoomOpt::In:
+		Zoom = Zoom / (1.0f - Value);
 		break;
 
-	case ZOOM::Out:
-		camera.Zoom = camera.Zoom * (1.0f - Value);
+	case ZoomOpt::Out:
+		Zoom = Zoom * (1.0f - Value);
 		break;
 	}
 }

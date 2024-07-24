@@ -1,9 +1,9 @@
 #pragma once
 #include "MATA_HEADER.h"
 
-enum class ZOOM{ In, Out };
+enum class ZoomOpt{ In, Out };
 
-class CameraUtil {
+class Camera {
 private:
 	glm::vec3 CamPos{}, CamDirection{}, CamUp{};
 	unsigned int ProjectionLocation{}, ViewLocation{}, ViewPosLocation{};
@@ -11,7 +11,7 @@ private:
 public:
 	glm::mat4 ViewMatrix{}, Projection{};
 	GLfloat Rotation{};
-	GLfloat x{}, y{};
+	GLfloat PositionX{}, PositionY{};
 	GLfloat Zoom{ 1.0f };
 
 	void CalculateASPECT();
@@ -19,16 +19,11 @@ public:
 	void SetCamera();
 	void SetStaticCamera();
 	void ProcessTransform(bool UseTextShader);
-};
-extern CameraUtil camera;
 
-
-class CamaraControlUtil {
-public:
 	void Move(GLfloat MoveX, GLfloat MoveY);
-	void Rotate(GLfloat Radians);
-	void AdjustZoom(ZOOM ZoomOpt, GLfloat Value);
+	void Rotate(GLfloat RotationValue);
+	void SetZoom(ZoomOpt Type, GLfloat Value);
 };
-extern CamaraControlUtil camUtil;
+extern Camera camera;
 
 GLfloat DivZoom(GLfloat Value);

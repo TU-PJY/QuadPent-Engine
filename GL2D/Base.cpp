@@ -200,6 +200,45 @@ void BASE::InputMousePosition(GLfloat X, GLfloat Y) {
 	MouseY = Y;
 }
 
+void BASE::BeginColorClipping() {
+	glEnable(GL_STENCIL_TEST);
+	glClear(GL_STENCIL_BUFFER_BIT);
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+}
+
+void BASE::SetColorClipping() {
+	glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+}
+
+void BASE::EndColorClipping() {
+	glStencilFunc(GL_EQUAL, 1, 0xFF);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+	glClear(GL_STENCIL_BUFFER_BIT);
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	glDisable(GL_STENCIL_TEST);
+}
+
+void BASE::BeginTransparentClipping() {
+	glEnable(GL_STENCIL_TEST);
+	glClear(GL_STENCIL_BUFFER_BIT);
+	glStencilFunc(GL_ALWAYS, 1, 0xFF); // 항상 스텐실 값을 1로 설정
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); // 스텐실 값을 교체
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+}
+
+void BASE::SetTransparentClipping() {
+	glStencilFunc(GL_EQUAL, 0, 0xFF); // 스텐실 값이 0인 경우에만 통과
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP); // 스텐실 값을 변경하지 않음
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+}
+
+void BASE::EndTransparentClipping() {
+	glDisable(GL_STENCIL_TEST);
+}
+
 ////////////////////////// private
 
 void BASE::ProcessTransform() {
