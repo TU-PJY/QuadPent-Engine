@@ -48,7 +48,7 @@ GLvoid GLMain() {
 	fw.Routine();
 	soundUtil.Update();
 
-	CurrentTime = glutGet(GLUT_ELAPSED_TIME);
+	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
 	DeltaTime = (CurrentTime - PrevTime) / 1000.0;
 
 	fw.SetFrameTime(DeltaTime);
