@@ -56,6 +56,14 @@ public:
 	void SetImage(unsigned int& Image, std::string ImageName);
 	void RenderImage(unsigned int Image, GLfloat Transparency = 1.0, Flip FlipOption = static_cast<Flip>(-1), GLfloat ImageWidth = 0, GLfloat ImageHeight = 0);
 
+	void BeginColorClipping();
+	void SetColorClipping();
+	void EndColorClipping();
+
+	void BeginTransparentClipping();
+	void SetTransparentClipping();
+	void EndTransparentClipping();
+
 	void SetSound(Sound& Sound, std::string SoundName);
 	void PlaySound(Sound Sound, Channel& Channel, unsigned int MS = 0);
 	void PauseSound(Channel& Channel, bool Flag);
@@ -71,7 +79,9 @@ public:
 	void SetListnerPosition(float X, float Y);
 	void SetSoundPosition(Channel& Channel, float X, float Y, float Diff);
 
-	// essential functions
+	void InputMousePosition(GLfloat X, GLfloat Y);
+
+	// object defined functions
 	virtual ~BASE() {}
 	virtual void Update(float FT) {}
 	virtual void Render() {}
@@ -82,15 +92,6 @@ public:
 	virtual AABB GetAABB() { return {}; }
 	virtual OBB GetOBB() { return{}; }
 	virtual Range GetRange() { return {}; }
-	void InputMousePosition(GLfloat X, GLfloat Y);
-
-	void BeginColorClipping();
-	void SetColorClipping();
-	void EndColorClipping();
-
-	void BeginTransparentClipping();
-	void SetTransparentClipping();
-	void EndTransparentClipping();
 
 private:
 	void ProcessTransform(); 
