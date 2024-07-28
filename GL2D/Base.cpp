@@ -117,18 +117,18 @@ void BASE::SetImage(unsigned int& Image, std::string ImageName) {
 	imageUtil.SetImage(Image, ImageName);
 }
 
-void BASE::RenderImage(unsigned int Image, GLfloat Transparency, Flip FlipOption, GLfloat ImageWidth, GLfloat ImageHeight) {
+void BASE::RenderImage(unsigned int Image, GLfloat Transparency, GLfloat ImageWidth, GLfloat ImageHeight, Flip FlipOption) {
 	if (ImageWidth != 0 && ImageHeight != 0)
-		TranslateMatrix = scale(TranslateMatrix, glm::vec3(ImageWidth / ImageHeight, 1.0, 0.0));
+		ScaleMatrix = scale(ScaleMatrix, glm::vec3(ImageWidth / ImageHeight, 1.0, 0.0));
 
 	if (FlipOption != static_cast<Flip>(-1)) {
 		switch (FlipOption) {
 		case Flip::Horizontal:
-			TranslateMatrix = rotate(TranslateMatrix, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
+			RotateMatrix = rotate(RotateMatrix, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
 			break;
 
 		case Flip::Vertical:
-			TranslateMatrix = rotate(TranslateMatrix, glm::radians(180.0f), glm::vec3(1.0, 0.0, 0.0));
+			RotateMatrix = rotate(RotateMatrix, glm::radians(180.0f), glm::vec3(1.0, 0.0, 0.0));
 			break;
 		}
 	}

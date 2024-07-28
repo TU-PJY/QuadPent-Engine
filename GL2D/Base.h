@@ -54,7 +54,7 @@ public:
 	glm::vec4 ViewportPosition();
 
 	void SetImage(unsigned int& Image, std::string ImageName);
-	void RenderImage(unsigned int Image, GLfloat Transparency = 1.0, Flip FlipOption = static_cast<Flip>(-1), GLfloat ImageWidth = 0, GLfloat ImageHeight = 0);
+	void RenderImage(unsigned int Image, GLfloat Transparency = 1.0, GLfloat ImageWidth = 0, GLfloat ImageHeight = 0, Flip FlipOption = static_cast<Flip>(-1));
 
 	void BeginColorClipping();
 	void SetColorClipping();
