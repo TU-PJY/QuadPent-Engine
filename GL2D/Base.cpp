@@ -117,8 +117,8 @@ void BASE::SetImage(unsigned int& Image, std::string ImageName) {
 	imageUtil.SetImage(Image, ImageName);
 }
 
-void BASE::RenderImage(unsigned int Image, GLfloat Transparency, GLfloat ImageWidth, GLfloat ImageHeight, Flip FlipOption) {
-	if (ImageWidth != 0 && ImageHeight != 0)
+void BASE::RenderImage(unsigned int Image, GLfloat Transparency, Flip FlipOption, GLfloat ImageWidth, GLfloat ImageHeight) {
+	if (ImageWidth != 0.0 && ImageHeight != 0.0)
 		ScaleMatrix = scale(ScaleMatrix, glm::vec3(ImageWidth / ImageHeight, 1.0, 0.0));
 
 	if (FlipOption != static_cast<Flip>(-1)) {
@@ -224,14 +224,14 @@ void BASE::EndColorClipping() {
 void BASE::BeginTransparentClipping() {
 	glEnable(GL_STENCIL_TEST);
 	glClear(GL_STENCIL_BUFFER_BIT);
-	glStencilFunc(GL_ALWAYS, 1, 0xFF); // 항상 스텐실 값을 1로 설정
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); // 스텐실 값을 교체
+	glStencilFunc(GL_ALWAYS, 1, 0xFF);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 }
 
 void BASE::SetTransparentClipping() {
-	glStencilFunc(GL_EQUAL, 0, 0xFF); // 스텐실 값이 0인 경우에만 통과
-	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP); // 스텐실 값을 변경하지 않음
+	glStencilFunc(GL_EQUAL, 0, 0xFF);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 }
 
