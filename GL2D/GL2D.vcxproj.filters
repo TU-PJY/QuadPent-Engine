@@ -4,15 +4,6 @@
     <Filter Include="[0]___________[ FrameWork ]">
       <UniqueIdentifier>{1f603e56-a168-4c93-8788-373edb9df2ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[1]___________[ Object ]">
-      <UniqueIdentifier>{56801dea-cc93-4de6-be84-193b881c5076}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[1]___________[ Object ]\[1][ Main Object ]">
-      <UniqueIdentifier>{d6d673e8-1784-4513-a51f-e1fb334d2ea5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[1]___________[ Object ]\[3][ Object Base ]">
-      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]___________[ Util ]">
       <UniqueIdentifier>{019278b2-60d4-4cad-b935-d813a31f2c87}</UniqueIdentifier>
     </Filter>
@@ -37,12 +28,6 @@
     <Filter Include="[3]___________[ Util ]\[ Text Util ]">
       <UniqueIdentifier>{ebbafb29-e74d-4f67-ae00-7ab61d0dd40e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[2]___________[ GameMode ]">
-      <UniqueIdentifier>{824d0f24-8e5b-4c58-99e5-e019f51ea99a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[2]___________[ GameMode ]\[ Mode1 ]">
-      <UniqueIdentifier>{7b8ece9e-369e-41aa-9eb1-0f0dc2f9398d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]___________[ Util ]\[ Sound Util ]">
       <UniqueIdentifier>{22512964-c0e1-42b6-8ae0-9c32d227bc22}</UniqueIdentifier>
     </Filter>
@@ -61,9 +46,6 @@
     <Filter Include="[3]___________[ Util ]\[ Physics Util ]">
       <UniqueIdentifier>{63469aed-9fc3-41f7-bbf0-32d2050b40a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[1]___________[ Object ]\[2][ Floating Object ]">
-      <UniqueIdentifier>{b9e501bb-a47d-43b6-ada9-6bde123338ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]___________[ Util ]\[ AnimationUtil ]">
       <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
     </Filter>
@@ -76,13 +58,31 @@
     <Filter Include="[4]___________[ mata_ENGINE-2 ]">
       <UniqueIdentifier>{b19c2cd5-f7dc-4a85-9cfa-b0749b68ceea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[2]___________[ Object ]">
+      <UniqueIdentifier>{56801dea-cc93-4de6-be84-193b881c5076}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[2]___________[ Object ]\[1][ Main Object ]">
+      <UniqueIdentifier>{d6d673e8-1784-4513-a51f-e1fb334d2ea5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[2]___________[ Object ]\[3][ Object Base ]">
+      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[2]___________[ Object ]\[2][ Floating Object ]">
+      <UniqueIdentifier>{b9e501bb-a47d-43b6-ada9-6bde123338ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ GameMode ]">
+      <UniqueIdentifier>{824d0f24-8e5b-4c58-99e5-e019f51ea99a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ GameMode ]\[ Mode1 ]">
+      <UniqueIdentifier>{7b8ece9e-369e-41aa-9eb1-0f0dc2f9398d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
-      <Filter>[2]___________[ GameMode ]\[ Mode1 ]</Filter>
+      <Filter>[1]___________[ GameMode ]\[ Mode1 ]</Filter>
     </ClCompile>
     <ClCompile Include="Base.cpp">
-      <Filter>[1]___________[ Object ]\[3][ Object Base ]</Filter>
+      <Filter>[2]___________[ Object ]\[3][ Object Base ]</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="CameraUtil.cpp">
@@ -136,13 +136,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mode1.h">
-      <Filter>[2]___________[ GameMode ]\[ Mode1 ]</Filter>
+      <Filter>[1]___________[ GameMode ]\[ Mode1 ]</Filter>
     </ClInclude>
     <ClInclude Include="MATA_HEADER.h">
       <Filter>[4]___________[ mata_ENGINE-2 ]</Filter>
     </ClInclude>
     <ClInclude Include="Base.h">
-      <Filter>[1]___________[ Object ]\[3][ Object Base ]</Filter>
+      <Filter>[2]___________[ Object ]\[3][ Object Base ]</Filter>
     </ClInclude>
     <ClInclude Include="CameraUtil.h">
       <Filter>[3]___________[ Util ]\[ Camera Util ]</Filter>
@@ -195,7 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ModeTemplate.txt">
-      <Filter>[2]___________[ GameMode ]</Filter>
+      <Filter>[1]___________[ GameMode ]</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
