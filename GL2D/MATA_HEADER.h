@@ -47,7 +47,7 @@ extern std::vector<ImageInfo> ImageList;
 extern std::vector<FileNameAndOption> SoundList;
 
 // window name
-constexpr const char* WindowName = "MATA_ENGINE-1";
+constexpr const char* WindowName = "mata_ENGINE-2";
 
 // window size
 constexpr int WindowWidth = 1200;
