@@ -255,9 +255,12 @@ size_t Framework::Size(Layer TargetLayer) {
 
 //////// private ///////////////
 void Framework::UpdateContainer(int i) {
-	std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
+	auto It = std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
 		return Object.second->DeleteDesc;
 		});
+
+	if (It == 0)
+		return;
 
 	for (auto It = begin(Container[i]); It != end(Container[i]);) {
 		if ((*It)->DeleteDesc) {
