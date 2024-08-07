@@ -21,11 +21,10 @@ std::string Mode1::GameMode1() {
 	return __func__;
 }
 
-void Mode1::ProcessKeyboard(unsigned char KEY, int S_KEY, bool KeyDown, bool SpecialKey) {
-	// Normal Key Down
-	if (KeyDown && !SpecialKey) {
-		switch (KEY) {
-		case 27:
+void Mode1::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
+	if (Type == KeyType::NormalKey && State == KeyState::Down) {
+		switch (NormalKey) {
+		case 27: //ESC
 			glutDestroyWindow(1);
 			break;
 		}
@@ -38,20 +37,22 @@ void Mode1::ProcessMouse(int button, int state, int x, int y) {
 void Mode1::ProcessMouseWheel(int button, int Wheel, int x, int y) {
 }
 
+
+
 void Mode1::KeyDown(unsigned char KEY, int x, int y) {
-	ProcessKeyboard(KEY, NULL, true, false);
+	ProcessKeyboard(KeyType::NormalKey, KeyState::Down, KEY, NULL);
 }
 
 void Mode1::KeyUp(unsigned char KEY, int x, int y) {
-	ProcessKeyboard(KEY, NULL, false, false);
+	ProcessKeyboard(KeyType::NormalKey, KeyState::Up, KEY, NULL);
 }
 
 void Mode1::SpecialKeyUp(int KEY, int x, int y) {
-	ProcessKeyboard(NULL, KEY, true, true);
+	ProcessKeyboard(KeyType::SpecialKey, KeyState::Down, NULL, KEY);
 }
 
 void Mode1::SpecialKeyDown(int KEY, int x, int y) {
-	ProcessKeyboard(NULL, KEY, false, true);
+	ProcessKeyboard(KeyType::SpecialKey, KeyState::Up, NULL, KEY);
 }
 
 void Mode1::MouseMotion(int x, int y) {

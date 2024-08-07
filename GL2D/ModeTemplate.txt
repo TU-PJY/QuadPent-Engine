@@ -22,7 +22,7 @@ std::string Mode1::GameMode1() {
 	return __func__;
 }
 
-void Mode1::ProcessKeyboard(unsigned char KEY, int S_KEY, bool KeyDown, bool SpecialKey) {
+void Mode1::ProcessKeyboard(unsigned char Key, int SpecialKey, bool KeyDown, bool IsSpecialKey) {
 
 }
 
@@ -33,19 +33,19 @@ void Mode1::ProcessMouseWheel(int button, int Wheel, int x, int y) {
 }
 
 void Mode1::KeyDown(unsigned char KEY, int x, int y) {
-	ProcessKeyboard(KEY, NULL, true, false);
+	ProcessKeyboard(KeyType::NormalKey, KeyState::Down, KEY, NULL);
 }
 
 void Mode1::KeyUp(unsigned char KEY, int x, int y) {
-	ProcessKeyboard(KEY, NULL, false, false);
+	ProcessKeyboard(KeyType::NormalKey, KeyState::Up, KEY, NULL);
 }
 
 void Mode1::SpecialKeyUp(int KEY, int x, int y) {
-	ProcessKeyboard(NULL, KEY, true, true);
+	ProcessKeyboard(KeyType::SpecialKey, KeyState::Down, NULL, KEY);
 }
 
 void Mode1::SpecialKeyDown(int KEY, int x, int y) {
-	ProcessKeyboard(NULL, KEY, false, true);
+	ProcessKeyboard(KeyType::SpecialKey, KeyState::Up, NULL, KEY);
 }
 
 void Mode1::MouseMotion(int x, int y) {
@@ -64,12 +64,18 @@ void Mode1::MousePassiveMotion(int x, int y) {
 #include <string>
 
 namespace Mode1 {
+	enum class KeyType
+	{NormalKey, SpecialKey};
+
+	enum class KeyState
+	{Down, Up};
+
 	void SetController();
 	std::string GameMode1();
 
-	void ProcessKeyboard(unsigned char KEY, int S_KEY, bool KeyDown, bool SpecialKey);
-	void MouseButton(int button, int state, int x, int y);
-	void MouseWheel(int button, int Wheel, int x, int y);
+	void ProcessKeyboard(unsigned char Key, int SpecialKey, bool KeyDown, bool IsSpecialKey);
+	void ProcessMouse(int button, int state, int x, int y);
+	void ProcessMouseWheel(int button, int Wheel, int x, int y);
 	void KeyDown(unsigned char KEY, int x, int y);
 	void KeyUp(unsigned char KEY, int x, int y);
 	void SpecialKeyUp(int KEY, int x, int y);
