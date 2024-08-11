@@ -11,6 +11,12 @@
 #include <string>
 #include <vector>
 
+enum class KeyType
+{ NormalKey, SpecialKey };
+
+enum class KeyState
+{ Down, Up };
+
 // display width, height and apsect ratio
 extern int WIDTH, HEIGHT;
 extern int PREV_WIDTH, PREV_HEIGHT;

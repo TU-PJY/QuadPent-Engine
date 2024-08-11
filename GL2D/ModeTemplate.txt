@@ -1,85 +1,88 @@
-// cpp
+//////////////////////  cpp
 
-include "Mode1.h"
+#include "Framework.h"
 #include "MouseUtil.h"
+#include "CameraUtil.h"
 
-MouseUtil mouse;
+std::string Mode1::GameMode1() {
+
+	fw.SetController(Controller, ModeType::Default);
+	return __func__;
+}
+
+void Mode1::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
+	if (Type == KeyType::NormalKey && State == KeyState::Down) {
+		switch (NormalKey) {
+		case 27: //ESC
+			fw.Exit();
+			break;
+		}
+	}
+
+}
+
+void Mode1::ProcessMouse(int Button, int State, int X, int Y) {
+}
+
+void Mode1::ProcessMouseWheel(int Button, int Wheel, int X, int Y) {
+}
 
 
-void Mode1::SetController() {
+
+void Mode1::KeyDown(unsigned char KEY, int X, int Y) {
+	ProcessKeyboard(KeyType::NormalKey, KeyState::Down, KEY, NULL);
+}
+
+void Mode1::KeyUp(unsigned char KEY, int X, int Y) {
+	ProcessKeyboard(KeyType::NormalKey, KeyState::Up, KEY, NULL);
+}
+
+void Mode1::SpecialKeyUp(int KEY, int X, int Y) {
+	ProcessKeyboard(KeyType::SpecialKey, KeyState::Down, NULL, KEY);
+}
+
+void Mode1::SpecialKeyDown(int KEY, int X, int Y) {
+	ProcessKeyboard(KeyType::SpecialKey, KeyState::Up, NULL, KEY);
+}
+
+void Mode1::MouseMotion(int X, int Y) {
+	mouse.ConvertPosition(X, Y);
+}
+
+void Mode1::MousePassiveMotion(int X, int Y) {
+	mouse.ConvertPosition(X, Y);
+}
+
+void Mode1::Controller() {
 	glutMotionFunc(MouseMotion);
 	glutPassiveMotionFunc(MousePassiveMotion);
 	glutKeyboardFunc(KeyDown);
 	glutKeyboardUpFunc(KeyUp);
-	glutMouseWheelFunc(MouseWheel);
-	glutMouseFunc(MouseButton);
+	glutMouseWheelFunc(ProcessMouseWheel);
+	glutMouseFunc(ProcessMouse);
 	glutSpecialFunc(SpecialKeyDown);
 	glutSpecialUpFunc(SpecialKeyUp);
 }
 
-std::string Mode1::GameMode1() {
-
-	return __func__;
-}
-
-void Mode1::ProcessKeyboard(unsigned char Key, int SpecialKey, bool KeyDown, bool IsSpecialKey) {
-
-}
-
-void Mode1::ProcessMouse(int button, int state, int x, int y) {
-}
-
-void Mode1::ProcessMouseWheel(int button, int Wheel, int x, int y) {
-}
-
-void Mode1::KeyDown(unsigned char KEY, int x, int y) {
-	ProcessKeyboard(KeyType::NormalKey, KeyState::Down, KEY, NULL);
-}
-
-void Mode1::KeyUp(unsigned char KEY, int x, int y) {
-	ProcessKeyboard(KeyType::NormalKey, KeyState::Up, KEY, NULL);
-}
-
-void Mode1::SpecialKeyUp(int KEY, int x, int y) {
-	ProcessKeyboard(KeyType::SpecialKey, KeyState::Down, NULL, KEY);
-}
-
-void Mode1::SpecialKeyDown(int KEY, int x, int y) {
-	ProcessKeyboard(KeyType::SpecialKey, KeyState::Up, NULL, KEY);
-}
-
-void Mode1::MouseMotion(int x, int y) {
-	mouse.ConvertPosition(x, y);
-}
-
-void Mode1::MousePassiveMotion(int x, int y) {
-	mouse.ConvertPosition(x, y);
-}
 
 
-// header
+////////////////////// header
 
 #pragma once
 #include "MouseUtil.h"
 #include <string>
 
 namespace Mode1 {
-	enum class KeyType
-	{NormalKey, SpecialKey};
-
-	enum class KeyState
-	{Down, Up};
-
-	void SetController();
 	std::string GameMode1();
 
-	void ProcessKeyboard(unsigned char Key, int SpecialKey, bool KeyDown, bool IsSpecialKey);
-	void ProcessMouse(int button, int state, int x, int y);
-	void ProcessMouseWheel(int button, int Wheel, int x, int y);
-	void KeyDown(unsigned char KEY, int x, int y);
-	void KeyUp(unsigned char KEY, int x, int y);
-	void SpecialKeyUp(int KEY, int x, int y);
-	void SpecialKeyDown(int KEY, int x, int y);
-	void MouseMotion(int x, int y);
-	void MousePassiveMotion(int x, int y);
+	void ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey);
+	void ProcessMouse(int Button, int State, int X, int Y);
+	void ProcessMouseWheel(int Button, int Wheel, int X, int Y);
+	void KeyDown(unsigned char KEY, int X, int Y);
+	void KeyUp(unsigned char KEY, int X, int Y);
+	void SpecialKeyUp(int KEY, int X, int Y);
+	void SpecialKeyDown(int KEY, int X, int Y);
+	void MouseMotion(int X, int Y);
+	void MousePassiveMotion(int X, int Y);
+	void Controller();
 }

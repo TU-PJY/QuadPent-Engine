@@ -8,7 +8,7 @@ std::vector<ImageInfo> ImageList
 	{"CIRCLE", "mata_ENGINE_res//Image////Collision//Circle.png"},
 	{"CIRCLECOLLISION", "mata_ENGINE_res//Image////Collision//Circle Inside.png"},
 	{"FMOD_LOGO", "mata_ENGINE_res//Image//Common//FMOD Logo.png"},
-	{"MATA_ENGINE_LOGO", "mata_ENGINE_res//Image//Common//MATA_ENGINE Logo.png"},
+	{"mata_ENGINE_LOGO", "mata_ENGINE_res//Image//Common//mata_ENGINE Logo.png"},
 	////////
 
 };
@@ -16,7 +16,7 @@ std::vector<ImageInfo> ImageList
 std::vector<FileNameAndOption> SoundList
 {
 	// mata_ENGINE resource
-	{"MATA_ENGINE_LOGO_SOUND", "mata_ENGINE_res//Sound//MATA_ENGINE Logo Sound.wav", FMOD_DEFAULT},
+	{"mata_ENGINE_LOGO_SOUND", "mata_ENGINE_res//Sound//mata_ENGINE Logo Sound.wav", FMOD_DEFAULT},
 	//////////
 
 };

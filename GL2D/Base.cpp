@@ -113,6 +113,7 @@ void BASE::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	ObjectColor.b = B;
 }
 
+
 void BASE::SetImage(unsigned int& Image, std::string ImageName) {
 	imageUtil.SetImage(Image, ImageName);
 }
@@ -138,6 +139,7 @@ void BASE::RenderImage(unsigned int Image, GLfloat Transparency, Flip FlipOption
 	ProcessTransform();
 	imageUtil.Render(Image);
 }
+
 
 void BASE::SetSound(Sound& Sound, std::string SoundName) {
 	Sound = soundUtil.GetSound(SoundName);
@@ -195,10 +197,6 @@ void BASE::SetSoundPosition(Channel& Channel, float X, float Y, float Diff) {
 	soundUtil.SetSoundPosition(Channel, X, Y, Diff);
 }
 
-void BASE::InputMousePosition(GLfloat X, GLfloat Y) {
-	MouseX = X;
-	MouseY = Y;
-}
 
 void BASE::BeginColorClipping() {
 	glEnable(GL_STENCIL_TEST);

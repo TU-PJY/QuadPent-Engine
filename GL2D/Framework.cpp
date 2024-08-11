@@ -35,16 +35,11 @@ void Framework::Routine() {
 	}
 }
 
-void Framework::Init(Function ModeFunction, ControllerFunction Controller) {
+void Framework::Init(Function ModeFunction) {
 	if (RoutineRunningDesc)
 		return;
 
 	CurrentRunningMode = ModeFunction();
-
-	if (Controller)  
-		Controller();
-
-	ControllerBuffer = Controller;
 
 	FLog.CurrentMode = CurrentRunningMode;
 	FLog.Log(LogType::FM_INIT);
@@ -55,24 +50,17 @@ void Framework::Init(Function ModeFunction, ControllerFunction Controller) {
 	RoutineRunningDesc = true;
 }
 
-void Framework::SwitchMode(Function ModeFunction, ControllerFunction Controller) {
+void Framework::SwitchMode(Function ModeFunction) {
 	if (!RoutineRunningDesc)
 		return;
 
 	FLog.PrevMode = CurrentRunningMode;
 
 	ClearAll();
+
 	CurrentRunningMode = ModeFunction();
-
-	if (Controller) {
-		Controller();
-		ControllerBuffer = Controller;
-	}
-
 	FLog.CurrentMode = CurrentRunningMode;
 
-	FLog.IsOnlyFloating = FloatingFocusDesc;
-	FLog.CurrentMode = CurrentRunningMode;
 	if (FLog.CurrentMode == FLog.PrevMode)
 		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
 
@@ -80,12 +68,13 @@ void Framework::SwitchMode(Function ModeFunction, ControllerFunction Controller)
 		FLog.Log(LogType::END_FLOATING_MODE);
 		FloatingRunningDesc = false;
 		FloatingFocusDesc = false;
+		FLog.IsOnlyFloating = FloatingFocusDesc;
 	}
 
 	FLog.Log(LogType::MODE_SWITCH);
 }
 
-void Framework::StartFloatingMode(Function ModeFunction, ControllerFunction Controller, bool FloatingFocus) {
+void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
 	if (!RoutineRunningDesc || FloatingRunningDesc)
 		return;
 
@@ -93,9 +82,6 @@ void Framework::StartFloatingMode(Function ModeFunction, ControllerFunction Cont
 	FLog.PrevMode = CurrentRunningMode;
 
 	CurrentRunningMode = ModeFunction();
-
-	if(Controller)  
-		Controller();
 
 	FloatingFocusDesc = FloatingFocus;
 	FLog.IsOnlyFloating = FloatingFocusDesc;
@@ -144,10 +130,10 @@ void Framework::ResetControlState(std::string Tag) {
 		It->second->ResetControlState();
 }
 
-void Framework::InputKey(std::string Tag, unsigned char KEY, int S_KEY, bool KeyDown, bool SpecialKey) {
+void Framework::InputKey(std::string Tag, KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey) {
 	auto It = ObjectList.find(Tag);
 	if (It != end(ObjectList) && !It->second->DeleteDesc)
-		It->second->InputKey(KEY, S_KEY, KeyDown, SpecialKey);
+		It->second->InputKey(Key, State, NormalKey, SpecialKey);
 }
 
 void Framework::InputMouse(std::string Tag, int button, int state, int x, int y) {
@@ -251,6 +237,16 @@ BASE* Framework::Find(std::string Tag, Layer LayerToSearch, int Index) {
 
 size_t Framework::Size(Layer TargetLayer) {
 	return Container[static_cast<int>(TargetLayer)].size();
+}
+
+void Framework::SetController(ControllerFunction Controller, ModeType Type) {
+	Controller();
+	if (Type == ModeType::Default)
+		ControllerBuffer = Controller;
+}
+
+void Framework::Exit() {
+	glutDestroyWindow(1);
 }
 
 //////// private ///////////////

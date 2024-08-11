@@ -7,6 +7,7 @@
 #include "RenderModeUtil.h"
 #include "ShaderUtil.h"
 #include "SoundUtil.h"
+#include "MouseUtil.h"
 #include <iostream>
 #include <windows.h>
 
@@ -26,6 +27,7 @@ RenderModeUtil renderMode;
 ImageUtil imageUtil;
 SoundUtil soundUtil;
 DataUtil dataUtil;
+MouseUtil mouse;
 FontLoaderUtil fontloaderUtil;
 Framework fw;
 
@@ -101,11 +103,11 @@ void main(int argc, char** argv) {
 	glEnable(GL_SMOOTH);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	shaderUtil.LoadVertexShader("MATA_ENGINE_RES//GLSL//Vertex.glsl");
-	shaderUtil.LoadFragmentShader("MATA_ENGINE_RES//GLSL//Fragment_Image.glsl");
+	shaderUtil.LoadVertexShader("MATA_ENGINE_res//GLSL//Vertex.glsl");
+	shaderUtil.LoadFragmentShader("MATA_ENGINE_res//GLSL//Fragment_Image.glsl");
 	shaderUtil.CreateShader(ImageShader);
 
-	shaderUtil.LoadFragmentShader("MATA_ENGINE_RES//GLSL//Fragment_Text.glsl");
+	shaderUtil.LoadFragmentShader("MATA_ENGINE_res//GLSL//Fragment_Text.glsl");
 	shaderUtil.CreateShader(TextShader);
 
 	SetBackColor(0.3, 0.3, 0.3);
@@ -114,7 +116,7 @@ void main(int argc, char** argv) {
 	soundUtil.Init();
 	camera.Init();
 		
-	fw.Init(Mode1::GameMode1, Mode1::SetController);
+	fw.Init(Mode1::GameMode1);
 
 	glutDisplayFunc(GLMain);
 	glutReshapeFunc(DisplayReshape);

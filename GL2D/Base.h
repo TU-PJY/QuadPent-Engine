@@ -34,8 +34,6 @@ public:
 	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 	GLfloat TransparencyValue{ 1.0f };
 
-	GLfloat MouseX{}, MouseY{};
-
 	void Move(GLfloat MoveX, GLfloat MoveY);
 	void Rotate(GLfloat RotationValue);
 	void RotateHorziontal(GLfloat RotationValue);
@@ -79,15 +77,13 @@ public:
 	void SetListnerPosition(float X, float Y);
 	void SetSoundPosition(Channel& Channel, float X, float Y, float Diff);
 
-	void InputMousePosition(GLfloat X, GLfloat Y);
-
 	// object defined functions
 	virtual ~BASE() {}
 	virtual void Update(float FT) {}
 	virtual void Render() {}
-	virtual void InputKey(unsigned char KEY, int S_KEY, bool KeyDown, bool SpecialKey = false) {}
-	virtual void InputMouse(int button, int state, int x, int y) {}
-	virtual void InputScroll(int button, int Wheel, int x, int y) {}
+	virtual void InputKey(KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey) {}
+	virtual void InputMouse(int Button, int State, int X, int Y) {}
+	virtual void InputScroll(int Button, int State, int X, int Y) {}
 	virtual void ResetControlState() {}
 	virtual AABB GetAABB() { return {}; }
 	virtual OBB GetOBB() { return{}; }
