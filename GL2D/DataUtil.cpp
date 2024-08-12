@@ -72,7 +72,7 @@ void DataUtil::Init() {
 }
 
 void DataUtil::CheckDataVersion() {
-	if (VERSION <= LoadData(DataVersionStr))
+	if (VERSION <= (int)LoadData(DataVersionStr))
 		return;
 
 	for (auto& D : DataList) {
