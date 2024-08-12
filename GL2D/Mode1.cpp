@@ -36,11 +36,11 @@ void Mode1::KeyUp(unsigned char KEY, int X, int Y) {
 	ProcessKeyboard(KeyType::NormalKey, KeyState::Up, KEY, NULL);
 }
 
-void Mode1::SpecialKeyUp(int KEY, int X, int Y) {
+void Mode1::SpecialKeyDown(int KEY, int X, int Y) {
 	ProcessKeyboard(KeyType::SpecialKey, KeyState::Down, NULL, KEY);
 }
 
-void Mode1::SpecialKeyDown(int KEY, int X, int Y) {
+void Mode1::SpecialKeyUp(int KEY, int X, int Y) {
 	ProcessKeyboard(KeyType::SpecialKey, KeyState::Up, NULL, KEY);
 }
 

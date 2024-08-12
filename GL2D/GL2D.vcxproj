@@ -154,8 +154,10 @@
     <ClCompile Include="PhysicsUtil.cpp" />
     <ClCompile Include="RandomUtil.cpp" />
     <ClCompile Include="RenderModeUtil.cpp" />
+    <ClCompile Include="SetUp.cpp" />
     <ClCompile Include="ShaderUtil.cpp" />
     <ClCompile Include="SoundUtil.cpp" />
+    <ClCompile Include="Display.cpp" />
     <ClCompile Include="TextUtil.cpp" />
     <ClCompile Include="TimerUtil.cpp" />
   </ItemGroup>
@@ -167,7 +169,7 @@
     <ClInclude Include="FontLoaderUtil.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="Framework_Conf.h" />
-    <ClInclude Include="MATA_HEADER.h" />
+    <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="ImageUtil.h" />
     <ClInclude Include="Mode1.h" />
     <ClInclude Include="MouseUtil.h" />
@@ -177,6 +179,7 @@
     <ClInclude Include="RenderModeUtil.h" />
     <ClInclude Include="ShaderUtil.h" />
     <ClInclude Include="SoundUtil.h" />
+    <ClInclude Include="Setting.h" />
     <ClInclude Include="TextUtil.h" />
     <ClInclude Include="TimerUtil.h" />
   </ItemGroup>

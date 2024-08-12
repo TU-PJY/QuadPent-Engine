@@ -49,15 +49,6 @@
     <Filter Include="[3]___________[ Util ]\[ AnimationUtil ]">
       <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[6]___________[ GLSL ]">
-      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ Resources ]">
-      <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ mata_ENGINE-2 ]">
-      <UniqueIdentifier>{b19c2cd5-f7dc-4a85-9cfa-b0749b68ceea}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[2]___________[ Object ]">
       <UniqueIdentifier>{56801dea-cc93-4de6-be84-193b881c5076}</UniqueIdentifier>
     </Filter>
@@ -76,6 +67,27 @@
     <Filter Include="[1]___________[ GameMode ]\[ Mode1 ]">
       <UniqueIdentifier>{7b8ece9e-369e-41aa-9eb1-0f0dc2f9398d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[4]___________[ Resources ]">
+      <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[7]___________[ Template ]">
+      <UniqueIdentifier>{a0f3d2c9-d45e-42c5-ac1f-c1a53d8811ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[6]___________[ mata_ENGINE ]">
+      <UniqueIdentifier>{7f6a4887-d06e-4c65-963d-2b7d61cea12c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[6]___________[ mata_ENGINE ]\[ Header ]">
+      <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[6]___________[ mata_ENGINE ]\[ GLSL ]">
+      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[6]___________[ mata_ENGINE ]\[ System]">
+      <UniqueIdentifier>{802bfb93-2599-4817-b15c-634efd1f40d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[6]___________[ mata_ENGINE ]\[ Setting ]">
+      <UniqueIdentifier>{c9af8f5b-6936-4568-86b3-dfb813a19adc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
@@ -84,7 +96,6 @@
     <ClCompile Include="Base.cpp">
       <Filter>[2]___________[ Object ]\[3][ Object Base ]</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="CameraUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Camera Util ]</Filter>
     </ClCompile>
@@ -125,7 +136,7 @@
       <Filter>[3]___________[ Util ]\[ Physics Util ]</Filter>
     </ClCompile>
     <ClCompile Include="ResourceList.cpp">
-      <Filter>[5]___________[ Resources ]</Filter>
+      <Filter>[4]___________[ Resources ]</Filter>
     </ClCompile>
     <ClCompile Include="ShaderUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Shader Util ]</Filter>
@@ -133,13 +144,19 @@
     <ClCompile Include="AnimationUtil.cpp">
       <Filter>[3]___________[ Util ]\[ AnimationUtil ]</Filter>
     </ClCompile>
+    <ClCompile Include="Display.cpp">
+      <Filter>[6]___________[ mata_ENGINE ]\[ System]</Filter>
+    </ClCompile>
+    <ClCompile Include="SetUp.cpp">
+      <Filter>[6]___________[ mata_ENGINE ]\[ System]</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>[6]___________[ mata_ENGINE ]\[ System]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mode1.h">
       <Filter>[1]___________[ GameMode ]\[ Mode1 ]</Filter>
-    </ClInclude>
-    <ClInclude Include="MATA_HEADER.h">
-      <Filter>[4]___________[ mata_ENGINE-2 ]</Filter>
     </ClInclude>
     <ClInclude Include="Base.h">
       <Filter>[2]___________[ Object ]\[3][ Object Base ]</Filter>
@@ -192,21 +209,27 @@
     <ClInclude Include="AnimationUtil.h">
       <Filter>[3]___________[ Util ]\[ AnimationUtil ]</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ModeTemplate.txt">
-      <Filter>[1]___________[ GameMode ]</Filter>
-    </Text>
+    <ClInclude Include="EngineHeader.h">
+      <Filter>[6]___________[ mata_ENGINE ]\[ Header ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting.h">
+      <Filter>[6]___________[ mata_ENGINE ]\[ Setting ]</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MATA_ENGINE_RES\GLSL\Fragment_Image.glsl">
-      <Filter>[6]___________[ GLSL ]</Filter>
+      <Filter>[6]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
     </None>
     <None Include="MATA_ENGINE_RES\GLSL\Fragment_Text.glsl">
-      <Filter>[6]___________[ GLSL ]</Filter>
+      <Filter>[6]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
     </None>
     <None Include="MATA_ENGINE_RES\GLSL\Vertex.glsl">
-      <Filter>[6]___________[ GLSL ]</Filter>
+      <Filter>[6]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ModeTemplate.txt">
+      <Filter>[7]___________[ Template ]</Filter>
+    </Text>
   </ItemGroup>
 </Project>

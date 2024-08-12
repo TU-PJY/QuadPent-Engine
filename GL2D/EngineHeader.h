@@ -1,5 +1,6 @@
 #pragma once
 #pragma warning(disable: 4244) 
+#include "Setting.h"
 #include <gl/glew.h>
 #include <gl/freeglut.h>
 #include <gl/freeglut_ext.h>
@@ -28,14 +29,19 @@ struct Rect {
 };
 extern Rect rect;
 
-// GPU vendor name and vendor print option
-extern std::string GPU_Vendor;
-
 // global scope shader
 extern GLuint ImageShader;
 extern GLuint TextShader;
 
 void SetBackColor(GLfloat R, GLfloat G, GLfloat B);
+void SetupWindow();
+void SetupSystem(int argc, char** argv);
+void LoadShader();
+void InitSystem();
+void SetGlOption();
+GLvoid GLMain();
+GLvoid DisplayReshape(int w, int h);
+
 extern glm::vec3 BackColor;
 
 struct ImageInfo {
@@ -51,22 +57,3 @@ struct FileNameAndOption {
 
 extern std::vector<ImageInfo> ImageList;
 extern std::vector<FileNameAndOption> SoundList;
-
-// window name
-constexpr const char* WindowName = "mata_ENGINE-2";
-
-// window size
-constexpr int WindowWidth = 1200;
-constexpr int WindowHeight = 800;
-
-// fullscreen option
-constexpr bool StartWithFullScreen = false;
-
-// boundbox option
-constexpr bool ShowBoundBox = true;
-
-// console window option
-constexpr bool ShowConsole = true;
-
-// vendor print option
-constexpr bool PrintGPU_VendorInfoOpt = false;

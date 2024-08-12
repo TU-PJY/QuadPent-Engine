@@ -48,7 +48,7 @@ public:
 	void EndFloatingMode();
 	void ResetControlState(BASE* Object);
 	void ResetControlState(std::string Tag);
-	void InputKey(std::string Tag, KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey=NULL);
+	void InputKey(std::string Tag, KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey);
 	void InputMouse(std::string Tag, int button, int state, int x, int y);
 	void InputScroll(std::string Tag, int button, int Wheel, int x, int y);
 	void AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetStaticObject=false, bool SetFloatingObject=false);
