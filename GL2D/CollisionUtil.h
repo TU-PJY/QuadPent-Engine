@@ -23,7 +23,7 @@ public:
 	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
 	void BeginProcess();
-	void Move(GLfloat X, GLfloat Y);
+	void SetPosition(GLfloat X, GLfloat Y);
 	void Scale(GLfloat BoxWidth, GLfloat BoxHeight);
 	void RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY);
 	void Render(bool Lock=false);
@@ -55,7 +55,7 @@ public:
 	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
 	void BeginProcess();
-	void Move(GLfloat X, GLfloat Y);
+	void SetPosition(GLfloat X, GLfloat Y);
 	void Rotate(GLfloat RotationValue);
 	void Scale(GLfloat BoxWidth, GLfloat BoxHeight);
 	void Render();
@@ -84,7 +84,7 @@ public:
 	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat Size);
 	void BeginProcess();
-	void Move(GLfloat X, GLfloat Y);
+	void SetPosition(GLfloat X, GLfloat Y);
 	void Scale(GLfloat Size);
 	void RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY);
 	void Render();

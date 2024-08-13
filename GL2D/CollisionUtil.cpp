@@ -32,7 +32,7 @@ void AABB::BeginProcess() {
 #endif
 }
 
-void AABB::Move(GLfloat X, GLfloat Y) {
+void AABB::SetPosition(GLfloat X, GLfloat Y) {
 #ifdef SHOW_BOUND_BOX
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
 #endif
@@ -172,7 +172,7 @@ void OBB::BeginProcess() {
 	
 }
 
-void OBB::Move(GLfloat X, GLfloat Y) {
+void OBB::SetPosition(GLfloat X, GLfloat Y) {
 #ifdef SHOW_BOUND_BOX
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0f));
 #endif
@@ -297,7 +297,7 @@ void Range::BeginProcess() {
 #endif
 }
 
-void Range::Move(GLfloat X, GLfloat Y) {
+void Range::SetPosition(GLfloat X, GLfloat Y) {
 #ifdef SHOW_BOUND_BOX
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
 #endif

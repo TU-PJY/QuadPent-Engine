@@ -10,13 +10,13 @@ GLvoid GLMain() {
 	glClearColor(BackColor.r, BackColor.g, BackColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	fw.Routine();
+	framework.Routine();
 	soundUtil.Update();
 
 	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
 	DeltaTime = (CurrentTime - PrevTime) / 1000.0;
 
-	fw.InputFrameTime(DeltaTime);
+	framework.InputFrameTime(DeltaTime);
 
 	PrevTime = CurrentTime;
 

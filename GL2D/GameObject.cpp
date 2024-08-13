@@ -1,43 +1,43 @@
-#include "Base.h"
+#include "GameObject.h"
 #include "ImageUtil.h"
 #include "RenderModeUtil.h"
 #include "CameraUtil.h"
 
-void BASE::SetPosition(GLfloat X, GLfloat Y) {
+void GameObject::SetPosition(GLfloat X, GLfloat Y) {
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
 }
 
-void BASE::Rotate(GLfloat RotationValue) {
+void GameObject::Rotate(GLfloat RotationValue) {
 	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
 }
 
-void BASE::RotateHorziontal(GLfloat RotationValue) {
+void GameObject::RotateHorziontal(GLfloat RotationValue) {
 	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(1.0, 0.0, 0.0));
 }
 
-void BASE::RotateVertical(GLfloat RotationValue) {
+void GameObject::RotateVertical(GLfloat RotationValue) {
 	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 1.0, 0.0));
 }
 
-void BASE::Scale(GLfloat X, GLfloat Y) {
+void GameObject::Scale(GLfloat X, GLfloat Y) {
 	ScaleMatrix = scale(ScaleMatrix, glm::vec3(X, Y, 0.0));
 }
 
-void BASE::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
+void GameObject::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
 	RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
 	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
 	RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
 }
 
-void BASE::MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT) {
+void GameObject::MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT) {
 	Position += Speed * MoveDirection * FT;
 }
 
-void BASE::MoveStraight(GLfloat& Position, GLfloat Speed, float FT) {
+void GameObject::MoveStraight(GLfloat& Position, GLfloat Speed, float FT) {
 	Position += Speed * FT;
 }
 
-void BASE::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FT, bool Plus90Option) {
+void GameObject::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FT, bool Plus90Option) {
 	if (Plus90Option) {
 		X += Speed * cos(glm::radians(RotationValue + 90)) * MoveDirection * FT;
 		Y += Speed * sin(glm::radians(RotationValue + 90)) * MoveDirection * FT;
@@ -48,7 +48,7 @@ void BASE::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection,
 	}
 }
 
-void BASE::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationValue, float FT, bool Plus90Option) {
+void GameObject::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationValue, float FT, bool Plus90Option) {
 	if (Plus90Option) {
 		X += Speed * cos(glm::radians(RotationValue + 90)) * FT;
 		Y += Speed * sin(glm::radians(RotationValue + 90)) * FT;
@@ -59,7 +59,7 @@ void BASE::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationVa
 	}
 }
 
-void BASE::LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT) {
+void GameObject::LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT) {
 	GLfloat targetAngle{}, shortestAngle{};
 	targetAngle = atan2(ToY - FromY, ToX - FromX) * (180 / 3.14) - 90;
 	targetAngle = NormalizeDegree(targetAngle);
@@ -72,7 +72,7 @@ void BASE::LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloa
 	RotationVar = NormalizeDegree(RotationVar + shortestAngle);
 }
 
-void BASE::LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT) {
+void GameObject::LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT) {
 	GLfloat targetAngle{}, shortestAngle{};
 	targetAngle = NormalizeDegree(Rotation);
 
@@ -84,18 +84,18 @@ void BASE::LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed,
 	RotationVar = NormalizeDegree(RotationVar + shortestAngle);
 }
 
-GLfloat BASE::ASP(GLfloat Value) {
+GLfloat GameObject::ASP(GLfloat Value) {
 	return Value * ASPECT;
 }
 
-glm::vec4 BASE::ViewportPosition() {
+glm::vec4 GameObject::ViewportPosition() {
 	glm::mat4 Result = TranslateMatrix * RotateMatrix * ScaleMatrix;
 	glm::vec4 Position = camera.Projection * camera.ViewMatrix * Result * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	return Position;
 }
 
-void BASE::BeginProcess(ImageRenderMode Mode) {
+void GameObject::BeginProcess(ImageRenderMode Mode) {
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
@@ -107,18 +107,24 @@ void BASE::BeginProcess(ImageRenderMode Mode) {
 		renderMode.SetImageMode();
 }
 
-void BASE::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+void GameObject::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	ObjectColor.r = R;
 	ObjectColor.g = G;
 	ObjectColor.b = B;
 }
 
+void GameObject::SetColorRGB(int R, int G, int B) {
+	ObjectColor.r = (1.0f / 255.0f) * (GLfloat)R;
+	ObjectColor.g = (1.0f / 255.0f) * (GLfloat)G;
+	ObjectColor.b = (1.0f / 255.0f) * (GLfloat)B;
+}
 
-void BASE::SetImage(Image& Image, std::string ImageName) {
+
+void GameObject::SetImage(Image& Image, std::string ImageName) {
 	imageUtil.SetImage(Image, ImageName);
 }
 
-void BASE::FlipImage(Flip FlipOption) {
+void GameObject::FlipImage(Flip FlipOption) {
 	if (FlipOption != static_cast<Flip>(-1)) {
 		switch (FlipOption) {
 		case Flip::Horizontal:
@@ -132,7 +138,7 @@ void BASE::FlipImage(Flip FlipOption) {
 	}
 }
 
-void BASE::RenderImage(Image Image, GLfloat Transparency, GLfloat ImageWidth, GLfloat ImageHeight) {
+void GameObject::RenderImage(Image Image, GLfloat Transparency, GLfloat ImageWidth, GLfloat ImageHeight) {
 	if (ImageWidth != 0.0 && ImageHeight != 0.0)
 		ScaleMatrix = scale(ScaleMatrix, glm::vec3(ImageWidth / ImageHeight, 1.0, 0.0));
 
@@ -143,76 +149,76 @@ void BASE::RenderImage(Image Image, GLfloat Transparency, GLfloat ImageWidth, GL
 }
 
 
-void BASE::SetSound(Sound& Sound, std::string SoundName) {
+void GameObject::SetSound(Sound& Sound, std::string SoundName) {
 	Sound = soundUtil.GetSound(SoundName);
 }
 
-void BASE::PlaySound(Sound Sound, Channel& Channel, unsigned int MS) {
+void GameObject::PlaySound(Sound Sound, Channel& Channel, unsigned int MS) {
 	soundUtil.PlaySound(Sound, Channel, MS);
 }
 
-void BASE::PauseSound(Channel& Channel, bool Flag) {
+void GameObject::PauseSound(Channel& Channel, bool Flag) {
 	soundUtil.PauseSound(Channel, Flag);
 }
 
-void BASE::StopSound(Channel& Channel) {
+void GameObject::StopSound(Channel& Channel) {
 	soundUtil.StopSound(Channel);
 }
 
-void BASE::SetPlaySpeed(Channel& Channel, float PlaySpeed) {
+void GameObject::SetPlaySpeed(Channel& Channel, float PlaySpeed) {
 	soundUtil.SetPlaySpeed(Channel, PlaySpeed);
 }
 
-void BASE::ResetPlaySpeed(Channel& Channel) {
+void GameObject::ResetPlaySpeed(Channel& Channel) {
 	soundUtil.ResetPlaySpeed(Channel);
 }
 
-void BASE::SetFreqCutOff(Channel& Channel, float Frequency) {
+void GameObject::SetFreqCutOff(Channel& Channel, float Frequency) {
 	soundUtil.SetFreqCutOff(Channel, Frequency);
 }
 
-void BASE::SetBeatDetect(Channel& Channel) {
+void GameObject::SetBeatDetect(Channel& Channel) {
 	soundUtil.SetBeatDetect(Channel);
 }
 
-void BASE::DetectBeat(float Threshold, int SamplingRate) {
+void GameObject::DetectBeat(float Threshold, int SamplingRate) {
 	soundUtil.DetectBeat(Threshold, SamplingRate);
 }
 
-void BASE::UnsetFreqCutOff(Channel& Channel) {
+void GameObject::UnsetFreqCutOff(Channel& Channel) {
 	soundUtil.UnSetFreqCutOff(Channel);
 }
 
-void BASE::UnsetBeatDetect(Channel& Channel) {
+void GameObject::UnsetBeatDetect(Channel& Channel) {
 	soundUtil.UnSetBeatDetect(Channel);
 }
 
-void BASE::SetChannelDistance(Channel& Channel, float MinDist, float MaxDist) {
+void GameObject::SetChannelDistance(Channel& Channel, float MinDist, float MaxDist) {
 	soundUtil.SetDistance(Channel, MinDist, MaxDist);
 }
 
-void BASE::SetListnerPosition(float X, float Y) {
+void GameObject::SetListnerPosition(float X, float Y) {
 	soundUtil.SetListnerPosition(X, Y);
 }
 
-void BASE::SetSoundPosition(Channel& Channel, float X, float Y, float Diff) {
+void GameObject::SetSoundPosition(Channel& Channel, float X, float Y, float Diff) {
 	soundUtil.SetSoundPosition(Channel, X, Y, Diff);
 }
 
 
-void BASE::FirstColorClipping() {
+void GameObject::FirstColorClipping() {
 	glEnable(GL_STENCIL_TEST);
 	glClear(GL_STENCIL_BUFFER_BIT);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 }
 
-void BASE::SecondColorClipping() {
+void GameObject::SecondColorClipping() {
 	glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 }
 
-void BASE::EndColorClipping() {
+void GameObject::EndColorClipping() {
 	glStencilFunc(GL_EQUAL, 1, 0xFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
@@ -221,7 +227,7 @@ void BASE::EndColorClipping() {
 	glDisable(GL_STENCIL_TEST);
 }
 
-void BASE::FirstAlphaClipping() {
+void GameObject::FirstAlphaClipping() {
 	glEnable(GL_STENCIL_TEST);
 	glClear(GL_STENCIL_BUFFER_BIT);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -229,19 +235,19 @@ void BASE::FirstAlphaClipping() {
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 }
 
-void BASE::SecondAlphaClipping() {
+void GameObject::SecondAlphaClipping() {
 	glStencilFunc(GL_EQUAL, 0, 0xFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 }
 
-void BASE::EndAlphaClipping() {
+void GameObject::EndAlphaClipping() {
 	glDisable(GL_STENCIL_TEST);
 }
 
 ////////////////////////// private
 
-void BASE::ProcessTransform() {
+void GameObject::ProcessTransform() {
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, TransparencyValue);
 
@@ -252,13 +258,13 @@ void BASE::ProcessTransform() {
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * RotateMatrix * ScaleMatrix));
 }
 
-GLfloat BASE::NormalizeDegree(GLfloat Degree) {
+GLfloat GameObject::NormalizeDegree(GLfloat Degree) {
 	while (Degree < 0) Degree += 360;
 	while (Degree >= 360) Degree -= 360;
 	return Degree;
 }
 
-GLfloat BASE::CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest) {
+GLfloat GameObject::CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest) {
 	float Diff = DegreeDest - CurrentDegree;
 
 	if (Diff > 180)

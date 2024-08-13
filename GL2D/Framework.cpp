@@ -120,7 +120,7 @@ void Framework::EndFloatingMode() {
 	FLog.Log(LogType::MODE_SWITCH);
 }
 
-void Framework::ResetControlState(BASE* Object) {
+void Framework::ResetControlState(GameObject* Object) {
 	Object->ResetControlState();
 }
 
@@ -148,7 +148,7 @@ void Framework::InputScroll(std::string Tag, int button, int Wheel, int x, int y
 		It->second->InputScroll(button, Wheel, x, y);
 }
 
-void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetStaticObject, bool SetFloatingObject) {
+void Framework::AddObject(GameObject* Object, std::string Tag, Layer AddLayer, bool SetStaticObject, bool SetFloatingObject) {
 	int DestLayer = static_cast<int>(AddLayer);
 
 	ObjectDeque[DestLayer].push_back(Object);
@@ -173,7 +173,7 @@ void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool Se
 	}
 }
 
-void Framework::SwapLayer(BASE* Object, Layer TargetLayer) {
+void Framework::SwapLayer(GameObject* Object, Layer TargetLayer) {
 	int DestLayer = static_cast<int>(TargetLayer);
 
 	if (Object->PrevLayer == DestLayer)
@@ -184,7 +184,7 @@ void Framework::SwapLayer(BASE* Object, Layer TargetLayer) {
 	Object->PrevLayer = DestLayer;
 }
 
-void Framework::DeleteSelf(BASE* Object) {
+void Framework::DeleteSelf(GameObject* Object) {
 	Object->DeleteObjectMarked = true;
 
 	FLog.ObjectTag = Object->ObjectTag;
@@ -215,7 +215,7 @@ void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
 	}
 }
 
-BASE* Framework::Find(std::string Tag) {
+GameObject* Framework::Find(std::string Tag) {
 	auto It = ObjectList.find(Tag);
 	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
 		return It->second;
@@ -223,7 +223,7 @@ BASE* Framework::Find(std::string Tag) {
 	return nullptr;
 }
 
-BASE* Framework::Find(std::string Tag, Layer LayerToSearch, int Index) {
+GameObject* Framework::Find(std::string Tag, Layer LayerToSearch, int Index) {
 	int layer = static_cast<int>(LayerToSearch);
 
 	if (Index >= ObjectDeque[layer].size())
@@ -251,7 +251,7 @@ void Framework::Exit() {
 
 //////// private ///////////////
 void Framework::UpdateContainer(int i) {
-	auto It = std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
+	auto It = std::erase_if(ObjectList, [](const std::pair<std::string, GameObject*>& Object) {
 		return Object.second->DeleteObjectMarked;
 		});
 

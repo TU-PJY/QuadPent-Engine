@@ -135,6 +135,9 @@ bool TextUtil::CheckGlyphCache(wchar_t Char) {
 }
 
 void TextUtil::LoadGlyph(wchar_t Char) {
+	if (Char >= 65536)
+		return;
+
 	HFONT OldFont = (HFONT)SelectObject(hDC, Font);
 	wglUseFontOutlinesW(hDC, Char, 1, FontBase + Char, 0.0f, 0.0f, WGL_FONT_POLYGONS, &TextGlyph[Char]);
 	SelectObject(hDC, OldFont);

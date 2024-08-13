@@ -150,7 +150,7 @@
     <ClCompile Include="ImageUtil.cpp" />
     <ClCompile Include="Mode1.cpp" />
     <ClCompile Include="MouseUtil.cpp" />
-    <ClCompile Include="Base.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="PhysicsUtil.cpp" />
     <ClCompile Include="RandomUtil.cpp" />
     <ClCompile Include="RenderModeUtil.cpp" />
@@ -172,7 +172,7 @@
     <ClInclude Include="ImageUtil.h" />
     <ClInclude Include="Mode1.h" />
     <ClInclude Include="MouseUtil.h" />
-    <ClInclude Include="Base.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="PhysicsUtil.h" />
     <ClInclude Include="RandomUtil.h" />
     <ClInclude Include="RenderModeUtil.h" />

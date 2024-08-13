@@ -17,7 +17,7 @@ enum class Flip
 enum class ImageRenderMode
 {Static, Default};
 
-class BASE {
+class GameObject {
 private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{}, TextAlphaLocation{};
 
@@ -49,6 +49,7 @@ public:
 	void LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
+	void SetColorRGB(int R, int G, int B);
 	glm::vec4 ViewportPosition();
 
 	void SetImage(Image& Image, std::string ImageName);
@@ -79,7 +80,7 @@ public:
 	void SetSoundPosition(Channel& Channel, float X, float Y, float Diff);
 
 	// object defined functions
-	virtual ~BASE() {}
+	virtual ~GameObject() {}
 	virtual void Update(float FT) {}
 	virtual void Render() {}
 	virtual void InputKey(KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey) {}
@@ -97,4 +98,4 @@ private:
 };
 
 // dummy object for avoiding iterator error
-class FWM_DUMMY : public BASE {};
+class FWM_DUMMY : public GameObject {};

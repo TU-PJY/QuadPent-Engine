@@ -31,7 +31,7 @@ SoundUtil soundUtil;
 DataUtil dataUtil;
 MouseUtil mouse;
 FontLoaderUtil fontloaderUtil;
-Framework fw;
+Framework framework;
 
 
 void SetupSystem(int argc, char** argv) {
@@ -95,5 +95,5 @@ void InitSystem() {
 	soundUtil.Init();
 	camera.Init();
 
-	fw.Init(Mode1::GameMode1);
+	framework.Init(Mode1::GameMode1);
 }
