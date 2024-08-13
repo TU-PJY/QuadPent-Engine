@@ -3,13 +3,13 @@
 FWM_Log FLog;
 
 Framework::Framework() {
-	if (DebugMessage) {
+	if (SHOW_FRAMEWORK_MESSAGE) {
 		std::cout << "======== Framework Message ========\n";
 		std::cout << "Framework is prepared.\n\n";
 	}
 }
 
-void Framework::SetFrameTime(float ElapsedTime) {
+void Framework::InputFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
 }
 
@@ -18,11 +18,11 @@ std::string Framework::Mode() {
 }
 
 void Framework::Routine() {
-	if (RoutineRunningDesc) {
-		for (int i = 0; i < Num; ++i) {
-			for (auto It = begin(Container[i]); It != end(Container[i]); ++It) {
-				if (!(*It)->DeleteDesc) {
-					if (FloatingRunningDesc && FloatingFocusDesc && (*It)->FloatingObjectDesc)
+	if (RoutineRunningActivated) {
+		for (int i = 0; i < Layers; ++i) {
+			for (auto It = begin(ObjectDeque[i]); It != end(ObjectDeque[i]); ++It) {
+				if (!(*It)->DeleteObjectMarked) {
+					if (FloatingRunningActivated && FloatingFocusActivated && (*It)->FloatingObjectMarked)
 						(*It)->Update(FrameTime);
 					else
 						(*It)->Update(FrameTime);
@@ -36,7 +36,7 @@ void Framework::Routine() {
 }
 
 void Framework::Init(Function ModeFunction) {
-	if (RoutineRunningDesc)
+	if (RoutineRunningActivated)
 		return;
 
 	CurrentRunningMode = ModeFunction();
@@ -44,14 +44,14 @@ void Framework::Init(Function ModeFunction) {
 	FLog.CurrentMode = CurrentRunningMode;
 	FLog.Log(LogType::FM_INIT);
 
-	for (int i = 0; i < Num; ++i)
+	for (int i = 0; i < Layers; ++i)
 		AddObject(new FWM_DUMMY, "MATA_ENGINE_CONTAINER_DUMMY", static_cast<Layer>(i), true);
 
-	RoutineRunningDesc = true;
+	RoutineRunningActivated = true;
 }
 
 void Framework::SwitchMode(Function ModeFunction) {
-	if (!RoutineRunningDesc)
+	if (!RoutineRunningActivated)
 		return;
 
 	FLog.PrevMode = CurrentRunningMode;
@@ -64,18 +64,18 @@ void Framework::SwitchMode(Function ModeFunction) {
 	if (FLog.CurrentMode == FLog.PrevMode)
 		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
 
-	if (FloatingRunningDesc) {
+	if (FloatingRunningActivated) {
 		FLog.Log(LogType::END_FLOATING_MODE);
-		FloatingRunningDesc = false;
-		FloatingFocusDesc = false;
-		FLog.IsOnlyFloating = FloatingFocusDesc;
+		FloatingRunningActivated = false;
+		FloatingFocusActivated = false;
+		FLog.IsOnlyFloating = FloatingFocusActivated;
 	}
 
 	FLog.Log(LogType::MODE_SWITCH);
 }
 
 void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
-	if (!RoutineRunningDesc || FloatingRunningDesc)
+	if (!RoutineRunningActivated || FloatingRunningActivated)
 		return;
 
 	PrevRunningMode = CurrentRunningMode;
@@ -83,8 +83,8 @@ void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
 
 	CurrentRunningMode = ModeFunction();
 
-	FloatingFocusDesc = FloatingFocus;
-	FLog.IsOnlyFloating = FloatingFocusDesc;
+	FloatingFocusActivated = FloatingFocus;
+	FLog.IsOnlyFloating = FloatingFocusActivated;
 
 	FLog.CurrentMode = CurrentRunningMode;
 	if (FLog.CurrentMode == FLog.PrevMode)
@@ -93,11 +93,11 @@ void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
 	FLog.Log(LogType::START_FLOATING_MODE);
 	FLog.Log(LogType::MODE_SWITCH);
 
-	FloatingRunningDesc = true;
+	FloatingRunningActivated = true;
 }
 
 void Framework::EndFloatingMode() {
-	if (!RoutineRunningDesc || !FloatingRunningDesc)  
+	if (!RoutineRunningActivated || !FloatingRunningActivated)  
 		return;
 
 	FLog.PrevMode = CurrentRunningMode;
@@ -108,10 +108,10 @@ void Framework::EndFloatingMode() {
 	if (ControllerBuffer)  
 		ControllerBuffer();
 
-	FloatingRunningDesc = false;
-	FloatingFocusDesc = false;
+	FloatingRunningActivated = false;
+	FloatingFocusActivated = false;
 
-	FLog.IsOnlyFloating = FloatingFocusDesc;
+	FLog.IsOnlyFloating = FloatingFocusActivated;
 	FLog.CurrentMode = CurrentRunningMode;
 	if (FLog.CurrentMode == FLog.PrevMode)
 		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
@@ -126,32 +126,32 @@ void Framework::ResetControlState(BASE* Object) {
 
 void Framework::ResetControlState(std::string Tag) {
 	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList) && !It->second->DeleteDesc)
+	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
 		It->second->ResetControlState();
 }
 
 void Framework::InputKey(std::string Tag, KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey) {
 	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList) && !It->second->DeleteDesc)
+	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
 		It->second->InputKey(Key, State, NormalKey, SpecialKey);
 }
 
 void Framework::InputMouse(std::string Tag, int button, int state, int x, int y) {
 	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList) && !It->second->DeleteDesc)
+	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
 		It->second->InputMouse(button, state, x, y);
 }
 
 void Framework::InputScroll(std::string Tag, int button, int Wheel, int x, int y) {
 	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList) && !It->second->DeleteDesc)
+	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
 		It->second->InputScroll(button, Wheel, x, y);
 }
 
 void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool SetStaticObject, bool SetFloatingObject) {
 	int DestLayer = static_cast<int>(AddLayer);
 
-	Container[DestLayer].push_back(Object);
+	ObjectDeque[DestLayer].push_back(Object);
 	Object->ObjectTag = Tag;
 	Object->PrevLayer = DestLayer;
 
@@ -162,12 +162,12 @@ void Framework::AddObject(BASE* Object, std::string Tag, Layer AddLayer, bool Se
 		FLog.Log(LogType::ADD_OBJECT);
 
 		if (SetFloatingObject) {
-			Object->FloatingObjectDesc = true;
+			Object->FloatingObjectMarked = true;
 			FLog.Log(LogType::SET_FLOATING_OBJECT);
 		}
 
 		if (SetStaticObject) {
-			Object->StaticDesc = true;
+			Object->StaticObjectMarked = true;
 			FLog.Log(LogType::SET_STATIC_OBJECT);
 		}
 	}
@@ -179,13 +179,13 @@ void Framework::SwapLayer(BASE* Object, Layer TargetLayer) {
 	if (Object->PrevLayer == DestLayer)
 		return;
 
-	Object->SwapLayerDesc = true;
+	Object->SwapLayerMarked = true;
 	Object->DestLayer = DestLayer;
 	Object->PrevLayer = DestLayer;
 }
 
 void Framework::DeleteSelf(BASE* Object) {
-	Object->DeleteDesc = true;
+	Object->DeleteObjectMarked = true;
 
 	FLog.ObjectTag = Object->ObjectTag;
 	FLog.Log(LogType::DELETE_OBJECT);
@@ -194,8 +194,8 @@ void Framework::DeleteSelf(BASE* Object) {
 void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
 	if (deleteRange == DeleteRange::One) {
 		auto It = ObjectList.find(Tag);
-		if (It != end(ObjectList) && !It->second->DeleteDesc) {
-			It->second->DeleteDesc = true;
+		if (It != end(ObjectList) && !It->second->DeleteObjectMarked) {
+			It->second->DeleteObjectMarked = true;
 			FLog.ObjectTag = It->second->ObjectTag;
 			FLog.Log(LogType::DELETE_OBJECT);
 		}
@@ -205,8 +205,8 @@ void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
 		auto Range = ObjectList.equal_range(Tag);
 		if (Range.first != Range.second) {
 			for (auto It = Range.first; It != Range.second; ++It) {
-				if (It->first == Tag && !It->second->DeleteDesc) {
-					It->second->DeleteDesc = true;
+				if (It->first == Tag && !It->second->DeleteObjectMarked) {
+					It->second->DeleteObjectMarked = true;
 					FLog.ObjectTag = It->second->ObjectTag;
 					FLog.Log(LogType::DELETE_OBJECT);
 				}
@@ -217,7 +217,7 @@ void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
 
 BASE* Framework::Find(std::string Tag) {
 	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList) && !It->second->DeleteDesc)
+	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
 		return It->second;
 
 	return nullptr;
@@ -226,17 +226,17 @@ BASE* Framework::Find(std::string Tag) {
 BASE* Framework::Find(std::string Tag, Layer LayerToSearch, int Index) {
 	int layer = static_cast<int>(LayerToSearch);
 
-	if (Index >= Container[layer].size())
+	if (Index >= ObjectDeque[layer].size())
 		return nullptr;
 
-	if (Container[layer][Index]->ObjectTag == Tag && !Container[layer][Index]->DeleteDesc)
-		return Container[layer][Index];
+	if (ObjectDeque[layer][Index]->ObjectTag == Tag && !ObjectDeque[layer][Index]->DeleteObjectMarked)
+		return ObjectDeque[layer][Index];
 
 	return nullptr;
 }
 
 size_t Framework::Size(Layer TargetLayer) {
-	return Container[static_cast<int>(TargetLayer)].size();
+	return ObjectDeque[static_cast<int>(TargetLayer)].size();
 }
 
 void Framework::SetController(ControllerFunction Controller, ModeType Type) {
@@ -252,25 +252,25 @@ void Framework::Exit() {
 //////// private ///////////////
 void Framework::UpdateContainer(int i) {
 	auto It = std::erase_if(ObjectList, [](const std::pair<std::string, BASE*>& Object) {
-		return Object.second->DeleteDesc;
+		return Object.second->DeleteObjectMarked;
 		});
 
 	if (It == 0)
 		return;
 
-	for (auto It = begin(Container[i]); It != end(Container[i]);) {
-		if ((*It)->DeleteDesc) {
+	for (auto It = begin(ObjectDeque[i]); It != end(ObjectDeque[i]);) {
+		if ((*It)->DeleteObjectMarked) {
 			delete* It;
 			*It = nullptr;
-			It = Container[i].erase(It);
+			It = ObjectDeque[i].erase(It);
 			continue;
 		}
 
-		if ((*It)->SwapLayerDesc) {
+		if ((*It)->SwapLayerMarked) {
 			int DestLayer = (*It)->DestLayer;
-			Container[DestLayer].push_back(*It);
-			Container[DestLayer].back()->SwapLayerDesc = false;
-			It = Container[i].erase(It);
+			ObjectDeque[DestLayer].push_back(*It);
+			ObjectDeque[DestLayer].back()->SwapLayerMarked = false;
+			It = ObjectDeque[i].erase(It);
 			continue;
 		}
 
@@ -279,19 +279,19 @@ void Framework::UpdateContainer(int i) {
 }
 
 void Framework::ClearFloatingObject() {
-	for (int i = 0; i < Num; ++i) {
-		for (auto It = begin(Container[i]); It != end(Container[i]); ++It) {
-			if ((*It)->FloatingObjectDesc && !(*It)->StaticDesc)
-				(*It)->DeleteDesc = true;
+	for (int i = 0; i < Layers; ++i) {
+		for (auto It = begin(ObjectDeque[i]); It != end(ObjectDeque[i]); ++It) {
+			if ((*It)->FloatingObjectMarked && !(*It)->StaticObjectMarked)
+				(*It)->DeleteObjectMarked = true;
 		}
 	}
 }
 
 void Framework::ClearAll() {
-	for (int i = 0; i < Num; ++i) {
-		for (auto It = begin(Container[i]); It != end(Container[i]); ++It) {
-			if (!(*It)->StaticDesc)
-				(*It)->DeleteDesc = true;
+	for (int i = 0; i < Layers; ++i) {
+		for (auto It = begin(ObjectDeque[i]); It != end(ObjectDeque[i]); ++It) {
+			if (!(*It)->StaticObjectMarked)
+				(*It)->DeleteObjectMarked = true;
 		}
 	}
 }

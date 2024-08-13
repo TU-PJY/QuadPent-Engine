@@ -16,7 +16,7 @@ GLvoid GLMain() {
 	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
 	DeltaTime = (CurrentTime - PrevTime) / 1000.0;
 
-	fw.SetFrameTime(DeltaTime);
+	fw.InputFrameTime(DeltaTime);
 
 	PrevTime = CurrentTime;
 

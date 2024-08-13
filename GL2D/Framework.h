@@ -9,7 +9,7 @@
 
 typedef std::string(*Function)(void);
 typedef void(*ControllerFunction)(void);
-constexpr int Num = static_cast<int>(Layer::END);
+constexpr int Layers = static_cast<int>(Layer::END);
 
 enum class DeleteRange
 { One, All };
@@ -22,15 +22,15 @@ enum class ModeType
 
 class Framework {
 private:
-	std::array<std::deque<BASE*>, Num> Container;
+	std::array<std::deque<BASE*>, Layers> ObjectDeque;
 	std::map<std::string, BASE*> ObjectList;
 
 	std::string						  CurrentRunningMode{};
 	std::string                       PrevRunningMode{};
 
-	bool							  RoutineRunningDesc{};
-	bool							  FloatingRunningDesc{};
-	bool                              FloatingFocusDesc{};
+	bool							  RoutineRunningActivated{};
+	bool							  FloatingRunningActivated{};
+	bool                              FloatingFocusActivated{};
 
 	float							  FrameTime{};
 
@@ -41,7 +41,7 @@ public:
 	std::string Mode();
 	void Init(Function ModeFunction);
 	void SetController(ControllerFunction Controller, ModeType Type);
-	void SetFrameTime(float ElapsedTime);
+	void InputFrameTime(float ElapsedTime);
 	void Routine();
 	void SwitchMode(Function ModeFunction);
 	void StartFloatingMode(Function ModeFunction, bool FloatingFocus=false);

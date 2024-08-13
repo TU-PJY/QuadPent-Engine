@@ -15,8 +15,8 @@
 #include "Mode1.h"
 
 
-int WIDTH = WindowWidth;
-int HEIGHT = WindowHeight;
+int WIDTH = WINDOW_WIDTH;
+int HEIGHT = WINDOW_HEIGHT;
 int PREV_WIDTH, PREV_HEIGHT;
 
 GLfloat ASPECT;
@@ -37,7 +37,7 @@ Framework fw;
 void SetupSystem(int argc, char** argv) {
 	HWND hWnd = GetConsoleWindow();
 
-	if (!ShowConsole)
+	if (!SHOW_CONSOLE)
 		ShowWindow(hWnd, SW_HIDE);
 	else
 		ShowWindow(hWnd, SW_SHOWNORMAL);
@@ -54,9 +54,9 @@ void SetupWindow() {
 
 	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - HEIGHT / 2);
 	glutInitWindowSize(WIDTH, HEIGHT);
-	glutCreateWindow(WindowName);
+	glutCreateWindow(WINDOW_NAME);
 
-	if (StartWithFullScreen) {
+	if (FULL_SCREEN_OPTION) {
 		glutFullScreen();
 		WIDTH = GetSystemMetrics(SM_CXSCREEN);
 		HEIGHT = GetSystemMetrics(SM_CYSCREEN);

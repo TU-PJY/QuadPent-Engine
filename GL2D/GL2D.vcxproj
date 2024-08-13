@@ -168,7 +168,6 @@
     <ClInclude Include="DataUtil.h" />
     <ClInclude Include="FontLoaderUtil.h" />
     <ClInclude Include="Framework.h" />
-    <ClInclude Include="Framework_Conf.h" />
     <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="ImageUtil.h" />
     <ClInclude Include="Mode1.h" />

@@ -3,7 +3,7 @@
 #include "RenderModeUtil.h"
 #include "CameraUtil.h"
 
-void BASE::Move(GLfloat X, GLfloat Y) {
+void BASE::SetPosition(GLfloat X, GLfloat Y) {
 	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
 }
 
@@ -114,14 +114,11 @@ void BASE::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 }
 
 
-void BASE::SetImage(unsigned int& Image, std::string ImageName) {
+void BASE::SetImage(Image& Image, std::string ImageName) {
 	imageUtil.SetImage(Image, ImageName);
 }
 
-void BASE::RenderImage(unsigned int Image, GLfloat Transparency, Flip FlipOption, GLfloat ImageWidth, GLfloat ImageHeight) {
-	if (ImageWidth != 0.0 && ImageHeight != 0.0)
-		ScaleMatrix = scale(ScaleMatrix, glm::vec3(ImageWidth / ImageHeight, 1.0, 0.0));
-
+void BASE::FlipImage(Flip FlipOption) {
 	if (FlipOption != static_cast<Flip>(-1)) {
 		switch (FlipOption) {
 		case Flip::Horizontal:
@@ -133,6 +130,11 @@ void BASE::RenderImage(unsigned int Image, GLfloat Transparency, Flip FlipOption
 			break;
 		}
 	}
+}
+
+void BASE::RenderImage(Image Image, GLfloat Transparency, GLfloat ImageWidth, GLfloat ImageHeight) {
+	if (ImageWidth != 0.0 && ImageHeight != 0.0)
+		ScaleMatrix = scale(ScaleMatrix, glm::vec3(ImageWidth / ImageHeight, 1.0, 0.0));
 
 	TransparencyValue = Transparency;
 
@@ -198,14 +200,14 @@ void BASE::SetSoundPosition(Channel& Channel, float X, float Y, float Diff) {
 }
 
 
-void BASE::BeginColorClipping() {
+void BASE::FirstColorClipping() {
 	glEnable(GL_STENCIL_TEST);
 	glClear(GL_STENCIL_BUFFER_BIT);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 }
 
-void BASE::SetColorClipping() {
+void BASE::SecondColorClipping() {
 	glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 }
@@ -219,7 +221,7 @@ void BASE::EndColorClipping() {
 	glDisable(GL_STENCIL_TEST);
 }
 
-void BASE::BeginTransparentClipping() {
+void BASE::FirstAlphaClipping() {
 	glEnable(GL_STENCIL_TEST);
 	glClear(GL_STENCIL_BUFFER_BIT);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -227,13 +229,13 @@ void BASE::BeginTransparentClipping() {
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 }
 
-void BASE::SetTransparentClipping() {
+void BASE::SecondAlphaClipping() {
 	glStencilFunc(GL_EQUAL, 0, 0xFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 }
 
-void BASE::EndTransparentClipping() {
+void BASE::EndAlphaClipping() {
 	glDisable(GL_STENCIL_TEST);
 }
 

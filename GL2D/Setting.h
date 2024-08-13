@@ -1,20 +1,26 @@
 #pragma once
 
 // window name
-constexpr const char* WindowName = "mata_ENGINE-2";
+constexpr const char* WINDOW_NAME = "mata_ENGINE-2";
 
 // window size
-constexpr int WindowWidth = 1200;
-constexpr int WindowHeight = 800;
+constexpr int WINDOW_WIDTH = 1200;
+constexpr int WINDOW_HEIGHT = 800;
 
 // fullscreen option
-constexpr bool StartWithFullScreen = false;
+constexpr bool FULL_SCREEN_OPTION = false;
 
-// boundbox option
-constexpr bool ShowBoundBox = true;
+
+// show boundbox option
+#define SHOW_BOUND_BOX
 
 // console window option
-constexpr bool ShowConsole = true;
+constexpr bool SHOW_CONSOLE = true;
 
-// vendor print option
-constexpr bool PrintGPU_VendorInfoOpt = false;
+// framework layer option
+// 'END' should be typed at last
+enum class Layer
+{ L1, L2, L3, END };
+
+// framework message option
+constexpr bool SHOW_FRAMEWORK_MESSAGE = true;

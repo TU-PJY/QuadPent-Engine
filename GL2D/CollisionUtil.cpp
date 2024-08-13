@@ -5,10 +5,10 @@
 
 
 void AABB::Init() {
-	if (ShowBoundBox) {
-		imageUtil.SetImage(Box, "BOUNDBOX");
-		imageUtil.SetImage(BoxInside, "BOUNDBOXCOLLISION");
-	}
+#ifdef SHOW_BOUND_BOX
+	imageUtil.SetImage(Box, "BOUNDBOX");
+	imageUtil.SetImage(BoxInside, "BOUNDBOXCOLLISION");
+#endif
 }
 
 void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
@@ -25,42 +25,44 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 }
 
 void AABB::BeginProcess() {
-	if (ShowBoundBox) {
-		TranslateMatrix = glm::mat4(1.0f);
-		ScaleMatrix = glm::mat4(1.0f);
-		RotateMatrix = glm::mat4(1.0f);
-	}
+#ifdef SHOW_BOUND_BOX
+	TranslateMatrix = glm::mat4(1.0f);
+	ScaleMatrix = glm::mat4(1.0f);
+	RotateMatrix = glm::mat4(1.0f);
+#endif
 }
 
 void AABB::Move(GLfloat X, GLfloat Y) {
-	if (ShowBoundBox) 
-		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
+#ifdef SHOW_BOUND_BOX
+	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
+#endif
 }
 
 void AABB::Scale(GLfloat BoxWidth, GLfloat BoxHeight) {
-	if (ShowBoundBox)
-		ScaleMatrix = scale(ScaleMatrix, glm::vec3(BoxWidth, BoxHeight, 1.0));
+#ifdef SHOW_BOUND_BOX
+	ScaleMatrix = scale(ScaleMatrix, glm::vec3(BoxWidth, BoxHeight, 1.0));
+#endif
 }
 
 void AABB::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
-	if (ShowBoundBox) {
-		RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
-		RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
-		RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
-		RotateMatrix = rotate(RotateMatrix, glm::radians(-RotationValue), glm::vec3(0.0, 0.0, 1.0));
-	}
+#ifdef SHOW_BOUND_BOX
+	RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
+	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
+	RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
+	RotateMatrix = rotate(RotateMatrix, glm::radians(-RotationValue), glm::vec3(0.0, 0.0, 1.0));
+#endif
 }
 
 void AABB::Render(bool Lock) {
-	if (ShowBoundBox) {
-		if(!Lock)
-			RotateMatrix = rotate(RotateMatrix, glm::radians(-camera.Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
+#ifdef SHOW_BOUND_BOX
+	if(!Lock)
+		RotateMatrix = rotate(RotateMatrix, glm::radians(-camera.Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
 
-		ProcessTransform();
-		imageUtil.Render(Box);
-		if (Collide)
-			imageUtil.Render(BoxInside);
-	}
+	ProcessTransform();
+	imageUtil.Render(Box);
+	if (Collide)
+		imageUtil.Render(BoxInside);
+#endif
 }
 
 bool AABB::CheckCollision(const AABB& Other) {
@@ -130,6 +132,7 @@ void AABB::InterpolateY(GLfloat& Y) {
 }
 
 void AABB::ProcessTransform() {
+#ifdef SHOW_BOUND_BOX
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, 1.0);
 
@@ -138,15 +141,17 @@ void AABB::ProcessTransform() {
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * RotateMatrix * ScaleMatrix));
+#endif
 }
 
 
 
 void OBB::Init() {
-	if (ShowBoundBox) {
-		imageUtil.SetImage(Box, "BOUNDBOX");
-		imageUtil.SetImage(BoxInside, "BOUNDBOXCOLLISION");
-	}
+#ifdef SHOW_BOUND_BOX
+	imageUtil.SetImage(Box, "BOUNDBOX");
+	imageUtil.SetImage(BoxInside, "BOUNDBOXCOLLISION");
+#endif
+	
 }
 
 void OBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue) {
@@ -159,43 +164,47 @@ void OBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfl
 }
 
 void OBB::BeginProcess() {
-	if (ShowBoundBox) {
-		TranslateMatrix = glm::mat4(1.0f);
-		RotateMatrix = glm::mat4(1.0f);
-		ScaleMatrix = glm::mat4(1.0f);
-	}
+#ifdef SHOW_BOUND_BOX
+	TranslateMatrix = glm::mat4(1.0f);
+	RotateMatrix = glm::mat4(1.0f);
+	ScaleMatrix = glm::mat4(1.0f);
+#endif
+	
 }
 
 void OBB::Move(GLfloat X, GLfloat Y) {
-	if (ShowBoundBox)
-		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0f));
+#ifdef SHOW_BOUND_BOX
+	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0f));
+#endif
 }
 
 void OBB::Rotate(GLfloat RotationValue) {
-	if (ShowBoundBox)
-		RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0f, 0.0f, 1.0f));
+#ifdef SHOW_BOUND_BOX
+	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0f, 0.0f, 1.0f));
+#endif
 }
 
 void OBB::Scale(GLfloat BoxWidth, GLfloat BoxHeight) {
-	if (ShowBoundBox)
-		ScaleMatrix = scale(ScaleMatrix, glm::vec3(BoxWidth, BoxHeight, 1.0f));
+#ifdef SHOW_BOUND_BOX
+	ScaleMatrix = scale(ScaleMatrix, glm::vec3(BoxWidth, BoxHeight, 1.0f));
+#endif
 }
 
 void OBB::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
-	if (ShowBoundBox) {
-		RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
-		RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
-		RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
-	}
+#ifdef SHOW_BOUND_BOX
+	RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
+	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
+	RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
+#endif
 }
 
 void OBB::Render() {
-	if (ShowBoundBox) {
+#ifdef SHOW_BOUND_BOX
 		ProcessTransform();
 		imageUtil.Render(Box);
 		if (Collide)
 			imageUtil.Render(BoxInside);
-	}
+#endif
 }
 
 bool OBB::OverlapOnAxis(const OBB& OBB1, const OBB& OBB2, const glm::vec2& Axis) {
@@ -259,6 +268,7 @@ bool OBB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 }
 
 void OBB::ProcessTransform() {
+#ifdef SHOW_BOUND_BOX
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, 1.0);
 
@@ -267,42 +277,44 @@ void OBB::ProcessTransform() {
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * RotateMatrix * ScaleMatrix));
+#endif
 }
 
 
 
 void Range::Init() {
-	if (ShowBoundBox) {
-		imageUtil.SetImage(Circle, "CIRCLE");
-		imageUtil.SetImage(CircleInside, "CIRCLECOLLISION");
-	}
+#ifdef SHOW_BOUND_BOX
+	imageUtil.SetImage(Circle, "CIRCLE");
+	imageUtil.SetImage(CircleInside, "CIRCLECOLLISION");
+#endif
 }
 
 void Range::BeginProcess() {
-	if (ShowBoundBox) {
-		TranslateMatrix = glm::mat4(1.0f);
-		ScaleMatrix = glm::mat4(1.0f);
-		RotateMatrix = glm::mat4(1.0f);
-	}
+#ifdef SHOW_BOUND_BOX
+	TranslateMatrix = glm::mat4(1.0f);
+	ScaleMatrix = glm::mat4(1.0f);
+	RotateMatrix = glm::mat4(1.0f);
+#endif
 }
 
 void Range::Move(GLfloat X, GLfloat Y) {
-	if (ShowBoundBox)
-		TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
+#ifdef SHOW_BOUND_BOX
+	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
+#endif
 }
 
 void Range::Scale(GLfloat Size) {
-	if (ShowBoundBox)
-		ScaleMatrix = scale(ScaleMatrix, glm::vec3(Size, Size, 1.0));
+#ifdef SHOW_BOUND_BOX
+	ScaleMatrix = scale(ScaleMatrix, glm::vec3(Size, Size, 1.0));
+#endif
 }
 
 void Range::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
-	if (ShowBoundBox) {
-		RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
-		RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
-		RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
-		RotateMatrix = rotate(RotateMatrix, glm::radians(-RotationValue), glm::vec3(0.0, 0.0, 1.0));
-	}
+#ifdef SHOW_BOUND_BOX
+	RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
+	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
+	RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
+#endif
 }
 
 void Range::Update(GLfloat X, GLfloat Y, GLfloat Size) {
@@ -312,12 +324,12 @@ void Range::Update(GLfloat X, GLfloat Y, GLfloat Size) {
 }
 
 void Range::Render() {
-	if (ShowBoundBox) {
-		ProcessTransform();
-		imageUtil.Render(Circle);
-		if (Collide)
-			imageUtil.Render(CircleInside);
-	}
+#ifdef SHOW_BOUND_BOX
+	ProcessTransform();
+	imageUtil.Render(Circle);
+	if (Collide)
+		imageUtil.Render(CircleInside);
+#endif
 }
 
 GLfloat Range::CalculateDistance( GLfloat X, GLfloat Y) {
@@ -347,6 +359,7 @@ bool Range::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 }
 
 void Range::ProcessTransform() {
+#ifdef SHOW_BOUND_BOX
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, 1.0);
 
@@ -355,4 +368,5 @@ void Range::ProcessTransform() {
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * RotateMatrix * ScaleMatrix));
+#endif
 }

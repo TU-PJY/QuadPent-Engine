@@ -25,16 +25,16 @@ public:
 	std::string ObjectTag{};
 	int PrevLayer{};
 	int DestLayer{};
-	bool SwapLayerDesc{};
-	bool DeleteDesc{};
-	bool FloatingObjectDesc{};
-	bool StaticDesc{};
+	bool SwapLayerMarked{};
+	bool DeleteObjectMarked{};
+	bool FloatingObjectMarked{};
+	bool StaticObjectMarked{};
 
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 	GLfloat TransparencyValue{ 1.0f };
 
-	void Move(GLfloat MoveX, GLfloat MoveY);
+	void SetPosition(GLfloat MoveX, GLfloat MoveY);
 	void Rotate(GLfloat RotationValue);
 	void RotateHorziontal(GLfloat RotationValue);
 	void RotateVertical(GLfloat RotationValue);
@@ -51,16 +51,17 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	glm::vec4 ViewportPosition();
 
-	void SetImage(unsigned int& Image, std::string ImageName);
-	void RenderImage(unsigned int Image, GLfloat Transparency=1.0, Flip FlipOption=static_cast<Flip>(-1), GLfloat ImageWidth=0.0, GLfloat ImageHeight=0.0);
+	void SetImage(Image& Image, std::string ImageName);
+	void FlipImage(Flip FlipOption);
+	void RenderImage(Image Image, GLfloat Transparency=1.0, GLfloat ImageWidth=0.0, GLfloat ImageHeight=0.0);
 
-	void BeginColorClipping();
-	void SetColorClipping();
+	void FirstColorClipping();
+	void SecondColorClipping();
 	void EndColorClipping();
 
-	void BeginTransparentClipping();
-	void SetTransparentClipping();
-	void EndTransparentClipping();
+	void FirstAlphaClipping();
+	void SecondAlphaClipping();
+	void EndAlphaClipping();
 
 	void SetSound(Sound& Sound, std::string SoundName);
 	void PlaySound(Sound Sound, Channel& Channel, unsigned int MS = 0);

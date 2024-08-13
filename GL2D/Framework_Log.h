@@ -1,6 +1,6 @@
 // FWM Version 3
 #pragma once
-#include "Framework_Conf.h"
+#include "Setting.h"
 #include <iostream>
 
 enum class LogType {
@@ -24,7 +24,7 @@ public:
 
 	void Log(LogType Type) {
 		using namespace std;
-		if (DebugMessage) {
+		if (SHOW_FRAMEWORK_MESSAGE) {
 			cout << "======== Framework Message ========\n";
 			cout << "Message Type: ";
 
