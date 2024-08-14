@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="[0]___________[ FrameWork ]">
-      <UniqueIdentifier>{1f603e56-a168-4c93-8788-373edb9df2ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]___________[ Util ]">
       <UniqueIdentifier>{019278b2-60d4-4cad-b935-d813a31f2c87}</UniqueIdentifier>
     </Filter>
@@ -67,29 +64,32 @@
     <Filter Include="[4]___________[ Resources ]">
       <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[7]___________[ Template ]">
-      <UniqueIdentifier>{a0f3d2c9-d45e-42c5-ac1f-c1a53d8811ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[6]___________[ mata_ENGINE ]">
-      <UniqueIdentifier>{7f6a4887-d06e-4c65-963d-2b7d61cea12c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[6]___________[ mata_ENGINE ]\[ Header ]">
-      <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[6]___________[ mata_ENGINE ]\[ GLSL ]">
-      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[6]___________[ mata_ENGINE ]\[ System]">
-      <UniqueIdentifier>{802bfb93-2599-4817-b15c-634efd1f40d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[6]___________[ mata_ENGINE ]\[ Setting ]">
-      <UniqueIdentifier>{c9af8f5b-6936-4568-86b3-dfb813a19adc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[2]___________[ Object ]\[3][ Object Template ]">
       <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[6]___________[ mata_ENGINE ]\[ System Resources ]">
+    <Filter Include="[5]___________[ mata_ENGINE ]">
+      <UniqueIdentifier>{7f6a4887-d06e-4c65-963d-2b7d61cea12c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ mata_ENGINE ]\[ Header ]">
+      <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ mata_ENGINE ]\[ GLSL ]">
+      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ mata_ENGINE ]\[ System]">
+      <UniqueIdentifier>{802bfb93-2599-4817-b15c-634efd1f40d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ mata_ENGINE ]\[ Setting ]">
+      <UniqueIdentifier>{c9af8f5b-6936-4568-86b3-dfb813a19adc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ mata_ENGINE ]\[ System Resources ]">
       <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[6]___________[ Template ]">
+      <UniqueIdentifier>{a0f3d2c9-d45e-42c5-ac1f-c1a53d8811ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ mata_ENGINE ]\[ System]\[ Framework ]">
+      <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -123,9 +123,6 @@
     <ClCompile Include="DataUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Data Util ]</Filter>
     </ClCompile>
-    <ClCompile Include="Framework.cpp">
-      <Filter>[0]___________[ FrameWork ]</Filter>
-    </ClCompile>
     <ClCompile Include="FontLoaderUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Font Util ]</Filter>
     </ClCompile>
@@ -148,16 +145,19 @@
       <Filter>[3]___________[ Util ]\[ AnimationUtil ]</Filter>
     </ClCompile>
     <ClCompile Include="Display.cpp">
-      <Filter>[6]___________[ mata_ENGINE ]\[ System]</Filter>
+      <Filter>[5]___________[ mata_ENGINE ]\[ System]</Filter>
     </ClCompile>
     <ClCompile Include="SetUp.cpp">
-      <Filter>[6]___________[ mata_ENGINE ]\[ System]</Filter>
+      <Filter>[5]___________[ mata_ENGINE ]\[ System]</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>[6]___________[ mata_ENGINE ]\[ System]</Filter>
+      <Filter>[5]___________[ mata_ENGINE ]\[ System]</Filter>
     </ClCompile>
     <ClCompile Include="SystemResources.cpp">
-      <Filter>[6]___________[ mata_ENGINE ]\[ System Resources ]</Filter>
+      <Filter>[5]___________[ mata_ENGINE ]\[ System Resources ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework.cpp">
+      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ Framework ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,9 +194,6 @@
     <ClInclude Include="DataUtil.h">
       <Filter>[3]___________[ Util ]\[ Data Util ]</Filter>
     </ClInclude>
-    <ClInclude Include="Framework.h">
-      <Filter>[0]___________[ FrameWork ]</Filter>
-    </ClInclude>
     <ClInclude Include="FontLoaderUtil.h">
       <Filter>[3]___________[ Util ]\[ Font Util ]</Filter>
     </ClInclude>
@@ -213,26 +210,32 @@
       <Filter>[3]___________[ Util ]\[ AnimationUtil ]</Filter>
     </ClInclude>
     <ClInclude Include="EngineHeader.h">
-      <Filter>[6]___________[ mata_ENGINE ]\[ Header ]</Filter>
+      <Filter>[5]___________[ mata_ENGINE ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Setting.h">
-      <Filter>[6]___________[ mata_ENGINE ]\[ Setting ]</Filter>
+      <Filter>[5]___________[ mata_ENGINE ]\[ Setting ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework.h">
+      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ Framework ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework_Log.h">
+      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ Framework ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MATA_ENGINE_RES\GLSL\Fragment_Image.glsl">
-      <Filter>[6]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
+      <Filter>[5]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
     </None>
     <None Include="MATA_ENGINE_RES\GLSL\Fragment_Text.glsl">
-      <Filter>[6]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
+      <Filter>[5]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
     </None>
     <None Include="MATA_ENGINE_RES\GLSL\Vertex.glsl">
-      <Filter>[6]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
+      <Filter>[5]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ModeTemplate.txt">
-      <Filter>[7]___________[ Template ]</Filter>
+      <Filter>[6]___________[ Template ]</Filter>
     </Text>
   </ItemGroup>
 </Project>

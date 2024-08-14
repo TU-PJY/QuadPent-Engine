@@ -168,8 +168,9 @@
     <ClInclude Include="CollisionUtil.h" />
     <ClInclude Include="DataUtil.h" />
     <ClInclude Include="FontLoaderUtil.h" />
-    <ClInclude Include="Framework.h" />
     <ClInclude Include="EngineHeader.h" />
+    <ClInclude Include="Framework.h" />
+    <ClInclude Include="Framework_Log.h" />
     <ClInclude Include="ImageUtil.h" />
     <ClInclude Include="Mode1.h" />
     <ClInclude Include="MouseUtil.h" />
