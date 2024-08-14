@@ -88,6 +88,9 @@
     <Filter Include="[2]___________[ Object ]\[3][ Object Template ]">
       <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[6]___________[ mata_ENGINE ]\[ System Resources ]">
+      <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
@@ -152,6 +155,9 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>[6]___________[ mata_ENGINE ]\[ System]</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemResources.cpp">
+      <Filter>[6]___________[ mata_ENGINE ]\[ System Resources ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

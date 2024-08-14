@@ -46,6 +46,7 @@ void SetupSystem(int argc, char** argv) {
 	SetupWindow();
 	LoadShader();
 	SetGlOption();
+	InitSystem();
 }
 
 

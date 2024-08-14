@@ -14,14 +14,7 @@ void SoundUtil::Init() {
 	SoundSystem->set3DSettings(1.0, 1.0, 2.0); 
 
 	LoadSoundFromList();
-}
-
-void SoundUtil::LoadSoundFromList() {
-	for (auto& S : SoundList) {
-		FMOD::Sound* sound;
-		SoundSystem->createSound(S.FileName, S.Option, 0, &sound);
-		LoadedSoundList.insert(std::pair(S.Name, sound));
-	}
+	LoadSystemSound();
 }
 
 FMOD::Sound* SoundUtil::GetSound(std::string SoundName) {
@@ -143,4 +136,20 @@ int SoundUtil::GetSoundNumIf(std::string ContainedStr) {
 	}
 
 	return Count;
+}
+
+void SoundUtil::LoadSoundFromList() {
+	for (auto& S : SoundList) {
+		FMOD::Sound* sound;
+		SoundSystem->createSound(S.FileName, S.Option, 0, &sound);
+		LoadedSoundList.insert(std::pair(S.Name, sound));
+	}
+}
+
+void SoundUtil::LoadSystemSound() {
+	for (auto& S : SystemSoundList) {
+		FMOD::Sound* sound;
+		SoundSystem->createSound(S.FileName, S.Option, 0, &sound);
+		LoadedSoundList.insert(std::pair(S.Name, sound));
+	}
 }

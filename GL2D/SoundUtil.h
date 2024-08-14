@@ -8,7 +8,6 @@
 class SoundUtil {
 private:
 	std::map<std::string, FMOD::Sound*> LoadedSoundList;
-	std::map<std::string, FMOD::Channel*> LoadedChannelList;
 
 	FMOD::System* SoundSystem{};
 	FMOD::DSP* BeatDetector{};
@@ -23,9 +22,8 @@ private:
 public:
 	void Init();
 	FMOD::Sound* GetSound(std::string SoundName);
-	void LoadSoundFromList();
 	void Update();
-	void PlaySound(FMOD::Sound* Sound, FMOD::Channel*& Channel, unsigned int Ms);
+	void PlaySound(FMOD::Sound* Sound, FMOD::Channel*& Channel, unsigned int Ms=0);
 	void PauseSound(FMOD::Channel*& Channel, bool Flag);
 	void StopSound(FMOD::Channel*& Channel);
 	unsigned int GetLength(FMOD::Sound* Sound);
@@ -42,5 +40,9 @@ public:
 	void SetDistance(FMOD::Channel*& Channel, float MinDist, float MaxDist);
 	void SetListnerPosition(float X, float Y);
 	void SetSoundPosition(FMOD::Channel*& Channel, float X, float Y, float Diff);
+
+private:
+	void LoadSoundFromList();
+	void LoadSystemSound();
 };
 extern SoundUtil soundUtil;

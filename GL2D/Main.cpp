@@ -26,8 +26,6 @@ GLvoid GLMain() {
 
 void main(int argc, char** argv) {
 	SetupSystem(argc, argv);
-	InitSystem();
-
 	glutDisplayFunc(GLMain);
 	glutReshapeFunc(DisplayReshape);
 	glutMainLoop();

@@ -10,9 +10,12 @@ private:
 
 public:
 	void Init();
-	void LoadImageFromList();
 	void LoadImageFromFile(unsigned int& Image, const char* FileName);
 	void SetImage(unsigned int& Image, std::string ImageName);
 	void Render(unsigned int ImageVar);
+
+private:
+	void LoadSystemImage();
+	void LoadImageFromList();
 };
 extern ImageUtil imageUtil;

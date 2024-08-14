@@ -57,3 +57,5 @@ struct FileNameAndOption {
 
 extern std::vector<ImageInfo> ImageList;
 extern std::vector<FileNameAndOption> SoundList;
+extern std::vector<ImageInfo> SystemImageList;
+extern std::vector<FileNameAndOption> SystemSoundList;

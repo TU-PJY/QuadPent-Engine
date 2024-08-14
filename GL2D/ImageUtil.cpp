@@ -30,6 +30,21 @@ void ImageUtil::Init() {
 	stbi_set_flip_vertically_on_load(true);
 
 	LoadImageFromList();
+	LoadSystemImage();
+}
+
+void ImageUtil::SetImage(unsigned int& Image, std::string ImageName) {
+	auto It = LoadedImageList.find(ImageName);
+	if (It != end(LoadedImageList))
+		Image = It->second;
+	else
+		Image = -1;
+}
+
+void ImageUtil::Render(unsigned int ImageVar) {
+	glBindVertexArray(VAO);
+	glBindTexture(GL_TEXTURE_2D, ImageVar);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 void ImageUtil::LoadImageFromList() {
@@ -52,6 +67,28 @@ void ImageUtil::LoadImageFromList() {
 	}
 }
 
+
+void ImageUtil::LoadSystemImage() {
+	// System Image
+	for (auto& S : SystemImageList) {
+		unsigned int Image{};
+		int Width{}, Height{}, Channel{};
+
+		glGenTextures(1, &Image);
+		glBindTexture(GL_TEXTURE_2D, Image);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		unsigned char* texture_data = stbi_load(S.FileName, &Width, &Height, &Channel, 4);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
+		stbi_image_free(texture_data);
+
+		LoadedImageList.insert(std::pair(S.Name, Image));
+	}
+}
+
 void ImageUtil::LoadImageFromFile(unsigned int& Image, const char* FileName) {
 	int Width{}, Height{}, Channel{};
 
@@ -65,18 +102,4 @@ void ImageUtil::LoadImageFromFile(unsigned int& Image, const char* FileName) {
 	unsigned char* texture_data = stbi_load(FileName, &Width, &Height, &Channel, 4);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
 	stbi_image_free(texture_data);
-}
-
-void ImageUtil::SetImage(unsigned int& Image, std::string ImageName) {
-	auto It = LoadedImageList.find(ImageName);
-	if (It != end(LoadedImageList))
-		Image = It->second;
-	else
-		Image = -1;
-}
-
-void ImageUtil::Render(unsigned int ImageVar) {
-	glBindVertexArray(VAO);
-	glBindTexture(GL_TEXTURE_2D, ImageVar);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
