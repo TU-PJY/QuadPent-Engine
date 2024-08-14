@@ -62,10 +62,10 @@ public:
 		}
 
 		if (Scene == 2) {
-			if (timer.Sec() >= 6) {
+			if (timer.MiliSec() >= 5) {
 				LogoTransparent = std::lerp(LogoTransparent, 1.0, FT * 10);
 				LogoSize = std::lerp(LogoSize, 0.5, FT * 10);
-				if (timer.Sec() >= 8)
+				if (timer.Sec() >= 7)
 					++Scene;
 			}
 		}
@@ -76,7 +76,7 @@ public:
 				LogoTransparent = 0;
 		}
 
-		if (timer.Sec() >= 10 && Scene == 3) {
+		if (timer.Sec() >= 9 && Scene == 3) {
 			SetBackColor(R, G, B);
 			framework.SwitchMode(StartMode);
 		}
