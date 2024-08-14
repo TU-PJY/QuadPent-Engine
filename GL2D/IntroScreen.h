@@ -35,6 +35,9 @@ public:
 				SetBackColor(R, G, B);
 				framework.SwitchMode(StartMode);
 			}
+
+			else if(NormalKey == 27)
+				framework.Exit();
 		}
 	}
 
@@ -52,7 +55,7 @@ public:
 			RotateValue = std::lerp(RotateValue, 0.0, FT * 4);
 		}
 
-		if (timer.Sec() >= 4 && Scene == 1) {
+		if (timer.Sec() >= 3 && Scene == 1) {
 			LogoTransparent -= FT * 2;
 			if (LogoTransparent <= 0) {
 				LogoTransparent = 0;
@@ -62,10 +65,10 @@ public:
 		}
 
 		if (Scene == 2) {
-			if (timer.MiliSec() >= 5) {
+			if (timer.Sec() >= 4) {
 				LogoTransparent = std::lerp(LogoTransparent, 1.0, FT * 10);
 				LogoSize = std::lerp(LogoSize, 0.5, FT * 10);
-				if (timer.Sec() >= 7)
+				if (timer.Sec() >= 6)
 					++Scene;
 			}
 		}
@@ -76,7 +79,7 @@ public:
 				LogoTransparent = 0;
 		}
 
-		if (timer.Sec() >= 9 && Scene == 3) {
+		if (timer.Sec() >= 8 && Scene == 3) {
 			SetBackColor(R, G, B);
 			framework.SwitchMode(StartMode);
 		}

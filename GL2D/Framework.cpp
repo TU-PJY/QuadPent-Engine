@@ -33,11 +33,12 @@ void Framework::Init(Function ModeFunction) {
 	if (RoutineRunningActivated)
 		return;
 
+	for (int i = 0; i < Layers; ++i) {
+		ObjectDeque[i].push_back(new __DUMMY__);
+		ObjectDeque[i].back()->StaticObjectMarked = true;
+	}
+
 	CurrentRunningMode = ModeFunction();
-
-	for (int i = 0; i < Layers; ++i)
-		AddObject(new FWM_DUMMY, "MATA_ENGINE_CONTAINER_DUMMY", static_cast<Layer>(i), true);
-
 	RoutineRunningActivated = true;
 }
 

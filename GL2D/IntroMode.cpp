@@ -11,14 +11,6 @@ std::string Intro_Mode::IntroMode() {
 }
 
 void Intro_Mode::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
-	if (Type == KeyType::NormalKey && State == KeyState::Down) {
-		switch (NormalKey) {
-		case 27: //ESC
-			framework.Exit();
-			break;
-		}
-	}
-
 	if (auto intro_screen = framework.Find("intro_screen"); intro_screen)
 		intro_screen->InputKey(Type, State, NormalKey, SpecialKey);
 }

@@ -98,4 +98,4 @@ private:
 };
 
 // dummy object for avoiding iterator error
-class FWM_DUMMY : public GameObject {};
+class __DUMMY__ : public GameObject {};
