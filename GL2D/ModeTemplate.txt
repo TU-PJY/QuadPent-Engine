@@ -6,7 +6,7 @@
 
 std::string Mode1::GameMode1() {
 
-	fw.SetController(Controller, ModeType::Default);
+	framework.SetController(Controller, ModeType::Default);
 	return __func__;
 }
 
@@ -14,7 +14,7 @@ void Mode1::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKe
 	if (Type == KeyType::NormalKey && State == KeyState::Down) {
 		switch (NormalKey) {
 		case 27: //ESC
-			fw.Exit();
+			framework.Exit();
 			break;
 		}
 	}

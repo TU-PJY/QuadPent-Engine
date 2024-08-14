@@ -18,6 +18,8 @@ enum class KeyType
 enum class KeyState
 { Down, Up };
 
+typedef std::string(*Start_Mode)(void);
+
 // display width, height and apsect ratio
 extern int WIDTH, HEIGHT;
 extern int PREV_WIDTH, PREV_HEIGHT;
@@ -59,3 +61,4 @@ extern std::vector<ImageInfo> ImageList;
 extern std::vector<FileNameAndOption> SoundList;
 extern std::vector<ImageInfo> SystemImageList;
 extern std::vector<FileNameAndOption> SystemSoundList;
+extern Start_Mode StartMode;

@@ -1,12 +1,6 @@
 #include "Framework.h"
 
-FWM_Log FLog;
-
 Framework::Framework() {
-	if (SHOW_FRAMEWORK_MESSAGE) {
-		std::cout << "======== Framework Message ========\n";
-		std::cout << "Framework is prepared.\n\n";
-	}
 }
 
 void Framework::InputFrameTime(float ElapsedTime) {
@@ -41,9 +35,6 @@ void Framework::Init(Function ModeFunction) {
 
 	CurrentRunningMode = ModeFunction();
 
-	FLog.CurrentMode = CurrentRunningMode;
-	FLog.Log(LogType::FM_INIT);
-
 	for (int i = 0; i < Layers; ++i)
 		AddObject(new FWM_DUMMY, "MATA_ENGINE_CONTAINER_DUMMY", static_cast<Layer>(i), true);
 
@@ -54,24 +45,14 @@ void Framework::SwitchMode(Function ModeFunction) {
 	if (!RoutineRunningActivated)
 		return;
 
-	FLog.PrevMode = CurrentRunningMode;
-
 	ClearAll();
 
 	CurrentRunningMode = ModeFunction();
-	FLog.CurrentMode = CurrentRunningMode;
-
-	if (FLog.CurrentMode == FLog.PrevMode)
-		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
 
 	if (FloatingRunningActivated) {
-		FLog.Log(LogType::END_FLOATING_MODE);
 		FloatingRunningActivated = false;
 		FloatingFocusActivated = false;
-		FLog.IsOnlyFloating = FloatingFocusActivated;
 	}
-
-	FLog.Log(LogType::MODE_SWITCH);
 }
 
 void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
@@ -79,19 +60,8 @@ void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
 		return;
 
 	PrevRunningMode = CurrentRunningMode;
-	FLog.PrevMode = CurrentRunningMode;
-
 	CurrentRunningMode = ModeFunction();
-
 	FloatingFocusActivated = FloatingFocus;
-	FLog.IsOnlyFloating = FloatingFocusActivated;
-
-	FLog.CurrentMode = CurrentRunningMode;
-	if (FLog.CurrentMode == FLog.PrevMode)
-		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
-
-	FLog.Log(LogType::START_FLOATING_MODE);
-	FLog.Log(LogType::MODE_SWITCH);
 
 	FloatingRunningActivated = true;
 }
@@ -99,8 +69,6 @@ void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
 void Framework::EndFloatingMode() {
 	if (!RoutineRunningActivated || !FloatingRunningActivated)  
 		return;
-
-	FLog.PrevMode = CurrentRunningMode;
 
 	ClearFloatingObject();
 	CurrentRunningMode = PrevRunningMode;
@@ -110,14 +78,6 @@ void Framework::EndFloatingMode() {
 
 	FloatingRunningActivated = false;
 	FloatingFocusActivated = false;
-
-	FLog.IsOnlyFloating = FloatingFocusActivated;
-	FLog.CurrentMode = CurrentRunningMode;
-	if (FLog.CurrentMode == FLog.PrevMode)
-		FLog.ErrorLog(LogType::ERROR_SAME_MODE);
-
-	FLog.Log(LogType::END_FLOATING_MODE);
-	FLog.Log(LogType::MODE_SWITCH);
 }
 
 void Framework::ResetControlState(GameObject* Object) {
@@ -158,18 +118,11 @@ void Framework::AddObject(GameObject* Object, std::string Tag, Layer AddLayer, b
 	if (Tag != "MATA_ENGINE_CONTAINER_DUMMY") {
 		ObjectList.insert(std::make_pair(Tag, Object));
 
-		FLog.ObjectTag = Tag;
-		FLog.Log(LogType::ADD_OBJECT);
-
-		if (SetFloatingObject) {
+		if (SetFloatingObject) 
 			Object->FloatingObjectMarked = true;
-			FLog.Log(LogType::SET_FLOATING_OBJECT);
-		}
-
-		if (SetStaticObject) {
+		
+		if (SetStaticObject) 
 			Object->StaticObjectMarked = true;
-			FLog.Log(LogType::SET_STATIC_OBJECT);
-		}
 	}
 }
 
@@ -186,30 +139,21 @@ void Framework::SwapLayer(GameObject* Object, Layer TargetLayer) {
 
 void Framework::DeleteSelf(GameObject* Object) {
 	Object->DeleteObjectMarked = true;
-
-	FLog.ObjectTag = Object->ObjectTag;
-	FLog.Log(LogType::DELETE_OBJECT);
 }
 
 void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
 	if (deleteRange == DeleteRange::One) {
 		auto It = ObjectList.find(Tag);
-		if (It != end(ObjectList) && !It->second->DeleteObjectMarked) {
+		if (It != end(ObjectList) && !It->second->DeleteObjectMarked) 
 			It->second->DeleteObjectMarked = true;
-			FLog.ObjectTag = It->second->ObjectTag;
-			FLog.Log(LogType::DELETE_OBJECT);
-		}
 	}
 
 	else if (deleteRange == DeleteRange::All) {
 		auto Range = ObjectList.equal_range(Tag);
 		if (Range.first != Range.second) {
 			for (auto It = Range.first; It != Range.second; ++It) {
-				if (It->first == Tag && !It->second->DeleteObjectMarked) {
+				if (It->first == Tag && !It->second->DeleteObjectMarked) 
 					It->second->DeleteObjectMarked = true;
-					FLog.ObjectTag = It->second->ObjectTag;
-					FLog.Log(LogType::DELETE_OBJECT);
-				}
 			}
 		}
 	}

@@ -13,8 +13,8 @@ constexpr bool FULL_SCREEN_OPTION = false;
 // console window option
 constexpr bool SHOW_CONSOLE = true;
 
-// framework message option
-constexpr bool SHOW_FRAMEWORK_MESSAGE = true;
+// intro screen option
+constexpr bool ENABLE_INTRO_SCREEN = true;
 
 // framework layer option
 // 'END' should be typed at last
@@ -23,3 +23,8 @@ enum class Layer
 
 // show boundbox option
 #define SHOW_BOUND_BOX
+
+// start background color option
+constexpr float R = 0.2;
+constexpr float G = 0.2;
+constexpr float B = 0.2;

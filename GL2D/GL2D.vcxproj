@@ -145,6 +145,8 @@
     <ClCompile Include="DataUtil.cpp" />
     <ClCompile Include="FontLoaderUtil.cpp" />
     <ClCompile Include="Framework.cpp" />
+    <ClCompile Include="IntroMode.cpp" />
+    <ClCompile Include="LoadingMode.cpp" />
     <ClCompile Include="ResourceList.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ImageUtil.cpp" />
@@ -170,8 +172,11 @@
     <ClInclude Include="FontLoaderUtil.h" />
     <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="Framework.h" />
-    <ClInclude Include="Framework_Log.h" />
     <ClInclude Include="ImageUtil.h" />
+    <ClInclude Include="IntroMode.h" />
+    <ClInclude Include="IntroScreen.h" />
+    <ClInclude Include="LoadingMode.h" />
+    <ClInclude Include="LoadingScreen.h" />
     <ClInclude Include="Mode1.h" />
     <ClInclude Include="MouseUtil.h" />
     <ClInclude Include="GameObject.h" />

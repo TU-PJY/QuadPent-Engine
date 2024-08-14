@@ -11,8 +11,7 @@
 #include <iostream>
 #include <windows.h>
 
-// modes
-#include "Mode1.h"
+#include "LoadingMode.h"
 
 
 int WIDTH = WINDOW_WIDTH;
@@ -68,8 +67,6 @@ void SetupWindow() {
 		std::cout << "Unable to initialize GLEW\n\n";
 		exit(EXIT_FAILURE);
 	}
-	else
-		std::cout << "GLEW Initialized\n\n";
 }
 
 void LoadShader() {
@@ -90,11 +87,5 @@ void SetGlOption() {
 }
 
 void InitSystem() {
-	SetBackColor(0.3, 0.3, 0.3);
-
-	imageUtil.Init();
-	soundUtil.Init();
-	camera.Init();
-
-	framework.Init(Mode1::GameMode1);
+	framework.Init(Loading_Mode::LoadingMode);
 }

@@ -3,6 +3,10 @@
 #include "CameraUtil.h"
 #include "SoundUtil.h"
 
+// type start mode here
+#include "Mode1.h"
+Start_Mode StartMode = Mode1::GameMode1;
+
 // frametime values
 float PrevTime, CurrentTime, DeltaTime;
 

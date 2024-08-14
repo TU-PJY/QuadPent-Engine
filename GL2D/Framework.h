@@ -1,5 +1,4 @@
 #pragma once
-#include "Framework_Log.h"
 #include "GameObject.h"
 #include <array>
 #include <deque>
