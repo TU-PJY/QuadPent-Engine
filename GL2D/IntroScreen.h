@@ -79,7 +79,7 @@ public:
 				LogoTransparent = 0;
 		}
 
-		if (timer.Sec() >= 8 && Scene == 3) {
+		if (timer.Sec() >= 7 && Scene == 3) {
 			SetBackColor(R, G, B);
 			framework.SwitchMode(StartMode);
 		}
