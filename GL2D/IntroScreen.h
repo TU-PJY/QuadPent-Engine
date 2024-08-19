@@ -50,7 +50,7 @@ public:
 		}
 
 		if (Scene == 1) {
-			LogoSize = PBA.Update(1.5, 2.0, 10.0, 10.0, 5.0, FT);
+			LogoSize = PBA.Update(1.0, 2.0, 8.0, 8.0, 5.0, FT);
 			Rotation = LSA.Update(RotateValue, FT * 10);
 			RotateValue = std::lerp(RotateValue, 0.0, FT * 4);
 		}
@@ -59,7 +59,7 @@ public:
 			LogoTransparent -= FT * 2;
 			if (LogoTransparent <= 0) {
 				LogoTransparent = 0;
-				LogoSize = 1.0;
+				LogoSize = 1.2;
 				++Scene;
 			}
 		}
