@@ -14,13 +14,13 @@ std::string Framework::Mode() {
 void Framework::Routine() {
 	if (RoutineRunningActivated) {
 		for (int i = 0; i < Layers; ++i) {
-			for (auto It = begin(ObjectDeque[i]); It != end(ObjectDeque[i]); ++It) {
-				if (!(*It)->DeleteObjectMarked) {
-					if (FloatingRunningActivated && FloatingFocusActivated && (*It)->FloatingObjectMarked)
-						(*It)->Update(FrameTime);
+			for (auto const& O : ObjectDeque[i]) {
+				if (!O->DeleteObjectMarked) {
+					if (FloatingRunningActivated && FloatingFocusActivated && O->FloatingObjectMarked)
+						O->Update(FrameTime);
 					else
-						(*It)->Update(FrameTime);
-					(*It)->Render();
+						O->Update(FrameTime);
+					O->Render();
 				}
 			}
 
