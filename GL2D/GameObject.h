@@ -50,7 +50,8 @@ public:
 	void LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
-	glm::vec4 ViewportPosition();
+
+	void UpdateViewportPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect =true);
 
 	void SetImage(Image& Image, std::string ImageName);
 	void FlipImage(Flip FlipOption);
@@ -85,7 +86,7 @@ public:
 	virtual void Render() {}
 	virtual void InputKey(KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey) {}
 	virtual void InputMouse(int Button, int State, int X, int Y) {}
-	virtual void InputScroll(int Button, int State, int X, int Y) {}
+	virtual void InputScroll(int Button, int Wheel, int X, int Y) {}
 	virtual void ResetControlState() {}
 	virtual AABB GetAABB() { return {}; }
 	virtual OBB GetOBB() { return{}; }
@@ -95,6 +96,7 @@ private:
 	void ProcessTransform(); 
 	GLfloat NormalizeDegree(GLfloat Degree);
 	GLfloat CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest);
+	glm::vec4 ViewportPosition();
 };
 
 // dummy object for avoiding iterator error

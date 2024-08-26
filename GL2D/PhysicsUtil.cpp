@@ -5,6 +5,10 @@ void PhysicsUtil::SetFallingState() {
 	FallingState = true;
 }
 
+bool PhysicsUtil::GetFallingState() {
+	return FallingState;
+}
+
 void PhysicsUtil::AddGravityAcc(GLfloat AccValue) {
 	GravityAcc += AccValue;
 	FallingState = true;
@@ -15,6 +19,13 @@ void PhysicsUtil::Fall(GLfloat& Position, GLfloat Gravity, float FT) {
 		GravityAcc -= Gravity * FT;
 		Position += GravityAcc * FT;
 	}
+}
+
+bool PhysicsUtil::IsHitFloor(GLfloat Position, GLfloat FloorHeight) {
+	if (Position <= FloorHeight)
+		return true;
+
+	return false;
 }
 
 bool PhysicsUtil::IsOnFloor(GLfloat Position, GLfloat FloorHeight) {

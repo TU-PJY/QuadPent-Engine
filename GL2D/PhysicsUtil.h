@@ -10,9 +10,11 @@ private:
 
 public:
 	void Fall(GLfloat& Position, GLfloat Gravity, float FT);
+	bool IsHitFloor(GLfloat Position, GLfloat FloorHeight);
 	bool IsOnFloor(GLfloat Position, GLfloat FloorPosition);
 	void LandFloor(GLfloat& Position, GLfloat FloorHeight);
 	void SetFallingState();
+	bool GetFallingState();
 	void AddGravityAcc(GLfloat AccValue);
 	void BounceFloor(GLfloat& Position, GLfloat FloorHeight, GLfloat RebounceValue, GLfloat Threshold);
 	void BounceWall(int& MoveDirection, GLfloat& Speed, GLfloat RebounceValue);
