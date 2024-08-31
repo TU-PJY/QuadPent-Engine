@@ -115,16 +115,14 @@ void Framework::AddObject(GameObject* Object, std::string Tag, Layer AddLayer, b
 	ObjectDeque[DestLayer].push_back(Object);
 	Object->ObjectTag = Tag;
 	Object->PrevLayer = DestLayer;
+	
+	ObjectList.insert(std::make_pair(Tag, Object));
 
-	if (Tag != "MATA_ENGINE_CONTAINER_DUMMY") {
-		ObjectList.insert(std::make_pair(Tag, Object));
-
-		if (SetFloatingObject) 
-			Object->FloatingObjectMarked = true;
+	if (SetFloatingObject) 
+		Object->FloatingObjectMarked = true;
 		
-		if (SetStaticObject) 
-			Object->StaticObjectMarked = true;
-	}
+	if (SetStaticObject) 
+		Object->StaticObjectMarked = true;
 }
 
 void Framework::SwapLayer(GameObject* Object, Layer TargetLayer) {
