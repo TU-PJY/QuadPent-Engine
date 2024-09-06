@@ -3,7 +3,7 @@
 #include "RenderModeUtil.h"
 #include "CameraUtil.h"
 
-void Transform::SetPosition(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
+void Transform::Move(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
 	Matrix = translate(Matrix, glm::vec3(X, Y, 0.0));
 }
 
@@ -90,13 +90,13 @@ void GameObject::UpdateViewportPosition(GLfloat& ValueX, GLfloat& ValueY, bool A
 	ValueY = ViewportPosition().y;
 }
 
-void GameObject::BeginProcess(ImageRenderMode Mode) {
+void GameObject::BeginProcess(RenderType Type) {
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
 	TransparencyValue = 1.0f;
 
-	if (Mode == ImageRenderMode::Static)
+	if (Type == RenderType::Static)
 		renderMode.SetStaticImageMode();
 	else
 		renderMode.SetImageMode();
@@ -122,11 +122,11 @@ void GameObject::SetImage(Image& Image, std::string ImageName) {
 void GameObject::FlipImage(Flip FlipOption) {
 	if (FlipOption != static_cast<Flip>(-1)) {
 		switch (FlipOption) {
-		case Flip::Horizontal:
+		case Flip::H:
 			RotateMatrix = rotate(RotateMatrix, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
 			break;
 
-		case Flip::Vertical:
+		case Flip::V:
 			RotateMatrix = rotate(RotateMatrix, glm::radians(180.0f), glm::vec3(1.0, 0.0, 0.0));
 			break;
 		}

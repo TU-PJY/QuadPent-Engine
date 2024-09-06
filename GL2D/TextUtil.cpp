@@ -42,7 +42,7 @@ void TextUtil::ResetLine() {
 	CurrentHeight = 0.0;
 }
 
-void TextUtil::Render(TextRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
+void TextUtil::Render(RenderType Type, GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
 	wchar_t Text[256]{};
 
 	va_list Args{};
@@ -77,7 +77,7 @@ void TextUtil::Render(TextRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size, G
 
 		Transparency = TransparencyValue;
 
-		if(Mode == TextRenderMode::Static)
+		if(Type == RenderType::Static)
 			renderMode.SetStaticTextMode();
 		else
 			renderMode.SetTextMode();

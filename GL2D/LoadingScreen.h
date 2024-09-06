@@ -17,10 +17,11 @@ public:
 	}
 
 	void Update(float FT) {
-		text.Render(TextRenderMode::Static, 0.5, -0.9, 0.2, 1.0, L"LOADING...");
+		text.Render(RenderType::Static, 0.5, -0.9, 0.2, 1.0, L"LOADING...");
 
 		imageUtil.Init();
 		soundUtil.Init();
+		InstancingResources();
 
 		if (!ENABLE_INTRO_SCREEN) {
 			SetBackColor(R, G, B);

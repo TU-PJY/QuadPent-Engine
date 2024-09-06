@@ -12,10 +12,7 @@ using Channel = FMOD::Channel*;
 using Image = unsigned int;
 
 enum class Flip
-{Horizontal, Vertical};
-
-enum class ImageRenderMode
-{Static, Default};
+{H, V};
 
 class GameObject {
 private:
@@ -39,7 +36,7 @@ public:
 	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FT, bool Plus90Option=false);
 	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationValue, float FT, bool Plus90Option=false);
 	GLfloat ASP(GLfloat Value);
-	void BeginProcess(ImageRenderMode Mode);
+	void BeginProcess(RenderType Type);
 	void LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
@@ -98,7 +95,7 @@ class __DUMMY__ : public GameObject {};
 
 
 namespace Transform {
-	void SetPosition(glm::mat4& Matrix, GLfloat X, GLfloat Y);
+	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
 	void Rotate(glm::mat4& Matrix, GLfloat Degree);
 	void Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y);
 	void RotateV(glm::mat4& Matrix, GLfloat Degree);

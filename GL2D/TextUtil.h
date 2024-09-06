@@ -41,7 +41,7 @@ public:
 	void NewLine();
 	void ResetNewLineSpace();
 	void ResetLine();
-	void Render(TextRenderMode Mode, GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);
+	void Render(RenderType Type, GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);
 
 private:
 	void GetLength(GLfloat& Length, unsigned Index, const wchar_t* Text, GLfloat Size);

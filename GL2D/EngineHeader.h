@@ -18,6 +18,9 @@ enum class KeyType
 enum class KeyState
 { Down, Up };
 
+enum class RenderType
+{ Static, Default };
+
 typedef std::string(*Start_Mode)(void);
 
 // display width, height and apsect ratio
@@ -42,6 +45,7 @@ void SetupSystem(int argc, char** argv);
 void LoadShader();
 void InitSystem();
 void SetGlOption();
+void InstancingResources();
 GLvoid GLMain();
 GLvoid DisplayReshape(int w, int h);
 
