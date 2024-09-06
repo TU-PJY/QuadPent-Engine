@@ -11,3 +11,9 @@ void SetBackColor(GLfloat R, GLfloat G, GLfloat B) {
 	BackColor.g = G;
 	BackColor.b = B;
 }
+
+void SetBackColorRGB(int R, int G, int B) {
+	BackColor.r = (1.0f / 255.0f) * (GLfloat)R;
+	BackColor.g = (1.0f / 255.0f) * (GLfloat)G;
+	BackColor.b = (1.0f / 255.0f) * (GLfloat)B;
+}

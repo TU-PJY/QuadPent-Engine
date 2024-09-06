@@ -34,18 +34,12 @@ public:
 	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 	GLfloat TransparencyValue{ 1.0f };
 
-	void SetPosition(GLfloat MoveX, GLfloat MoveY);
-	void Rotate(GLfloat RotationValue);
-	void RotateHorziontal(GLfloat RotationValue);
-	void RotateVertical(GLfloat RotationValue);
-	void Scale(GLfloat ScaleX, GLfloat ScaleY);
 	void MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT);
 	void MoveStraight(GLfloat& Position, GLfloat Speed, float FT);
 	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FT, bool Plus90Option=false);
 	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationValue, float FT, bool Plus90Option=false);
 	GLfloat ASP(GLfloat Value);
 	void BeginProcess(ImageRenderMode Mode);
-	void RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY);
 	void LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
@@ -101,3 +95,12 @@ private:
 
 // dummy object for avoiding iterator error
 class __DUMMY__ : public GameObject {};
+
+
+namespace Transform {
+	void SetPosition(glm::mat4& Matrix, GLfloat X, GLfloat Y);
+	void Rotate(glm::mat4& Matrix, GLfloat Degree);
+	void Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y);
+	void RotateV(glm::mat4& Matrix, GLfloat Degree);
+	void RotateH(glm::mat4& Matrix, GLfloat Degree);
+}

@@ -36,6 +36,7 @@ extern GLuint ImageShader;
 extern GLuint TextShader;
 
 void SetBackColor(GLfloat R, GLfloat G, GLfloat B);
+void SetBackColorRGB(int R, int G, int B);
 void SetupWindow();
 void SetupSystem(int argc, char** argv);
 void LoadShader();

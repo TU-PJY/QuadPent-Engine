@@ -89,13 +89,13 @@ public:
 		BeginProcess(ImageRenderMode::Static);
 
 		if (Scene == 1) {
-			Rotate(Rotation);
-			Scale(LogoSize, LogoSize);
+			Transform::Rotate(RotateMatrix, Rotation);
+			Transform::Scale(ScaleMatrix, LogoSize, LogoSize);
 			RenderImage(Logo, LogoTransparent);
 		}
 
 		else if (Scene == 2 || Scene == 3) {
-			Scale(LogoSize, LogoSize);
+			Transform::Scale(ScaleMatrix, LogoSize, LogoSize);
 			RenderImage(FMOD_Logo, LogoTransparent, 2000, 800);
 		}
 	}
