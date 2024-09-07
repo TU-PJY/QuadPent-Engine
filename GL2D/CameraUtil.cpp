@@ -28,12 +28,8 @@ void Camera::SetCamera(bool Flag) {
 
 	if (Flag)
 		StaticMode = true;
-
-	else {
-		ViewMatrix = mat4(1.0f);
-		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
+	else
 		StaticMode = false;
-	}
 }
 
 void Camera::ProcessTransform(bool UseTextShader) {
@@ -44,7 +40,10 @@ void Camera::ProcessTransform(bool UseTextShader) {
 		Projection = glm::ortho((ASPECT * -1.0f), (ASPECT * 1.0f), -1.0f, 1.0f, -100.0f, 100.0f);
 	}
 	else {
+		ViewMatrix = glm::mat4(1.0f);
 		Projection = glm::mat4(1.0f);
+		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
+		ViewMatrix = ViewMatrix * TranslateMatrix, RotateMatrix;
 		Projection = glm::ortho((ASPECT * -1.0f) / ZoomValue, (ASPECT * 1.0f) / ZoomValue, -1.0f / ZoomValue, 1.0f / ZoomValue, -100.0f, 100.0f);
 	}
 
@@ -69,6 +68,11 @@ void Camera::ProcessTransform(bool UseTextShader) {
 		ViewPosLocation = glGetUniformLocation(ImageShader, "viewPos");
 		glUniform3f(ViewPosLocation, CamPos.x, CamPos.y, CamPos.z);
 	}
+}
+
+void Camera::InitMatrix() {
+	TranslateMatrix = glm::mat4(1.0f);
+	RotateMatrix = glm::mat4(1.0f);
 }
 
 void Camera::Zoom(ZoomOpt Type, GLfloat Value) {

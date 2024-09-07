@@ -10,7 +10,7 @@ private:
 	bool StaticMode{};
 	
 public:
-	glm::mat4 ViewMatrix{}, Projection{};
+	glm::mat4 ViewMatrix{}, Projection{}, TranslateMatrix{}, RotateMatrix{};
 	GLfloat ZoomValue{ 1.0f };
 
 	void CalculateASPECT();
@@ -19,6 +19,7 @@ public:
 	void ProcessTransform(bool UseTextShader);
 	void Zoom(ZoomOpt Type, GLfloat Value);
 	void ChangeZoom(GLfloat Value);
+	void InitMatrix();
 };
 extern Camera camera;
 
