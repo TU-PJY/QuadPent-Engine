@@ -10,6 +10,7 @@
 #include "ClippingUtil.h"
 #include "Transformutil.h"
 #include "MathUtil.h"
+#include "InstancingResourceList.h"
 
 using Sound = FMOD::Sound*;
 using Channel = FMOD::Channel*;

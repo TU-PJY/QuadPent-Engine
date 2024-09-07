@@ -2,7 +2,6 @@
 #include "ImageUtil.h"
 #include "RenderModeUtil.h"
 #include "CameraUtil.h"
-#include "InstancingResourceList.h"
 #include <cmath>
 
 // init functions
