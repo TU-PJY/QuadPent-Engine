@@ -45,7 +45,7 @@ public:
 		timer.Update(FT);
 
 		if (timer.Sec() >= 1 && Scene == 0) {
-			PlaySound(LogoSound, IntroChannel);
+			soundUtil.PlaySound(LogoSound, IntroChannel);
 			++Scene;
 		}
 
@@ -59,7 +59,7 @@ public:
 			LogoTransparent -= FT * 2;
 			if (LogoTransparent <= 0) {
 				LogoTransparent = 0;
-				LogoSize = 1.2;
+				LogoSize = 2.0;
 				++Scene;
 			}
 		}
@@ -67,7 +67,7 @@ public:
 		if (Scene == 2) {
 			if (timer.Sec() >= 4) {
 				LogoTransparent = std::lerp(LogoTransparent, 1.0, FT * 10);
-				LogoSize = std::lerp(LogoSize, 0.5, FT * 10);
+				LogoSize = std::lerp(LogoSize, 1.0, FT * 10);
 				if (timer.Sec() >= 6)
 					++Scene;
 			}
@@ -96,7 +96,8 @@ public:
 
 		else if (Scene == 2 || Scene == 3) {
 			Transform::Scale(ScaleMatrix, LogoSize, LogoSize);
-			RenderImage(FMOD_Logo, LogoTransparent, 2000, 800);
+			Transform::MatchAspect(ScaleMatrix, 2000, 800);
+			RenderImage(FMOD_Logo, LogoTransparent);
 		}
 	}
 };

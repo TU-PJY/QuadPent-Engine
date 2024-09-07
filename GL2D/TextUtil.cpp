@@ -25,16 +25,16 @@ void TextUtil::Rotate(GLfloat Radians) {
 	Rotation = Radians;
 }
 
-void TextUtil::SetNewLineSpace(GLfloat Value) {
+void TextUtil::SetNextLineSpace(GLfloat Value) {
 	NewLineSpace = Value;
 }
 
-void TextUtil::NewLine() {
+void TextUtil::NextLine() {
 	if (NewLineSpace > 0.0)
 		CurrentHeight -= NewLineSpace;
 }
 
-void TextUtil::ResetNewLineSpace() {
+void TextUtil::ResetNextLineSpace() {
 	NewLineSpace = 0.0;
 }
 
@@ -104,6 +104,9 @@ void TextUtil::Render(RenderType Type, GLfloat X, GLfloat Y, GLfloat Size, GLflo
 	}
 }
 
+
+
+////////////////// private
 void TextUtil::GetLength(GLfloat& Length, unsigned Index, const wchar_t* Text, GLfloat Size) {
 	Length = 0.0f;
 	for (int i = 0; i < wcslen(Text); ++i) {

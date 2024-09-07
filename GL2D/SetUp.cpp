@@ -70,11 +70,11 @@ void SetupWindow() {
 }
 
 void LoadShader() {
-	shaderUtil.LoadVertexShader("MATA_ENGINE_res//GLSL//Vertex.glsl");
-	shaderUtil.LoadFragmentShader("MATA_ENGINE_res//GLSL//Fragment_Image.glsl");
+	shaderUtil.LoadVertexShader("SystemResource//GLSL//Vertex.glsl");
+	shaderUtil.LoadFragmentShader("SystemResource//GLSL//Fragment_Image.glsl");
 	shaderUtil.CreateShader(ImageShader);
 
-	shaderUtil.LoadFragmentShader("MATA_ENGINE_res//GLSL//Fragment_Text.glsl");
+	shaderUtil.LoadFragmentShader("SystemResource//GLSL//Fragment_Text.glsl");
 	shaderUtil.CreateShader(TextShader);
 }
 

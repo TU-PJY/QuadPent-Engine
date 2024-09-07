@@ -37,9 +37,9 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetAlign(Align AlignOpt);
 	void Rotate(GLfloat Radians);
-	void SetNewLineSpace(GLfloat Value);
-	void NewLine();
-	void ResetNewLineSpace();
+	void SetNextLineSpace(GLfloat Value);
+	void NextLine();
+	void ResetNextLineSpace();
 	void ResetLine();
 	void Render(RenderType Type, GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);
 

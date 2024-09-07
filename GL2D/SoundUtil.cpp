@@ -17,12 +17,12 @@ void SoundUtil::Init() {
 	LoadSystemSound();
 }
 
-FMOD::Sound* SoundUtil::GetSound(std::string SoundName) {
+void SoundUtil::SetSound(FMOD::Sound*& Sound, std::string SoundName) {
 	auto It = LoadedSoundList.find(SoundName);
 	if (It != end(LoadedSoundList))
-		return It->second;
+		Sound =  It->second;
 	else
-		return nullptr;
+		Sound = nullptr;
 }
 
 void SoundUtil::Update() {
@@ -137,6 +137,8 @@ int SoundUtil::GetSoundNumIf(std::string ContainedStr) {
 
 	return Count;
 }
+
+//////////////////////////// private
 
 void SoundUtil::LoadSoundFromList() {
 	for (auto& S : SoundList) {

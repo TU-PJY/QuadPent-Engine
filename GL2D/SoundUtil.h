@@ -21,7 +21,7 @@ private:
 
 public:
 	void Init();
-	FMOD::Sound* GetSound(std::string SoundName);
+	void SetSound(FMOD::Sound*& Sound, std::string SoundName);
 	void Update();
 	void PlaySound(FMOD::Sound* Sound, FMOD::Channel*& Channel, unsigned int Ms=0);
 	void PauseSound(FMOD::Channel*& Channel, bool Flag);
