@@ -141,12 +141,14 @@
   <ItemGroup>
     <ClCompile Include="AnimationUtil.cpp" />
     <ClCompile Include="CameraUtil.cpp" />
+    <ClCompile Include="ClippingUtil.cpp" />
     <ClCompile Include="CollisionUtil.cpp" />
     <ClCompile Include="DataUtil.cpp" />
     <ClCompile Include="FontLoaderUtil.cpp" />
     <ClCompile Include="Framework.cpp" />
     <ClCompile Include="IntroMode.cpp" />
     <ClCompile Include="LoadingMode.cpp" />
+    <ClCompile Include="MathUtil.cpp" />
     <ClCompile Include="ResourceList.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ImageUtil.cpp" />
@@ -163,10 +165,12 @@
     <ClCompile Include="SystemResources.cpp" />
     <ClCompile Include="TextUtil.cpp" />
     <ClCompile Include="TimerUtil.cpp" />
+    <ClCompile Include="TransformUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationUtil.h" />
     <ClInclude Include="CameraUtil.h" />
+    <ClInclude Include="ClippingUtil.h" />
     <ClInclude Include="CollisionUtil.h" />
     <ClInclude Include="DataUtil.h" />
     <ClInclude Include="FontLoaderUtil.h" />
@@ -177,6 +181,7 @@
     <ClInclude Include="IntroScreen.h" />
     <ClInclude Include="LoadingMode.h" />
     <ClInclude Include="LoadingScreen.h" />
+    <ClInclude Include="MathUtil.h" />
     <ClInclude Include="Mode1.h" />
     <ClInclude Include="MouseUtil.h" />
     <ClInclude Include="GameObject.h" />
@@ -188,6 +193,7 @@
     <ClInclude Include="Setting.h" />
     <ClInclude Include="TextUtil.h" />
     <ClInclude Include="TimerUtil.h" />
+    <ClInclude Include="TransformUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ModeTemplate.txt" />

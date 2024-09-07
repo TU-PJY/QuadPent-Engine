@@ -1,5 +1,6 @@
 #include "TextUtil.h"
 #include "RenderModeUtil.h"
+#include "CameraUtil.h"
 
 void TextUtil::Init(const wchar_t* FontName, int Type, int Italic) {
 	hDC = wglGetCurrentDC();
@@ -123,6 +124,8 @@ void TextUtil::InitTransform() {
 }
 
 void TextUtil::ProcessTransform() {
+	camera.ProcessTransform(true);
+
 	TransparencyLocation = glGetUniformLocation(TextShader, "transparency");
 	glUniform1f(TransparencyLocation, Transparency);
 

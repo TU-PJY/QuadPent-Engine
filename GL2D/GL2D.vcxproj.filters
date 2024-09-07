@@ -103,6 +103,15 @@
     <Filter Include="[5]___________[ mata_ENGINE ]\[ System]\[ Main ]">
       <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Transform Util ]">
+      <UniqueIdentifier>{99e4d969-648e-44c1-aa75-627cee0d810a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[3]___________[ Util ]\[ MathUtil ]">
+      <UniqueIdentifier>{4a85a4fd-aaad-4cd4-9601-add0201898fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Clipping Util ]">
+      <UniqueIdentifier>{9bceb82f-2ade-4d6d-9360-521458e8d522}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
@@ -177,6 +186,15 @@
     <ClCompile Include="Display.cpp">
       <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ Main ]</Filter>
     </ClCompile>
+    <ClCompile Include="TransformUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Transform Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ MathUtil ]</Filter>
+    </ClCompile>
+    <ClCompile Include="ClippingUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Clipping Util ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mode1.h">
@@ -247,6 +265,15 @@
     </ClInclude>
     <ClInclude Include="IntroMode.h">
       <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]\[ Intro Screen ]</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformUtil.h">
+      <Filter>[3]___________[ Util ]\[ Transform Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtil.h">
+      <Filter>[3]___________[ Util ]\[ MathUtil ]</Filter>
+    </ClInclude>
+    <ClInclude Include="ClippingUtil.h">
+      <Filter>[3]___________[ Util ]\[ Clipping Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

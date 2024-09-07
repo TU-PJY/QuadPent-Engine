@@ -29,8 +29,6 @@ void GameObject::SetColorRGB(int R, int G, int B) {
 	ObjectColor.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-
-// move functions
 void GameObject::MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT) {
 	Position += Speed * MoveDirection * FT;
 }
@@ -61,8 +59,6 @@ void GameObject::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat Rota
 	}
 }
 
-
-// viewport functions
 GLfloat GameObject::ASP(GLfloat Value) {
 	return Value * ASPECT;
 }
@@ -75,8 +71,14 @@ void GameObject::UpdateViewportPosition(GLfloat& ValueX, GLfloat& ValueY, bool A
 	ValueY = ViewportPosition().y;
 }
 
+void GameObject::UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect) {
+	if(ApplyAspect)
+		ValueX = ASP(LocalPosition().x);
+	else
+		ValueX = LocalPosition().x;
+	ValueY = LocalPosition().y;
+}
 
-// image functions
 void GameObject::SetImage(Image& ImageValue, std::string ImageName) {
 	imageUtil.SetImage(ImageValue, ImageName);
 }
@@ -87,8 +89,6 @@ void GameObject::RenderImage(Image Image, GLfloat Transparency) {
 	imageUtil.Render(Image);
 }
 
-
-// sound functions
 void GameObject::SetSound(Sound& Sound, std::string SoundName) {
 	soundUtil.SetSound(Sound, SoundName);
 }
@@ -157,6 +157,8 @@ int GameObject::GetSoundCountIf(std::string ContainedName) {
 
 ////////////////////////// private
 void GameObject::ProcessTransform() {
+	camera.ProcessTransform(false);
+
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, TransparencyValue);
 
@@ -164,147 +166,16 @@ void GameObject::ProcessTransform() {
 	glUniform3f(ObjectColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * RotateMatrix * ScaleMatrix));
+	ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix;
+	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(ResultMatrix));
 }
 
 glm::vec4 GameObject::ViewportPosition() {
-	glm::mat4 Result = TranslateMatrix * RotateMatrix * ScaleMatrix;
-	glm::vec4 Position = camera.Projection * camera.ViewMatrix * Result * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-
+	glm::vec4 Position = camera.Projection * camera.ViewMatrix * ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 	return Position;
 }
 
-
-/////////////// namespace functions
-// transfrom functions
-void Transform::Move(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
-	Matrix = translate(Matrix, glm::vec3(X, Y, 0.0));
-}
-
-void Transform::Rotate(glm::mat4& Matrix, GLfloat Degree) {
-	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(0.0, 0.0, 1.0));
-}
-
-void Transform::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
-	Matrix = scale(Matrix, glm::vec3(X, Y, 1.0));
-}
-
-void Transform::RotateV(glm::mat4& Matrix, GLfloat Degree) {
-	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(1.0, 0.0, 0.0));
-}
-
-void Transform::RotateH(glm::mat4& Matrix, GLfloat Degree) {
-	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(0.0, 1.0, 0.0));
-}
-
-void Transform::Flip(glm::mat4& Matrix, FlipDir FlipOption) {
-	if (FlipOption != static_cast<FlipDir>(-1)) {
-		switch (FlipOption) {
-		case FlipDir::H:
-			Matrix = rotate(Matrix, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
-			break;
-
-		case FlipDir::V:
-			Matrix = rotate(Matrix, glm::radians(180.0f), glm::vec3(1.0, 0.0, 0.0));
-			break;
-		}
-	}
-}
-
-void Transform::MatchAspect(glm::mat4& Matrix, GLfloat ImageWidth, GLfloat ImageHeight) {
-	if (ImageWidth > 0 && ImageHeight > 0) {
-		if(ImageWidth > ImageHeight)
-			Matrix = scale(Matrix, glm::vec3(1.0, ImageHeight / ImageWidth, 1.0));
-		else if(ImageWidth < ImageHeight)
-			Matrix = scale(Matrix, glm::vec3(ImageWidth / ImageHeight, 1.0, 1.0));
-	}
-}
-
-
-// math functions
-void Math::LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT) {
-	GLfloat targetAngle{}, shortestAngle{};
-	targetAngle = atan2(ToY - FromY, ToX - FromX) * (180 / 3.14) - 90;
-	targetAngle = NormalizeDegree(targetAngle);
-
-	if (RotationSpeed > 0)
-		shortestAngle = std::lerp(shortestAngle, CalculateShortestRotation(RotationVar, targetAngle), FT * RotationSpeed);
-	else
-		shortestAngle = CalculateShortestRotation(RotationVar, targetAngle);
-
-	RotationVar = NormalizeDegree(RotationVar + shortestAngle);
-}
-
-void Math::LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT) {
-	GLfloat targetAngle{}, shortestAngle{};
-	targetAngle = NormalizeDegree(Rotation);
-
-	if (RotationSpeed > 0)
-		shortestAngle = std::lerp(shortestAngle, CalculateShortestRotation(RotationVar, targetAngle), FT * RotationSpeed);
-	else
-		shortestAngle = CalculateShortestRotation(RotationVar, targetAngle);
-
-	RotationVar = NormalizeDegree(RotationVar + shortestAngle);
-}
-
-GLfloat Math::CalcDistance(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {
-	return  std::sqrt(std::pow(FromX - ToX, 2) + std::pow(FromY - ToY, 2));
-}
-
-GLfloat Math::NormalizeDegree(GLfloat Degree) {
-	while (Degree < 0) Degree += 360;
-	while (Degree >= 360) Degree -= 360;
-	return Degree;
-}
-
-GLfloat Math::CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest) {
-	float Diff = DegreeDest - CurrentDegree;
-
-	if (Diff > 180)
-		Diff -= 360;
-	else if (Diff < -180)
-		Diff += 360;
-
-	return Diff;
-}
-
-
-// clipping functuions
-void ColorClipping::First() {
-	glEnable(GL_STENCIL_TEST);
-	glClear(GL_STENCIL_BUFFER_BIT);
-	glStencilFunc(GL_ALWAYS, 1, 0xFF);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-}
-
-void ColorClipping::Second() {
-	glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-}
-
-void ColorClipping::End() {
-	glStencilFunc(GL_EQUAL, 1, 0xFF);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-	glClear(GL_STENCIL_BUFFER_BIT);
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-	glDisable(GL_STENCIL_TEST);
-}
-
-void AlphaClipping::First() {
-	glEnable(GL_STENCIL_TEST);
-	glClear(GL_STENCIL_BUFFER_BIT);
-	glStencilFunc(GL_ALWAYS, 1, 0xFF);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-}
-
-void AlphaClipping::Second() {
-	glStencilFunc(GL_EQUAL, 0, 0xFF);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-}
-
-void AlphaClipping::End() {
-	glDisable(GL_STENCIL_TEST);
+glm::vec4 GameObject::LocalPosition() {
+	glm::vec4 LocalPosition = ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	return LocalPosition;
 }

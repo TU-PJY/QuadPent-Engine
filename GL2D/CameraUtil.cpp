@@ -16,44 +16,38 @@ void Camera::Init() {
 	SetCamera();
 }
 
-void Camera::SetCamera() {
+void Camera::SetCamera(bool Flag) {
 	using namespace glm;
 
 	if(PREV_WIDTH != WIDTH || PREV_HEIGHT != HEIGHT)
 		CalculateASPECT();
 
-	ViewMatrix = mat4(1.0f);
-	Projection = mat4(1.0f);
-
 	CamPos = vec3(0.0f, 0.0f, 1.0f);
 	CamDirection = vec3(0.0f, 0.0f, 0.0f);
 	CamUp = vec3(0.0f, 1.0f, 0.0f);
 
-	ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
+	if (Flag)
+		StaticMode = true;
 
-	ViewMatrix = translate(ViewMatrix, vec3(PositionX, PositionY, 0.0));
-	ViewMatrix = rotate(ViewMatrix, glm::radians(Rotation), vec3(0.0, 0.0, 1.0));
-
-	Projection = ortho((ASPECT * -1.0f) / Zoom, (ASPECT * 1.0f) / Zoom, -1.0f / Zoom, 1.0f / Zoom, -100.0f, 100.0f);
-}
-
-void Camera::SetStaticCamera() {
-	using namespace glm;
-	
-	if (PREV_WIDTH != WIDTH || PREV_HEIGHT != HEIGHT)
-		CalculateASPECT();
-
-	ViewMatrix = mat4(1.0f);
-	Projection = mat4(1.0f);
-
-	CamPos = vec3(0.0f, 0.0f, 1.0f);
-	CamDirection = vec3(0.0f, 0.0f, 0.0f);
-	CamUp = vec3(0.0f, 1.0f, 0.0f);
-
-	Projection = ortho((ASPECT * -1.0f), (ASPECT * 1.0f), -1.0f, 1.0f, -100.0f, 100.0f);
+	else {
+		ViewMatrix = mat4(1.0f);
+		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
+		StaticMode = false;
+	}
 }
 
 void Camera::ProcessTransform(bool UseTextShader) {
+	if (StaticMode) {
+		ViewMatrix = glm::mat4(1.0f);
+		Projection = glm::mat4(1.0f);
+		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
+		Projection = glm::ortho((ASPECT * -1.0f), (ASPECT * 1.0f), -1.0f, 1.0f, -100.0f, 100.0f);
+	}
+	else {
+		Projection = glm::mat4(1.0f);
+		Projection = glm::ortho((ASPECT * -1.0f) / ZoomValue, (ASPECT * 1.0f) / ZoomValue, -1.0f / ZoomValue, 1.0f / ZoomValue, -100.0f, 100.0f);
+	}
+
 	if (UseTextShader) {
 		ProjectionLocation = glGetUniformLocation(TextShader, "projection");
 		glUniformMatrix4fv(ProjectionLocation, 1, GL_FALSE, &Projection[0][0]);
@@ -78,27 +72,29 @@ void Camera::ProcessTransform(bool UseTextShader) {
 }
 
 void Camera::Move(GLfloat X, GLfloat Y) {
-	PositionX = X; 
-	PositionY = Y;
+	ViewMatrix = translate(ViewMatrix, glm::vec3(X, Y, 0.0));
 }
 
-void Camera::Rotate(GLfloat RotationValue) {
-	Rotation = RotationValue;
+void Camera::Rotation(GLfloat Rotation) {
+	ViewMatrix = rotate(ViewMatrix, glm::radians(Rotation), glm::vec3(0.0, 0.0, 1.0));
 }
 
-void Camera::SetZoom(ZoomOpt Type, GLfloat Value) {
+void Camera::Zoom(ZoomOpt Type, GLfloat Value) {
 	switch (Type) {
 	case ZoomOpt::In:
-		Zoom = Zoom / (1.0f - Value);
+		ZoomValue = ZoomValue / (1.0f - Value);
 		break;
 
 	case ZoomOpt::Out:
-		Zoom = Zoom * (1.0f - Value);
+		ZoomValue = ZoomValue * (1.0f - Value);
 		break;
 	}
 }
 
-// Divide value with camera zoom value
+void Camera::ChangeZoom(GLfloat Value) {
+	ZoomValue = Value;
+}
+
 GLfloat DivZoom(GLfloat Value) {
-	return Value / camera.Zoom;
+	return Value / camera.ZoomValue;
 }

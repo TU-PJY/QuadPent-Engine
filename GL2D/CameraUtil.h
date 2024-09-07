@@ -7,22 +7,20 @@ class Camera {
 private:
 	glm::vec3 CamPos{}, CamDirection{}, CamUp{};
 	unsigned int ProjectionLocation{}, ViewLocation{}, ViewPosLocation{};
+	bool StaticMode{};
 	
 public:
 	glm::mat4 ViewMatrix{}, Projection{};
-	GLfloat Rotation{};
-	GLfloat PositionX{}, PositionY{};
-	GLfloat Zoom{ 1.0f };
+	GLfloat ZoomValue{ 1.0f };
 
 	void CalculateASPECT();
 	void Init();
-	void SetCamera();
-	void SetStaticCamera();
+	void SetCamera(bool Flag=false);
 	void ProcessTransform(bool UseTextShader);
-
-	void Move(GLfloat MoveX, GLfloat MoveY);
-	void Rotate(GLfloat RotationValue);
-	void SetZoom(ZoomOpt Type, GLfloat Value);
+	void Move(GLfloat X, GLfloat Y);
+	void Rotation(GLfloat Rotation);
+	void Zoom(ZoomOpt Type, GLfloat Value);
+	void ChangeZoom(GLfloat Value);
 };
 extern Camera camera;
 

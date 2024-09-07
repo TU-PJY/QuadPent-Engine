@@ -22,5 +22,5 @@ public:
 	void LerpDcc(GLfloat& Speed, GLfloat Friction, float FT);
 	void LinearAcc(GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT);
 	void LinearDcc(GLfloat& Speed, GLfloat Friction, float FT);
-	void Mediate2DirSpeed(GLfloat& SpeedX, GLfloat& SpeedY);
+	void MediateSpeed(GLfloat& SpeedX, GLfloat& SpeedY);
 };

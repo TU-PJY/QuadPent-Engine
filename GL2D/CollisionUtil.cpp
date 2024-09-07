@@ -22,9 +22,12 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 
 	CenterX = X;
 	CenterY = Y;
+
+	Width = xScale;
+	Height = yScale;
 }
 
-void AABB::BeginProcess() {
+void AABB::InitMatrix() {
 #ifdef SHOW_BOUND_BOX
 	TranslateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
@@ -32,32 +35,26 @@ void AABB::BeginProcess() {
 #endif
 }
 
-void AABB::SetPosition(GLfloat X, GLfloat Y) {
+void AABB::Move(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
 #ifdef SHOW_BOUND_BOX
-	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
+	Matrix = translate(Matrix, glm::vec3(X, Y, 0.0));
 #endif
 }
 
-void AABB::Scale(GLfloat BoxWidth, GLfloat BoxHeight) {
+void AABB::Rotate(glm::mat4& Matrix, GLfloat Rotation) {
 #ifdef SHOW_BOUND_BOX
-	ScaleMatrix = scale(ScaleMatrix, glm::vec3(BoxWidth, BoxHeight, 1.0));
+	Matrix = rotate(Matrix, glm::radians(Rotation), glm::vec3(0.0, 0.0, 1.0));
 #endif
 }
 
-void AABB::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
+void AABB::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
 #ifdef SHOW_BOUND_BOX
-	RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
-	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
-	RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
-	RotateMatrix = rotate(RotateMatrix, glm::radians(-RotationValue), glm::vec3(0.0, 0.0, 1.0));
+	Matrix = scale(Matrix, glm::vec3(X, Y, 1.0));
 #endif
 }
 
-void AABB::Render(bool Lock) {
+void AABB::Render() {
 #ifdef SHOW_BOUND_BOX
-	if(!Lock)
-		RotateMatrix = rotate(RotateMatrix, glm::radians(-camera.Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-
 	ProcessTransform();
 	imageUtil.Render(Box);
 	if (Collide)
@@ -161,40 +158,34 @@ void OBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfl
 	GLfloat Rad = glm::radians(RotationValue);
 	Axis[0] = glm::vec2(std::cos(Rad), std::sin(Rad));
 	Axis[1] = glm::vec2(-std::sin(Rad), std::cos(Rad));
+
+	Width = BoxWidth;
+	Height = BoxHeight;
 }
 
-void OBB::BeginProcess() {
+void OBB::InitMatrix() {
 #ifdef SHOW_BOUND_BOX
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
 #endif
-	
 }
 
-void OBB::SetPosition(GLfloat X, GLfloat Y) {
+void OBB::Move(glm::mat4& Matrix, GLfloat X, GLfloat Y){
 #ifdef SHOW_BOUND_BOX
-	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0f));
+	Matrix = translate(Matrix, glm::vec3(X, Y, 0.0));
 #endif
 }
 
-void OBB::Rotate(GLfloat RotationValue) {
+void OBB::Rotate(glm::mat4& Matrix, GLfloat Rotation){
 #ifdef SHOW_BOUND_BOX
-	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0f, 0.0f, 1.0f));
+	Matrix = rotate(Matrix, glm::radians(Rotation), glm::vec3(0.0, 0.0, 1.0));
 #endif
 }
 
-void OBB::Scale(GLfloat BoxWidth, GLfloat BoxHeight) {
+void OBB::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
 #ifdef SHOW_BOUND_BOX
-	ScaleMatrix = scale(ScaleMatrix, glm::vec3(BoxWidth, BoxHeight, 1.0f));
-#endif
-}
-
-void OBB::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
-#ifdef SHOW_BOUND_BOX
-	RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
-	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
-	RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
+	Matrix = scale(Matrix, glm::vec3(X, Y, 1.0));
 #endif
 }
 
@@ -289,7 +280,7 @@ void Range::Init() {
 #endif
 }
 
-void Range::BeginProcess() {
+void Range::InitMatrix() {
 #ifdef SHOW_BOUND_BOX
 	TranslateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
@@ -297,23 +288,21 @@ void Range::BeginProcess() {
 #endif
 }
 
-void Range::SetPosition(GLfloat X, GLfloat Y) {
+void Range::Move(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
 #ifdef SHOW_BOUND_BOX
-	TranslateMatrix = translate(TranslateMatrix, glm::vec3(X, Y, 0.0));
+	Matrix = translate(Matrix, glm::vec3(X, Y, 0.0));
 #endif
 }
 
-void Range::Scale(GLfloat Size) {
+void Range::Rotate(glm::mat4& Matrix, GLfloat Rotation) {
 #ifdef SHOW_BOUND_BOX
-	ScaleMatrix = scale(ScaleMatrix, glm::vec3(Size, Size, 1.0));
+	Matrix = rotate(Matrix, glm::radians(Rotation), glm::vec3(0.0, 0.0, 1.0));
 #endif
 }
 
-void Range::RotateAxis(GLfloat RotationValue, GLfloat AxisX, GLfloat AxisY) {
+void Range::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
 #ifdef SHOW_BOUND_BOX
-	RotateMatrix = translate(RotateMatrix, glm::vec3(AxisX, AxisY, 0.0));
-	RotateMatrix = rotate(RotateMatrix, glm::radians(RotationValue), glm::vec3(0.0, 0.0, 1.0));
-	RotateMatrix = translate(RotateMatrix, glm::vec3(-AxisX, -AxisY, 0.0));
+	Matrix = scale(Matrix, glm::vec3(X, Y, 1.0));
 #endif
 }
 
@@ -321,6 +310,7 @@ void Range::Update(GLfloat X, GLfloat Y, GLfloat Size) {
 	CenterX = X;
 	CenterY = Y;
 	Radius = Size / 2.0;
+	Extent = Size;
 }
 
 void Range::Render() {

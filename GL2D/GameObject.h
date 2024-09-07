@@ -7,13 +7,13 @@
 #include "TextUtil.h"
 #include "TimerUtil.h"
 #include "AnimationUtil.h"
+#include "ClippingUtil.h"
+#include "Transformutil.h"
+#include "MathUtil.h"
 
 using Sound = FMOD::Sound*;
 using Channel = FMOD::Channel*;
 using Image = unsigned int;
-
-enum class FlipDir
-{H, V};
 
 class GameObject {
 private:
@@ -28,7 +28,7 @@ public:
 	bool FloatingObjectMarked{};
 	bool StaticObjectMarked{};
 
-	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
+	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
 	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 	GLfloat TransparencyValue{ 1.0f };
 
@@ -45,6 +45,7 @@ public:
 
 	// viewport functions
 	void UpdateViewportPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect = true);
+	void UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect = false);
 	GLfloat ASP(GLfloat Value);
 
 	// image functions
@@ -84,38 +85,8 @@ public:
 private:
 	void ProcessTransform(); 
 	glm::vec4 ViewportPosition();
+	glm::vec4 LocalPosition();
 };
 
 // dummy object for avoiding iterator error
 class __DUMMY__ : public GameObject {};
-
-
-namespace Transform {
-	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
-	void Rotate(glm::mat4& Matrix, GLfloat Degree);
-	void Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y);
-	void RotateV(glm::mat4& Matrix, GLfloat Degree);
-	void RotateH(glm::mat4& Matrix, GLfloat Degree);
-	void Flip(glm::mat4& Matrix, FlipDir FlipOption);
-	void MatchAspect(glm::mat4& Matrix, GLfloat ImageWidth, GLfloat ImageHeight);
-}
-
-namespace Math {
-	void LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
-	void LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
-	GLfloat CalcDistance(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
-	GLfloat NormalizeDegree(GLfloat Degree);
-	GLfloat CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest);
-}
-
-namespace ColorClipping {
-	void First();
-	void Second();
-	void End();
-}
-
-namespace AlphaClipping {
-	void First();
-	void Second();
-	void End();
-}
