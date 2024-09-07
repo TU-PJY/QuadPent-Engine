@@ -2,6 +2,7 @@
 #include "ImageUtil.h"
 #include "RenderModeUtil.h"
 #include "CameraUtil.h"
+#include "InstancingResourceList.h"
 #include <cmath>
 
 // init functions
@@ -152,7 +153,6 @@ int GameObject::GetSoundCount() {
 int GameObject::GetSoundCountIf(std::string ContainedName) {
 	return soundUtil.GetSoundNumIf(ContainedName);
 }
-
 
 
 ////////////////////////// private
