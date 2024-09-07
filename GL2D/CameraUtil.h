@@ -17,8 +17,6 @@ public:
 	void Init();
 	void SetCamera(bool Flag=false);
 	void ProcessTransform(bool UseTextShader);
-	void Move(GLfloat X, GLfloat Y);
-	void Rotation(GLfloat Rotation);
 	void Zoom(ZoomOpt Type, GLfloat Value);
 	void ChangeZoom(GLfloat Value);
 };

@@ -71,14 +71,6 @@ void Camera::ProcessTransform(bool UseTextShader) {
 	}
 }
 
-void Camera::Move(GLfloat X, GLfloat Y) {
-	ViewMatrix = translate(ViewMatrix, glm::vec3(X, Y, 0.0));
-}
-
-void Camera::Rotation(GLfloat Rotation) {
-	ViewMatrix = rotate(ViewMatrix, glm::radians(Rotation), glm::vec3(0.0, 0.0, 1.0));
-}
-
 void Camera::Zoom(ZoomOpt Type, GLfloat Value) {
 	switch (Type) {
 	case ZoomOpt::In:
