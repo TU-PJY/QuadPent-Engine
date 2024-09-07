@@ -177,6 +177,7 @@
     <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="Framework.h" />
     <ClInclude Include="ImageUtil.h" />
+    <ClInclude Include="InstancingResourceList.h" />
     <ClInclude Include="IntroMode.h" />
     <ClInclude Include="IntroScreen.h" />
     <ClInclude Include="LoadingMode.h" />

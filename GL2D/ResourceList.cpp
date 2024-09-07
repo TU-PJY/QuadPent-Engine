@@ -1,4 +1,5 @@
 #include "EngineHeader.h"
+#include "InstancingResourceList.h"
 
 std::vector<ImageInfo> ImageList
 {

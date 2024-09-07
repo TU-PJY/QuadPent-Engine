@@ -275,6 +275,9 @@
     <ClInclude Include="ClippingUtil.h">
       <Filter>[3]___________[ Util ]\[ Clipping Util ]</Filter>
     </ClInclude>
+    <ClInclude Include="InstancingResourceList.h">
+      <Filter>[4]___________[ Resources ]</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MATA_ENGINE_RES\GLSL\Fragment_Image.glsl">
