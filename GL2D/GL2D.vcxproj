@@ -157,7 +157,6 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="PhysicsUtil.cpp" />
     <ClCompile Include="RandomUtil.cpp" />
-    <ClCompile Include="RenderModeUtil.cpp" />
     <ClCompile Include="SetUp.cpp" />
     <ClCompile Include="ShaderUtil.cpp" />
     <ClCompile Include="SoundUtil.cpp" />
@@ -188,7 +187,6 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="PhysicsUtil.h" />
     <ClInclude Include="RandomUtil.h" />
-    <ClInclude Include="RenderModeUtil.h" />
     <ClInclude Include="ShaderUtil.h" />
     <ClInclude Include="SoundUtil.h" />
     <ClInclude Include="Setting.h" />

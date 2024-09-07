@@ -8,7 +8,7 @@
 #include "TimerUtil.h"
 #include "AnimationUtil.h"
 #include "ClippingUtil.h"
-#include "Transformutil.h"
+#include "TransformUtil.h"
 #include "MathUtil.h"
 #include "InstancingResourceList.h"
 

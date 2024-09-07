@@ -4,7 +4,6 @@
 #include "ImageUtil.h"
 #include "DataUtil.h"
 #include "FontLoaderUtil.h"
-#include "RenderModeUtil.h"
 #include "ShaderUtil.h"
 #include "SoundUtil.h"
 #include "MouseUtil.h"
@@ -24,7 +23,6 @@ glm::vec3 BackColor;
 
 ShaderUtil shaderUtil;
 Camera camera;
-RenderModeUtil renderMode;
 ImageUtil imageUtil;
 SoundUtil soundUtil;
 DataUtil dataUtil;

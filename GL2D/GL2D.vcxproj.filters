@@ -16,9 +16,6 @@
     <Filter Include="[3]___________[ Util ]\[ Mouse Util ]">
       <UniqueIdentifier>{3fbba05c-17d5-4a1e-9a94-8c237067a9a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[3]___________[ Util ]\[ RenderMode Util ]">
-      <UniqueIdentifier>{435ecc87-3559-4240-92ab-4d6d144f1506}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]___________[ Util ]\[ Shader Util ]">
       <UniqueIdentifier>{b56d104c-471b-4b68-914e-a701e7902ee0}</UniqueIdentifier>
     </Filter>
@@ -132,9 +129,6 @@
     <ClCompile Include="MouseUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Mouse Util ]</Filter>
     </ClCompile>
-    <ClCompile Include="RenderModeUtil.cpp">
-      <Filter>[3]___________[ Util ]\[ RenderMode Util ]</Filter>
-    </ClCompile>
     <ClCompile Include="TextUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Text Util ]</Filter>
     </ClCompile>
@@ -214,9 +208,6 @@
     </ClInclude>
     <ClInclude Include="MouseUtil.h">
       <Filter>[3]___________[ Util ]\[ Mouse Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderModeUtil.h">
-      <Filter>[3]___________[ Util ]\[ RenderMode Util ]</Filter>
     </ClInclude>
     <ClInclude Include="ShaderUtil.h">
       <Filter>[3]___________[ Util ]\[ Shader Util ]</Filter>

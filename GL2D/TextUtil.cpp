@@ -1,5 +1,4 @@
 #include "TextUtil.h"
-#include "RenderModeUtil.h"
 #include "CameraUtil.h"
 
 void TextUtil::Init(const wchar_t* FontName, int Type, int Italic) {
@@ -78,10 +77,14 @@ void TextUtil::Render(RenderType Type, GLfloat X, GLfloat Y, GLfloat Size, GLflo
 
 		Transparency = TransparencyValue;
 
-		if(Type == RenderType::Static)
-			renderMode.SetStaticTextMode();
-		else
-			renderMode.SetTextMode();
+		if (Type == RenderType::Static){
+			glUseProgram(TextShader);
+			camera.SetCamera(true);
+		}
+		else {
+			glUseProgram(TextShader);
+			camera.SetCamera(false);
+		}
 
 		ProcessTransform();
 

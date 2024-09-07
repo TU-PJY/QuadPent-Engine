@@ -1,6 +1,5 @@
 #include "GameObject.h"
 #include "ImageUtil.h"
-#include "RenderModeUtil.h"
 #include "CameraUtil.h"
 #include <cmath>
 
@@ -11,10 +10,14 @@ void GameObject::BeginProcess(RenderType Type) {
 	ScaleMatrix = glm::mat4(1.0f);
 	TransparencyValue = 1.0f;
 
-	if (Type == RenderType::Static)
-		renderMode.SetStaticImageMode();
-	else
-		renderMode.SetImageMode();
+	if (Type == RenderType::Static) {
+		glUseProgram(ImageShader);
+		camera.SetCamera(true);
+	}
+	else {
+		glUseProgram(ImageShader);
+		camera.SetCamera(false);
+	}
 }
 
 void GameObject::SetColor(GLfloat R, GLfloat G, GLfloat B) {
