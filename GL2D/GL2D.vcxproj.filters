@@ -109,6 +109,9 @@
     <Filter Include="[3]___________[ Util ]\[ Clipping Util ]">
       <UniqueIdentifier>{9bceb82f-2ade-4d6d-9360-521458e8d522}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Ui Util ]">
+      <UniqueIdentifier>{4bc61999-6038-4873-89f1-097ff59edac5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
@@ -192,6 +195,9 @@
     <ClCompile Include="StartMode.cpp">
       <Filter>[5]___________[ mata_ENGINE ]\[ Setting ]</Filter>
     </ClCompile>
+    <ClCompile Include="UiUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Ui Util ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mode1.h">
@@ -271,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="InstancingResourceList.h">
       <Filter>[4]___________[ Resources ]</Filter>
+    </ClInclude>
+    <ClInclude Include="UiUtil.h">
+      <Filter>[3]___________[ Util ]\[ Ui Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

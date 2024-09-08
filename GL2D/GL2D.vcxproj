@@ -166,6 +166,7 @@
     <ClCompile Include="TextUtil.cpp" />
     <ClCompile Include="TimerUtil.cpp" />
     <ClCompile Include="TransformUtil.cpp" />
+    <ClCompile Include="UiUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationUtil.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="TextUtil.h" />
     <ClInclude Include="TimerUtil.h" />
     <ClInclude Include="TransformUtil.h" />
+    <ClInclude Include="UiUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ModeTemplate.txt" />
