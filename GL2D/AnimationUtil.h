@@ -8,6 +8,7 @@ private:
 
 public:
 	GLfloat Update(GLfloat MoveScale, float FrameTime);
+	void SetValue(GLfloat Value);
 	void Reset();
 };
 

@@ -6,6 +6,10 @@ GLfloat LoopSinAnimation::Update(GLfloat MoveScale, float FrameTime) {
 	return sin(Num) * MoveScale;
 }
 
+void LoopSinAnimation::SetValue(GLfloat Value) {
+	Num = Value;
+}
+
 void LoopSinAnimation::Reset() {
 	Num = 0;
 }
