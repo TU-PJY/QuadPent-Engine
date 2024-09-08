@@ -4,20 +4,14 @@
 #include <cmath>
 
 // init functions
-void GameObject::BeginProcess(RenderType Type) {
+void GameObject::InitMatrix(RenderType Type) {
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
 	TransparencyValue = 1.0f;
 
-	if (Type == RenderType::Static) {
-		glUseProgram(ImageShader);
-		camera.SetCamera(true);
-	}
-	else {
-		glUseProgram(ImageShader);
-		camera.SetCamera(false);
-	}
+	glUseProgram(ImageShader);
+	camera.SetCamera(Type);
 }
 
 void GameObject::SetColor(GLfloat R, GLfloat G, GLfloat B) {
@@ -159,7 +153,7 @@ int GameObject::GetSoundCountIf(std::string ContainedName) {
 
 ////////////////////////// private
 void GameObject::ProcessTransform() {
-	camera.ProcessTransform(false);
+	camera.ProcessTransform(ShaderType::Image);
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, TransparencyValue);

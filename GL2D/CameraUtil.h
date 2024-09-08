@@ -1,7 +1,7 @@
 #pragma once
 #include "EngineHeader.h"
 
-enum class ZoomOpt{ In, Out };
+enum class ZoomType{ In, Out };
 
 class Camera {
 private:
@@ -15,9 +15,9 @@ public:
 
 	void CalculateASPECT();
 	void Init();
-	void SetCamera(bool Flag=false);
-	void ProcessTransform(bool UseTextShader);
-	void Zoom(ZoomOpt Type, GLfloat Value);
+	void SetCamera(RenderType Type);
+	void ProcessTransform(ShaderType Type);
+	void Zoom(ZoomType Type, GLfloat Value);
 	void ChangeZoom(GLfloat Value);
 	void InitMatrix();
 };

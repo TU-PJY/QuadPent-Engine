@@ -86,7 +86,7 @@ public:
 	}
 
 	void Render() {
-		BeginProcess(RenderType::Static);
+		InitMatrix(RenderType::Static);
 
 		if (Scene == 1) {
 			Transform::Rotate(RotateMatrix, Rotation);

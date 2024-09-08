@@ -77,15 +77,7 @@ void TextUtil::Render(RenderType Type, GLfloat X, GLfloat Y, GLfloat Size, GLflo
 
 		Transparency = TransparencyValue;
 
-		if (Type == RenderType::Static){
-			glUseProgram(TextShader);
-			camera.SetCamera(true);
-		}
-		else {
-			glUseProgram(TextShader);
-			camera.SetCamera(false);
-		}
-
+		camera.SetCamera(Type);
 		ProcessTransform();
 
 		if (Format == NULL)
@@ -127,7 +119,7 @@ void TextUtil::InitTransform() {
 }
 
 void TextUtil::ProcessTransform() {
-	camera.ProcessTransform(true);
+	camera.ProcessTransform(ShaderType::Text);
 
 	TransparencyLocation = glGetUniformLocation(TextShader, "transparency");
 	glUniform1f(TransparencyLocation, Transparency);

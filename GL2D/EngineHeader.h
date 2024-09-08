@@ -21,6 +21,9 @@ enum class KeyState
 enum class RenderType
 { Static, Default };
 
+enum class ShaderType
+{ Image, Text };
+
 typedef std::string(*Start_Mode)(void);
 
 // display width, height and apsect ratio

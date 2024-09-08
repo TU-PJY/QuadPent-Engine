@@ -34,7 +34,7 @@ public:
 	GLfloat TransparencyValue{ 1.0f };
 
 	// init functions
-	void BeginProcess(RenderType Type);
+	void InitMatrix(RenderType Type);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
 
