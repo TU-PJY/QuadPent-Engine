@@ -189,6 +189,9 @@
     <ClCompile Include="ClippingUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Clipping Util ]</Filter>
     </ClCompile>
+    <ClCompile Include="StartMode.cpp">
+      <Filter>[5]___________[ mata_ENGINE ]\[ Setting ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mode1.h">
