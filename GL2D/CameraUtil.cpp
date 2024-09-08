@@ -43,7 +43,7 @@ void Camera::ProcessTransform(bool UseTextShader) {
 		ViewMatrix = glm::mat4(1.0f);
 		Projection = glm::mat4(1.0f);
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
-		ViewMatrix = ViewMatrix * TranslateMatrix, RotateMatrix;
+		ViewMatrix = ViewMatrix * TranslateMatrix * RotateMatrix;
 		Projection = glm::ortho((ASPECT * -1.0f) / ZoomValue, (ASPECT * 1.0f) / ZoomValue, -1.0f / ZoomValue, 1.0f / ZoomValue, -100.0f, 100.0f);
 	}
 
