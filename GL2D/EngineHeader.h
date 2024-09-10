@@ -48,7 +48,8 @@ void SetupSystem(int argc, char** argv);
 void LoadShader();
 void InitSystem();
 void SetGlOption();
-void InstancingResources();
+void LoadInstancingResources();
+void LoadCollisionImageResources();
 GLvoid GLMain();
 GLvoid DisplayReshape(int w, int h);
 
@@ -70,3 +71,5 @@ extern std::vector<FileNameAndOption> SoundList;
 extern std::vector<ImageInfo> SystemImageList;
 extern std::vector<FileNameAndOption> SystemSoundList;
 extern Start_Mode StartMode;
+
+extern unsigned int ImageCollisionBox, ImageCollidedBox, ImageCollisionSphere, ImageCollidedSphere;

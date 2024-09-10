@@ -21,7 +21,6 @@ public:
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, RotateMatrix{ 1.0f };
 	GLfloat Width{}, Height{};
 
-	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
 	void InitMatrix();
 	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
@@ -55,7 +54,6 @@ public:
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 	GLfloat Width{}, Height{};
 
-	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
 	void InitMatrix();
 	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
@@ -85,7 +83,6 @@ public:
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, RotateMatrix{ 1.0f };
 	GLfloat Extent{};
 
-	void Init();
 	void Update(GLfloat X, GLfloat Y, GLfloat Size);
 	void InitMatrix();
 	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);

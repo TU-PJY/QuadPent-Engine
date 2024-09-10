@@ -10,10 +10,10 @@ private:
 	
 public:
 	LoadingScreen() {
+		camera.Init();
 		SetBackColor(0.0, 0.0, 0.0);
 		text.Init(L"Arial", FW_BOLD);
 		text.SetColor(1.0, 1.0, 1.0);
-		camera.Init();
 	}
 
 	void Update(float FT) {
@@ -21,7 +21,6 @@ public:
 
 		imageUtil.Init();
 		soundUtil.Init();
-		InstancingResources();
 
 		if (!ENABLE_INTRO_SCREEN) {
 			SetBackColor(R, G, B);

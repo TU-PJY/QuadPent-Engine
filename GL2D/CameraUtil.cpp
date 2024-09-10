@@ -13,6 +13,7 @@ void Camera::CalculateASPECT() {
 
 void Camera::Init() {
 	CalculateASPECT();
+	InitMatrix();
 	SetCamera(RenderType::Default);
 }
 

@@ -3,7 +3,6 @@
 #include "MouseUtil.h"
 #include "CameraUtil.h"
 
-
 std::string Mode1::GameMode1() {
 
 	framework.SetController(Controller, ModeType::Default);
@@ -18,7 +17,6 @@ void Mode1::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKe
 			break;
 		}
 	}
-
 }
 
 void Mode1::ProcessMouse(int Button, int State, int X, int Y) {

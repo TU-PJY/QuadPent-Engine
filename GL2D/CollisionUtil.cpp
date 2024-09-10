@@ -3,13 +3,6 @@
 #include "CameraUtil.h"
 
 
-void AABB::Init() {
-#ifdef SHOW_BOUND_BOX
-	imageUtil.SetImage(Box, "BOUNDBOX");
-	imageUtil.SetImage(BoxInside, "BOUNDBOXCOLLISION");
-#endif
-}
-
 void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 	OffsetX = xScale / 2;
 	OffsetY = yScale / 2;
@@ -55,9 +48,9 @@ void AABB::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
 void AABB::Render() {
 #ifdef SHOW_BOUND_BOX
 	ProcessTransform();
-	imageUtil.Render(Box);
+	imageUtil.Render(ImageCollisionBox);
 	if (Collide)
-		imageUtil.Render(BoxInside);
+		imageUtil.Render(ImageCollidedBox);
 #endif
 }
 
@@ -142,14 +135,6 @@ void AABB::ProcessTransform() {
 
 
 
-void OBB::Init() {
-#ifdef SHOW_BOUND_BOX
-	imageUtil.SetImage(Box, "BOUNDBOX");
-	imageUtil.SetImage(BoxInside, "BOUNDBOXCOLLISION");
-#endif
-	
-}
-
 void OBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue) {
 	Center = glm::vec2(X, Y);
 	Offset = glm::vec2(BoxWidth / 2, BoxHeight / 2);
@@ -191,9 +176,9 @@ void OBB::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
 void OBB::Render() {
 #ifdef SHOW_BOUND_BOX
 		ProcessTransform();
-		imageUtil.Render(Box);
+		imageUtil.Render(ImageCollisionBox);
 		if (Collide)
-			imageUtil.Render(BoxInside);
+			imageUtil.Render(ImageCollidedBox);
 #endif
 }
 
@@ -272,13 +257,6 @@ void OBB::ProcessTransform() {
 
 
 
-void Range::Init() {
-#ifdef SHOW_BOUND_BOX
-	imageUtil.SetImage(Circle, "CIRCLE");
-	imageUtil.SetImage(CircleInside, "CIRCLECOLLISION");
-#endif
-}
-
 void Range::InitMatrix() {
 #ifdef SHOW_BOUND_BOX
 	TranslateMatrix = glm::mat4(1.0f);
@@ -315,9 +293,9 @@ void Range::Update(GLfloat X, GLfloat Y, GLfloat Size) {
 void Range::Render() {
 #ifdef SHOW_BOUND_BOX
 	ProcessTransform();
-	imageUtil.Render(Circle);
+	imageUtil.Render(ImageCollisionSphere);
 	if (Collide)
-		imageUtil.Render(CircleInside);
+		imageUtil.Render(ImageCollidedSphere);
 #endif
 }
 
