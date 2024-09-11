@@ -29,9 +29,8 @@ void TextUtil::SetNextLineSpace(GLfloat Value) {
 	NewLineSpace = Value;
 }
 
-void TextUtil::NextLine() {
-	if (NewLineSpace > 0.0)
-		CurrentHeight -= NewLineSpace;
+void TextUtil::SetLine(int LineNum) {
+	CurrentHeight -= GLfloat(LineNum) * NewLineSpace;
 }
 
 void TextUtil::ResetNextLineSpace() {
@@ -42,7 +41,14 @@ void TextUtil::ResetLine() {
 	CurrentHeight = 0.0;
 }
 
-void TextUtil::Render(RenderType Type, GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
+void TextUtil::SetRenderType(RenderType Type) {
+	if (Type == RenderType::Default)
+		StaticRenderMode = false;
+	else if (Type == RenderType::Static)
+		StaticRenderMode = true;
+}
+
+void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
 	wchar_t Text[256]{};
 
 	va_list Args{};
@@ -59,7 +65,7 @@ void TextUtil::Render(RenderType Type, GLfloat X, GLfloat Y, GLfloat Size, GLflo
 		GetLength(Length, CharIndex, Text, Size);
 
 	for (int i = 0; i < wcslen(Text); ++i) {
-		InitTransform();
+		InitMatrix();
 		RotateMatrix = rotate(RotateMatrix, glm::radians(Rotation), glm::vec3(0.0, 0.0, 1.0));
 		ScaleMatrix = scale(ScaleMatrix, glm::vec3(Size, Size, 0.0));
 
@@ -77,8 +83,11 @@ void TextUtil::Render(RenderType Type, GLfloat X, GLfloat Y, GLfloat Size, GLflo
 
 		Transparency = TransparencyValue;
 
-		camera.SetCamera(Type);
-		ProcessTransform();
+		if(StaticRenderMode)
+			camera.SetCamera(RenderType::Static);
+		else
+			camera.SetCamera(RenderType::Default);
+		PrepareRender();
 
 		if (Format == NULL)
 			return;
@@ -112,14 +121,14 @@ void TextUtil::GetLength(GLfloat& Length, unsigned Index, const wchar_t* Text, G
 	}
 }
 
-void TextUtil::InitTransform() {
+void TextUtil::InitMatrix() {
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
 }
 
-void TextUtil::ProcessTransform() {
-	camera.ProcessTransform(ShaderType::Text);
+void TextUtil::PrepareRender() {
+	camera.PrepareRender(ShaderType::Text);
 
 	TransparencyLocation = glGetUniformLocation(TextShader, "transparency");
 	glUniform1f(TransparencyLocation, Transparency);

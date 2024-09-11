@@ -275,11 +275,14 @@
     <ClInclude Include="ClippingUtil.h">
       <Filter>[3]___________[ Util ]\[ Clipping Util ]</Filter>
     </ClInclude>
-    <ClInclude Include="InstancingResourceList.h">
+    <ClInclude Include="ResourceList.h">
       <Filter>[4]___________[ Resources ]</Filter>
     </ClInclude>
     <ClInclude Include="UiUtil.h">
       <Filter>[3]___________[ Util ]\[ Ui Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemResources.h">
+      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Resources ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -12,17 +12,10 @@ void SoundUtil::Init() {
 	SoundSystem->init(32, FMOD_INIT_NORMAL, ExtDvData);
 	SoundSystem->createDSPByType(FMOD_DSP_TYPE_LOWPASS, &LowPass);
 	SoundSystem->set3DSettings(1.0, 1.0, 2.0); 
-
-	LoadSoundFromList();
-	LoadSystemSound();
 }
 
-void SoundUtil::SetSound(FMOD::Sound*& Sound, std::string SoundName) {
-	auto It = LoadedSoundList.find(SoundName);
-	if (It != end(LoadedSoundList))
-		Sound =  It->second;
-	else
-		Sound = nullptr;
+void SoundUtil::ImportSound(Sound& Sound, const char* FileName, FMOD_MODE Option) {
+	SoundSystem->createSound(FileName, Option, 0, &Sound);
 }
 
 void SoundUtil::Update() {
@@ -122,36 +115,4 @@ void SoundUtil::SetSoundPosition(FMOD::Channel*& Channel, float X, float Y, floa
 	soundPos.z = Diff;
 
 	Channel->set3DAttributes(&soundPos, 0);
-}
-
-size_t SoundUtil::GetSoundNum() {
-	return LoadedSoundList.size();
-}
-
-int SoundUtil::GetSoundNumIf(std::string ContainedStr) {
-	int Count{};
-	for (auto& It : LoadedSoundList) {
-		if (It.first.contains(ContainedStr))
-			++Count;
-	}
-
-	return Count;
-}
-
-//////////////////////////// private
-
-void SoundUtil::LoadSoundFromList() {
-	for (auto& S : SoundList) {
-		FMOD::Sound* sound;
-		SoundSystem->createSound(S.FileName, S.Option, 0, &sound);
-		LoadedSoundList.insert(std::pair(S.Name, sound));
-	}
-}
-
-void SoundUtil::LoadSystemSound() {
-	for (auto& S : SystemSoundList) {
-		FMOD::Sound* sound;
-		SoundSystem->createSound(S.FileName, S.Option, 0, &sound);
-		LoadedSoundList.insert(std::pair(S.Name, sound));
-	}
 }

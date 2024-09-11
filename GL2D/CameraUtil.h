@@ -16,7 +16,7 @@ public:
 	void CalculateASPECT();
 	void Init();
 	void SetCamera(RenderType Type);
-	void ProcessTransform(ShaderType Type);
+	void PrepareRender(ShaderType Type);
 	void Zoom(ZoomType Type, GLfloat Value);
 	void ChangeZoom(GLfloat Value);
 	void InitMatrix();

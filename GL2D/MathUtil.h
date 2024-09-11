@@ -7,4 +7,5 @@ namespace Math {
 	GLfloat CalcDistance(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
 	GLfloat NormalizeDegree(GLfloat Degree);
 	GLfloat CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest);
+	GLfloat Lerp(GLfloat Value, GLfloat Dest, GLfloat FrameTime);
 }

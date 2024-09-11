@@ -33,7 +33,7 @@ void Camera::SetCamera(RenderType Type) {
 		StaticMode = true;
 }
 
-void Camera::ProcessTransform(ShaderType Type) {
+void Camera::PrepareRender(ShaderType Type) {
 	if (StaticMode) {
 		ViewMatrix = glm::mat4(1.0f);
 		Projection = glm::mat4(1.0f);

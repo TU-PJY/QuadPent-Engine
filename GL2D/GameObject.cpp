@@ -76,18 +76,10 @@ void GameObject::UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY, bool Appl
 	ValueY = LocalPosition().y;
 }
 
-void GameObject::SetImage(Image& ImageValue, std::string ImageName) {
-	imageUtil.SetImage(ImageValue, ImageName);
-}
-
 void GameObject::RenderImage(Image Image, GLfloat Transparency) {
 	TransparencyValue = Transparency;
-	ProcessTransform();
+	PrepareRender();
 	imageUtil.Render(Image);
-}
-
-void GameObject::SetSound(Sound& Sound, std::string SoundName) {
-	soundUtil.SetSound(Sound, SoundName);
 }
 
 void GameObject::PlaySound(Sound Sound, Channel& Channel, unsigned int StartTime) {
@@ -142,18 +134,10 @@ void GameObject::SetSoundPosition(Channel& Channel, float X, float Y, float Diff
 	soundUtil.SetSoundPosition(Channel, X, Y, Diff);
 }
 
-int GameObject::GetSoundCount() {
-	return soundUtil.GetSoundNum();
-}
-
-int GameObject::GetSoundCountIf(std::string ContainedName) {
-	return soundUtil.GetSoundNumIf(ContainedName);
-}
-
 
 ////////////////////////// private
-void GameObject::ProcessTransform() {
-	camera.ProcessTransform(ShaderType::Image);
+void GameObject::PrepareRender() {
+	camera.PrepareRender(ShaderType::Image);
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, TransparencyValue);

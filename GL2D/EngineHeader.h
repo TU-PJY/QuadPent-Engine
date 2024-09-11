@@ -25,6 +25,9 @@ enum class ShaderType
 { Image, Text };
 
 typedef std::string(*Start_Mode)(void);
+using Sound = FMOD::Sound*;
+using Channel = FMOD::Channel*;
+using Image = unsigned int;
 
 // display width, height and apsect ratio
 extern int WIDTH, HEIGHT;
@@ -48,28 +51,11 @@ void SetupSystem(int argc, char** argv);
 void LoadShader();
 void InitSystem();
 void SetGlOption();
-void LoadInstancingResources();
-void LoadCollisionImageResources();
+void LoadImageResources();
+void LoadSoundResources();
+void LoadSystemResources();
 GLvoid GLMain();
 GLvoid DisplayReshape(int w, int h);
 
 extern glm::vec3 BackColor;
-
-struct ImageInfo {
-	std::string Name;
-	const char* FileName;
-};
-
-struct FileNameAndOption {
-	std::string Name;
-	const char* FileName;
-	FMOD_MODE Option;
-};
-
-extern std::vector<ImageInfo> ImageList;
-extern std::vector<FileNameAndOption> SoundList;
-extern std::vector<ImageInfo> SystemImageList;
-extern std::vector<FileNameAndOption> SystemSoundList;
 extern Start_Mode StartMode;
-
-extern unsigned int ImageCollisionBox, ImageCollidedBox, ImageCollisionSphere, ImageCollidedSphere;

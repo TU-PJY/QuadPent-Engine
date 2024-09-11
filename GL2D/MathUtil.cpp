@@ -47,3 +47,10 @@ GLfloat Math::CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDes
 
 	return Diff;
 }
+
+GLfloat Math::Lerp(GLfloat Value, GLfloat Dest, GLfloat Speed) {
+	if (Speed <= 1.0 && Speed >= 0.0)
+		return std::lerp(Value, Dest, Speed);
+	else
+		return Value;
+}

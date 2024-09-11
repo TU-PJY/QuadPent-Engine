@@ -1,18 +1,13 @@
-#include "EngineHeader.h"
-#include "InstancingResourceList.h"
+#include "ResourceList.h"
 #include "ImageUtil.h"
+#include "SoundUtil.h"
 
-std::vector<ImageInfo> ImageList
-{
 
-};
-
-std::vector<FileNameAndOption> SoundList
-{
-
-};
-
-void LoadInstancingResources() 
-{
+void LoadImageResources() {
 	
+}
+
+
+void LoadSoundResources() {
+
 }

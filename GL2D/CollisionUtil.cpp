@@ -1,6 +1,7 @@
 #include "CollisionUtil.h"
 #include "ImageUtil.h"
 #include "CameraUtil.h"
+#include "SystemResources.h"
 
 
 void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {

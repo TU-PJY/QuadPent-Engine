@@ -10,11 +10,8 @@
 #include "ClippingUtil.h"
 #include "TransformUtil.h"
 #include "MathUtil.h"
-#include "InstancingResourceList.h"
-
-using Sound = FMOD::Sound*;
-using Channel = FMOD::Channel*;
-using Image = unsigned int;
+#include "SystemResources.h"
+#include "ResourceList.h"
 
 class GameObject {
 private:
@@ -34,7 +31,7 @@ public:
 	GLfloat TransparencyValue{ 1.0f };
 
 	// init functions
-	void InitMatrix(RenderType Type);
+	void InitMatrix(RenderType Type=RenderType::Default);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
 
@@ -50,11 +47,9 @@ public:
 	GLfloat ASP(GLfloat Value);
 
 	// image functions
-	void SetImage(Image& ImageValue, std::string ImageName);
 	void RenderImage(Image Image, GLfloat Transparency = 1.0);
 
 	// sound functions
-	void SetSound(Sound& Sound, std::string SoundName);
 	void PlaySound(Sound Sound, Channel& Channel, unsigned int StartTime);
 	void PauseSound(Channel& Channel, bool Flag);
 	void StopSound(Channel& Channel);
@@ -68,8 +63,6 @@ public:
 	void SetSoundDistance(Channel& Channel, float MinDist, float MaxDist);
 	void SetListnerPosition(float X, float Y);
 	void SetSoundPosition(Channel& Channel, float X, float Y, float Diff);
-	int GetSoundCount();
-	int GetSoundCountIf(std::string ContainedName);
 
 	// object defined functions
 	virtual ~GameObject() {}
@@ -84,7 +77,7 @@ public:
 	virtual Range GetRange() { return {}; }
 
 private:
-	void ProcessTransform(); 
+	void PrepareRender(); 
 	glm::vec4 ViewportPosition();
 	glm::vec4 LocalPosition();
 };

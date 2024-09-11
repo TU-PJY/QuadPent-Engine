@@ -6,8 +6,6 @@ class IntroScreen : public GameObject {
 private:
 	TimerUtil timer;
 
-	Image Logo{}, FMOD_Logo{};
-	Sound LogoSound{};
 	Channel IntroChannel{};
 
 	GLfloat LogoSize = 2.0;
@@ -22,10 +20,7 @@ private:
 
 public:
 	IntroScreen() {
-		SetImage(Logo, "mata_ENGINE_LOGO");
-		SetImage(FMOD_Logo, "FMOD_LOGO");
 		SetColor(1.0, 1.0, 1.0);
-		SetSound(LogoSound, "mata_ENGINE_LOGO_SOUND");
 	}
 
 	void InputKey(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
@@ -45,14 +40,14 @@ public:
 		timer.Update(FT);
 
 		if (timer.Sec() >= 1 && Scene == 0) {
-			soundUtil.PlaySound(LogoSound, IntroChannel);
+			soundUtil.PlaySound(IntroSound, IntroChannel);
 			++Scene;
 		}
 
 		if (Scene == 1) {
 			LogoSize = PBA.Update(1.0, 2.0, 8.0, 8.0, 5.0, FT);
 			Rotation = LSA.Update(RotateValue, FT * 10);
-			RotateValue = std::lerp(RotateValue, 0.0, FT * 4);
+			RotateValue = Math::Lerp(RotateValue, 0.0, FT * 4);
 		}
 
 		if (timer.Sec() >= 3 && Scene == 1) {
@@ -66,8 +61,8 @@ public:
 
 		if (Scene == 2) {
 			if (timer.Sec() >= 4) {
-				LogoTransparent = std::lerp(LogoTransparent, 1.0, FT * 10);
-				LogoSize = std::lerp(LogoSize, 1.0, FT * 10);
+				LogoTransparent = Math::Lerp(LogoTransparent, 1.0, FT * 10);
+				LogoSize = Math::Lerp(LogoSize, 1.0, FT * 10);
 				if (timer.Sec() >= 6)
 					++Scene;
 			}
@@ -91,13 +86,13 @@ public:
 		if (Scene == 1) {
 			Transform::Rotate(RotateMatrix, Rotation);
 			Transform::Scale(ScaleMatrix, LogoSize, LogoSize);
-			RenderImage(Logo, LogoTransparent);
+			RenderImage(ImageEngineLogo, LogoTransparent);
 		}
 
 		else if (Scene == 2 || Scene == 3) {
 			Transform::Scale(ScaleMatrix, LogoSize, LogoSize);
 			Transform::MatchAspect(ScaleMatrix, 2000, 800);
-			RenderImage(FMOD_Logo, LogoTransparent);
+			RenderImage(ImageFMODLogo, LogoTransparent);
 		}
 	}
 };

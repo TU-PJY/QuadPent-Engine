@@ -31,6 +31,8 @@ private:
 	GLuint FontBase{};
 	GLYPHMETRICSFLOAT TextGlyph[65536]{};
 
+	bool StaticRenderMode{};
+
 public:
 	~TextUtil();
 	void Init(const wchar_t* FontName, int Type, int Italic=FALSE);
@@ -38,15 +40,16 @@ public:
 	void SetAlign(Align AlignOpt);
 	void Rotate(GLfloat Radians);
 	void SetNextLineSpace(GLfloat Value);
-	void NextLine();
+	void SetLine(int LineNum);
 	void ResetNextLineSpace();
 	void ResetLine();
-	void Render(RenderType Type, GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);
+	void SetRenderType(RenderType Type);
+	void Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);
 
 private:
 	void GetLength(GLfloat& Length, unsigned Index, const wchar_t* Text, GLfloat Size);
-	void InitTransform();
-	void ProcessTransform();
+	void InitMatrix();
+	void PrepareRender();
 	bool CheckGlyphCache(wchar_t Char);
 	void LoadGlyph(wchar_t Char);
 };

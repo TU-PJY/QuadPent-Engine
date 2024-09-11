@@ -5,10 +5,6 @@
 enum class Dist
 {Real, Int};
 
-class RandomUtil {
-private:
-	std::random_device RD;
-
-public:
+namespace Random {
 	GLfloat Gen(Dist DistType, GLfloat Min, GLfloat Max);
-};
+}

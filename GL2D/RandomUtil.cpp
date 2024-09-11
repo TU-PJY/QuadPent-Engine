@@ -1,6 +1,8 @@
 #include "RandomUtil.h"
 
-GLfloat RandomUtil::Gen(Dist DistType, GLfloat Min, GLfloat Max) {
+std::random_device RD;
+
+GLfloat Random::Gen(Dist DistType, GLfloat Min, GLfloat Max) {
 	if (DistType == Dist::Real) {
 		std::uniform_real_distribution URD{ Min, Max };
 		return URD(RD);

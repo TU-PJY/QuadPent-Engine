@@ -71,6 +71,8 @@ void DataUtil::Init() {
 	CheckDataVersion();
 }
 
+
+
 void DataUtil::CheckDataVersion() {
 	if (VERSION <= (int)LoadData(DataVersionStr))
 		return;
@@ -122,6 +124,8 @@ void DataUtil::CheckDataVersion() {
 	UpdateData(DataVersionStr, VERSION);
 }
 
+
+
 void DataUtil::ResetData() {
 	if (!std::filesystem::exists(FolderPath))
 		exit(EXIT_FAILURE);
@@ -150,6 +154,8 @@ void DataUtil::ResetData() {
 
 	UpdateData(DataVersionStr, VERSION);
 }
+
+
 
 void DataUtil::UpdateData(const std::string& DataName, float DataValue) {
 	auto It = std::find(DataList.begin(), DataList.end(), DataName);
@@ -196,6 +202,8 @@ void DataUtil::UpdateData(const std::string& DataName, float DataValue) {
 
 	OutFile.close();
 }
+
+
 
 float DataUtil::LoadData(std::string DataName) {
 	auto It = std::find(DataList.begin(), DataList.end(), DataName);

@@ -3,19 +3,17 @@
 #include <string>
 #include <map>
 
+enum class ImageType
+{ Linear, Nearest };
+
 class ImageUtil {
 private:
 	GLuint VAO{};
-	std::map<std::string, unsigned int> LoadedImageList;
 
 public:
 	void Init();
-	void LoadImageFromFile(unsigned int& Image, const char* FileName);
-	void SetImage(unsigned int& Image, std::string ImageName);
+	void ImportImage(unsigned int& Image, const char* FileName, ImageType Type);
 	void Render(unsigned int ImageVar);
-
-private:
-	void LoadSystemImage();
-	void LoadImageFromList();
+	void Release(unsigned int& ImageVar);
 };
 extern ImageUtil imageUtil;

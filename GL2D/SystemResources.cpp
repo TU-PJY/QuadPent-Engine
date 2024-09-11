@@ -1,23 +1,19 @@
-#include "EngineHeader.h"
+#include "SystemResources.h"
 #include "ImageUtil.h"
+#include "SoundUtil.h"
 
-std::vector<ImageInfo> SystemImageList
-{
-	{"FMOD_LOGO", "SystemResource//Image//Common//FMOD Logo.png"},
-	{"mata_ENGINE_LOGO", "SystemResource//Image//Common//mata_ENGINE Logo.png"},
-};
+Image ImageCollisionBox, ImageCollidedBox, ImageCollisionSphere, ImageCollidedSphere;
+Image ImageEngineLogo, ImageFMODLogo;
+Sound IntroSound;
 
-std::vector<FileNameAndOption> SystemSoundList
-{
-	{"mata_ENGINE_LOGO_SOUND", "SystemResource//Sound//mata_ENGINE Logo Sound.wav", FMOD_DEFAULT},
-	{"mata_ENGINE_ERROR_SOUND", "SystemResource//Sound//mata_ENGINE crash.wav", FMOD_DEFAULT}
-};
+void LoadSystemResources() {
+	imageUtil.ImportImage(ImageCollisionBox, "SystemResource//Image//Collision//Square.png", ImageType::Nearest);
+	imageUtil.ImportImage(ImageCollidedBox, "SystemResource//Image//Collision//Square Inside.png", ImageType::Nearest);
+	imageUtil.ImportImage(ImageCollisionSphere, "SystemResource//Image//Collision//Circle.png", ImageType::Nearest);
+	imageUtil.ImportImage(ImageCollidedSphere, "SystemResource//Image//Collision//Circle Inside.png", ImageType::Nearest);
 
-unsigned int ImageCollisionBox, ImageCollidedBox, ImageCollisionSphere, ImageCollidedSphere;
+	imageUtil.ImportImage(ImageEngineLogo, "SystemResource//Image//Common//mata_ENGINE Logo.png", ImageType::Linear);
+	imageUtil.ImportImage(ImageFMODLogo, "SystemResource//Image//Common//FMOD Logo.png", ImageType::Linear);
 
-void LoadCollisionImageResources() {
-	imageUtil.LoadImageFromFile(ImageCollisionBox, "SystemResource//Image//Collision//Square.png");
-	imageUtil.LoadImageFromFile(ImageCollidedBox, "SystemResource//Image//Collision//Square Inside.png");
-	imageUtil.LoadImageFromFile(ImageCollisionSphere, "SystemResource//Image//Collision//Circle.png");
-	imageUtil.LoadImageFromFile(ImageCollidedSphere, "SystemResource//Image//Collision//Circle Inside.png");
+	soundUtil.ImportSound(IntroSound, "SystemResource//Sound//mata_ENGINE Logo Sound.wav", FMOD_DEFAULT);
 }
