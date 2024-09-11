@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <map>
 
-typedef std::string(*Function)(void);
+typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
 constexpr int Layers = static_cast<int>(Layer::END);
 
@@ -24,8 +24,8 @@ private:
 	std::array<std::deque<GameObject*>, Layers> ObjectDeque;
 	std::map<std::string, GameObject*> ObjectList;
 
-	std::string						  CurrentRunningMode{};
-	std::string                       PrevRunningMode{};
+	const char*						  CurrentRunningMode{};
+	const char*						  PrevRunningMode{};
 
 	bool							  RoutineRunningActivated{};
 	bool							  FloatingRunningActivated{};
@@ -37,7 +37,8 @@ private:
 
 public:
 	Framework();
-	std::string Mode();
+	const char* Mode();
+	void InputModeName(const char* ModeName);
 	void Init(Function ModeFunction);
 	void SetController(ControllerFunction Controller, ModeType Type);
 	void InputFrameTime(float ElapsedTime);

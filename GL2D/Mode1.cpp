@@ -1,12 +1,11 @@
 #include "Mode1.h"
 #include "Framework.h"
 #include "MouseUtil.h"
-#include "CameraUtil.h"
 
-std::string Mode1::GameMode1() {
+void Mode1::GameMode1() {
 
 	framework.SetController(Controller, ModeType::Default);
-	return __func__;
+	framework.InputModeName(__func__);
 }
 
 void Mode1::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {

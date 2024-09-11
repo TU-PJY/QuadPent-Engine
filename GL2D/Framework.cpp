@@ -7,7 +7,11 @@ void Framework::InputFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
 }
 
-std::string Framework::Mode() {
+void Framework::InputModeName(const char* ModeName) {
+	CurrentRunningMode = ModeName;
+}
+
+const char* Framework::Mode() {
 	return CurrentRunningMode;
 }
 
@@ -38,7 +42,7 @@ void Framework::Init(Function ModeFunction) {
 		ObjectDeque[i].back()->StaticObjectMarked = true;
 	}
 
-	CurrentRunningMode = ModeFunction();
+	ModeFunction();
 	RoutineRunningActivated = true;
 }
 
@@ -47,8 +51,7 @@ void Framework::SwitchMode(Function ModeFunction) {
 		return;
 
 	ClearAll();
-
-	CurrentRunningMode = ModeFunction();
+	ModeFunction();
 
 	if (FloatingRunningActivated) {
 		FloatingRunningActivated = false;
@@ -61,7 +64,7 @@ void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
 		return;
 
 	PrevRunningMode = CurrentRunningMode;
-	CurrentRunningMode = ModeFunction();
+	ModeFunction();
 	FloatingFocusActivated = FloatingFocus;
 
 	FloatingRunningActivated = true;

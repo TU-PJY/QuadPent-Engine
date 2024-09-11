@@ -3,6 +3,7 @@
 #include "ImageUtil.h"
 #include "SoundUtil.h"
 #include "IntroMode.h"
+#include "CameraUtil.h"
 
 class LoadingScreen : public GameObject {
 private:

@@ -1,9 +1,8 @@
 #pragma once
-#include "MouseUtil.h"
-#include <string>
+#include "EngineHeader.h"
 
 namespace Intro_Mode {
-	std::string IntroMode();
+	void IntroMode();
 
 	void ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey);
 	void ProcessMouse(int Button, int State, int X, int Y);

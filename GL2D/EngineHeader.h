@@ -9,8 +9,6 @@
 #include <gl/glm/gtc/matrix_transform.hpp>
 #include "fmod.hpp"
 #include "fmod_errors.h"
-#include <string>
-#include <vector>
 
 enum class KeyType
 { NormalKey, SpecialKey };
@@ -24,7 +22,7 @@ enum class RenderType
 enum class ShaderType
 { Image, Text };
 
-typedef std::string(*Start_Mode)(void);
+typedef void(*Start_Mode)(void);
 using Sound = FMOD::Sound*;
 using Channel = FMOD::Channel*;
 using Image = unsigned int;

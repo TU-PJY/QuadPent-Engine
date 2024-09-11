@@ -1,13 +1,12 @@
+#include "IntroMode.h"
 #include "Framework.h"
 #include "MouseUtil.h"
-#include "CameraUtil.h"
-#include "IntroMode.h"
 #include "IntroScreen.h"
 
-std::string Intro_Mode::IntroMode() {
+void Intro_Mode::IntroMode() {
 	framework.AddObject(new IntroScreen, "intro_screen", Layer::L1);
 	framework.SetController(Controller, ModeType::Default);
-	return __func__;
+	framework.InputModeName(__func__);
 }
 
 void Intro_Mode::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {

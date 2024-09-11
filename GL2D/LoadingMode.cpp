@@ -1,13 +1,12 @@
+#include "LoadingMode.h"
 #include "Framework.h"
 #include "MouseUtil.h"
-#include "CameraUtil.h"
-#include "LoadingMode.h"
 #include "LoadingScreen.h"
 
-std::string Loading_Mode::LoadingMode() {
+void Loading_Mode::LoadingMode() {
 	framework.AddObject(new LoadingScreen, "loading_screen", Layer::L1);
 	framework.SetController(Controller, ModeType::Default);
-	return __func__;
+	framework.InputModeName(__func__);
 }
 
 void Loading_Mode::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
