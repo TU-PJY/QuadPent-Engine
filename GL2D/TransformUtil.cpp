@@ -33,12 +33,3 @@ void Transform::Flip(glm::mat4& Matrix, FlipDir FlipOption) {
 		}
 	}
 }
-
-void Transform::MatchAspect(glm::mat4& Matrix, GLfloat ImageWidth, GLfloat ImageHeight) {
-	if (ImageWidth > 0 && ImageHeight > 0) {
-		if (ImageWidth > ImageHeight)
-			Matrix = scale(Matrix, glm::vec3(1.0, ImageHeight / ImageWidth, 1.0));
-		else if (ImageWidth < ImageHeight)
-			Matrix = scale(Matrix, glm::vec3(ImageWidth / ImageHeight, 1.0, 1.0));
-	}
-}

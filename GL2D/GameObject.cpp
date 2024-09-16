@@ -8,6 +8,7 @@ void GameObject::InitMatrix(RenderType Type) {
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
+	ImageAspectMatrix = glm::mat4(1.0f);
 	TransparencyValue = 1.0f;
 
 	glUseProgram(ImageShader);
@@ -76,10 +77,19 @@ void GameObject::UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY, bool Appl
 	ValueY = LocalPosition().y;
 }
 
-void GameObject::RenderImage(Image Image, GLfloat Transparency) {
+void GameObject::RenderImage(Image Image, GLfloat Transparency, bool DisableAdjustAspect) {
 	TransparencyValue = Transparency;
+
+	if (!DisableAdjustAspect) {
+		if (Image.Width > Image.Height)
+			ImageAspectMatrix = glm::scale(ImageAspectMatrix, glm::vec3(1.0, (GLfloat)Image.Height / (GLfloat)Image.Width, 1.0));
+
+		else if (Image.Width < Image.Height)
+			ImageAspectMatrix = glm::scale(ImageAspectMatrix, glm::vec3((GLfloat)Image.Width / (GLfloat)Image.Height, 1.0, 1.0));
+	}
+
 	PrepareRender();
-	imageUtil.Render(Image);
+	imageUtil.Render(Image.Texture);
 }
 
 void GameObject::PlaySound(Sound Sound, Channel& Channel, unsigned int StartTime) {
@@ -102,11 +112,11 @@ void GameObject::ResetPlaySpeed(Channel& Channel) {
 	soundUtil.ResetPlaySpeed(Channel);
 }
 
-void GameObject::SetFreqCutoff(Channel& Channel, float Frequency) {
+void GameObject::EnableFreqCutoff(Channel& Channel, float Frequency) {
 	soundUtil.SetFreqCutOff(Channel, Frequency);
 }
 
-void GameObject::SetBeatDetect(Channel& Channel) {
+void GameObject::EnableBeatDetect(Channel& Channel) {
 	soundUtil.SetBeatDetect(Channel);
 }
 
@@ -114,11 +124,11 @@ void GameObject::DetectBeat(GLfloat& Value, float ThresHold, float SamplingRate)
 	Value =  soundUtil.DetectBeat(ThresHold, SamplingRate);
 }
 
-void GameObject::RemoveFreqCutoff(Channel& Channel) {
+void GameObject::DisableFreqCutoff(Channel& Channel) {
 	soundUtil.UnSetFreqCutOff(Channel);
 }
 
-void GameObject::RemoveBeatDetect(Channel& Channel) {
+void GameObject::DisableBeatDetect(Channel& Channel) {
 	soundUtil.UnSetBeatDetect(Channel);
 }
 
@@ -146,7 +156,12 @@ void GameObject::PrepareRender() {
 	glUniform3f(ObjectColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix;
+
+	if (ImageAspectMatrix != glm::mat4(1.0f))
+		ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix * ImageAspectMatrix;
+	else
+		ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix;
+
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(ResultMatrix));
 }
 

@@ -27,6 +27,7 @@ public:
 	bool StaticObjectMarked{};
 
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
+	glm::mat4 ImageAspectMatrix{ 1.0f };
 	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 	GLfloat TransparencyValue{ 1.0f };
 
@@ -47,7 +48,7 @@ public:
 	GLfloat ASP(GLfloat Value);
 
 	// image functions
-	void RenderImage(Image Image, GLfloat Transparency = 1.0);
+	void RenderImage(Image Image, GLfloat Transparency = 1.0, bool DisableAdjustAspect=false);
 
 	// sound functions
 	void PlaySound(Sound Sound, Channel& Channel, unsigned int StartTime);
@@ -55,11 +56,11 @@ public:
 	void StopSound(Channel& Channel);
 	void SetPlaySpeed(Channel& Channel, float PlaySpeed);
 	void ResetPlaySpeed(Channel& Channel);
-	void SetFreqCutoff(Channel& Channel, float Frequency);
-	void SetBeatDetect(Channel& Channel);
+	void EnableFreqCutoff(Channel& Channel, float Frequency);
+	void EnableBeatDetect(Channel& Channel);
 	void DetectBeat(GLfloat& Value, float ThresHold, float SamplingRate);
-	void RemoveFreqCutoff(Channel& Channel);
-	void RemoveBeatDetect(Channel& Channel);
+	void DisableFreqCutoff(Channel& Channel);
+	void DisableBeatDetect(Channel& Channel);
 	void SetSoundDistance(Channel& Channel, float MinDist, float MaxDist);
 	void SetListnerPosition(float X, float Y);
 	void SetSoundPosition(Channel& Channel, float X, float Y, float Diff);

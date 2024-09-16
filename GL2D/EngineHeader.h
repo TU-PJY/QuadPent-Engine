@@ -13,7 +13,6 @@
 typedef void(*Start_Mode)(void);
 using Sound = FMOD::Sound*;
 using Channel = FMOD::Channel*;
-using Image = unsigned int;
 
 enum class KeyType
 { Normal, Special };
@@ -27,11 +26,18 @@ enum class RenderType
 enum class ShaderType
 { Image, Text };
 
+
 // corner position of display
 struct Rect {
 	GLfloat lx, ly, rx, ry;
 };
 extern Rect rect;
+
+// image struct
+typedef struct {
+	unsigned int Texture;
+	int Width, Height;
+}Image;
 
 // display width, height and apsect ratio
 extern int WIDTH, HEIGHT;

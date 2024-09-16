@@ -201,9 +201,6 @@ void Framework::UpdateContainer(int i) {
 		return Object.second->DeleteObjectMarked;
 		});
 
-	if (It == 0)
-		return;
-
 	for (auto It = begin(ObjectDeque[i]); It != end(ObjectDeque[i]);) {
 		if ((*It)->DeleteObjectMarked) {
 			delete* It;

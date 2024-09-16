@@ -91,7 +91,6 @@ public:
 
 		else if (Scene == 2 || Scene == 3) {
 			Transform::Scale(ScaleMatrix, LogoSize, LogoSize);
-			Transform::MatchAspect(ScaleMatrix, 2000, 800);
 			RenderImage(ImageFMODLogo, LogoTransparent);
 		}
 	}

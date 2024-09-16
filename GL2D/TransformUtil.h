@@ -11,5 +11,4 @@ namespace Transform {
 	void RotateV(glm::mat4& Matrix, GLfloat Degree);
 	void RotateH(glm::mat4& Matrix, GLfloat Degree);
 	void Flip(glm::mat4& Matrix, FlipDir FlipOption);
-	void MatchAspect(glm::mat4& Matrix, GLfloat ImageWidth, GLfloat ImageHeight);
 }

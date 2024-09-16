@@ -16,7 +16,7 @@ void ImageUtil::Init() {
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 
-	glGenBuffers(1, &VBO);
+	glGenFramebuffers(1, &VBO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(ImagePannel), ImagePannel, GL_STATIC_DRAW);
@@ -30,11 +30,11 @@ void ImageUtil::Init() {
 	stbi_set_flip_vertically_on_load(true);
 }
 
-void ImageUtil::ImportImage(unsigned int& Image, const char* FileName, ImageType Type) {
+void ImageUtil::ImportImage(Image& ImageStruct, const char* FileName, ImageType Type) {
 	int Width{}, Height{}, Channel{};
 
-	glGenTextures(1, &Image);
-	glBindTexture(GL_TEXTURE_2D, Image);
+	glGenTextures(1, &ImageStruct.Texture);
+	glBindTexture(GL_TEXTURE_2D, ImageStruct.Texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
@@ -51,6 +51,9 @@ void ImageUtil::ImportImage(unsigned int& Image, const char* FileName, ImageType
 	unsigned char* texture_data = stbi_load(FileName, &Width, &Height, &Channel, 4);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
 	stbi_image_free(texture_data);
+
+	ImageStruct.Width = Width;
+	ImageStruct.Height = Height;
 }
 
 void ImageUtil::Render(unsigned int ImageVar) {
@@ -59,6 +62,12 @@ void ImageUtil::Render(unsigned int ImageVar) {
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void ImageUtil::Release(unsigned int& ImageVar) {
-	glDeleteTextures(1, &ImageVar);
+void ImageUtil::Render(Image& ImageStruct) {
+	glBindVertexArray(VAO);
+	glBindTexture(GL_TEXTURE_2D, ImageStruct.Texture);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
+void ImageUtil::Release(Image& ImageStruct) {
+	glDeleteTextures(1, &ImageStruct.Texture);
 }
