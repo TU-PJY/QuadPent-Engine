@@ -54,3 +54,11 @@ GLfloat Math::Lerp(GLfloat Value, GLfloat Dest, GLfloat Speed) {
 	else
 		return Value;
 }
+
+GLfloat Math::CalcDegree(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {
+	return atan2(ToY - FromY, ToX - FromX) * (180.0 / 3.141592);
+}
+
+GLfloat Math::CalcRadians(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {
+	return atan2(ToY - FromY, ToX - FromX);
+}
