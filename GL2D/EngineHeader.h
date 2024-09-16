@@ -10,8 +10,13 @@
 #include "fmod.hpp"
 #include "fmod_errors.h"
 
+typedef void(*Start_Mode)(void);
+using Sound = FMOD::Sound*;
+using Channel = FMOD::Channel*;
+using Image = unsigned int;
+
 enum class KeyType
-{ NormalKey, SpecialKey };
+{ Normal, Special };
 
 enum class KeyState
 { Down, Up };
@@ -22,21 +27,19 @@ enum class RenderType
 enum class ShaderType
 { Image, Text };
 
-typedef void(*Start_Mode)(void);
-using Sound = FMOD::Sound*;
-using Channel = FMOD::Channel*;
-using Image = unsigned int;
+// corner position of display
+struct Rect {
+	GLfloat lx, ly, rx, ry;
+};
+extern Rect rect;
 
 // display width, height and apsect ratio
 extern int WIDTH, HEIGHT;
 extern int PREV_WIDTH, PREV_HEIGHT;
 extern GLfloat ASPECT;
 
-// corner position of display
-struct Rect {
-	GLfloat lx, ly, rx, ry;
-};
-extern Rect rect;
+extern glm::vec3 BackColor;
+extern Start_Mode StartMode;
 
 // global scope shader
 extern GLuint ImageShader;
@@ -54,6 +57,3 @@ void LoadSoundResources();
 void LoadSystemResources();
 GLvoid GLMain();
 GLvoid DisplayReshape(int w, int h);
-
-extern glm::vec3 BackColor;
-extern Start_Mode StartMode;

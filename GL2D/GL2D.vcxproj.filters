@@ -286,19 +286,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MATA_ENGINE_RES\GLSL\Fragment_Image.glsl">
-      <Filter>[5]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
-    </None>
-    <None Include="MATA_ENGINE_RES\GLSL\Fragment_Text.glsl">
-      <Filter>[5]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
-    </None>
-    <None Include="MATA_ENGINE_RES\GLSL\Vertex.glsl">
-      <Filter>[5]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="ModeTemplate.txt">
       <Filter>[6]___________[ Template ]</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SystemResource\GLSL\Fragment_Image.glsl">
+      <Filter>[5]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
+    </None>
+    <None Include="SystemResource\GLSL\Fragment_Text.glsl">
+      <Filter>[5]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
+    </None>
+    <None Include="SystemResource\GLSL\Vertex.glsl">
+      <Filter>[5]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
+    </None>
   </ItemGroup>
 </Project>

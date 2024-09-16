@@ -10,7 +10,7 @@ void Loading_Mode::LoadingMode() {
 }
 
 void Loading_Mode::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
-	if (Type == KeyType::NormalKey && State == KeyState::Down) {
+	if (Type == KeyType::Normal && State == KeyState::Down) {
 		switch (NormalKey) {
 		case 27: //ESC
 			framework.Exit();
@@ -29,19 +29,19 @@ void Loading_Mode::ProcessMouseWheel(int Button, int Wheel, int X, int Y) {
 
 
 void Loading_Mode::KeyDown(unsigned char KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::NormalKey, KeyState::Down, KEY, NULL);
+	ProcessKeyboard(KeyType::Normal, KeyState::Down, KEY, NULL);
 }
 
 void Loading_Mode::KeyUp(unsigned char KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::NormalKey, KeyState::Up, KEY, NULL);
+	ProcessKeyboard(KeyType::Normal, KeyState::Up, KEY, NULL);
 }
 
 void Loading_Mode::SpecialKeyDown(int KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::SpecialKey, KeyState::Down, NULL, KEY);
+	ProcessKeyboard(KeyType::Special, KeyState::Down, NULL, KEY);
 }
 
 void Loading_Mode::SpecialKeyUp(int KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::SpecialKey, KeyState::Up, NULL, KEY);
+	ProcessKeyboard(KeyType::Special, KeyState::Up, NULL, KEY);
 }
 
 void Loading_Mode::MouseMotion(int X, int Y) {

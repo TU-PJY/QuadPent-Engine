@@ -24,7 +24,7 @@ public:
 	}
 
 	void InputKey(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
-		if (Type == KeyType::NormalKey && State == KeyState::Down) {
+		if (Type == KeyType::Normal && State == KeyState::Down) {
 			if (NormalKey == 13) {
 				StopSound(IntroChannel);
 				SetBackColor(R, G, B);

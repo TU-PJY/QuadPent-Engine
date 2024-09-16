@@ -9,7 +9,7 @@ void Mode1::GameMode1() {
 }
 
 void Mode1::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
-	if (Type == KeyType::NormalKey && State == KeyState::Down) {
+	if (Type == KeyType::Normal && State == KeyState::Down) {
 		switch (NormalKey) {
 		case 27: //ESC
 			framework.Exit();
@@ -27,19 +27,19 @@ void Mode1::ProcessMouseWheel(int Button, int Wheel, int X, int Y) {
 
 
 void Mode1::KeyDown(unsigned char KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::NormalKey, KeyState::Down, KEY, NULL);
+	ProcessKeyboard(KeyType::Normal, KeyState::Down, KEY, NULL);
 }
 
 void Mode1::KeyUp(unsigned char KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::NormalKey, KeyState::Up, KEY, NULL);
+	ProcessKeyboard(KeyType::Normal, KeyState::Up, KEY, NULL);
 }
 
 void Mode1::SpecialKeyDown(int KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::SpecialKey, KeyState::Down, NULL, KEY);
+	ProcessKeyboard(KeyType::Special, KeyState::Down, NULL, KEY);
 }
 
 void Mode1::SpecialKeyUp(int KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::SpecialKey, KeyState::Up, NULL, KEY);
+	ProcessKeyboard(KeyType::Special, KeyState::Up, NULL, KEY);
 }
 
 void Mode1::MouseMotion(int X, int Y) {

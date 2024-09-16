@@ -23,19 +23,19 @@ void Intro_Mode::ProcessMouseWheel(int Button, int Wheel, int X, int Y) {
 
 
 void Intro_Mode::KeyDown(unsigned char KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::NormalKey, KeyState::Down, KEY, NULL);
+	ProcessKeyboard(KeyType::Normal, KeyState::Down, KEY, NULL);
 }
 
 void Intro_Mode::KeyUp(unsigned char KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::NormalKey, KeyState::Up, KEY, NULL);
+	ProcessKeyboard(KeyType::Normal, KeyState::Up, KEY, NULL);
 }
 
 void Intro_Mode::SpecialKeyDown(int KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::SpecialKey, KeyState::Down, NULL, KEY);
+	ProcessKeyboard(KeyType::Special, KeyState::Down, NULL, KEY);
 }
 
 void Intro_Mode::SpecialKeyUp(int KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::SpecialKey, KeyState::Up, NULL, KEY);
+	ProcessKeyboard(KeyType::Special, KeyState::Up, NULL, KEY);
 }
 
 void Intro_Mode::MouseMotion(int X, int Y) {

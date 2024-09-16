@@ -202,9 +202,9 @@
     <Text Include="ModeTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MATA_ENGINE_RES\GLSL\Fragment_Image.glsl" />
-    <None Include="MATA_ENGINE_RES\GLSL\Fragment_Text.glsl" />
-    <None Include="MATA_ENGINE_RES\GLSL\Vertex.glsl" />
+    <None Include="SystemResource\GLSL\Fragment_Image.glsl" />
+    <None Include="SystemResource\GLSL\Fragment_Text.glsl" />
+    <None Include="SystemResource\GLSL\Vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
