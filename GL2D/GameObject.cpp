@@ -27,36 +27,6 @@ void GameObject::SetColorRGB(int R, int G, int B) {
 	ObjectColor.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void GameObject::MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT) {
-	Position += Speed * MoveDirection * FT;
-}
-
-void GameObject::MoveStraight(GLfloat& Position, GLfloat Speed, float FT) {
-	Position += Speed * FT;
-}
-
-void GameObject::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FT, bool Plus90Option) {
-	if (Plus90Option) {
-		X += Speed * cos(glm::radians(RotationValue + 90)) * MoveDirection * FT;
-		Y += Speed * sin(glm::radians(RotationValue + 90)) * MoveDirection * FT;
-	}
-	else {
-		X += Speed * cos(glm::radians(RotationValue)) * MoveDirection * FT;
-		Y += Speed * sin(glm::radians(RotationValue)) * MoveDirection * FT;
-	}
-}
-
-void GameObject::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationValue, float FT, bool Plus90Option) {
-	if (Plus90Option) {
-		X += Speed * cos(glm::radians(RotationValue + 90)) * FT;
-		Y += Speed * sin(glm::radians(RotationValue + 90)) * FT;
-	}
-	else {
-		X += Speed * cos(glm::radians(RotationValue)) * FT;
-		Y += Speed * sin(glm::radians(RotationValue)) * FT;
-	}
-}
-
 GLfloat GameObject::ASP(GLfloat Value) {
 	return Value * ASPECT;
 }
@@ -89,7 +59,7 @@ void GameObject::RenderImage(Image Image, GLfloat Transparency, bool DisableAdju
 	}
 
 	PrepareRender();
-	imageUtil.Render(Image.Texture);
+	imageUtil.Render(Image);
 }
 
 void GameObject::PlaySound(Sound Sound, Channel& Channel, unsigned int StartTime) {
@@ -166,11 +136,9 @@ void GameObject::PrepareRender() {
 }
 
 glm::vec4 GameObject::ViewportPosition() {
-	glm::vec4 Position = camera.Projection * camera.ViewMatrix * ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-	return Position;
+	return camera.Projection * camera.ViewMatrix * ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 glm::vec4 GameObject::LocalPosition() {
-	glm::vec4 LocalPosition = ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-	return LocalPosition;
+	return ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }

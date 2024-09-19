@@ -14,8 +14,7 @@ private:
 public:
 	void Init();
 	void ImportImage(Image& ImageStruct, const char* FileName, ImageType Type);
-	void Render(unsigned int ImageVar);
 	void Render(Image& ImageStruct);
-	void Release(Image& ImageStruct);
+	void ReleaseImage(Image& ImageStruct);
 };
 extern ImageUtil imageUtil;

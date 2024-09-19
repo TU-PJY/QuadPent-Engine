@@ -18,6 +18,10 @@ void SoundUtil::ImportSound(Sound& Sound, const char* FileName, FMOD_MODE Option
 	SoundSystem->createSound(FileName, Option, 0, &Sound);
 }
 
+void SoundUtil::ReleaseSound(Sound& Sound) {
+	Sound->release();
+}
+
 void SoundUtil::Update() {
 	SoundSystem->update();
 }

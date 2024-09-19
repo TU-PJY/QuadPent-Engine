@@ -20,6 +20,7 @@ private:
 public:
 	void Init();
 	void ImportSound(Sound& Sound, const char* FileName, FMOD_MODE Option);
+	void ReleaseSound(Sound& Sound);
 	void Update();
 	void PlaySound(FMOD::Sound* Sound, FMOD::Channel*& Channel, unsigned int Ms=0);
 	void PauseSound(FMOD::Channel*& Channel, bool Flag);

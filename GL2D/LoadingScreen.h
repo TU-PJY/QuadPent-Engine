@@ -25,9 +25,10 @@ public:
 		imageUtil.Init();
 		soundUtil.Init();
 
-		LoadSystemResources();
-		LoadImageResources();
-		LoadSoundResources();
+		imageUtil.ImportImage(ImageCollisionBox, "SystemResource//Image//Collision//Square.png", ImageType::Nearest);
+		imageUtil.ImportImage(ImageCollidedBox, "SystemResource//Image//Collision//Square Inside.png", ImageType::Nearest);
+		imageUtil.ImportImage(ImageCollisionSphere, "SystemResource//Image//Collision//Circle.png", ImageType::Nearest);
+		imageUtil.ImportImage(ImageCollidedSphere, "SystemResource//Image//Collision//Circle Inside.png", ImageType::Nearest);
 
 		if (!ENABLE_INTRO_SCREEN) {
 			SetBackColor(R, G, B);

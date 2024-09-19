@@ -1,7 +1,7 @@
 #pragma once
 #include "EngineHeader.h"
 
-enum class Edge
+enum class CollisionEdge
 {Left, Right, Top, Bottom};
 
 class AABB {
@@ -28,7 +28,7 @@ public:
 	void Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y);
 	void Render();
 	bool CheckCollision(const AABB& Other);
-	bool CheckCollisionEdge(GLfloat X, Edge Edge);
+	bool CheckCollisionEdge(GLfloat X, CollisionEdge Edge);
 	void InterpolateX(GLfloat& X);
 	void InterpolateY(GLfloat& Y);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);

@@ -58,8 +58,5 @@ void SetupSystem(int argc, char** argv);
 void LoadShader();
 void InitSystem();
 void SetGlOption();
-void LoadImageResources();
-void LoadSoundResources();
-void LoadSystemResources();
 GLvoid GLMain();
 GLvoid DisplayReshape(int w, int h);

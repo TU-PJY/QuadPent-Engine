@@ -27,6 +27,11 @@ public:
 		if (Type == KeyType::Normal && State == KeyState::Down) {
 			if (NormalKey == 13) {
 				StopSound(IntroChannel);
+				
+				soundUtil.ReleaseSound(IntroSound);
+				imageUtil.ReleaseImage(ImageEngineLogo);
+				imageUtil.ReleaseImage(ImageFMODLogo);
+
 				SetBackColor(R, G, B);
 				framework.SwitchMode(StartMode);
 			}
@@ -47,7 +52,7 @@ public:
 		if (Scene == 1) {
 			LogoSize = PBA.Update(1.0, 2.0, 8.0, 8.0, 5.0, FT);
 			Rotation = LSA.Update(RotateValue, FT * 10);
-			RotateValue = Math::Lerp(RotateValue, 0.0, FT * 4);
+			RotateValue = Math::Lerp(RotateValue, 0.0, 4, FT);
 		}
 
 		if (timer.Sec() >= 3 && Scene == 1) {
@@ -61,8 +66,8 @@ public:
 
 		if (Scene == 2) {
 			if (timer.Sec() >= 4) {
-				LogoTransparent = Math::Lerp(LogoTransparent, 1.0, FT * 10);
-				LogoSize = Math::Lerp(LogoSize, 1.0, FT * 10);
+				Math::Lerp(LogoTransparent, 1.0, 10, FT);
+				LogoSize = Math::Lerp(LogoSize, 1.0, 10, FT);
 				if (timer.Sec() >= 6)
 					++Scene;
 			}
@@ -75,6 +80,10 @@ public:
 		}
 
 		if (timer.Sec() >= 7 && Scene == 3) {
+			soundUtil.ReleaseSound(IntroSound);
+			imageUtil.ReleaseImage(ImageEngineLogo);
+			imageUtil.ReleaseImage(ImageFMODLogo);
+
 			SetBackColor(R, G, B);
 			framework.SwitchMode(StartMode);
 		}

@@ -31,6 +31,28 @@ GLfloat Math::CalcDistance(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat To
 	return  std::sqrt(std::pow(FromX - ToX, 2) + std::pow(FromY - ToY, 2));
 }
 
+GLfloat Math::Lerp(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
+	GLfloat Result = Speed * FrameTime;
+	if (Result <= 1.0 && Result >= 0.0)
+		return std::lerp(Value, Dest, Result);
+	else
+		return std::lerp(Value, Dest, 0.0);
+}
+
+GLfloat Math::CalcDegree(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {
+	return atan2(ToY - FromY, ToX - FromX) * (180.0 / 3.141592);
+}
+
+GLfloat Math::CalcRadians(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {
+	return atan2(ToY - FromY, ToX - FromX);
+}
+
+
+
+//////////////////////////////////
+
+
+
 GLfloat Math::NormalizeDegree(GLfloat Degree) {
 	while (Degree < 0) Degree += 360;
 	while (Degree >= 360) Degree -= 360;
@@ -46,19 +68,4 @@ GLfloat Math::CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDes
 		Diff += 360;
 
 	return Diff;
-}
-
-GLfloat Math::Lerp(GLfloat Value, GLfloat Dest, GLfloat Speed) {
-	if (Speed <= 1.0 && Speed >= 0.0)
-		return std::lerp(Value, Dest, Speed);
-	else
-		return Value;
-}
-
-GLfloat Math::CalcDegree(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {
-	return atan2(ToY - FromY, ToX - FromX) * (180.0 / 3.141592);
-}
-
-GLfloat Math::CalcRadians(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {
-	return atan2(ToY - FromY, ToX - FromX);
 }

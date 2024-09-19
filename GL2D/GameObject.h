@@ -10,8 +10,9 @@
 #include "ClippingUtil.h"
 #include "TransformUtil.h"
 #include "MathUtil.h"
+#include "UiUtil.h"
 #include "SystemResources.h"
-#include "ResourceList.h"
+#include "CustomResources.h"
 
 class GameObject {
 private:

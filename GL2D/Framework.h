@@ -27,7 +27,6 @@ private:
 	const char*						  CurrentRunningMode{};
 	const char*						  PrevRunningMode{};
 
-	bool							  RoutineRunningActivated{};
 	bool							  FloatingRunningActivated{};
 	bool                              FloatingFocusActivated{};
 
@@ -36,7 +35,6 @@ private:
 	ControllerFunction				  ControllerBuffer{};
 
 public:
-	Framework();
 	const char* Mode();
 	void InputModeName(const char* ModeName);
 	void Init(Function ModeFunction);

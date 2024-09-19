@@ -1,8 +1,5 @@
 #include "Framework.h"
 
-Framework::Framework() {
-}
-
 void Framework::InputFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
 }
@@ -16,40 +13,31 @@ const char* Framework::Mode() {
 }
 
 void Framework::Routine() {
-	if (RoutineRunningActivated) {
-		for (int i = 0; i < Layers; ++i) {
-			for (auto const& O : ObjectDeque[i]) {
-				if (!O->DeleteObjectMarked) {
-					if (FloatingRunningActivated && FloatingFocusActivated && O->FloatingObjectMarked)
-						O->Update(FrameTime);
-					else
-						O->Update(FrameTime);
-					O->Render();
-				}
+	for (int i = 0; i < Layers; ++i) {
+		for (auto const& O : ObjectDeque[i]) {
+			if (!O->DeleteObjectMarked) {
+				if (FloatingRunningActivated && FloatingFocusActivated && O->FloatingObjectMarked)
+					O->Update(FrameTime);
+				else
+					O->Update(FrameTime);
+				O->Render();
 			}
-
-			UpdateContainer(i);
 		}
+
+		UpdateContainer(i);
 	}
 }
 
 void Framework::Init(Function ModeFunction) {
-	if (RoutineRunningActivated)
-		return;
-
 	for (int i = 0; i < Layers; ++i) {
 		ObjectDeque[i].push_back(new __DUMMY__);
 		ObjectDeque[i].back()->StaticObjectMarked = true;
 	}
 
 	ModeFunction();
-	RoutineRunningActivated = true;
 }
 
 void Framework::SwitchMode(Function ModeFunction) {
-	if (!RoutineRunningActivated)
-		return;
-
 	ClearAll();
 	ModeFunction();
 
@@ -60,7 +48,7 @@ void Framework::SwitchMode(Function ModeFunction) {
 }
 
 void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
-	if (!RoutineRunningActivated || FloatingRunningActivated)
+	if (FloatingRunningActivated)
 		return;
 
 	PrevRunningMode = CurrentRunningMode;
@@ -71,7 +59,7 @@ void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
 }
 
 void Framework::EndFloatingMode() {
-	if (!RoutineRunningActivated || !FloatingRunningActivated)  
+	if (!FloatingRunningActivated)  
 		return;
 
 	ClearFloatingObject();

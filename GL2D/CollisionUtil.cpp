@@ -70,30 +70,30 @@ bool AABB::CheckCollision(const AABB& Other) {
 	return true;
 }
 
-bool AABB::CheckCollisionEdge(GLfloat Value, Edge Edge) {
+bool AABB::CheckCollisionEdge(GLfloat Value, CollisionEdge Edge) {
 	switch (Edge) {
-	case Edge::Right:
+	case CollisionEdge::Right:
 		if (RightX > Value) {
 			CenterX = RightX - (RightX - Value) - OffsetX;
 			return true;
 		}
 		break;
 
-	case Edge::Left:
+	case CollisionEdge::Left:
 		if (LeftX < Value) {
 			CenterX = LeftX + (Value - LeftX) + OffsetX;
 			return true;
 		}
 		break;
 
-	case Edge::Top:
+	case CollisionEdge::Top:
 		if (RightY > Value) {
 			CenterY = RightY - (RightY - Value) - OffsetY;
 			return true;
 		}
 		break;
 
-	case Edge::Bottom:
+	case CollisionEdge::Bottom:
 		if (LeftY < Value) {
 			CenterY = LeftY + (Value - LeftY) + OffsetY;
 			return true;

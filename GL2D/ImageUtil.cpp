@@ -56,18 +56,12 @@ void ImageUtil::ImportImage(Image& ImageStruct, const char* FileName, ImageType 
 	ImageStruct.Height = Height;
 }
 
-void ImageUtil::Render(unsigned int ImageVar) {
-	glBindVertexArray(VAO);
-	glBindTexture(GL_TEXTURE_2D, ImageVar);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-}
-
 void ImageUtil::Render(Image& ImageStruct) {
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, ImageStruct.Texture);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void ImageUtil::Release(Image& ImageStruct) {
+void ImageUtil::ReleaseImage(Image& ImageStruct) {
 	glDeleteTextures(1, &ImageStruct.Texture);
 }
