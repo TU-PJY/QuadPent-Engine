@@ -2,6 +2,9 @@
 #include "EngineHeader.h"
 #include <cmath>
 
+constexpr float MAX = 3.141592;
+constexpr float MIN = -3.141592;
+
 class LoopSinAnimation {
 private:
 	GLfloat Num{};
