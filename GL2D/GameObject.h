@@ -38,12 +38,6 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
 
-	// move functions
-	void MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT);
-	void MoveStraight(GLfloat& Position, GLfloat Speed, float FT);
-	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FT, bool Plus90Option = false);
-	void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationValue, float FT, bool Plus90Option = false);
-
 	// viewport functions
 	void UpdateViewportPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect = true);
 	void UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect = false);
