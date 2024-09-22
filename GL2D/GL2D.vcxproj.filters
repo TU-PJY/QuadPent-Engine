@@ -109,11 +109,11 @@
     <Filter Include="[3]___________[ Util ]\[ UI Util ]">
       <UniqueIdentifier>{4bc61999-6038-4873-89f1-097ff59edac5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[3]___________[ Util ]\[ Random Util ]\[ Sound Util ]">
-      <UniqueIdentifier>{22512964-c0e1-42b6-8ae0-9c32d227bc22}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]___________[ Util ]\[ Move Util ]">
       <UniqueIdentifier>{a3986c5c-3d03-4f63-ba7d-4f37ac97802a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Sound Util ]">
+      <UniqueIdentifier>{22512964-c0e1-42b6-8ae0-9c32d227bc22}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -139,7 +139,7 @@
       <Filter>[3]___________[ Util ]\[ Text Util ]</Filter>
     </ClCompile>
     <ClCompile Include="SoundUtil.cpp">
-      <Filter>[3]___________[ Util ]\[ Random Util ]\[ Sound Util ]</Filter>
+      <Filter>[3]___________[ Util ]\[ Sound Util ]</Filter>
     </ClCompile>
     <ClCompile Include="DataUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Data Util ]</Filter>
@@ -231,7 +231,7 @@
       <Filter>[3]___________[ Util ]\[ Text Util ]</Filter>
     </ClInclude>
     <ClInclude Include="SoundUtil.h">
-      <Filter>[3]___________[ Util ]\[ Random Util ]\[ Sound Util ]</Filter>
+      <Filter>[3]___________[ Util ]\[ Sound Util ]</Filter>
     </ClInclude>
     <ClInclude Include="DataUtil.h">
       <Filter>[3]___________[ Util ]\[ Data Util ]</Filter>

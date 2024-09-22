@@ -1,8 +1,12 @@
 #include "AnimationUtil.h"
 #include <cmath>
 
-GLfloat LoopSinAnimation::Update(GLfloat MoveScale, float FrameTime) {
-	Num += FrameTime;
+GLfloat LoopSinAnimation::Update(GLfloat MoveScale, GLfloat Speed, float FrameTime) {
+	Num += Speed * FrameTime;
+
+	if (Num >= 6.28)
+		Num = 0.0;
+
 	return sin(Num) * MoveScale;
 }
 
@@ -11,7 +15,7 @@ void LoopSinAnimation::SetValue(GLfloat Value) {
 }
 
 void LoopSinAnimation::Reset() {
-	Num = 0;
+	Num = 0.0;
 }
 
 
@@ -58,7 +62,7 @@ GLfloat LerpSinAnimation::Update(GLfloat From, GLfloat To, GLfloat Speed, GLfloa
 }
 
 void LerpSinAnimation::Reset() {
-	Acc = 0;
-	Num = 0;
+	Acc = 0.0;
+	Num = 0.0;
 	Increase = true;
 }

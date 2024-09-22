@@ -128,6 +128,7 @@ void TextUtil::InitMatrix() {
 }
 
 void TextUtil::PrepareRender() {
+	glUseProgram(TextShader);
 	camera.PrepareRender(ShaderType::Text);
 
 	TransparencyLocation = glGetUniformLocation(TextShader, "transparency");

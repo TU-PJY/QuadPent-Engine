@@ -51,7 +51,7 @@ public:
 
 		if (Scene == 1) {
 			LogoSize = PBA.Update(1.0, 2.0, 8.0, 8.0, 5.0, FT);
-			Rotation = LSA.Update(RotateValue, FT * 10);
+			Rotation = LSA.Update(RotateValue, 10, FT);
 			RotateValue = Math::Lerp(RotateValue, 0.0, 4, FT);
 		}
 
@@ -66,7 +66,7 @@ public:
 
 		if (Scene == 2) {
 			if (timer.Sec() >= 4) {
-				Math::Lerp(LogoTransparent, 1.0, 10, FT);
+				LogoTransparent = Math::Lerp(LogoTransparent, 1.0, 10, FT);
 				LogoSize = Math::Lerp(LogoSize, 1.0, 10, FT);
 				if (timer.Sec() >= 6)
 					++Scene;

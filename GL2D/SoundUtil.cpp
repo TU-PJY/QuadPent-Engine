@@ -93,6 +93,29 @@ float SoundUtil::DetectBeat(float Threshold, float SamplingRate) {
 	return 0;
 }
 
+bool SoundUtil::IsBeat(float Threshold, float SamplingRate) {
+	FMOD_DSP_PARAMETER_FFT* FFT = nullptr;
+	BeatDetector->getParameterData(FMOD_DSP_FFT_SPECTRUMDATA, (void**)&FFT, 0, 0, 0);
+
+	if (FFT) {
+		int NumChannels = FFT->numchannels;
+
+		if (NumChannels > 0) {
+			memcpy(FFTdata.data(), FFT->spectrum[0], FFT_SIZE * sizeof(float));
+
+			float BassEnergy = 0.0f;
+
+			for (int i = 0; i < SamplingRate; ++i)
+				BassEnergy += FFTdata[i];
+
+			if (BassEnergy > Threshold)
+				return true;
+		}
+	}
+
+	return false;
+}
+
 void SoundUtil::UnSetBeatDetect(FMOD::Channel*& Channel) {
 	Channel->removeDSP(BeatDetector);
 }

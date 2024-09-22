@@ -4,10 +4,6 @@
 #include "IntroScreen.h"
 
 void Intro_Mode::IntroMode() {
-	imageUtil.ImportImage(ImageEngineLogo, "SystemResource//Image//Common//mata_ENGINE Logo.png", ImageType::Linear);
-	imageUtil.ImportImage(ImageFMODLogo, "SystemResource//Image//Common//FMOD Logo.png", ImageType::Linear);
-	soundUtil.ImportSound(IntroSound, "SystemResource//Sound//mata_ENGINE Logo Sound.wav", FMOD_DEFAULT);
-
 	framework.AddObject(new IntroScreen, "intro_screen", Layer::L1);
 	framework.SetController(Controller, ModeType::Default);
 	framework.InputModeName(__func__);

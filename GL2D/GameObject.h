@@ -60,6 +60,7 @@ public:
 	void EnableFreqCutoff(Channel& Channel, float Frequency);
 	void EnableBeatDetect(Channel& Channel);
 	void DetectBeat(GLfloat& Value, float ThresHold, float SamplingRate);
+	bool IsBeat(float ThresHold, float SamplingRate);
 	void DisableFreqCutoff(Channel& Channel);
 	void DisableBeatDetect(Channel& Channel);
 	void SetSoundDistance(Channel& Channel, float MinDist, float MaxDist);

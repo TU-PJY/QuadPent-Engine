@@ -11,7 +11,6 @@ void GameObject::InitMatrix(RenderType Type) {
 	ImageAspectMatrix = glm::mat4(1.0f);
 	TransparencyValue = 1.0f;
 
-	glUseProgram(ImageShader);
 	camera.SetCamera(Type);
 }
 
@@ -94,6 +93,10 @@ void GameObject::DetectBeat(GLfloat& Value, float ThresHold, float SamplingRate)
 	Value =  soundUtil.DetectBeat(ThresHold, SamplingRate);
 }
 
+bool GameObject::IsBeat(float ThresHold, float SamplingRate) {
+	return soundUtil.IsBeat(ThresHold, SamplingRate);
+}
+
 void GameObject::DisableFreqCutoff(Channel& Channel) {
 	soundUtil.UnSetFreqCutOff(Channel);
 }
@@ -117,12 +120,13 @@ void GameObject::SetSoundPosition(Channel& Channel, float X, float Y, float Diff
 
 ////////////////////////// private
 void GameObject::PrepareRender() {
+	glUseProgram(ImageShader);
 	camera.PrepareRender(ShaderType::Image);
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, TransparencyValue);
 
-	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
+	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
 	glUniform3f(ObjectColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");

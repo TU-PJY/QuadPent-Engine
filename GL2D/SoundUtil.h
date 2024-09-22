@@ -32,6 +32,7 @@ public:
 	void SetFreqCutOff(FMOD::Channel*& Channel, float Frequency);
 	void SetBeatDetect(FMOD::Channel*& Channel);
 	float DetectBeat(float Threshold, float SamplingRate);
+	bool IsBeat(float Threshold, float SamplingRate);
 	void UnSetBeatDetect(FMOD::Channel*& Channel);
 	void UnSetFreqCutOff(FMOD::Channel*& Channel);
 	void SetDistance(FMOD::Channel*& Channel, float MinDist, float MaxDist);

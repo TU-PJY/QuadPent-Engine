@@ -3,8 +3,10 @@
 #include <cmath>
 
 namespace Preset {
-	constexpr float MAX = 3.141592;
-	constexpr float MIN = -3.141592;
+	constexpr float MAX = 3.14;
+	constexpr float MIN = -3.14;
+	constexpr float HalfPositive = 1.57;
+	constexpr float HalfNegative = -1.57;
 }
 
 class LoopSinAnimation {
@@ -12,7 +14,7 @@ private:
 	GLfloat Num{};
 
 public:
-	GLfloat Update(GLfloat MoveScale, float FrameTime);
+	GLfloat Update(GLfloat MoveScale, GLfloat Speed, float FrameTime);
 	void SetValue(GLfloat Value);
 	void Reset();
 };
