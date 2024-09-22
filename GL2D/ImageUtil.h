@@ -13,8 +13,8 @@ private:
 
 public:
 	void Init();
-	void ImportImage(Image& ImageStruct, const char* FileName, ImageType Type);
+	void Import(Image& ImageStruct, const char* FileName, ImageType Type);
 	void Render(Image& ImageStruct);
-	void ReleaseImage(Image& ImageStruct);
+	void Release(Image& ImageStruct);
 };
 extern ImageUtil imageUtil;

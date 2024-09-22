@@ -30,7 +30,7 @@ void ImageUtil::Init() {
 	stbi_set_flip_vertically_on_load(true);
 }
 
-void ImageUtil::ImportImage(Image& ImageStruct, const char* FileName, ImageType Type) {
+void ImageUtil::Import(Image& ImageStruct, const char* FileName, ImageType Type) {
 	int Width{}, Height{}, Channel{};
 
 	glGenTextures(1, &ImageStruct.Texture);
@@ -62,6 +62,6 @@ void ImageUtil::Render(Image& ImageStruct) {
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void ImageUtil::ReleaseImage(Image& ImageStruct) {
+void ImageUtil::Release(Image& ImageStruct) {
 	glDeleteTextures(1, &ImageStruct.Texture);
 }

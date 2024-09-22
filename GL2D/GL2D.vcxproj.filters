@@ -115,6 +115,9 @@
     <Filter Include="[3]___________[ Util ]\[ Sound Util ]">
       <UniqueIdentifier>{22512964-c0e1-42b6-8ae0-9c32d227bc22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[3]___________[ Util ]\[ EX Util ]">
+      <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mode1.cpp">
@@ -204,6 +207,9 @@
     <ClCompile Include="MoveUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Move Util ]</Filter>
     </ClCompile>
+    <ClCompile Include="ExUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ EX Util ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mode1.h">
@@ -292,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="MoveUtil.h">
       <Filter>[3]___________[ Util ]\[ Move Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="ExUtil.h">
+      <Filter>[3]___________[ Util ]\[ EX Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

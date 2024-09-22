@@ -28,9 +28,9 @@ public:
 			if (NormalKey == 13) {
 				StopSound(IntroChannel);
 				
-				soundUtil.ReleaseSound(IntroSound);
-				imageUtil.ReleaseImage(ImageEngineLogo);
-				imageUtil.ReleaseImage(ImageFMODLogo);
+				soundUtil.Release(IntroSound);
+				imageUtil.Release(ImageEngineLogo);
+				imageUtil.Release(ImageFMODLogo);
 
 				SetBackColor(R, G, B);
 				framework.SwitchMode(StartMode);
@@ -80,9 +80,9 @@ public:
 		}
 
 		if (timer.Sec() >= 7 && Scene == 3) {
-			soundUtil.ReleaseSound(IntroSound);
-			imageUtil.ReleaseImage(ImageEngineLogo);
-			imageUtil.ReleaseImage(ImageFMODLogo);
+			soundUtil.Release(IntroSound);
+			imageUtil.Release(ImageEngineLogo);
+			imageUtil.Release(ImageFMODLogo);
 
 			SetBackColor(R, G, B);
 			framework.SwitchMode(StartMode);

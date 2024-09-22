@@ -37,10 +37,11 @@ public:
 	~TextUtil();
 	void Init(const wchar_t* FontName, int Type, int Italic=FALSE);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
+	void SetColorRGB(int R, int G, int B);
 	void SetAlign(Align AlignOpt);
 	void Rotate(GLfloat Radians);
 	void SetNextLineSpace(GLfloat Value);
-	void SetLine(int LineNum);
+	void SetLineNumber(int LineNum);
 	void ResetNextLineSpace();
 	void ResetLine();
 	void SetRenderType(RenderType Type);

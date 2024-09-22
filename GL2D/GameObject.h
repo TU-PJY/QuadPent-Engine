@@ -11,6 +11,7 @@
 #include "TransformUtil.h"
 #include "MathUtil.h"
 #include "UiUtil.h"
+#include "ExUtil.h"
 #include "SystemResources.h"
 #include "CustomResources.h"
 

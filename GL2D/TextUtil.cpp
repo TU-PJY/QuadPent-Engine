@@ -17,6 +17,12 @@ void TextUtil::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	TextColor.b = B;
 }
 
+void TextUtil::SetColorRGB(int R, int G, int B) {
+	TextColor.r = (1.0f / 255.0f) * (GLfloat)R;
+	TextColor.g = (1.0f / 255.0f) * (GLfloat)G;
+	TextColor.b = (1.0f / 255.0f) * (GLfloat)B;
+}
+
 void TextUtil::SetAlign(Align AlignOpt) {
 	TextAlign = AlignOpt;
 }
@@ -29,7 +35,7 @@ void TextUtil::SetNextLineSpace(GLfloat Value) {
 	NewLineSpace = Value;
 }
 
-void TextUtil::SetLine(int LineNum) {
+void TextUtil::SetLineNumber(int LineNum) {
 	CurrentHeight -= GLfloat(LineNum) * NewLineSpace;
 }
 

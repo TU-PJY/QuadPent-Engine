@@ -14,11 +14,11 @@ void SoundUtil::Init() {
 	SoundSystem->set3DSettings(1.0, 1.0, 2.0); 
 }
 
-void SoundUtil::ImportSound(Sound& Sound, const char* FileName, FMOD_MODE Option) {
+void SoundUtil::Import(Sound& Sound, const char* FileName, FMOD_MODE Option) {
 	SoundSystem->createSound(FileName, Option, 0, &Sound);
 }
 
-void SoundUtil::ReleaseSound(Sound& Sound) {
+void SoundUtil::Release(Sound& Sound) {
 	Sound->release();
 }
 
