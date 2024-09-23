@@ -40,9 +40,9 @@ public:
 	void SetColorRGB(int R, int G, int B);
 	void SetAlign(Align AlignOpt);
 	void Rotate(GLfloat Radians);
-	void SetNextLineSpace(GLfloat Value);
-	void SetLineNumber(int LineNum);
-	void ResetNextLineSpace();
+	void SetLineSpace(GLfloat Value);
+	void LineNumber(int LineNum);
+	void ResetLineSpace();
 	void ResetLine();
 	void SetRenderType(RenderType Type);
 	void Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);

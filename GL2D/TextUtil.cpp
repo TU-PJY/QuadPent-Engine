@@ -31,15 +31,15 @@ void TextUtil::Rotate(GLfloat Radians) {
 	Rotation = Radians;
 }
 
-void TextUtil::SetNextLineSpace(GLfloat Value) {
+void TextUtil::SetLineSpace(GLfloat Value) {
 	NewLineSpace = Value;
 }
 
-void TextUtil::SetLineNumber(int LineNum) {
+void TextUtil::LineNumber(int LineNum) {
 	CurrentHeight -= GLfloat(LineNum) * NewLineSpace;
 }
 
-void TextUtil::ResetNextLineSpace() {
+void TextUtil::ResetLineSpace() {
 	NewLineSpace = 0.0;
 }
 

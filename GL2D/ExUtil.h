@@ -1,5 +1,6 @@
 #pragma once
 
-namespace Switch {
-	void Bool(bool& Value);
+namespace EX {
+	void SwitchBool(bool& Value);
+	void SwitchValue(float& TargetValue, float Value1, float Value2);
  }

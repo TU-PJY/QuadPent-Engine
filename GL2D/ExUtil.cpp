@@ -1,8 +1,15 @@
 #include "ExUtil.h"
 
-void Switch::Bool(bool& Value) {
+void EX::SwitchBool(bool& Value) {
 	if (!Value)
 		Value = true;
 	else
 		Value = false;
+}
+
+void EX::SwitchValue(float& TargetValue, float Value1, float Value2) {
+	if (TargetValue == Value1)
+		TargetValue = Value2;
+	else
+		TargetValue = Value1;
 }

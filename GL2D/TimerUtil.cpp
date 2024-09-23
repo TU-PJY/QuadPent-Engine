@@ -15,7 +15,7 @@ void TimerUtil::Resume() {
 }
 
 void TimerUtil::Reset() {
-	Time = 0;
+	Time = 0.0;
 }
 
 int TimerUtil::Sec() {
@@ -29,5 +29,6 @@ GLfloat TimerUtil::MiliSec(int DemicalPlace) {
 }
 
 void TimerUtil::Interpolate(GLfloat Value) {
-	Time -= (Time - Value); 
+	GLfloat OverTime = Time - Value;
+	Time = OverTime;
 }
