@@ -36,7 +36,7 @@ GLfloat Math::Lerp(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) 
 	if (Result <= 1.0 && Result >= 0.0)
 		return std::lerp(Value, Dest, Result);
 	else
-		return std::lerp(Value, Dest, 0.0);
+		return Value;
 }
 
 GLfloat Math::CalcDegree(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {

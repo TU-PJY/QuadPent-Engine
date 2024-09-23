@@ -1,5 +1,5 @@
 #include "AnimationUtil.h"
-#include <cmath>
+#include "MathUtil.h"
 
 GLfloat LoopSinAnimation::Update(GLfloat MoveScale, GLfloat Speed, float FrameTime) {
 	Num += Speed * FrameTime;
@@ -25,7 +25,7 @@ GLfloat PopBounceAnimation::Update(GLfloat SizeDest, GLfloat ShakeValue, GLfloat
 	if (Num3 >= SizeDest) {
 		Num3 = SizeDest;
 		Num1 += FrameTime * ShakeSpeed;
-		Num2 = std::lerp(Num2, ShakeValue, FrameTime * ShakeReduceSpeed);
+		Num2 = Math::Lerp(Num2, ShakeValue, ShakeReduceSpeed, FrameTime);
 	}
 
 	return Num3 + sin(Num1) * (ShakeValue - Num2);
