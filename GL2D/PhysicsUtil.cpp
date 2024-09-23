@@ -1,5 +1,5 @@
 #include "PhysicsUtil.h"
-#include <cmath>
+#include "MathUtil.h"
 
 void PhysicsUtil::SetFallingState() {
 	FallingState = true;
@@ -62,11 +62,11 @@ void PhysicsUtil::BounceWall(int& MoveDirection, GLfloat& Speed, GLfloat Rebounc
 }
 
 void PhysicsUtil::LerpAcc(GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT) {
-	Speed = std::lerp(Speed, Dest * MoveDirection, FT * AccValue);
+	Speed = Math::Lerp(Speed, Dest * MoveDirection, AccValue, FT);
 }
 
 void PhysicsUtil::LerpDcc(GLfloat& Speed, GLfloat Friction, float FT) {
-	Speed = std::lerp(Speed, 0.0, FT * Friction);
+	Speed = Math::Lerp(Speed, 0.0, Friction, FT);
 }
 
 void PhysicsUtil::LinearAcc(GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT) {
