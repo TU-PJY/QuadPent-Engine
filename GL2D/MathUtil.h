@@ -2,12 +2,12 @@
 #include "EngineHeader.h"
 
 namespace Math {
-	void LookAt(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
-	void LookAt(GLfloat Rotation, GLfloat& RotationVar, GLfloat RotationSpeed, float FT);
+	void LookAt(GLfloat& RotationVar, GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat RotationSpeed, float FT);
+	void LookAt(GLfloat& RotationVar, GLfloat Rotation, GLfloat RotationSpeed, float FT);
 	GLfloat CalcDistance(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
-	GLfloat NormalizeDegree(GLfloat Degree);
-	GLfloat CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest);
 	GLfloat Lerp(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime);
 	GLfloat CalcDegree(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
 	GLfloat CalcRadians(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
+	GLfloat NormalizeDegree(GLfloat Degree);
+	GLfloat CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest);
 }

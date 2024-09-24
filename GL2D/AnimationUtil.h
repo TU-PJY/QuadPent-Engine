@@ -3,10 +3,10 @@
 #include <cmath>
 
 namespace Preset {
-	constexpr float MAX = 3.14;
-	constexpr float MIN = -3.14;
-	constexpr float HalfPositive = 1.57;
-	constexpr float HalfNegative = -1.57;
+	constexpr float MaxPositive = 1.57;
+	constexpr float MaxNegative = -1.57;
+	constexpr float HalfPositive = 0.52;
+	constexpr float HalfNegative = -0.52;
 }
 
 class LoopSinAnimation {
@@ -26,18 +26,5 @@ private:
 
 public:
 	GLfloat Update(GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSpeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime);
-	void Reset();
-};
-
-
-class LerpSinAnimation {
-private:
-	GLfloat Num{};
-	GLfloat Acc{};
-	GLfloat Result{};
-	bool Increase{ true };
-
-public:
-	GLfloat Update(GLfloat From, GLfloat To, GLfloat Speed, GLfloat AccValue, float FrameTime);
 	void Reset();
 };

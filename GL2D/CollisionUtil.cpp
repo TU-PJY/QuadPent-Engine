@@ -123,10 +123,13 @@ void AABB::InterpolateY(GLfloat& Y) {
 
 void AABB::ProcessTransform() {
 #ifdef SHOW_BOUND_BOX
+	glUseProgram(ImageShader);
+	camera.PrepareRender(ShaderType::Image);
+
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, 1.0);
 
-	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
+	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
 	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
@@ -245,10 +248,13 @@ bool OBB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 
 void OBB::ProcessTransform() {
 #ifdef SHOW_BOUND_BOX
+	glUseProgram(ImageShader);
+	camera.PrepareRender(ShaderType::Image);
+
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, 1.0);
 
-	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
+	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
 	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
@@ -328,10 +334,13 @@ bool Range::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 
 void Range::ProcessTransform() {
 #ifdef SHOW_BOUND_BOX
+	glUseProgram(ImageShader);
+	camera.PrepareRender(ShaderType::Image);
+
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, 1.0);
 
-	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
+	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
 	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
