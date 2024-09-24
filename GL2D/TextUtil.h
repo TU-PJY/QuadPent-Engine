@@ -31,7 +31,7 @@ private:
 	GLuint FontBase{};
 	GLYPHMETRICSFLOAT TextGlyph[65536]{};
 
-	bool StaticRenderMode{};
+	RenderType renderType{ RenderType::Default };
 
 public:
 	~TextUtil();

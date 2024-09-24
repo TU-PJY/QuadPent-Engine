@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include <array>
-#include <deque>
+#include <vector>
 #include <ranges>
 #include <algorithm>
 #include <map>
@@ -21,7 +21,7 @@ enum class ModeType
 
 class Framework {
 private:
-	std::array<std::deque<GameObject*>, Layers> ObjectDeque;
+	std::array<std::vector<GameObject*>, Layers> ObjectVector;
 	std::map<std::string, GameObject*> ObjectList;
 
 	const char*						  CurrentRunningMode{};
@@ -45,16 +45,16 @@ public:
 	void StartFloatingMode(Function ModeFunction, bool FloatingFocus=false);
 	void EndFloatingMode();
 	void ResetControlState(GameObject* Object);
-	void ResetControlState(std::string Tag);
-	void InputKey(std::string Tag, KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey);
-	void InputMouse(std::string Tag, int button, int state, int x, int y);
-	void InputScroll(std::string Tag, int button, int Wheel, int x, int y);
-	void AddObject(GameObject* Object, std::string Tag, Layer AddLayer, bool SetStaticObject=false, bool SetFloatingObject=false);
+	void ResetControlState(const char* Tag);
+	void InputKey(const char* Tag, KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey);
+	void InputMouse(const char* Tag, int button, int state, int x, int y);
+	void InputScroll(const char* Tag, int button, int Wheel, int x, int y);
+	void AddObject(GameObject* Object, const char* Tag, Layer AddLayer, bool SetFloatingObject=false, bool SetStaticObject =false);
 	void SwapLayer(GameObject* Object, Layer TargetLayer);
-	void DeleteSelf(GameObject* Object);
-	void DeleteObject(std::string Tag, DeleteRange deleteRange);
-	GameObject* Find(std::string Tag);
-	GameObject* Find(std::string Tag, Layer LayerToSearch, int Index);
+	void DeleteObject(GameObject* Object);
+	void DeleteObject(const char* Tag, DeleteRange deleteRange);
+	GameObject* Find(const char* Tag);
+	GameObject* Find(const char* Tag, Layer LayerToSearch, int Index);
 	size_t Size(Layer TargetLayer);
 	void Exit();
 

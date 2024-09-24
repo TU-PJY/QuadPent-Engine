@@ -36,7 +36,7 @@ void TextUtil::SetLineSpace(GLfloat Value) {
 }
 
 void TextUtil::LineNumber(int LineNum) {
-	CurrentHeight -= GLfloat(LineNum) * NewLineSpace;
+	CurrentHeight -= GLfloat(1 - LineNum) * NewLineSpace;
 }
 
 void TextUtil::ResetLineSpace() {
@@ -48,10 +48,7 @@ void TextUtil::ResetLine() {
 }
 
 void TextUtil::SetRenderType(RenderType Type) {
-	if (Type == RenderType::Default)
-		StaticRenderMode = false;
-	else if (Type == RenderType::Static)
-		StaticRenderMode = true;
+	renderType = Type;
 }
 
 void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
@@ -62,6 +59,9 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyVa
 	va_start(Args, Format);
 	vswprintf(Text, sizeof(Text)/ sizeof(wchar_t), Format, Args);
 	va_end(Args);
+
+	if (Format == NULL)
+		return;
 
 	unsigned char CharIndex{};
 	GLfloat CurrentPositionX = 0.0f;
@@ -89,14 +89,8 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyVa
 
 		Transparency = TransparencyValue;
 
-		if(StaticRenderMode)
-			camera.SetCamera(RenderType::Static);
-		else
-			camera.SetCamera(RenderType::Default);
+		camera.SetCamera(renderType);
 		PrepareRender();
-
-		if (Format == NULL)
-			return;
 
 		for (const auto& ch : Text) {
 			if (!CheckGlyphCache(ch))

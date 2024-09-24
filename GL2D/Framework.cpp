@@ -14,7 +14,7 @@ const char* Framework::Mode() {
 
 void Framework::Routine() {
 	for (int i = 0; i < Layers; ++i) {
-		for (auto const& O : ObjectDeque[i]) {
+		for (auto const& O : ObjectVector[i]) {
 			if (!O->DeleteObjectMarked) {
 				if (FloatingRunningActivated && FloatingFocusActivated && O->FloatingObjectMarked)
 					O->Update(FrameTime);
@@ -30,8 +30,8 @@ void Framework::Routine() {
 
 void Framework::Init(Function ModeFunction) {
 	for (int i = 0; i < Layers; ++i) {
-		ObjectDeque[i].push_back(new __DUMMY__);
-		ObjectDeque[i].back()->StaticObjectMarked = true;
+		ObjectVector[i].emplace_back(new __DUMMY__);
+		ObjectVector[i].back()->StaticObjectMarked = true;
 	}
 
 	ModeFunction();
@@ -76,36 +76,36 @@ void Framework::ResetControlState(GameObject* Object) {
 	Object->ResetControlState();
 }
 
-void Framework::ResetControlState(std::string Tag) {
+void Framework::ResetControlState(const char* Tag) {
 	auto It = ObjectList.find(Tag);
 	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
 		It->second->ResetControlState();
 }
 
-void Framework::InputKey(std::string Tag, KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey) {
+void Framework::InputKey(const char* Tag, KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey) {
 	auto It = ObjectList.find(Tag);
 	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
 		It->second->InputKey(Key, State, NormalKey, SpecialKey);
 }
 
-void Framework::InputMouse(std::string Tag, int button, int state, int x, int y) {
+void Framework::InputMouse(const char* Tag, int button, int state, int x, int y) {
 	auto It = ObjectList.find(Tag);
 	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
 		It->second->InputMouse(button, state, x, y);
 }
 
-void Framework::InputScroll(std::string Tag, int button, int Wheel, int x, int y) {
+void Framework::InputScroll(const char* Tag, int button, int Wheel, int x, int y) {
 	auto It = ObjectList.find(Tag);
 	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
 		It->second->InputScroll(button, Wheel, x, y);
 }
 
-void Framework::AddObject(GameObject* Object, std::string Tag, Layer AddLayer, bool SetStaticObject, bool SetFloatingObject) {
+void Framework::AddObject(GameObject* Object, const char* Tag, Layer AddLayer, bool SetFloatingObject, bool SetStaticObject) {
 	int DestLayer = static_cast<int>(AddLayer);
 
-	ObjectDeque[DestLayer].push_back(Object);
+	ObjectVector[DestLayer].emplace_back(Object);
 	Object->ObjectTag = Tag;
-	Object->PrevLayer = DestLayer;
+	Object->DestLayer = DestLayer;
 	
 	ObjectList.insert(std::make_pair(Tag, Object));
 
@@ -119,19 +119,18 @@ void Framework::AddObject(GameObject* Object, std::string Tag, Layer AddLayer, b
 void Framework::SwapLayer(GameObject* Object, Layer TargetLayer) {
 	int DestLayer = static_cast<int>(TargetLayer);
 
-	if (Object->PrevLayer == DestLayer)
+	if (Object->DestLayer == DestLayer)
 		return;
 
 	Object->SwapLayerMarked = true;
 	Object->DestLayer = DestLayer;
-	Object->PrevLayer = DestLayer;
 }
 
-void Framework::DeleteSelf(GameObject* Object) {
+void Framework::DeleteObject(GameObject* Object) {
 	Object->DeleteObjectMarked = true;
 }
 
-void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
+void Framework::DeleteObject(const char* Tag, DeleteRange deleteRange) {
 	if (deleteRange == DeleteRange::One) {
 		auto It = ObjectList.find(Tag);
 		if (It != end(ObjectList) && !It->second->DeleteObjectMarked) 
@@ -149,7 +148,7 @@ void Framework::DeleteObject(std::string Tag, DeleteRange deleteRange) {
 	}
 }
 
-GameObject* Framework::Find(std::string Tag) {
+GameObject* Framework::Find(const char* Tag) {
 	auto It = ObjectList.find(Tag);
 	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
 		return It->second;
@@ -157,20 +156,20 @@ GameObject* Framework::Find(std::string Tag) {
 	return nullptr;
 }
 
-GameObject* Framework::Find(std::string Tag, Layer LayerToSearch, int Index) {
+GameObject* Framework::Find(const char* Tag, Layer LayerToSearch, int Index) {
 	int layer = static_cast<int>(LayerToSearch);
 
-	if (Index >= ObjectDeque[layer].size())
+	if (Index >= ObjectVector[layer].size())
 		return nullptr;
 
-	if (ObjectDeque[layer][Index]->ObjectTag == Tag && !ObjectDeque[layer][Index]->DeleteObjectMarked)
-		return ObjectDeque[layer][Index];
+	if (ObjectVector[layer][Index]->ObjectTag == Tag && !ObjectVector[layer][Index]->DeleteObjectMarked)
+		return ObjectVector[layer][Index];
 
 	return nullptr;
 }
 
 size_t Framework::Size(Layer TargetLayer) {
-	return ObjectDeque[static_cast<int>(TargetLayer)].size();
+	return ObjectVector[static_cast<int>(TargetLayer)].size();
 }
 
 void Framework::SetController(ControllerFunction Controller, ModeType Type) {
@@ -189,19 +188,19 @@ void Framework::UpdateContainer(int i) {
 		return Object.second->DeleteObjectMarked;
 		});
 
-	for (auto It = begin(ObjectDeque[i]); It != end(ObjectDeque[i]);) {
+	for (auto It = begin(ObjectVector[i]); It != end(ObjectVector[i]);) {
 		if ((*It)->DeleteObjectMarked) {
 			delete* It;
 			*It = nullptr;
-			It = ObjectDeque[i].erase(It);
+			It = ObjectVector[i].erase(It);
 			continue;
 		}
 
 		if ((*It)->SwapLayerMarked) {
 			int DestLayer = (*It)->DestLayer;
-			ObjectDeque[DestLayer].push_back(*It);
-			ObjectDeque[DestLayer].back()->SwapLayerMarked = false;
-			It = ObjectDeque[i].erase(It);
+			ObjectVector[DestLayer].emplace_back(*It);
+			ObjectVector[DestLayer].back()->SwapLayerMarked = false;
+			It = ObjectVector[i].erase(It);
 			continue;
 		}
 
@@ -211,7 +210,7 @@ void Framework::UpdateContainer(int i) {
 
 void Framework::ClearFloatingObject() {
 	for (int i = 0; i < Layers; ++i) {
-		for (auto It = begin(ObjectDeque[i]); It != end(ObjectDeque[i]); ++It) {
+		for (auto It = begin(ObjectVector[i]); It != end(ObjectVector[i]); ++It) {
 			if ((*It)->FloatingObjectMarked && !(*It)->StaticObjectMarked)
 				(*It)->DeleteObjectMarked = true;
 		}
@@ -220,7 +219,7 @@ void Framework::ClearFloatingObject() {
 
 void Framework::ClearAll() {
 	for (int i = 0; i < Layers; ++i) {
-		for (auto It = begin(ObjectDeque[i]); It != end(ObjectDeque[i]); ++It) {
+		for (auto It = begin(ObjectVector[i]); It != end(ObjectVector[i]); ++It) {
 			if (!(*It)->StaticObjectMarked)
 				(*It)->DeleteObjectMarked = true;
 		}
