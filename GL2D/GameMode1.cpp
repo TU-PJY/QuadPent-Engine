@@ -1,4 +1,4 @@
-#include "Mode1.h"
+#include "GameMode1.h"
 #include "Framework.h"
 #include "MouseUtil.h"
 

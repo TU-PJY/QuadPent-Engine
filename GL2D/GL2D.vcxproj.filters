@@ -120,7 +120,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Mode1.cpp">
+    <ClCompile Include="GameMode1.cpp">
       <Filter>[1]___________[ GameMode ]\[ Mode1 ]</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -212,7 +212,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Mode1.h">
+    <ClInclude Include="GameMode1.h">
       <Filter>[1]___________[ GameMode ]\[ Mode1 ]</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
