@@ -30,6 +30,7 @@ void Framework::Routine() {
 
 void Framework::Init(Function ModeFunction) {
 	for (int i = 0; i < Layers; ++i) {
+		ObjectVector[i].reserve(200);
 		ObjectVector[i].emplace_back(new __DUMMY__);
 		ObjectVector[i].back()->StaticObjectMarked = true;
 	}
@@ -39,12 +40,24 @@ void Framework::Init(Function ModeFunction) {
 
 void Framework::SwitchMode(Function ModeFunction) {
 	ClearAll();
+
+	if (DestructorBuffer)
+		DestructorBuffer();
+
 	ModeFunction();
 
 	if (FloatingRunningActivated) {
 		FloatingRunningActivated = false;
 		FloatingFocusActivated = false;
 	}
+}
+
+void Framework::RegisterDestructor(Function DestructorFunction) {
+	DestructorBuffer = DestructorFunction;
+}
+
+void Framework::ReleaseDestructor() {
+	DestructorBuffer = nullptr;
 }
 
 void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {

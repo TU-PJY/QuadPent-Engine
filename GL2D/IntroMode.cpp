@@ -3,50 +3,59 @@
 #include "MouseUtil.h"
 #include "IntroScreen.h"
 
-void Intro_Mode::IntroMode() {
+void IntroMode::Start() {
 	framework.AddObject(new IntroScreen, "intro_screen", Layer::L1);
 	framework.SetController(Controller, ModeType::Default);
-	framework.InputModeName(__func__);
+	framework.RegisterDestructor(Destructor);
+	framework.InputModeName("IntroMode");
 }
 
-void Intro_Mode::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
+void IntroMode::Destructor() {
+	soundUtil.Release(IntroSound);
+	imageUtil.Release(ImageEngineLogo);
+	imageUtil.Release(ImageFMODLogo);
+
+	SetBackColor(0.5, 0.5, 0.5);
+}
+
+void IntroMode::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
 	if (auto intro_screen = framework.Find("intro_screen"); intro_screen)
 		intro_screen->InputKey(Type, State, NormalKey, SpecialKey);
 }
 
-void Intro_Mode::ProcessMouse(int Button, int State, int X, int Y) {
+void IntroMode::ProcessMouse(int Button, int State, int X, int Y) {
 }
 
-void Intro_Mode::ProcessMouseWheel(int Button, int Wheel, int X, int Y) {
+void IntroMode::ProcessMouseWheel(int Button, int Wheel, int X, int Y) {
 }
 
 
 
-void Intro_Mode::KeyDown(unsigned char KEY, int X, int Y) {
+void IntroMode::KeyDown(unsigned char KEY, int X, int Y) {
 	ProcessKeyboard(KeyType::Normal, KeyState::Down, KEY, NULL);
 }
 
-void Intro_Mode::KeyUp(unsigned char KEY, int X, int Y) {
+void IntroMode::KeyUp(unsigned char KEY, int X, int Y) {
 	ProcessKeyboard(KeyType::Normal, KeyState::Up, KEY, NULL);
 }
 
-void Intro_Mode::SpecialKeyDown(int KEY, int X, int Y) {
+void IntroMode::SpecialKeyDown(int KEY, int X, int Y) {
 	ProcessKeyboard(KeyType::Special, KeyState::Down, NULL, KEY);
 }
 
-void Intro_Mode::SpecialKeyUp(int KEY, int X, int Y) {
+void IntroMode::SpecialKeyUp(int KEY, int X, int Y) {
 	ProcessKeyboard(KeyType::Special, KeyState::Up, NULL, KEY);
 }
 
-void Intro_Mode::MouseMotion(int X, int Y) {
+void IntroMode::MouseMotion(int X, int Y) {
 	mouse.ConvertPosition(X, Y);
 }
 
-void Intro_Mode::MousePassiveMotion(int X, int Y) {
+void IntroMode::MousePassiveMotion(int X, int Y) {
 	mouse.ConvertPosition(X, Y);
 }
 
-void Intro_Mode::Controller() {
+void IntroMode::Controller() {
 	glutMotionFunc(MouseMotion);
 	glutPassiveMotionFunc(MousePassiveMotion);
 	glutKeyboardFunc(KeyDown);

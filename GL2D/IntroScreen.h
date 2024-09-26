@@ -27,12 +27,6 @@ public:
 		if (Type == KeyType::Normal && State == KeyState::Down) {
 			if (NormalKey == 13) {
 				StopSound(IntroChannel);
-				
-				soundUtil.Release(IntroSound);
-				imageUtil.Release(ImageEngineLogo);
-				imageUtil.Release(ImageFMODLogo);
-
-				SetBackColor(R, G, B);
 				framework.SwitchMode(StartMode);
 			}
 
@@ -79,14 +73,8 @@ public:
 				LogoTransparent = 0;
 		}
 
-		if (timer.Sec() >= 7 && Scene == 3) {
-			soundUtil.Release(IntroSound);
-			imageUtil.Release(ImageEngineLogo);
-			imageUtil.Release(ImageFMODLogo);
-
-			SetBackColor(R, G, B);
+		if (timer.Sec() >= 7 && Scene == 3)
 			framework.SwitchMode(StartMode);
-		}
 	}
 
 	void Render() {

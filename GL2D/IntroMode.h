@@ -1,8 +1,10 @@
 #pragma once
 #include "EngineHeader.h"
 
-namespace Intro_Mode {
-	void IntroMode();
+namespace IntroMode {
+	void Start();
+
+	void Destructor();
 
 	void ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey);
 	void ProcessMouse(int Button, int State, int X, int Y);

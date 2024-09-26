@@ -1,8 +1,9 @@
 #pragma once
 #include "EngineHeader.h"
 
-namespace Mode1 {
-	void GameMode1();
+namespace GameMode1 {
+	void Start();
+	void Destructor();
 
 	void ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey);
 	void ProcessMouse(int Button, int State, int X, int Y);

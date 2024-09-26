@@ -4,10 +4,15 @@
 #include "Framework.h"
 #include "MouseUtil.h"
 
-void Mode1::GameMode1() {
+void Mode1::Start() {
 
 	framework.SetController(Controller, ModeType::Default);
-	framework.InputModeName(__func__);
+	framework.RegisterDestructor(Destructor);
+	framework.InputModeName();
+}
+
+void Mode1::Destructor() {
+
 }
 
 void Mode1::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
@@ -72,7 +77,8 @@ void Mode1::Controller() {
 #include "EngineHeader.h"
 
 namespace Mode1 {
-	void GameMode1();
+	void Start();
+	void Destructor();
 
 	void ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey);
 	void ProcessMouse(int Button, int State, int X, int Y);

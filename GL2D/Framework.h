@@ -33,6 +33,7 @@ private:
 	float							  FrameTime{};
 
 	ControllerFunction				  ControllerBuffer{};
+	Function						  DestructorBuffer{};
 
 public:
 	const char* Mode();
@@ -42,6 +43,8 @@ public:
 	void InputFrameTime(float ElapsedTime);
 	void Routine();
 	void SwitchMode(Function ModeFunction);
+	void RegisterDestructor(Function DestructorFunction);
+	void ReleaseDestructor();
 	void StartFloatingMode(Function ModeFunction, bool FloatingFocus=false);
 	void EndFloatingMode();
 	void ResetControlState(GameObject* Object);

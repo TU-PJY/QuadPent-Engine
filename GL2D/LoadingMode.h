@@ -1,8 +1,8 @@
 #pragma once
 #include "EngineHeader.h"
 
-namespace Loading_Mode {
-	void LoadingMode();
+namespace LoadingMode {
+	void Start();
 
 	void ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey);
 	void ProcessMouse(int Button, int State, int X, int Y);

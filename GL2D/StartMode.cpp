@@ -1,4 +1,4 @@
 #include "EngineHeader.h"
 
 #include "Mode1.h"
-Start_Mode StartMode = Mode1::GameMode1;
+Start_Mode StartMode = GameMode1::Start;

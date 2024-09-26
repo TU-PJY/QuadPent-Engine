@@ -28,18 +28,19 @@ public:
 		soundUtil.Import(IntroSound, "SystemResource//Sound//mata_ENGINE Logo Sound.wav", FMOD_DEFAULT);
 		imageUtil.Import(ImageEngineLogo, "SystemResource//Image//Common//mata_ENGINE Logo.png", ImageType::Linear);
 		imageUtil.Import(ImageFMODLogo, "SystemResource//Image//Common//FMOD Logo.png", ImageType::Linear);
+
 		imageUtil.Import(ImageCollisionBox, "SystemResource//Image//Collision//Square.png", ImageType::Nearest);
 		imageUtil.Import(ImageCollidedBox, "SystemResource//Image//Collision//Square Inside.png", ImageType::Nearest);
 		imageUtil.Import(ImageCollisionSphere, "SystemResource//Image//Collision//Circle.png", ImageType::Nearest);
 		imageUtil.Import(ImageCollidedSphere, "SystemResource//Image//Collision//Circle Inside.png", ImageType::Nearest);
 
 		if (!ENABLE_INTRO_SCREEN) {
-			SetBackColor(R, G, B);
+			SetBackColor(0.5, 0.5, 0.5);
 			framework.SwitchMode(StartMode);
 		}
 
 		else
-			framework.SwitchMode(Intro_Mode::IntroMode);
+			framework.SwitchMode(IntroMode::Start);
 	}
 };
 

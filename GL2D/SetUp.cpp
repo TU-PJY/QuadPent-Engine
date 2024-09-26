@@ -86,5 +86,5 @@ void SetGlOption() {
 }
 
 void InitSystem() {
-	framework.Init(Loading_Mode::LoadingMode);
+	framework.Init(LoadingMode::Start);
 }
