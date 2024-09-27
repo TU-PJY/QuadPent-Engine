@@ -37,9 +37,9 @@ private:
 
 public:
 	const char* Mode();
-	void InputModeName(const char* ModeName);
+	void RegisterModeName(const char* ModeName);
 	void Init(Function ModeFunction);
-	void SetController(ControllerFunction Controller, ModeType Type);
+	void RegisterController(ControllerFunction Controller, ModeType Type);
 	void InputFrameTime(float ElapsedTime);
 	void Routine();
 	void SwitchMode(Function ModeFunction);

@@ -6,9 +6,9 @@
 
 void Mode1::Start() {
 
-	framework.SetController(Controller, ModeType::Default);
+	framework.RegisterController(Controller, ModeType::Default);
 	framework.RegisterDestructor(Destructor);
-	framework.InputModeName();
+	framework.RegisterModeName("GameMode1");
 }
 
 void Mode1::Destructor() {

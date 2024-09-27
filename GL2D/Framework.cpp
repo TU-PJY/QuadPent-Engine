@@ -4,7 +4,7 @@ void Framework::InputFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
 }
 
-void Framework::InputModeName(const char* ModeName) {
+void Framework::RegisterModeName(const char* ModeName) {
 	CurrentRunningMode = ModeName;
 }
 
@@ -185,7 +185,7 @@ size_t Framework::Size(Layer TargetLayer) {
 	return ObjectVector[static_cast<int>(TargetLayer)].size();
 }
 
-void Framework::SetController(ControllerFunction Controller, ModeType Type) {
+void Framework::RegisterController(ControllerFunction Controller, ModeType Type) {
 	Controller();
 	if (Type == ModeType::Default)
 		ControllerBuffer = Controller;

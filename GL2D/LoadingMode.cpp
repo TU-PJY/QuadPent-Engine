@@ -5,9 +5,12 @@
 
 void LoadingMode::Start() {
 	framework.AddObject(new LoadingScreen, "loading_screen", Layer::L1);
-	framework.SetController(Controller, ModeType::Default);
-	framework.InputModeName("LoadingMode");
+	framework.RegisterController(Controller, ModeType::Default);
+	framework.RegisterDestructor(Destructor);
+	framework.RegisterModeName("LoadingMode");
 }
+
+void LoadingMode::Destructor() {}
 
 void LoadingMode::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
 	if (Type == KeyType::Normal && State == KeyState::Down) {

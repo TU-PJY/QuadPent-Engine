@@ -5,9 +5,9 @@
 
 void IntroMode::Start() {
 	framework.AddObject(new IntroScreen, "intro_screen", Layer::L1);
-	framework.SetController(Controller, ModeType::Default);
+	framework.RegisterController(Controller, ModeType::Default);
 	framework.RegisterDestructor(Destructor);
-	framework.InputModeName("IntroMode");
+	framework.RegisterModeName("IntroMode");
 }
 
 void IntroMode::Destructor() {
