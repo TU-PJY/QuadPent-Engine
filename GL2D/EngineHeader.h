@@ -1,12 +1,12 @@
 #pragma once
 #pragma warning(disable: 4244) 
 #include "Setting.h"
-#include <gl/glew.h>
-#include <gl/freeglut.h>
-#include <gl/freeglut_ext.h>
-#include <gl/glm/glm.hpp>
-#include <gl/glm/ext.hpp>
-#include <gl/glm/gtc/matrix_transform.hpp>
+#include "glew.h"
+#include "freeglut.h"
+#include "freeglut_ext.h"
+#include "glm/ext.hpp"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 #include "fmod.hpp"
 #include "fmod_errors.h"
 
