@@ -7,8 +7,6 @@ enum class CollisionEdge
 class AABB {
 private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
-	unsigned int Box{};
-	unsigned int BoxInside{};
 
 	GLfloat LeftX{}, LeftY{};
 	GLfloat RightX{}, RightY{};
@@ -43,8 +41,6 @@ private:
 class OBB {
 private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
-	unsigned int Box{};
-	unsigned int BoxInside{};
 
 	glm::vec2 Offset{};
 	glm::vec2 Axis[2]{};
@@ -78,12 +74,11 @@ private:
 class Range {
 private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
-	unsigned int Circle{};
-	unsigned int CircleInside{};
 
-	bool Collide{};
 	glm::vec2 Center{};
 	GLfloat Radius{};
+
+	bool Collide{};
 
 public:
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, RotateMatrix{ 1.0f };

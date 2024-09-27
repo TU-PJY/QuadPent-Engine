@@ -14,7 +14,7 @@ constexpr bool FULL_SCREEN_OPTION = false;
 constexpr bool SHOW_CONSOLE = true;
 
 // intro screen option
-constexpr bool ENABLE_INTRO_SCREEN = false;
+constexpr bool ENABLE_INTRO_SCREEN = true;
 
 // framework layer option
 // 'END' should be typed at last
