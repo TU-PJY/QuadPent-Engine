@@ -60,25 +60,21 @@ void DataUtil::Init() {
 }
 
 void DataUtil::UpdateData(const char* CategoryName, const char* DataName, float Value) {
-	TiXmlElement* DataCategory = FindCategory(CategoryName);
-	WriteData(DataCategory, CategoryName, Value);
+	WriteData(FindCategory(CategoryName), CategoryName, Value);
 	Doc.SaveFile(FilePathStr.c_str());
 }
 
 void DataUtil::UpdateStringData(const char* CategoryName, const char* DataName, const char* Value) {
-	TiXmlElement* DataCategory = FindCategory(CategoryName);
-	WriteStringData(DataCategory, DataName, Value);
+	WriteStringData(FindCategory(CategoryName), DataName, Value);
 	Doc.SaveFile(FilePathStr.c_str());
 }
 
 float DataUtil::LoadData(const char* CategoryName, const char* DataName) {
-	TiXmlElement* DataCategory = FindCategory(CategoryName);
-	return GetData(DataCategory, DataName);
+	return GetData(FindCategory(CategoryName), DataName);
 }
 
 const char* DataUtil::LoadStringData(const char* CategoryName, const char* DataName) {
-	TiXmlElement* DataCategory = FindCategory(CategoryName);
-	return GetStringData(DataCategory, DataName);
+	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
 void DataUtil::CheckDataVersion() {
@@ -121,29 +117,23 @@ void DataUtil::CreateDec(float VersionValue) {
 	OSS << std::fixed << std::setprecision(1) << VersionValue;
 	std::string NewVersionStr = OSS.str();
 
-	TiXmlDeclaration* Dec = new TiXmlDeclaration(NewVersionStr.c_str(), "", "");
-	Doc.LinkEndChild(Dec);
-}
-
-void DataUtil::AddCategory(const char* CategoryName) {
-	TiXmlElement* Root = FindRoot();
-	TiXmlElement* FileCategory = new TiXmlElement(CategoryName);
-	Root->LinkEndChild(FileCategory);
-}
-
-void DataUtil::AddData(const char* CategoryName, const char* DataName, float Value) {
-	TiXmlElement* FileCategory = FindCategory(CategoryName);
-	FileCategory->SetDoubleAttribute(DataName, Value);
-}
-
-void DataUtil::AddStringData(const char* CategoryName, const char* DataName, const char* Value) {
-	TiXmlElement* FileCategory = FindCategory(CategoryName);
-	FileCategory->SetAttribute(DataName, Value);
+	Doc.LinkEndChild(new TiXmlDeclaration(NewVersionStr.c_str(), "", ""));
 }
 
 void DataUtil::AddRoot(const char* RootName) {
-	TiXmlElement* FileRoot = new TiXmlElement(RootName);
-	Doc.LinkEndChild(FileRoot);
+	Doc.LinkEndChild(new TiXmlElement(RootName));
+}
+
+void DataUtil::AddCategory(const char* CategoryName) {
+	FindRoot()->LinkEndChild(new TiXmlElement(CategoryName));
+}
+
+void DataUtil::AddData(const char* CategoryName, const char* DataName, float Value) {
+	FindCategory(CategoryName)->SetDoubleAttribute(DataName, Value);
+}
+
+void DataUtil::AddStringData(const char* CategoryName, const char* DataName, const char* Value) {
+	FindCategory(CategoryName)->SetAttribute(DataName, Value);
 }
 
 void DataUtil::WriteData(TiXmlElement* CategoryVar, const char* DataName, float Value) {
