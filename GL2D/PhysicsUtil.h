@@ -16,6 +16,7 @@ public:
 	void SetFallingState();
 	bool GetFallingState();
 	void AddGravityAcc(GLfloat AccValue);
+	void SetGravityAcc(GLfloat AccValue);
 	void BounceFloor(GLfloat& Position, GLfloat FloorHeight, GLfloat RebounceValue, GLfloat Threshold);
 	void BounceWall(int& MoveDirection, GLfloat& Speed, GLfloat RebounceValue);
 	void LerpAcc(GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT);

@@ -19,6 +19,14 @@ public:
 	void Reset();
 };
 
+class SinInterpolAnimation{
+private:
+	GLfloat Num{ Preset::HalfPositive };
+
+public:
+	GLfloat Update(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime);
+	void Reset();
+};
 
 class PopBounceAnimation {
 private:

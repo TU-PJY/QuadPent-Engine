@@ -14,6 +14,11 @@ void PhysicsUtil::AddGravityAcc(GLfloat AccValue) {
 	FallingState = true;
 }
 
+void PhysicsUtil::SetGravityAcc(GLfloat AccValue) {
+	GravityAcc = AccValue;
+	FallingState = true;
+}
+
 void PhysicsUtil::Fall(GLfloat& Position, GLfloat Gravity, float FT) {
 	if (FallingState) {
 		GravityAcc -= Gravity * FT;
