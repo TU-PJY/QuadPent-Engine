@@ -18,6 +18,10 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 
 	Width = xScale;
 	Height = yScale;
+
+	Position = Center;
+	Size.x = Width;
+	Size.y = Height;
 }
 
 void AABB::InitMatrix() {
@@ -149,6 +153,11 @@ void OBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfl
 
 	Width = BoxWidth;
 	Height = BoxHeight;
+
+	Position = Center;
+	Size.x = Width;
+	Size.y = Height;
+	Angle = Rotation;
 }
 
 void OBB::InitMatrix() {
@@ -290,10 +299,14 @@ void Range::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
 #endif
 }
 
-void Range::Update(GLfloat X, GLfloat Y, GLfloat Size) {
+void Range::Update(GLfloat X, GLfloat Y, GLfloat SizeValue) {
 	Center.x = X;
 	Center.y = Y;
-	Radius = Size / 2.0;
+	Radius = SizeValue / 2.0;
+
+	Position = Center;
+	Size.x = SizeValue;
+	Size.y = SizeValue;
 }
 
 void Range::Render() {

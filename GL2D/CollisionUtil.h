@@ -14,12 +14,15 @@ private:
 	GLfloat RightX{}, RightY{};
 	GLfloat OffsetX{}, OffsetY{};
 
+	glm::vec2 Center{};
+	GLfloat Width{}, Height{};
+
 	bool Collide{};
 
 public:
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, RotateMatrix{ 1.0f };
-	GLfloat Width{}, Height{};
-	glm::vec2 Center{};
+	glm::vec2 Position{};
+	glm::vec2 Size{};
 
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
 	void InitMatrix();
@@ -46,13 +49,17 @@ private:
 	glm::vec2 Offset{};
 	glm::vec2 Axis[2]{};
 
+	GLfloat Width{}, Height{};
+	GLfloat Rotation{};
+	glm::vec2 Center{};
+
 	bool Collide{};
 
 public:
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
-	GLfloat Width{}, Height{};
-	GLfloat Rotation{};
-	glm::vec2 Center{};
+	glm::vec2 Position{};
+	glm::vec2 Size{};
+	GLfloat Angle{};
 
 	void Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
 	void InitMatrix();
@@ -75,13 +82,15 @@ private:
 	unsigned int CircleInside{};
 
 	bool Collide{};
-
-public:
-	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, RotateMatrix{ 1.0f };
 	glm::vec2 Center{};
 	GLfloat Radius{};
 
-	void Update(GLfloat X, GLfloat Y, GLfloat Size);
+public:
+	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, RotateMatrix{ 1.0f };
+	glm::vec2 Position{};
+	glm::vec2 Size{};
+
+	void Update(GLfloat X, GLfloat Y, GLfloat SizeValue);
 	void InitMatrix();
 	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
 	void Rotate(glm::mat4& Matrix, GLfloat Rotation);
