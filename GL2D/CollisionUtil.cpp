@@ -13,8 +13,8 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 	LeftY = Y - OffsetY;
 	RightY = Y + OffsetY;
 
-	CenterX = X;
-	CenterY = Y;
+	Center.x = X;
+	Center.y = Y;
 
 	Width = xScale;
 	Height = yScale;
@@ -74,28 +74,28 @@ bool AABB::CheckCollisionEdge(GLfloat Value, CollisionEdge Edge) {
 	switch (Edge) {
 	case CollisionEdge::Right:
 		if (RightX > Value) {
-			CenterX = RightX - (RightX - Value) - OffsetX;
+			Center.x = RightX - (RightX - Value) - OffsetX;
 			return true;
 		}
 		break;
 
 	case CollisionEdge::Left:
 		if (LeftX < Value) {
-			CenterX = LeftX + (Value - LeftX) + OffsetX;
+			Center.x = LeftX + (Value - LeftX) + OffsetX;
 			return true;
 		}
 		break;
 
 	case CollisionEdge::Top:
 		if (RightY > Value) {
-			CenterY = RightY - (RightY - Value) - OffsetY;
+			Center.y = RightY - (RightY - Value) - OffsetY;
 			return true;
 		}
 		break;
 
 	case CollisionEdge::Bottom:
 		if (LeftY < Value) {
-			CenterY = LeftY + (Value - LeftY) + OffsetY;
+			Center.y = LeftY + (Value - LeftY) + OffsetY;
 			return true;
 		}
 	}
@@ -113,12 +113,12 @@ bool AABB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 	return false;
 }
 
-void AABB::InterpolateX(GLfloat& X) {
-	X = CenterX;
+void AABB::InterpolateX(GLfloat X) {
+	Center.x = X;
 }
 
-void AABB::InterpolateY(GLfloat& Y) {
-	Y = CenterY;
+void AABB::InterpolateY(GLfloat Y) {
+	Center.y = Y;
 }
 
 void AABB::ProcessTransform() {
@@ -291,10 +291,9 @@ void Range::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
 }
 
 void Range::Update(GLfloat X, GLfloat Y, GLfloat Size) {
-	CenterX = X;
-	CenterY = Y;
+	Center.x = X;
+	Center.y = Y;
 	Radius = Size / 2.0;
-	Extent = Size;
 }
 
 void Range::Render() {
@@ -307,13 +306,13 @@ void Range::Render() {
 }
 
 GLfloat Range::CalculateDistance( GLfloat X, GLfloat Y) {
-	GLfloat DX = X - CenterX;
-	GLfloat DY = Y - CenterY;
+	GLfloat DX = X - Center.x;
+	GLfloat DY = Y - Center.y;
 	return std::sqrt(DX * DX + DY * DY);
 }
 
 bool Range::CheckCollision(const Range& Other) {
-	if (CalculateDistance(Other.CenterX, Other.CenterY) < Radius + Other.Radius) {
+	if (CalculateDistance(Other.Center.x, Other.Center.y) < Radius + Other.Radius) {
 		Collide = true;
 		return true;
 	}

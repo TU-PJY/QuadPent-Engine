@@ -3,10 +3,10 @@
 #include <cmath>
 
 namespace Preset {
-	constexpr float MaxPositive = 1.57;
-	constexpr float MaxNegative = -1.57;
-	constexpr float HalfPositive = 0.52;
-	constexpr float HalfNegative = -0.52;
+	constexpr float MaxPositive = 1.57079;
+	constexpr float MaxNegative = -1.57079;
+	constexpr float HalfPositive = 0.52359;
+	constexpr float HalfNegative = -0.52359;
 }
 
 class LoopSinAnimation {
@@ -19,9 +19,9 @@ public:
 	void Reset();
 };
 
-class SinInterpolAnimation{
+class LerpSinAnimation{
 private:
-	GLfloat Num{ Preset::HalfPositive };
+	GLfloat Num{ Preset::MaxNegative };
 
 public:
 	GLfloat Update(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime);

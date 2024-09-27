@@ -36,14 +36,16 @@ void PopBounceAnimation::Reset(){
 	Num3 = 0.0;
 }
 
-GLfloat SinInterpolAnimation::SinInterpolAnimation::Update(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
-	Num -= FrameTime * Speed;
-	EX::ClampValue(Value, Preset::HalfNegative, ClampType::Less);
-	GLfloat Result = sin(Preset::HalfPositive) - sin(Num);
 
-	return Result * (Value + (Dest - Value) * Speed * FrameTime);
+
+GLfloat LerpSinAnimation::Update(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
+	Num += FrameTime * Speed;
+	EX::ClampValue(Num, Preset::MaxPositive, ClampType::Greater);
+	GLfloat Progress = (sin(Num) - sin(Preset::MaxNegative)) / (sin(Preset::MaxPositive) - sin(Preset::MaxNegative));
+
+	return Value + (Dest - Value) * Progress;
 }
 
-void SinInterpolAnimation::Reset() {
-	Num = Preset::HalfPositive;
+void LerpSinAnimation::Reset() {
+	Num = Preset::MaxNegative;
 }

@@ -12,7 +12,6 @@ private:
 
 	GLfloat LeftX{}, LeftY{};
 	GLfloat RightX{}, RightY{};
-	GLfloat CenterX{}, CenterY{};
 	GLfloat OffsetX{}, OffsetY{};
 
 	bool Collide{};
@@ -20,6 +19,7 @@ private:
 public:
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, RotateMatrix{ 1.0f };
 	GLfloat Width{}, Height{};
+	glm::vec2 Center{};
 
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
 	void InitMatrix();
@@ -29,8 +29,8 @@ public:
 	void Render();
 	bool CheckCollision(const AABB& Other);
 	bool CheckCollisionEdge(GLfloat X, CollisionEdge Edge);
-	void InterpolateX(GLfloat& X);
-	void InterpolateY(GLfloat& Y);
+	void InterpolateX(GLfloat X);
+	void InterpolateY(GLfloat Y);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 
 private:
@@ -43,16 +43,16 @@ private:
 	unsigned int Box{};
 	unsigned int BoxInside{};
 
-	glm::vec2 Center{};
 	glm::vec2 Offset{};
 	glm::vec2 Axis[2]{};
-	GLfloat Rotation{};
 
 	bool Collide{};
 
 public:
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 	GLfloat Width{}, Height{};
+	GLfloat Rotation{};
+	glm::vec2 Center{};
 
 	void Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
 	void InitMatrix();
@@ -74,14 +74,12 @@ private:
 	unsigned int Circle{};
 	unsigned int CircleInside{};
 
-	GLfloat CenterX{}, CenterY{};
-	GLfloat Radius{};
-
 	bool Collide{};
 
 public:
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, RotateMatrix{ 1.0f };
-	GLfloat Extent{};
+	glm::vec2 Center{};
+	GLfloat Radius{};
 
 	void Update(GLfloat X, GLfloat Y, GLfloat Size);
 	void InitMatrix();
