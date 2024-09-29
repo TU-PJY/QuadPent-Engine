@@ -21,6 +21,9 @@ constexpr bool ENABLE_INTRO_SCREEN = true;
 enum class Layer
 { L1, L2, L3, END };
 
+// framework container reserve option
+constexpr int OBJECT_LIST_RESERVE = 500;
+
 // show boundbox option
 #define SHOW_BOUND_BOX
 

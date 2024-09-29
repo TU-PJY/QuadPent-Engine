@@ -20,8 +20,8 @@ private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{}, TextAlphaLocation{};
 
 public:
-	std::string ObjectTag{};
-	int DestLayer{};
+	const char* ObjectTag{};
+	int ObjectLayer{};
 	bool SwapLayerMarked{};
 	bool DeleteObjectMarked{};
 	bool FloatingObjectMarked{};

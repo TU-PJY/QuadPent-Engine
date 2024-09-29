@@ -1,14 +1,17 @@
 #pragma once
 #include "GameObject.h"
-#include <array>
-#include <vector>
-#include <ranges>
 #include <algorithm>
-#include <map>
+#include <unordered_map>
 
 typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
 constexpr int Layers = static_cast<int>(Layer::END);
+
+using LayerIter = std::unordered_multimap<std::string, GameObject*>::iterator;
+
+typedef struct {
+	LayerIter First, End;
+}ObjectRange;
 
 enum class DeleteRange
 { One, All };
@@ -21,8 +24,7 @@ enum class ModeType
 
 class Framework {
 private:
-	std::array<std::vector<GameObject*>, Layers> ObjectVector;
-	std::map<std::string, GameObject*> ObjectList;
+	std::unordered_multimap<std::string, GameObject*> ObjectList;
 
 	const char*						  CurrentRunningMode{};
 	const char*						  PrevRunningMode{};
@@ -57,12 +59,11 @@ public:
 	void DeleteObject(GameObject* Object);
 	void DeleteObject(const char* Tag, DeleteRange deleteRange);
 	GameObject* Find(const char* Tag);
-	GameObject* Find(const char* Tag, Layer LayerToSearch, int Index);
-	size_t Size(Layer TargetLayer);
+	ObjectRange EqualRange(const char* Tag);
 	void Exit();
 
 private:
-	void UpdateContainer(int i);
+	void UpdateContainer();
 	void ClearFloatingObject();
 	void ClearAll();
 };

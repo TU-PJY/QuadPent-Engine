@@ -4,37 +4,28 @@ void Framework::InputFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
 }
 
-void Framework::RegisterModeName(const char* ModeName) {
-	CurrentRunningMode = ModeName;
-}
-
 const char* Framework::Mode() {
 	return CurrentRunningMode;
 }
 
 void Framework::Routine() {
 	for (int i = 0; i < Layers; ++i) {
-		for (auto const& O : ObjectVector[i]) {
-			if (!O->DeleteObjectMarked) {
-				if (FloatingRunningActivated && FloatingFocusActivated && O->FloatingObjectMarked)
-					O->Update(FrameTime);
+		for (auto const& O : ObjectList) {
+			if (!O.second->DeleteObjectMarked && O.second->ObjectLayer == i) {
+				if (FloatingRunningActivated && FloatingFocusActivated && O.second->FloatingObjectMarked)
+					O.second->Update(FrameTime);
 				else
-					O->Update(FrameTime);
-				O->Render();
+					O.second->Update(FrameTime);
+				O.second->Render();
 			}
 		}
 
-		UpdateContainer(i);
+		UpdateContainer();
 	}
 }
 
 void Framework::Init(Function ModeFunction) {
-	for (int i = 0; i < Layers; ++i) {
-		ObjectVector[i].reserve(200);
-		ObjectVector[i].emplace_back(new __DUMMY__);
-		ObjectVector[i].back()->StaticObjectMarked = true;
-	}
-
+	ObjectList.reserve(OBJECT_LIST_RESERVE);
 	ModeFunction();
 }
 
@@ -54,6 +45,16 @@ void Framework::SwitchMode(Function ModeFunction) {
 
 void Framework::RegisterDestructor(Function DestructorFunction) {
 	DestructorBuffer = DestructorFunction;
+}
+
+void Framework::RegisterModeName(const char* ModeName) {
+	CurrentRunningMode = ModeName;
+}
+
+void Framework::RegisterController(ControllerFunction Controller, ModeType Type) {
+	Controller();
+	if (Type == ModeType::Default)
+		ControllerBuffer = Controller;
 }
 
 void Framework::ReleaseDestructor() {
@@ -116,9 +117,8 @@ void Framework::InputScroll(const char* Tag, int button, int Wheel, int x, int y
 void Framework::AddObject(GameObject* Object, const char* Tag, Layer AddLayer, bool SetFloatingObject, bool SetStaticObject) {
 	int DestLayer = static_cast<int>(AddLayer);
 
-	ObjectVector[DestLayer].emplace_back(Object);
 	Object->ObjectTag = Tag;
-	Object->DestLayer = DestLayer;
+	Object->ObjectLayer = DestLayer;
 	
 	ObjectList.insert(std::make_pair(Tag, Object));
 
@@ -132,11 +132,11 @@ void Framework::AddObject(GameObject* Object, const char* Tag, Layer AddLayer, b
 void Framework::SwapLayer(GameObject* Object, Layer TargetLayer) {
 	int DestLayer = static_cast<int>(TargetLayer);
 
-	if (Object->DestLayer == DestLayer)
+	if (Object->ObjectLayer == DestLayer)
 		return;
 
 	Object->SwapLayerMarked = true;
-	Object->DestLayer = DestLayer;
+	Object->ObjectLayer = DestLayer;
 }
 
 void Framework::DeleteObject(GameObject* Object) {
@@ -169,26 +169,14 @@ GameObject* Framework::Find(const char* Tag) {
 	return nullptr;
 }
 
-GameObject* Framework::Find(const char* Tag, Layer LayerToSearch, int Index) {
-	int layer = static_cast<int>(LayerToSearch);
+ObjectRange Framework::EqualRange(const char* Tag) {
+	ObjectRange Range{};
 
-	if (Index >= ObjectVector[layer].size())
-		return nullptr;
+	auto It = ObjectList.equal_range(Tag);
+	Range.First = It.first;
+	Range.End = It.second;
 
-	if (ObjectVector[layer][Index]->ObjectTag == Tag && !ObjectVector[layer][Index]->DeleteObjectMarked)
-		return ObjectVector[layer][Index];
-
-	return nullptr;
-}
-
-size_t Framework::Size(Layer TargetLayer) {
-	return ObjectVector[static_cast<int>(TargetLayer)].size();
-}
-
-void Framework::RegisterController(ControllerFunction Controller, ModeType Type) {
-	Controller();
-	if (Type == ModeType::Default)
-		ControllerBuffer = Controller;
+	return Range;
 }
 
 void Framework::Exit() {
@@ -196,45 +184,26 @@ void Framework::Exit() {
 }
 
 //////// private ///////////////
-void Framework::UpdateContainer(int i) {
-	auto It = std::erase_if(ObjectList, [](const std::pair<std::string, GameObject*>& Object) {
-		return Object.second->DeleteObjectMarked;
-		});
-
-	for (auto It = begin(ObjectVector[i]); It != end(ObjectVector[i]);) {
-		if ((*It)->DeleteObjectMarked) {
-			delete* It;
-			*It = nullptr;
-			It = ObjectVector[i].erase(It);
+void Framework::UpdateContainer() {
+	for (auto It = begin(ObjectList); It != end(ObjectList);) {
+		if (It->second->DeleteObjectMarked) {
+			delete It->second;
+			It->second = nullptr;
+			It = ObjectList.erase(It);
 			continue;
 		}
-
-		if ((*It)->SwapLayerMarked) {
-			int DestLayer = (*It)->DestLayer;
-			ObjectVector[DestLayer].emplace_back(*It);
-			ObjectVector[DestLayer].back()->SwapLayerMarked = false;
-			It = ObjectVector[i].erase(It);
-			continue;
-		}
-
 		++It;
 	}
 }
 
 void Framework::ClearFloatingObject() {
-	for (int i = 0; i < Layers; ++i) {
-		for (auto It = begin(ObjectVector[i]); It != end(ObjectVector[i]); ++It) {
-			if ((*It)->FloatingObjectMarked && !(*It)->StaticObjectMarked)
-				(*It)->DeleteObjectMarked = true;
-		}
+	for (auto It = begin(ObjectList); It != end(ObjectList); ++It) {
+		if (It->second->FloatingObjectMarked)
+			It->second->DeleteObjectMarked = true;
 	}
 }
 
 void Framework::ClearAll() {
-	for (int i = 0; i < Layers; ++i) {
-		for (auto It = begin(ObjectVector[i]); It != end(ObjectVector[i]); ++It) {
-			if (!(*It)->StaticObjectMarked)
-				(*It)->DeleteObjectMarked = true;
-		}
-	}
+	for (auto It = begin(ObjectList); It != end(ObjectList); ++It)
+		It->second->DeleteObjectMarked = true;
 }
