@@ -26,10 +26,13 @@ ShaderUtil shaderUtil;
 Camera camera;
 ImageUtil imageUtil;
 SoundUtil soundUtil;
-DataUtil dataUtil;
 MouseUtil mouse;
 FontLoaderUtil fontloaderUtil;
 Framework framework;
+
+#ifdef USE_DATA_SYSTEM
+DataUtil dataUtil;
+#endif
 
 
 void SetupSystem(int argc, char** argv) {

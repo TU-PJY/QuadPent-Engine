@@ -23,3 +23,6 @@ enum class Layer
 
 // show boundbox option
 #define SHOW_BOUND_BOX
+
+// data system option
+//#define USE_DATA_SYSTEM

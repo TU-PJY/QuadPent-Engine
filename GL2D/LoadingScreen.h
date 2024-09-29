@@ -25,7 +25,10 @@ public:
 
 		imageUtil.Init();
 		soundUtil.Init();
-		//dataUtil.Init();
+
+#ifdef USE_DATA_SYSTEM
+		dataUtil.Init();
+#endif
 
 		soundUtil.Import(IntroSound, "SystemResource//Sound//mata_ENGINE Logo Sound.wav", FMOD_DEFAULT);
 		imageUtil.Import(ImageEngineLogo, "SystemResource//Image//Common//mata_ENGINE Logo.png", ImageType::Linear);
