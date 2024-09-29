@@ -20,7 +20,7 @@ Abstract:
 #define __GLU_H__
 
 #include <winapifamily.h>
-#include <GL/gl.h>
+#include <GL.h>
 
 #ifdef __cplusplus
 extern "C" {
