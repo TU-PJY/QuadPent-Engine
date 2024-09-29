@@ -78,6 +78,3 @@ private:
 	glm::vec4 ViewportPosition();
 	glm::vec4 LocalPosition();
 };
-
-// dummy object for avoiding iterator error
-class __DUMMY__ : public GameObject {};
