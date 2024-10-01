@@ -25,13 +25,16 @@ public:
 
 	void InputKey(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
 		if (Type == KeyType::Normal && State == KeyState::Down) {
-			if (NormalKey == 13) {
+			switch (NormalKey) {
+			case 13:
 				StopSound(IntroChannel);
 				framework.SwitchMode(StartMode);
-			}
+				break;
 
-			else if(NormalKey == 27)
+			case 27:
 				framework.Exit();
+				break;
+			}
 		}
 	}
 

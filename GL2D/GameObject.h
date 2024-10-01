@@ -65,7 +65,7 @@ public:
 	virtual ~GameObject() {}
 	virtual void Update(float FT) {}
 	virtual void Render() {}
-	virtual void InputKey(KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey) {}
+	virtual void InputKey(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {}
 	virtual void InputMouse(int Button, int State, int X, int Y) {}
 	virtual void InputScroll(int Button, int Wheel, int X, int Y) {}
 	virtual void ResetControlState() {}

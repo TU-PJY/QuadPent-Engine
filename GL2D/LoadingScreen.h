@@ -11,6 +11,16 @@ private:
 	TextUtil text;
 	
 public:
+	void InputKey(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
+		if (Type == KeyType::Normal && State == KeyState::Down) {
+			switch (NormalKey) {
+			case 27:
+				framework.Exit();
+				break;
+			}
+		}
+	}
+
 	LoadingScreen() {
 		camera.Init();
 

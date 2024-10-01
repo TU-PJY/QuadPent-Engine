@@ -13,14 +13,8 @@ void LoadingMode::Start() {
 void LoadingMode::Destructor() {}
 
 void LoadingMode::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
-	if (Type == KeyType::Normal && State == KeyState::Down) {
-		switch (NormalKey) {
-		case 27: //ESC
-			framework.Exit();
-			break;
-		}
-	}
-
+	if (auto loading_screen = framework.Find("loading_screen"); loading_screen)
+		loading_screen->InputKey(Type, State, NormalKey, SpecialKey);
 }
 
 void LoadingMode::ProcessMouse(int Button, int State, int X, int Y) {
