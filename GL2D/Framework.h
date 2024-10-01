@@ -22,6 +22,9 @@ enum class SearchRange
 enum class ModeType
 { Default, Floating };
 
+enum class ObjectType
+{ None, Floating, Static };
+
 class Framework {
 private:
 	std::unordered_multimap<std::string, GameObject*> ObjectList;
@@ -54,7 +57,7 @@ public:
 	void InputKey(const char* Tag, KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey);
 	void InputMouse(const char* Tag, int button, int state, int x, int y);
 	void InputScroll(const char* Tag, int button, int Wheel, int x, int y);
-	void AddObject(GameObject* Object, const char* Tag, Layer AddLayer, bool SetFloatingObject=false, bool SetStaticObject =false);
+	void AddObject(GameObject* Object, const char* Tag, Layer AddLayer, ObjectType Type1=ObjectType::None, ObjectType Type2=ObjectType::None);
 	void SwapLayer(GameObject* Object, Layer TargetLayer);
 	void DeleteObject(GameObject* Object);
 	void DeleteObject(const char* Tag, DeleteRange deleteRange);
@@ -63,7 +66,7 @@ public:
 	void Exit();
 
 private:
-	void UpdateContainer();
+	void UpdateObjectList();
 	void ClearFloatingObject();
 	void ClearAll();
 };

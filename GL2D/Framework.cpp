@@ -11,16 +11,22 @@ const char* Framework::Mode() {
 void Framework::Routine() {
 	for (int i = 0; i < Layers; ++i) {
 		for (auto const& O : ObjectList) {
-			if (!O.second->DeleteObjectMarked && O.second->ObjectLayer == i) {
-				if (FloatingRunningActivated && FloatingFocusActivated && O.second->FloatingObjectMarked)
+			if (O.second->ObjectLayer == i && !O.second->DeleteObjectMarked) {
+				if (!FloatingRunningActivated)
 					O.second->Update(FrameTime);
-				else
-					O.second->Update(FrameTime);
+
+				else {
+					if (FloatingFocusActivated && O.second->FloatingObjectMarked)
+						O.second->Update(FrameTime);
+					else
+						O.second->Update(FrameTime);
+				}
+
 				O.second->Render();
 			}
 		}
 
-		UpdateContainer();
+		UpdateObjectList();
 	}
 }
 
@@ -114,19 +120,22 @@ void Framework::InputScroll(const char* Tag, int button, int Wheel, int x, int y
 		It->second->InputScroll(button, Wheel, x, y);
 }
 
-void Framework::AddObject(GameObject* Object, const char* Tag, Layer AddLayer, bool SetFloatingObject, bool SetStaticObject) {
+void Framework::AddObject(GameObject* Object, const char* Tag, Layer AddLayer, ObjectType Type1, ObjectType Type2) {
 	int DestLayer = static_cast<int>(AddLayer);
 
 	Object->ObjectTag = Tag;
 	Object->ObjectLayer = DestLayer;
-	
+
 	ObjectList.insert(std::make_pair(Tag, Object));
 
-	if (SetFloatingObject) 
-		Object->FloatingObjectMarked = true;
-		
-	if (SetStaticObject) 
+	if (Type1 == Type2)
+		return;
+
+	if(Type1 == ObjectType::Static || Type2 == ObjectType::Static)
 		Object->StaticObjectMarked = true;
+
+	if(Type1 == ObjectType::Floating || Type2 == ObjectType::Floating)
+		Object->FloatingObjectMarked = true;
 }
 
 void Framework::SwapLayer(GameObject* Object, Layer TargetLayer) {
@@ -184,7 +193,7 @@ void Framework::Exit() {
 }
 
 //////// private ///////////////
-void Framework::UpdateContainer() {
+void Framework::UpdateObjectList() {
 	for (auto It = begin(ObjectList); It != end(ObjectList);) {
 		if (It->second->DeleteObjectMarked) {
 			delete It->second;
@@ -197,13 +206,15 @@ void Framework::UpdateContainer() {
 }
 
 void Framework::ClearFloatingObject() {
-	for (auto It = begin(ObjectList); It != end(ObjectList); ++It) {
-		if (It->second->FloatingObjectMarked)
-			It->second->DeleteObjectMarked = true;
+	for (auto& O : ObjectList) {
+		if (O.second->FloatingObjectMarked && !O.second->StaticObjectMarked)
+			O.second->DeleteObjectMarked = true;
 	}
 }
 
 void Framework::ClearAll() {
-	for (auto It = begin(ObjectList); It != end(ObjectList); ++It)
-		It->second->DeleteObjectMarked = true;
+	for (auto& O : ObjectList) {
+		if(!O.second->StaticObjectMarked)
+			O.second->DeleteObjectMarked = true;
+	}
 }

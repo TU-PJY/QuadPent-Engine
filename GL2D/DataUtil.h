@@ -46,6 +46,7 @@ private:
 	void AddData(const char* CategoryName, const char* DataName, float Value = 0.0);
 	void AddStringData(const char* CategoryName, const char* DataName, const char* Value);
 	void WriteData(TiXmlElement* CategoryVar, const char* DataName, float Value);
+	void WriteData(TiXmlElement* CategoryVar, const char* DataName, int Value);
 	void WriteStringData(TiXmlElement* CategoryVar, const char* DataName, const char* Value);
 	float GetData(TiXmlElement* CategoryVar, const char* DataName);
 	const char* GetStringData(TiXmlElement* CategoryVar, const char* DataName);

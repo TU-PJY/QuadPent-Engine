@@ -173,6 +173,16 @@ void DataUtil::WriteData(TiXmlElement* CategoryVar, const char* DataName, float 
 	}
 }
 
+void DataUtil::WriteData(TiXmlElement* CategoryVar, const char* DataName, int Value) {
+	const char* DataValue = CategoryVar->Attribute(DataName);
+	if (DataValue)
+		CategoryVar->SetDoubleAttribute(DataName, Value);
+	else {
+		std::cout << "Failed to update data" << std::endl;
+		exit(EXIT_FAILURE);
+	}
+}
+
 void DataUtil::WriteStringData(TiXmlElement* CategoryVar, const char* DataName, const char* Value) {
 	const char* DataValue = CategoryVar->Attribute(DataName);
 	if (DataValue)
