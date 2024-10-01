@@ -9,7 +9,7 @@ namespace Preset {
 	constexpr float HalfNegative = -0.52359;
 }
 
-class LoopSinAnimation {
+class SinLoop {
 private:
 	GLfloat Num{};
 
@@ -19,7 +19,7 @@ public:
 	void Reset();
 };
 
-class LerpSinAnimation{
+class SinLerp{
 private:
 	GLfloat Num{ Preset::MaxNegative };
 
@@ -28,7 +28,7 @@ public:
 	void Reset();
 };
 
-class PopBounceAnimation {
+class PopBounce {
 private:
 	GLfloat Num1{}, Num2{}, Num3{};
 

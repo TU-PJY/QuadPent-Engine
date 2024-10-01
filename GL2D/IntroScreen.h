@@ -13,8 +13,8 @@ private:
 	GLfloat Rotation{};
 	GLfloat RotateValue = 40.0;
 
-	PopBounceAnimation PBA;
-	LoopSinAnimation LSA;
+	PopBounce PBA;
+	SinLoop LSA;
 
 	int Scene{};
 
