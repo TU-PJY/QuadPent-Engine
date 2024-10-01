@@ -128,8 +128,11 @@ void Framework::AddObject(GameObject* Object, const char* Tag, Layer AddLayer, O
 
 	ObjectList.insert(std::make_pair(Tag, Object));
 
-	if (Type1 == Type2)
-		return;
+	if (Type1 == Type2 && Type1 == ObjectType::Static)
+		Object->StaticObjectMarked = true;
+
+	if(Type1 == Type2 && Type1 == ObjectType::Floating)
+		Object->FloatingObjectMarked = true;
 
 	if(Type1 == ObjectType::Static || Type2 == ObjectType::Static)
 		Object->StaticObjectMarked = true;
