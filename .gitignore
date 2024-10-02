@@ -365,3 +365,4 @@ FodyWeavers.xsd
 
 # FMOD files
 !GL2D/FMOD/**
+!GL2D/SystemResource/ScriptMaker/**

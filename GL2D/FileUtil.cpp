@@ -145,6 +145,10 @@ void FileUtil::CreateDec(float VersionValue) {
 	Doc.LinkEndChild(new TiXmlDeclaration(NewVersionStr.c_str(), "", ""));
 }
 
+void FileUtil::AddRoot(const char* RootName) {
+	Doc.LinkEndChild(new TiXmlElement(RootName));
+}
+
 void FileUtil::AddCategory(const char* CategoryName) {
 	FindRoot()->LinkEndChild(new TiXmlElement(CategoryName));
 }
@@ -219,10 +223,6 @@ const char* FileUtil::GetStringData(TiXmlElement* CategoryVar, const char* DataN
 		std::cout << "Failed to find data" << std::endl;
 		exit(EXIT_FAILURE);
 	}
-}
-
-void FileUtil::AddRoot(const char* RootName) {
-	Doc.LinkEndChild(new TiXmlElement(RootName));
 }
 
 TiXmlElement* FileUtil::FindRoot() {
