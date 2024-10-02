@@ -144,7 +144,8 @@
     <ClCompile Include="CameraUtil.cpp" />
     <ClCompile Include="ClippingUtil.cpp" />
     <ClCompile Include="CollisionUtil.cpp" />
-    <ClCompile Include="DataUtil.cpp" />
+    <ClCompile Include="DataList.cpp" />
+    <ClCompile Include="FileUtil.cpp" />
     <ClCompile Include="FontLoaderUtil.cpp" />
     <ClCompile Include="Framework.cpp" />
     <ClCompile Include="IntroMode.cpp" />
@@ -180,7 +181,8 @@
     <ClInclude Include="CameraUtil.h" />
     <ClInclude Include="ClippingUtil.h" />
     <ClInclude Include="CollisionUtil.h" />
-    <ClInclude Include="DataUtil.h" />
+    <ClInclude Include="DataList.h" />
+    <ClInclude Include="FileUtil.h" />
     <ClInclude Include="ExUtil.h" />
     <ClInclude Include="FontLoaderUtil.h" />
     <ClInclude Include="EngineHeader.h" />

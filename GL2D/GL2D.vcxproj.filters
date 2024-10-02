@@ -79,9 +79,6 @@
     <Filter Include="[3]___________[ Util ]\[ Text Util ]">
       <UniqueIdentifier>{ebbafb29-e74d-4f67-ae00-7ab61d0dd40e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[3]___________[ Util ]\[ Data Util ]">
-      <UniqueIdentifier>{d2e93683-5de8-4639-98b5-ff99bff6c54f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]___________[ Util ]\[ Font Util ]">
       <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
     </Filter>
@@ -118,14 +115,23 @@
     <Filter Include="[3]___________[ Util ]\[ EX Util ]">
       <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[3]___________[ Util ]\[ Data Util ]\[TinyXML]">
+    <Filter Include="[3]___________[ Util ]\[ FIle Util ]">
+      <UniqueIdentifier>{d2e93683-5de8-4639-98b5-ff99bff6c54f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[3]___________[ Util ]\[ FIle Util ]\[TinyXML]">
       <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[3]___________[ Util ]\[ Data Util ]\[TinyXML]\[ Header ]">
+    <Filter Include="[3]___________[ Util ]\[ FIle Util ]\[TinyXML]\[ Header ]">
       <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[3]___________[ Util ]\[ Data Util ]\[TinyXML]\[ CPP ]">
+    <Filter Include="[3]___________[ Util ]\[ FIle Util ]\[TinyXML]\[ CPP ]">
       <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ Resources ]\[ Resource ]">
+      <UniqueIdentifier>{471a1c4e-f93c-409b-b71c-df69808118a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ Resources ]\[ Data ]">
+      <UniqueIdentifier>{5cc44f36-1978-4df0-84ee-7042daee1b18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -153,8 +159,8 @@
     <ClCompile Include="SoundUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Sound Util ]</Filter>
     </ClCompile>
-    <ClCompile Include="DataUtil.cpp">
-      <Filter>[3]___________[ Util ]\[ Data Util ]</Filter>
+    <ClCompile Include="FileUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ FIle Util ]</Filter>
     </ClCompile>
     <ClCompile Include="FontLoaderUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Font Util ]</Filter>
@@ -167,9 +173,6 @@
     </ClCompile>
     <ClCompile Include="PhysicsUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Physics Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomResources.cpp">
-      <Filter>[4]___________[ Resources ]</Filter>
     </ClCompile>
     <ClCompile Include="ShaderUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Shader Util ]</Filter>
@@ -220,16 +223,22 @@
       <Filter>[3]___________[ Util ]\[ EX Util ]</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxmlparser.cpp">
-      <Filter>[3]___________[ Util ]\[ Data Util ]\[TinyXML]\[ CPP ]</Filter>
+      <Filter>[3]___________[ Util ]\[ FIle Util ]\[TinyXML]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxmlerror.cpp">
-      <Filter>[3]___________[ Util ]\[ Data Util ]\[TinyXML]\[ CPP ]</Filter>
+      <Filter>[3]___________[ Util ]\[ FIle Util ]\[TinyXML]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxml.cpp">
-      <Filter>[3]___________[ Util ]\[ Data Util ]\[TinyXML]\[ CPP ]</Filter>
+      <Filter>[3]___________[ Util ]\[ FIle Util ]\[TinyXML]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinystr.cpp">
-      <Filter>[3]___________[ Util ]\[ Data Util ]\[TinyXML]\[ CPP ]</Filter>
+      <Filter>[3]___________[ Util ]\[ FIle Util ]\[TinyXML]\[ CPP ]</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomResources.cpp">
+      <Filter>[4]___________[ Resources ]\[ Resource ]</Filter>
+    </ClCompile>
+    <ClCompile Include="DataList.cpp">
+      <Filter>[4]___________[ Resources ]\[ Data ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,8 +269,8 @@
     <ClInclude Include="SoundUtil.h">
       <Filter>[3]___________[ Util ]\[ Sound Util ]</Filter>
     </ClInclude>
-    <ClInclude Include="DataUtil.h">
-      <Filter>[3]___________[ Util ]\[ Data Util ]</Filter>
+    <ClInclude Include="FileUtil.h">
+      <Filter>[3]___________[ Util ]\[ FIle Util ]</Filter>
     </ClInclude>
     <ClInclude Include="FontLoaderUtil.h">
       <Filter>[3]___________[ Util ]\[ Font Util ]</Filter>
@@ -308,9 +317,6 @@
     <ClInclude Include="ClippingUtil.h">
       <Filter>[3]___________[ Util ]\[ Clipping Util ]</Filter>
     </ClInclude>
-    <ClInclude Include="CustomResources.h">
-      <Filter>[4]___________[ Resources ]</Filter>
-    </ClInclude>
     <ClInclude Include="UiUtil.h">
       <Filter>[3]___________[ Util ]\[ UI Util ]</Filter>
     </ClInclude>
@@ -324,10 +330,16 @@
       <Filter>[3]___________[ Util ]\[ EX Util ]</Filter>
     </ClInclude>
     <ClInclude Include="tinyxml\tinystr.h">
-      <Filter>[3]___________[ Util ]\[ Data Util ]\[TinyXML]\[ Header ]</Filter>
+      <Filter>[3]___________[ Util ]\[ FIle Util ]\[TinyXML]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="tinyxml\tinyxml.h">
-      <Filter>[3]___________[ Util ]\[ Data Util ]\[TinyXML]\[ Header ]</Filter>
+      <Filter>[3]___________[ Util ]\[ FIle Util ]\[TinyXML]\[ Header ]</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomResources.h">
+      <Filter>[4]___________[ Resources ]\[ Resource ]</Filter>
+    </ClInclude>
+    <ClInclude Include="DataList.h">
+      <Filter>[4]___________[ Resources ]\[ Data ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,6 @@
 #include "ImageUtil.h"
 #include "SoundUtil.h"
 #include "IntroMode.h"
-#include "DataUtil.h"
 #include "CameraUtil.h"
 
 class LoadingScreen : public GameObject {
@@ -35,10 +34,6 @@ public:
 
 		imageUtil.Init();
 		soundUtil.Init();
-
-#ifdef USE_DATA_SYSTEM
-		dataUtil.Init();
-#endif
 
 		soundUtil.Import(IntroSound, "SystemResource//Sound//mata_ENGINE Logo Sound.wav", FMOD_DEFAULT);
 		imageUtil.Import(ImageEngineLogo, "SystemResource//Image//Common//mata_ENGINE Logo.png", ImageType::Linear);

@@ -2,7 +2,6 @@
 #include "Framework.h"
 #include "CameraUtil.h"
 #include "ImageUtil.h"
-#include "DataUtil.h"
 #include "FontLoaderUtil.h"
 #include "ShaderUtil.h"
 #include "SoundUtil.h"
@@ -29,11 +28,6 @@ SoundUtil soundUtil;
 MouseUtil mouse;
 FontLoaderUtil fontloaderUtil;
 Framework framework;
-
-#ifdef USE_DATA_SYSTEM
-DataUtil dataUtil;
-#endif
-
 
 void SetupSystem(int argc, char** argv) {
 	HWND hWnd = GetConsoleWindow();
