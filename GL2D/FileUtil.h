@@ -37,9 +37,6 @@ struct FileData {
 
 class FileUtil {
 private:
-	byte KEY[AES::DEFAULT_KEYLENGTH];
-	byte IV[AES::BLOCKSIZE];
-
 	FileType FType{ FileType::None };
 	std::string FilePathStr{};
 	std::filesystem::path FilePath{};

@@ -8,8 +8,6 @@ void FileUtil::Init(const char* FolderName, const char* FileName, std::vector<Fi
 	if (FType == FileType::Script)
 		TempFileName += ".xml";
 
-	strcpy(reinterpret_cast<char*>(KEY), reinterpret_cast<const char*>(AES_KEY));
-
 	std::filesystem::path FolderPath = FolderName;
 	if (!std::filesystem::exists(FolderName)) {
 		if (!std::filesystem::create_directory(FolderPath)) {
@@ -248,7 +246,7 @@ bool FileUtil::LoadDataFile(const char* FileName) {
 		std::string EncryptedContent((std::istreambuf_iterator<char>(EncryptedFile)), std::istreambuf_iterator<char>());
 		EncryptedFile.close();
 
-		std::string DecryptedXML = Decrypt(EncryptedContent, KEY, IV);
+		std::string DecryptedXML = Decrypt(EncryptedContent, AES_KEY, IV_KEY);
 		Doc.Parse(DecryptedXML.c_str());
 
 		if (Doc.Error()) {
@@ -270,7 +268,7 @@ void FileUtil::UpdateDataFile() {
 		Doc.Accept(&Printer);
 
 		std::string XML_String = Printer.CStr();
-		std::string EncryptedXML = Encrypt(XML_String, KEY, IV);
+		std::string EncryptedXML = Encrypt(XML_String, AES_KEY, IV_KEY);
 
 		std::ofstream ExportFile(FilePathStr, std::ios::binary);
 		ExportFile.write(EncryptedXML.c_str(), EncryptedXML.size());
