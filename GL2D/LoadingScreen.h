@@ -46,11 +46,16 @@ public:
 
 		if (!ENABLE_INTRO_SCREEN) {
 			SetBackColor(0.5, 0.5, 0.5);
+			soundUtil.Release(IntroSound);
+			imageUtil.Release(ImageEngineLogo);
+			imageUtil.Release(ImageFMODLogo);
+
 			framework.SwitchMode(StartMode);
 		}
 
-		else
+		else {
 			framework.SwitchMode(IntroMode::Start);
+		}
 	}
 };
 
