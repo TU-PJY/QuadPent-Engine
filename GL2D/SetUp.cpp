@@ -17,6 +17,8 @@ int WIDTH = WINDOW_WIDTH;
 int HEIGHT = WINDOW_HEIGHT;
 int PREV_WIDTH, PREV_HEIGHT;
 
+float TARGET_FPS;
+
 GLfloat ASPECT;
 Rect rect;
 glm::vec3 BackColor;
@@ -83,5 +85,9 @@ void SetGlOption() {
 }
 
 void InitSystem() {
+#if FRAME_LIMITS > 0
+	TARGET_FPS = 1000.0 / (float)FRAME_LIMITS;
+#endif
+
 	framework.Init(LoadingMode::Start);
 }

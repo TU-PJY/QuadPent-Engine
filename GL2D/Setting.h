@@ -3,6 +3,10 @@
 // Application version
 constexpr float APPLICATION_VERSION = 1.0;
 
+// frame limits option
+// If this option is set to 0, the engine will run at maximum framerate.
+#define FRAME_LIMITS 0
+
 // window name
 constexpr const char* WINDOW_NAME = "mata_ENGINE-2";
 

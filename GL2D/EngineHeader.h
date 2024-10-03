@@ -10,6 +10,8 @@
 #include "fmod.hpp"
 #include "fmod_errors.h"
 
+extern float TARGET_FPS;
+
 typedef void(*Start_Mode)(void);
 using Sound = FMOD::Sound*;
 using Channel = FMOD::Channel*;

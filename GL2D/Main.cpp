@@ -2,6 +2,8 @@
 #include "Framework.h"
 #include "CameraUtil.h"
 #include "SoundUtil.h"
+#include <thread>
+#include <chrono>
 
 // frametime values
 float PrevTime, CurrentTime, DeltaTime;
@@ -14,8 +16,12 @@ GLvoid GLMain() {
 	soundUtil.Update();
 
 	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
-	DeltaTime = (CurrentTime - PrevTime) / 1000.0;
+	
+#if FRAME_LIMITS > 0
+	std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(TARGET_FPS)));
+#endif
 
+	DeltaTime = (CurrentTime - PrevTime) / 1000.0;
 	framework.InputFrameTime(DeltaTime);
 
 	PrevTime = CurrentTime;
