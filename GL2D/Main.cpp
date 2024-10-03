@@ -17,9 +17,9 @@ GLvoid GLMain() {
 
 	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
 	
-#if FRAME_LIMITS > 0
-	std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(TARGET_FPS)));
-#endif
+	if(FPSLimit > 0)
+		std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(DestFPS)));
+
 
 	DeltaTime = (CurrentTime - PrevTime) / 1000.0;
 	framework.InputFrameTime(DeltaTime);

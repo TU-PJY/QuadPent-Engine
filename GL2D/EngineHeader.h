@@ -10,7 +10,8 @@
 #include "fmod.hpp"
 #include "fmod_errors.h"
 
-extern float TARGET_FPS;
+extern float DestFPS;
+extern int FPSLimit;
 
 typedef void(*Start_Mode)(void);
 using Sound = FMOD::Sound*;
@@ -53,6 +54,7 @@ extern Start_Mode StartMode;
 extern GLuint ImageShader;
 extern GLuint TextShader;
 
+void SetFrameLimit(int FrameLimit);
 void SetBackColor(GLfloat R, GLfloat G, GLfloat B);
 void SetBackColorRGB(int R, int G, int B);
 void SetupWindow();

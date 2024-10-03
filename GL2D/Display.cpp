@@ -17,3 +17,8 @@ void SetBackColorRGB(int R, int G, int B) {
 	BackColor.g = (1.0f / 255.0f) * (GLfloat)G;
 	BackColor.b = (1.0f / 255.0f) * (GLfloat)B;
 }
+
+void SetFrameLimit(int FrameLimit) {
+	FPSLimit = FrameLimit;
+	DestFPS = 1000.0 / (float)FPSLimit;
+}

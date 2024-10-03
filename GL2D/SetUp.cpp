@@ -17,7 +17,8 @@ int WIDTH = WINDOW_WIDTH;
 int HEIGHT = WINDOW_HEIGHT;
 int PREV_WIDTH, PREV_HEIGHT;
 
-float TARGET_FPS;
+float DestFPS;
+int FPSLimit;
 
 GLfloat ASPECT;
 Rect rect;
@@ -85,9 +86,9 @@ void SetGlOption() {
 }
 
 void InitSystem() {
-#if FRAME_LIMITS > 0
-	TARGET_FPS = 1000.0 / (float)FRAME_LIMITS;
-#endif
+	FPSLimit = FRAME_LIMITS;
+	if (FPSLimit > 0)
+		DestFPS = 1000.0 / (float)FPSLimit;
 
 	framework.Init(LoadingMode::Start);
 }
