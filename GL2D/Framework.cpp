@@ -11,7 +11,7 @@ const char* Framework::Mode() {
 void Framework::Routine() {
 	for (int i = 0; i < Layers; ++i) {
 		for (auto const& O : ObjectList) {
-			if (O.second->ObjectLayer == i && !O.second->DeleteObjectMarked) {
+			if (!O.second->DeleteObjectMarked && O.second->ObjectLayer == i) {
 				if (!FloatingRunningActivated)
 					O.second->Update(FrameTime);
 
