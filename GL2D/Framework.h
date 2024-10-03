@@ -40,8 +40,12 @@ private:
 	ControllerFunction				  ControllerBuffer{};
 	Function						  DestructorBuffer{};
 
+	bool RoutineUpdateActivated{ true };
+
 public:
 	const char* Mode();
+	void Stop();
+	void Resume();
 	void RegisterModeName(const char* ModeName);
 	void Init(Function ModeFunction);
 	void RegisterController(ControllerFunction Controller, ModeType Type);

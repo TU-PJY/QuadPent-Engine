@@ -8,18 +8,29 @@ const char* Framework::Mode() {
 	return CurrentRunningMode;
 }
 
+void Framework::Stop() {
+	RoutineUpdateActivated = false;
+}
+
+void Framework::Resume() {
+	RoutineUpdateActivated = true;
+}
+
+
 void Framework::Routine() {
 	for (int i = 0; i < Layers; ++i) {
 		for (auto const& O : ObjectList) {
 			if (!O.second->DeleteObjectMarked && O.second->ObjectLayer == i) {
-				if (!FloatingRunningActivated)
-					O.second->Update(FrameTime);
+				if (RoutineUpdateActivated) {
+					if (!FloatingRunningActivated)
+						O.second->Update(FrameTime);
 
-				else {
-					if (FloatingFocusActivated && O.second->FloatingObjectMarked)
-						O.second->Update(FrameTime);
-					else
-						O.second->Update(FrameTime);
+					else {
+						if (FloatingFocusActivated && O.second->FloatingObjectMarked)
+							O.second->Update(FrameTime);
+						else
+							O.second->Update(FrameTime);
+					}
 				}
 
 				O.second->Render();
