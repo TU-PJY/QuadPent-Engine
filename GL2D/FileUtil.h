@@ -19,7 +19,7 @@
 using namespace CryptoPP;
 
 enum class FileType
-{ None, Secure, Script };
+{ None, Secure, Normal };
 
 enum class DataType
 { Int, Float, String };
@@ -28,9 +28,9 @@ enum class DataType
 struct FileData {
 	const char* CategoryName;
 	const char* DataName;
-	DataType DType;
-	int IValue;
-	float FValue;
+	DataType D_Type;
+	int IntValue;
+	float FloatValue;
 	const char* StringValue;
 };
 
@@ -41,12 +41,15 @@ private:
 	std::string FilePathStr{};
 	std::filesystem::path FilePath{};
 	TiXmlDocument Doc{};
+	TiXmlElement* Root{};
+	
 	std::vector<FileData> DataListBuffer{};
 
 	bool FileExist{};
 
 public:
 	void Init(const char* FolderName, const char* FileName, std::vector<FileData> List, FileType Type);
+	void UpdateIntData(const char* CategoryName, const char* DataName, int Value);
 	void UpdateFloatData(const char* CategoryName, const char* DataName, float Value);
 	void UpdateStringData(const char* CategoryName, const char* DataName, const char* Value);
 	int LoadIntData(const char* CategoryName, const char* DataName);
@@ -54,10 +57,11 @@ public:
 	const char* LoadStringData(const char* CategoryName, const char* DataName);
 	void ResetData();
 
+	void Release();
+
 
 private:
-	void SetupData(std::vector<FileData> List);
-	void UpdateIntData(const char* CategoryName, const char* DataName, int Value);
+	void SetupData();
 	void CheckDataVersion();
 	void UpdateDataVersion(float VersionValue);
 	void CreateDec(float VersionValue);

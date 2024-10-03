@@ -2,10 +2,13 @@
 
 
 void FileUtil::Init(const char* FolderName, const char* FileName, std::vector<FileData> List, FileType Type) {
+	if (FileExist)
+		return;
+
 	FType = Type;
 	std::string TempFileName = FileName;
 
-	if (FType == FileType::Script)
+	if (FType == FileType::Normal)
 		TempFileName += ".xml";
 
 	std::filesystem::path FolderPath = FolderName;
@@ -22,7 +25,7 @@ void FileUtil::Init(const char* FolderName, const char* FileName, std::vector<Fi
 	DataListBuffer = List;
 
 	if (!LoadDataFile(FilePathStr.c_str()))
-		SetupData(List);
+		SetupData();
 	else {
 		FileExist = true;
 		std::cout << "File Util Opened file: " << FilePathStr << std::endl;
@@ -46,7 +49,7 @@ void FileUtil::UpdateStringData(const char* CategoryName, const char* DataName, 
 }
 
 int FileUtil::LoadIntData(const char* CategoryName, const char* DataName) {
-	return static_cast<int>(GetIntData(FindCategory(CategoryName), DataName));
+	return GetIntData(FindCategory(CategoryName), DataName);
 }
 
 float FileUtil::LoadFloatData(const char* CategoryName, const char* DataName) {
@@ -59,31 +62,36 @@ const char* FileUtil::LoadStringData(const char* CategoryName, const char* DataN
 
 void FileUtil::ResetData() {
 	Doc.Clear();
-	SetupData(DataListBuffer);
+	SetupData();
+}
+
+void FileUtil::Release() {
+	Doc.Clear();
+	FileExist = false;
 }
 
 
 //////////////////////////////// private
-void FileUtil::SetupData(std::vector<FileData> List) {
+void FileUtil::SetupData() {
 	if (!FileExist) {
 		CreateDec(APPLICATION_VERSION);
 		AddRoot("Data");
 	}
 
-	for (auto const& D : List) {
+	Root = FindRoot();
+
+	for (auto const& D : DataListBuffer) {
 		if(!FindCategory(D.CategoryName))
 			AddCategory(D.CategoryName);
-	}
 
-	for (auto const& D : List) {
 		if (!FindData(D.CategoryName, D.DataName)) {
-			switch (D.DType) {
+			switch (D.D_Type) {
 			case DataType::Int:
-				AddIntData(D.CategoryName, D.DataName, D.IValue);
+				AddIntData(D.CategoryName, D.DataName, D.IntValue);
 				break;
 
 			case DataType::Float:
-				AddFloatData(D.CategoryName, D.DataName, D.FValue);
+				AddFloatData(D.CategoryName, D.DataName, D.FloatValue);
 				break;
 
 			case DataType::String:
@@ -107,9 +115,8 @@ void FileUtil::CheckDataVersion() {
 
 	if (Decl) {
 		const char* Version = Decl->Version();
-		if (std::stof(Version) < APPLICATION_VERSION) {
+		if (std::stof(Version) < APPLICATION_VERSION)
 			UpdateDataVersion(APPLICATION_VERSION);
-		}
 	}
 	else {
 		std::cout << "Failed to find data version" << std::endl;
@@ -134,7 +141,7 @@ void FileUtil::UpdateDataVersion(float VersionValue) {
 
 		Doc.ReplaceChild(DeclNode, NewDecl);
 
-		SetupData(DataListBuffer);
+		SetupData();
 	}
 }
 
@@ -150,7 +157,7 @@ void FileUtil::AddRoot(const char* RootName) {
 }
 
 void FileUtil::AddCategory(const char* CategoryName) {
-	FindRoot()->LinkEndChild(new TiXmlElement(CategoryName));
+	Root->LinkEndChild(new TiXmlElement(CategoryName));
 }
 
 void FileUtil::AddFloatData(const char* CategoryName, const char* DataName, float Value) {
@@ -230,7 +237,7 @@ TiXmlElement* FileUtil::FindRoot() {
 }
 
 TiXmlElement* FileUtil::FindCategory(const char* CategoryName) {
-	return FindRoot()->FirstChildElement(CategoryName);
+	return Root->FirstChildElement(CategoryName);
 }
 
 const char* FileUtil::FindData(const char* CategoryName, const char* DataName) {
@@ -258,7 +265,7 @@ bool FileUtil::LoadDataFile(const char* FileName) {
 		return true;
 	}
 
-	else if (FType == FileType::Script)
+	else if (FType == FileType::Normal)
 		return Doc.LoadFile(FileName);
 }
 
@@ -278,9 +285,10 @@ void FileUtil::UpdateDataFile() {
 		LoadDataFile(FilePathStr.c_str());
 	}
 
-	else if (FType == FileType::Script) {
+	else if (FType == FileType::Normal)
 		Doc.SaveFile(FilePathStr.c_str());
-	}
+
+	Root = FindRoot();
 }
 
 std::string FileUtil::Encrypt(const std::string& plainText, const byte key[], const byte iv[]) {
