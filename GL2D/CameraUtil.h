@@ -1,8 +1,6 @@
 #pragma once
 #include "EngineHeader.h"
 
-enum class ZoomType{ In, Out };
-
 class Camera {
 private:
 	glm::vec3 CamPos{}, CamDirection{}, CamUp{};
@@ -17,10 +15,5 @@ public:
 	void Init();
 	void SetCamera(RenderType Type);
 	void PrepareRender(ShaderType Type);
-	void Zoom(ZoomType Type, GLfloat Value);
-	void ChangeZoom(GLfloat Value);
-	void InitMatrix();
 };
 extern Camera camera;
-
-GLfloat DivZoom(GLfloat Value);

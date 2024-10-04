@@ -1,6 +1,7 @@
 #include "EngineHeader.h"
-#include "Framework.h"
 #include "CameraUtil.h"
+#include "CameraController.h"
+#include "Framework.h"
 #include "SoundUtil.h"
 #include <thread>
 #include <chrono>
@@ -11,8 +12,9 @@ float PrevTime, CurrentTime, DeltaTime;
 GLvoid GLMain() {
 	glClearColor(BackColor.r, BackColor.g, BackColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-
+	
 	framework.Routine();
+	cameraCon.Update(DeltaTime);
 	soundUtil.Update();
 
 	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));

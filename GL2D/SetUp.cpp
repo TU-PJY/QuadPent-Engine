@@ -1,6 +1,7 @@
 #include "EngineHeader.h"
 #include "Framework.h"
 #include "CameraUtil.h"
+#include "CameraController.h"
 #include "ImageUtil.h"
 #include "FontLoaderUtil.h"
 #include "ShaderUtil.h"
@@ -26,6 +27,7 @@ glm::vec3 BackColor;
 
 ShaderUtil shaderUtil;
 Camera camera;
+CameraController cameraCon;
 ImageUtil imageUtil;
 SoundUtil soundUtil;
 MouseUtil mouse;
