@@ -7,7 +7,7 @@ typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
 constexpr int Layers = static_cast<int>(Layer::END);
 
-using LayerIter = std::unordered_multimap<std::string, GameObject*>::iterator;
+using LayerIter = std::unordered_multimap<const char*, GameObject*>::iterator;
 
 typedef struct {
 	LayerIter First, End;
@@ -27,7 +27,7 @@ enum class ObjectType
 
 class Framework {
 private:
-	std::unordered_multimap<std::string, GameObject*> ObjectList;
+	std::unordered_multimap<const char*, GameObject*> ObjectList;
 
 	const char*						  CurrentRunningMode{};
 	const char*						  PrevRunningMode{};
