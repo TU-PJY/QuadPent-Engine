@@ -16,33 +16,32 @@ void Framework::Resume() {
 	RoutineUpdateActivated = true;
 }
 
-
 void Framework::Routine() {
 	for (int i = 0; i < Layers; ++i) {
-		for (auto const& O : ObjectList) {
-			if (!O.second->DeleteObjectMarked && O.second->ObjectLayer == i) {
+		for (auto const& O : ObjectList[i]) {
+			if (!O->DeleteObjectMarked && O->ObjectLayer == i) {
 				if (RoutineUpdateActivated) {
 					if (!FloatingRunningActivated)
-						O.second->Update(FrameTime);
+						O->Update(FrameTime);
 
 					else {
-						if (FloatingFocusActivated && O.second->FloatingObjectMarked)
-							O.second->Update(FrameTime);
+						if (FloatingFocusActivated && O->FloatingObjectMarked)
+							O->Update(FrameTime);
 						else
-							O.second->Update(FrameTime);
+							O->Update(FrameTime);
 					}
 				}
-
-				O.second->Render();
+				O->Render();
 			}
 		}
 
-		UpdateObjectList();
+		UpdateObjectList(i);
 	}
 }
 
 void Framework::Init(Function ModeFunction) {
-	ObjectList.reserve(OBJECT_LIST_RESERVE);
+	for(int i = 0; i < Layers; ++i)
+		ObjectList[i].reserve(OBJECT_LIST_RESERVE);
 	ModeFunction();
 }
 
@@ -108,36 +107,37 @@ void Framework::ResetControlState(GameObject* Object) {
 }
 
 void Framework::ResetControlState(const char* Tag) {
-	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
+	auto It = ObjectIndex.find(Tag);
+	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
 		It->second->ResetControlState();
 }
 
 void Framework::InputKey(const char* Tag, KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey) {
-	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
+	auto It = ObjectIndex.find(Tag);
+	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
 		It->second->InputKey(Key, State, NormalKey, SpecialKey);
 }
 
 void Framework::InputMouse(const char* Tag, int button, int state, int x, int y) {
-	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
+	auto It = ObjectIndex.find(Tag);
+	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
 		It->second->InputMouse(button, state, x, y);
 }
 
 void Framework::InputScroll(const char* Tag, int button, int Wheel, int x, int y) {
-	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
+	auto It = ObjectIndex.find(Tag);
+	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
 		It->second->InputScroll(button, Wheel, x, y);
 }
 
 void Framework::AddObject(GameObject* Object, const char* Tag, Layer AddLayer, ObjectType Type1, ObjectType Type2) {
 	int DestLayer = static_cast<int>(AddLayer);
 
+	ObjectList[DestLayer].emplace_back(Object);
+	ObjectIndex.insert(std::make_pair(Tag, Object));
+
 	Object->ObjectTag = Tag;
 	Object->ObjectLayer = DestLayer;
-
-	ObjectList.insert(std::make_pair(Tag, Object));
 
 	if (Type1 == Type2 && Type1 == ObjectType::Static)
 		Object->StaticObjectMarked = true;
@@ -168,13 +168,13 @@ void Framework::DeleteObject(GameObject* Object) {
 
 void Framework::DeleteObject(const char* Tag, DeleteRange deleteRange) {
 	if (deleteRange == DeleteRange::One) {
-		auto It = ObjectList.find(Tag);
-		if (It != end(ObjectList) && !It->second->DeleteObjectMarked) 
+		auto It = ObjectIndex.find(Tag);
+		if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
 			It->second->DeleteObjectMarked = true;
 	}
 
 	else if (deleteRange == DeleteRange::All) {
-		auto Range = ObjectList.equal_range(Tag);
+		auto Range = ObjectIndex.equal_range(Tag);
 		if (Range.first != Range.second) {
 			for (auto It = Range.first; It != Range.second; ++It) {
 				if (It->first == Tag && !It->second->DeleteObjectMarked) 
@@ -185,17 +185,17 @@ void Framework::DeleteObject(const char* Tag, DeleteRange deleteRange) {
 }
 
 GameObject* Framework::Find(const char* Tag) {
-	auto It = ObjectList.find(Tag);
-	if (It != end(ObjectList) && !It->second->DeleteObjectMarked)
+	auto It = ObjectIndex.find(Tag);
+	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
 		return It->second;
 
 	return nullptr;
 }
 
 ObjectRange Framework::EqualRange(const char* Tag) {
-	ObjectRange Range{};
+	ObjectRange Range;
+	auto It = ObjectIndex.equal_range(Tag);
 
-	auto It = ObjectList.equal_range(Tag);
 	Range.First = It.first;
 	Range.End = It.second;
 
@@ -207,12 +207,16 @@ void Framework::Exit() {
 }
 
 //////// private ///////////////
-void Framework::UpdateObjectList() {
-	for (auto It = begin(ObjectList); It != end(ObjectList);) {
-		if (It->second->DeleteObjectMarked) {
-			delete It->second;
-			It->second = nullptr;
-			It = ObjectList.erase(It);
+void Framework::UpdateObjectList(int Index) {
+	std::erase_if(ObjectIndex, [](const std::pair<std::string, GameObject*>& Object) {
+		return Object.second->DeleteObjectMarked;
+		});
+
+	for (auto It = begin(ObjectList[Index]); It != end(ObjectList[Index]);) {
+		if ((*It)->DeleteObjectMarked) {
+			delete *It;
+			*It = nullptr;
+			It = ObjectList[Index].erase(It);
 			continue;
 		}
 		++It;
@@ -220,15 +224,19 @@ void Framework::UpdateObjectList() {
 }
 
 void Framework::ClearFloatingObject() {
-	for (auto& O : ObjectList) {
-		if (O.second->FloatingObjectMarked && !O.second->StaticObjectMarked)
-			O.second->DeleteObjectMarked = true;
+	for (int i = 0; i < Layers; ++i) {
+		for (auto& O : ObjectList[i]) {
+			if (O->FloatingObjectMarked && !O->StaticObjectMarked)
+				O->DeleteObjectMarked = true;
+		}
 	}
 }
 
 void Framework::ClearAll() {
-	for (auto& O : ObjectList) {
-		if(!O.second->StaticObjectMarked)
-			O.second->DeleteObjectMarked = true;
+	for (int i = 0; i < Layers; ++i) {
+		for (auto& O : ObjectList[i]) {
+			if (!O->StaticObjectMarked)
+				O->DeleteObjectMarked = true;
+		}
 	}
 }

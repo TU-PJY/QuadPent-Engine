@@ -161,4 +161,4 @@ TextUtil::~TextUtil() {
 	DeleteObject(Font);
 	glDeleteLists(FontBase, 65536);
 	DeleteDC(hDC);
-}z
+}
