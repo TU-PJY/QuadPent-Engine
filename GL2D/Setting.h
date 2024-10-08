@@ -1,10 +1,10 @@
 #pragma once
 
-// window name
-constexpr const char* WINDOW_NAME = "mata_ENGINE-2";
-
 // Application version
 constexpr float APPLICATION_VERSION = 1.0;
+
+// window name
+constexpr const char* WINDOW_NAME = "mata_ENGINE-2";
 
 // window size
 constexpr int WINDOW_WIDTH = 1200;
