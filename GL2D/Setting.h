@@ -1,14 +1,10 @@
 #pragma once
 
-// Application version
-constexpr float APPLICATION_VERSION = 1.0;
-
-// frame limits option
-// If this option is set to 0, the engine will run at maximum framerate.
-constexpr int FRAME_LIMITS = 0;
-
 // window name
 constexpr const char* WINDOW_NAME = "mata_ENGINE-2";
+
+// Application version
+constexpr float APPLICATION_VERSION = 1.0;
 
 // window size
 constexpr int WINDOW_WIDTH = 1200;
@@ -22,6 +18,10 @@ constexpr bool SHOW_CONSOLE = true;
 
 // intro screen option
 constexpr bool ENABLE_INTRO_SCREEN = true;
+
+// frame limits option
+// If this option is set to 0, the engine will run at maximum framerate.
+constexpr int FRAME_LIMITS = 0;
 
 // framework layer option
 // 'END' should be typed at last
