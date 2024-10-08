@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 
+// read only
 class ScriptUtil {
 private:
 	TiXmlDocument Doc{};
@@ -12,15 +13,13 @@ private:
 
 public:
 	void Import(const char* FileName);
-	int LoadIntData(const char* CategoryName, const char* DataName);
-	float LoadFloatData(const char* CategoryName, const char* DataName);
+	int LoadData(const char* CategoryName, const char* DataName);
 	const char* LoadStringData(const char* CategoryName, const char* DataName);
 	void Release();
 
 private:
 	TiXmlElement* FindCategory(const char* CategoryName);
 	const char* FindData(const char* CategoryName, const char* DataName);
-	int GetIntData(TiXmlElement* CategoryVar, const char* DataName);
-	float GetFloatData(TiXmlElement* CategoryVar, const char* DataName);
+	float GetData(TiXmlElement* CategoryVar, const char* DataName);
 	const char* GetStringData(TiXmlElement* CategoryVar, const char* DataName);
 };

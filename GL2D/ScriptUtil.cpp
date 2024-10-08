@@ -18,29 +18,15 @@ void ScriptUtil::Release() {
 	FileExist = false;
 }
 
-int ScriptUtil::LoadIntData(const char* CategoryName, const char* DataName) {
-	return GetIntData(FindCategory(CategoryName), DataName);
-}
-
-float ScriptUtil::LoadFloatData(const char* CategoryName, const char* DataName) {
-	return GetFloatData(FindCategory(CategoryName), DataName);
+int ScriptUtil::LoadData(const char* CategoryName, const char* DataName) {
+	return GetData(FindCategory(CategoryName), DataName);
 }
 
 const char* ScriptUtil::LoadStringData(const char* CategoryName, const char* DataName) {
 	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
-int ScriptUtil::GetIntData(TiXmlElement* CategoryVar, const char* DataName) {
-	const char* DataValue = CategoryVar->Attribute(DataName);
-	if (DataValue)
-		return std::stoi(DataValue);
-	else {
-		std::cout << "Failed to find data" << std::endl;
-		exit(EXIT_FAILURE);
-	}
-}
-
-float ScriptUtil::GetFloatData(TiXmlElement* CategoryVar, const char* DataName) {
+float ScriptUtil::GetData(TiXmlElement* CategoryVar, const char* DataName) {
 	const char* DataValue = CategoryVar->Attribute(DataName);
 	if (DataValue)
 		return std::stof(DataValue);

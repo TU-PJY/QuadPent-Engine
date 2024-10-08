@@ -22,19 +22,18 @@ enum class FileType
 { None, Secure, Normal };
 
 enum class DataType
-{ Int, Float, String };
+{ Digit, String };
 
 
 struct FileData {
 	const char* CategoryName;
 	const char* DataName;
 	DataType D_Type;
-	int IntValue;
-	float FloatValue;
+	float DigitValue;
 	const char* StringValue;
 };
 
-
+// write and read
 class FileUtil {
 private:
 	FileType FType{ FileType::None };
@@ -49,16 +48,12 @@ private:
 
 public:
 	void Init(const char* FolderName, const char* FileName, std::vector<FileData> List, FileType Type);
-	void UpdateIntData(const char* CategoryName, const char* DataName, int Value);
-	void UpdateFloatData(const char* CategoryName, const char* DataName, float Value);
+	void UpdateData(const char* CategoryName, const char* DataName, float Value);
 	void UpdateStringData(const char* CategoryName, const char* DataName, const char* Value);
-	int LoadIntData(const char* CategoryName, const char* DataName);
-	float LoadFloatData(const char* CategoryName, const char* DataName);
+	float LoadData(const char* CategoryName, const char* DataName);
 	const char* LoadStringData(const char* CategoryName, const char* DataName);
 	void ResetData();
-
 	void Release();
-
 
 private:
 	void SetupData();
@@ -67,14 +62,12 @@ private:
 	void CreateDec(float VersionValue);
 	void AddRoot(const char* RootName);
 	void AddCategory(const char* CategoryName);
-	void AddFloatData(const char* CategoryName, const char* DataName, float Value);
-	void AddIntData(const char* CategoryName, const char* DataName, int Value);
+	void AddData(const char* CategoryName, const char* DataName, float Value);
 	void AddStringData(const char* CategoryName, const char* DataName, const char* Value);
-	void WriteIntData(TiXmlElement* CategoryVar, const char* DataName, int Value);
-	void WriteFloatData(TiXmlElement* CategoryVar, const char* DataName, float Value);
+	void WriteDigitData(TiXmlElement* CategoryVar, const char* DataName, float Value);
 	void WriteStringData(TiXmlElement* CategoryVar, const char* DataName, const char* Value);
 	int GetIntData(TiXmlElement* CategoryVar, const char* DataName);
-	float GetFloatData(TiXmlElement* CategoryVar, const char* DataName);
+	float GetData(TiXmlElement* CategoryVar, const char* DataName);
 	const char* GetStringData(TiXmlElement* CategoryVar, const char* DataName);
 	TiXmlElement* FindRoot();
 	TiXmlElement* FindCategory(const char* CategoryName);

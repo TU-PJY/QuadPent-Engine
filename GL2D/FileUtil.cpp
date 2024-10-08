@@ -1,6 +1,5 @@
 #include "FileUtil.h"
 
-
 void FileUtil::Init(const char* FolderName, const char* FileName, std::vector<FileData> List, FileType Type) {
 	if (FileExist)
 		return;
@@ -33,13 +32,8 @@ void FileUtil::Init(const char* FolderName, const char* FileName, std::vector<Fi
 	}
 }
 
-void FileUtil::UpdateIntData(const char* CategoryName, const char* DataName, int Value) {
-	WriteIntData(FindCategory(CategoryName), DataName, Value);
-	UpdateDataFile();
-}
-
-void FileUtil::UpdateFloatData(const char* CategoryName, const char* DataName, float Value) {
-	WriteFloatData(FindCategory(CategoryName), DataName, Value);
+void FileUtil::UpdateData(const char* CategoryName, const char* DataName, float Value) {
+	WriteDigitData(FindCategory(CategoryName), DataName, Value);
 	UpdateDataFile();
 }
 
@@ -48,12 +42,8 @@ void FileUtil::UpdateStringData(const char* CategoryName, const char* DataName, 
 	UpdateDataFile();
 }
 
-int FileUtil::LoadIntData(const char* CategoryName, const char* DataName) {
-	return GetIntData(FindCategory(CategoryName), DataName);
-}
-
-float FileUtil::LoadFloatData(const char* CategoryName, const char* DataName) {
-	return GetFloatData(FindCategory(CategoryName), DataName);
+float FileUtil::LoadData(const char* CategoryName, const char* DataName) {
+	return GetData(FindCategory(CategoryName), DataName);
 }
 
 const char* FileUtil::LoadStringData(const char* CategoryName, const char* DataName) {
@@ -62,6 +52,7 @@ const char* FileUtil::LoadStringData(const char* CategoryName, const char* DataN
 
 void FileUtil::ResetData() {
 	Doc.Clear();
+	FileExist = false;
 	SetupData();
 }
 
@@ -86,12 +77,8 @@ void FileUtil::SetupData() {
 
 		if (!FindData(D.CategoryName, D.DataName)) {
 			switch (D.D_Type) {
-			case DataType::Int:
-				AddIntData(D.CategoryName, D.DataName, D.IntValue);
-				break;
-
-			case DataType::Float:
-				AddFloatData(D.CategoryName, D.DataName, D.FloatValue);
+			case DataType::Digit:
+				AddData(D.CategoryName, D.DataName, D.DigitValue);
 				break;
 
 			case DataType::String:
@@ -160,11 +147,7 @@ void FileUtil::AddCategory(const char* CategoryName) {
 	Root->LinkEndChild(new TiXmlElement(CategoryName));
 }
 
-void FileUtil::AddFloatData(const char* CategoryName, const char* DataName, float Value) {
-	FindCategory(CategoryName)->SetDoubleAttribute(DataName, Value);
-}
-
-void FileUtil::AddIntData(const char* CategoryName, const char* DataName, int Value) {
+void FileUtil::AddData(const char* CategoryName, const char* DataName, float Value) {
 	FindCategory(CategoryName)->SetDoubleAttribute(DataName, Value);
 }
 
@@ -172,17 +155,7 @@ void FileUtil::AddStringData(const char* CategoryName, const char* DataName, con
 	FindCategory(CategoryName)->SetAttribute(DataName, Value);
 }
 
-void FileUtil::WriteIntData(TiXmlElement* CategoryVar, const char* DataName, int Value) {
-	const char* DataValue = CategoryVar->Attribute(DataName);
-	if (DataValue)
-		CategoryVar->SetAttribute(DataName, Value);
-	else {
-		std::cout << "Failed to update data" << std::endl;
-		exit(EXIT_FAILURE);
-	}
-}
-
-void FileUtil::WriteFloatData(TiXmlElement* CategoryVar, const char* DataName, float Value) {
+void FileUtil::WriteDigitData(TiXmlElement* CategoryVar, const char* DataName, float Value) {
 	const char* DataValue = CategoryVar->Attribute(DataName);
 	if (DataValue)
 		CategoryVar->SetDoubleAttribute(DataName, Value);
@@ -212,7 +185,7 @@ int FileUtil::GetIntData(TiXmlElement* CategoryVar, const char* DataName) {
 	}
 }
 
-float FileUtil::GetFloatData(TiXmlElement* CategoryVar, const char* DataName) {
+float FileUtil::GetData(TiXmlElement* CategoryVar, const char* DataName) {
 	const char* DataValue = CategoryVar->Attribute(DataName);
 	if (DataValue)
 		return std::stof(DataValue);
