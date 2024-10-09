@@ -19,7 +19,7 @@ void Framework::Resume() {
 void Framework::Routine() {
 	for (int i = 0; i < Layers; ++i) {
 		for (auto const& O : ObjectList[i]) {
-			if (!O->DeleteObjectMarked && O->ObjectLayer == i) {
+			if (!O->DeleteObjectMarked) {
 				if (RoutineUpdateActivated) {
 					if (!FloatingRunningActivated)
 						O->Update(FrameTime);
@@ -31,12 +31,15 @@ void Framework::Routine() {
 							O->Update(FrameTime);
 					}
 				}
+
 				O->Render();
 			}
 		}
 
 		UpdateObjectList(i);
 	}
+
+	UpdateObjectIndex();
 }
 
 void Framework::Init(Function ModeFunction) {
@@ -192,6 +195,14 @@ GameObject* Framework::Find(const char* Tag) {
 	return nullptr;
 }
 
+GameObject* Framework::FindMulti(const char* Tag, Layer SearchLayer, int Index) {
+	auto Object = ObjectList[static_cast<int>(SearchLayer)][Index];
+	if(Object->ObjectTag == Tag)
+		return ObjectList[static_cast<int>(SearchLayer)][Index];
+	
+	return nullptr;
+}
+
 ObjectRange Framework::EqualRange(const char* Tag) {
 	ObjectRange Range;
 	auto It = ObjectIndex.equal_range(Tag);
@@ -202,20 +213,18 @@ ObjectRange Framework::EqualRange(const char* Tag) {
 	return Range;
 }
 
+size_t Framework::LayerSize(Layer TargetLayer) {
+	return ObjectList[static_cast<int>(TargetLayer)].size();
+}
+
 void Framework::Exit() {
 	glutDestroyWindow(1);
 }
 
 //////// private ///////////////
-void Framework::UpdateObjectList(int Index) {
-	std::erase_if(ObjectIndex, [](const std::pair<std::string, GameObject*>& Object) {
-		return Object.second->DeleteObjectMarked;
-		});
-
+void Framework::UpdateObjectList(int Index) {	
 	for (auto It = begin(ObjectList[Index]); It != end(ObjectList[Index]);) {
 		if ((*It)->DeleteObjectMarked) {
-			delete *It;
-			*It = nullptr;
 			It = ObjectList[Index].erase(It);
 			continue;
 		}
@@ -223,20 +232,28 @@ void Framework::UpdateObjectList(int Index) {
 	}
 }
 
-void Framework::ClearFloatingObject() {
-	for (int i = 0; i < Layers; ++i) {
-		for (auto& O : ObjectList[i]) {
-			if (O->FloatingObjectMarked && !O->StaticObjectMarked)
-				O->DeleteObjectMarked = true;
+void Framework::UpdateObjectIndex() {
+	for (auto It = begin(ObjectIndex); It != end(ObjectIndex);) {
+		if (It->second->DeleteObjectMarked) {
+			delete It->second;
+			It->second = nullptr;
+			It = ObjectIndex.erase(It);
+			continue;
 		}
+		++It;
+	}
+}
+
+void Framework::ClearFloatingObject() {
+	for (auto const& O : ObjectIndex) {
+		if (O.second->FloatingObjectMarked && !O.second->StaticObjectMarked)
+			O.second->DeleteObjectMarked = true;
 	}
 }
 
 void Framework::ClearAll() {
-	for (int i = 0; i < Layers; ++i) {
-		for (auto& O : ObjectList[i]) {
-			if (!O->StaticObjectMarked)
-				O->DeleteObjectMarked = true;
-		}
+	for (auto const& O : ObjectIndex) {
+		if (!O.second->StaticObjectMarked)
+			O.second->DeleteObjectMarked = true;
 	}
 }

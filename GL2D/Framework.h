@@ -69,11 +69,14 @@ public:
 	void DeleteObject(GameObject* Object);
 	void DeleteObject(const char* Tag, DeleteRange deleteRange);
 	GameObject* Find(const char* Tag);
+	GameObject* FindMulti(const char* Tag, Layer SearchLayer, int Index);
 	ObjectRange EqualRange(const char* Tag);
+	size_t LayerSize(Layer TargetLayer);
 	void Exit();
 
 private:
 	void UpdateObjectList(int Index);
+	void UpdateObjectIndex();
 	void ClearFloatingObject();
 	void ClearAll();
 };
