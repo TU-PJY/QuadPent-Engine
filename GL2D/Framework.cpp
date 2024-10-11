@@ -228,6 +228,15 @@ void Framework::UpdateObjectList(int Index) {
 			It = ObjectList[Index].erase(It);
 			continue;
 		}
+
+		if ((*It)->SwapLayerMarked) {
+			auto Object = (*It);
+			int DestLayer = (*It)->ObjectLayer;
+			It = ObjectList[Index].erase(It);
+			ObjectList[DestLayer].emplace_back(Object);
+			Object->SwapLayerMarked = false;
+			continue;
+		}
 		++It;
 	}
 }
