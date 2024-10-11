@@ -150,6 +150,7 @@
     <ClCompile Include="FontLoaderUtil.cpp" />
     <ClCompile Include="Framework.cpp" />
     <ClCompile Include="IntroMode.cpp" />
+    <ClCompile Include="LineBrush.cpp" />
     <ClCompile Include="LoadingMode.cpp" />
     <ClCompile Include="MathUtil.cpp" />
     <ClCompile Include="CustomResources.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="CustomResources.h" />
     <ClInclude Include="IntroMode.h" />
     <ClInclude Include="IntroScreen.h" />
+    <ClInclude Include="LineBrush.h" />
     <ClInclude Include="LoadingMode.h" />
     <ClInclude Include="LoadingScreen.h" />
     <ClInclude Include="MathUtil.h" />

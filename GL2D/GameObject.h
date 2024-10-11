@@ -12,6 +12,7 @@
 #include "MathUtil.h"
 #include "UiUtil.h"
 #include "ExUtil.h"
+#include "LineBrush.h"
 #include "SystemResources.h"
 #include "CustomResources.h"
 

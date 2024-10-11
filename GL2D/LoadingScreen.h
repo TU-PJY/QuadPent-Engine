@@ -43,6 +43,7 @@ public:
 		imageUtil.Import(ImageCollidedBox, "SystemResource//Image//Collision//Square Inside.png", ImageType::Nearest);
 		imageUtil.Import(ImageCollisionSphere, "SystemResource//Image//Collision//Circle.png", ImageType::Nearest);
 		imageUtil.Import(ImageCollidedSphere, "SystemResource//Image//Collision//Circle Inside.png", ImageType::Nearest);
+		imageUtil.Import(LineTex, "SystemResource//Image//Common//LineTex.png", ImageType::Nearest);
 
 		if (!ENABLE_INTRO_SCREEN) {
 			SetBackColor(0.5, 0.5, 0.5);

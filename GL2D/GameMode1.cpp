@@ -2,11 +2,12 @@
 #include "Framework.h"
 #include "MouseUtil.h"
 
-void GameMode1::Start() {
 
+void GameMode1::Start() {
 	framework.RegisterController(Controller, ModeType::Default);
 	framework.RegisterDestructor(Destructor);
 	framework.RegisterModeName("GameMode1");
+
 }
 
 void GameMode1::Destructor() {
