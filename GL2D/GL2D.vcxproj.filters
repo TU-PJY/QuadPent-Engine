@@ -142,7 +142,7 @@
     <Filter Include="[3]___________[ Util ]\[ Camera Util ]\[ Controller ]">
       <UniqueIdentifier>{1480f021-43d6-4f12-9a82-8d6fb6ea2cfc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[3]___________[ Util ]\[ Line Util ]">
+    <Filter Include="[3]___________[ Util ]\[ Shape Util ]">
       <UniqueIdentifier>{74b0aa9a-a87c-4a17-bdd5-d4f93ac8a450}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -259,7 +259,10 @@
       <Filter>[3]___________[ Util ]\[ Camera Util ]\[ Controller ]</Filter>
     </ClCompile>
     <ClCompile Include="LineBrush.cpp">
-      <Filter>[3]___________[ Util ]\[ Line Util ]</Filter>
+      <Filter>[3]___________[ Util ]\[ Shape Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="RectBrush.cpp">
+      <Filter>[3]___________[ Util ]\[ Shape Util ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -369,7 +372,10 @@
       <Filter>[3]___________[ Util ]\[ Camera Util ]\[ Controller ]</Filter>
     </ClInclude>
     <ClInclude Include="LineBrush.h">
-      <Filter>[3]___________[ Util ]\[ Line Util ]</Filter>
+      <Filter>[3]___________[ Util ]\[ Shape Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="RectBrush.h">
+      <Filter>[3]___________[ Util ]\[ Shape Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

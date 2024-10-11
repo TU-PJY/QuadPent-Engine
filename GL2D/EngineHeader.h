@@ -34,7 +34,7 @@ enum class ShaderType
 struct Rect {
 	GLfloat lx, ly, rx, ry;
 };
-extern Rect rect;
+extern Rect LineRect;
 
 // image struct
 typedef struct {

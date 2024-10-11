@@ -2,10 +2,10 @@
 
 void Camera::CalculateASPECT() {
 	ASPECT = 1.0 * WIDTH / HEIGHT;
-	rect.lx = -1.0 * ASPECT;
-	rect.ly = -1.0;
-	rect.rx = 1.0 * ASPECT;
-	rect.ry = 1.0;
+	LineRect.lx = -1.0 * ASPECT;
+	LineRect.ly = -1.0;
+	LineRect.rx = 1.0 * ASPECT;
+	LineRect.ry = 1.0;
 
 	PREV_WIDTH = WIDTH;
 	PREV_HEIGHT = HEIGHT;

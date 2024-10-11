@@ -3,19 +3,19 @@
 void UI::ClampMatrixToCorner(Edge EdgePosition, glm::mat4& Matrix, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
 	switch (EdgePosition) {
 	case Edge::LeftDown:
-		Matrix = translate(Matrix, glm::vec3(rect.lx + Width / 2.0 + GapX, rect.ly + Height / 2.0 + GapY, 0.0));
+		Matrix = translate(Matrix, glm::vec3(LineRect.lx + Width / 2.0 + GapX, LineRect.ly + Height / 2.0 + GapY, 0.0));
 		break;
 
 	case Edge::LeftUp:
-		Matrix = translate(Matrix, glm::vec3(rect.lx + Width / 2.0 + GapX, rect.ry - Height / 2.0 - GapY, 0.0));
+		Matrix = translate(Matrix, glm::vec3(LineRect.lx + Width / 2.0 + GapX, LineRect.ry - Height / 2.0 - GapY, 0.0));
 		break;
 
 	case Edge::RightDown:
-		Matrix = translate(Matrix, glm::vec3(rect.rx - Width / 2.0 - GapX, rect.ly + Height / 2.0 + GapY, 0.0));
+		Matrix = translate(Matrix, glm::vec3(LineRect.rx - Width / 2.0 - GapX, LineRect.ly + Height / 2.0 + GapY, 0.0));
 		break;
 
 	case Edge::RightUp:
-		Matrix = translate(Matrix, glm::vec3(rect.rx - Width / 2.0 - GapX, rect.ry - Height / 2.0 - GapY, 0.0));
+		Matrix = translate(Matrix, glm::vec3(LineRect.rx - Width / 2.0 - GapX, LineRect.ry - Height / 2.0 - GapY, 0.0));
 		break;
 	}
 }
@@ -27,23 +27,23 @@ void UI::ClampMatrixToPosition(glm::mat4& Matrix, GLfloat PositionX, GLfloat Pos
 void UI::ClampPositionToCorner(Edge EdgePosition, GLfloat& PositionX, GLfloat& PositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
 	switch (EdgePosition) {
 	case Edge::LeftDown:
-		PositionX = rect.lx + Width / 2.0 + GapX;
-		PositionY = rect.ly + Height / 2.0 + GapY;
+		PositionX = LineRect.lx + Width / 2.0 + GapX;
+		PositionY = LineRect.ly + Height / 2.0 + GapY;
 		break;
 
 	case Edge::LeftUp:
-		PositionX = rect.lx + Width / 2.0 + GapX;
-		PositionY = rect.ry - Height / 2.0 - GapY;
+		PositionX = LineRect.lx + Width / 2.0 + GapX;
+		PositionY = LineRect.ry - Height / 2.0 - GapY;
 		break;
 
 	case Edge::RightDown:
-		PositionX = rect.rx - Width / 2.0 - GapX;
-		PositionY = rect.ly + Height / 2.0 + GapY;
+		PositionX = LineRect.rx - Width / 2.0 - GapX;
+		PositionY = LineRect.ly + Height / 2.0 + GapY;
 		break;
 
 	case Edge::RightUp:
-		PositionX = rect.rx - Width / 2.0 - GapX;
-		PositionY = rect.ry - Height / 2.0 - GapY;
+		PositionX = LineRect.rx - Width / 2.0 - GapX;
+		PositionY = LineRect.ry - Height / 2.0 - GapY;
 		break;
 	}
 }

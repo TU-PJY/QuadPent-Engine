@@ -162,6 +162,7 @@
     <ClCompile Include="MoveUtil.cpp" />
     <ClCompile Include="PhysicsUtil.cpp" />
     <ClCompile Include="RandomUtil.cpp" />
+    <ClCompile Include="RectBrush.cpp" />
     <ClCompile Include="ScriptUtil.cpp" />
     <ClCompile Include="SetUp.cpp" />
     <ClCompile Include="ShaderUtil.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="MoveUtil.h" />
     <ClInclude Include="PhysicsUtil.h" />
     <ClInclude Include="RandomUtil.h" />
+    <ClInclude Include="RectBrush.h" />
     <ClInclude Include="ScriptUtil.h" />
     <ClInclude Include="ShaderUtil.h" />
     <ClInclude Include="SoundUtil.h" />

@@ -13,6 +13,7 @@
 #include "UiUtil.h"
 #include "ExUtil.h"
 #include "LineBrush.h"
+#include "RectBrush.h"
 #include "SystemResources.h"
 #include "CustomResources.h"
 

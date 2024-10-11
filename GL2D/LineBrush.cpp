@@ -25,75 +25,49 @@ void LineBrush::SetColorRGB(int R, int G, int B) {
 void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width, GLfloat Transparency) {
 	TranslateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
+	TransparencyValue = Transparency;
 
 	Length = Math::CalcDistance(X1, Y1, X2, Y2);
 	Rotation = Math::CalcRadians(X1, Y1, X2, Y2);
 
+	Transform::Move(TranslateMatrix, X1, Y1);
 	Transform::RotateRad(TranslateMatrix, Rotation);
 	Transform::Move(TranslateMatrix, Length / 2.0, 0.0);
 	Transform::Scale(ScaleMatrix, Length + Width, Width);
 
-	camera.SetCamera(Type);
-
-	glUseProgram(ImageShader);
-	camera.PrepareRender(ShaderType::Image);
-
-	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
-	glUniform1f(TransparencyLocation, Transparency);
-
-	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
-	glUniform3f(ObjectColorLocation, Color.r, Color.g, Color.b);
-
-	ModelLocation = glGetUniformLocation(ImageShader, "model");
-
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
-
-	imageUtil.Render(LineTex);
+	Render();
 }
 
-void LineBrush::DrawStraightX(GLfloat X1, GLfloat X2, GLfloat Width, GLfloat Transparency) {
+void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfloat Transparency) {
 	TranslateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
-	
-	Length = fabs(X1 - X2);
+	TransparencyValue = Transparency;
 
-	Transform::Move(TranslateMatrix, Length / 2.0, 0.0);
-	Transform::Scale(ScaleMatrix, Length + Width, Width);
+	Transform::Move(TranslateMatrix, (X1 + X2) / 2.0, Y);
+	Transform::Scale(ScaleMatrix, fabs(X1 - X2) + Width, Width);
 
-	camera.SetCamera(Type);
-
-	glUseProgram(ImageShader);
-	camera.PrepareRender(ShaderType::Image);
-
-	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
-	glUniform1f(TransparencyLocation, Transparency);
-
-	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
-	glUniform3f(ObjectColorLocation, Color.r, Color.g, Color.b);
-
-	ModelLocation = glGetUniformLocation(ImageShader, "model");
-
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
-
-	imageUtil.Render(LineTex);
+	Render();
 }
 
-void LineBrush::DrawStraightY(GLfloat Y1, GLfloat Y2, GLfloat Width, GLfloat Transparency) {
+void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfloat Transparency) {
 	TranslateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
+	TransparencyValue = Transparency;
 
-	Length = fabs(Y1 - Y2);
+	Transform::Move(TranslateMatrix, X, (Y1 + Y2) / 2.0);
+	Transform::Scale(ScaleMatrix, Width, fabs(Y1 - Y2) + Width);
 
-	Transform::Move(TranslateMatrix, 0.0, Length / 2.0);
-	Transform::Scale(ScaleMatrix, Width, Length + Width);
+	Render();
+}
 
+void LineBrush::Render() {
 	camera.SetCamera(Type);
 
 	glUseProgram(ImageShader);
 	camera.PrepareRender(ShaderType::Image);
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
-	glUniform1f(TransparencyLocation, Transparency);
+	glUniform1f(TransparencyLocation, TransparencyValue);
 
 	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
 	glUniform3f(ObjectColorLocation, Color.r, Color.g, Color.b);
