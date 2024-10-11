@@ -7,6 +7,7 @@ enum class CollisionEdge
 class AABB {
 private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
+	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 
 	GLfloat LeftX{}, LeftY{};
 	GLfloat RightX{}, RightY{};
@@ -18,20 +19,10 @@ private:
 	bool Collide{};
 
 public:
-	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, RotateMatrix{ 1.0f };
-	glm::vec2 Position{};
-	glm::vec2 Size{};
-
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
-	void InitMatrix();
-	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
-	void Rotate(glm::mat4& Matrix, GLfloat Rotation);
-	void Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y);
 	void Render();
 	bool CheckCollision(const AABB& Other);
 	bool CheckCollisionEdge(GLfloat X, CollisionEdge Edge);
-	void InterpolateX(GLfloat X);
-	void InterpolateY(GLfloat Y);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 
 private:
@@ -41,32 +32,26 @@ private:
 class OBB {
 private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
+	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 
 	glm::vec2 Offset{};
 	glm::vec2 Axis[2]{};
+	glm::vec2 Corners[4]{};
 
+	glm::vec2 Center{};
 	GLfloat Width{}, Height{};
 	GLfloat Rotation{};
-	glm::vec2 Center{};
 
 	bool Collide{};
 
 public:
-	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
-	glm::vec2 Position{};
-	glm::vec2 Size{};
-	GLfloat Angle{};
-
 	void Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
-	void InitMatrix();
-	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
-	void Rotate(glm::mat4& Matrix, GLfloat Rotation);
-	void Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y);
 	void Render();
 	bool CheckCollision(const OBB& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 
 private:
+	std::pair<float, float> Project(const OBB& OBB, const glm::vec2& Axis);
 	bool OverlapOnAxis(const OBB& OBB1, const OBB& OBB2, const glm::vec2& Axis);
 	void ProcessTransform();
 };
@@ -74,22 +59,16 @@ private:
 class Range {
 private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
+	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 
 	glm::vec2 Center{};
 	GLfloat Radius{};
+	GLfloat Size{};
 
 	bool Collide{};
 
 public:
-	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, RotateMatrix{ 1.0f };
-	glm::vec2 Position{};
-	glm::vec2 Size{};
-
 	void Update(GLfloat X, GLfloat Y, GLfloat SizeValue);
-	void InitMatrix();
-	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
-	void Rotate(glm::mat4& Matrix, GLfloat Rotation);
-	void Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y);
 	void Render();
 	bool CheckCollision(const Range& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);

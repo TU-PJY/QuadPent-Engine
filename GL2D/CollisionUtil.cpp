@@ -1,4 +1,5 @@
 #include "CollisionUtil.h"
+#include "TransformUtil.h"
 #include "ImageUtil.h"
 #include "CameraUtil.h"
 #include "SystemResources.h"
@@ -18,44 +19,20 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 
 	Width = xScale;
 	Height = yScale;
-
-#ifdef SHOW_BOUND_BOX
-	Position = Center;
-	Size.x = Width;
-	Size.y = Height;
-#endif
-}
-
-void AABB::InitMatrix() {
-#ifdef SHOW_BOUND_BOX
-	TranslateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
-	RotateMatrix = glm::mat4(1.0f);
-#endif
-}
-
-void AABB::Move(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
-#ifdef SHOW_BOUND_BOX
-	Matrix = translate(Matrix, glm::vec3(X, Y, 0.0));
-#endif
-}
-
-void AABB::Rotate(glm::mat4& Matrix, GLfloat Rotation) {
-#ifdef SHOW_BOUND_BOX
-	Matrix = rotate(Matrix, glm::radians(Rotation), glm::vec3(0.0, 0.0, 1.0));
-#endif
-}
-
-void AABB::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
-#ifdef SHOW_BOUND_BOX
-	Matrix = scale(Matrix, glm::vec3(X, Y, 1.0));
-#endif
 }
 
 void AABB::Render() {
 #ifdef SHOW_BOUND_BOX
+	TranslateMatrix = glm::mat4(1.0f);
+	ScaleMatrix = glm::mat4(1.0f);
+
+	Transform::Move(TranslateMatrix, Center.x, Center.y);
+	Transform::Scale(ScaleMatrix, Width, Height);
+
 	ProcessTransform();
+
 	imageUtil.Render(ImageCollisionBox);
+
 	if (Collide)
 		imageUtil.Render(ImageCollidedBox);
 #endif
@@ -119,14 +96,6 @@ bool AABB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 	return false;
 }
 
-void AABB::InterpolateX(GLfloat X) {
-	Center.x = X;
-}
-
-void AABB::InterpolateY(GLfloat Y) {
-	Center.y = Y;
-}
-
 void AABB::ProcessTransform() {
 #ifdef SHOW_BOUND_BOX
 	glUseProgram(ImageShader);
@@ -139,7 +108,7 @@ void AABB::ProcessTransform() {
 	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * RotateMatrix * ScaleMatrix));
+	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
 #endif
 }
 
@@ -155,75 +124,51 @@ void OBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfl
 
 	Width = BoxWidth;
 	Height = BoxHeight;
-
-#ifdef SHOW_BOUND_BOX
-	Position = Center;
-	Size.x = Width;
-	Size.y = Height;
-	Angle = Rotation;
-#endif
-}
-
-void OBB::InitMatrix() {
-#ifdef SHOW_BOUND_BOX
-	TranslateMatrix = glm::mat4(1.0f);
-	RotateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
-#endif
-}
-
-void OBB::Move(glm::mat4& Matrix, GLfloat X, GLfloat Y){
-#ifdef SHOW_BOUND_BOX
-	Matrix = translate(Matrix, glm::vec3(X, Y, 0.0));
-#endif
-}
-
-void OBB::Rotate(glm::mat4& Matrix, GLfloat Rotation){
-#ifdef SHOW_BOUND_BOX
-	Matrix = rotate(Matrix, glm::radians(Rotation), glm::vec3(0.0, 0.0, 1.0));
-#endif
-}
-
-void OBB::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
-#ifdef SHOW_BOUND_BOX
-	Matrix = scale(Matrix, glm::vec3(X, Y, 1.0));
-#endif
+	Rotation = RotationValue;
 }
 
 void OBB::Render() {
 #ifdef SHOW_BOUND_BOX
-		ProcessTransform();
-		imageUtil.Render(ImageCollisionBox);
-		if (Collide)
-			imageUtil.Render(ImageCollidedBox);
+	TranslateMatrix = glm::mat4(1.0f);
+	RotateMatrix = glm::mat4(1.0f);
+	ScaleMatrix = glm::mat4(1.0f);
+
+	Transform::Move(TranslateMatrix, Center.x, Center.y);
+	Transform::Rotate(RotateMatrix, Rotation);
+	Transform::Scale(ScaleMatrix, Width, Height);
+
+	ProcessTransform();
+
+	imageUtil.Render(ImageCollisionBox);
+
+	if (Collide)
+		imageUtil.Render(ImageCollidedBox);
 #endif
 }
 
+std::pair<float, float> OBB::Project(const OBB& OBB, const glm::vec2& Axis) {
+	Corners[0] = OBB.Center + OBB.Axis[0] * OBB.Offset.x + OBB.Axis[1] * OBB.Offset.y;
+	Corners[1] = OBB.Center + OBB.Axis[0] * OBB.Offset.x - OBB.Axis[1] * OBB.Offset.y;
+	Corners[2] = OBB.Center - OBB.Axis[0] * OBB.Offset.x + OBB.Axis[1] * OBB.Offset.y;
+	Corners[3] = OBB.Center - OBB.Axis[0] * OBB.Offset.x - OBB.Axis[1] * OBB.Offset.y;
+
+	float Min = glm::dot(Corners[0], Axis);
+	float Max = Min;
+
+	for (int i = 1; i < 4; i++) {
+		float Projection = glm::dot(Corners[i], Axis);
+
+		if (Projection < Min)
+			Min = Projection;
+
+		if (Projection > Max)
+			Max = Projection;
+	}
+
+	return std::make_pair(Min, Max);
+}
+
 bool OBB::OverlapOnAxis(const OBB& OBB1, const OBB& OBB2, const glm::vec2& Axis) {
-	auto Project = [](const OBB& OBB, const glm::vec2& Axis) {
-		glm::vec2 Corners[4] = {
-			OBB.Center + OBB.Axis[0] * OBB.Offset.x + OBB.Axis[1] * OBB.Offset.y,
-			OBB.Center + OBB.Axis[0] * OBB.Offset.x - OBB.Axis[1] * OBB.Offset.y,
-			OBB.Center - OBB.Axis[0] * OBB.Offset.x + OBB.Axis[1] * OBB.Offset.y,
-			OBB.Center - OBB.Axis[0] * OBB.Offset.x - OBB.Axis[1] * OBB.Offset.y
-		};
-
-		float Min = glm::dot(Corners[0], Axis);
-		float Max = Min;
-
-		for (int i = 1; i < 4; i++) {
-			float Projection = glm::dot(Corners[i], Axis);
-
-			if (Projection < Min) 
-				Min = Projection;
-
-			if (Projection > Max) 
-				Max = Projection;
-		}
-
-		return std::make_pair(Min, Max);
-	};
-
 	auto [Min1, Max1] = Project(OBB1, Axis);
 	auto [Min2, Max2] = Project(OBB2, Axis);
 
@@ -277,48 +222,25 @@ void OBB::ProcessTransform() {
 
 
 
-void Range::InitMatrix() {
-#ifdef SHOW_BOUND_BOX
-	TranslateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
-	RotateMatrix = glm::mat4(1.0f);
-#endif
-}
-
-void Range::Move(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
-#ifdef SHOW_BOUND_BOX
-	Matrix = translate(Matrix, glm::vec3(X, Y, 0.0));
-#endif
-}
-
-void Range::Rotate(glm::mat4& Matrix, GLfloat Rotation) {
-#ifdef SHOW_BOUND_BOX
-	Matrix = rotate(Matrix, glm::radians(Rotation), glm::vec3(0.0, 0.0, 1.0));
-#endif
-}
-
-void Range::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
-#ifdef SHOW_BOUND_BOX
-	Matrix = scale(Matrix, glm::vec3(X, Y, 1.0));
-#endif
-}
-
 void Range::Update(GLfloat X, GLfloat Y, GLfloat SizeValue) {
 	Center.x = X;
 	Center.y = Y;
 	Radius = SizeValue / 2.0;
-
-#ifdef SHOW_BOUND_BOX
-	Position = Center;
-	Size.x = SizeValue;
-	Size.y = SizeValue;
-#endif
+	Size = SizeValue;
 }
 
 void Range::Render() {
 #ifdef SHOW_BOUND_BOX
+	TranslateMatrix = glm::mat4(1.0f);
+	ScaleMatrix = glm::mat4(1.0f);
+
+	Transform::Move(TranslateMatrix, Center.x, Center.y);
+	Transform::Scale(ScaleMatrix, Size, Size);
+
 	ProcessTransform();
+
 	imageUtil.Render(ImageCollisionSphere);
+
 	if (Collide)
 		imageUtil.Render(ImageCollidedSphere);
 #endif
@@ -362,6 +284,6 @@ void Range::ProcessTransform() {
 	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
 
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * RotateMatrix * ScaleMatrix));
+	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
 #endif
 }
