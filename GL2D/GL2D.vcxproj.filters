@@ -145,6 +145,12 @@
     <Filter Include="[3]___________[ Util ]\[ Shape Util ]">
       <UniqueIdentifier>{74b0aa9a-a87c-4a17-bdd5-d4f93ac8a450}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Shape Util ]\[ Line ]">
+      <UniqueIdentifier>{186e77d4-d667-4ca8-a7db-0c4ff78a4275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Shape Util ]\[ Rect ]">
+      <UniqueIdentifier>{1717a6b1-c315-40dc-a9e1-71209e40100b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMode1.cpp">
@@ -259,10 +265,10 @@
       <Filter>[3]___________[ Util ]\[ Camera Util ]\[ Controller ]</Filter>
     </ClCompile>
     <ClCompile Include="LineBrush.cpp">
-      <Filter>[3]___________[ Util ]\[ Shape Util ]</Filter>
+      <Filter>[3]___________[ Util ]\[ Shape Util ]\[ Line ]</Filter>
     </ClCompile>
     <ClCompile Include="RectBrush.cpp">
-      <Filter>[3]___________[ Util ]\[ Shape Util ]</Filter>
+      <Filter>[3]___________[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -372,10 +378,10 @@
       <Filter>[3]___________[ Util ]\[ Camera Util ]\[ Controller ]</Filter>
     </ClInclude>
     <ClInclude Include="LineBrush.h">
-      <Filter>[3]___________[ Util ]\[ Shape Util ]</Filter>
+      <Filter>[3]___________[ Util ]\[ Shape Util ]\[ Line ]</Filter>
     </ClInclude>
     <ClInclude Include="RectBrush.h">
-      <Filter>[3]___________[ Util ]\[ Shape Util ]</Filter>
+      <Filter>[3]___________[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

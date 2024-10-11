@@ -23,18 +23,15 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 
 void AABB::Render() {
 #ifdef SHOW_BOUND_BOX
-	TranslateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
+	LineRect.SetCameraInheritance();
+	Rect.SetCameraInheritance();
+	LineRect.SetColor(1.0, 0.0, 0.0);
+	Rect.SetColor(1.0, 0.0, 0.0);
 
-	Transform::Move(TranslateMatrix, Center.x, Center.y);
-	Transform::Scale(ScaleMatrix, Width, Height);
-
-	ProcessTransform();
-
-	imageUtil.Render(ImageCollisionBox);
+	LineRect.Draw(Center.x, Center.y, Width, Height, 0.01, 0.0);
 
 	if (Collide)
-		imageUtil.Render(ImageCollidedBox);
+		Rect.Draw(Center.x, Center.y, Width, Height, 0.0, 0.3);
 #endif
 }
 
@@ -53,39 +50,6 @@ bool AABB::CheckCollision(const AABB& Other) {
 	return true;
 }
 
-bool AABB::CheckCollisionEdge(GLfloat Value, CollisionEdge Edge) {
-	switch (Edge) {
-	case CollisionEdge::Right:
-		if (RightX > Value) {
-			Center.x = RightX - (RightX - Value) - OffsetX;
-			return true;
-		}
-		break;
-
-	case CollisionEdge::Left:
-		if (LeftX < Value) {
-			Center.x = LeftX + (Value - LeftX) + OffsetX;
-			return true;
-		}
-		break;
-
-	case CollisionEdge::Top:
-		if (RightY > Value) {
-			Center.y = RightY - (RightY - Value) - OffsetY;
-			return true;
-		}
-		break;
-
-	case CollisionEdge::Bottom:
-		if (LeftY < Value) {
-			Center.y = LeftY + (Value - LeftY) + OffsetY;
-			return true;
-		}
-	}
-
-	return false;
-}
-
 bool AABB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 	if ((LeftX <= X && X <= RightX) && (LeftY <= Y && Y <= RightY)) {
 		Collide = true;
@@ -94,22 +58,6 @@ bool AABB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 
 	Collide = false;
 	return false;
-}
-
-void AABB::ProcessTransform() {
-#ifdef SHOW_BOUND_BOX
-	glUseProgram(ImageShader);
-	camera.PrepareRender(ShaderType::Image);
-
-	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
-	glUniform1f(TransparencyLocation, 1.0);
-
-	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
-	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
-
-	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
-#endif
 }
 
 
@@ -129,20 +77,15 @@ void OBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfl
 
 void OBB::Render() {
 #ifdef SHOW_BOUND_BOX
-	TranslateMatrix = glm::mat4(1.0f);
-	RotateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
+	LineRect.SetCameraInheritance();
+	Rect.SetCameraInheritance();
+	LineRect.SetColor(1.0, 0.0, 0.0);
+	Rect.SetColor(1.0, 0.0, 0.0);
 
-	Transform::Move(TranslateMatrix, Center.x, Center.y);
-	Transform::Rotate(RotateMatrix, Rotation);
-	Transform::Scale(ScaleMatrix, Width, Height);
-
-	ProcessTransform();
-
-	imageUtil.Render(ImageCollisionBox);
+	LineRect.Draw(Center.x, Center.y, Width, Height, 0.01, Rotation);
 
 	if (Collide)
-		imageUtil.Render(ImageCollidedBox);
+		Rect.Draw(Center.x, Center.y, Width, Height, Rotation, 0.3);
 #endif
 }
 
@@ -202,22 +145,6 @@ bool OBB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 
 	Collide = true;
 	return true;
-}
-
-void OBB::ProcessTransform() {
-#ifdef SHOW_BOUND_BOX
-	glUseProgram(ImageShader);
-	camera.PrepareRender(ShaderType::Image);
-
-	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
-	glUniform1f(TransparencyLocation, 1.0);
-
-	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
-	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
-
-	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * RotateMatrix * ScaleMatrix));
-#endif
 }
 
 

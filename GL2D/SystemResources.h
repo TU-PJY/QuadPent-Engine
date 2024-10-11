@@ -2,7 +2,7 @@
 #include "EngineHeader.h"
 
 // collision util resources
-extern Image ImageCollisionBox, ImageCollidedBox, ImageCollisionSphere, ImageCollidedSphere, LineTex;
+extern Image ImageCollisionSphere, ImageCollidedSphere, LineTex;
 
 // system image resources
 extern Image ImageEngineLogo, ImageFMODLogo;

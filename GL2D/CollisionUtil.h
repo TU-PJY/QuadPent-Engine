@@ -1,8 +1,6 @@
 #pragma once
 #include "EngineHeader.h"
-
-enum class CollisionEdge
-{Left, Right, Top, Bottom};
+#include "RectBrush.h"
 
 class AABB {
 private:
@@ -18,15 +16,16 @@ private:
 
 	bool Collide{};
 
+#ifdef SHOW_BOUND_BOX
+	LineRectBrush LineRect;
+	RectBrush Rect;
+#endif
+
 public:
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
 	void Render();
 	bool CheckCollision(const AABB& Other);
-	bool CheckCollisionEdge(GLfloat X, CollisionEdge Edge);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
-
-private:
-	void ProcessTransform();
 };
 
 class OBB {
@@ -44,6 +43,11 @@ private:
 
 	bool Collide{};
 
+#ifdef SHOW_BOUND_BOX
+	LineRectBrush LineRect;
+	RectBrush Rect;
+#endif
+
 public:
 	void Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
 	void Render();
@@ -53,7 +57,6 @@ public:
 private:
 	std::pair<float, float> Project(const OBB& OBB, const glm::vec2& Axis);
 	bool OverlapOnAxis(const OBB& OBB1, const OBB& OBB2, const glm::vec2& Axis);
-	void ProcessTransform();
 };
 
 class Range {

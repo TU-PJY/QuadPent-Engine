@@ -3,6 +3,7 @@
 #include "CameraUtil.h"
 #include "TransformUtil.h"
 #include "SystemResources.h"
+#include "ExUtil.h"
 #include <cmath>
 
 void LineRectBrush::SetRenderType(RenderType Opt) {
@@ -40,8 +41,13 @@ void LineRectBrush::DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat Offs
 	Render();
 }
 
+void LineRectBrush::SetCameraInheritance() {
+	CameraInheritance = true;
+}
+
 void LineRectBrush::Render() {
-	camera.SetCamera(Type);
+	if (!CameraInheritance)
+		camera.SetCamera(Type);
 
 	glUseProgram(ImageShader);
 	camera.PrepareRender(ShaderType::Image);
@@ -89,8 +95,13 @@ void RectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat
 	Render();
 }
 
+void RectBrush::SetCameraInheritance() {
+	CameraInheritance = true;
+}
+
 void RectBrush::Render() {
-	camera.SetCamera(Type);
+	if(!CameraInheritance)
+		camera.SetCamera(Type);
 
 	glUseProgram(ImageShader);
 	camera.PrepareRender(ShaderType::Image);
