@@ -20,6 +20,7 @@
 class GameObject {
 private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{}, TextAlphaLocation{};
+	unsigned int RadiusLocation{}, TexelSizeLocation{};
 
 public:
 	const char* ObjectTag{};
@@ -33,6 +34,7 @@ public:
 	glm::mat4 ImageAspectMatrix{ 1.0f };
 	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 	GLfloat TransparencyValue{ 1.0f };
+	GLfloat BlurValue{};
 
 	// init functions
 	void InitMatrix(RenderType Type=RenderType::Default);
@@ -46,6 +48,7 @@ public:
 
 	// image functions
 	void RenderImage(Image Image, GLfloat Transparency = 1.0, bool DisableAdjustAspect=false);
+	void ImageBlur(GLfloat Strength);
 
 	// sound functions
 	void PlaySound(Sound Sound, Channel& Channel, unsigned int StartTime);

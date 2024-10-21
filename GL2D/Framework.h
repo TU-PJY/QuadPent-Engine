@@ -74,6 +74,10 @@ public:
 	size_t LayerSize(Layer TargetLayer);
 	void Exit();
 
+	void ApplyBlurDefalutObject(GLfloat Value);
+
+	void ApplyBlurFloatingObject(GLfloat Value);
+
 private:
 	void UpdateObjectList(int Index);
 	void UpdateObjectIndex();

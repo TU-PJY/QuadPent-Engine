@@ -221,6 +221,20 @@ void Framework::Exit() {
 	glutDestroyWindow(1);
 }
 
+void Framework::ApplyBlurDefalutObject(GLfloat Value) {
+	for (auto const& O : ObjectIndex) {
+		if (!O.second->FloatingObjectMarked && !O.second->DeleteObjectMarked)
+			O.second->BlurValue = Value;
+	}
+}
+
+void Framework::ApplyBlurFloatingObject(GLfloat Value) {
+	for (auto const& O : ObjectIndex) {
+		if (O.second->FloatingObjectMarked && !O.second->DeleteObjectMarked)
+			O.second->BlurValue = Value;
+	}
+}
+
 //////// private ///////////////
 void Framework::UpdateObjectList(int Index) {	
 	for (auto It = begin(ObjectList[Index]); It != end(ObjectList[Index]);) {
