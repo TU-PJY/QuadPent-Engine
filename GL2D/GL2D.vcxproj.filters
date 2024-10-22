@@ -91,9 +91,6 @@
     <Filter Include="[3]___________[ Util ]\[ AnimationUtil ]">
       <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[3]___________[ Util ]\[ Transform Util ]">
-      <UniqueIdentifier>{99e4d969-648e-44c1-aa75-627cee0d810a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]___________[ Util ]\[ MathUtil ]">
       <UniqueIdentifier>{4a85a4fd-aaad-4cd4-9601-add0201898fa}</UniqueIdentifier>
     </Filter>
@@ -151,6 +148,9 @@
     <Filter Include="[0]___________[ Config ]">
       <UniqueIdentifier>{c229d7fb-288d-4e48-b8b0-7e7dbd38a78d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[3]___________[ Util ]\[ Transform Util ]">
+      <UniqueIdentifier>{97cfbf89-8ee3-4d67-b4fb-aed1f7833e3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMode1.cpp">
@@ -177,7 +177,7 @@
     <ClCompile Include="FileUtil.cpp">
       <Filter>[3]___________[ Util ]\[ FIle Util ]</Filter>
     </ClCompile>
-    <ClCompile Include="FontLoaderUtil.cpp">
+    <ClCompile Include="FontUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Font Util ]</Filter>
     </ClCompile>
     <ClCompile Include="RandomUtil.cpp">
@@ -215,9 +215,6 @@
     </ClCompile>
     <ClCompile Include="Display.cpp">
       <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ Main ]</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformUtil.cpp">
-      <Filter>[3]___________[ Util ]\[ Transform Util ]</Filter>
     </ClCompile>
     <ClCompile Include="MathUtil.cpp">
       <Filter>[3]___________[ Util ]\[ MathUtil ]</Filter>
@@ -270,6 +267,9 @@
     <ClCompile Include="StartMode.cpp">
       <Filter>[0]___________[ Config ]</Filter>
     </ClCompile>
+    <ClCompile Include="TransformUtil.cpp">
+      <Filter>[3]___________[ Util ]\[ Transform Util ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMode1.h">
@@ -299,7 +299,7 @@
     <ClInclude Include="FileUtil.h">
       <Filter>[3]___________[ Util ]\[ FIle Util ]</Filter>
     </ClInclude>
-    <ClInclude Include="FontLoaderUtil.h">
+    <ClInclude Include="FontUtil.h">
       <Filter>[3]___________[ Util ]\[ Font Util ]</Filter>
     </ClInclude>
     <ClInclude Include="RandomUtil.h">
@@ -331,9 +331,6 @@
     </ClInclude>
     <ClInclude Include="IntroMode.h">
       <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]\[ Intro Screen ]</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformUtil.h">
-      <Filter>[3]___________[ Util ]\[ Transform Util ]</Filter>
     </ClInclude>
     <ClInclude Include="MathUtil.h">
       <Filter>[3]___________[ Util ]\[ MathUtil ]</Filter>
@@ -382,6 +379,9 @@
     </ClInclude>
     <ClInclude Include="Setting.h">
       <Filter>[0]___________[ Config ]</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformUtil.h">
+      <Filter>[3]___________[ Util ]\[ Transform Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

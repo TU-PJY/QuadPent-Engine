@@ -18,18 +18,36 @@ typedef void(*Start_Mode)(void);
 using Sound = FMOD::Sound*;
 using SoundChannel = FMOD::Channel*;
 
+enum KeyState { 
+	NORMAL_KEY_DOWN, 
+	NORMAL_KEY_UP, 
+	SPECIAL_KEY_DOWN, 
+	SPECIAL_KEY_UP 
+};
 
-enum KeyType
-{ KEY_TYPE_NORMAL, KEY_TYPE_SPECIAL };
+enum WheelState { 
+	WHEEL_DOWN, 
+	WHEEL_UP 
+};
 
-enum KeyState
-{ KEY_DOWN, KEY_UP };
+enum ButtonState { 
+	LEFT_BUTTON_DOWN, 
+	LEFT_BUTTON_UP, 
+	RIGHT_BUTTON_DOWN, 
+	RIGHT_BUTTON_UP, 
+	MIDDLE_BUTTON_DOWN, 
+	MIDDLE_BUTTON_UP 
+};
 
-enum RenderType
-{ RENDER_TYPE_DEFAULT, RENDER_TYPE_STATIC };
+enum RenderType { 
+	RENDER_TYPE_DEFAULT, 
+	RENDER_TYPE_STATIC 
+};
 
-enum ShaderType
-{ SHADER_TYPE_IMAGE, SHADER_TYPE_TEXT };
+enum ShaderType { 
+	SHADER_TYPE_IMAGE, 
+	SHADER_TYPE_TEXT 
+};
 
 
 // corner position of display

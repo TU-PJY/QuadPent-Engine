@@ -24,8 +24,8 @@ public:
 		SetColor(1.0, 1.0, 1.0);
 	}
 
-	void InputKey(int Type, int State, unsigned char NormalKey, int SpecialKey) {
-		if (Type == KEY_TYPE_NORMAL && State == KEY_DOWN) {
+	void InputKey(int State, unsigned char NormalKey, int SpecialKey) {
+		if (State == NORMAL_KEY_DOWN) {
 			switch (NormalKey) {
 			case 13:
 				StopSound(IntroChannel);
@@ -39,7 +39,7 @@ public:
 		}
 	}
 
-	void Update(float FT) {
+	void UpdateFunc(float FT) {
 		timer.Update(FT);
 
 		if (timer.Sec() >= 1 && Scene == 0) {
@@ -81,18 +81,18 @@ public:
 			framework.SwitchMode(StartMode);
 	}
 
-	void Render() {
+	void RenderFunc() {
 		InitMatrix(RENDER_TYPE_STATIC);
 
 		if (Scene == 1) {
-			Transform::Rotate(RotateMatrix, Rotation);
-			Transform::Scale(ScaleMatrix, LogoSize, LogoSize);
-			RenderImage(ImageEngineLogo, LogoTransparent);
+			Rotate(RotateMatrix, Rotation);
+			Scale(ScaleMatrix, LogoSize, LogoSize);
+			Render(ImageEngineLogo, LogoTransparent);
 		}
 
 		else if (Scene == 2 || Scene == 3) {
-			Transform::Scale(ScaleMatrix, LogoSize, LogoSize);
-			RenderImage(ImageFMODLogo, LogoTransparent);
+			Scale(ScaleMatrix, LogoSize, LogoSize);
+			Render(ImageFMODLogo, LogoTransparent);
 		}
 	}
 };

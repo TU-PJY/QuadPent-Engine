@@ -4,8 +4,11 @@
 #include <windows.h>
 #include <map>
 
-enum Align
-{ ALIGN_DEFAULT, ALIGN_MIDDLE, ALIGN_LEFT };
+enum Align { 
+	ALIGN_DEFAULT, 
+	ALIGN_MIDDLE, 
+	ALIGN_LEFT 
+};
 
 
 class TextUtil {

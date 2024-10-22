@@ -9,6 +9,8 @@ void GameObject::InitMatrix(int RenderType) {
 	RotateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
 	ImageAspectMatrix = glm::mat4(1.0f);
+	FlipMatrix = glm::mat4(1.0f);
+
 	TransparencyValue = 1.0f;
 	BlurValue = 0.0;
 
@@ -47,11 +49,52 @@ void GameObject::UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY, bool Appl
 	ValueY = LocalPosition().y;
 }
 
-void GameObject::SetBlur(int Strength) {
+void GameObject::Move(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
+	Matrix = translate(Matrix, glm::vec3(X, Y, 0.0));
+}
+
+void GameObject::Rotate(glm::mat4& Matrix, GLfloat Degree) {
+	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(0.0, 0.0, 1.0));
+}
+
+void GameObject::RotateRad(glm::mat4& Matrix, GLfloat Radians) {
+	Matrix = rotate(Matrix, Radians, glm::vec3(0.0, 0.0, 1.0));
+}
+
+void GameObject::RotateV(glm::mat4& Matrix, GLfloat Degree) {
+	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(1.0, 0.0, 0.0));
+}
+
+void GameObject::RotateH(glm::mat4& Matrix, GLfloat Degree) {
+	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(0.0, 1.0, 0.0));
+}
+
+void GameObject::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
+	Matrix = scale(Matrix, glm::vec3(X, Y, 1.0));
+}
+
+void GameObject::Flip(int FlipOpt) {
+	switch (FlipOpt) {
+	case FLIP_H:
+		FlipMatrix = rotate(FlipMatrix, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
+		break;
+
+	case FLIP_V:
+		FlipMatrix = rotate(FlipMatrix, glm::radians(180.0f), glm::vec3(1.0, 0.0, 0.0));
+		break;
+
+	case FLIP_HV:
+		FlipMatrix = rotate(FlipMatrix, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
+		FlipMatrix = rotate(FlipMatrix, glm::radians(180.0f), glm::vec3(1.0, 0.0, 0.0));
+		break;
+	}
+}
+
+void GameObject::Blur(int Strength) {
 	BlurValue = (GLfloat)Strength;
 }
 
-void GameObject::RenderImage(Image& Image, GLfloat Transparency, bool DisableAdjustAspect) {
+void GameObject::Render(Image& Image, GLfloat Transparency, bool DisableAdjustAspect) {
 	TransparencyValue = Transparency;
 
 	if (!DisableAdjustAspect) {
@@ -142,7 +185,6 @@ void GameObject::PrepareRender() {
 	else
 		glUniform1i(BoolBlurLocation, 0);
 
-
 	TexelSizeLocation = glGetUniformLocation(ImageShader, "TexelSize");
 	glUniform2f(TexelSizeLocation, ASP(1.0) / (GLfloat)WIDTH, 1.0 / (GLfloat)HEIGHT);
 
@@ -152,6 +194,9 @@ void GameObject::PrepareRender() {
 		ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix * ImageAspectMatrix;
 	else
 		ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix;
+
+	if (FlipMatrix != glm::mat4(1.0f))
+		ResultMatrix *= FlipMatrix;
 
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(ResultMatrix));
 }

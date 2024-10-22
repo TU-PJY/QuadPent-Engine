@@ -18,8 +18,10 @@
 #include <cctype>
 using namespace CryptoPP;
 
-enum D_Type
-{ DATA_TYPE_DIGIT, DATA_TYPE_STRING };
+enum D_Type { 
+	DATA_TYPE_DIGIT,
+	DATA_TYPE_STRING 
+};
 
 
 struct FileData {

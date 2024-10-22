@@ -61,9 +61,9 @@ public:
 	void EndFloatingMode();
 	void ResetControlState(GameObject* Object);
 	void ResetControlState(const char* Tag);
-	void InputKey(const char* Tag, int KeyType, int KeyState, unsigned char NormalKey, int SpecialKey);
-	void InputMouse(const char* Tag, int button, int state, int x, int y);
-	void InputScroll(const char* Tag, int button, int Wheel, int x, int y);
+	void InputKey(const char* Tag, int State, unsigned char NormalKey, int SpecialKey);
+	void InputMouse(const char* Tag, int State);
+	void InputScroll(const char* Tag, int State);
 	void AddObject(GameObject* Object, const char* Tag, int AddLayer, int Type1= OBJECT_TYPE_NONE, int Type2=OBJECT_TYPE_NONE);
 	void SwapLayer(GameObject* Object, int TargetLayer);
 	void DeleteObject(GameObject* Object);

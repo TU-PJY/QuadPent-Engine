@@ -10,8 +10,8 @@ private:
 	TextUtil text;
 	
 public:
-	void InputKey(int Type, int State, unsigned char NormalKey, int SpecialKey) {
-		if (Type == KEY_TYPE_NORMAL && State == KEY_DOWN) {
+	void InputKey(int State, unsigned char NormalKey, int SpecialKey) {
+		if (State == NORMAL_KEY_DOWN) {
 			switch (NormalKey) {
 			case 27:
 				framework.Exit();
@@ -28,7 +28,7 @@ public:
 		text.SetColor(1.0, 1.0, 1.0);
 	}
 
-	void Update(float FT) {
+	void UpdateFunc(float FT) {
 		text.Render(0.5, -0.9, 0.2, 1.0, L"LOADING...");
 
 		imageUtil.Init();

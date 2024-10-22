@@ -1,7 +1,7 @@
-#include "FontLoaderUtil.h"
+#include "FontUtil.h"
 #include <iostream>
 
-std::wstring FontLoaderUtil::ToWstr(const std::string& str) {
+std::wstring FontUtil::ToWstr(const std::string& str) {
     int SizeNeed = MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0);
     std::wstring Wstr(SizeNeed, 0);
     MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), &Wstr[0], SizeNeed);
@@ -9,7 +9,7 @@ std::wstring FontLoaderUtil::ToWstr(const std::string& str) {
     return Wstr;
 }
 
-bool FontLoaderUtil::ImportFont(const std::string& FontFilePath, DWORD& NumFonts) {
+bool FontUtil::Import(const std::string& FontFilePath, DWORD& NumFonts) {
     std::wstring Path = ToWstr(FontFilePath);
 
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);

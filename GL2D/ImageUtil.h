@@ -3,8 +3,10 @@
 #include <string>
 #include <map>
 
-enum ImageType
-{ IMAGE_TYPE_LINEAR, IMAGE_TYPE_NEAREST };
+enum ImageType { 
+	IMAGE_TYPE_LINEAR, 
+	IMAGE_TYPE_NEAREST 
+};
 
 
 class ImageUtil {

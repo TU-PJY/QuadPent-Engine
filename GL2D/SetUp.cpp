@@ -3,7 +3,7 @@
 #include "CameraUtil.h"
 #include "CameraController.h"
 #include "ImageUtil.h"
-#include "FontLoaderUtil.h"
+#include "FontUtil.h"
 #include "ShaderUtil.h"
 #include "SoundUtil.h"
 #include "MouseUtil.h"
@@ -31,7 +31,7 @@ CameraController cameraCon;
 ImageUtil imageUtil;
 SoundUtil soundUtil;
 MouseUtil mouse;
-FontLoaderUtil fontloaderUtil;
+FontUtil fontUtil;
 Framework framework;
 
 void SetupSystem(int argc, char** argv) {

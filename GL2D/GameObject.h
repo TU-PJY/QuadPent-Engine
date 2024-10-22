@@ -8,7 +8,6 @@
 #include "TimerUtil.h"
 #include "AnimationUtil.h"
 #include "ClippingUtil.h"
-#include "TransformUtil.h"
 #include "MathUtil.h"
 #include "UiUtil.h"
 #include "ExUtil.h"
@@ -16,6 +15,14 @@
 #include "RectBrush.h"
 #include "SystemResources.h"
 #include "CustomResources.h"
+
+
+enum FlipDir { 
+	FLIP_H, 
+	FLIP_V, 
+	FLIP_HV 
+};
+
 
 class GameObject {
 private:
@@ -31,7 +38,7 @@ public:
 	bool StaticObjectMarked{};
 
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
-	glm::mat4 ImageAspectMatrix{ 1.0f };
+	glm::mat4 ImageAspectMatrix{ 1.0f }, FlipMatrix{ 1.0f };
 	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 	GLfloat TransparencyValue{ 1.0f };
 	GLfloat BlurValue{};
@@ -46,9 +53,18 @@ public:
 	void UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect = false);
 	GLfloat ASP(GLfloat Value);
 
+	// transform functions
+	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
+	void Rotate(glm::mat4& Matrix, GLfloat Degree);
+	void RotateRad(glm::mat4& Matrix, GLfloat Radians);
+	void RotateV(glm::mat4& Matrix, GLfloat Degree);
+	void RotateH(glm::mat4& Matrix, GLfloat Degree);
+	void Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y);
+	void Flip(int FlipOpt);
+
 	// image functions
-	void RenderImage(Image& Image, GLfloat Transparency = 1.0, bool DisableAdjustAspect=false);
-	void SetBlur(int Strength);
+	void Render(Image& Image, GLfloat Transparency = 1.0, bool DisableAdjustAspect=false);
+	void Blur(int Strength);
 
 	// sound functions
 	void PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime);
@@ -68,11 +84,11 @@ public:
 
 	// object defined functions
 	virtual ~GameObject() {}
-	virtual void Update(float FT) {}
-	virtual void Render() {}
-	virtual void InputKey(int Type, int State, unsigned char NormalKey, int SpecialKey) {}
-	virtual void InputMouse(int Button, int State, int X, int Y) {}
-	virtual void InputScroll(int Button, int Wheel, int X, int Y) {}
+	virtual void UpdateFunc(float FT) {}
+	virtual void RenderFunc() {}
+	virtual void InputKey(int State, unsigned char NormalKey, int SpecialKey) {}
+	virtual void InputMouse(int State) {}
+	virtual void InputScroll(int State) {}
 	virtual void ResetControlState() {}
 	virtual AABB GetAABB() { return {}; }
 	virtual OOBB GetOBB() { return{}; }

@@ -22,17 +22,17 @@ void Framework::Routine() {
 			if (!O->DeleteObjectMarked) {
 				if (RoutineUpdateActivated) {
 					if (!FloatingRunningActivated)
-						O->Update(FrameTime);
+						O->UpdateFunc(FrameTime);
 
 					else {
 						if (FloatingFocusActivated && O->FloatingObjectMarked)
-							O->Update(FrameTime);
+							O->UpdateFunc(FrameTime);
 						else
-							O->Update(FrameTime);
+							O->UpdateFunc(FrameTime);
 					}
 				}
 
-				O->Render();
+				O->RenderFunc();
 			}
 		}
 
@@ -115,22 +115,22 @@ void Framework::ResetControlState(const char* Tag) {
 		It->second->ResetControlState();
 }
 
-void Framework::InputKey(const char* Tag, int KeyType, int KeyState, unsigned char NormalKey, int SpecialKey) {
+void Framework::InputKey(const char* Tag, int State, unsigned char NormalKey, int SpecialKey) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
-		It->second->InputKey(KeyType, KeyState, NormalKey, SpecialKey);
+		It->second->InputKey(State, NormalKey, SpecialKey);
 }
 
-void Framework::InputMouse(const char* Tag, int button, int state, int x, int y) {
+void Framework::InputMouse(const char* Tag, int State) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
-		It->second->InputMouse(button, state, x, y);
+		It->second->InputMouse(State);
 }
 
-void Framework::InputScroll(const char* Tag, int button, int Wheel, int x, int y) {
+void Framework::InputScroll(const char* Tag, int State) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
-		It->second->InputScroll(button, Wheel, x, y);
+		It->second->InputScroll(State);
 }
 
 void Framework::AddObject(GameObject* Object, const char* Tag, int AddLayer, int Type1, int Type2) {
