@@ -2,9 +2,11 @@
 #include "EngineHeader.h"
 #include <random>
 
-enum class Dist
-{Real, Int};
+enum Dist {
+	DIST_REAL, 
+	DIST_INT
+};
 
 namespace Random {
-	GLfloat Gen(Dist DistType, GLfloat Min, GLfloat Max);
+	GLfloat Gen(int DistType, GLfloat Min, GLfloat Max);
 }

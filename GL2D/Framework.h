@@ -15,14 +15,22 @@ typedef struct {
 	LayerIter First, End;
 }ObjectRange;
 
-enum DeleteRange
-{ DELETE_RANGE_SINGLE, DELETE_RANGE_EQUAL };
+enum DeleteRange { 
+	DELETE_RANGE_SINGLE, 
+	DELETE_RANGE_EQUAL 
+};
 
-enum ModeType
-{ MODE_TYPE_NONE, MODE_TYPE_DEFAULT, MODE_TYPE_FLOATING };
+enum ModeType { 
+	MODE_TYPE_NONE, 
+	MODE_TYPE_DEFAULT,
+	MODE_TYPE_FLOATING 
+};
 
-enum ObjectType
-{ OBJECT_TYPE_NONE, OBJECT_TYPE_STATIC, OBJECT_TYPE_FLOATING };
+enum ObjectType { 
+	OBJECT_TYPE_NONE, 
+	OBJECT_TYPE_STATIC, 
+	OBJECT_TYPE_FLOATING 
+};
 
 
 class Framework {
