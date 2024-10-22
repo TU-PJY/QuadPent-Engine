@@ -10,8 +10,8 @@ private:
 	TextUtil text;
 	
 public:
-	void InputKey(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
-		if (Type == KeyType::Normal && State == KeyState::Down) {
+	void InputKey(int Type, int State, unsigned char NormalKey, int SpecialKey) {
+		if (Type == KEY_TYPE_NORMAL && State == KEY_DOWN) {
 			switch (NormalKey) {
 			case 27:
 				framework.Exit();
@@ -26,7 +26,6 @@ public:
 		SetBackColor(0.0, 0.0, 0.0);
 		text.Init(L"Arial", FW_BOLD);
 		text.SetColor(1.0, 1.0, 1.0);
-		text.SetRenderType(RenderType::Static);
 	}
 
 	void Update(float FT) {
@@ -36,12 +35,12 @@ public:
 		soundUtil.Init();
 
 		soundUtil.Import(IntroSound, "SystemResource//Sound//mata_ENGINE Logo Sound.wav", FMOD_DEFAULT);
-		imageUtil.Import(ImageEngineLogo, "SystemResource//Image//Common//mata_ENGINE Logo.png", ImageType::Linear);
-		imageUtil.Import(ImageFMODLogo, "SystemResource//Image//Common//FMOD Logo.png", ImageType::Linear);
+		imageUtil.Import(ImageEngineLogo, "SystemResource//Image//Common//mata_ENGINE Logo.png");
+		imageUtil.Import(ImageFMODLogo, "SystemResource//Image//Common//FMOD Logo.png");
 
-		imageUtil.Import(ImageCollisionSphere, "SystemResource//Image//Collision//Circle.png", ImageType::Nearest);
-		imageUtil.Import(ImageCollidedSphere, "SystemResource//Image//Collision//Circle Inside.png", ImageType::Nearest);
-		imageUtil.Import(LineTex, "SystemResource//Image//Common//LineTex.png", ImageType::Nearest);
+		imageUtil.Import(ImageCollisionSphere, "SystemResource//Image//Collision//Circle.png", IMAGE_TYPE_NEAREST);
+		imageUtil.Import(ImageCollidedSphere, "SystemResource//Image//Collision//Circle Inside.png", IMAGE_TYPE_NEAREST);
+		imageUtil.Import(LineTex, "SystemResource//Image//Common//LineTex.png", IMAGE_TYPE_NEAREST);
 
 		if (!ENABLE_INTRO_SCREEN) {
 			SetBackColor(0.5, 0.5, 0.5);

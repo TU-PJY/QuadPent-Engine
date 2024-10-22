@@ -4,7 +4,7 @@
 #include <cmath>
 
 // init functions
-void GameObject::InitMatrix(RenderType Type) {
+void GameObject::InitMatrix(int RenderType) {
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
@@ -12,7 +12,7 @@ void GameObject::InitMatrix(RenderType Type) {
 	TransparencyValue = 1.0f;
 	BlurValue = 0.0;
 
-	camera.SetCamera(Type);
+	camera.SetCamera(RenderType);
 }
 
 void GameObject::SetColor(GLfloat R, GLfloat G, GLfloat B) {
@@ -66,32 +66,32 @@ void GameObject::RenderImage(Image& Image, GLfloat Transparency, bool DisableAdj
 	imageUtil.Render(Image);
 }
 
-void GameObject::PlaySound(Sound Sound, Channel& Channel, unsigned int StartTime) {
-	soundUtil.PlaySound(Sound, Channel, StartTime);
+void GameObject::PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime) {
+	soundUtil.PlaySound(Sound, ChannelVar, StartTime);
 }
 
-void GameObject::PauseSound(Channel& Channel, bool Flag) {
-	soundUtil.PauseSound(Channel, Flag);
+void GameObject::PauseSound(SoundChannel& ChannelVar, bool Flag) {
+	soundUtil.PauseSound(ChannelVar, Flag);
 }
 
-void GameObject::StopSound(Channel& Channel) {
-	soundUtil.StopSound(Channel);
+void GameObject::StopSound(SoundChannel& ChannelVar) {
+	soundUtil.StopSound(ChannelVar);
 }
 
-void GameObject::SetPlaySpeed(Channel& Channel, float PlaySpeed) {
-	soundUtil.SetPlaySpeed(Channel, PlaySpeed);
+void GameObject::SetPlaySpeed(SoundChannel& ChannelVar, float PlaySpeed) {
+	soundUtil.SetPlaySpeed(ChannelVar, PlaySpeed);
 }
 
-void GameObject::ResetPlaySpeed(Channel& Channel) {
-	soundUtil.ResetPlaySpeed(Channel);
+void GameObject::ResetPlaySpeed(SoundChannel& ChannelVar) {
+	soundUtil.ResetPlaySpeed(ChannelVar);
 }
 
-void GameObject::EnableFreqCutoff(Channel& Channel, float Frequency) {
-	soundUtil.SetFreqCutOff(Channel, Frequency);
+void GameObject::EnableFreqCutoff(SoundChannel& ChannelVar, float Frequency) {
+	soundUtil.SetFreqCutOff(ChannelVar, Frequency);
 }
 
-void GameObject::EnableBeatDetect(Channel& Channel) {
-	soundUtil.SetBeatDetect(Channel);
+void GameObject::EnableBeatDetect(SoundChannel& ChannelVar) {
+	soundUtil.SetBeatDetect(ChannelVar);
 }
 
 void GameObject::DetectBeat(GLfloat& Value, float ThresHold, float SamplingRate) {
@@ -102,30 +102,30 @@ bool GameObject::IsBeat(float ThresHold, float SamplingRate) {
 	return soundUtil.IsBeat(ThresHold, SamplingRate);
 }
 
-void GameObject::DisableFreqCutoff(Channel& Channel) {
-	soundUtil.UnSetFreqCutOff(Channel);
+void GameObject::DisableFreqCutoff(SoundChannel& ChannelVar) {
+	soundUtil.UnSetFreqCutOff(ChannelVar);
 }
 
-void GameObject::DisableBeatDetect(Channel& Channel) {
-	soundUtil.UnSetBeatDetect(Channel);
+void GameObject::DisableBeatDetect(SoundChannel& ChannelVar) {
+	soundUtil.UnSetBeatDetect(ChannelVar);
 }
 
-void GameObject::SetSoundDistance(Channel& Channel, float MinDist, float MaxDist) {
-	soundUtil.SetDistance(Channel, MinDist, MaxDist);
+void GameObject::SetSoundDistance(SoundChannel& ChannelVar, float MinDist, float MaxDist) {
+	soundUtil.SetDistance(ChannelVar, MinDist, MaxDist);
 }
 
 void GameObject::SetListnerPosition(float X, float Y) {
 	soundUtil.SetListnerPosition(X, Y);
 }
 
-void GameObject::SetSoundPosition(Channel& Channel, float X, float Y, float Diff) {
-	soundUtil.SetSoundPosition(Channel, X, Y, Diff);
+void GameObject::SetSoundPosition(SoundChannel& ChannelVar, float X, float Y, float Diff) {
+	soundUtil.SetSoundPosition(ChannelVar, X, Y, Diff);
 }
 
 ////////////////////////// private
 void GameObject::PrepareRender() {
 	glUseProgram(ImageShader);
-	camera.PrepareRender(ShaderType::Image);
+	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, TransparencyValue);

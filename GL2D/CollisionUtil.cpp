@@ -23,8 +23,6 @@ void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 
 void AABB::Render() {
 #ifdef SHOW_BOUND_BOX
-	LineRect.SetCameraInheritance();
-	Rect.SetCameraInheritance();
 	LineRect.SetColor(1.0, 0.0, 0.0);
 	Rect.SetColor(1.0, 0.0, 0.0);
 
@@ -62,7 +60,7 @@ bool AABB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 
 
 
-void OBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue) {
+void OOBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue) {
 	Center = glm::vec2(X, Y);
 	Offset = glm::vec2(BoxWidth / 2, BoxHeight / 2);
 
@@ -75,10 +73,8 @@ void OBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfl
 	Rotation = RotationValue;
 }
 
-void OBB::Render() {
+void OOBB::Render() {
 #ifdef SHOW_BOUND_BOX
-	LineRect.SetCameraInheritance();
-	Rect.SetCameraInheritance();
 	LineRect.SetColor(1.0, 0.0, 0.0);
 	Rect.SetColor(1.0, 0.0, 0.0);
 
@@ -89,11 +85,11 @@ void OBB::Render() {
 #endif
 }
 
-std::pair<float, float> OBB::Project(const OBB& OBB, const glm::vec2& Axis) {
-	Corners[0] = OBB.Center + OBB.Axis[0] * OBB.Offset.x + OBB.Axis[1] * OBB.Offset.y;
-	Corners[1] = OBB.Center + OBB.Axis[0] * OBB.Offset.x - OBB.Axis[1] * OBB.Offset.y;
-	Corners[2] = OBB.Center - OBB.Axis[0] * OBB.Offset.x + OBB.Axis[1] * OBB.Offset.y;
-	Corners[3] = OBB.Center - OBB.Axis[0] * OBB.Offset.x - OBB.Axis[1] * OBB.Offset.y;
+std::pair<float, float> OOBB::Project(const OOBB& oobb, const glm::vec2& Axis) {
+	Corners[0] = oobb.Center + oobb.Axis[0] * oobb.Offset.x + oobb.Axis[1] * oobb.Offset.y;
+	Corners[1] = oobb.Center + oobb.Axis[0] * oobb.Offset.x - oobb.Axis[1] * oobb.Offset.y;
+	Corners[2] = oobb.Center - oobb.Axis[0] * oobb.Offset.x + oobb.Axis[1] * oobb.Offset.y;
+	Corners[3] = oobb.Center - oobb.Axis[0] * oobb.Offset.x - oobb.Axis[1] * oobb.Offset.y;
 
 	float Min = glm::dot(Corners[0], Axis);
 	float Max = Min;
@@ -111,14 +107,14 @@ std::pair<float, float> OBB::Project(const OBB& OBB, const glm::vec2& Axis) {
 	return std::make_pair(Min, Max);
 }
 
-bool OBB::OverlapOnAxis(const OBB& OBB1, const OBB& OBB2, const glm::vec2& Axis) {
-	auto [Min1, Max1] = Project(OBB1, Axis);
-	auto [Min2, Max2] = Project(OBB2, Axis);
+bool OOBB::OverlapOnAxis(const OOBB& oobb1, const OOBB& oobb2, const glm::vec2& Axis) {
+	auto [Min1, Max1] = Project(oobb1, Axis);
+	auto [Min2, Max2] = Project(oobb2, Axis);
 
 	return !(Max1 < Min2 || Max2 < Min1);
 }
 
-bool OBB::CheckCollision(const OBB& Other) {
+bool OOBB::CheckCollision(const OOBB& Other) {
 	glm::vec2 Axises[] = { Axis[0], Axis[1], Other.Axis[0], Other.Axis[1] };
 
 	for (const auto& Axis : Axises) {
@@ -132,7 +128,7 @@ bool OBB::CheckCollision(const OBB& Other) {
 	return true;
 }
 
-bool OBB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
+bool OOBB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 	glm::vec2 D = glm::vec2(X, Y) - Center;
 
 	for (int i = 0; i < 2; ++i) {
@@ -149,14 +145,14 @@ bool OBB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 
 
 
-void Range::Update(GLfloat X, GLfloat Y, GLfloat SizeValue) {
+void BoundingSphere::Update(GLfloat X, GLfloat Y, GLfloat SizeValue) {
 	Center.x = X;
 	Center.y = Y;
 	Radius = SizeValue / 2.0;
 	Size = SizeValue;
 }
 
-void Range::Render() {
+void BoundingSphere::Render() {
 #ifdef SHOW_BOUND_BOX
 	TranslateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);
@@ -173,13 +169,13 @@ void Range::Render() {
 #endif
 }
 
-GLfloat Range::CalculateDistance( GLfloat X, GLfloat Y) {
+GLfloat BoundingSphere::CalculateDistance( GLfloat X, GLfloat Y) {
 	GLfloat DX = X - Center.x;
 	GLfloat DY = Y - Center.y;
 	return std::sqrt(DX * DX + DY * DY);
 }
 
-bool Range::CheckCollision(const Range& Other) {
+bool BoundingSphere::CheckCollision(const BoundingSphere& Other) {
 	if (CalculateDistance(Other.Center.x, Other.Center.y) < Radius + Other.Radius) {
 		Collide = true;
 		return true;
@@ -189,7 +185,7 @@ bool Range::CheckCollision(const Range& Other) {
 	return false;
 }
 
-bool Range::CheckCollisionPoint(GLfloat X, GLfloat Y) {
+bool BoundingSphere::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 	if (CalculateDistance(X, Y) < Radius) {
 		Collide = true;
 		return true;
@@ -199,10 +195,10 @@ bool Range::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 	return false;
 }
 
-void Range::ProcessTransform() {
+void BoundingSphere::ProcessTransform() {
 #ifdef SHOW_BOUND_BOX
 	glUseProgram(ImageShader);
-	camera.PrepareRender(ShaderType::Image);
+	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, 1.0);

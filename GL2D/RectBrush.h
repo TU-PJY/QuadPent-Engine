@@ -9,16 +9,16 @@ private:
 	glm::vec3 Color{};
 	GLfloat Length{};
 	GLfloat TransparencyValue{};
-	RenderType Type{ RenderType::Default };
+	int RenderType{ RENDER_TYPE_DEFAULT };
 
 	bool CameraInheritance{};
 
 public:
+	LineRectBrush(bool Inheritance=false);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
-	void SetRenderType(RenderType Opt = RenderType::Default);
+	void SetRenderType(int Opt);
 	void Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat Width, GLfloat RotationValue, GLfloat Transparency = 1.0f);
-	void SetCameraInheritance();
 
 private:
 	void DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat OffsetY, GLfloat Width, GLfloat Height, GLfloat RotationValue);
@@ -34,16 +34,16 @@ private:
 	glm::vec3 Color{};
 	GLfloat Length{};
 	GLfloat TransparencyValue{};
-	RenderType Type{ RenderType::Default };
+	int RenderType{ RENDER_TYPE_DEFAULT };
 
 	bool CameraInheritance{};
 
 public:
+	RectBrush(bool Inheritance=false);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
-	void SetRenderType(RenderType Opt = RenderType::Default);
+	void SetRenderType(int Opt);
 	void Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat RotationValue, GLfloat Transparency = 1.0f);
-	void SetCameraInheritance();
 
 private:
 	void Render();

@@ -2,35 +2,39 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdarg.h>
+#include <fstream>
 
 GLuint ImageShader;
 GLuint TextShader;
 
-char* ShaderUtil::LoadBuffer(const char* FileName) {
-	FILE* File{};
-	long Length{};
-	char* Buffer{};
+char* ShaderUtil::LoadShaderFile(const char* FileName) {
+	std::ifstream ShaderFile(FileName, std::ios::in | std::ios::binary | std::ios::ate);
+	if (!ShaderFile.is_open()) {
+		std::cout << "Can not open shader file: " << FileName << std::endl;
+		exit(EXIT_FAILURE);
+	}
 
-	File = fopen(FileName, "rb");
-	if (!File)
-		return NULL;
+	std::streamsize Length = ShaderFile.tellg();
+	ShaderFile.seekg(0, std::ios::beg);
 
-	fseek(File, 0, SEEK_END);
+	char* Buffer = new char[Length + 1];
 
-	Length = ftell(File);
-	Buffer = (char*)malloc(Length + 1);
+	if (!ShaderFile.read(Buffer, Length)) {
+		delete[] Buffer;
+		ShaderFile.close();
+		std::cout << "Can not read shader file: " << FileName << std::endl;
+		exit(EXIT_FAILURE);
+	}
 
-	fseek(File, 0, SEEK_SET);
-	fread(Buffer, Length, 1, File);
-	fclose(File);
+	Buffer[Length] = '\0';
 
-	Buffer[Length] = 0;
+	ShaderFile.close();
 
 	return Buffer;
 }
 
 void ShaderUtil::LoadVertexShader(const char* VertexShader) {
-	vertex_source = LoadBuffer(VertexShader);
+	vertex_source = LoadShaderFile(VertexShader);
 	vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertex_shader, 1, (const GLchar**)&vertex_source, 0);
 	glCompileShader(vertex_shader);
@@ -42,14 +46,14 @@ void ShaderUtil::LoadVertexShader(const char* VertexShader) {
 
 	if (!Result) {
 		glGetShaderInfoLog(vertex_shader, 512, NULL, ErrorLog);
-		std::cout << "ERROR: vertex shader err\n" << ErrorLog << std::endl;
+		std::cout << "ERROR: vertex shader error\n" << ErrorLog << std::endl;
 
 		return;
 	}
 }
 
 void ShaderUtil::LoadFragmentShader(const char* FragmentShader) {
-	fragment_source = LoadBuffer(FragmentShader);
+	fragment_source = LoadShaderFile(FragmentShader);
 	fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragment_shader, 1, (const GLchar**)&fragment_source, 0);
 	glCompileShader(fragment_shader);
@@ -61,7 +65,7 @@ void ShaderUtil::LoadFragmentShader(const char* FragmentShader) {
 
 	if (!Result) {
 		glGetShaderInfoLog(fragment_shader, 512, NULL, ErrorLog);
-		std::cout << "ERROR: fragment shader err\n" << ErrorLog << std::endl;
+		std::cout << "ERROR: fragment shader error\n" << ErrorLog << std::endl;
 
 		return;
 	}

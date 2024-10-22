@@ -2,10 +2,10 @@
 
 void Camera::CalculateASPECT() {
 	ASPECT = 1.0 * WIDTH / HEIGHT;
-	LineRect.lx = -1.0 * ASPECT;
-	LineRect.ly = -1.0;
-	LineRect.rx = 1.0 * ASPECT;
-	LineRect.ry = 1.0;
+	WindowRect.lx = -1.0 * ASPECT;
+	WindowRect.ly = -1.0;
+	WindowRect.rx = 1.0 * ASPECT;
+	WindowRect.ry = 1.0;
 
 	PREV_WIDTH = WIDTH;
 	PREV_HEIGHT = HEIGHT;
@@ -19,10 +19,10 @@ void Camera::Init() {
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
 
-	SetCamera(RenderType::Default);
+	SetCamera(RENDER_TYPE_DEFAULT);
 }
 
-void Camera::SetCamera(RenderType Type) {
+void Camera::SetCamera(int RenderType) {
 	using namespace glm;
 
 	if(PREV_WIDTH != WIDTH || PREV_HEIGHT != HEIGHT)
@@ -32,13 +32,13 @@ void Camera::SetCamera(RenderType Type) {
 	CamDirection = vec3(0.0f, 0.0f, 0.0f);
 	CamUp = vec3(0.0f, 1.0f, 0.0f);
 
-	if (Type == RenderType::Default)
+	if (RenderType == RENDER_TYPE_DEFAULT)
 		StaticMode = false;
-	else if (Type == RenderType::Static)
+	else if (RenderType == RENDER_TYPE_STATIC)
 		StaticMode = true;
 }
 
-void Camera::PrepareRender(ShaderType Type) {
+void Camera::PrepareRender(int ShaderType) {
 	ViewMatrix = glm::mat4(1.0f);
 	Projection = glm::mat4(1.0f);
 
@@ -55,9 +55,9 @@ void Camera::PrepareRender(ShaderType Type) {
 
 	GLuint Shader{};
 
-	if (Type == ShaderType::Image)
+	if (ShaderType == SHADER_TYPE_IMAGE)
 		Shader = ImageShader;
-	else if (Type == ShaderType::Text)
+	else if (ShaderType == SHADER_TYPE_TEXT)
 		Shader = TextShader;
 	else
 		return;

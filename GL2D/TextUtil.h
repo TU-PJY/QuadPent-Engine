@@ -4,11 +4,8 @@
 #include <windows.h>
 #include <map>
 
-enum class Align
-{ Default, Middle, Left };
-
-enum class TextRenderMode
-{ Static, Default };
+enum Align
+{ ALIGN_DEFAULT, ALIGN_MIDDLE, ALIGN_LEFT };
 
 
 class TextUtil {
@@ -20,7 +17,7 @@ private:
 	GLfloat NewLineSpace{};
 
 	glm::vec3 TextColor{ glm::vec3(1.0, 1.0, 1.0) };
-	Align TextAlign{ Align::Default };
+	int TextAlign{ ALIGN_DEFAULT };
 
 	std::map <wchar_t, bool> GlyphCache;
 
@@ -31,20 +28,20 @@ private:
 	GLuint FontBase{};
 	GLYPHMETRICSFLOAT TextGlyph[65536]{};
 
-	RenderType renderType{ RenderType::Default };
+	int RenderType{ RENDER_TYPE_STATIC };
 
 public:
 	~TextUtil();
 	void Init(const wchar_t* FontName, int Type, int Italic=FALSE);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
-	void SetAlign(Align AlignOpt);
+	void SetAlign(int AlignOpt);
 	void Rotate(GLfloat Radians);
 	void SetLineSpace(GLfloat Value);
 	void LineNumber(int LineNum);
 	void ResetLineSpace();
 	void ResetLine();
-	void SetRenderType(RenderType Type);
+	void SetRenderType(int Type);
 	void Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);
 
 private:

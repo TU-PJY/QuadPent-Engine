@@ -7,7 +7,7 @@
 
 typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
-constexpr int Layers = static_cast<int>(Layer::END);
+constexpr int Layers = END;
 
 using LayerIter = std::map<const char*, GameObject*>::iterator;
 
@@ -15,17 +15,15 @@ typedef struct {
 	LayerIter First, End;
 }ObjectRange;
 
-enum class DeleteRange
-{ One, All };
+enum DeleteRange
+{ DELETE_RANGE_SINGLE, DELETE_RANGE_EQUAL };
 
-enum class SearchRange
-{ One, All };
+enum ModeType
+{ MODE_TYPE_NONE, MODE_TYPE_DEFAULT, MODE_TYPE_FLOATING };
 
-enum class ModeType
-{ Default, Floating };
+enum ObjectType
+{ OBJECT_TYPE_NONE, OBJECT_TYPE_STATIC, OBJECT_TYPE_FLOATING };
 
-enum class ObjectType
-{ None, Floating, Static };
 
 class Framework {
 private:
@@ -45,13 +43,15 @@ private:
 
 	bool RoutineUpdateActivated{ true };
 
+	bool FullscreenState{};
+
 public:
 	const char* Mode();
 	void Stop();
 	void Resume();
 	void RegisterModeName(const char* ModeName);
 	void Init(Function ModeFunction);
-	void RegisterController(ControllerFunction Controller, ModeType Type);
+	void RegisterController(ControllerFunction Controller, int Type);
 	void InputFrameTime(float ElapsedTime);
 	void Routine();
 	void SwitchMode(Function ModeFunction);
@@ -61,24 +61,19 @@ public:
 	void EndFloatingMode();
 	void ResetControlState(GameObject* Object);
 	void ResetControlState(const char* Tag);
-	void InputKey(const char* Tag, KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey);
+	void InputKey(const char* Tag, int KeyType, int KeyState, unsigned char NormalKey, int SpecialKey);
 	void InputMouse(const char* Tag, int button, int state, int x, int y);
 	void InputScroll(const char* Tag, int button, int Wheel, int x, int y);
-	void AddObject(GameObject* Object, const char* Tag, Layer AddLayer, ObjectType Type1=ObjectType::None, ObjectType Type2=ObjectType::None);
-	void SwapLayer(GameObject* Object, Layer TargetLayer);
+	void AddObject(GameObject* Object, const char* Tag, int AddLayer, int Type1= OBJECT_TYPE_NONE, int Type2=OBJECT_TYPE_NONE);
+	void SwapLayer(GameObject* Object, int TargetLayer);
 	void DeleteObject(GameObject* Object);
-	void DeleteObject(const char* Tag, DeleteRange deleteRange);
+	void DeleteObject(const char* Tag, int deleteRange);
 	GameObject* Find(const char* Tag);
-	GameObject* FindMulti(const char* Tag, Layer SearchLayer, int Index);
+	GameObject* FindMulti(const char* Tag, int SearchLayer, int Index);
 	ObjectRange EqualRange(const char* Tag);
-	size_t LayerSize(Layer TargetLayer);
+	size_t LayerSize(int TargetLayer);
 	void Exit();
-	void SwitchToFullscreen();
-	void SwitchToWindow();
-	void EnableBlurDefalutObject(GLfloat Value);
-	void EnableBlurFloatingObject(GLfloat Value);
-	void DisableBlurDefaultObject();
-	void DisableBlurFloatingObject();
+	void SwitchScreenState();
 
 private:
 	void UpdateObjectList(int Index);

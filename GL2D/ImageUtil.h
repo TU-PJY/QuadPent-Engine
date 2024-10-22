@@ -3,8 +3,8 @@
 #include <string>
 #include <map>
 
-enum class ImageType
-{ Linear, Nearest };
+enum ImageType
+{ IMAGE_TYPE_LINEAR, IMAGE_TYPE_NEAREST };
 
 
 class ImageUtil {
@@ -13,7 +13,7 @@ private:
 
 public:
 	void Init();
-	void Import(Image& ImageStruct, const char* FileName, ImageType Type);
+	void Import(Image& ImageStruct, const char* FileName, int Type=IMAGE_TYPE_LINEAR);
 	void Render(Image& ImageStruct);
 	void Release(Image& ImageStruct);
 };

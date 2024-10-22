@@ -22,7 +22,7 @@ float DestFPS;
 int FPSLimit;
 
 GLfloat ASPECT;
-Rect LineRect;
+ViewportRect WindowRect;
 glm::vec3 BackColor;
 
 ShaderUtil shaderUtil;

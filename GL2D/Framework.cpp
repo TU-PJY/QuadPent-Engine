@@ -70,9 +70,9 @@ void Framework::RegisterModeName(const char* ModeName) {
 	CurrentRunningMode = ModeName;
 }
 
-void Framework::RegisterController(ControllerFunction Controller, ModeType Type) {
+void Framework::RegisterController(ControllerFunction Controller, int Type) {
 	Controller();
-	if (Type == ModeType::Default)
+	if (Type == MODE_TYPE_DEFAULT)
 		ControllerBuffer = Controller;
 }
 
@@ -115,10 +115,10 @@ void Framework::ResetControlState(const char* Tag) {
 		It->second->ResetControlState();
 }
 
-void Framework::InputKey(const char* Tag, KeyType Key, KeyState State, unsigned char NormalKey, int SpecialKey) {
+void Framework::InputKey(const char* Tag, int KeyType, int KeyState, unsigned char NormalKey, int SpecialKey) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
-		It->second->InputKey(Key, State, NormalKey, SpecialKey);
+		It->second->InputKey(KeyType, KeyState, NormalKey, SpecialKey);
 }
 
 void Framework::InputMouse(const char* Tag, int button, int state, int x, int y) {
@@ -133,50 +133,50 @@ void Framework::InputScroll(const char* Tag, int button, int Wheel, int x, int y
 		It->second->InputScroll(button, Wheel, x, y);
 }
 
-void Framework::AddObject(GameObject* Object, const char* Tag, Layer AddLayer, ObjectType Type1, ObjectType Type2) {
-	int DestLayer = static_cast<int>(AddLayer);
-
-	ObjectList[DestLayer].emplace_back(Object);
+void Framework::AddObject(GameObject* Object, const char* Tag, int AddLayer, int Type1, int Type2) {
+	ObjectList[AddLayer].emplace_back(Object);
 	ObjectIndex.insert(std::make_pair(Tag, Object));
 
 	Object->ObjectTag = Tag;
-	Object->ObjectLayer = DestLayer;
+	Object->ObjectLayer = AddLayer;
 
-	if (Type1 == Type2 && Type1 == ObjectType::Static)
+	if (Type1 == Type2 && Type1 == OBJECT_TYPE_STATIC) {
 		Object->StaticObjectMarked = true;
+		return;
+	}
 
-	if(Type1 == Type2 && Type1 == ObjectType::Floating)
+	if (Type1 == Type2 && Type1 == OBJECT_TYPE_FLOATING) {
 		Object->FloatingObjectMarked = true;
+		return;
+	}
 
-	if(Type1 == ObjectType::Static || Type2 == ObjectType::Static)
+	if(Type1 == OBJECT_TYPE_STATIC || Type2 == OBJECT_TYPE_STATIC)
 		Object->StaticObjectMarked = true;
 
-	if(Type1 == ObjectType::Floating || Type2 == ObjectType::Floating)
+	if(Type1 == OBJECT_TYPE_FLOATING || Type2 == OBJECT_TYPE_FLOATING)
 		Object->FloatingObjectMarked = true;
 }
 
-void Framework::SwapLayer(GameObject* Object, Layer TargetLayer) {
-	int DestLayer = static_cast<int>(TargetLayer);
-
-	if (Object->ObjectLayer == DestLayer)
+void Framework::SwapLayer(GameObject* Object, int TargetLayer) {
+	if (Object->ObjectLayer == TargetLayer)
 		return;
 
 	Object->SwapLayerMarked = true;
-	Object->ObjectLayer = DestLayer;
+	Object->ObjectLayer = TargetLayer;
 }
 
 void Framework::DeleteObject(GameObject* Object) {
 	Object->DeleteObjectMarked = true;
 }
 
-void Framework::DeleteObject(const char* Tag, DeleteRange deleteRange) {
-	if (deleteRange == DeleteRange::One) {
+void Framework::DeleteObject(const char* Tag, int DeleteRange) {
+	if (DeleteRange == DELETE_RANGE_SINGLE) {
 		auto It = ObjectIndex.find(Tag);
 		if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
 			It->second->DeleteObjectMarked = true;
 	}
 
-	else if (deleteRange == DeleteRange::All) {
+	else if (DeleteRange == DELETE_RANGE_EQUAL) {
 		auto Range = ObjectIndex.equal_range(Tag);
 		if (Range.first != Range.second) {
 			for (auto It = Range.first; It != Range.second; ++It) {
@@ -195,10 +195,10 @@ GameObject* Framework::Find(const char* Tag) {
 	return nullptr;
 }
 
-GameObject* Framework::FindMulti(const char* Tag, Layer SearchLayer, int Index) {
-	auto Object = ObjectList[static_cast<int>(SearchLayer)][Index];
+GameObject* Framework::FindMulti(const char* Tag, int SearchLayer, int Index) {
+	auto Object = ObjectList[SearchLayer][Index];
 	if(Object->ObjectTag == Tag)
-		return ObjectList[static_cast<int>(SearchLayer)][Index];
+		return ObjectList[SearchLayer][Index];
 	
 	return nullptr;
 }
@@ -213,54 +213,32 @@ ObjectRange Framework::EqualRange(const char* Tag) {
 	return Range;
 }
 
-size_t Framework::LayerSize(Layer TargetLayer) {
-	return ObjectList[static_cast<int>(TargetLayer)].size();
+size_t Framework::LayerSize(int TargetLayer) {
+	return ObjectList[TargetLayer].size();
 }
 
 void Framework::Exit() {
 	glutDestroyWindow(1);
 }
 
-void Framework::SwitchToFullscreen() {
-	glutFullScreen();
-	WIDTH = GetSystemMetrics(SM_CXSCREEN);
-	HEIGHT = GetSystemMetrics(SM_CYSCREEN);
-}
+void Framework::SwitchScreenState() {
+	if (!FullscreenState) {
+		glutFullScreen();
+		WIDTH = GetSystemMetrics(SM_CXSCREEN);
+		HEIGHT = GetSystemMetrics(SM_CYSCREEN);
+		FullscreenState = true;
+	}
 
-void Framework::SwitchToWindow() {
-	WIDTH /= 2;
-	HEIGHT /= 2;
-	glutReshapeWindow(WIDTH, HEIGHT);
-	glutPositionWindow(0, 0);
-}
-
-void Framework::EnableBlurDefalutObject(GLfloat Value) {
-	for (auto const& O : ObjectIndex) {
-		if (!O.second->FloatingObjectMarked && !O.second->DeleteObjectMarked)
-			O.second->BlurValue = Value;
+	else {
+		WIDTH = WINDOW_WIDTH;
+		HEIGHT = WINDOW_HEIGHT;
+		glutReshapeWindow(WIDTH, HEIGHT);
+		glutPositionWindow(0, 0);
+		FullscreenState = false;
 	}
 }
 
-void Framework::EnableBlurFloatingObject(GLfloat Value) {
-	for (auto const& O : ObjectIndex) {
-		if (O.second->FloatingObjectMarked && !O.second->DeleteObjectMarked)
-			O.second->BlurValue = Value;
-	}
-}
 
-void Framework::DisableBlurDefaultObject() {
-	for (auto const& O : ObjectIndex) {
-		if (!O.second->FloatingObjectMarked && !O.second->DeleteObjectMarked)
-			O.second->BlurValue = 0.0;
-	}
-}
-
-void Framework::DisableBlurFloatingObject() {
-	for (auto const& O : ObjectIndex) {
-		if (O.second->FloatingObjectMarked && !O.second->DeleteObjectMarked)
-			O.second->BlurValue = 0.0;
-	}
-}
 
 //////// private ///////////////
 void Framework::UpdateObjectList(int Index) {	

@@ -6,8 +6,8 @@
 #include "CameraUtil.h"
 #include "SystemResources.h"
 
-void LineBrush::SetRenderType(RenderType Opt) {
-	Type = Opt;
+void LineBrush::SetRenderType(int Opt) {
+	RenderType = Opt;
 }
 
 void LineBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
@@ -61,10 +61,10 @@ void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfl
 }
 
 void LineBrush::Render() {
-	camera.SetCamera(Type);
+	camera.SetCamera(RenderType);
 
 	glUseProgram(ImageShader);
-	camera.PrepareRender(ShaderType::Image);
+	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, TransparencyValue);

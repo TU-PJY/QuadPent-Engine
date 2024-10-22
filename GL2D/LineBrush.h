@@ -12,10 +12,10 @@ private:
 	glm::vec3 Color{};
 	GLfloat TransparencyValue{};
 
-	RenderType Type { RenderType::Default };
+	int RenderType { RENDER_TYPE_DEFAULT };
 
 public:
-	void SetRenderType(RenderType Opt);
+	void SetRenderType(int Opt);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
 	void Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width, GLfloat Transparency = 1.0);

@@ -1,21 +1,21 @@
 #include "UiUtil.h"
 
-void UI::ClampMatrixToCorner(Edge EdgePosition, glm::mat4& Matrix, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
+void UI::ClampMatrixToCorner(int EdgePosition, glm::mat4& Matrix, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
 	switch (EdgePosition) {
-	case Edge::LeftDown:
-		Matrix = translate(Matrix, glm::vec3(LineRect.lx + Width / 2.0 + GapX, LineRect.ly + Height / 2.0 + GapY, 0.0));
+	case EDGE_LEFT_DOWN:
+		Matrix = translate(Matrix, glm::vec3(WindowRect.lx + Width / 2.0 + GapX, WindowRect.ly + Height / 2.0 + GapY, 0.0));
 		break;
 
-	case Edge::LeftUp:
-		Matrix = translate(Matrix, glm::vec3(LineRect.lx + Width / 2.0 + GapX, LineRect.ry - Height / 2.0 - GapY, 0.0));
+	case EDGE_LEFT_UP:
+		Matrix = translate(Matrix, glm::vec3(WindowRect.lx + Width / 2.0 + GapX, WindowRect.ry - Height / 2.0 - GapY, 0.0));
 		break;
 
-	case Edge::RightDown:
-		Matrix = translate(Matrix, glm::vec3(LineRect.rx - Width / 2.0 - GapX, LineRect.ly + Height / 2.0 + GapY, 0.0));
+	case EDGE_RIGHT_DOWN:
+		Matrix = translate(Matrix, glm::vec3(WindowRect.rx - Width / 2.0 - GapX, WindowRect.ly + Height / 2.0 + GapY, 0.0));
 		break;
 
-	case Edge::RightUp:
-		Matrix = translate(Matrix, glm::vec3(LineRect.rx - Width / 2.0 - GapX, LineRect.ry - Height / 2.0 - GapY, 0.0));
+	case EDGE_RIGHT_UP:
+		Matrix = translate(Matrix, glm::vec3(WindowRect.rx - Width / 2.0 - GapX, WindowRect.ry - Height / 2.0 - GapY, 0.0));
 		break;
 	}
 }
@@ -24,26 +24,26 @@ void UI::ClampMatrixToPosition(glm::mat4& Matrix, GLfloat PositionX, GLfloat Pos
 	Matrix = translate(Matrix, glm::vec3(PositionX + Width / 2.0 + GapX, PositionY + Height / 2.0 + GapY, 0.0));
 }
 
-void UI::ClampPositionToCorner(Edge EdgePosition, GLfloat& PositionX, GLfloat& PositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
+void UI::ClampPositionToCorner(int EdgePosition, GLfloat& PositionX, GLfloat& PositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
 	switch (EdgePosition) {
-	case Edge::LeftDown:
-		PositionX = LineRect.lx + Width / 2.0 + GapX;
-		PositionY = LineRect.ly + Height / 2.0 + GapY;
+	case EDGE_LEFT_DOWN:
+		PositionX = WindowRect.lx + Width / 2.0 + GapX;
+		PositionY = WindowRect.ly + Height / 2.0 + GapY;
 		break;
 
-	case Edge::LeftUp:
-		PositionX = LineRect.lx + Width / 2.0 + GapX;
-		PositionY = LineRect.ry - Height / 2.0 - GapY;
+	case EDGE_LEFT_UP:
+		PositionX = WindowRect.lx + Width / 2.0 + GapX;
+		PositionY = WindowRect.ry - Height / 2.0 - GapY;
 		break;
 
-	case Edge::RightDown:
-		PositionX = LineRect.rx - Width / 2.0 - GapX;
-		PositionY = LineRect.ly + Height / 2.0 + GapY;
+	case EDGE_RIGHT_DOWN:
+		PositionX = WindowRect.rx - Width / 2.0 - GapX;
+		PositionY = WindowRect.ly + Height / 2.0 + GapY;
 		break;
 
-	case Edge::RightUp:
-		PositionX = LineRect.rx - Width / 2.0 - GapX;
-		PositionY = LineRect.ry - Height / 2.0 - GapY;
+	case EDGE_RIGHT_UP:
+		PositionX = WindowRect.rx - Width / 2.0 - GapX;
+		PositionY = WindowRect.ry - Height / 2.0 - GapY;
 		break;
 	}
 }

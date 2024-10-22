@@ -23,7 +23,7 @@ void TextUtil::SetColorRGB(int R, int G, int B) {
 	TextColor.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void TextUtil::SetAlign(Align AlignOpt) {
+void TextUtil::SetAlign(int AlignOpt) {
 	TextAlign = AlignOpt;
 }
 
@@ -47,8 +47,8 @@ void TextUtil::ResetLine() {
 	CurrentHeight = 0.0;
 }
 
-void TextUtil::SetRenderType(RenderType Type) {
-	renderType = Type;
+void TextUtil::SetRenderType(int Type) {
+	RenderType = Type;
 }
 
 void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
@@ -67,7 +67,7 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyVa
 	GLfloat CurrentPositionX = 0.0f;
 	GLfloat Length{};
 
-	if (TextAlign != Align::Default)
+	if (TextAlign != ALIGN_DEFAULT)
 		GetLength(Length, CharIndex, Text, Size);
 
 	for (int i = 0; i < wcslen(Text); ++i) {
@@ -76,20 +76,20 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyVa
 		ScaleMatrix = scale(ScaleMatrix, glm::vec3(Size, Size, 0.0));
 
 		switch (TextAlign) {
-		case Align::Default:
+		case ALIGN_DEFAULT:
 			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X + CurrentPositionX, Y + CurrentHeight, 0.0));
 			break;
-		case Align::Middle:
+		case ALIGN_MIDDLE:
 			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length / 2 + CurrentPositionX, Y + CurrentHeight, 0.0));
 			break;
-		case Align::Left:
+		case ALIGN_LEFT:
 			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length + CurrentPositionX, Y + CurrentHeight, 0.0));
 			break;
 		}
 
 		Transparency = TransparencyValue;
 
-		camera.SetCamera(renderType);
+		camera.SetCamera(RenderType);
 		PrepareRender();
 
 		for (const auto& ch : Text) {
@@ -129,7 +129,7 @@ void TextUtil::InitMatrix() {
 
 void TextUtil::PrepareRender() {
 	glUseProgram(TextShader);
-	camera.PrepareRender(ShaderType::Text);
+	camera.PrepareRender(SHADER_TYPE_TEXT);
 
 	TransparencyLocation = glGetUniformLocation(TextShader, "transparency");
 	glUniform1f(TransparencyLocation, Transparency);

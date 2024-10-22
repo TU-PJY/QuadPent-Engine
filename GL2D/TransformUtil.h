@@ -1,8 +1,8 @@
 #pragma once
 #include "EngineHeader.h"
 
-enum class FlipDir
-{ H, V, HV };
+enum FlipDir
+{ FLIP_H, FLIP_V, FLIP_HV };
 
 namespace Transform {
 	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
@@ -11,5 +11,5 @@ namespace Transform {
 	void Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y);
 	void RotateV(glm::mat4& Matrix, GLfloat Degree);
 	void RotateH(glm::mat4& Matrix, GLfloat Degree);
-	void Flip(glm::mat4& Matrix, FlipDir FlipOption);
+	void Flip(glm::mat4& Matrix, int FlipOption);
 }

@@ -18,9 +18,6 @@
 #include <cctype>
 using namespace CryptoPP;
 
-enum class FileType
-{ None, Secure, Normal };
-
 enum class DataType
 { Digit, String };
 
@@ -36,7 +33,6 @@ struct FileData {
 // write and read
 class FileUtil {
 private:
-	FileType FType{ FileType::None };
 	std::string FilePathStr{};
 	std::filesystem::path FilePath{};
 	TiXmlDocument Doc{};
@@ -47,7 +43,7 @@ private:
 	bool FileExist{};
 
 public:
-	void Init(const char* FolderName, const char* FileName, std::vector<FileData> List, FileType Type);
+	void Init(const char* FolderName, const char* FileName, std::vector<FileData> List);
 	void UpdateData(const char* CategoryName, const char* DataName, float Value);
 	void UpdateStringData(const char* CategoryName, const char* DataName, const char* Value);
 	float LoadData(const char* CategoryName, const char* DataName);

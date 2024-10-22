@@ -34,9 +34,6 @@
     <Filter Include="[5]___________[ mata_ENGINE ]\[ System]">
       <UniqueIdentifier>{802bfb93-2599-4817-b15c-634efd1f40d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ Setting ]">
-      <UniqueIdentifier>{c9af8f5b-6936-4568-86b3-dfb813a19adc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[6]___________[ Template ]">
       <UniqueIdentifier>{a0f3d2c9-d45e-42c5-ac1f-c1a53d8811ab}</UniqueIdentifier>
     </Filter>
@@ -151,6 +148,9 @@
     <Filter Include="[3]___________[ Util ]\[ Shape Util ]\[ Rect ]">
       <UniqueIdentifier>{1717a6b1-c315-40dc-a9e1-71209e40100b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[0]___________[ Config ]">
+      <UniqueIdentifier>{c229d7fb-288d-4e48-b8b0-7e7dbd38a78d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMode1.cpp">
@@ -228,9 +228,6 @@
     <ClCompile Include="UiUtil.cpp">
       <Filter>[3]___________[ Util ]\[ UI Util ]</Filter>
     </ClCompile>
-    <ClCompile Include="StartMode.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ Setting ]</Filter>
-    </ClCompile>
     <ClCompile Include="MoveUtil.cpp">
       <Filter>[3]___________[ Util ]\[ Move Util ]</Filter>
     </ClCompile>
@@ -269,6 +266,9 @@
     </ClCompile>
     <ClCompile Include="RectBrush.cpp">
       <Filter>[3]___________[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
+    </ClCompile>
+    <ClCompile Include="StartMode.cpp">
+      <Filter>[0]___________[ Config ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -316,9 +316,6 @@
     </ClInclude>
     <ClInclude Include="EngineHeader.h">
       <Filter>[5]___________[ mata_ENGINE ]\[ Header ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Setting.h">
-      <Filter>[5]___________[ mata_ENGINE ]\[ Setting ]</Filter>
     </ClInclude>
     <ClInclude Include="Framework.h">
       <Filter>[5]___________[ mata_ENGINE ]\[ Framework ]</Filter>
@@ -382,6 +379,9 @@
     </ClInclude>
     <ClInclude Include="RectBrush.h">
       <Filter>[3]___________[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting.h">
+      <Filter>[0]___________[ Config ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

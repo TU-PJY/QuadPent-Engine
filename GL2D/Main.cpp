@@ -22,7 +22,6 @@ GLvoid GLMain() {
 	if(FPSLimit > 0)
 		std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(DestFPS)));
 
-
 	DeltaTime = (CurrentTime - PrevTime) / 1000.0;
 	framework.InputFrameTime(DeltaTime);
 

@@ -6,8 +6,12 @@
 #include "ExUtil.h"
 #include <cmath>
 
-void LineRectBrush::SetRenderType(RenderType Opt) {
-	Type = Opt;
+LineRectBrush::LineRectBrush(bool Inheritance) {
+	CameraInheritance = Inheritance;
+}
+
+void LineRectBrush::SetRenderType(int Opt) {
+	RenderType = Opt;
 }
 
 void LineRectBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
@@ -41,16 +45,12 @@ void LineRectBrush::DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat Offs
 	Render();
 }
 
-void LineRectBrush::SetCameraInheritance() {
-	CameraInheritance = true;
-}
-
 void LineRectBrush::Render() {
 	if (!CameraInheritance)
-		camera.SetCamera(Type);
+		camera.SetCamera(RenderType);
 
 	glUseProgram(ImageShader);
-	camera.PrepareRender(ShaderType::Image);
+	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, TransparencyValue);
@@ -67,8 +67,12 @@ void LineRectBrush::Render() {
 
 
 
-void RectBrush::SetRenderType(RenderType Opt) {
-	Type = Opt;
+RectBrush::RectBrush(bool Inheritance) {
+	CameraInheritance = Inheritance;
+}
+
+void RectBrush::SetRenderType(int Opt) {
+	RenderType = Opt;
 }
 
 void RectBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
@@ -95,16 +99,12 @@ void RectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat
 	Render();
 }
 
-void RectBrush::SetCameraInheritance() {
-	CameraInheritance = true;
-}
-
 void RectBrush::Render() {
 	if(!CameraInheritance)
-		camera.SetCamera(Type);
+		camera.SetCamera(RenderType);
 
 	glUseProgram(ImageShader);
-	camera.PrepareRender(ShaderType::Image);
+	camera.PrepareRender(ImageShader);
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, TransparencyValue);

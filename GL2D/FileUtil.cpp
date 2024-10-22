@@ -1,13 +1,13 @@
 #include "FileUtil.h"
+#include "Setting.h"
 
-void FileUtil::Init(const char* FolderName, const char* FileName, std::vector<FileData> List, FileType Type) {
+void FileUtil::Init(const char* FolderName, const char* FileName, std::vector<FileData> List) {
 	if (FileExist)
 		return;
 
-	FType = Type;
 	std::string TempFileName = FileName;
 
-	if (FType == FileType::Normal)
+	if (!USE_FILE_SECURITY)
 		TempFileName += ".xml";
 
 	std::filesystem::path FolderPath = FolderName;
@@ -218,7 +218,7 @@ const char* FileUtil::FindData(const char* CategoryName, const char* DataName) {
 }
 
 bool FileUtil::LoadDataFile(const char* FileName) {
-	if (FType == FileType::Secure) {
+	if (USE_FILE_SECURITY) {
 		std::ifstream EncryptedFile(FileName, std::ios::binary);
 		if (!EncryptedFile)
 			return false;
@@ -238,12 +238,12 @@ bool FileUtil::LoadDataFile(const char* FileName) {
 		return true;
 	}
 
-	else if (FType == FileType::Normal)
+	else
 		return Doc.LoadFile(FileName);
 }
 
 void FileUtil::UpdateDataFile() {
-	if (FType == FileType::Secure) {
+	if (USE_FILE_SECURITY) {
 		TiXmlPrinter Printer;
 		Doc.Accept(&Printer);
 
@@ -258,7 +258,7 @@ void FileUtil::UpdateDataFile() {
 		LoadDataFile(FilePathStr.c_str());
 	}
 
-	else if (FType == FileType::Normal)
+	else
 		Doc.SaveFile(FilePathStr.c_str());
 
 	Root = FindRoot();

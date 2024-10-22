@@ -16,26 +16,27 @@ extern int FPSLimit;
 
 typedef void(*Start_Mode)(void);
 using Sound = FMOD::Sound*;
-using Channel = FMOD::Channel*;
+using SoundChannel = FMOD::Channel*;
 
-enum class KeyType
-{ Normal, Special };
 
-enum class KeyState
-{ Down, Up };
+enum KeyType
+{ KEY_TYPE_NORMAL, KEY_TYPE_SPECIAL };
 
-enum class RenderType
-{ Static, Default };
+enum KeyState
+{ KEY_DOWN, KEY_UP };
 
-enum class ShaderType
-{ Image, Text };
+enum RenderType
+{ RENDER_TYPE_DEFAULT, RENDER_TYPE_STATIC };
+
+enum ShaderType
+{ SHADER_TYPE_IMAGE, SHADER_TYPE_TEXT };
 
 
 // corner position of display
-struct Rect {
+struct ViewportRect {
 	GLfloat lx, ly, rx, ry;
 };
-extern Rect LineRect;
+extern ViewportRect WindowRect;
 
 // image struct
 typedef struct {

@@ -37,7 +37,7 @@ public:
 	GLfloat BlurValue{};
 
 	// init functions
-	void InitMatrix(RenderType Type=RenderType::Default);
+	void InitMatrix(int RenderType=RENDER_TYPE_DEFAULT);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
 
@@ -51,32 +51,32 @@ public:
 	void SetBlur(int Strength);
 
 	// sound functions
-	void PlaySound(Sound Sound, Channel& Channel, unsigned int StartTime);
-	void PauseSound(Channel& Channel, bool Flag);
-	void StopSound(Channel& Channel);
-	void SetPlaySpeed(Channel& Channel, float PlaySpeed);
-	void ResetPlaySpeed(Channel& Channel);
-	void EnableFreqCutoff(Channel& Channel, float Frequency);
-	void EnableBeatDetect(Channel& Channel);
+	void PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime);
+	void PauseSound(SoundChannel& ChannelVar, bool Flag);
+	void StopSound(SoundChannel& ChannelVar);
+	void SetPlaySpeed(SoundChannel& ChannelVar, float PlaySpeed);
+	void ResetPlaySpeed(SoundChannel& ChannelVar);
+	void EnableFreqCutoff(SoundChannel& ChannelVar, float Frequency);
+	void EnableBeatDetect(SoundChannel& ChannelVar);
 	void DetectBeat(GLfloat& Value, float ThresHold, float SamplingRate);
 	bool IsBeat(float ThresHold, float SamplingRate);
-	void DisableFreqCutoff(Channel& Channel);
-	void DisableBeatDetect(Channel& Channel);
-	void SetSoundDistance(Channel& Channel, float MinDist, float MaxDist);
+	void DisableFreqCutoff(SoundChannel& ChannelVar);
+	void DisableBeatDetect(SoundChannel& ChannelVar);
+	void SetSoundDistance(SoundChannel& ChannelVar, float MinDist, float MaxDist);
 	void SetListnerPosition(float X, float Y);
-	void SetSoundPosition(Channel& Channel, float X, float Y, float Diff);
+	void SetSoundPosition(SoundChannel& ChannelVar, float X, float Y, float Diff);
 
 	// object defined functions
 	virtual ~GameObject() {}
 	virtual void Update(float FT) {}
 	virtual void Render() {}
-	virtual void InputKey(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {}
+	virtual void InputKey(int Type, int State, unsigned char NormalKey, int SpecialKey) {}
 	virtual void InputMouse(int Button, int State, int X, int Y) {}
 	virtual void InputScroll(int Button, int Wheel, int X, int Y) {}
 	virtual void ResetControlState() {}
 	virtual AABB GetAABB() { return {}; }
-	virtual OBB GetOBB() { return{}; }
-	virtual Range GetRange() { return {}; }
+	virtual OOBB GetOBB() { return{}; }
+	virtual BoundingSphere GetRange() { return {}; }
 
 private:
 	void PrepareRender(); 

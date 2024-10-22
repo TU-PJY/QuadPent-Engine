@@ -1,12 +1,13 @@
 #pragma once
 #include "Framework.h"
+#include "EngineHeader.h"
 #include <cmath>
 
 class IntroScreen : public GameObject {
 private:
 	TimerUtil timer;
 
-	Channel IntroChannel{};
+	SoundChannel IntroChannel{};
 
 	GLfloat LogoSize = 2.0;
 	GLfloat LogoTransparent = 1.0;
@@ -23,8 +24,8 @@ public:
 		SetColor(1.0, 1.0, 1.0);
 	}
 
-	void InputKey(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
-		if (Type == KeyType::Normal && State == KeyState::Down) {
+	void InputKey(int Type, int State, unsigned char NormalKey, int SpecialKey) {
+		if (Type == KEY_TYPE_NORMAL && State == KEY_DOWN) {
 			switch (NormalKey) {
 			case 13:
 				StopSound(IntroChannel);
@@ -81,7 +82,7 @@ public:
 	}
 
 	void Render() {
-		InitMatrix(RenderType::Static);
+		InitMatrix(RENDER_TYPE_STATIC);
 
 		if (Scene == 1) {
 			Transform::Rotate(RotateMatrix, Rotation);

@@ -5,7 +5,7 @@ namespace GameMode1 {
 	void Start();
 	void Destructor();
 
-	void ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey);
+	void ProcessKeyboard(int Type, int State, unsigned char NormalKey, int SpecialKey);
 	void ProcessMouse(int Button, int State, int X, int Y);
 	void ProcessMouseWheel(int Button, int Wheel, int X, int Y);
 	void KeyDown(unsigned char KEY, int X, int Y);

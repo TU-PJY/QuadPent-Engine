@@ -8,7 +8,7 @@ private:
 	GLuint vertex_shader{}, fragment_shader{};
 
 public:
-	char* LoadBuffer(const char* file);
+	char* LoadShaderFile(const char* file);
 	void LoadVertexShader(const char* VertexShader);
 	void LoadFragmentShader(const char* FragmentShader);
 	void CreateShader(GLuint& Shader);

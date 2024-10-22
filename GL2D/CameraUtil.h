@@ -13,7 +13,7 @@ public:
 
 	void CalculateASPECT();
 	void Init();
-	void SetCamera(RenderType Type);
-	void PrepareRender(ShaderType Type);
+	void SetCamera(int RenderType);
+	void PrepareRender(int ShaderType);
 };
 extern Camera camera;

@@ -4,15 +4,15 @@
 #include "LoadingScreen.h"
 
 void LoadingMode::Start() {
-	framework.AddObject(new LoadingScreen, "loading_screen", Layer::L1);
-	framework.RegisterController(Controller, ModeType::Default);
+	framework.AddObject(new LoadingScreen, "loading_screen", LAYER_1);
+	framework.RegisterController(Controller, MODE_TYPE_DEFAULT);
 	framework.RegisterDestructor(Destructor);
 	framework.RegisterModeName("LoadingMode");
 }
 
 void LoadingMode::Destructor() {}
 
-void LoadingMode::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
+void LoadingMode::ProcessKeyboard(int Type, int State, unsigned char NormalKey, int SpecialKey) {
 	if (auto loading_screen = framework.Find("loading_screen"); loading_screen)
 		loading_screen->InputKey(Type, State, NormalKey, SpecialKey);
 }
@@ -26,19 +26,19 @@ void LoadingMode::ProcessMouseWheel(int Button, int Wheel, int X, int Y) {
 
 
 void LoadingMode::KeyDown(unsigned char KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::Normal, KeyState::Down, KEY, NULL);
+	ProcessKeyboard(KEY_TYPE_NORMAL, KEY_DOWN, KEY, NULL);
 }
 
 void LoadingMode::KeyUp(unsigned char KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::Normal, KeyState::Up, KEY, NULL);
+	ProcessKeyboard(KEY_TYPE_NORMAL, KEY_UP, KEY, NULL);
 }
 
 void LoadingMode::SpecialKeyDown(int KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::Special, KeyState::Down, NULL, KEY);
+	ProcessKeyboard(KEY_TYPE_SPECIAL, KEY_DOWN, NULL, KEY);
 }
 
 void LoadingMode::SpecialKeyUp(int KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::Special, KeyState::Up, NULL, KEY);
+	ProcessKeyboard(KEY_TYPE_SPECIAL, KEY_UP, NULL, KEY);
 }
 
 void LoadingMode::MouseMotion(int X, int Y) {

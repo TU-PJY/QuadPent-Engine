@@ -32,3 +32,42 @@ void TimerUtil::Interpolate(GLfloat Value) {
 	GLfloat OverTime = Time - Value;
 	Time = OverTime;
 }
+
+
+
+
+void Metronome::SetBPM(int BPM) {
+	BeatInterval = 60.0 / (GLfloat)BPM;
+}
+
+void Metronome::Update(float FT) {
+	if (!StopState) {
+		Time += FT;
+
+		if (Time >= BeatInterval) {
+			GLfloat OverTime = Time - BeatInterval;
+			Time = OverTime;
+			BeatState = true;
+		}
+
+		else
+			BeatState = false;
+	}
+}
+
+void Metronome::Stop() {
+	StopState = true;
+	BeatState = false;
+}
+
+void Metronome::Resume() {
+	StopState = false;
+}
+
+void Metronome::Reset() {
+	Time = 0.0;
+}
+
+bool Metronome::IsBeat() {
+	return BeatState;
+}

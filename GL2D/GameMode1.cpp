@@ -3,7 +3,7 @@
 #include "MouseUtil.h"
 
 void GameMode1::Start() {
-	framework.RegisterController(Controller, ModeType::Default);
+	framework.RegisterController(Controller, MODE_TYPE_DEFAULT);
 	framework.RegisterDestructor(Destructor);
 	framework.RegisterModeName("GameMode1");
 }
@@ -12,8 +12,8 @@ void GameMode1::Destructor() {
 
 }
 
-void GameMode1::ProcessKeyboard(KeyType Type, KeyState State, unsigned char NormalKey, int SpecialKey) {
-	if (Type == KeyType::Normal && State == KeyState::Down) {
+void GameMode1::ProcessKeyboard(int Type, int State, unsigned char NormalKey, int SpecialKey) {
+	if (Type == KEY_TYPE_NORMAL && State == KEY_DOWN) {
 		switch (NormalKey) {
 		case 27: //ESC
 			framework.Exit();
@@ -31,19 +31,19 @@ void GameMode1::ProcessMouseWheel(int Button, int Wheel, int X, int Y) {
 
 
 void GameMode1::KeyDown(unsigned char KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::Normal, KeyState::Down, KEY, NULL);
+	ProcessKeyboard(KEY_TYPE_NORMAL, KEY_DOWN, KEY, NULL);
 }
 
 void GameMode1::KeyUp(unsigned char KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::Normal, KeyState::Up, KEY, NULL);
+	ProcessKeyboard(KEY_TYPE_NORMAL, KEY_UP, KEY, NULL);
 }
 
 void GameMode1::SpecialKeyDown(int KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::Special, KeyState::Down, NULL, KEY);
+	ProcessKeyboard(KEY_TYPE_SPECIAL, KEY_DOWN, NULL, KEY);
 }
 
 void GameMode1::SpecialKeyUp(int KEY, int X, int Y) {
-	ProcessKeyboard(KeyType::Special, KeyState::Up, NULL, KEY);
+	ProcessKeyboard(KEY_TYPE_SPECIAL, KEY_UP, NULL, KEY);
 }
 
 void GameMode1::MouseMotion(int X, int Y) {
