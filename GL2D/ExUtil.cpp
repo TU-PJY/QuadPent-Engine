@@ -14,7 +14,7 @@ void EX::SwitchValue(float& TargetValue, float Value1, float Value2) {
 		TargetValue = Value1;
 }
 
-void EX::ClampValue(float& Value, float Dest, ClampType Type) {
-	if ((Type == ClampType::Greater && Value > Dest) || (Type == ClampType::Less && Value < Dest))
+void EX::ClampValue(float& Value, float Dest, int Type) {
+	if ((Type == CLAMP_GREATER && Value > Dest) || (Type == CLAMP_LESS && Value < Dest))
 		Value = Dest;
 }

@@ -18,7 +18,7 @@ void SinLoop::Reset() {
 
 GLfloat SinLerp::Update(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
 	Num += FrameTime * Speed;
-	EX::ClampValue(Num, Preset::MaxPositive, ClampType::Greater);
+	EX::ClampValue(Num, Preset::MaxPositive, CLAMP_GREATER);
 	GLfloat Progress = (sin(Num) - sin(Preset::MaxNegative)) / (sin(Preset::MaxPositive) - sin(Preset::MaxNegative));
 
 	return Value + (Dest - Value) * Progress;
