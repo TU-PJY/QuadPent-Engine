@@ -20,8 +20,8 @@ public:
 
 class Metronome {
 private:
-	GLfloat BeatInterval{};
-	GLfloat Time{};
+	GLdouble BeatInterval{};
+	GLdouble Time{};
 	bool StopState{};
 	bool BeatState{};
 

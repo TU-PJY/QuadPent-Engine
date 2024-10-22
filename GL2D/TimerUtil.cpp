@@ -37,7 +37,7 @@ void TimerUtil::Interpolate(GLfloat Value) {
 
 
 void Metronome::SetBPM(int BPM) {
-	BeatInterval = 60.0 / (GLfloat)BPM;
+	BeatInterval = 60.0 / (GLdouble)BPM;
 }
 
 void Metronome::Update(float FT) {

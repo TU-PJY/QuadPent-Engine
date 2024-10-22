@@ -76,12 +76,12 @@ void FileUtil::SetupData() {
 			AddCategory(D.CategoryName);
 
 		if (!FindData(D.CategoryName, D.DataName)) {
-			switch (D.D_Type) {
-			case DataType::Digit:
+			switch (D.DataType) {
+			case DATA_TYPE_DIGIT:
 				AddData(D.CategoryName, D.DataName, D.DigitValue);
 				break;
 
-			case DataType::String:
+			case DATA_TYPE_STRING:
 				AddStringData(D.CategoryName, D.DataName, D.StringValue);
 				break;
 			}

@@ -18,14 +18,14 @@
 #include <cctype>
 using namespace CryptoPP;
 
-enum class DataType
-{ Digit, String };
+enum D_Type
+{ DATA_TYPE_DIGIT, DATA_TYPE_STRING };
 
 
 struct FileData {
 	const char* CategoryName;
 	const char* DataName;
-	DataType D_Type;
+	int DataType;
 	float DigitValue;
 	const char* StringValue;
 };
