@@ -9,6 +9,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "fmod.hpp"
 #include "fmod_errors.h"
+#include <iostream>
 
 extern float DestFPS;
 extern int FPSLimit;

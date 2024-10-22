@@ -20,7 +20,7 @@
 class GameObject {
 private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{}, TextAlphaLocation{};
-	unsigned int RadiusLocation{}, TexelSizeLocation{};
+	unsigned int RadiusLocation{}, TexelSizeLocation{}, BoolBlurLocation{};
 
 public:
 	const char* ObjectTag{};
@@ -47,8 +47,8 @@ public:
 	GLfloat ASP(GLfloat Value);
 
 	// image functions
-	void RenderImage(Image Image, GLfloat Transparency = 1.0, bool DisableAdjustAspect=false);
-	void ImageBlur(GLfloat Strength);
+	void RenderImage(Image& Image, GLfloat Transparency = 1.0, bool DisableAdjustAspect=false);
+	void SetBlur(int Strength);
 
 	// sound functions
 	void PlaySound(Sound Sound, Channel& Channel, unsigned int StartTime);

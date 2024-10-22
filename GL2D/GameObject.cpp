@@ -10,7 +10,7 @@ void GameObject::InitMatrix(RenderType Type) {
 	ScaleMatrix = glm::mat4(1.0f);
 	ImageAspectMatrix = glm::mat4(1.0f);
 	TransparencyValue = 1.0f;
-	BlurValue = 0.0f;
+	BlurValue = 0.0;
 
 	camera.SetCamera(Type);
 }
@@ -47,11 +47,11 @@ void GameObject::UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY, bool Appl
 	ValueY = LocalPosition().y;
 }
 
-void GameObject::ImageBlur(GLfloat Strength) {
-	BlurValue = Strength;
+void GameObject::SetBlur(int Strength) {
+	BlurValue = (GLfloat)Strength;
 }
 
-void GameObject::RenderImage(Image Image, GLfloat Transparency, bool DisableAdjustAspect) {
+void GameObject::RenderImage(Image& Image, GLfloat Transparency, bool DisableAdjustAspect) {
 	TransparencyValue = Transparency;
 
 	if (!DisableAdjustAspect) {
@@ -122,7 +122,6 @@ void GameObject::SetSoundPosition(Channel& Channel, float X, float Y, float Diff
 	soundUtil.SetSoundPosition(Channel, X, Y, Diff);
 }
 
-
 ////////////////////////// private
 void GameObject::PrepareRender() {
 	glUseProgram(ImageShader);
@@ -134,8 +133,15 @@ void GameObject::PrepareRender() {
 	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
 	glUniform3f(ObjectColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
-	RadiusLocation = glGetUniformLocation(ImageShader, "BlurRadius");
+	RadiusLocation = glGetUniformLocation(ImageShader, "Radius");
 	glUniform1f(RadiusLocation, BlurValue);
+
+	BoolBlurLocation = glGetUniformLocation(ImageShader, "UseBlur");
+	if (BlurValue != 0.0)
+		glUniform1i(BoolBlurLocation, 1);
+	else
+		glUniform1i(BoolBlurLocation, 0);
+
 
 	TexelSizeLocation = glGetUniformLocation(ImageShader, "TexelSize");
 	glUniform2f(TexelSizeLocation, ASP(1.0) / (GLfloat)WIDTH, 1.0 / (GLfloat)HEIGHT);

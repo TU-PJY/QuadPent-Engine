@@ -221,17 +221,44 @@ void Framework::Exit() {
 	glutDestroyWindow(1);
 }
 
-void Framework::ApplyBlurDefalutObject(GLfloat Value) {
+void Framework::SwitchToFullscreen() {
+	glutFullScreen();
+	WIDTH = GetSystemMetrics(SM_CXSCREEN);
+	HEIGHT = GetSystemMetrics(SM_CYSCREEN);
+}
+
+void Framework::SwitchToWindow() {
+	WIDTH /= 2;
+	HEIGHT /= 2;
+	glutReshapeWindow(WIDTH, HEIGHT);
+	glutPositionWindow(0, 0);
+}
+
+void Framework::EnableBlurDefalutObject(GLfloat Value) {
 	for (auto const& O : ObjectIndex) {
 		if (!O.second->FloatingObjectMarked && !O.second->DeleteObjectMarked)
 			O.second->BlurValue = Value;
 	}
 }
 
-void Framework::ApplyBlurFloatingObject(GLfloat Value) {
+void Framework::EnableBlurFloatingObject(GLfloat Value) {
 	for (auto const& O : ObjectIndex) {
 		if (O.second->FloatingObjectMarked && !O.second->DeleteObjectMarked)
 			O.second->BlurValue = Value;
+	}
+}
+
+void Framework::DisableBlurDefaultObject() {
+	for (auto const& O : ObjectIndex) {
+		if (!O.second->FloatingObjectMarked && !O.second->DeleteObjectMarked)
+			O.second->BlurValue = 0.0;
+	}
+}
+
+void Framework::DisableBlurFloatingObject() {
+	for (auto const& O : ObjectIndex) {
+		if (O.second->FloatingObjectMarked && !O.second->DeleteObjectMarked)
+			O.second->BlurValue = 0.0;
 	}
 }
 

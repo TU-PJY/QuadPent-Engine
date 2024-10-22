@@ -73,10 +73,12 @@ public:
 	ObjectRange EqualRange(const char* Tag);
 	size_t LayerSize(Layer TargetLayer);
 	void Exit();
-
-	void ApplyBlurDefalutObject(GLfloat Value);
-
-	void ApplyBlurFloatingObject(GLfloat Value);
+	void SwitchToFullscreen();
+	void SwitchToWindow();
+	void EnableBlurDefalutObject(GLfloat Value);
+	void EnableBlurFloatingObject(GLfloat Value);
+	void DisableBlurDefaultObject();
+	void DisableBlurFloatingObject();
 
 private:
 	void UpdateObjectList(int Index);
