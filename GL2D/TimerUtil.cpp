@@ -45,7 +45,7 @@ void Metronome::Update(float FT) {
 		Time += FT;
 
 		if (Time >= BeatInterval) {
-			GLfloat OverTime = Time - BeatInterval;
+			GLdouble OverTime = Time - BeatInterval;
 			Time = OverTime;
 			BeatState = true;
 		}
