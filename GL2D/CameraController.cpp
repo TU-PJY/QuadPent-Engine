@@ -39,3 +39,10 @@ void CameraController::Zoom(int Type, GLfloat Value) {
 void CameraController::ChangeZoom(GLfloat Value) {
 	camera.ZoomValue = Value;
 }
+
+GLfloat CameraController::CalculateNextZoom(int Type, GLfloat Value) {
+	if(Type == ZOOM_IN)
+		return camera.ZoomValue / (1.0f - Value);
+	else if(Type == ZOOM_OUT)
+		return camera.ZoomValue * (1.0f - Value);
+}

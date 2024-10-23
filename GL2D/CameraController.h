@@ -16,5 +16,6 @@ public:
 	void Rotate(GLfloat Value);
 	void Zoom(int Type, GLfloat Value);
 	void ChangeZoom(GLfloat Value);
+	GLfloat CalculateNextZoom(int Type, GLfloat Value);
 };
 extern CameraController cameraCon;

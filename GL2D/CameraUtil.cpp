@@ -1,7 +1,7 @@
 #include "CameraUtil.h"
 
 void Camera::CalculateASPECT() {
-	ASPECT = 1.0 * WIDTH / HEIGHT;
+	ASPECT = (float)WIDTH / (float)HEIGHT;
 	WindowRect.lx = -1.0 * ASPECT;
 	WindowRect.ly = -1.0;
 	WindowRect.rx = 1.0 * ASPECT;

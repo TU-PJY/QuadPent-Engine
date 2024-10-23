@@ -14,7 +14,7 @@
 extern float DestFPS;
 extern int FPSLimit;
 
-typedef void(*Start_Mode)(void);
+typedef void(*StartModePtr)(void);
 using Sound = FMOD::Sound*;
 using SoundChannel = FMOD::Channel*;
 
@@ -105,7 +105,7 @@ extern int PREV_WIDTH, PREV_HEIGHT;
 extern GLfloat ASPECT;
 
 extern glm::vec3 BackColor;
-extern Start_Mode StartMode;
+extern StartModePtr StartMode;
 
 // global scope shader
 extern GLuint ImageShader;
