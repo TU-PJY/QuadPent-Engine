@@ -50,6 +50,7 @@ enum SpecialKeySet {
 	SK_HOME =		 GLUT_KEY_HOME,
 	SK_END =		 GLUT_KEY_END,
 	SK_INSERT =		 GLUT_KEY_INSERT,
+	SK_DELETE =      GLUT_KEY_DELETE,
 	SK_F1 =			 GLUT_KEY_F1,
 	SK_F2 =			 GLUT_KEY_F2,
 	SK_F3 =			 GLUT_KEY_F3,
@@ -61,7 +62,19 @@ enum SpecialKeySet {
 	SK_F9 =			 GLUT_KEY_F9,
 	SK_F10 =		 GLUT_KEY_F10,
 	SK_F11 =		 GLUT_KEY_F11,
-	SK_F12 =		 GLUT_KEY_F12
+	SK_F12 =		 GLUT_KEY_F12,
+	SK_SHIFT_RIGHT = GLUT_KEY_SHIFT_R,
+	SK_SHIFT_LEFT =  GLUT_KEY_SHIFT_L,
+	SK_CTRL_RIGHT =  GLUT_KEY_CTRL_R,
+	SK_CTRL_LEFT =   GLUT_KEY_CTRL_L,
+	SK_ALT_RIGHT =   GLUT_KEY_ALT_R,
+	SK_ALT_LEFT =    GLUT_KEY_ALT_L,
+};
+
+enum NormalKeySet {
+	NK_ENTER =  13,
+	NK_ESCAPE = 27,
+	NK_TAB =    9,
 };
 
 enum RenderType { 
@@ -73,7 +86,6 @@ enum ShaderType {
 	SHADER_TYPE_IMAGE, 
 	SHADER_TYPE_TEXT 
 };
-
 
 // corner position of display
 struct ViewportRect {
