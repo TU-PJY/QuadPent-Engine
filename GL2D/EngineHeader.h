@@ -68,16 +68,16 @@ enum SpecialKeySet {
 	SK_CTRL_RIGHT =  GLUT_KEY_CTRL_R,
 	SK_CTRL_LEFT =   GLUT_KEY_CTRL_L,
 	SK_ALT_RIGHT =   GLUT_KEY_ALT_R,
-	SK_ALT_LEFT =    GLUT_KEY_ALT_L,
+	SK_ALT_LEFT =    GLUT_KEY_ALT_L
 };
 
 enum NormalKeySet {
 	NK_ENTER =  13,
 	NK_ESCAPE = 27,
-	NK_TAB =    9,
+	NK_TAB =    9
 };
 
-enum RenderType { 
+enum RenderType {
 	RENDER_TYPE_DEFAULT, 
 	RENDER_TYPE_STATIC 
 };
