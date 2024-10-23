@@ -18,6 +18,7 @@ typedef void(*Start_Mode)(void);
 using Sound = FMOD::Sound*;
 using SoundChannel = FMOD::Channel*;
 
+
 enum KeyState { 
 	NORMAL_KEY_DOWN, 
 	NORMAL_KEY_UP, 
@@ -37,6 +38,30 @@ enum ButtonState {
 	RIGHT_BUTTON_UP, 
 	MIDDLE_BUTTON_DOWN, 
 	MIDDLE_BUTTON_UP 
+};
+
+enum SpecialKeySet {
+	SK_ARROW_UP =    GLUT_KEY_UP,
+	SK_ARROW_DOWN =  GLUT_KEY_DOWN,
+	SK_ARROW_RIGHT = GLUT_KEY_RIGHT,
+	SK_ARROW_LEFT =  GLUT_KEY_LEFT,
+	SK_PAGE_UP =     GLUT_KEY_PAGE_UP,
+	SK_PAGE_DOWN =   GLUT_KEY_PAGE_DOWN,
+	SK_HOME =		 GLUT_KEY_HOME,
+	SK_END =		 GLUT_KEY_END,
+	SK_INSERT =		 GLUT_KEY_INSERT,
+	SK_F1 =			 GLUT_KEY_F1,
+	SK_F2 =			 GLUT_KEY_F2,
+	SK_F3 =			 GLUT_KEY_F3,
+	SK_F4 =			 GLUT_KEY_F4,
+	SK_F5 =			 GLUT_KEY_F5,
+	SK_F6 =			 GLUT_KEY_F6,
+	SK_F7 =			 GLUT_KEY_F7,
+	SK_F8 =			 GLUT_KEY_F8,
+	SK_F9 =			 GLUT_KEY_F9,
+	SK_F10 =		 GLUT_KEY_F10,
+	SK_F11 =		 GLUT_KEY_F11,
+	SK_F12 =		 GLUT_KEY_F12
 };
 
 enum RenderType { 
