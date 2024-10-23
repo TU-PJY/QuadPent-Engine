@@ -206,6 +206,9 @@ void BoundingSphere::ProcessTransform() {
 	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
 	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
 
+	BoolBlurLocation = glGetUniformLocation(ImageShader, "UseBlur");
+	glUniform1i(BoolBlurLocation, 0);
+
 	ModelLocation = glGetUniformLocation(ImageShader, "model");
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
 #endif

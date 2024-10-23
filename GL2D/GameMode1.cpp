@@ -9,7 +9,6 @@ void GameMode1::Start() {
 }
 
 void GameMode1::Destructor() {
-
 }
 
 void GameMode1::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {

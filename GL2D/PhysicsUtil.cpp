@@ -1,94 +1,115 @@
 #include "PhysicsUtil.h"
 #include "MathUtil.h"
 
-void PhysicsUtil::SetFallingState() {
-	FallingState = true;
+void PhysicsUtil::SetGravity(GLfloat Value) {
+	if (Value < 0.0) return;
+	Gravity = Value;
+}
+
+void PhysicsUtil::SetFriction(GLfloat Value) {
+	if (Value < 0.0) return;
+	Friction = Value;
+}
+
+void PhysicsUtil::SetRebounceReduce(GLfloat Value) {
+	if (Value < 0.0) return;
+	RebounceReduce = Value;
+}
+
+void PhysicsUtil::SetMinimumRebounce(GLfloat Value) {
+	if (Value < 0.0) return;
+	MinRebounceValue = Value;
+}
+
+void PhysicsUtil::SetFloorHeight(GLfloat Value) {
+	FloorHeight = Value;
+}
+
+void PhysicsUtil::SetHeightOffset(GLfloat Value) {
+	HeightOffset = Value;
 }
 
 bool PhysicsUtil::GetFallingState() {
 	return FallingState;
 }
 
-void PhysicsUtil::AddGravityAcc(GLfloat AccValue) {
-	GravityAcc += AccValue;
+void PhysicsUtil::AddGravityAcc(GLfloat Value) {
+	GravityAcc += Value;
 	FallingState = true;
 }
 
-void PhysicsUtil::SetGravityAcc(GLfloat AccValue) {
-	GravityAcc = AccValue;
+void PhysicsUtil::SetGravityAcc(GLfloat Value) {
+	GravityAcc = Value;
 	FallingState = true;
 }
 
-void PhysicsUtil::Fall(GLfloat& Position, GLfloat Gravity, float FT) {
+void PhysicsUtil::EnableFalling() {
+	FallingState = true;
+}
+
+void PhysicsUtil::DisableFalling() {
+	FallingState = false;
+}
+
+bool PhysicsUtil::CheckFloorCollision(GLfloat& HeightPosition) {
+	if (HeightPosition <= FloorHeight + HeightOffset)
+		return true;
+	return false;
+}
+
+void PhysicsUtil::LandOnFloor(GLfloat& HeightPosition) {
+	HeightPosition = FloorHeight + HeightOffset;
+	FallingState = false;
+}
+
+void PhysicsUtil::UpdateFalling(GLfloat& HeightPosition, float FrameTime) {
 	if (FallingState) {
-		GravityAcc -= Gravity * FT;
-		Position += GravityAcc * FT;
+		GravityAcc -= Gravity * FrameTime;
+		HeightPosition += GravityAcc * FrameTime;
+		if (CheckFloorCollision(HeightPosition))
+			LandOnFloor(HeightPosition);
 	}
 }
 
-bool PhysicsUtil::IsHitFloor(GLfloat Position, GLfloat FloorHeight) {
-	if (Position <= FloorHeight)
-		return true;
-
-	return false;
-}
-
-bool PhysicsUtil::IsOnFloor(GLfloat Position, GLfloat FloorHeight) {
-	if (Position == FloorHeight)
-		return true;
-
-	return false;
-}
-
-void PhysicsUtil::LandFloor(GLfloat& Position, GLfloat FloorHeight) {
-	if (GravityAcc < 0 && Position < FloorHeight) {
-		Position = FloorHeight;
-		GravityAcc = 0;
-		FallingState = false;
-	}
-}
-
-void PhysicsUtil::BounceFloor(GLfloat& Position, GLfloat FloorHeight, GLfloat RebounceValue, GLfloat Threshold) {
-	if (GravityAcc < 0 && Position < FloorHeight && FallingState) {
-		Position = FloorHeight;
-
-		if (GravityAcc < 0 && fabs(GravityAcc) <= Threshold) {
-			GravityAcc = 0;
-			FallingState = false;
+void PhysicsUtil::UpdateBouncing(GLfloat& HeightPosition, float FrameTime) {
+	if (FallingState) {
+		GravityAcc -= Gravity * FrameTime;
+		HeightPosition += GravityAcc * FrameTime;
+		if (CheckFloorCollision(HeightPosition)) {
+			if (fabs(GravityAcc) <= MinRebounceValue)
+				LandOnFloor(HeightPosition);
+			else {
+				HeightPosition = FloorHeight + HeightOffset;
+				GravityAcc *= -1;
+				GravityAcc -= RebounceReduce;
+			}
 		}
-		else if(GravityAcc < 0 && fabs(GravityAcc) > Threshold)
-			GravityAcc *=  -RebounceValue;
 	}
 }
 
-void PhysicsUtil::BounceWall(int& MoveDirection, GLfloat& Speed, GLfloat RebounceValue) {
-	MoveDirection *= -1;
-	Speed *= RebounceValue;
+void PhysicsUtil::LerpAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT) {
+	Speed = Math::Lerp(Speed, DestSpeed, AccValue * (1.0 - Friction), FT);
 }
 
-void PhysicsUtil::LerpAcc(GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT) {
-	Speed = Math::Lerp(Speed, Dest * MoveDirection, AccValue, FT);
-}
-
-void PhysicsUtil::LerpDcc(GLfloat& Speed, GLfloat Friction, float FT) {
+void PhysicsUtil::LerpDeceleration(GLfloat& Speed, float FT) {
 	Speed = Math::Lerp(Speed, 0.0, Friction, FT);
 }
 
-void PhysicsUtil::LinearAcc(GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT) {
-	Speed += MoveDirection * AccValue * FT;
+void PhysicsUtil::LinearAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT) {
+	Speed += AccValue * (1.0 - Friction) * FT;
 
-	if (MoveDirection > 0) {
-		if (Speed >= Dest)
-			Speed = Dest;
+	if (DestSpeed > 0) {
+		if (Speed >= DestSpeed)
+			Speed = DestSpeed;
 	}
 
-	else if (MoveDirection < 0) {
-		if (Speed <= Dest * MoveDirection)
-			Speed = Dest * MoveDirection;
+	else if (DestSpeed < 0) {
+		if (Speed <= DestSpeed)
+			Speed = DestSpeed;
 	}
 }
 
-void PhysicsUtil::LinearDcc(GLfloat& Speed, GLfloat Friction, float FT) {
+void PhysicsUtil::LinearDeceleration(GLfloat& Speed, float FT) {
 	if (Speed > 0) {
 		Speed -= Friction * FT;
 		if (Speed <= 0)
@@ -102,7 +123,7 @@ void PhysicsUtil::LinearDcc(GLfloat& Speed, GLfloat Friction, float FT) {
 	}
 }
 
-void PhysicsUtil::MediateSpeed(GLfloat& SpeedX, GLfloat& SpeedY) {
+void PhysicsUtil::Adjust2SpeedEqual(GLfloat& SpeedX, GLfloat& SpeedY) {
 	GLfloat Length = std::sqrt(SpeedX * SpeedX + SpeedY * SpeedY);
 	if (Length > 1.0) {
 		SpeedX /= Length;

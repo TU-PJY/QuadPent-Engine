@@ -4,24 +4,38 @@
 
 class PhysicsUtil {
 private:
+	GLfloat Gravity{};
+	GLfloat Friction{};
+	GLfloat RebounceReduce{};
+	GLfloat MinRebounceValue{};
+
+	GLfloat FloorHeight{};
+	GLfloat HeightOffset{};
+
 	GLfloat GravityAcc{};
 	GLfloat MoveAcc{};
+
 	bool FallingState{};
 
 public:
-	void Fall(GLfloat& Position, GLfloat Gravity, float FT);
-	bool IsHitFloor(GLfloat Position, GLfloat FloorHeight);
-	bool IsOnFloor(GLfloat Position, GLfloat FloorPosition);
-	void LandFloor(GLfloat& Position, GLfloat FloorHeight);
-	void SetFallingState();
 	bool GetFallingState();
+	void EnableFalling();
+	void DisableFalling();
 	void AddGravityAcc(GLfloat AccValue);
 	void SetGravityAcc(GLfloat AccValue);
-	void BounceFloor(GLfloat& Position, GLfloat FloorHeight, GLfloat RebounceValue, GLfloat Threshold);
-	void BounceWall(int& MoveDirection, GLfloat& Speed, GLfloat RebounceValue);
-	void LerpAcc(GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT);
-	void LerpDcc(GLfloat& Speed, GLfloat Friction, float FT);
-	void LinearAcc(GLfloat& Speed, int MoveDirection, GLfloat Dest, GLfloat AccValue, float FT);
-	void LinearDcc(GLfloat& Speed, GLfloat Friction, float FT);
-	void MediateSpeed(GLfloat& SpeedX, GLfloat& SpeedY);
+	void SetGravity(GLfloat Value);
+	void SetFloorHeight(GLfloat Value);
+	void SetFriction(GLfloat Value);
+	void SetHeightOffset(GLfloat Value);
+	void SetRebounceReduce(GLfloat Value);
+	void SetMinimumRebounce(GLfloat Value);
+	bool CheckFloorCollision(GLfloat& Position);
+	void LandOnFloor(GLfloat& Position);
+	void UpdateFalling(GLfloat& HeightPosition, float FrameTime);
+	void UpdateBouncing(GLfloat& HeightPosition, float FrameTime);
+	void LerpAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT);
+	void LerpDeceleration(GLfloat& Speed, float FT);
+	void LinearAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT);
+	void LinearDeceleration(GLfloat& Speed, float FT);
+	void Adjust2SpeedEqual(GLfloat& SpeedX, GLfloat& SpeedY);
 };

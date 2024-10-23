@@ -31,7 +31,6 @@ void CameraController::Rotate(GLfloat Value) {
 void CameraController::Zoom(int Type, GLfloat Value) {
 	if (Type == ZOOM_IN)
 		camera.ZoomValue = camera.ZoomValue / (1.0f - Value);
-
 	else if (Type == ZOOM_OUT)
 		camera.ZoomValue = camera.ZoomValue * (1.0f - Value);
 }

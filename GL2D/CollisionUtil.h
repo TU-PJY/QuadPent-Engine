@@ -62,6 +62,7 @@ private:
 class BoundingSphere {
 private:
 	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
+	unsigned int BoolBlurLocation{};
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 
 	glm::vec2 Center{};

@@ -58,8 +58,10 @@ void LineRectBrush::Render() {
 	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
 	glUniform3f(ObjectColorLocation, Color.r, Color.g, Color.b);
 
-	ModelLocation = glGetUniformLocation(ImageShader, "model");
+	BoolBlurLocation = glGetUniformLocation(ImageShader, "UseBlur");
+	glUniform1i(BoolBlurLocation, 0);
 
+	ModelLocation = glGetUniformLocation(ImageShader, "model");
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
 
 	imageUtil.Render(LineTex);
@@ -104,7 +106,7 @@ void RectBrush::Render() {
 		camera.SetCamera(RenderType);
 
 	glUseProgram(ImageShader);
-	camera.PrepareRender(ImageShader);
+	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
 	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
 	glUniform1f(TransparencyLocation, TransparencyValue);
@@ -112,8 +114,10 @@ void RectBrush::Render() {
 	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
 	glUniform3f(ObjectColorLocation, Color.r, Color.g, Color.b);
 
-	ModelLocation = glGetUniformLocation(ImageShader, "model");
+	BoolBlurLocation = glGetUniformLocation(ImageShader, "UseBlur");
+	glUniform1i(BoolBlurLocation, 0);
 
+	ModelLocation = glGetUniformLocation(ImageShader, "model");
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
 
 	imageUtil.Render(LineTex);
