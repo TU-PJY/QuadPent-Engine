@@ -13,7 +13,7 @@ public:
 	void InputKey(int State, unsigned char NormalKey, int SpecialKey) {
 		if (State == NORMAL_KEY_DOWN) {
 			switch (NormalKey) {
-			case 27:
+			case NK_ESCAPE:
 				framework.Exit();
 				break;
 			}

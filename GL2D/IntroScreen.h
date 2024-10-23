@@ -27,12 +27,12 @@ public:
 	void InputKey(int State, unsigned char NormalKey, int SpecialKey) {
 		if (State == NORMAL_KEY_DOWN) {
 			switch (NormalKey) {
-			case 13:
+			case NK_ENTER:
 				StopSound(IntroChannel);
 				framework.SwitchMode(StartMode);
 				break;
 
-			case 27:
+			case NK_ESCAPE:
 				framework.Exit();
 				break;
 			}
