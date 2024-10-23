@@ -1,5 +1,6 @@
 #include "PhysicsUtil.h"
 #include "MathUtil.h"
+#include "EXUtil.h"
 
 void PhysicsUtil::SetGravity(GLfloat Value) {
 	if (Value < 0.0) return;
@@ -96,30 +97,24 @@ void PhysicsUtil::LerpDeceleration(GLfloat& Speed, float FT) {
 }
 
 void PhysicsUtil::LinearAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT) {
-	Speed += AccValue * (1.0 - Friction) * FT;
-
-	if (DestSpeed > 0) {
-		if (Speed >= DestSpeed)
-			Speed = DestSpeed;
+	if (DestSpeed > 0.0) {
+		Speed += AccValue * (1.0 - Friction) * FT;
+		EX::ClampValue(Speed, DestSpeed, CLAMP_GREATER);
 	}
-
-	else if (DestSpeed < 0) {
-		if (Speed <= DestSpeed)
-			Speed = DestSpeed;
+	else {
+		Speed -= AccValue * (1.0 - Friction) * FT;
+		EX::ClampValue(Speed, DestSpeed, CLAMP_LESS);
 	}
 }
 
 void PhysicsUtil::LinearDeceleration(GLfloat& Speed, float FT) {
 	if (Speed > 0) {
 		Speed -= Friction * FT;
-		if (Speed <= 0)
-			Speed = 0;
+		EX::ClampValue(Speed, 0.0, CLAMP_LESS);
 	}
-
 	else if (Speed < 0) {
 		Speed += Friction * FT;
-		if (Speed >= 0)
-			Speed = 0;
+		EX::ClampValue(Speed, 0.0, CLAMP_GREATER);
 	}
 }
 
