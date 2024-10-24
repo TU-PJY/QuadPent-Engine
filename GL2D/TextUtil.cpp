@@ -51,6 +51,18 @@ void TextUtil::SetRenderType(int Type) {
 	RenderType = Type;
 }
 
+void TextUtil::EnableAutoLine() {
+	AutoNewLine = true;
+}
+
+void TextUtil::DisableAutoLine() {
+	AutoNewLine = false;
+}
+
+void TextUtil::SetAutoLineWordSpace(int Value) {
+	WordNumForNewLine = Value;
+}
+
 void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
 	wchar_t Text[256]{};
 
@@ -106,7 +118,18 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyVa
 		unsigned int CharIndex = Text[i];
 		if (CharIndex < 65536)
 			CurrentPositionX += TextGlyph[CharIndex].gmfCellIncX * (Size / 1.0f);
+
+		if (AutoNewLine) {
+			++CurrentWordNum;
+			if (CurrentWordNum == WordNumForNewLine) {
+				CurrentWordNum = 0;
+				CurrentHeight += NewLineSpace;
+			}
+		}
 	}
+
+	if (AutoNewLine)
+		CurrentHeight = 0.0;
 }
 
 

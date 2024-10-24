@@ -14,24 +14,28 @@ enum Align {
 class TextUtil {
 private:
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
+	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
+
 	GLfloat Rotation{};
 	GLfloat Transparency{ 1.0f };
 	GLfloat CurrentHeight{};
 	GLfloat NewLineSpace{};
 
 	glm::vec3 TextColor{ glm::vec3(1.0, 1.0, 1.0) };
-	int TextAlign{ ALIGN_DEFAULT };
-
 	std::map <wchar_t, bool> GlyphCache;
-
-	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
 
 	HDC hDC{};
 	HFONT Font{};
 	GLuint FontBase{};
 	GLYPHMETRICSFLOAT TextGlyph[65536]{};
 
+	bool AutoNewLine{};
+	int WordNumForNewLine{};
+	int CurrentWordNum{};
+
+	int TextAlign{ ALIGN_DEFAULT };
 	int RenderType{ RENDER_TYPE_STATIC };
+
 
 public:
 	~TextUtil();
@@ -45,6 +49,9 @@ public:
 	void ResetLineSpace();
 	void ResetLine();
 	void SetRenderType(int Type);
+	void EnableAutoLine();
+	void DisableAutoLine();
+	void SetAutoLineWordSpace(int Value);
 	void Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);
 
 private:
