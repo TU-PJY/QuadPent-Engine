@@ -1,11 +1,11 @@
 #include "GameMode1.h"
-#include "Framework.h"
+#include "Scene.h"
 #include "MouseUtil.h"
 
 void GameMode1::Start() {
-	framework.RegisterController(Controller, MODE_TYPE_DEFAULT);
-	framework.RegisterDestructor(Destructor);
-	framework.RegisterModeName("GameMode1");
+	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
+	scene.RegisterDestructor(Destructor);
+	scene.RegisterModeName("GameMode1");
 }
 
 void GameMode1::Destructor() {
@@ -15,7 +15,7 @@ void GameMode1::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialK
 	if (State == NORMAL_KEY_DOWN) {
 		switch (NormalKey) {
 		case NK_ESCAPE:
-			framework.Exit();
+			scene.Exit();
 			break;
 		}
 	}

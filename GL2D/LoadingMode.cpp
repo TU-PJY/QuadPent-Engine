@@ -1,20 +1,20 @@
 #include "LoadingMode.h"
-#include "Framework.h"
+#include "Scene.h"
 #include "MouseUtil.h"
 #include "LoadingScreen.h"
 
 void LoadingMode::Start() {
-	framework.AddObject(new LoadingScreen, "loading_screen", LAYER_1);
-	framework.RegisterController(Controller, MODE_TYPE_DEFAULT);
-	framework.RegisterDestructor(Destructor);
-	framework.RegisterModeName("LoadingMode");
+	scene.AddObject(new LoadingScreen, "loading_screen", LAYER_1);
+	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
+	scene.RegisterDestructor(Destructor);
+	scene.RegisterModeName("LoadingMode");
 }
 
 void LoadingMode::Destructor() {}
 
 
 void LoadingMode::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {
-	if (auto loading_screen = framework.Find("loading_screen"); loading_screen)
+	if (auto loading_screen = scene.Find("loading_screen"); loading_screen)
 		loading_screen->InputKey(State, NormalKey, SpecialKey);
 }
 

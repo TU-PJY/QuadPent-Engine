@@ -33,7 +33,7 @@ enum ObjectType {
 };
 
 
-class Framework {
+class Scene {
 private:
 	std::array<std::vector<GameObject*>, Layers> ObjectList;
 	std::map<const char*, GameObject*> ObjectIndex;
@@ -89,4 +89,4 @@ private:
 	void ClearFloatingObject();
 	void ClearAll();
 };
-extern Framework framework;
+extern Scene scene;

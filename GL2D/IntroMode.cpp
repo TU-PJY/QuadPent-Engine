@@ -1,13 +1,13 @@
 #include "IntroMode.h"
-#include "Framework.h"
+#include "Scene.h"
 #include "MouseUtil.h"
 #include "IntroScreen.h"
 
 void IntroMode::Start() {
-	framework.AddObject(new IntroScreen, "intro_screen", LAYER_1);
-	framework.RegisterController(Controller, MODE_TYPE_DEFAULT);
-	framework.RegisterDestructor(Destructor);
-	framework.RegisterModeName("IntroMode");
+	scene.AddObject(new IntroScreen, "intro_screen", LAYER_1);
+	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
+	scene.RegisterDestructor(Destructor);
+	scene.RegisterModeName("IntroMode");
 }
 
 void IntroMode::Destructor() {
@@ -19,7 +19,7 @@ void IntroMode::Destructor() {
 }
 
 void IntroMode::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {
-	if (auto intro_screen = framework.Find("intro_screen"); intro_screen)
+	if (auto intro_screen = scene.Find("intro_screen"); intro_screen)
 		intro_screen->InputKey(State, NormalKey, SpecialKey);
 }
 

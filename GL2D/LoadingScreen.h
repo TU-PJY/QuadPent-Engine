@@ -1,5 +1,5 @@
 #pragma once
-#include "Framework.h"
+#include "Scene.h"
 #include "ImageUtil.h"
 #include "SoundUtil.h"
 #include "IntroMode.h"
@@ -14,7 +14,7 @@ public:
 		if (State == NORMAL_KEY_DOWN) {
 			switch (NormalKey) {
 			case NK_ESCAPE:
-				framework.Exit();
+				scene.Exit();
 				break;
 			}
 		}
@@ -48,11 +48,11 @@ public:
 			imageUtil.Release(ImageEngineLogo);
 			imageUtil.Release(ImageFMODLogo);
 
-			framework.SwitchMode(StartMode);
+			scene.SwitchMode(StartMode);
 		}
 
 		else {
-			framework.SwitchMode(IntroMode::Start);
+			scene.SwitchMode(IntroMode::Start);
 		}
 	}
 };

@@ -1,5 +1,5 @@
 #include "EngineHeader.h"
-#include "Framework.h"
+#include "Scene.h"
 #include "CameraUtil.h"
 #include "CameraController.h"
 #include "ImageUtil.h"
@@ -32,7 +32,7 @@ ImageUtil imageUtil;
 SoundUtil soundUtil;
 MouseUtil mouse;
 FontUtil fontUtil;
-Framework framework;
+Scene scene;
 
 void SetupSystem(int argc, char** argv) {
 	HWND hWnd = GetConsoleWindow();
@@ -93,5 +93,5 @@ void InitSystem() {
 	if (FPSLimit > 0)
 		DestFPS = 1000.0 / (float)FPSLimit;
 
-	framework.Init(LoadingMode::Start);
+	scene.Init(LoadingMode::Start);
 }

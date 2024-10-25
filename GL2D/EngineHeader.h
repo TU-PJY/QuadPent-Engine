@@ -128,5 +128,5 @@ void SetupSystem(int argc, char** argv);
 void LoadShader();
 void InitSystem();
 void SetGlOption();
-GLvoid GLMain();
+GLvoid Framework();
 GLvoid DisplayReshape(int w, int h);

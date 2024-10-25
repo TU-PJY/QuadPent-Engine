@@ -1,22 +1,22 @@
-#include "Framework.h"
+#include "Scene.h"
 
-void Framework::InputFrameTime(float ElapsedTime) {
+void Scene::InputFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
 }
 
-const char* Framework::Mode() {
+const char* Scene::Mode() {
 	return CurrentRunningMode;
 }
 
-void Framework::Stop() {
+void Scene::Stop() {
 	RoutineUpdateActivated = false;
 }
 
-void Framework::Resume() {
+void Scene::Resume() {
 	RoutineUpdateActivated = true;
 }
 
-void Framework::Routine() {
+void Scene::Routine() {
 	for (int i = 0; i < Layers; ++i) {
 		for (auto const& O : ObjectList[i]) {
 			if (!O->DeleteObjectMarked) {
@@ -42,13 +42,13 @@ void Framework::Routine() {
 	UpdateObjectIndex();
 }
 
-void Framework::Init(Function ModeFunction) {
+void Scene::Init(Function ModeFunction) {
 	for(int i = 0; i < Layers; ++i)
 		ObjectList[i].reserve(OBJECT_LIST_RESERVE);
 	ModeFunction();
 }
 
-void Framework::SwitchMode(Function ModeFunction) {
+void Scene::SwitchMode(Function ModeFunction) {
 	ClearAll();
 
 	if (DestructorBuffer)
@@ -62,25 +62,25 @@ void Framework::SwitchMode(Function ModeFunction) {
 	}
 }
 
-void Framework::RegisterDestructor(Function DestructorFunction) {
+void Scene::RegisterDestructor(Function DestructorFunction) {
 	DestructorBuffer = DestructorFunction;
 }
 
-void Framework::RegisterModeName(const char* ModeName) {
+void Scene::RegisterModeName(const char* ModeName) {
 	CurrentRunningMode = ModeName;
 }
 
-void Framework::RegisterController(ControllerFunction Controller, int Type) {
+void Scene::RegisterController(ControllerFunction Controller, int Type) {
 	Controller();
 	if (Type == MODE_TYPE_DEFAULT)
 		ControllerBuffer = Controller;
 }
 
-void Framework::ReleaseDestructor() {
+void Scene::ReleaseDestructor() {
 	DestructorBuffer = nullptr;
 }
 
-void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
+void Scene::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
 	if (FloatingRunningActivated)
 		return;
 
@@ -91,7 +91,7 @@ void Framework::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
 	FloatingRunningActivated = true;
 }
 
-void Framework::EndFloatingMode() {
+void Scene::EndFloatingMode() {
 	if (!FloatingRunningActivated)  
 		return;
 
@@ -105,35 +105,35 @@ void Framework::EndFloatingMode() {
 	FloatingFocusActivated = false;
 }
 
-void Framework::ResetControlState(GameObject* Object) {
+void Scene::ResetControlState(GameObject* Object) {
 	Object->ResetControlState();
 }
 
-void Framework::ResetControlState(const char* Tag) {
+void Scene::ResetControlState(const char* Tag) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
 		It->second->ResetControlState();
 }
 
-void Framework::InputKey(const char* Tag, int State, unsigned char NormalKey, int SpecialKey) {
+void Scene::InputKey(const char* Tag, int State, unsigned char NormalKey, int SpecialKey) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
 		It->second->InputKey(State, NormalKey, SpecialKey);
 }
 
-void Framework::InputMouse(const char* Tag, int State) {
+void Scene::InputMouse(const char* Tag, int State) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
 		It->second->InputMouse(State);
 }
 
-void Framework::InputScroll(const char* Tag, int State) {
+void Scene::InputScroll(const char* Tag, int State) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
 		It->second->InputScroll(State);
 }
 
-void Framework::AddObject(GameObject* Object, const char* Tag, int AddLayer, int Type1, int Type2) {
+void Scene::AddObject(GameObject* Object, const char* Tag, int AddLayer, int Type1, int Type2) {
 	ObjectList[AddLayer].emplace_back(Object);
 	ObjectIndex.insert(std::make_pair(Tag, Object));
 
@@ -157,7 +157,7 @@ void Framework::AddObject(GameObject* Object, const char* Tag, int AddLayer, int
 		Object->FloatingObjectMarked = true;
 }
 
-void Framework::SwapLayer(GameObject* Object, int TargetLayer) {
+void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
 	if (Object->ObjectLayer == TargetLayer)
 		return;
 
@@ -165,11 +165,11 @@ void Framework::SwapLayer(GameObject* Object, int TargetLayer) {
 	Object->ObjectLayer = TargetLayer;
 }
 
-void Framework::DeleteObject(GameObject* Object) {
+void Scene::DeleteObject(GameObject* Object) {
 	Object->DeleteObjectMarked = true;
 }
 
-void Framework::DeleteObject(const char* Tag, int DeleteRange) {
+void Scene::DeleteObject(const char* Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
 		auto It = ObjectIndex.find(Tag);
 		if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
@@ -187,7 +187,7 @@ void Framework::DeleteObject(const char* Tag, int DeleteRange) {
 	}
 }
 
-GameObject* Framework::Find(const char* Tag) {
+GameObject* Scene::Find(const char* Tag) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
 		return It->second;
@@ -195,7 +195,7 @@ GameObject* Framework::Find(const char* Tag) {
 	return nullptr;
 }
 
-GameObject* Framework::FindMulti(const char* Tag, int SearchLayer, int Index) {
+GameObject* Scene::FindMulti(const char* Tag, int SearchLayer, int Index) {
 	auto Object = ObjectList[SearchLayer][Index];
 	if(Object->ObjectTag == Tag)
 		return ObjectList[SearchLayer][Index];
@@ -203,7 +203,7 @@ GameObject* Framework::FindMulti(const char* Tag, int SearchLayer, int Index) {
 	return nullptr;
 }
 
-ObjectRange Framework::EqualRange(const char* Tag) {
+ObjectRange Scene::EqualRange(const char* Tag) {
 	ObjectRange Range;
 	auto It = ObjectIndex.equal_range(Tag);
 
@@ -213,15 +213,15 @@ ObjectRange Framework::EqualRange(const char* Tag) {
 	return Range;
 }
 
-size_t Framework::LayerSize(int TargetLayer) {
+size_t Scene::LayerSize(int TargetLayer) {
 	return ObjectList[TargetLayer].size();
 }
 
-void Framework::Exit() {
+void Scene::Exit() {
 	glutDestroyWindow(1);
 }
 
-void Framework::SwitchScreenState() {
+void Scene::SwitchScreenState() {
 	if (!FullscreenState) {
 		glutFullScreen();
 		WIDTH = GetSystemMetrics(SM_CXSCREEN);
@@ -241,7 +241,7 @@ void Framework::SwitchScreenState() {
 
 
 //////// private ///////////////
-void Framework::UpdateObjectList(int Index) {	
+void Scene::UpdateObjectList(int Index) {	
 	for (auto It = begin(ObjectList[Index]); It != end(ObjectList[Index]);) {
 		if ((*It)->DeleteObjectMarked) {
 			It = ObjectList[Index].erase(It);
@@ -260,7 +260,7 @@ void Framework::UpdateObjectList(int Index) {
 	}
 }
 
-void Framework::UpdateObjectIndex() {
+void Scene::UpdateObjectIndex() {
 	for (auto It = begin(ObjectIndex); It != end(ObjectIndex);) {
 		if (It->second->DeleteObjectMarked) {
 			delete It->second;
@@ -272,14 +272,14 @@ void Framework::UpdateObjectIndex() {
 	}
 }
 
-void Framework::ClearFloatingObject() {
+void Scene::ClearFloatingObject() {
 	for (auto const& O : ObjectIndex) {
 		if (O.second->FloatingObjectMarked && !O.second->StaticObjectMarked)
 			O.second->DeleteObjectMarked = true;
 	}
 }
 
-void Framework::ClearAll() {
+void Scene::ClearAll() {
 	for (auto const& O : ObjectIndex) {
 		if (!O.second->StaticObjectMarked)
 			O.second->DeleteObjectMarked = true;

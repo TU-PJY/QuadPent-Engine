@@ -1,5 +1,5 @@
 #pragma once
-#include "Framework.h"
+#include "Scene.h"
 #include "EngineHeader.h"
 #include <cmath>
 
@@ -29,11 +29,11 @@ public:
 			switch (NormalKey) {
 			case NK_ENTER:
 				StopSound(IntroChannel);
-				framework.SwitchMode(StartMode);
+				scene.SwitchMode(StartMode);
 				break;
 
 			case NK_ESCAPE:
-				framework.Exit();
+				scene.Exit();
 				break;
 			}
 		}
@@ -78,7 +78,7 @@ public:
 		}
 
 		if (timer.Sec() >= 7 && Scene == 3)
-			framework.SwitchMode(StartMode);
+			scene.SwitchMode(StartMode);
 	}
 
 	void RenderFunc() {

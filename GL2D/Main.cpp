@@ -1,7 +1,7 @@
 #include "EngineHeader.h"
 #include "CameraUtil.h"
 #include "CameraController.h"
-#include "Framework.h"
+#include "Scene.h"
 #include "SoundUtil.h"
 #include <thread>
 #include <chrono>
@@ -9,11 +9,11 @@
 // frametime values
 float PrevTime, CurrentTime, DeltaTime;
 
-GLvoid GLMain() {
+GLvoid Framework() {
 	glClearColor(BackColor.r, BackColor.g, BackColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	framework.Routine();
+	scene.Routine();
 	cameraCon.Update(DeltaTime);
 	soundUtil.Update();
 
@@ -23,7 +23,7 @@ GLvoid GLMain() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(DestFPS)));
 
 	DeltaTime = (CurrentTime - PrevTime) / 1000.0;
-	framework.InputFrameTime(DeltaTime);
+	scene.InputFrameTime(DeltaTime);
 
 	PrevTime = CurrentTime;
 
@@ -33,7 +33,7 @@ GLvoid GLMain() {
 
 void main(int argc, char** argv) {
 	SetupSystem(argc, argv);
-	glutDisplayFunc(GLMain);
+	glutDisplayFunc(Framework);
 	glutReshapeFunc(DisplayReshape);
 	glutMainLoop();
 }

@@ -26,7 +26,7 @@ enum FlipDir {
 
 
 class GameObject {
-private:
+public:
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
 	glm::mat4 ImageAspectMatrix{ 1.0f }, FlipMatrix{ 1.0f };
 
@@ -35,7 +35,6 @@ private:
 	GLfloat TransparencyValue{ 1.0f };
 	GLfloat BlurValue{};
 
-public:
 	const char* ObjectTag{};
 	int ObjectLayer{};
 	bool SwapLayerMarked{};

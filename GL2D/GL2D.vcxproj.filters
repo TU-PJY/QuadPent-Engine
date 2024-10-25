@@ -37,9 +37,6 @@
     <Filter Include="[6]___________[ Template ]">
       <UniqueIdentifier>{a0f3d2c9-d45e-42c5-ac1f-c1a53d8811ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ Framework ]">
-      <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ mata_ENGINE ]\[ System]\[ System Resources ]">
       <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
     </Filter>
@@ -151,6 +148,9 @@
     <Filter Include="[3]___________[ Util ]\[ Transform Util ]">
       <UniqueIdentifier>{97cfbf89-8ee3-4d67-b4fb-aed1f7833e3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ mata_ENGINE ]\[ Scene ]">
+      <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMode1.cpp">
@@ -198,8 +198,8 @@
     <ClCompile Include="SystemResources.cpp">
       <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Resources ]</Filter>
     </ClCompile>
-    <ClCompile Include="Framework.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ Framework ]</Filter>
+    <ClCompile Include="Scene.cpp">
+      <Filter>[5]___________[ mata_ENGINE ]\[ Scene ]</Filter>
     </ClCompile>
     <ClCompile Include="LoadingMode.cpp">
       <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]\[ Loading Screen ]</Filter>
@@ -317,8 +317,8 @@
     <ClInclude Include="EngineHeader.h">
       <Filter>[5]___________[ mata_ENGINE ]\[ Header ]</Filter>
     </ClInclude>
-    <ClInclude Include="Framework.h">
-      <Filter>[5]___________[ mata_ENGINE ]\[ Framework ]</Filter>
+    <ClInclude Include="Scene.h">
+      <Filter>[5]___________[ mata_ENGINE ]\[ Scene ]</Filter>
     </ClInclude>
     <ClInclude Include="LoadingMode.h">
       <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]\[ Loading Screen ]</Filter>

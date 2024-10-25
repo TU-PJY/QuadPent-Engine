@@ -1,7 +1,7 @@
 //////////////////////  cpp
 
 #include "GameMode1.h"
-#include "Framework.h"
+#include "Scene.h"
 #include "MouseUtil.h"
 
 void GameMode1::Start() {
