@@ -81,8 +81,8 @@ public:
 	void Exit();
 
 private:
-	void UpdateObjectList(int Index);
-	void UpdateObjectIndex();
+	void ProcessListCommand(int Index);
+	void ProcessIndexCommand();
 	void ClearFloatingObject();
 	void ClearAll();
 };

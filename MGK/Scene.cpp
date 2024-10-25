@@ -31,10 +31,10 @@ void Scene::Routine() {
 			}
 		}
 
-		UpdateObjectList(i);
+		ProcessListCommand(i);
 	}
 
-	UpdateObjectIndex();
+	ProcessIndexCommand();
 }
 
 void Scene::Init(Function ModeFunction) {
@@ -218,7 +218,7 @@ void Scene::Exit() {
 
 
 //////// private ///////////////
-void Scene::UpdateObjectList(int Index) {	
+void Scene::ProcessListCommand(int Index) {	
 	for (auto It = begin(ObjectList[Index]); It != end(ObjectList[Index]);) {
 		if ((*It)->DeleteCommand) {
 			It = ObjectList[Index].erase(It);
@@ -237,7 +237,7 @@ void Scene::UpdateObjectList(int Index) {
 	}
 }
 
-void Scene::UpdateObjectIndex() {
+void Scene::ProcessIndexCommand() {
 	for (auto It = begin(ObjectIndex); It != end(ObjectIndex);) {
 		if (It->second->DeleteCommand) {
 			delete It->second;
