@@ -17,6 +17,7 @@ extern int FPSLimit;
 typedef void(*StartModePtr)(void);
 using Sound = FMOD::Sound*;
 using SoundChannel = FMOD::Channel*;
+using ShaderLocation = unsigned int;
 
 
 enum KeyState { 
@@ -111,6 +112,13 @@ extern StartModePtr StartMode;
 // global scope shader
 extern GLuint ImageShader;
 extern GLuint TextShader;
+
+// global shader location
+extern ShaderLocation ImageTransparencyLocation, ImageColorLocation, ImageModelLocation;
+extern ShaderLocation BlurStrengthLocation, BoolBlurLocation, TexelSizeLocation;
+extern ShaderLocation TextTransparencyLocation, TextColorLocation, TextModelLocation;
+extern ShaderLocation ImageProjectionLocation, ImageViewLocation, ImageViewPositionLocation;
+extern ShaderLocation TextProjectionLocation, TextViewLocation, TextViewPositionLocation;
 
 void SetFrameLimit(int FrameLimit);
 void SetBackColor(GLfloat R, GLfloat G, GLfloat B);

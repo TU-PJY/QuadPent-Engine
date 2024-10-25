@@ -85,13 +85,13 @@ public:
 		InitMatrix(RENDER_TYPE_STATIC);
 
 		if (Scene == 1) {
-			Rotate(RotateMatrix, Rotation);
-			Scale(ScaleMatrix, LogoSize, LogoSize);
+			Transform::Rotate(RotateMatrix, Rotation);
+			Transform::Scale(ScaleMatrix, LogoSize, LogoSize);
 			Render(ImageEngineLogo, LogoTransparent);
 		}
 
 		else if (Scene == 2 || Scene == 3) {
-			Scale(ScaleMatrix, LogoSize, LogoSize);
+			Transform::Scale(ScaleMatrix, LogoSize, LogoSize);
 			Render(ImageFMODLogo, LogoTransparent);
 		}
 	}

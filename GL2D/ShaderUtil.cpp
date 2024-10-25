@@ -7,6 +7,12 @@
 GLuint ImageShader;
 GLuint TextShader;
 
+ShaderLocation ImageTransparencyLocation, ImageColorLocation, ImageModelLocation;
+ShaderLocation BlurStrengthLocation, BoolBlurLocation, TexelSizeLocation;
+ShaderLocation TextTransparencyLocation, TextColorLocation, TextModelLocation;
+ShaderLocation ImageProjectionLocation, ImageViewLocation, ImageViewPositionLocation;
+ShaderLocation TextProjectionLocation, TextViewLocation, TextViewPositionLocation;
+
 char* ShaderUtil::LoadShaderFile(const char* FileName) {
 	std::ifstream ShaderFile(FileName, std::ios::in | std::ios::binary | std::ios::ate);
 	if (!ShaderFile.is_open()) {
@@ -82,4 +88,29 @@ void ShaderUtil::CreateShader(GLuint& Shader) {
 	glDeleteShader(fragment_shader);
 
 	glUseProgram(Shader);
+}
+
+void ShaderUtil::CreateShaderLocation() {
+	// Image Shader
+	ImageTransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
+	ImageColorLocation = glGetUniformLocation(ImageShader, "objectColor");
+	BlurStrengthLocation = glGetUniformLocation(ImageShader, "Radius");
+	BoolBlurLocation = glGetUniformLocation(ImageShader, "UseBlur");
+	TexelSizeLocation = glGetUniformLocation(ImageShader, "TexelSize");
+	ImageModelLocation = glGetUniformLocation(ImageShader, "model");
+
+	// Text Shader
+	TextTransparencyLocation = glGetUniformLocation(TextShader, "transparency");
+	TextColorLocation = glGetUniformLocation(TextShader, "objectColor");
+	TextModelLocation = glGetUniformLocation(TextShader, "model");
+
+	// Image Camera
+	ImageProjectionLocation = glGetUniformLocation(ImageShader, "projection");
+	ImageViewLocation = glGetUniformLocation(ImageShader, "view");
+	ImageViewPositionLocation = glGetUniformLocation(ImageShader, "viewPos");
+	
+	// Text Camera
+	TextProjectionLocation = glGetUniformLocation(TextShader, "projection");
+	TextViewLocation = glGetUniformLocation(TextShader, "view");
+	TextViewPositionLocation = glGetUniformLocation(TextShader, "viewPos");
 }

@@ -53,21 +53,15 @@ void Camera::PrepareRender(int ShaderType) {
 		Projection = glm::ortho((ASPECT * -1.0f) / ZoomValue, (ASPECT * 1.0f) / ZoomValue, -1.0f / ZoomValue, 1.0f / ZoomValue, -100.0f, 100.0f);
 	}
 
-	GLuint Shader{};
+	if (ShaderType == SHADER_TYPE_IMAGE) {
+		glUniformMatrix4fv(ImageProjectionLocation, 1, GL_FALSE, &Projection[0][0]);
+		glUniformMatrix4fv(ImageViewLocation, 1, GL_FALSE, &ViewMatrix[0][0]);
+		glUniform3f(ImageViewPositionLocation, CamPos.x, CamPos.y, CamPos.z);
+	}
 
-	if (ShaderType == SHADER_TYPE_IMAGE)
-		Shader = ImageShader;
-	else if (ShaderType == SHADER_TYPE_TEXT)
-		Shader = TextShader;
-	else
-		return;
-
-	ProjectionLocation = glGetUniformLocation(Shader, "projection");
-	glUniformMatrix4fv(ProjectionLocation, 1, GL_FALSE, &Projection[0][0]);
-
-	ViewLocation = glGetUniformLocation(Shader, "view");
-	glUniformMatrix4fv(ViewLocation, 1, GL_FALSE, &ViewMatrix[0][0]);
-
-	ViewPosLocation = glGetUniformLocation(Shader, "viewPos");
-	glUniform3f(ViewPosLocation, CamPos.x, CamPos.y, CamPos.z);
+	else if (ShaderType == SHADER_TYPE_TEXT) {
+		glUniformMatrix4fv(TextProjectionLocation, 1, GL_FALSE, &Projection[0][0]);
+		glUniformMatrix4fv(TextViewLocation, 1, GL_FALSE, &ViewMatrix[0][0]);
+		glUniform3f(TextViewPositionLocation, CamPos.x, CamPos.y, CamPos.z);
+	}
 }

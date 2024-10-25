@@ -77,6 +77,7 @@ void LoadShader() {
 
 	shaderUtil.LoadFragmentShader("SystemResource//GLSL//Fragment_Text.glsl");
 	shaderUtil.CreateShader(TextShader);
+	shaderUtil.CreateShaderLocation();
 }
 
 void SetGlOption() {

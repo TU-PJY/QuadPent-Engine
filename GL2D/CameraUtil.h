@@ -4,7 +4,6 @@
 class Camera {
 private:
 	glm::vec3 CamPos{}, CamDirection{}, CamUp{};
-	unsigned int ProjectionLocation{}, ViewLocation{}, ViewPosLocation{};
 	bool StaticMode{};
 	
 public:

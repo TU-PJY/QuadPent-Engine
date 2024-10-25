@@ -3,8 +3,6 @@
 
 class LineRectBrush {
 private:
-	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
-	unsigned int BoolBlurLocation{};
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 
 	glm::vec3 Color{};
@@ -29,8 +27,6 @@ private:
 
 class RectBrush {
 private:
-	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
-	unsigned int BoolBlurLocation{};
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 
 	glm::vec3 Color{};

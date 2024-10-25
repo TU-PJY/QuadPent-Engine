@@ -3,8 +3,6 @@
 
 class LineBrush {
 private:
-	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
-	unsigned int BoolBlurLocation{};
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 
 	GLfloat Width{};

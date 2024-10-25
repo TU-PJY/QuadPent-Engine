@@ -12,5 +12,6 @@ public:
 	void LoadVertexShader(const char* VertexShader);
 	void LoadFragmentShader(const char* FragmentShader);
 	void CreateShader(GLuint& Shader);
+	void CreateShaderLocation();
 };
 extern ShaderUtil shaderUtil;

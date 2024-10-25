@@ -14,7 +14,6 @@ enum Align {
 class TextUtil {
 private:
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
-	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
 
 	GLfloat Rotation{};
 	GLfloat Transparency{ 1.0f };

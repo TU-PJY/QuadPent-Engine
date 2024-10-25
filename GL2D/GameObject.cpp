@@ -3,7 +3,6 @@
 #include "CameraUtil.h"
 #include <cmath>
 
-// init functions
 void GameObject::InitMatrix(int RenderType) {
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
@@ -49,30 +48,6 @@ void GameObject::UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY, bool Appl
 	ValueY = LocalPosition().y;
 }
 
-void GameObject::Move(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
-	Matrix = translate(Matrix, glm::vec3(X, Y, 0.0));
-}
-
-void GameObject::Rotate(glm::mat4& Matrix, GLfloat Degree) {
-	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(0.0, 0.0, 1.0));
-}
-
-void GameObject::RotateRad(glm::mat4& Matrix, GLfloat Radians) {
-	Matrix = rotate(Matrix, Radians, glm::vec3(0.0, 0.0, 1.0));
-}
-
-void GameObject::RotateV(glm::mat4& Matrix, GLfloat Degree) {
-	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(1.0, 0.0, 0.0));
-}
-
-void GameObject::RotateH(glm::mat4& Matrix, GLfloat Degree) {
-	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(0.0, 1.0, 0.0));
-}
-
-void GameObject::Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
-	Matrix = scale(Matrix, glm::vec3(X, Y, 1.0));
-}
-
 void GameObject::Flip(int FlipOpt) {
 	switch (FlipOpt) {
 	case FLIP_H:
@@ -98,12 +73,24 @@ void GameObject::Render(Image& Image, GLfloat Transparency, bool DisableAdjustAs
 	TransparencyValue = Transparency;
 
 	if (!DisableAdjustAspect) {
-		if (Image.Width > Image.Height)
+		if (Image.Width > Image.Height) {
 			ImageAspectMatrix = glm::scale(ImageAspectMatrix, glm::vec3(1.0, (GLfloat)Image.Height / (GLfloat)Image.Width, 1.0));
-
-		else if (Image.Width < Image.Height)
+			ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix * ImageAspectMatrix;
+		}
+		else if (Image.Width < Image.Height) {
 			ImageAspectMatrix = glm::scale(ImageAspectMatrix, glm::vec3((GLfloat)Image.Width / (GLfloat)Image.Height, 1.0, 1.0));
+			ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix * ImageAspectMatrix;
+		}
+		else
+			ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix;
 	}
+
+	else
+		ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix;
+
+
+	if (FlipMatrix != glm::mat4(1.0f))
+		ResultMatrix *= FlipMatrix;
 
 	PrepareRender();
 	imageUtil.Render(Image);
@@ -170,35 +157,18 @@ void GameObject::PrepareRender() {
 	glUseProgram(ImageShader);
 	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
-	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
-	glUniform1f(TransparencyLocation, TransparencyValue);
+	glUniform1f(ImageTransparencyLocation, TransparencyValue);
+	glUniform3f(ImageColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
-	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
-	glUniform3f(ObjectColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
-
-	RadiusLocation = glGetUniformLocation(ImageShader, "Radius");
-	glUniform1f(RadiusLocation, BlurValue);
-
-	BoolBlurLocation = glGetUniformLocation(ImageShader, "UseBlur");
-	if (BlurValue != 0.0)
+	if (BlurValue > 0.0) {
 		glUniform1i(BoolBlurLocation, 1);
-	else
+		glUniform1f(BlurStrengthLocation, BlurValue);
+		glUniform2f(TexelSizeLocation, ASP(1.0) / (GLfloat)WIDTH, 1.0 / (GLfloat)HEIGHT);
+	}
+	else  
 		glUniform1i(BoolBlurLocation, 0);
 
-	TexelSizeLocation = glGetUniformLocation(ImageShader, "TexelSize");
-	glUniform2f(TexelSizeLocation, ASP(1.0) / (GLfloat)WIDTH, 1.0 / (GLfloat)HEIGHT);
-
-	ModelLocation = glGetUniformLocation(ImageShader, "model");
-
-	if (ImageAspectMatrix != glm::mat4(1.0f))
-		ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix * ImageAspectMatrix;
-	else
-		ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix;
-
-	if (FlipMatrix != glm::mat4(1.0f))
-		ResultMatrix *= FlipMatrix;
-
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(ResultMatrix));
+	glUniformMatrix4fv(ImageModelLocation, 1, GL_FALSE, value_ptr(ResultMatrix));
 }
 
 glm::vec4 GameObject::ViewportPosition() {

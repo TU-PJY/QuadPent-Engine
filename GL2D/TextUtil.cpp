@@ -154,14 +154,9 @@ void TextUtil::PrepareRender() {
 	glUseProgram(TextShader);
 	camera.PrepareRender(SHADER_TYPE_TEXT);
 
-	TransparencyLocation = glGetUniformLocation(TextShader, "transparency");
-	glUniform1f(TransparencyLocation, Transparency);
-
-	ObjectColorLocation = glGetUniformLocation(TextShader, "objectColor");
-	glUniform3f(ObjectColorLocation, TextColor.r, TextColor.g, TextColor.b);
-
-	ModelLocation = glGetUniformLocation(TextShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(RotateMatrix * TranslateMatrix * ScaleMatrix));
+	glUniform1f(TextTransparencyLocation, Transparency);
+	glUniform3f(TextColorLocation, TextColor.r, TextColor.g, TextColor.b);
+	glUniformMatrix4fv(TextModelLocation, 1, GL_FALSE, value_ptr(RotateMatrix * TranslateMatrix * ScaleMatrix));
 }
 
 bool TextUtil::CheckGlyphCache(wchar_t Char) {

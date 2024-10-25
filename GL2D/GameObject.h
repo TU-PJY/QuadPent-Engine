@@ -15,6 +15,7 @@
 #include "RectBrush.h"
 #include "SystemResources.h"
 #include "CustomResources.h"
+#include "TransformUtil.h"
 
 
 enum FlipDir { 
@@ -26,8 +27,13 @@ enum FlipDir {
 
 class GameObject {
 private:
-	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{}, TextAlphaLocation{};
-	unsigned int RadiusLocation{}, TexelSizeLocation{}, BoolBlurLocation{};
+	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
+	glm::mat4 ImageAspectMatrix{ 1.0f }, FlipMatrix{ 1.0f };
+
+	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
+
+	GLfloat TransparencyValue{ 1.0f };
+	GLfloat BlurValue{};
 
 public:
 	const char* ObjectTag{};
@@ -36,12 +42,6 @@ public:
 	bool DeleteObjectMarked{};
 	bool FloatingObjectMarked{};
 	bool StaticObjectMarked{};
-
-	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
-	glm::mat4 ImageAspectMatrix{ 1.0f }, FlipMatrix{ 1.0f };
-	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
-	GLfloat TransparencyValue{ 1.0f };
-	GLfloat BlurValue{};
 
 	// init functions
 	void InitMatrix(int RenderType=RENDER_TYPE_DEFAULT);
@@ -53,18 +53,10 @@ public:
 	void UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect = false);
 	GLfloat ASP(GLfloat Value);
 
-	// transform functions
-	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
-	void Rotate(glm::mat4& Matrix, GLfloat Degree);
-	void RotateRad(glm::mat4& Matrix, GLfloat Radians);
-	void RotateV(glm::mat4& Matrix, GLfloat Degree);
-	void RotateH(glm::mat4& Matrix, GLfloat Degree);
-	void Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y);
-	void Flip(int FlipOpt);
-
 	// image functions
-	void Render(Image& Image, GLfloat Transparency = 1.0, bool DisableAdjustAspect=false);
+	void Flip(int FlipOpt);
 	void Blur(int Strength);
+	void Render(Image& Image, GLfloat Transparency = 1.0, bool DisableAdjustAspect=false);
 
 	// sound functions
 	void PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime);
