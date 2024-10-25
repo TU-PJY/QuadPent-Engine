@@ -20,6 +20,6 @@ public:
 private:
 	TiXmlElement* FindCategory(const char* CategoryName);
 	const char* FindData(const char* CategoryName, const char* DataName);
-	float GetData(TiXmlElement* CategoryVar, const char* DataName);
+	float GetDigitData(TiXmlElement* CategoryVar, const char* DataName);
 	const char* GetStringData(TiXmlElement* CategoryVar, const char* DataName);
 };

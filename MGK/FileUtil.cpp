@@ -43,7 +43,7 @@ void FileUtil::UpdateStringData(const char* CategoryName, const char* DataName, 
 }
 
 float FileUtil::LoadData(const char* CategoryName, const char* DataName) {
-	return GetData(FindCategory(CategoryName), DataName);
+	return GetDigitData(FindCategory(CategoryName), DataName);
 }
 
 const char* FileUtil::LoadStringData(const char* CategoryName, const char* DataName) {
@@ -185,7 +185,7 @@ int FileUtil::GetIntData(TiXmlElement* CategoryVar, const char* DataName) {
 	}
 }
 
-float FileUtil::GetData(TiXmlElement* CategoryVar, const char* DataName) {
+float FileUtil::GetDigitData(TiXmlElement* CategoryVar, const char* DataName) {
 	const char* DataValue = CategoryVar->Attribute(DataName);
 	if (DataValue)
 		return std::stof(DataValue);

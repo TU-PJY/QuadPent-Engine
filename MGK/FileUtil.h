@@ -65,7 +65,7 @@ private:
 	void WriteDigitData(TiXmlElement* CategoryVar, const char* DataName, float Value);
 	void WriteStringData(TiXmlElement* CategoryVar, const char* DataName, const char* Value);
 	int GetIntData(TiXmlElement* CategoryVar, const char* DataName);
-	float GetData(TiXmlElement* CategoryVar, const char* DataName);
+	float GetDigitData(TiXmlElement* CategoryVar, const char* DataName);
 	const char* GetStringData(TiXmlElement* CategoryVar, const char* DataName);
 	TiXmlElement* FindRoot();
 	TiXmlElement* FindCategory(const char* CategoryName);

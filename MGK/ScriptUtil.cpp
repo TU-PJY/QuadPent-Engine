@@ -19,14 +19,14 @@ void ScriptUtil::Release() {
 }
 
 float ScriptUtil::LoadData(const char* CategoryName, const char* DataName) {
-	return GetData(FindCategory(CategoryName), DataName);
+	return GetDigitData(FindCategory(CategoryName), DataName);
 }
 
 const char* ScriptUtil::LoadStringData(const char* CategoryName, const char* DataName) {
 	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
-float ScriptUtil::GetData(TiXmlElement* CategoryVar, const char* DataName) {
+float ScriptUtil::GetDigitData(TiXmlElement* CategoryVar, const char* DataName) {
 	const char* DataValue = CategoryVar->Attribute(DataName);
 	if (DataValue)
 		return std::stof(DataValue);
