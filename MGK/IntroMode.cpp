@@ -14,8 +14,6 @@ void IntroMode::Destructor() {
 	soundUtil.Release(IntroSound);
 	imageUtil.Release(ImageEngineLogo);
 	imageUtil.Release(ImageFMODLogo);
-
-	SetBackColor(0.5, 0.5, 0.5);
 }
 
 void IntroMode::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {

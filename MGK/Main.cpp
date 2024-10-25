@@ -11,7 +11,7 @@ bool UpdateActivateCommand;
 // frametime values
 float PrevTime, CurrentTime, DeltaTime;
 
-GLvoid Framework() {
+GLvoid Framework::Framework() {
 	glClearColor(BackColor.r, BackColor.g, BackColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
@@ -38,8 +38,8 @@ GLvoid Framework() {
 }
 
 void main(int argc, char** argv) {
-	SetupSystem(argc, argv);
-	glutDisplayFunc(Framework);
-	glutReshapeFunc(DisplayReshape);
+	Framework::SetupSystem(argc, argv);
+	glutDisplayFunc(Framework::Framework);
+	glutReshapeFunc(Framework::DisplayReshape);
 	glutMainLoop();
 }

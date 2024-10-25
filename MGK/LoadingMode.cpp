@@ -4,6 +4,7 @@
 #include "LoadingScreen.h"
 
 void LoadingMode::Start() {
+	Framework::SetBackColor(0.0, 0.0, 0.0);
 	scene.AddObject(new LoadingScreen, "loading_screen", 0);
 	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
 	scene.RegisterDestructor(Destructor);

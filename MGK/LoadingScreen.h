@@ -22,8 +22,6 @@ public:
 
 	LoadingScreen() {
 		camera.Init();
-
-		SetBackColor(0.0, 0.0, 0.0);
 		text.Init(L"Arial", FW_BOLD);
 		text.SetColor(1.0, 1.0, 1.0);
 	}
@@ -43,7 +41,6 @@ public:
 		imageUtil.Import(LineTex, "MGKResource//Image//ShapeUtil//Texture_Line.png", IMAGE_TYPE_NEAREST);
 
 		if (!ENABLE_INTRO_SCREEN) {
-			SetBackColor(0.5, 0.5, 0.5);
 			soundUtil.Release(IntroSound);
 			imageUtil.Release(ImageEngineLogo);
 			imageUtil.Release(ImageFMODLogo);

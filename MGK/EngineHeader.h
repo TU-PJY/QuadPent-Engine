@@ -122,14 +122,16 @@ extern ShaderLocation TextTransparencyLocation, TextColorLocation, TextModelLoca
 extern ShaderLocation ImageProjectionLocation, ImageViewLocation, ImageViewPositionLocation;
 extern ShaderLocation TextProjectionLocation, TextViewLocation, TextViewPositionLocation;
 
-void SetFrameLimit(int FrameLimit);
-void SetBackColor(GLfloat R, GLfloat G, GLfloat B);
-void SetBackColorRGB(int R, int G, int B);
-void SetupWindow();
-void SetupSystem(int argc, char** argv);
-void LoadShader();
-void InitSystem();
-void SetGlOption();
-GLvoid Framework();
-GLvoid DisplayReshape(int w, int h);
-void SwitchScreenState();
+namespace Framework {
+	GLvoid Framework();
+	GLvoid DisplayReshape(int w, int h);
+	void SwitchScreenState();
+	void SetFrameLimit(int FrameLimit);
+	void SetBackColor(GLfloat R, GLfloat G, GLfloat B);
+	void SetBackColorRGB(int R, int G, int B);
+	void SetupSystem(int argc, char** argv);
+	void InitSystem();
+	void SetGlOption();
+	void SetupWindow();
+	void LoadShader();
+}

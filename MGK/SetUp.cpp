@@ -36,7 +36,7 @@ MouseUtil mouse;
 FontUtil fontUtil;
 Scene scene;
 
-void SetupSystem(int argc, char** argv) {
+void Framework::SetupSystem(int argc, char** argv) {
 	HWND hWnd = GetConsoleWindow();
 
 	if (!SHOW_CONSOLE)
@@ -52,7 +52,7 @@ void SetupSystem(int argc, char** argv) {
 }
 
 
-void SetupWindow() {
+void Framework::SetupWindow() {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
 
 	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - HEIGHT / 2);
@@ -72,7 +72,7 @@ void SetupWindow() {
 	}
 }
 
-void LoadShader() {
+void Framework::LoadShader() {
 	shaderUtil.LoadVertexShader("MGKResource//GLSL//Vertex.glsl");
 	shaderUtil.LoadFragmentShader("MGKResource//GLSL//Fragment_Image.glsl");
 	shaderUtil.CreateShader(ImageShader);
@@ -82,7 +82,7 @@ void LoadShader() {
 	shaderUtil.CreateShaderLocation();
 }
 
-void SetGlOption() {
+void Framework::SetGlOption() {
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_ALPHA_TEST);
 	glEnable(GL_BLEND);
@@ -90,7 +90,7 @@ void SetGlOption() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void InitSystem() {
+void Framework::InitSystem() {
 	FPSLimit = FRAME_LIMITS;
 	if (FPSLimit > 0)
 		DestFPS = 1000.0 / (float)FPSLimit;
