@@ -221,24 +221,6 @@ void Scene::Exit() {
 	glutDestroyWindow(1);
 }
 
-void Scene::SwitchScreenState() {
-	if (!FullscreenState) {
-		glutFullScreen();
-		WIDTH = GetSystemMetrics(SM_CXSCREEN);
-		HEIGHT = GetSystemMetrics(SM_CYSCREEN);
-		FullscreenState = true;
-	}
-
-	else {
-		WIDTH = WINDOW_WIDTH;
-		HEIGHT = WINDOW_HEIGHT;
-		glutReshapeWindow(WIDTH, HEIGHT);
-		glutPositionWindow(0, 0);
-		FullscreenState = false;
-	}
-}
-
-
 
 //////// private ///////////////
 void Scene::UpdateObjectList(int Index) {	

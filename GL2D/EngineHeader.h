@@ -14,11 +14,12 @@
 extern float DestFPS;
 extern int FPSLimit;
 
+extern bool FullscreenState;
+
 typedef void(*StartModePtr)(void);
 using Sound = FMOD::Sound*;
 using SoundChannel = FMOD::Channel*;
 using ShaderLocation = unsigned int;
-
 
 enum KeyState { 
 	NORMAL_KEY_DOWN, 
@@ -130,3 +131,4 @@ void InitSystem();
 void SetGlOption();
 GLvoid Framework();
 GLvoid DisplayReshape(int w, int h);
+void SwitchScreenState();

@@ -22,3 +22,20 @@ void SetFrameLimit(int FrameLimit) {
 	FPSLimit = FrameLimit;
 	DestFPS = 1000.0 / (float)FPSLimit;
 }
+
+void SwitchScreenState() {
+	if (!FullscreenState) {
+		glutFullScreen();
+		WIDTH = GetSystemMetrics(SM_CXSCREEN);
+		HEIGHT = GetSystemMetrics(SM_CYSCREEN);
+		FullscreenState = true;
+	}
+
+	else {
+		WIDTH = WINDOW_WIDTH;
+		HEIGHT = WINDOW_HEIGHT;
+		glutReshapeWindow(WIDTH, HEIGHT);
+		glutPositionWindow(0, 0);
+		FullscreenState = false;
+	}
+}

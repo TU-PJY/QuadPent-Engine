@@ -51,8 +51,6 @@ private:
 
 	bool RoutineUpdateActivated{ true };
 
-	bool FullscreenState{};
-
 public:
 	const char* Mode();
 	void Stop();
@@ -81,7 +79,6 @@ public:
 	ObjectRange EqualRange(const char* Tag);
 	size_t LayerSize(int TargetLayer);
 	void Exit();
-	void SwitchScreenState();
 
 private:
 	void UpdateObjectList(int Index);

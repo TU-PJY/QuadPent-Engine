@@ -21,6 +21,8 @@ int PREV_WIDTH, PREV_HEIGHT;
 float DestFPS;
 int FPSLimit;
 
+bool FullscreenState;
+
 GLfloat ASPECT;
 ViewportRect WindowRect;
 glm::vec3 BackColor;
