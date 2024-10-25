@@ -34,9 +34,9 @@ public:
 		imageUtil.Init();
 		soundUtil.Init();
 
-		soundUtil.Import(IntroSound, "SystemResource//Sound//mata_ENGINE Logo Sound.wav", FMOD_DEFAULT);
-		imageUtil.Import(ImageEngineLogo, "SystemResource//Image//Common//mata_ENGINE Logo.png");
-		imageUtil.Import(ImageFMODLogo, "SystemResource//Image//Common//FMOD Logo.png");
+		soundUtil.Import(IntroSound, "SystemResource//Sound//MGK_Logo_sound.wav", FMOD_DEFAULT);
+		imageUtil.Import(ImageEngineLogo, "SystemResource//Image//Common//MGK_Logo.png");
+		imageUtil.Import(ImageFMODLogo, "SystemResource//Image//Common//FMOD_Logo.png");
 
 		imageUtil.Import(ImageCollisionSphere, "SystemResource//Image//Collision//Circle.png", IMAGE_TYPE_NEAREST);
 		imageUtil.Import(ImageCollidedSphere, "SystemResource//Image//Collision//Circle Inside.png", IMAGE_TYPE_NEAREST);

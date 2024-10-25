@@ -2,7 +2,7 @@
 
 //////////////////////////////////// Window options
 // window name
-constexpr const char* WINDOW_NAME = "mata_ENGINE-2";
+constexpr const char* WINDOW_NAME = "MGK-2";
 
 // window size
 constexpr int WINDOW_WIDTH = 1200;

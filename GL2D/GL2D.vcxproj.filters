@@ -22,35 +22,8 @@
     <Filter Include="[2]___________[ Object ]\[3][ Object Template ]">
       <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]">
-      <UniqueIdentifier>{7f6a4887-d06e-4c65-963d-2b7d61cea12c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ Header ]">
-      <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ GLSL ]">
-      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ System]">
-      <UniqueIdentifier>{802bfb93-2599-4817-b15c-634efd1f40d4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[6]___________[ Template ]">
       <UniqueIdentifier>{a0f3d2c9-d45e-42c5-ac1f-c1a53d8811ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ System]\[ System Resources ]">
-      <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]">
-      <UniqueIdentifier>{72861b3d-de20-4a1f-8b20-f9a51180fa19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]\[ Loading Screen ]">
-      <UniqueIdentifier>{6f9feb32-caf8-47a4-81e8-8e185b9568e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]\[ Intro Screen ]">
-      <UniqueIdentifier>{4a1206d3-4fd8-4d3a-bfc8-d6d6639ec18c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ System]\[ Main ]">
-      <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
     </Filter>
     <Filter Include="[3]___________[ Util ]">
       <UniqueIdentifier>{019278b2-60d4-4cad-b935-d813a31f2c87}</UniqueIdentifier>
@@ -118,15 +91,6 @@
     <Filter Include="[3]___________[ Util ]\[ Script Util ]">
       <UniqueIdentifier>{81f53a74-031c-406e-82e2-a9d6a7f85d59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ System]\[TinyXML]">
-      <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ System]\[TinyXML]\[ Header ]">
-      <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ System]\[TinyXML]\[ CPP ]">
-      <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]___________[ Util ]\[ Camera Util ]\[ Camera ]">
       <UniqueIdentifier>{f246ec1e-8aa5-4a4c-86c6-75a511ec4ed6}</UniqueIdentifier>
     </Filter>
@@ -148,7 +112,43 @@
     <Filter Include="[3]___________[ Util ]\[ Transform Util ]">
       <UniqueIdentifier>{97cfbf89-8ee3-4d67-b4fb-aed1f7833e3b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ mata_ENGINE ]\[ Scene ]">
+    <Filter Include="[5]___________[ MGK ]">
+      <UniqueIdentifier>{7f6a4887-d06e-4c65-963d-2b7d61cea12c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ Header ]">
+      <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ GLSL ]">
+      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System]">
+      <UniqueIdentifier>{802bfb93-2599-4817-b15c-634efd1f40d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System]\[ System Resources ]">
+      <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System]\[ System Screen ]">
+      <UniqueIdentifier>{72861b3d-de20-4a1f-8b20-f9a51180fa19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System]\[ System Screen ]\[ Loading Screen ]">
+      <UniqueIdentifier>{6f9feb32-caf8-47a4-81e8-8e185b9568e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System]\[ System Screen ]\[ Intro Screen ]">
+      <UniqueIdentifier>{4a1206d3-4fd8-4d3a-bfc8-d6d6639ec18c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System]\[ Main ]">
+      <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System]\[TinyXML]">
+      <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System]\[TinyXML]\[ Header ]">
+      <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System]\[TinyXML]\[ CPP ]">
+      <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ Scene ]">
       <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -196,25 +196,25 @@
       <Filter>[3]___________[ Util ]\[ AnimationUtil ]</Filter>
     </ClCompile>
     <ClCompile Include="SystemResources.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Resources ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[ System Resources ]</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ Scene ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Scene ]</Filter>
     </ClCompile>
     <ClCompile Include="LoadingMode.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]\[ Loading Screen ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[ System Screen ]\[ Loading Screen ]</Filter>
     </ClCompile>
     <ClCompile Include="IntroMode.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]\[ Intro Screen ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[ System Screen ]\[ Intro Screen ]</Filter>
     </ClCompile>
     <ClCompile Include="SetUp.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ Main ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[ Main ]</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ Main ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[ Main ]</Filter>
     </ClCompile>
     <ClCompile Include="Display.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ Main ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[ Main ]</Filter>
     </ClCompile>
     <ClCompile Include="MathUtil.cpp">
       <Filter>[3]___________[ Util ]\[ MathUtil ]</Filter>
@@ -232,16 +232,16 @@
       <Filter>[3]___________[ Util ]\[ EX Util ]</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxmlparser.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[TinyXML]\[ CPP ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[TinyXML]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxmlerror.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[TinyXML]\[ CPP ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[TinyXML]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxml.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[TinyXML]\[ CPP ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[TinyXML]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinystr.cpp">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[TinyXML]\[ CPP ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[TinyXML]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="CustomResources.cpp">
       <Filter>[4]___________[ Resources ]\[ Resource ]</Filter>
@@ -315,22 +315,22 @@
       <Filter>[3]___________[ Util ]\[ AnimationUtil ]</Filter>
     </ClInclude>
     <ClInclude Include="EngineHeader.h">
-      <Filter>[5]___________[ mata_ENGINE ]\[ Header ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>[5]___________[ mata_ENGINE ]\[ Scene ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Scene ]</Filter>
     </ClInclude>
     <ClInclude Include="LoadingMode.h">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]\[ Loading Screen ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[ System Screen ]\[ Loading Screen ]</Filter>
     </ClInclude>
     <ClInclude Include="LoadingScreen.h">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]\[ Loading Screen ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[ System Screen ]\[ Loading Screen ]</Filter>
     </ClInclude>
     <ClInclude Include="IntroScreen.h">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]\[ Intro Screen ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[ System Screen ]\[ Intro Screen ]</Filter>
     </ClInclude>
     <ClInclude Include="IntroMode.h">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Screen ]\[ Intro Screen ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[ System Screen ]\[ Intro Screen ]</Filter>
     </ClInclude>
     <ClInclude Include="MathUtil.h">
       <Filter>[3]___________[ Util ]\[ MathUtil ]</Filter>
@@ -342,7 +342,7 @@
       <Filter>[3]___________[ Util ]\[ UI Util ]</Filter>
     </ClInclude>
     <ClInclude Include="SystemResources.h">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[ System Resources ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[ System Resources ]</Filter>
     </ClInclude>
     <ClInclude Include="MoveUtil.h">
       <Filter>[3]___________[ Util ]\[ Move Util ]</Filter>
@@ -351,10 +351,10 @@
       <Filter>[3]___________[ Util ]\[ EX Util ]</Filter>
     </ClInclude>
     <ClInclude Include="tinyxml\tinystr.h">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[TinyXML]\[ Header ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[TinyXML]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="tinyxml\tinyxml.h">
-      <Filter>[5]___________[ mata_ENGINE ]\[ System]\[TinyXML]\[ Header ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System]\[TinyXML]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="CustomResources.h">
       <Filter>[4]___________[ Resources ]\[ Resource ]</Filter>
@@ -391,13 +391,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SystemResource\GLSL\Fragment_Image.glsl">
-      <Filter>[5]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ GLSL ]</Filter>
     </None>
     <None Include="SystemResource\GLSL\Fragment_Text.glsl">
-      <Filter>[5]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ GLSL ]</Filter>
     </None>
     <None Include="SystemResource\GLSL\Vertex.glsl">
-      <Filter>[5]___________[ mata_ENGINE ]\[ GLSL ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ GLSL ]</Filter>
     </None>
   </ItemGroup>
 </Project>
