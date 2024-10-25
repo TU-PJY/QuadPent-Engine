@@ -6,6 +6,8 @@
 #include <thread>
 #include <chrono>
 
+bool UpdateActivateCommand;
+
 // frametime values
 float PrevTime, CurrentTime, DeltaTime;
 
@@ -13,9 +15,11 @@ GLvoid Framework() {
 	glClearColor(BackColor.r, BackColor.g, BackColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	scene.Routine();
-	cameraCon.Update(DeltaTime);
-	soundUtil.Update();
+	if (UpdateActivateCommand) {
+		scene.Routine();
+		cameraCon.Update(DeltaTime);
+		soundUtil.Update();
+	}
 
 	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
 	
@@ -29,6 +33,8 @@ GLvoid Framework() {
 
 	glutSwapBuffers();
 	glutPostRedisplay();
+
+	UpdateActivateCommand = true;
 }
 
 void main(int argc, char** argv) {

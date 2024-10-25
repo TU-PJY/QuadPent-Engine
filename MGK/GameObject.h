@@ -37,10 +37,11 @@ public:
 
 	const char* ObjectTag{};
 	int ObjectLayer{};
-	bool SwapLayerMarked{};
-	bool DeleteObjectMarked{};
-	bool FloatingObjectMarked{};
-	bool StaticObjectMarked{};
+
+	bool SwapCommand{};
+	bool DeleteCommand{};
+	bool FloatingCommand{};
+	bool StaticCommand{};
 
 	// init functions
 	void InitMatrix(int RenderType=RENDER_TYPE_DEFAULT);

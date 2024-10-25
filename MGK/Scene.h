@@ -41,15 +41,15 @@ private:
 	const char*						  CurrentRunningMode{};
 	const char*						  PrevRunningMode{};
 
-	bool							  FloatingRunningActivated{};
-	bool                              FloatingFocusActivated{};
+	bool							  FloatingActivateCommand{};
+	bool                              FloatingFocusCommand{};
 
 	float							  FrameTime{};
 
 	ControllerFunction				  ControllerBuffer{};
 	Function						  DestructorBuffer{};
 
-	bool RoutineUpdateActivated{ true };
+	bool RoutineActivateCommand{ true };
 
 public:
 	const char* Mode();

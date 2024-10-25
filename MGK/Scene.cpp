@@ -9,27 +9,22 @@ const char* Scene::Mode() {
 }
 
 void Scene::Stop() {
-	RoutineUpdateActivated = false;
+	RoutineActivateCommand = false;
 }
 
 void Scene::Resume() {
-	RoutineUpdateActivated = true;
+	RoutineActivateCommand = true;
 }
 
 void Scene::Routine() {
 	for (int i = 0; i < Layers; ++i) {
 		for (auto const& O : ObjectList[i]) {
-			if (!O->DeleteObjectMarked) {
-				if (RoutineUpdateActivated) {
-					if (!FloatingRunningActivated)
+			if (!O->DeleteCommand) {
+				if (RoutineActivateCommand) {
+					if(FloatingFocusCommand && O->FloatingCommand)
 						O->UpdateFunc(FrameTime);
-
-					else {
-						if (FloatingFocusActivated && O->FloatingObjectMarked)
-							O->UpdateFunc(FrameTime);
-						else
-							O->UpdateFunc(FrameTime);
-					}
+					else
+						O->UpdateFunc(FrameTime);
 				}
 
 				O->RenderFunc();
@@ -56,9 +51,9 @@ void Scene::SwitchMode(Function ModeFunction) {
 
 	ModeFunction();
 
-	if (FloatingRunningActivated) {
-		FloatingRunningActivated = false;
-		FloatingFocusActivated = false;
+	if (FloatingActivateCommand) {
+		FloatingActivateCommand = false;
+		FloatingFocusCommand = false;
 	}
 }
 
@@ -81,18 +76,18 @@ void Scene::ReleaseDestructor() {
 }
 
 void Scene::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
-	if (FloatingRunningActivated)
+	if (FloatingActivateCommand)
 		return;
 
 	PrevRunningMode = CurrentRunningMode;
 	ModeFunction();
-	FloatingFocusActivated = FloatingFocus;
+	FloatingFocusCommand = FloatingFocus;
 
-	FloatingRunningActivated = true;
+	FloatingActivateCommand = true;
 }
 
 void Scene::EndFloatingMode() {
-	if (!FloatingRunningActivated)  
+	if (!FloatingActivateCommand)  
 		return;
 
 	ClearFloatingObject();
@@ -101,8 +96,8 @@ void Scene::EndFloatingMode() {
 	if (ControllerBuffer)  
 		ControllerBuffer();
 
-	FloatingRunningActivated = false;
-	FloatingFocusActivated = false;
+	FloatingActivateCommand = false;
+	FloatingFocusCommand = false;
 }
 
 void Scene::ResetControlState(GameObject* Object) {
@@ -111,25 +106,25 @@ void Scene::ResetControlState(GameObject* Object) {
 
 void Scene::ResetControlState(const char* Tag) {
 	auto It = ObjectIndex.find(Tag);
-	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
+	if (It != end(ObjectIndex) && !It->second->DeleteCommand)
 		It->second->ResetControlState();
 }
 
 void Scene::InputKey(const char* Tag, int State, unsigned char NormalKey, int SpecialKey) {
 	auto It = ObjectIndex.find(Tag);
-	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
+	if (It != end(ObjectIndex) && !It->second->DeleteCommand)
 		It->second->InputKey(State, NormalKey, SpecialKey);
 }
 
 void Scene::InputMouse(const char* Tag, int State) {
 	auto It = ObjectIndex.find(Tag);
-	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
+	if (It != end(ObjectIndex) && !It->second->DeleteCommand)
 		It->second->InputMouse(State);
 }
 
 void Scene::InputScroll(const char* Tag, int State) {
 	auto It = ObjectIndex.find(Tag);
-	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
+	if (It != end(ObjectIndex) && !It->second->DeleteCommand)
 		It->second->InputScroll(State);
 }
 
@@ -141,47 +136,47 @@ void Scene::AddObject(GameObject* Object, const char* Tag, int AddLayer, int Typ
 	Object->ObjectLayer = AddLayer;
 
 	if (Type1 == Type2 && Type1 == OBJECT_TYPE_STATIC) {
-		Object->StaticObjectMarked = true;
+		Object->StaticCommand = true;
 		return;
 	}
 
 	if (Type1 == Type2 && Type1 == OBJECT_TYPE_FLOATING) {
-		Object->FloatingObjectMarked = true;
+		Object->FloatingCommand = true;
 		return;
 	}
 
 	if(Type1 == OBJECT_TYPE_STATIC || Type2 == OBJECT_TYPE_STATIC)
-		Object->StaticObjectMarked = true;
+		Object->StaticCommand = true;
 
 	if(Type1 == OBJECT_TYPE_FLOATING || Type2 == OBJECT_TYPE_FLOATING)
-		Object->FloatingObjectMarked = true;
+		Object->FloatingCommand = true;
 }
 
 void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
 	if (Object->ObjectLayer == TargetLayer)
 		return;
 
-	Object->SwapLayerMarked = true;
+	Object->SwapCommand = true;
 	Object->ObjectLayer = TargetLayer;
 }
 
 void Scene::DeleteObject(GameObject* Object) {
-	Object->DeleteObjectMarked = true;
+	Object->DeleteCommand = true;
 }
 
 void Scene::DeleteObject(const char* Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
 		auto It = ObjectIndex.find(Tag);
-		if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
-			It->second->DeleteObjectMarked = true;
+		if (It != end(ObjectIndex) && !It->second->DeleteCommand)
+			It->second->DeleteCommand = true;
 	}
 
 	else if (DeleteRange == DELETE_RANGE_EQUAL) {
 		auto Range = ObjectIndex.equal_range(Tag);
 		if (Range.first != Range.second) {
 			for (auto It = Range.first; It != Range.second; ++It) {
-				if (It->first == Tag && !It->second->DeleteObjectMarked) 
-					It->second->DeleteObjectMarked = true;
+				if (It->first == Tag && !It->second->DeleteCommand) 
+					It->second->DeleteCommand = true;
 			}
 		}
 	}
@@ -189,7 +184,7 @@ void Scene::DeleteObject(const char* Tag, int DeleteRange) {
 
 GameObject* Scene::Find(const char* Tag) {
 	auto It = ObjectIndex.find(Tag);
-	if (It != end(ObjectIndex) && !It->second->DeleteObjectMarked)
+	if (It != end(ObjectIndex) && !It->second->DeleteCommand)
 		return It->second;
 
 	return nullptr;
@@ -225,17 +220,17 @@ void Scene::Exit() {
 //////// private ///////////////
 void Scene::UpdateObjectList(int Index) {	
 	for (auto It = begin(ObjectList[Index]); It != end(ObjectList[Index]);) {
-		if ((*It)->DeleteObjectMarked) {
+		if ((*It)->DeleteCommand) {
 			It = ObjectList[Index].erase(It);
 			continue;
 		}
 
-		if ((*It)->SwapLayerMarked) {
+		if ((*It)->SwapCommand) {
 			auto Object = (*It);
 			int DestLayer = (*It)->ObjectLayer;
 			It = ObjectList[Index].erase(It);
 			ObjectList[DestLayer].emplace_back(Object);
-			Object->SwapLayerMarked = false;
+			Object->SwapCommand = false;
 			continue;
 		}
 		++It;
@@ -244,7 +239,7 @@ void Scene::UpdateObjectList(int Index) {
 
 void Scene::UpdateObjectIndex() {
 	for (auto It = begin(ObjectIndex); It != end(ObjectIndex);) {
-		if (It->second->DeleteObjectMarked) {
+		if (It->second->DeleteCommand) {
 			delete It->second;
 			It->second = nullptr;
 			It = ObjectIndex.erase(It);
@@ -256,14 +251,14 @@ void Scene::UpdateObjectIndex() {
 
 void Scene::ClearFloatingObject() {
 	for (auto const& O : ObjectIndex) {
-		if (O.second->FloatingObjectMarked && !O.second->StaticObjectMarked)
-			O.second->DeleteObjectMarked = true;
+		if (O.second->FloatingCommand && !O.second->StaticCommand)
+			O.second->DeleteCommand = true;
 	}
 }
 
 void Scene::ClearAll() {
 	for (auto const& O : ObjectIndex) {
-		if (!O.second->StaticObjectMarked)
-			O.second->DeleteObjectMarked = true;
+		if (!O.second->StaticCommand)
+			O.second->DeleteCommand = true;
 	}
 }
