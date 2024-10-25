@@ -390,13 +390,13 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SystemResource\GLSL\Fragment_Image.glsl">
+    <None Include="MGKResource\GLSL\Fragment_Image.glsl">
       <Filter>[6]___________[ MGK ]\[ GLSL ]</Filter>
     </None>
-    <None Include="SystemResource\GLSL\Fragment_Text.glsl">
+    <None Include="MGKResource\GLSL\Fragment_Text.glsl">
       <Filter>[6]___________[ MGK ]\[ GLSL ]</Filter>
     </None>
-    <None Include="SystemResource\GLSL\Vertex.glsl">
+    <None Include="MGKResource\GLSL\Vertex.glsl">
       <Filter>[6]___________[ MGK ]\[ GLSL ]</Filter>
     </None>
   </ItemGroup>
