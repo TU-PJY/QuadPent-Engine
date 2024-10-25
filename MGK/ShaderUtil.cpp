@@ -93,24 +93,24 @@ void ShaderUtil::CreateShader(GLuint& Shader) {
 void ShaderUtil::CreateShaderLocation() {
 	// Image Shader
 	ImageTransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
-	ImageColorLocation = glGetUniformLocation(ImageShader, "objectColor");
-	BlurStrengthLocation = glGetUniformLocation(ImageShader, "Radius");
-	BoolBlurLocation = glGetUniformLocation(ImageShader, "UseBlur");
-	TexelSizeLocation = glGetUniformLocation(ImageShader, "TexelSize");
-	ImageModelLocation = glGetUniformLocation(ImageShader, "model");
+	ImageColorLocation =		glGetUniformLocation(ImageShader, "objectColor");
+	BlurStrengthLocation =		glGetUniformLocation(ImageShader, "Radius");
+	BoolBlurLocation =			glGetUniformLocation(ImageShader, "UseBlur");
+	TexelSizeLocation =			glGetUniformLocation(ImageShader, "TexelSize");
+	ImageModelLocation =		glGetUniformLocation(ImageShader, "model");
 
 	// Text Shader
-	TextTransparencyLocation = glGetUniformLocation(TextShader, "transparency");
-	TextColorLocation = glGetUniformLocation(TextShader, "objectColor");
-	TextModelLocation = glGetUniformLocation(TextShader, "model");
+	TextTransparencyLocation =  glGetUniformLocation(TextShader, "transparency");
+	TextColorLocation =			glGetUniformLocation(TextShader, "objectColor");
+	TextModelLocation =			glGetUniformLocation(TextShader, "model");
 
 	// Image Camera
-	ImageProjectionLocation = glGetUniformLocation(ImageShader, "projection");
-	ImageViewLocation = glGetUniformLocation(ImageShader, "view");
+	ImageProjectionLocation =	glGetUniformLocation(ImageShader, "projection");
+	ImageViewLocation =			glGetUniformLocation(ImageShader, "view");
 	ImageViewPositionLocation = glGetUniformLocation(ImageShader, "viewPos");
 	
 	// Text Camera
-	TextProjectionLocation = glGetUniformLocation(TextShader, "projection");
-	TextViewLocation = glGetUniformLocation(TextShader, "view");
-	TextViewPositionLocation = glGetUniformLocation(TextShader, "viewPos");
+	TextProjectionLocation =	glGetUniformLocation(TextShader, "projection");
+	TextViewLocation =		    glGetUniformLocation(TextShader, "view");
+	TextViewPositionLocation =  glGetUniformLocation(TextShader, "viewPos");
 }
