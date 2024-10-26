@@ -22,6 +22,12 @@ void GameObject::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	ObjectColor.b = B;
 }
 
+void GameObject::SetColor(glm::vec3 Color) {
+	ObjectColor.r = Color.r;
+	ObjectColor.g = Color.g;
+	ObjectColor.b = Color.b;
+}
+
 void GameObject::SetColorRGB(int R, int G, int B) {
 	ObjectColor.r = (1.0f / 255.0f) * (GLfloat)R;
 	ObjectColor.g = (1.0f / 255.0f) * (GLfloat)G;
@@ -40,12 +46,22 @@ void GameObject::UpdateViewportPosition(GLfloat& ValueX, GLfloat& ValueY, bool A
 	ValueY = ViewportPosition().y;
 }
 
-void GameObject::UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect) {
-	if(ApplyAspect)
-		ValueX = ASP(LocalPosition().x);
+void GameObject::UpdateViewportPosition(glm::vec2& Position, bool ApplyAspect) {
+	if (ApplyAspect) {
+		Position.x = ASP(ViewportPosition().x);
+		Position.y = ViewportPosition().y;
+	}
 	else
-		ValueX = LocalPosition().x;
+		Position = ViewportPosition();
+}
+
+void GameObject::UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY) {
+	ValueX = LocalPosition().x;
 	ValueY = LocalPosition().y;
+}
+
+void GameObject::UpdateLocalPosition(glm::vec2& Position) {
+	Position = LocalPosition();
 }
 
 void GameObject::Flip(int FlipOpt) {
@@ -148,8 +164,16 @@ void GameObject::SetListnerPosition(float X, float Y) {
 	soundUtil.SetListnerPosition(X, Y);
 }
 
+void GameObject::SetListnerPosition(glm::vec2 Position) {
+	soundUtil.SetListnerPosition(Position.x, Position.y);
+}
+
 void GameObject::SetSoundPosition(SoundChannel& ChannelVar, float X, float Y, float Diff) {
 	soundUtil.SetSoundPosition(ChannelVar, X, Y, Diff);
+}
+
+void GameObject::SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff) {
+	soundUtil.SetSoundPosition(ChannelVar, Position.x, Position.y, Diff);
 }
 
 ////////////////////////// private

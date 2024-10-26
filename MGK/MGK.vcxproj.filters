@@ -94,12 +94,6 @@
     <Filter Include="[5]___________[ Resources ]">
       <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ Resources ]\[ Resource ]">
-      <UniqueIdentifier>{471a1c4e-f93c-409b-b71c-df69808118a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ Resources ]\[ Data ]">
-      <UniqueIdentifier>{5cc44f36-1978-4df0-84ee-7042daee1b18}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[6]___________[ MGK ]">
       <UniqueIdentifier>{7f6a4887-d06e-4c65-963d-2b7d61cea12c}</UniqueIdentifier>
     </Filter>
@@ -150,6 +144,12 @@
     </Filter>
     <Filter Include="[3]___________[ Camera ]\[ Controller ]">
       <UniqueIdentifier>{1480f021-43d6-4f12-9a82-8d6fb6ea2cfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ Resources ]\[ Game Resource ]">
+      <UniqueIdentifier>{471a1c4e-f93c-409b-b71c-df69808118a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ Resources ]\[ Game Data ]">
+      <UniqueIdentifier>{5cc44f36-1978-4df0-84ee-7042daee1b18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -243,11 +243,11 @@
     <ClCompile Include="tinyxml\tinystr.cpp">
       <Filter>[6]___________[ MGK ]\[ System]\[TinyXML]\[ CPP ]</Filter>
     </ClCompile>
-    <ClCompile Include="CustomResources.cpp">
-      <Filter>[5]___________[ Resources ]\[ Resource ]</Filter>
+    <ClCompile Include="GameResources.cpp">
+      <Filter>[5]___________[ Resources ]\[ Game Resource ]</Filter>
     </ClCompile>
     <ClCompile Include="DataList.cpp">
-      <Filter>[5]___________[ Resources ]\[ Data ]</Filter>
+      <Filter>[5]___________[ Resources ]\[ Game Data ]</Filter>
     </ClCompile>
     <ClCompile Include="ScriptUtil.cpp">
       <Filter>[4]___________[ Util ]\[ Script Util ]</Filter>
@@ -356,11 +356,11 @@
     <ClInclude Include="tinyxml\tinyxml.h">
       <Filter>[6]___________[ MGK ]\[ System]\[TinyXML]\[ Header ]</Filter>
     </ClInclude>
-    <ClInclude Include="CustomResources.h">
-      <Filter>[5]___________[ Resources ]\[ Resource ]</Filter>
+    <ClInclude Include="GameResources.h">
+      <Filter>[5]___________[ Resources ]\[ Game Resource ]</Filter>
     </ClInclude>
     <ClInclude Include="DataList.h">
-      <Filter>[5]___________[ Resources ]\[ Data ]</Filter>
+      <Filter>[5]___________[ Resources ]\[ Game Data ]</Filter>
     </ClInclude>
     <ClInclude Include="ScriptUtil.h">
       <Filter>[4]___________[ Util ]\[ Script Util ]</Filter>

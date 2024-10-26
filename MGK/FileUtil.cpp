@@ -1,7 +1,7 @@
 #include "FileUtil.h"
 #include "Setting.h"
 
-void FileUtil::Init(const char* FolderName, const char* FileName, std::vector<FileData> List) {
+void FileUtil::Init(const char* FolderName, const char* FileName, DataSet List) {
 	if (FileExist)
 		return;
 

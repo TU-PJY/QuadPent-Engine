@@ -153,7 +153,7 @@
     <ClCompile Include="LineBrush.cpp" />
     <ClCompile Include="LoadingMode.cpp" />
     <ClCompile Include="MathUtil.cpp" />
-    <ClCompile Include="CustomResources.cpp" />
+    <ClCompile Include="GameResources.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ImageUtil.cpp" />
     <ClCompile Include="GameMode1.cpp" />
@@ -193,7 +193,7 @@
     <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ImageUtil.h" />
-    <ClInclude Include="CustomResources.h" />
+    <ClInclude Include="GameResources.h" />
     <ClInclude Include="IntroMode.h" />
     <ClInclude Include="IntroScreen.h" />
     <ClInclude Include="LineBrush.h" />

@@ -24,6 +24,10 @@ void CameraController::Move(GLfloat X, GLfloat Y) {
 	Position.y = Y;
 }
 
+void CameraController::Move(glm::vec2 PositionValue) {
+	Position = PositionValue;
+}
+
 void CameraController::Rotate(GLfloat Value) {
 	Rotation = Value;
 }

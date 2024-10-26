@@ -23,7 +23,6 @@ enum D_Type {
 	DATA_TYPE_STRING 
 };
 
-
 struct FileData {
 	const char* CategoryName;
 	const char* DataName;
@@ -31,6 +30,9 @@ struct FileData {
 	float DigitValue;
 	const char* StringValue;
 };
+
+using DataSet = std::vector<FileData>;
+
 
 // write and read
 class FileUtil {
@@ -40,12 +42,12 @@ private:
 	TiXmlDocument Doc{};
 	TiXmlElement* Root{};
 	
-	std::vector<FileData> DataListBuffer{};
+	DataSet DataListBuffer{};
 
 	bool FileExist{};
 
 public:
-	void Init(const char* FolderName, const char* FileName, std::vector<FileData> List);
+	void Init(const char* FolderName, const char* FileName, DataSet List);
 	void UpdateData(const char* CategoryName, const char* DataName, float Value);
 	void UpdateStringData(const char* CategoryName, const char* DataName, const char* Value);
 	float LoadData(const char* CategoryName, const char* DataName);

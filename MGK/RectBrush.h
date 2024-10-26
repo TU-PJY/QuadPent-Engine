@@ -10,10 +10,10 @@ private:
 	GLfloat TransparencyValue{};
 	int RenderType{ RENDER_TYPE_DEFAULT };
 
-	bool CameraInheritance{};
+	bool CamInheritanceCommand{};
 
 public:
-	LineRectBrush(bool Inheritance=false);
+	LineRectBrush(bool Flag=false);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
 	void SetRenderType(int Opt);
@@ -34,10 +34,10 @@ private:
 	GLfloat TransparencyValue{};
 	int RenderType{ RENDER_TYPE_DEFAULT };
 
-	bool CameraInheritance{};
+	bool CamInheritanceCommand{};
 
 public:
-	RectBrush(bool Inheritance=false);
+	RectBrush(bool Flag=false);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
 	void SetRenderType(int Opt);

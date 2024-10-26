@@ -6,6 +6,7 @@
 #include "imageUtil.h"
 #include "TextUtil.h"
 #include "TimerUtil.h"
+#include "TransformUtil.h"
 #include "AnimationUtil.h"
 #include "ClippingUtil.h"
 #include "MathUtil.h"
@@ -14,8 +15,7 @@
 #include "LineBrush.h"
 #include "RectBrush.h"
 #include "SystemResources.h"
-#include "CustomResources.h"
-#include "TransformUtil.h"
+#include "GameResources.h"
 
 
 enum FlipDir { 
@@ -46,11 +46,14 @@ public:
 	// init functions
 	void InitMatrix(int RenderType=RENDER_TYPE_DEFAULT);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
+	void SetColor(glm::vec3 Color);
 	void SetColorRGB(int R, int G, int B);
 
 	// viewport functions
 	void UpdateViewportPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect = true);
-	void UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect = false);
+	void UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY);
+	void UpdateViewportPosition(glm::vec2& Position, bool ApplyAspect);
+	void UpdateLocalPosition(glm::vec2& Position);
 	GLfloat ASP(GLfloat Value);
 
 	// image functions
@@ -72,7 +75,10 @@ public:
 	void DisableBeatDetect(SoundChannel& ChannelVar);
 	void SetSoundDistance(SoundChannel& ChannelVar, float MinDist, float MaxDist);
 	void SetListnerPosition(float X, float Y);
+	void SetListnerPosition(glm::vec2 Position);
 	void SetSoundPosition(SoundChannel& ChannelVar, float X, float Y, float Diff);
+
+	void SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff);
 
 	// object defined functions
 	virtual ~GameObject() {}

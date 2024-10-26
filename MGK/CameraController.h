@@ -13,6 +13,7 @@ public:
 	void InitMatrix();
 	void CalcMatrix();
 	void Move(GLfloat X, GLfloat Y);
+	void Move(glm::vec2 PositionValue);
 	void Rotate(GLfloat Value);
 	void Zoom(int Type, GLfloat Value);
 	void ChangeZoom(GLfloat Value);

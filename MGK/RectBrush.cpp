@@ -6,8 +6,8 @@
 #include "ExUtil.h"
 #include <cmath>
 
-LineRectBrush::LineRectBrush(bool Inheritance) {
-	CameraInheritance = Inheritance;
+LineRectBrush::LineRectBrush(bool Flag) {
+	CamInheritanceCommand = Flag;
 }
 
 void LineRectBrush::SetRenderType(int Opt) {
@@ -46,7 +46,7 @@ void LineRectBrush::DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat Offs
 }
 
 void LineRectBrush::Render() {
-	if (!CameraInheritance)
+	if (!CamInheritanceCommand)
 		camera.SetCamera(RenderType);
 
 	glUseProgram(ImageShader);
@@ -62,8 +62,8 @@ void LineRectBrush::Render() {
 
 
 
-RectBrush::RectBrush(bool Inheritance) {
-	CameraInheritance = Inheritance;
+RectBrush::RectBrush(bool Flag) {
+	CamInheritanceCommand = Flag;
 }
 
 void RectBrush::SetRenderType(int Opt) {
@@ -95,7 +95,7 @@ void RectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat
 }
 
 void RectBrush::Render() {
-	if(!CameraInheritance)
+	if(!CamInheritanceCommand)
 		camera.SetCamera(RenderType);
 
 	glUseProgram(ImageShader);

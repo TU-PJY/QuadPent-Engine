@@ -16,8 +16,8 @@ GLvoid Framework::Framework() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	if (UpdateActivateCommand) {
-		scene.Routine();
 		cameraCon.Update(DeltaTime);
+		scene.Routine();
 		soundUtil.Update();
 	}
 
