@@ -62,7 +62,7 @@ public:
 	void Render(Image& Image, GLfloat Transparency = 1.0, bool DisableAdjustAspect=false);
 
 	// sound functions
-	void PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime);
+	void PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime=0);
 	void PauseSound(SoundChannel& ChannelVar, bool Flag);
 	void StopSound(SoundChannel& ChannelVar);
 	void SetPlaySpeed(SoundChannel& ChannelVar, float PlaySpeed);
