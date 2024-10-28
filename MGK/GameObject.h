@@ -90,8 +90,8 @@ public:
 	virtual void InputScroll(int State) {}
 	virtual void ResetControlState() {}
 	virtual AABB GetAABB() { return {}; }
-	virtual OOBB GetOBB() { return{}; }
-	virtual BoundingSphere GetRange() { return {}; }
+	virtual OOBB GetOOBB() { return{}; }
+	virtual BoundingSphere GetBoundingSphere() { return {}; }
 
 private:
 	void PrepareRender(); 
