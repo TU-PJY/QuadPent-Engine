@@ -70,6 +70,7 @@ public:
 	void EnableFreqCutoff(SoundChannel& ChannelVar, float Frequency);
 	void EnableBeatDetect(SoundChannel& ChannelVar);
 	void DetectBeat(GLfloat& Value, float ThresHold, float SamplingRate);
+	GLfloat DetectBeat(float ThresHold, float SamplingRate);
 	bool IsBeat(float ThresHold, float SamplingRate);
 	void DisableFreqCutoff(SoundChannel& ChannelVar);
 	void DisableBeatDetect(SoundChannel& ChannelVar);

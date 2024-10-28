@@ -144,6 +144,10 @@ void GameObject::DetectBeat(GLfloat& Value, float ThresHold, float SamplingRate)
 	Value =  soundUtil.DetectBeat(ThresHold, SamplingRate);
 }
 
+GLfloat GameObject::DetectBeat(float ThresHold, float SamplingRate) {
+	return soundUtil.DetectBeat(ThresHold, SamplingRate);
+}
+
 bool GameObject::IsBeat(float ThresHold, float SamplingRate) {
 	return soundUtil.IsBeat(ThresHold, SamplingRate);
 }

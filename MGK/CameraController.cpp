@@ -20,12 +20,12 @@ void CameraController::CalcMatrix() {
 }
 
 void CameraController::Move(GLfloat X, GLfloat Y) {
-	Position.x = X;
-	Position.y = Y;
+	Position.x = -X;
+	Position.y = -Y;
 }
 
 void CameraController::Move(glm::vec2 PositionValue) {
-	Position = PositionValue;
+	Position = -PositionValue;
 }
 
 void CameraController::Rotate(GLfloat Value) {
@@ -39,13 +39,13 @@ void CameraController::Zoom(int Type, GLfloat Value) {
 		camera.ZoomValue = camera.ZoomValue * (1.0f - Value);
 }
 
-void CameraController::ChangeZoom(GLfloat Value) {
-	camera.ZoomValue = Value;
-}
-
 GLfloat CameraController::CalculateNextZoom(int Type, GLfloat Value) {
 	if(Type == ZOOM_IN)
 		return camera.ZoomValue / (1.0f - Value);
 	else if(Type == ZOOM_OUT)
 		return camera.ZoomValue * (1.0f - Value);
+}
+
+void CameraController::ChangeZoom(GLfloat Value) {
+	camera.ZoomValue = Value;
 }
