@@ -17,7 +17,7 @@ private:
 
 public:
 	void Init();
-	void Import(Sound& Sound, const char* FileName, FMOD_MODE Option);
+	void Import(Sound& Sound, std::string FileName, FMOD_MODE Option);
 	void Release(Sound& Sound);
 	void Update();
 	void PlaySound(FMOD::Sound* Sound, FMOD::Channel*& ChannelVar, unsigned int Ms=0);

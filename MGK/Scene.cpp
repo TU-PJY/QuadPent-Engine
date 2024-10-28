@@ -4,7 +4,7 @@ void Scene::InputFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
 }
 
-const char* Scene::Mode() {
+std::string Scene::Mode() {
 	return CurrentRunningMode;
 }
 
@@ -61,7 +61,7 @@ void Scene::RegisterDestructor(Function DestructorFunction) {
 	DestructorBuffer = DestructorFunction;
 }
 
-void Scene::RegisterModeName(const char* ModeName) {
+void Scene::RegisterModeName(std::string ModeName) {
 	CurrentRunningMode = ModeName;
 }
 
@@ -104,31 +104,31 @@ void Scene::ResetControlState(GameObject* Object) {
 	Object->ResetControlState();
 }
 
-void Scene::ResetControlState(const char* Tag) {
+void Scene::ResetControlState(std::string Tag) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteCommand)
 		It->second->ResetControlState();
 }
 
-void Scene::InputKey(const char* Tag, int State, unsigned char NormalKey, int SpecialKey) {
+void Scene::InputKey(std::string Tag, int State, unsigned char NormalKey, int SpecialKey) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteCommand)
 		It->second->InputKey(State, NormalKey, SpecialKey);
 }
 
-void Scene::InputMouse(const char* Tag, int State) {
+void Scene::InputMouse(std::string Tag, int State) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteCommand)
 		It->second->InputMouse(State);
 }
 
-void Scene::InputScroll(const char* Tag, int State) {
+void Scene::InputScroll(std::string Tag, int State) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteCommand)
 		It->second->InputScroll(State);
 }
 
-void Scene::AddObject(GameObject* Object, const char* Tag, int AddLayer, int Type1, int Type2) {
+void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
 	ObjectList[AddLayer].emplace_back(Object);
 	ObjectIndex.insert(std::make_pair(Tag, Object));
 
@@ -164,7 +164,7 @@ void Scene::DeleteObject(GameObject* Object) {
 	Object->DeleteCommand = true;
 }
 
-void Scene::DeleteObject(const char* Tag, int DeleteRange) {
+void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
 		auto It = ObjectIndex.find(Tag);
 		if (It != end(ObjectIndex) && !It->second->DeleteCommand)
@@ -182,7 +182,7 @@ void Scene::DeleteObject(const char* Tag, int DeleteRange) {
 	}
 }
 
-GameObject* Scene::Find(const char* Tag) {
+GameObject* Scene::Find(std::string Tag) {
 	auto It = ObjectIndex.find(Tag);
 	if (It != end(ObjectIndex) && !It->second->DeleteCommand)
 		return It->second;
@@ -190,7 +190,7 @@ GameObject* Scene::Find(const char* Tag) {
 	return nullptr;
 }
 
-GameObject* Scene::FindMulti(const char* Tag, int SearchLayer, int Index) {
+GameObject* Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
 	auto Object = ObjectList[SearchLayer][Index];
 	if(Object->ObjectTag == Tag)
 		return ObjectList[SearchLayer][Index];
@@ -198,7 +198,7 @@ GameObject* Scene::FindMulti(const char* Tag, int SearchLayer, int Index) {
 	return nullptr;
 }
 
-ObjectRange Scene::EqualRange(const char* Tag) {
+ObjectRange Scene::EqualRange(std::string Tag) {
 	ObjectRange Range;
 	auto It = ObjectIndex.equal_range(Tag);
 

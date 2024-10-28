@@ -24,11 +24,11 @@ enum D_Type {
 };
 
 struct FileData {
-	const char* CategoryName;
-	const char* DataName;
+	std::string CategoryName;
+	std::string DataName;
 	int DataType;
 	float DigitValue;
-	const char* StringValue;
+	std::string StringValue;
 };
 
 using DataSet = std::vector<FileData>;
@@ -47,11 +47,11 @@ private:
 	bool FileExist{};
 
 public:
-	void Init(const char* FolderName, const char* FileName, DataSet List);
-	void UpdateData(const char* CategoryName, const char* DataName, float Value);
-	void UpdateStringData(const char* CategoryName, const char* DataName, const char* Value);
-	float LoadData(const char* CategoryName, const char* DataName);
-	const char* LoadStringData(const char* CategoryName, const char* DataName);
+	void Init(std::string FolderName, std::string FileName, DataSet List);
+	void UpdateDigitData(std::string CategoryName, std::string DataName, float Value);
+	void UpdateStringData(std::string CategoryName, std::string DataName, std::string Value);
+	float LoadDigitData(std::string CategoryName, std::string DataName);
+	std::string LoadStringData(std::string CategoryName, std::string DataName);
 	void ResetData();
 	void Release();
 
@@ -60,20 +60,19 @@ private:
 	void CheckDataVersion();
 	void UpdateDataVersion(float VersionValue);
 	void CreateDec(float VersionValue);
-	void AddRoot(const char* RootName);
-	void AddCategory(const char* CategoryName);
-	void AddData(const char* CategoryName, const char* DataName, float Value);
-	void AddStringData(const char* CategoryName, const char* DataName, const char* Value);
-	void WriteDigitData(TiXmlElement* CategoryVar, const char* DataName, float Value);
-	void WriteStringData(TiXmlElement* CategoryVar, const char* DataName, const char* Value);
-	int GetIntData(TiXmlElement* CategoryVar, const char* DataName);
-	float GetDigitData(TiXmlElement* CategoryVar, const char* DataName);
-	const char* GetStringData(TiXmlElement* CategoryVar, const char* DataName);
+	void AddRoot(std::string RootName);
+	void AddCategory(std::string CategoryName);
+	void AddDigitData(std::string CategoryName, std::string DataName, float Value);
+	void AddStringData(std::string CategoryName, std::string DataName, std::string Value);
+	void WriteDigitData(TiXmlElement* CategoryVar, std::string DataName, float Value);
+	void WriteStringData(TiXmlElement* CategoryVar, std::string DataName, std::string Value);
+	float GetDigitData(TiXmlElement* CategoryVar, std::string DataName);
+	std::string GetStringData(TiXmlElement* CategoryVar, std::string DataName);
 	TiXmlElement* FindRoot();
-	TiXmlElement* FindCategory(const char* CategoryName);
-	const char* FileUtil::FindData(const char* CategoryName, const char* DataName);
-	bool LoadDataFile(const char* FileName);
+	TiXmlElement* FindCategory(std::string CategoryName);
+	std::string FileUtil::FindData(std::string CategoryName, std::string DataName);
+	bool LoadDataFile(std::string FileName);
 	void UpdateDataFile();
-	std::string Encrypt(const std::string& plainText, const byte key[], const byte iv[]);
-	std::string Decrypt(const std::string& cipherText, const byte key[], const byte iv[]);
+	std::string Encrypt(const std::string& PlainText, const byte Key[], const byte IV[]);
+	std::string Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]);
 };

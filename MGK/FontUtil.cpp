@@ -1,5 +1,4 @@
 #include "FontUtil.h"
-#include <iostream>
 
 std::wstring FontUtil::ToWstr(const std::string& str) {
     int SizeNeed = MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0);

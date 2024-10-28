@@ -9,7 +9,7 @@ typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
 constexpr int Layers = END;
 
-using LayerIter = std::multimap<const char*, GameObject*>::iterator;
+using LayerIter = std::multimap<std::string, GameObject*>::iterator;
 
 typedef struct {
 	LayerIter First, End;
@@ -36,10 +36,10 @@ enum ObjectType {
 class Scene {
 private:
 	std::array<std::vector<GameObject*>, Layers> ObjectList;
-	std::multimap<const char*, GameObject*> ObjectIndex;
+	std::multimap<std::string, GameObject*> ObjectIndex;
 
-	const char*						  CurrentRunningMode{};
-	const char*						  PrevRunningMode{};
+	std::string						  CurrentRunningMode{};
+	std::string						  PrevRunningMode{};
 
 	bool							  FloatingActivateCommand{};
 	bool                              FloatingFocusCommand{};
@@ -52,10 +52,10 @@ private:
 	bool RoutineActivateCommand{ true };
 
 public:
-	const char* Mode();
+	std::string Mode();
 	void Stop();
 	void Resume();
-	void RegisterModeName(const char* ModeName);
+	void RegisterModeName(std::string ModeName);
 	void Init(Function ModeFunction);
 	void RegisterController(ControllerFunction Controller, int Type);
 	void InputFrameTime(float ElapsedTime);
@@ -66,17 +66,17 @@ public:
 	void StartFloatingMode(Function ModeFunction, bool FloatingFocus=false);
 	void EndFloatingMode();
 	void ResetControlState(GameObject* Object);
-	void ResetControlState(const char* Tag);
-	void InputKey(const char* Tag, int State, unsigned char NormalKey, int SpecialKey);
-	void InputMouse(const char* Tag, int State);
-	void InputScroll(const char* Tag, int State);
-	void AddObject(GameObject* Object, const char* Tag, int AddLayer, int Type1= OBJECT_TYPE_NONE, int Type2=OBJECT_TYPE_NONE);
+	void ResetControlState(std::string Tag);
+	void InputKey(std::string Tag, int State, unsigned char NormalKey, int SpecialKey);
+	void InputMouse(std::string Tag, int State);
+	void InputScroll(std::string Tag, int State);
+	void AddObject(GameObject* Object, std::string Tag, int AddLayer, int Type1= OBJECT_TYPE_NONE, int Type2=OBJECT_TYPE_NONE);
 	void SwapLayer(GameObject* Object, int TargetLayer);
 	void DeleteObject(GameObject* Object);
-	void DeleteObject(const char* Tag, int deleteRange);
-	GameObject* Find(const char* Tag);
-	GameObject* FindMulti(const char* Tag, int SearchLayer, int Index);
-	ObjectRange EqualRange(const char* Tag);
+	void DeleteObject(std::string Tag, int deleteRange);
+	GameObject* Find(std::string Tag);
+	GameObject* FindMulti(std::string Tag, int SearchLayer, int Index);
+	ObjectRange EqualRange(std::string Tag);
 	size_t LayerSize(int TargetLayer);
 	void Exit();
 

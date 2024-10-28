@@ -1,10 +1,10 @@
 #include "ScriptUtil.h"
 
-void ScriptUtil::Import(const char* FileName) {
+void ScriptUtil::Import(std::string FileName) {
 	if (FileExist)
 		return;
 
-	if (!Doc.LoadFile(FileName)) {
+	if (!Doc.LoadFile(FileName.c_str())) {
 		std::cout << "Failed to open script file" << std::endl;
 		exit(EXIT_FAILURE);
 	}
@@ -18,16 +18,16 @@ void ScriptUtil::Release() {
 	FileExist = false;
 }
 
-float ScriptUtil::LoadData(const char* CategoryName, const char* DataName) {
+float ScriptUtil::LoadDigitData(std::string CategoryName, std::string DataName) {
 	return GetDigitData(FindCategory(CategoryName), DataName);
 }
 
-const char* ScriptUtil::LoadStringData(const char* CategoryName, const char* DataName) {
+std::string ScriptUtil::LoadStringData(std::string CategoryName, std::string DataName) {
 	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
-float ScriptUtil::GetDigitData(TiXmlElement* CategoryVar, const char* DataName) {
-	const char* DataValue = CategoryVar->Attribute(DataName);
+float ScriptUtil::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
+	const char* DataValue = CategoryVar->Attribute(DataName.c_str());
 	if (DataValue)
 		return std::stof(DataValue);
 	else {
@@ -36,20 +36,21 @@ float ScriptUtil::GetDigitData(TiXmlElement* CategoryVar, const char* DataName) 
 	}
 }
 
-const char* ScriptUtil::GetStringData(TiXmlElement* CategoryVar, const char* DataName) {
-	const char* DataValue = CategoryVar->Attribute(DataName);
+std::string ScriptUtil::GetStringData(TiXmlElement* CategoryVar, std::string DataName) {
+	const char* DataValue = CategoryVar->Attribute(DataName.c_str());
 	if (DataValue)
-		return DataValue;
+		return (std::string)DataValue;
 	else {
 		std::cout << "Failed to find data" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 }
 
-TiXmlElement* ScriptUtil::FindCategory(const char* CategoryName) {
-	return Root->FirstChildElement(CategoryName);
+TiXmlElement* ScriptUtil::FindCategory(std::string CategoryName) {
+	return Root->FirstChildElement(CategoryName.c_str());
 }
 
-const char* ScriptUtil::FindData(const char* CategoryName, const char* DataName) {
-	return FindCategory(CategoryName)->Attribute(DataName);
+std::string ScriptUtil::FindData(std::string CategoryName, std::string DataName) {
+	const char* DataValue = FindCategory(CategoryName)->Attribute(DataName.c_str());
+	return DataValue ? (std::string)DataValue : "";
 }

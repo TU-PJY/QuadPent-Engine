@@ -15,8 +15,8 @@ void SoundUtil::Init() {
 	SoundSystem->set3DSettings(1.0, 1.0, 2.0); 
 }
 
-void SoundUtil::Import(Sound& Sound, const char* FileName, FMOD_MODE Option) {
-	SoundSystem->createSound(FileName, Option, 0, &Sound);
+void SoundUtil::Import(Sound& Sound, std::string FileName, FMOD_MODE Option) {
+	SoundSystem->createSound(FileName.c_str(), Option, 0, &Sound);
 }
 
 void SoundUtil::Release(Sound& Sound) {

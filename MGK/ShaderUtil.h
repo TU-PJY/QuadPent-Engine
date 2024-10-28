@@ -8,9 +8,9 @@ private:
 	GLuint vertex_shader{}, fragment_shader{};
 
 public:
-	char* LoadShaderFile(const char* file);
-	void LoadVertexShader(const char* VertexShader);
-	void LoadFragmentShader(const char* FragmentShader);
+	char* LoadShaderFile(std::string file);
+	void LoadVertexShader(std::string VertexShader);
+	void LoadFragmentShader(std::string FragmentShader);
 	void CreateShader(GLuint& Shader);
 	void CreateShaderLocation();
 };

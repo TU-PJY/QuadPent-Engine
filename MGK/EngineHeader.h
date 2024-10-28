@@ -11,6 +11,7 @@
 #include "fmod.hpp"
 #include "fmod_errors.h"
 #include <iostream>
+#include <string>
 
 extern float DestFPS;
 extern int FPSLimit;

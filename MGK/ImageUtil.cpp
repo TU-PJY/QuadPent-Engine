@@ -30,7 +30,7 @@ void ImageUtil::Init() {
 	stbi_set_flip_vertically_on_load(true);
 }
 
-void ImageUtil::Import(Image& ImageStruct, const char* FileName, int Type) {
+void ImageUtil::Import(Image& ImageStruct, std::string FileName, int Type) {
 	int Width{}, Height{}, Channel{};
 
 	glGenTextures(1, &ImageStruct.Texture);
@@ -48,7 +48,7 @@ void ImageUtil::Import(Image& ImageStruct, const char* FileName, int Type) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	}
 
-	unsigned char* texture_data = stbi_load(FileName, &Width, &Height, &Channel, 4);
+	unsigned char* texture_data = stbi_load(FileName.c_str(), &Width, &Height, &Channel, 4);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture_data);
 	stbi_image_free(texture_data);
 

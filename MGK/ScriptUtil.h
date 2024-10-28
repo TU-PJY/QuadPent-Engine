@@ -12,14 +12,14 @@ private:
 	bool FileExist{};
 
 public:
-	void Import(const char* FileName);
-	float LoadData(const char* CategoryName, const char* DataName);
-	const char* LoadStringData(const char* CategoryName, const char* DataName);
+	void Import(std::string FileName);
+	float LoadDigitData(std::string CategoryName, std::string DataName);
+	std::string LoadStringData(std::string CategoryName, std::string DataName);
 	void Release();
 
 private:
-	TiXmlElement* FindCategory(const char* CategoryName);
-	const char* FindData(const char* CategoryName, const char* DataName);
-	float GetDigitData(TiXmlElement* CategoryVar, const char* DataName);
-	const char* GetStringData(TiXmlElement* CategoryVar, const char* DataName);
+	TiXmlElement* FindCategory(std::string CategoryName);
+	std::string FindData(std::string CategoryName, std::string DataName);
+	float GetDigitData(TiXmlElement* CategoryVar, std::string DataName);
+	std::string GetStringData(TiXmlElement* CategoryVar, std::string DataName);
 };

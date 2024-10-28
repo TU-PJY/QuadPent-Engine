@@ -13,7 +13,7 @@ ShaderLocation TextTransparencyLocation, TextColorLocation, TextModelLocation;
 ShaderLocation ImageProjectionLocation, ImageViewLocation, ImageViewPositionLocation;
 ShaderLocation TextProjectionLocation, TextViewLocation, TextViewPositionLocation;
 
-char* ShaderUtil::LoadShaderFile(const char* FileName) {
+char* ShaderUtil::LoadShaderFile(std::string FileName) {
 	std::ifstream ShaderFile(FileName, std::ios::in | std::ios::binary | std::ios::ate);
 	if (!ShaderFile.is_open()) {
 		std::cout << "Can not open shader file: " << FileName << std::endl;
@@ -39,7 +39,7 @@ char* ShaderUtil::LoadShaderFile(const char* FileName) {
 	return Buffer;
 }
 
-void ShaderUtil::LoadVertexShader(const char* VertexShader) {
+void ShaderUtil::LoadVertexShader(std::string VertexShader) {
 	vertex_source = LoadShaderFile(VertexShader);
 	vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertex_shader, 1, (const GLchar**)&vertex_source, 0);
@@ -58,7 +58,7 @@ void ShaderUtil::LoadVertexShader(const char* VertexShader) {
 	}
 }
 
-void ShaderUtil::LoadFragmentShader(const char* FragmentShader) {
+void ShaderUtil::LoadFragmentShader(std::string FragmentShader) {
 	fragment_source = LoadShaderFile(FragmentShader);
 	fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragment_shader, 1, (const GLchar**)&fragment_source, 0);

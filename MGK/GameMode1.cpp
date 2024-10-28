@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "MouseUtil.h"
 
+
 void GameMode1::Start() {
 	Framework::SetBackColor(0.5, 0.5, 0.5);
 	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
