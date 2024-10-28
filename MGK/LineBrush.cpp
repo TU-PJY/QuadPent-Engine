@@ -4,7 +4,7 @@
 #include "ImageUtil.h"
 #include "ShaderUtil.h"
 #include "CameraUtil.h"
-#include "SystemResources.h"
+#include "SystemResource.h"
 
 void LineBrush::SetRenderType(int Opt) {
 	RenderType = Opt;

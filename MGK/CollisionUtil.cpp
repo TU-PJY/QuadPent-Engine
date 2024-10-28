@@ -200,16 +200,9 @@ void BoundingSphere::ProcessTransform() {
 	glUseProgram(ImageShader);
 	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
-	TransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
-	glUniform1f(TransparencyLocation, 1.0);
-
-	ObjectColorLocation = glGetUniformLocation(ImageShader, "objectColor");
-	glUniform3f(ObjectColorLocation, 1.0, 0.0, 0.0);
-
-	BoolBlurLocation = glGetUniformLocation(ImageShader, "UseBlur");
+	glUniform1f(ImageTransparencyLocation, 1.0);
+	glUniform3f(ImageColorLocation, 1.0, 0.0, 0.0);
 	glUniform1i(BoolBlurLocation, 0);
-
-	ModelLocation = glGetUniformLocation(ImageShader, "model");
-	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
+	glUniformMatrix4fv(ImageModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
 #endif
 }

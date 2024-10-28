@@ -2,7 +2,7 @@
 #include "ImageUtil.h"
 #include "CameraUtil.h"
 #include "TransformUtil.h"
-#include "SystemResources.h"
+#include "SystemResource.h"
 #include "ExUtil.h"
 #include <cmath>
 
