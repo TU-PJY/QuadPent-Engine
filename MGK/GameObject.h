@@ -14,8 +14,8 @@
 #include "ExUtil.h"
 #include "LineBrush.h"
 #include "RectBrush.h"
-#include "SystemResources.h"
-#include "GameResources.h"
+#include "SystemResource.h"
+#include "GameResource.h"
 
 
 enum FlipDir { 

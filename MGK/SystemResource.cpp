@@ -1,4 +1,4 @@
-#include "SystemResources.h"
+#include "SystemResource.h"
 #include "ImageUtil.h"
 #include "SoundUtil.h"
 

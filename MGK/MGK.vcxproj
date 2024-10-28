@@ -153,7 +153,7 @@
     <ClCompile Include="LineBrush.cpp" />
     <ClCompile Include="LoadingMode.cpp" />
     <ClCompile Include="MathUtil.cpp" />
-    <ClCompile Include="GameResources.cpp" />
+    <ClCompile Include="GameResource.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ImageUtil.cpp" />
     <ClCompile Include="GameMode1.cpp" />
@@ -170,7 +170,7 @@
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="StartMode.cpp" />
     <ClCompile Include="ExUtil.cpp" />
-    <ClCompile Include="SystemResources.cpp" />
+    <ClCompile Include="SystemResource.cpp" />
     <ClCompile Include="TextUtil.cpp" />
     <ClCompile Include="TimerUtil.cpp" />
     <ClCompile Include="tinyxml\tinystr.cpp" />
@@ -193,7 +193,7 @@
     <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ImageUtil.h" />
-    <ClInclude Include="GameResources.h" />
+    <ClInclude Include="GameResource.h" />
     <ClInclude Include="IntroMode.h" />
     <ClInclude Include="IntroScreen.h" />
     <ClInclude Include="LineBrush.h" />
@@ -211,7 +211,7 @@
     <ClInclude Include="ShaderUtil.h" />
     <ClInclude Include="SoundUtil.h" />
     <ClInclude Include="Setting.h" />
-    <ClInclude Include="SystemResources.h" />
+    <ClInclude Include="SystemResource.h" />
     <ClInclude Include="TextUtil.h" />
     <ClInclude Include="TimerUtil.h" />
     <ClInclude Include="tinyxml\tinystr.h" />
