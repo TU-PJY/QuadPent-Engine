@@ -198,14 +198,8 @@ GameObject* Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
 	return nullptr;
 }
 
-ObjectRange Scene::EqualRange(std::string Tag) {
-	ObjectRange Range;
-	auto It = ObjectIndex.equal_range(Tag);
-
-	Range.First = It.first;
-	Range.End = It.second;
-
-	return Range;
+std::pair<ObjectRange, ObjectRange> Scene::EqualRange(std::string Tag) {
+	return ObjectIndex.equal_range(Tag);
 }
 
 size_t Scene::LayerSize(int TargetLayer) {

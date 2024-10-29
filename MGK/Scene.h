@@ -9,11 +9,7 @@ typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
 constexpr int Layers = END;
 
-using LayerIter = std::multimap<std::string, GameObject*>::iterator;
-
-typedef struct {
-	LayerIter First, End;
-}ObjectRange;
+using ObjectRange = std::multimap<std::string, GameObject*>::iterator;
 
 enum DeleteRange { 
 	DELETE_RANGE_SINGLE, 
@@ -76,7 +72,7 @@ public:
 	void DeleteObject(std::string Tag, int deleteRange);
 	GameObject* Find(std::string Tag);
 	GameObject* FindMulti(std::string Tag, int SearchLayer, int Index);
-	ObjectRange EqualRange(std::string Tag);
+	std::pair<ObjectRange, ObjectRange> EqualRange(std::string Tag);
 	size_t LayerSize(int TargetLayer);
 	void Exit();
 
