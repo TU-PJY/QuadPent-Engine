@@ -3,12 +3,10 @@
 #include "CameraUtil.h"
 #include "CameraController.h"
 #include "ImageUtil.h"
-#include "FontUtil.h"
 #include "ShaderUtil.h"
 #include "SoundUtil.h"
 #include "MouseUtil.h"
 #include "Setting.h"
-#include <iostream>
 #include <windows.h>
 
 #include "LoadingMode.h"
@@ -33,7 +31,6 @@ CameraController cameraCon;
 ImageUtil imageUtil;
 SoundUtil soundUtil;
 MouseUtil mouse;
-FontUtil fontUtil;
 Scene scene;
 
 void Framework::SetupSystem(int argc, char** argv) {

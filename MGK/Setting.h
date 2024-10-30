@@ -69,3 +69,17 @@ constexpr unsigned char AES_KEY[16]
 
 constexpr unsigned char IV_KEY[16]
 { 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36 };
+
+
+
+
+//////////////////////////////////// Font Load Options
+// Loads the font from the entered path.
+
+//#define USE_CUSTOM_FONT
+#ifdef USE_CUSTOM_FONT
+constexpr const char* FONT_PATH[]
+{
+
+};
+#endif

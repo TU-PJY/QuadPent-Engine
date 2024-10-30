@@ -17,6 +17,8 @@ bool FontUtil::Import(const std::string& FontFilePath, DWORD& NumFonts) {
         std::cout << "Failed to load font from file." << std::endl;
         return false;
     }
+    else
+        std::cout << "Loaded Font " << FontFilePath << std::endl;
 
     SendMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
 

@@ -4,11 +4,13 @@
 #include "SoundUtil.h"
 #include "IntroMode.h"
 #include "CameraUtil.h"
+#include "FontUtil.h"
 
 class LoadingScreen : public GameObject {
 private:
 	TextUtil text;
-	
+	bool LoadingCommand{};
+
 public:
 	void InputKey(int State, unsigned char NormalKey, int SpecialKey) {
 		if (State == NORMAL_KEY_DOWN) {
@@ -29,28 +31,42 @@ public:
 	void UpdateFunc(float FT) {
 		text.Render(0.5, -0.9, 0.2, 1.0, L"LOADING...");
 
-		imageUtil.Init();
-		soundUtil.Init();
+		if (LoadingCommand) {
+			imageUtil.Init();
+			soundUtil.Init();
 
-		soundUtil.Import(IntroSound, "MGKResource//Sound//MGK_Logo_Sound.wav", FMOD_DEFAULT);
-		imageUtil.Import(ImageEngineLogo, "MGKResource//Image//Common//MGK_Logo.png");
-		imageUtil.Import(ImageFMODLogo, "MGKResource//Image//Common//FMOD_Logo.png");
+			soundUtil.Import(IntroSound, "MGKResource//Sound//MGK_Logo_Sound.wav", FMOD_DEFAULT);
+			imageUtil.Import(ImageEngineLogo, "MGKResource//Image//Common//MGK_Logo.png");
+			imageUtil.Import(ImageFMODLogo, "MGKResource//Image//Common//FMOD_Logo.png");
 
-		imageUtil.Import(ImageCollisionSphere, "MGKResource//Image//Collision//Circle.png", IMAGE_TYPE_NEAREST);
-		imageUtil.Import(ImageCollidedSphere, "MGKResource//Image//Collision//Circle_Inside.png", IMAGE_TYPE_NEAREST);
-		imageUtil.Import(LineTex, "MGKResource//Image//ShapeUtil//Texture_Line.png", IMAGE_TYPE_NEAREST);
+			imageUtil.Import(ImageCollisionSphere, "MGKResource//Image//Collision//Circle.png", IMAGE_TYPE_NEAREST);
+			imageUtil.Import(ImageCollidedSphere, "MGKResource//Image//Collision//Circle_Inside.png", IMAGE_TYPE_NEAREST);
+			imageUtil.Import(LineTex, "MGKResource//Image//ShapeUtil//Texture_Line.png", IMAGE_TYPE_NEAREST);
 
-		if (!ENABLE_INTRO_SCREEN) {
-			soundUtil.Release(IntroSound);
-			imageUtil.Release(ImageEngineLogo);
-			imageUtil.Release(ImageFMODLogo);
+#ifdef USE_CUSTOM_FONT
+			int TotalSize = sizeof(FONT_PATH);
+			int ElementSize = sizeof(FONT_PATH[0]);
+			int Length = TotalSize / ElementSize;
+			for (int i = 0; i < Length; ++i) {
+				DWORD Num = i;
+				FontUtil::Import(FONT_PATH[i], Num);
+			}
+#endif
 
-			scene.SwitchMode(StartMode);
+			if (!ENABLE_INTRO_SCREEN) {
+				soundUtil.Release(IntroSound);
+				imageUtil.Release(ImageEngineLogo);
+				imageUtil.Release(ImageFMODLogo);
+
+				scene.SwitchMode(StartMode);
+			}
+
+			else {
+				scene.SwitchMode(IntroMode::Start);
+			}
 		}
 
-		else {
-			scene.SwitchMode(IntroMode::Start);
-		}
+		LoadingCommand = true;
 	}
 };
 
