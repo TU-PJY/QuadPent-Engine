@@ -71,6 +71,9 @@ void ImageUtil::PreLoad(Image& ImageStruct, std::string FileName, int Type) {
 }
 
 void ImageUtil::FinishLoad() {
+	if (LoadBuffer.empty())
+		return;
+
 	for (auto& B : LoadBuffer) {
 		glGenTextures(1, &B.Texture);
 		glBindTexture(GL_TEXTURE_2D, B.Texture);
