@@ -5,6 +5,8 @@
 #include "IntroMode.h"
 #include "CameraUtil.h"
 #include "FontUtil.h"
+#include "GameResource.h"
+
 
 class LoadingScreen : public GameObject {
 private:
@@ -23,9 +25,10 @@ public:
 	}
 
 	LoadingScreen() {
-		camera.Init();
 		text.Init(L"Arial", FW_BOLD);
 		text.SetColor(1.0, 1.0, 1.0);
+		SetColor(1.0, 1.0, 1.0);
+		camera.Init();
 	}
 
 	void UpdateFunc(float FT) {
@@ -38,7 +41,6 @@ public:
 			soundUtil.Import(IntroSound, "MGKResource//Sound//MGK_Logo_Sound.wav", FMOD_DEFAULT);
 			imageUtil.Import(ImageEngineLogo, "MGKResource//Image//Common//MGK_Logo.png");
 			imageUtil.Import(ImageFMODLogo, "MGKResource//Image//Common//FMOD_Logo.png");
-
 			imageUtil.Import(ImageCollisionSphere, "MGKResource//Image//Collision//Circle.png", IMAGE_TYPE_NEAREST);
 			imageUtil.Import(ImageCollidedSphere, "MGKResource//Image//Collision//Circle_Inside.png", IMAGE_TYPE_NEAREST);
 			imageUtil.Import(LineTex, "MGKResource//Image//ShapeUtil//Texture_Line.png", IMAGE_TYPE_NEAREST);
@@ -58,7 +60,7 @@ public:
 				imageUtil.Release(ImageEngineLogo);
 				imageUtil.Release(ImageFMODLogo);
 
-				scene.SwitchMode(StartMode);
+				scene.SwitchMode(START_MODE);
 			}
 
 			else {

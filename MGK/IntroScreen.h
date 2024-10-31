@@ -29,7 +29,7 @@ public:
 			switch (NormalKey) {
 			case NK_ENTER:
 				StopSound(IntroChannel);
-				scene.SwitchMode(StartMode);
+				scene.SwitchMode(START_MODE);
 				break;
 
 			case NK_ESCAPE:
@@ -78,7 +78,7 @@ public:
 		}
 
 		if (timer.Sec() >= 7 && Scene == 3)
-			scene.SwitchMode(StartMode);
+			scene.SwitchMode(START_MODE);
 	}
 
 	void RenderFunc() {

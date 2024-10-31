@@ -4,4 +4,4 @@
 
 //////////////////////////////////// Start Mode Option
 // Specifies the mode to run first when the program starts.
-StartModePtr StartMode = GameMode1::Start;
+START_MODE_PTR START_MODE = GameMode1::Start;

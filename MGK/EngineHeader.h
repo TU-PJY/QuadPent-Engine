@@ -15,10 +15,11 @@
 
 extern float DestFPS;
 extern int FPSLimit;
+extern float DeltaTime;
 
 extern bool FullscreenState;
 
-typedef void(*StartModePtr)(void);
+typedef void(*START_MODE_PTR)(void);
 using Sound = FMOD::Sound*;
 using SoundChannel = FMOD::Channel*;
 using ShaderLocation = unsigned int;
@@ -110,7 +111,7 @@ extern int PREV_WIDTH, PREV_HEIGHT;
 extern GLfloat ASPECT;
 
 extern glm::vec3 BackColor;
-extern StartModePtr StartMode;
+extern START_MODE_PTR START_MODE;
 
 // global scope shader
 extern GLuint ImageShader;
