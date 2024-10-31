@@ -7,7 +7,6 @@
 #include "FontUtil.h"
 #include "GameResource.h"
 
-
 DWORD WINAPI SystemFileLoadThread(LPVOID Param) {
 	soundUtil.Import(IntroSound, "MGKResource//Sound//MGK_Logo_Sound.wav", FMOD_DEFAULT);
 	imageUtil.PreLoad(ImageEngineLogo, "MGKResource//Image//Common//MGK_Logo.png", IMAGE_TYPE_LINEAR);
@@ -32,7 +31,7 @@ DWORD WINAPI SystemFileLoadThread(LPVOID Param) {
 
 class LoadingScreen : public GameObject {
 private:
-	HANDLE Thread{};
+	HANDLE ThreadHandle{};
 	GLfloat Rotation{};
 
 public:
@@ -53,19 +52,16 @@ public:
 		imageUtil.Init();
 		soundUtil.Init();
 
-		imageUtil.Import(ImageSpinner, "MGKResource//Image//Common//MGK_Loading_Spinner.png.png", IMAGE_TYPE_LINEAR);
+		imageUtil.Import(ImageSpinner, "MGKResource//Image//Common//MGK_Loading_Spinner.png", IMAGE_TYPE_LINEAR);
 
-		Thread = CreateThread(NULL, 0, SystemFileLoadThread, NULL, 0, NULL);
+		ThreadUtil::New(ThreadHandle, SystemFileLoadThread);
 	}
 
 	void UpdateFunc(float FT) {
 		Rotation -= 200 * FT;
 
-		DWORD Result{};
-		GetExitCodeThread(Thread, &Result);
-
-		if (Result != STILL_ACTIVE) {
-			CloseHandle(Thread);
+		if (!ThreadUtil::GetState(ThreadHandle)) {
+			ThreadUtil::Delete(ThreadHandle);
 			imageUtil.FinishLoad();
 			
 			if (!ENABLE_INTRO_SCREEN) {

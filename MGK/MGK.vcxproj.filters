@@ -151,6 +151,9 @@
     <Filter Include="[5]___________[ MGK ]\[ TinyXML ]\[ CPP ]">
       <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Thread Util ]">
+      <UniqueIdentifier>{7fd964a6-1f53-4574-8c6f-a2bbbea7a889}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMode1.cpp">
@@ -270,6 +273,9 @@
     <ClCompile Include="TransformUtil.cpp">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Transform Util ]</Filter>
     </ClCompile>
+    <ClCompile Include="ThreadUtil.cpp">
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ Thread Util ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMode1.h">
@@ -382,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="TransformUtil.h">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Transform Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadUtil.h">
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ Thread Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
