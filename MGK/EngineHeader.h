@@ -15,7 +15,6 @@
 
 extern float DestFPS;
 extern int FPSLimit;
-extern float DeltaTime;
 
 extern bool FullscreenState;
 

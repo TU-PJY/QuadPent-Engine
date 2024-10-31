@@ -8,10 +8,32 @@
 #include "GameResource.h"
 
 
+DWORD WINAPI SystemFileLoadThread(LPVOID Param) {
+	soundUtil.Import(IntroSound, "MGKResource//Sound//MGK_Logo_Sound.wav", FMOD_DEFAULT);
+	imageUtil.PreLoad(ImageEngineLogo, "MGKResource//Image//Common//MGK_Logo.png", IMAGE_TYPE_LINEAR);
+	imageUtil.PreLoad(ImageFMODLogo, "MGKResource//Image//Common//FMOD_Logo.png", IMAGE_TYPE_LINEAR);
+	imageUtil.PreLoad(ImageCollisionSphere, "MGKResource//Image//Collision//Circle.png");
+	imageUtil.PreLoad(ImageCollidedSphere, "MGKResource//Image//Collision//Circle_Inside.png");
+	imageUtil.PreLoad(LineTex, "MGKResource//Image//ShapeUtil//Texture_Line.png");
+	
+#ifdef USE_CUSTOM_FONT
+	int TotalSize = sizeof(FONT_PATH);
+	int ElementSize = sizeof(FONT_PATH[0]);
+	int Length = TotalSize / ElementSize;
+	for (int i = 0; i < Length; ++i) {
+		DWORD Num = i;
+		FontUtil::Import(FONT_PATH[i], Num);
+	}
+#endif
+
+	return 0;
+}
+
+
 class LoadingScreen : public GameObject {
 private:
-	TextUtil text;
-	bool LoadingCommand{};
+	HANDLE Thread{};
+	GLfloat Rotation{};
 
 public:
 	void InputKey(int State, unsigned char NormalKey, int SpecialKey) {
@@ -25,36 +47,27 @@ public:
 	}
 
 	LoadingScreen() {
-		text.Init(L"Arial", FW_BOLD);
-		text.SetColor(1.0, 1.0, 1.0);
 		SetColor(1.0, 1.0, 1.0);
+
 		camera.Init();
+		imageUtil.Init();
+		soundUtil.Init();
+
+		imageUtil.Import(ImageSpinner, "MGKResource//Image//Common//MGK_Loading_Spinner.png.png", IMAGE_TYPE_LINEAR);
+
+		Thread = CreateThread(NULL, 0, SystemFileLoadThread, NULL, 0, NULL);
 	}
 
 	void UpdateFunc(float FT) {
-		text.Render(0.5, -0.9, 0.2, 1.0, L"LOADING...");
+		Rotation -= 200 * FT;
 
-		if (LoadingCommand) {
-			imageUtil.Init();
-			soundUtil.Init();
+		DWORD Result{};
+		GetExitCodeThread(Thread, &Result);
 
-			soundUtil.Import(IntroSound, "MGKResource//Sound//MGK_Logo_Sound.wav", FMOD_DEFAULT);
-			imageUtil.Import(ImageEngineLogo, "MGKResource//Image//Common//MGK_Logo.png");
-			imageUtil.Import(ImageFMODLogo, "MGKResource//Image//Common//FMOD_Logo.png");
-			imageUtil.Import(ImageCollisionSphere, "MGKResource//Image//Collision//Circle.png", IMAGE_TYPE_NEAREST);
-			imageUtil.Import(ImageCollidedSphere, "MGKResource//Image//Collision//Circle_Inside.png", IMAGE_TYPE_NEAREST);
-			imageUtil.Import(LineTex, "MGKResource//Image//ShapeUtil//Texture_Line.png", IMAGE_TYPE_NEAREST);
-
-#ifdef USE_CUSTOM_FONT
-			int TotalSize = sizeof(FONT_PATH);
-			int ElementSize = sizeof(FONT_PATH[0]);
-			int Length = TotalSize / ElementSize;
-			for (int i = 0; i < Length; ++i) {
-				DWORD Num = i;
-				FontUtil::Import(FONT_PATH[i], Num);
-			}
-#endif
-
+		if (Result != STILL_ACTIVE) {
+			CloseHandle(Thread);
+			imageUtil.FinishLoad();
+			
 			if (!ENABLE_INTRO_SCREEN) {
 				soundUtil.Release(IntroSound);
 				imageUtil.Release(ImageEngineLogo);
@@ -63,12 +76,15 @@ public:
 				scene.SwitchMode(START_MODE);
 			}
 
-			else {
+			else
 				scene.SwitchMode(IntroMode::Start);
-			}
 		}
+	}
 
-		LoadingCommand = true;
+	void RenderFunc() {
+		InitMatrix(RENDER_TYPE_STATIC);
+		Transform::Rotate(RotateMatrix, Rotation);
+		Render(ImageSpinner);
 	}
 };
 

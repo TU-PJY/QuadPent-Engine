@@ -5,7 +5,7 @@
 extern Image ImageCollisionSphere, ImageCollidedSphere, LineTex;
 
 // system image resources
-extern Image ImageEngineLogo, ImageFMODLogo;
+extern Image ImageEngineLogo, ImageFMODLogo, ImageSpinner;
 
 // system sound resources
 extern Sound IntroSound;

@@ -56,6 +56,48 @@ void ImageUtil::Import(Image& ImageStruct, std::string FileName, int Type) {
 	ImageStruct.Height = Height;
 }
 
+void ImageUtil::PreLoad(Image& ImageStruct, std::string FileName, int Type) {
+	PreLoadInfo PLI;
+	int Width{}, Height{}, Channel{};
+	unsigned char* texture_data = stbi_load(FileName.c_str(), &Width, &Height, &Channel, 4);
+
+	PLI.ImagePtr = &ImageStruct;
+	PLI.ImageType = Type;
+	PLI.Width = Width;
+	PLI.Height = Height;
+	PLI.TextureData = texture_data;
+
+	LoadBuffer.emplace_back(PLI);
+}
+
+void ImageUtil::FinishLoad() {
+	for (auto& B : LoadBuffer) {
+		glGenTextures(1, &B.Texture);
+		glBindTexture(GL_TEXTURE_2D, B.Texture);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+		if (B.ImageType == IMAGE_TYPE_LINEAR) {
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		}
+
+		else if (B.ImageType == IMAGE_TYPE_NEAREST) {
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		}
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, B.Width, B.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, B.TextureData);
+		stbi_image_free(B.TextureData);
+
+		B.ImagePtr->Width = B.Width;
+		B.ImagePtr->Height = B.Height;
+		B.ImagePtr->Texture = B.Texture;
+	}
+
+	LoadBuffer.clear();
+}
+
 void ImageUtil::Render(Image& ImageStruct) {
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, ImageStruct.Texture);

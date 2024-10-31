@@ -3,5 +3,5 @@
 #include "SoundUtil.h"
 
 Image ImageCollisionSphere, ImageCollidedSphere, LineTex;
-Image ImageEngineLogo, ImageFMODLogo;
+Image ImageEngineLogo, ImageFMODLogo, ImageSpinner;
 Sound IntroSound;

@@ -1,19 +1,31 @@
 #pragma once
 #include "EngineHeader.h"
+#include <vector>
 
 enum ImageType { 
 	IMAGE_TYPE_LINEAR, 
 	IMAGE_TYPE_NEAREST 
 };
 
+typedef struct {
+	Image* ImagePtr;
+	int Width, Height;
+	unsigned int Texture;
+	unsigned char* TextureData;
+	int ImageType;
+}PreLoadInfo;
+
 
 class ImageUtil {
 private:
 	GLuint VAO{};
+	std::vector<PreLoadInfo> LoadBuffer;
 
 public:
 	void Init();
-	void Import(Image& ImageStruct, std::string FileName, int Type=IMAGE_TYPE_LINEAR);
+	void Import(Image& ImageStruct, std::string FileName, int Type=IMAGE_TYPE_NEAREST);
+	void PreLoad(Image& ImageStruct, std::string FileName, int Type=IMAGE_TYPE_NEAREST);
+	void FinishLoad();
 	void Render(Image& ImageStruct);
 	void Release(Image& ImageStruct);
 };
