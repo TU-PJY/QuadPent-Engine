@@ -151,8 +151,11 @@
     <Filter Include="[5]___________[ MGK ]\[ System ]\[ Framework ]">
       <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ GLSL ]\[ Header ]">
+    <Filter Include="[5]___________[ MGK ]\[ Header ]">
       <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ Resources ]\[ Game Data ]\Link">
+      <UniqueIdentifier>{93dd7205-e641-43b7-8bfd-248d1dd4fbd1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -321,7 +324,7 @@
       <Filter>[5]___________[ MGK ]\[ Util ]\[ AnimationUtil ]</Filter>
     </ClInclude>
     <ClInclude Include="EngineHeader.h">
-      <Filter>[5]___________[ MGK ]\[ GLSL ]\[ Header ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>[5]___________[ MGK ]\[ Scene ]</Filter>
@@ -397,6 +400,12 @@
     </ClInclude>
     <ClInclude Include="ResourceFileLink.h">
       <Filter>[1]___________[ Resources ]\[ Game Resource ]</Filter>
+    </ClInclude>
+    <ClInclude Include="DataFileLink.h">
+      <Filter>[1]___________[ Resources ]\[ Game Data ]\Link</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptFileLink.h">
+      <Filter>[1]___________[ Resources ]\[ Game Data ]\Link</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

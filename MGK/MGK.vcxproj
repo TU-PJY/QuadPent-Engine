@@ -187,6 +187,7 @@
     <ClInclude Include="CameraUtil.h" />
     <ClInclude Include="ClippingUtil.h" />
     <ClInclude Include="CollisionUtil.h" />
+    <ClInclude Include="DataFileLink.h" />
     <ClInclude Include="ResourceFileLink.h" />
     <ClInclude Include="GameData.h" />
     <ClInclude Include="FileUtil.h" />
@@ -209,6 +210,7 @@
     <ClInclude Include="PhysicsUtil.h" />
     <ClInclude Include="RandomUtil.h" />
     <ClInclude Include="RectBrush.h" />
+    <ClInclude Include="ScriptFileLink.h" />
     <ClInclude Include="ScriptUtil.h" />
     <ClInclude Include="ShaderUtil.h" />
     <ClInclude Include="SoundUtil.h" />
