@@ -4,7 +4,7 @@
 #include "IntroScreen.h"
 
 void IntroMode::Start() {
-	scene.AddObject(new IntroScreen, "intro_screen", 0);
+	scene.AddObject(new IntroScreen, "intro_screen", LAYER_1);
 	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
 	scene.RegisterDestructor(Destructor);
 	scene.RegisterModeName("IntroMode");
@@ -12,8 +12,6 @@ void IntroMode::Start() {
 
 void IntroMode::Destructor() {
 	soundUtil.Release(IntroSound);
-	imageUtil.Release(ImageEngineLogo);
-	imageUtil.Release(ImageFMODLogo);
 }
 
 void IntroMode::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {

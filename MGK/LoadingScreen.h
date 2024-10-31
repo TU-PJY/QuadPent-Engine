@@ -5,15 +5,14 @@
 #include "IntroMode.h"
 #include "CameraUtil.h"
 #include "FontUtil.h"
-#include "GameResource.h"
 
 DWORD WINAPI SystemFileLoadThread(LPVOID Param) {
-	soundUtil.Import(IntroSound, "MGKResource//Sound//MGK_Logo_Sound.wav", FMOD_DEFAULT);
-	imageUtil.PreLoad(ImageEngineLogo, "MGKResource//Image//Common//MGK_Logo.png", IMAGE_TYPE_LINEAR);
-	imageUtil.PreLoad(ImageFMODLogo, "MGKResource//Image//Common//FMOD_Logo.png", IMAGE_TYPE_LINEAR);
-	imageUtil.PreLoad(ImageCollisionSphere, "MGKResource//Image//Collision//Circle.png");
-	imageUtil.PreLoad(ImageCollidedSphere, "MGKResource//Image//Collision//Circle_Inside.png");
-	imageUtil.PreLoad(LineTex, "MGKResource//Image//ShapeUtil//Texture_Line.png");
+	soundUtil.Import(IntroSound, MGK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
+	imageUtil.PreLoad(ImageEngineLogo, MGK_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
+	imageUtil.PreLoad(ImageFMODLogo, FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
+	imageUtil.PreLoad(ImageCollisionSphere, COLLISION_SPHERE_DIRECTORY);
+	imageUtil.PreLoad(ImageCollidedSphere, COLLIDED_SPHERE_DIRECTORY);
+	imageUtil.PreLoad(LineTex, LINE_TEXTURE_DIRECTORY);
 	
 #ifdef USE_CUSTOM_FONT
 	int TotalSize = sizeof(FONT_PATH);
@@ -52,7 +51,7 @@ public:
 		imageUtil.Init();
 		soundUtil.Init();
 
-		imageUtil.Import(ImageSpinner, "MGKResource//Image//Common//MGK_Loading_Spinner.png", IMAGE_TYPE_LINEAR);
+		imageUtil.Import(ImageSpinner, MGK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 
 		ThreadUtil::New(ThreadHandle, SystemFileLoadThread);
 	}
@@ -66,9 +65,6 @@ public:
 			
 			if (!ENABLE_INTRO_SCREEN) {
 				soundUtil.Release(IntroSound);
-				imageUtil.Release(ImageEngineLogo);
-				imageUtil.Release(ImageFMODLogo);
-
 				scene.SwitchMode(START_MODE);
 			}
 

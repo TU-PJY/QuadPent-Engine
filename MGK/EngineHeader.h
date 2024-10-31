@@ -10,6 +10,8 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "fmod.hpp"
 #include "fmod_errors.h"
+#include "SystemFileLink.h"
+#include "ResourceFileLink.h"
 #include <iostream>
 #include <string>
 

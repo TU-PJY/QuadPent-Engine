@@ -43,9 +43,6 @@
     <Filter Include="[5]___________[ MGK ]">
       <UniqueIdentifier>{7f6a4887-d06e-4c65-963d-2b7d61cea12c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ Header ]">
-      <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ MGK ]\[ GLSL ]">
       <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
     </Filter>
@@ -136,9 +133,6 @@
     <Filter Include="[5]___________[ MGK ]\[ System ]\[ System Screen ]\[ Intro Screen ]">
       <UniqueIdentifier>{4a1206d3-4fd8-4d3a-bfc8-d6d6639ec18c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ System ]\[ Main ]">
-      <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ MGK ]\[ System ]\[ System Resource ]">
       <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
     </Filter>
@@ -153,6 +147,12 @@
     </Filter>
     <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Thread Util ]">
       <UniqueIdentifier>{7fd964a6-1f53-4574-8c6f-a2bbbea7a889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System ]\[ Framework ]">
+      <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ GLSL ]\[ Header ]">
+      <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -211,13 +211,13 @@
       <Filter>[5]___________[ MGK ]\[ System ]\[ System Screen ]\[ Intro Screen ]</Filter>
     </ClCompile>
     <ClCompile Include="SetUp.cpp">
-      <Filter>[5]___________[ MGK ]\[ System ]\[ Main ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System ]\[ Framework ]</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>[5]___________[ MGK ]\[ System ]\[ Main ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System ]\[ Framework ]</Filter>
     </ClCompile>
     <ClCompile Include="Display.cpp">
-      <Filter>[5]___________[ MGK ]\[ System ]\[ Main ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ System ]\[ Framework ]</Filter>
     </ClCompile>
     <ClCompile Include="MathUtil.cpp">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ MathUtil ]</Filter>
@@ -321,7 +321,7 @@
       <Filter>[5]___________[ MGK ]\[ Util ]\[ AnimationUtil ]</Filter>
     </ClInclude>
     <ClInclude Include="EngineHeader.h">
-      <Filter>[5]___________[ MGK ]\[ Header ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ GLSL ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>[5]___________[ MGK ]\[ Scene ]</Filter>
@@ -391,6 +391,12 @@
     </ClInclude>
     <ClInclude Include="ThreadUtil.h">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Thread Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemFileLink.h">
+      <Filter>[5]___________[ MGK ]\[ System ]\[ System Resource ]</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceFileLink.h">
+      <Filter>[1]___________[ Resources ]\[ Game Resource ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
