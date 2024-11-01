@@ -366,5 +366,5 @@ FodyWeavers.xsd
 # Not ignored files
 !MGK/FMOD/**
 !MGK/cryptopp/**
-!MGK/GL/**
+!MGK/OpenGL/**
 !MGK/MGKResource/**

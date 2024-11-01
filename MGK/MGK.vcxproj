@@ -72,8 +72,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>FMOD\api\core\inc;GL\;$(IncludePath)</IncludePath>
-    <LibraryPath>FMOD\api\core\lib\x64;GL\lib\freeglut\Release\x64;GL\lib\glew\Release\x64;cryptopp\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>FMOD\api\core\inc;GL\freeglut\include\GL;GL\glew\include\GL;GL;$(IncludePath)</IncludePath>
+    <LibraryPath>FMOD\api\core\lib\x64;GL\freeglut\lib\x64;GL\glew\lib\Release\x64;cryptopp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
