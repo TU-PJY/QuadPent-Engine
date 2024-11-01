@@ -15,8 +15,7 @@ void IntroMode::Destructor() {
 }
 
 void IntroMode::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {
-	if (auto intro_screen = scene.Find("intro_screen"); intro_screen)
-		intro_screen->InputKey(State, NormalKey, SpecialKey);
+	scene.InputKey("intro_screen", State, NormalKey, SpecialKey);
 }
 
 void IntroMode::ProcessMouseButton(int State) {

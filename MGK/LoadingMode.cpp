@@ -16,8 +16,7 @@ void LoadingMode::Destructor() {}
 
 
 void LoadingMode::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {
-	if (auto loading_screen = scene.Find("loading_screen"); loading_screen)
-		loading_screen->InputKey(State, NormalKey, SpecialKey);
+	scene.InputKey("loading_screen", State, NormalKey, SpecialKey);
 }
 
 void LoadingMode::ProcessMouseButton(int State) {
