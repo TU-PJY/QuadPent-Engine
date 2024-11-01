@@ -113,7 +113,10 @@ extern int WIDTH, HEIGHT;
 extern int PREV_WIDTH, PREV_HEIGHT;
 extern GLfloat ASPECT;
 
+// viewport background color
 extern glm::vec3 BackColor;
+
+// start mode function ptr
 extern START_MODE_PTR START_MODE;
 
 // global scope shader
@@ -139,4 +142,5 @@ namespace Framework {
 	void SetGlOption();
 	void SetupWindow();
 	void LoadShader();
+	void Exit();
 }

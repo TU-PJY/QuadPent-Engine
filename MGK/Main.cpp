@@ -43,3 +43,7 @@ void main(int argc, char** argv) {
 	glutReshapeFunc(Framework::DisplayReshape);
 	glutMainLoop();
 }
+
+void Framework::Exit() {
+	glutDestroyWindow(1);
+}

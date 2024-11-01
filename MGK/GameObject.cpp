@@ -181,6 +181,7 @@ void GameObject::SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, 
 }
 
 ////////////////////////// private
+
 void GameObject::PrepareRender() {
 	glUseProgram(ImageShader);
 	camera.PrepareRender(SHADER_TYPE_IMAGE);

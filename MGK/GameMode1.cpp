@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "MouseUtil.h"
 
+// You can get the mode file template from ModeTemplate.txt
 
 void GameMode1::Start() {
 	Framework::SetBackColor(0.5, 0.5, 0.5);

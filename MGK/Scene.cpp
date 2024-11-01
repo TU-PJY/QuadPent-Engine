@@ -206,10 +206,6 @@ size_t Scene::LayerSize(int TargetLayer) {
 	return ObjectList[TargetLayer].size();
 }
 
-void Scene::Exit() {
-	glutDestroyWindow(1);
-}
-
 
 //////// private ///////////////
 void Scene::ProcessListCommand(int Index) {	

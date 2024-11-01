@@ -38,7 +38,7 @@ public:
 		if (State == NORMAL_KEY_DOWN) {
 			switch (NormalKey) {
 			case NK_ESCAPE:
-				scene.Exit();
+				Framework::Exit();
 				break;
 			}
 		}

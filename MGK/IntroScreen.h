@@ -33,7 +33,7 @@ public:
 				break;
 
 			case NK_ESCAPE:
-				scene.Exit();
+				Framework::Exit();
 				break;
 			}
 		}
