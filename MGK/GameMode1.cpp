@@ -18,7 +18,7 @@ void GameMode1::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialK
 	if (State == NORMAL_KEY_DOWN) {
 		switch (NormalKey) {
 		case NK_ESCAPE:
-			scene.Exit();
+			Framework::Exit();
 			break;
 		}
 	}
