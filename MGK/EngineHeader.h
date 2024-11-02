@@ -12,7 +12,6 @@
 #include "fmod_errors.h"
 #include "SystemFileLink.h"
 #include "ResourceFileLink.h"
-#include "DataFileLink.h"
 #include "ScriptFileLink.h"
 #include <iostream>
 #include <string>

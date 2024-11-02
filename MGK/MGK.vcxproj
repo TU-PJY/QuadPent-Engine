@@ -187,7 +187,6 @@
     <ClInclude Include="CameraUtil.h" />
     <ClInclude Include="ClippingUtil.h" />
     <ClInclude Include="CollisionUtil.h" />
-    <ClInclude Include="DataFileLink.h" />
     <ClInclude Include="ResourceFileLink.h" />
     <ClInclude Include="GameData.h" />
     <ClInclude Include="FileUtil.h" />
