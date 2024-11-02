@@ -368,4 +368,4 @@ FodyWeavers.xsd
 !MGK/cryptopp/**
 !MGK/OpenGL/**
 !MGK/MGKResource/**
-!MGK/Tools/**
+!ScriptTools/**
