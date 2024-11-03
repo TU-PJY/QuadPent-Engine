@@ -143,6 +143,7 @@
     <ClCompile Include="AnimationUtil.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CameraUtil.cpp" />
+    <ClCompile Include="CircleBrush.cpp" />
     <ClCompile Include="ClippingUtil.cpp" />
     <ClCompile Include="CollisionUtil.cpp" />
     <ClCompile Include="GameData.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="AnimationUtil.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="CameraUtil.h" />
+    <ClInclude Include="CircleBrush.h" />
     <ClInclude Include="ClippingUtil.h" />
     <ClInclude Include="CollisionUtil.h" />
     <ClInclude Include="DataFileLink.h" />

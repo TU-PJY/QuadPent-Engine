@@ -40,6 +40,12 @@
     <Filter Include="[3]___________[ Object ]\[3][ Template ]">
       <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[6]___________[ Template ]">
+      <UniqueIdentifier>{a0f3d2c9-d45e-42c5-ac1f-c1a53d8811ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ Resources ]\[ Game Data ]\Link">
+      <UniqueIdentifier>{3e32a507-7a8b-4c31-8fd6-287164654376}</UniqueIdentifier>
+    </Filter>
     <Filter Include="[5]___________[ MGK ]">
       <UniqueIdentifier>{7f6a4887-d06e-4c65-963d-2b7d61cea12c}</UniqueIdentifier>
     </Filter>
@@ -118,8 +124,8 @@
     <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Sound Util ]">
       <UniqueIdentifier>{22512964-c0e1-42b6-8ae0-9c32d227bc22}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[6]___________[ Template ]">
-      <UniqueIdentifier>{a0f3d2c9-d45e-42c5-ac1f-c1a53d8811ab}</UniqueIdentifier>
+    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Thread Util ]">
+      <UniqueIdentifier>{7fd964a6-1f53-4574-8c6f-a2bbbea7a889}</UniqueIdentifier>
     </Filter>
     <Filter Include="[5]___________[ MGK ]\[ System ]">
       <UniqueIdentifier>{802bfb93-2599-4817-b15c-634efd1f40d4}</UniqueIdentifier>
@@ -136,6 +142,9 @@
     <Filter Include="[5]___________[ MGK ]\[ System ]\[ System Resource ]">
       <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System ]\[ Framework ]">
+      <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
+    </Filter>
     <Filter Include="[5]___________[ MGK ]\[ TinyXML ]">
       <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
     </Filter>
@@ -145,17 +154,11 @@
     <Filter Include="[5]___________[ MGK ]\[ TinyXML ]\[ CPP ]">
       <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Thread Util ]">
-      <UniqueIdentifier>{7fd964a6-1f53-4574-8c6f-a2bbbea7a889}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ System ]\[ Framework ]">
-      <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ MGK ]\[ Header ]">
       <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[1]___________[ Resources ]\[ Game Data ]\Link">
-      <UniqueIdentifier>{3e32a507-7a8b-4c31-8fd6-287164654376}</UniqueIdentifier>
+    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Circle ]">
+      <UniqueIdentifier>{8ca8864d-f116-4649-ac79-d0c373874068}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +281,9 @@
     </ClCompile>
     <ClCompile Include="ThreadUtil.cpp">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Thread Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleBrush.cpp">
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -406,6 +412,9 @@
     </ClInclude>
     <ClInclude Include="DataFileLink.h">
       <Filter>[1]___________[ Resources ]\[ Game Data ]\Link</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleBrush.h">
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,12 +1,10 @@
 #pragma once
 #include "EngineHeader.h"
 #include "RectBrush.h"
+#include "CircleBrush.h"
 
 class AABB {
 private:
-	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
-	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
-
 	GLfloat LeftX{}, LeftY{};
 	GLfloat RightX{}, RightY{};
 	GLfloat OffsetX{}, OffsetY{};
@@ -30,9 +28,6 @@ public:
 
 class OOBB {
 private:
-	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
-	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
-
 	glm::vec2 Offset{};
 	glm::vec2 Axis[2]{};
 	glm::vec2 Corners[4]{};
@@ -61,23 +56,21 @@ private:
 
 class BoundingSphere {
 private:
-	unsigned int ModelLocation{}, TransparencyLocation{}, ObjectColorLocation{};
-	unsigned int BoolBlurLocation{};
-	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
-
 	glm::vec2 Center{};
 	GLfloat Radius{};
 	GLfloat Size{};
 
 	bool Collide{};
 
+#ifdef SHOW_BOUND_BOX
+	LineCircleBrush LineCircle { true };
+	CircleBrush Circle{ true };
+#endif
+
+
 public:
-	void Update(GLfloat X, GLfloat Y, GLfloat SizeValue);
+	void Update(GLfloat X, GLfloat Y, GLfloat Diameter);
 	void Render();
 	bool CheckCollision(const BoundingSphere& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
-
-private:
-	GLfloat CalculateDistance(GLfloat x2, GLfloat y2);
-	void ProcessTransform();
 };

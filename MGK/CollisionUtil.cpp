@@ -3,6 +3,7 @@
 #include "ImageUtil.h"
 #include "CameraUtil.h"
 #include "SystemResource.h"
+#include "MathUtil.h"
 
 
 void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
@@ -148,35 +149,24 @@ bool OOBB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 void BoundingSphere::Update(GLfloat X, GLfloat Y, GLfloat SizeValue) {
 	Center.x = X;
 	Center.y = Y;
-	Radius = SizeValue / 2.0;
+	Radius = SizeValue * 0.5;
 	Size = SizeValue;
 }
 
 void BoundingSphere::Render() {
 #ifdef SHOW_BOUND_BOX
-	TranslateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
+	Circle.SetColor(1.0, 0.0, 0.0);
+	LineCircle.SetColor(1.0, 0.0, 0.0);
 
-	Transform::Move(TranslateMatrix, Center.x, Center.y);
-	Transform::Scale(ScaleMatrix, Size, Size);
-
-	ProcessTransform();
-
-	imageUtil.Render(ImageCollisionSphere);
+	LineCircle.Draw(Center.x, Center.y, Size, 0.01);
 
 	if (Collide)
-		imageUtil.Render(ImageCollidedSphere);
+		Circle.Draw(Center.x, Center.y, Size, 0.3);
 #endif
 }
 
-GLfloat BoundingSphere::CalculateDistance( GLfloat X, GLfloat Y) {
-	GLfloat DX = X - Center.x;
-	GLfloat DY = Y - Center.y;
-	return std::sqrt(DX * DX + DY * DY);
-}
-
 bool BoundingSphere::CheckCollision(const BoundingSphere& Other) {
-	if (CalculateDistance(Other.Center.x, Other.Center.y) < Radius + Other.Radius) {
+	if (Math::CalcDistance(Center.x, Center.y, Other.Center.x, Other.Center.y) < Radius + Other.Radius) {
 		Collide = true;
 		return true;
 	}
@@ -186,23 +176,11 @@ bool BoundingSphere::CheckCollision(const BoundingSphere& Other) {
 }
 
 bool BoundingSphere::CheckCollisionPoint(GLfloat X, GLfloat Y) {
-	if (CalculateDistance(X, Y) < Radius) {
+	if (Math::CalcDistance(Center.x, Center.y, X, Y) < Radius) {
 		Collide = true;
 		return true;
 	}
 
 	Collide = false;
 	return false;
-}
-
-void BoundingSphere::ProcessTransform() {
-#ifdef SHOW_BOUND_BOX
-	glUseProgram(ImageShader);
-	camera.PrepareRender(SHADER_TYPE_IMAGE);
-
-	glUniform1f(ImageTransparencyLocation, 1.0);
-	glUniform3f(ImageColorLocation, 1.0, 0.0, 0.0);
-	glUniform1i(BoolBlurLocation, 0);
-	glUniformMatrix4fv(ImageModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
-#endif
 }

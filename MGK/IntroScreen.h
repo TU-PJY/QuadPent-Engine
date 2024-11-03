@@ -82,7 +82,7 @@ public:
 	}
 
 	void RenderFunc() {
-		InitMatrix(RENDER_TYPE_STATIC);
+		InitState(RENDER_TYPE_STATIC);
 
 		if (Scene == 1) {
 			Transform::Rotate(RotateMatrix, Rotation);
@@ -96,4 +96,3 @@ public:
 		}
 	}
 };
-

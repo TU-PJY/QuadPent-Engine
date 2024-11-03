@@ -6,13 +6,16 @@
 #include "CameraUtil.h"
 #include "FontUtil.h"
 
-DWORD WINAPI SystemFileLoadThread(LPVOID Param) {
+DWORD WINAPI SystemResourceCreateThread(LPVOID Param) {
 	soundUtil.Import(IntroSound, MGK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
 	imageUtil.PreLoad(ImageEngineLogo, MGK_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
 	imageUtil.PreLoad(ImageFMODLogo, FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
-	imageUtil.PreLoad(ImageCollisionSphere, COLLISION_SPHERE_DIRECTORY);
-	imageUtil.PreLoad(ImageCollidedSphere, COLLIDED_SPHERE_DIRECTORY);
 	imageUtil.PreLoad(LineTex, LINE_TEXTURE_DIRECTORY);
+
+	GLU_CIRCLE = gluNewQuadric();
+	GLU_LINE_CIRCLE = gluNewQuadric();
+	gluQuadricDrawStyle(GLU_CIRCLE, GLU_FILL);
+	gluQuadricDrawStyle(GLU_LINE_CIRCLE, GLU_FILL);
 	
 #ifdef USE_CUSTOM_FONT
 	int TotalSize = sizeof(FONT_PATH);
@@ -32,6 +35,7 @@ class LoadingScreen : public GameObject {
 private:
 	HANDLE ThreadHandle{};
 	GLfloat Rotation{};
+	bool LoadCommand{};
 
 public:
 	void InputKey(int State, unsigned char NormalKey, int SpecialKey) {
@@ -46,35 +50,40 @@ public:
 
 	LoadingScreen() {
 		SetColor(1.0, 1.0, 1.0);
-
-		camera.Init();
-		imageUtil.Init();
-		soundUtil.Init();
-
-		imageUtil.Import(ImageSpinner, MGK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
-
-		ThreadUtil::New(ThreadHandle, SystemFileLoadThread);
 	}
 
 	void UpdateFunc(float FT) {
-		Rotation -= 200 * FT;
+		if (LoadCommand) {
+			Rotation -= 200 * FT;
 
-		if (!ThreadUtil::GetState(ThreadHandle)) {
-			ThreadUtil::Delete(ThreadHandle);
-			imageUtil.FinishLoad();
-			
-			if (!ENABLE_INTRO_SCREEN) {
-				soundUtil.Release(IntroSound);
-				scene.SwitchMode(START_MODE);
+			if (!ThreadUtil::GetState(ThreadHandle)) {
+				ThreadUtil::Delete(ThreadHandle);
+				imageUtil.FinishLoad();
+
+				if (!ENABLE_INTRO_SCREEN) {
+					soundUtil.Release(IntroSound);
+					scene.SwitchMode(START_MODE);
+				}
+
+				else
+					scene.SwitchMode(IntroMode::Start);
 			}
+		}
 
-			else
-				scene.SwitchMode(IntroMode::Start);
+		else {
+			camera.Init();
+			imageUtil.Init();
+			soundUtil.Init();
+
+			imageUtil.Import(ImageSpinner, MGK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
+			ThreadUtil::New(ThreadHandle, SystemResourceCreateThread);
+
+			LoadCommand = true;
 		}
 	}
 
 	void RenderFunc() {
-		InitMatrix(RENDER_TYPE_STATIC);
+		InitState(RENDER_TYPE_STATIC);
 		Transform::Rotate(RotateMatrix, Rotation);
 		Render(ImageSpinner);
 	}

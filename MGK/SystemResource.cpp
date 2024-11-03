@@ -2,6 +2,9 @@
 #include "ImageUtil.h"
 #include "SoundUtil.h"
 
-Image ImageCollisionSphere, ImageCollidedSphere, LineTex;
+Image LineTex;
 Image ImageEngineLogo, ImageFMODLogo, ImageSpinner;
 Sound IntroSound;
+
+GLUquadric* GLU_CIRCLE;
+GLUquadric* GLU_LINE_CIRCLE;

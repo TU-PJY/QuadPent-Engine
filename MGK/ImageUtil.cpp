@@ -1,6 +1,7 @@
 #include "ImageUtil.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include "SystemResource.h"
 
 GLfloat ImagePannel[][48] = {  // default size 1.0 * 1.0
 	-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,
