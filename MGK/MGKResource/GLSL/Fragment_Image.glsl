@@ -37,15 +37,7 @@ vec4 ComputeBlur() {
     return BlurResultValue;
 }
 
-void InitResult() {
-    BlurResult = vec4(0.0);
-    DefaultResult = vec4(0.0);
-    FinalResult = vec4(0.0);
-}
-
 void main() {
-    InitResult();
-
     BlurResult = mix(vec4(0.0), ComputeBlur(), float(UseBlur));
     DefaultResult = mix(texture(outTexture, TexCoord), vec4(0.0), float(UseBlur));
 

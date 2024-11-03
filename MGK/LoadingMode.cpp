@@ -4,6 +4,7 @@
 #include "LoadingScreen.h"
 
 void LoadingMode::Start() {
+	Framework::SetBackColorRGB(31, 31, 31);
 	scene.AddObject(new LoadingScreen, "loading_screen", LAYER_1);
 
 	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
