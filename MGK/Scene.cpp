@@ -18,28 +18,38 @@ void Scene::Resume() {
 
 void Scene::Routine() {
 	for (int i = 0; i < Layers; ++i) {
-		for (auto const& O : ObjectList[i]) {
-			if (!O->DeleteCommand) {
+		for(auto It = begin(ObjectList[i]); It != end(ObjectList[i]);) {
+			if (!(*It)->DeleteCommand) {
 				if (RoutineActivateCommand) {
-					if(FloatingFocusCommand && O->FloatingCommand)
-						O->UpdateFunc(FrameTime);
+					if (FloatingFocusCommand && (*It)->FloatingCommand)
+						(*It)->UpdateFunc(FrameTime);
 					else
-						O->UpdateFunc(FrameTime);
+						(*It)->UpdateFunc(FrameTime);
 				}
 
-				O->RenderFunc();
+				(*It)->RenderFunc();
 			}
-		}
 
-		ProcessListCommand(i);
+			else {
+				It = ObjectList[i].erase(It);
+				continue;
+			}
+
+			if ((*It)->SwapCommand) {
+				ObjectList[(*It)->ObjectLayer].emplace_back((*It));
+				It = ObjectList[i].erase(It);
+				(*It)->SwapCommand = false;
+				continue;
+			}
+
+			++It;
+		}
 	}
 
 	ProcessIndexCommand();
 }
 
 void Scene::Init(Function ModeFunction) {
-	for(int i = 0; i < Layers; ++i)
-		ObjectList[i].reserve(OBJECT_LIST_RESERVE);
 	ModeFunction();
 }
 
@@ -208,25 +218,6 @@ size_t Scene::LayerSize(int TargetLayer) {
 
 
 //////// private ///////////////
-void Scene::ProcessListCommand(int Index) {	
-	for (auto It = begin(ObjectList[Index]); It != end(ObjectList[Index]);) {
-		if ((*It)->DeleteCommand) {
-			It = ObjectList[Index].erase(It);
-			continue;
-		}
-
-		if ((*It)->SwapCommand) {
-			auto Object = (*It);
-			int DestLayer = (*It)->ObjectLayer;
-			It = ObjectList[Index].erase(It);
-			ObjectList[DestLayer].emplace_back(Object);
-			Object->SwapCommand = false;
-			continue;
-		}
-		++It;
-	}
-}
-
 void Scene::ProcessIndexCommand() {
 	for (auto It = begin(ObjectIndex); It != end(ObjectIndex);) {
 		if (It->second->DeleteCommand) {

@@ -45,7 +45,7 @@ public:
 	bool StaticCommand{};
 
 	// Initialize matrix. Select a rendering type.
-	void InitState(int RenderType=RENDER_TYPE_DEFAULT);
+	void InitRenderState(int RenderType=RENDER_TYPE_DEFAULT);
 
 	// Overlays color over the image.
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);

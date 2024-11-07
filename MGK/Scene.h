@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <array>
 #include <map>
-#include <vector>
+#include <deque>
 
 typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
@@ -31,7 +31,7 @@ enum ObjectType {
 
 class Scene {
 private:
-	std::array<std::vector<GameObject*>, Layers> ObjectList;
+	std::array<std::deque<GameObject*>, Layers> ObjectList;
 	std::multimap<std::string, GameObject*> ObjectIndex;
 
 	std::string						  CurrentRunningMode{};
@@ -132,7 +132,6 @@ public:
 	size_t LayerSize(int TargetLayer);
 
 private:
-	void ProcessListCommand(int Index);
 	void ProcessIndexCommand();
 	void ClearFloatingObject();
 	void ClearAll();

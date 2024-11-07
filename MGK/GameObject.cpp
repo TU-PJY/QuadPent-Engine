@@ -3,7 +3,7 @@
 #include "CameraUtil.h"
 #include <cmath>
 
-void GameObject::InitState(int RenderType) {
+void GameObject::InitRenderState(int RenderType) {
 	TranslateMatrix = glm::mat4(1.0f);
 	RotateMatrix = glm::mat4(1.0f);
 	ScaleMatrix = glm::mat4(1.0f);

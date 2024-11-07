@@ -83,7 +83,7 @@ public:
 	}
 
 	void RenderFunc() {
-		InitState(RENDER_TYPE_STATIC);
+		InitRenderState(RENDER_TYPE_STATIC);
 		Transform::Rotate(RotateMatrix, Rotation);
 		Render(ImageSpinner);
 	}
