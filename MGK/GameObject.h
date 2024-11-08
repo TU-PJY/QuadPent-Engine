@@ -19,13 +19,6 @@
 #include "ThreadUtil.h"
 
 
-enum FlipDir { 
-	FLIP_H, 
-	FLIP_V, 
-	FLIP_HV 
-};
-
-
 class GameObject {
 public:
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };

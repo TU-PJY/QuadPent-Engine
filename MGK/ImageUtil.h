@@ -2,20 +2,6 @@
 #include "EngineHeader.h"
 #include <vector>
 
-enum ImageType { 
-	IMAGE_TYPE_LINEAR, 
-	IMAGE_TYPE_NEAREST 
-};
-
-typedef struct {
-	Image* ImagePtr;
-	int Width, Height;
-	unsigned int Texture;
-	unsigned char* TextureData;
-	int ImageType;
-}PreLoadInfo;
-
-
 class ImageUtil {
 private:
 	GLuint VAO{};

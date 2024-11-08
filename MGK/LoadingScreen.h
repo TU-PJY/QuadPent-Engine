@@ -56,7 +56,7 @@ public:
 		if (LoadCommand) {
 			Rotation -= 200 * FT;
 
-			if (!ThreadUtil::GetState(ThreadHandle)) {
+			if (!ThreadUtil::IsRunning(ThreadHandle)) {
 				ThreadUtil::Delete(ThreadHandle);
 				imageUtil.FinishLoad();
 

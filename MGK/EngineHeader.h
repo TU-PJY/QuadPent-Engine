@@ -97,9 +97,20 @@ enum ShaderType {
 	SHADER_TYPE_TEXT 
 };
 
+enum ImageType {
+	IMAGE_TYPE_LINEAR,
+	IMAGE_TYPE_NEAREST
+};
+
 enum DataTypeEnum {
 	DATA_TYPE_DIGIT,
 	DATA_TYPE_STRING
+};
+
+enum ImageFlipEnum {
+	FLIP_H,
+	FLIP_V,
+	FLIP_HV
 };
 
 struct FileData {
@@ -116,6 +127,15 @@ typedef struct {
 	unsigned int Texture;
 	int Width, Height;
 }Image;
+
+// pre load image struct
+typedef struct {
+	Image* ImagePtr;
+	int Width, Height;
+	unsigned int Texture;
+	unsigned char* TextureData;
+	int ImageType;
+}PreLoadInfo;
 
 // corner position of display
 struct ViewportRect {

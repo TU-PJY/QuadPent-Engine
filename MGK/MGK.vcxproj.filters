@@ -127,15 +127,6 @@
     <Filter Include="[5]___________[ MGK ]\[ System ]">
       <UniqueIdentifier>{802bfb93-2599-4817-b15c-634efd1f40d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ System ]\[ System Screen ]">
-      <UniqueIdentifier>{72861b3d-de20-4a1f-8b20-f9a51180fa19}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ System ]\[ System Screen ]\[ Loading Screen ]">
-      <UniqueIdentifier>{6f9feb32-caf8-47a4-81e8-8e185b9568e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ System ]\[ System Screen ]\[ Intro Screen ]">
-      <UniqueIdentifier>{4a1206d3-4fd8-4d3a-bfc8-d6d6639ec18c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ MGK ]\[ System ]\[ System Resource ]">
       <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
     </Filter>
@@ -159,6 +150,18 @@
     </Filter>
     <Filter Include="[5]___________[ MGK ]\[ Util ]\[ File Util ]\[ TinyXML ]\[ CPP ]">
       <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System ]\[ System Mode ]">
+      <UniqueIdentifier>{9d92d68b-96f8-4a78-90d4-bd16df8b7372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System ]\[ System Mode ]\[ Intro Mode ]">
+      <UniqueIdentifier>{b3877809-c61b-43d2-a51a-52425aa4c51a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System ]\[ System Mode ]\[ Loading Mode ]">
+      <UniqueIdentifier>{8ab71929-5074-4ccb-9031-e8dd84b6c09a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ System ]\[ System Object ]">
+      <UniqueIdentifier>{c8dde2fb-f4fd-4595-9cdf-614100ed40cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -209,12 +212,6 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>[5]___________[ MGK ]\[ Scene ]</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadingMode.cpp">
-      <Filter>[5]___________[ MGK ]\[ System ]\[ System Screen ]\[ Loading Screen ]</Filter>
-    </ClCompile>
-    <ClCompile Include="IntroMode.cpp">
-      <Filter>[5]___________[ MGK ]\[ System ]\[ System Screen ]\[ Intro Screen ]</Filter>
     </ClCompile>
     <ClCompile Include="SetUp.cpp">
       <Filter>[5]___________[ MGK ]\[ System ]\[ Framework ]</Filter>
@@ -285,6 +282,12 @@
     <ClCompile Include="CircleBrush.cpp">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
     </ClCompile>
+    <ClCompile Include="IntroMode.cpp">
+      <Filter>[5]___________[ MGK ]\[ System ]\[ System Mode ]\[ Intro Mode ]</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingMode.cpp">
+      <Filter>[5]___________[ MGK ]\[ System ]\[ System Mode ]\[ Loading Mode ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMode1.h">
@@ -334,18 +337,6 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>[5]___________[ MGK ]\[ Scene ]</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadingMode.h">
-      <Filter>[5]___________[ MGK ]\[ System ]\[ System Screen ]\[ Loading Screen ]</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadingScreen.h">
-      <Filter>[5]___________[ MGK ]\[ System ]\[ System Screen ]\[ Loading Screen ]</Filter>
-    </ClInclude>
-    <ClInclude Include="IntroScreen.h">
-      <Filter>[5]___________[ MGK ]\[ System ]\[ System Screen ]\[ Intro Screen ]</Filter>
-    </ClInclude>
-    <ClInclude Include="IntroMode.h">
-      <Filter>[5]___________[ MGK ]\[ System ]\[ System Screen ]\[ Intro Screen ]</Filter>
     </ClInclude>
     <ClInclude Include="MathUtil.h">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ MathUtil ]</Filter>
@@ -415,6 +406,18 @@
     </ClInclude>
     <ClInclude Include="CircleBrush.h">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroMode.h">
+      <Filter>[5]___________[ MGK ]\[ System ]\[ System Mode ]\[ Intro Mode ]</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingMode.h">
+      <Filter>[5]___________[ MGK ]\[ System ]\[ System Mode ]\[ Loading Mode ]</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScreen.h">
+      <Filter>[5]___________[ MGK ]\[ System ]\[ System Object ]</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScreen.h">
+      <Filter>[5]___________[ MGK ]\[ System ]\[ System Object ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@ void ThreadUtil::New(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction,
 	HandleValue = CreateThread(NULL, 0, ThreadFunction, Param, 0, NULL);
 }
 
-bool ThreadUtil::GetState(HANDLE& HandleValue) {
+bool ThreadUtil::IsRunning(HANDLE& HandleValue) {
 	DWORD Result;
 	GetExitCodeThread(HandleValue, &Result);
 
