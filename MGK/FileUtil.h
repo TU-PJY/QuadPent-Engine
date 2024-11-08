@@ -7,6 +7,8 @@
 #include "cryptopp/modes.h"
 #include "cryptopp/osrng.h"
 #include "cryptopp/hex.h"
+#include "EngineHeader.h"
+#include "GameData.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -18,22 +20,6 @@
 #include <cctype>
 using namespace CryptoPP;
 
-enum D_Type { 
-	DATA_TYPE_DIGIT,
-	DATA_TYPE_STRING 
-};
-
-struct FileData {
-	std::string CategoryName;
-	std::string DataName;
-	int DataType;
-	float DigitValue;
-	std::string StringValue;
-};
-
-using DataSet = std::vector<FileData>;
-
-
 // write and read
 class FileUtil {
 private:
@@ -42,12 +28,12 @@ private:
 	TiXmlDocument Doc{};
 	TiXmlElement* Root{};
 	
-	DataSet DataListBuffer{};
+	DataSet DataSetBuffer{};
 
 	bool FileExist{};
 
 public:
-	void Init(std::string FolderName, std::string FileName, DataSet List);
+	void Import(std::string FolderName, std::string FileName, DataSet DSet);
 	void UpdateDigitData(std::string CategoryName, std::string DataName, float Value);
 	void UpdateStringData(std::string CategoryName, std::string DataName, std::string Value);
 	float LoadDigitData(std::string CategoryName, std::string DataName);

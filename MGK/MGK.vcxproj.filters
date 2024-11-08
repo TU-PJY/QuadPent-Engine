@@ -97,9 +97,6 @@
     <Filter Include="[5]___________[ MGK ]\[ Util ]\[ EX Util ]">
       <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ FIle Util ]">
-      <UniqueIdentifier>{d2e93683-5de8-4639-98b5-ff99bff6c54f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Script Util ]">
       <UniqueIdentifier>{81f53a74-031c-406e-82e2-a9d6a7f85d59}</UniqueIdentifier>
     </Filter>
@@ -145,20 +142,23 @@
     <Filter Include="[5]___________[ MGK ]\[ System ]\[ Framework ]">
       <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ TinyXML ]">
-      <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ TinyXML ]\[ Header ]">
-      <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ TinyXML ]\[ CPP ]">
-      <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ MGK ]\[ Header ]">
       <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
     </Filter>
     <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Circle ]">
       <UniqueIdentifier>{8ca8864d-f116-4649-ac79-d0c373874068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ File Util ]">
+      <UniqueIdentifier>{d2e93683-5de8-4639-98b5-ff99bff6c54f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ File Util ]\[ TinyXML ]">
+      <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ File Util ]\[ TinyXML ]\[ Header ]">
+      <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ File Util ]\[ TinyXML ]\[ CPP ]">
+      <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -184,7 +184,7 @@
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Sound Util ]</Filter>
     </ClCompile>
     <ClCompile Include="FileUtil.cpp">
-      <Filter>[5]___________[ MGK ]\[ Util ]\[ FIle Util ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ File Util ]</Filter>
     </ClCompile>
     <ClCompile Include="FontUtil.cpp">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Font Util ]</Filter>
@@ -241,16 +241,16 @@
       <Filter>[5]___________[ MGK ]\[ Util ]\[ EX Util ]</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxmlparser.cpp">
-      <Filter>[5]___________[ MGK ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ File Util ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxmlerror.cpp">
-      <Filter>[5]___________[ MGK ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ File Util ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinyxml.cpp">
-      <Filter>[5]___________[ MGK ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ File Util ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="tinyxml\tinystr.cpp">
-      <Filter>[5]___________[ MGK ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ File Util ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="GameResource.cpp">
       <Filter>[1]___________[ Resources ]\[ Game Resource ]</Filter>
@@ -312,7 +312,7 @@
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Sound Util ]</Filter>
     </ClInclude>
     <ClInclude Include="FileUtil.h">
-      <Filter>[5]___________[ MGK ]\[ Util ]\[ FIle Util ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ File Util ]</Filter>
     </ClInclude>
     <ClInclude Include="FontUtil.h">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Font Util ]</Filter>
@@ -366,10 +366,10 @@
       <Filter>[5]___________[ MGK ]\[ Util ]\[ EX Util ]</Filter>
     </ClInclude>
     <ClInclude Include="tinyxml\tinystr.h">
-      <Filter>[5]___________[ MGK ]\[ TinyXML ]\[ Header ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ File Util ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="tinyxml\tinyxml.h">
-      <Filter>[5]___________[ MGK ]\[ TinyXML ]\[ Header ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ File Util ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="GameResource.h">
       <Filter>[1]___________[ Resources ]\[ Game Resource ]</Filter>

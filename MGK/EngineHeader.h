@@ -15,6 +15,7 @@
 #include "DataFileLink.h"
 #include "ScriptFileLink.h"
 #include <iostream>
+#include <vector>
 #include <string>
 
 extern float DestFPS;
@@ -96,17 +97,32 @@ enum ShaderType {
 	SHADER_TYPE_TEXT 
 };
 
-// corner position of display
-struct ViewportRect {
-	GLfloat lx, ly, rx, ry;
+enum DataTypeEnum {
+	DATA_TYPE_DIGIT,
+	DATA_TYPE_STRING
 };
-extern ViewportRect WindowRect;
+
+struct FileData {
+	std::string CategoryName;
+	std::string DataName;
+	int DataType;
+	float DigitValue;
+	std::string StringValue;
+};
+using DataSet = std::vector<FileData>;
 
 // image struct
 typedef struct {
 	unsigned int Texture;
 	int Width, Height;
 }Image;
+
+// corner position of display
+struct ViewportRect {
+	GLfloat lx, ly, rx, ry;
+};
+extern ViewportRect WindowRect;
+
 
 // display width, height and apsect ratio
 extern int WIDTH, HEIGHT;

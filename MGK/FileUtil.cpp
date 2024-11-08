@@ -1,7 +1,7 @@
 #include "FileUtil.h"
 #include "Setting.h"
 
-void FileUtil::Init(std::string FolderName, std::string FileName, DataSet List) {
+void FileUtil::Import(std::string FolderName, std::string FileName, DataSet DSet) {
 	if (FileExist)
 		return;
 
@@ -21,7 +21,7 @@ void FileUtil::Init(std::string FolderName, std::string FileName, DataSet List) 
 	FilePath = FolderPath / TempFileName;
 	FilePathStr = FilePath.string();
 
-	DataListBuffer = List;
+	DataSetBuffer = DSet;
 
 	if (!LoadDataFile(FilePathStr)) {
 		SetupData();
@@ -73,7 +73,7 @@ void FileUtil::SetupData() {
 
 	Root = FindRoot();
 
-	for (auto const& D : DataListBuffer) {
+	for (auto const& D : DataSetBuffer) {
 		if(!FindCategory(D.CategoryName))
 			AddCategory(D.CategoryName);
 
@@ -242,15 +242,10 @@ void FileUtil::UpdateDataFile() {
 		std::ofstream ExportFile(FilePathStr, std::ios::binary);
 		ExportFile.write(EncryptedXML.c_str(), EncryptedXML.size());
 		ExportFile.close();
-
-		Doc.Clear();
-		LoadDataFile(FilePathStr.c_str());
 	}
 
 	else
 		Doc.SaveFile(FilePathStr.c_str());
-
-	Root = FindRoot();
 }
 
 std::string FileUtil::Encrypt(const std::string& PlainText, const byte Key[], const byte IV[]) {
