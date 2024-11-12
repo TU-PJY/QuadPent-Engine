@@ -251,6 +251,7 @@ void Scene::ClearFloatingObject() {
 				SubmitCommand(COMMAND_OBJECT_DELETE, Object->ObjectLayer, ReferPosition);
 			++ReferPosition;
 		}
+		ReferPosition = 0;
 	}
 }
 
@@ -263,5 +264,6 @@ void Scene::ClearAll() {
 				SubmitCommand(COMMAND_OBJECT_DELETE, Object->ObjectLayer, ReferPosition);
 			++ReferPosition;
 		}
+		ReferPosition = 0;
 	}
 }

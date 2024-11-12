@@ -87,17 +87,17 @@ enum NormalKeySet {
 	NK_TAB =    9
 };
 
-enum RenderType {
+enum RenderTypeEnum {
 	RENDER_TYPE_DEFAULT, 
 	RENDER_TYPE_STATIC 
 };
 
-enum ShaderType { 
+enum ShaderTypeEnum { 
 	SHADER_TYPE_IMAGE, 
 	SHADER_TYPE_TEXT 
 };
 
-enum ImageType {
+enum ImageTypeEnum {
 	IMAGE_TYPE_LINEAR,
 	IMAGE_TYPE_NEAREST
 };
@@ -113,6 +113,7 @@ enum ImageFlipEnum {
 	FLIP_HV
 };
 
+// data set struct
 struct FileData {
 	std::string CategoryName;
 	std::string DataName;
