@@ -30,6 +30,10 @@ void ThreadUtil::Lock(CRITICAL_SECTION& Section) {
 	EnterCriticalSection(&Section);
 }
 
+void ThreadUtil::TryLock(CRITICAL_SECTION& Section) {
+	TryEnterCriticalSection(&Section);
+}
+
 void ThreadUtil::Unlock(CRITICAL_SECTION& Section) {
 	LeaveCriticalSection(&Section);
 }

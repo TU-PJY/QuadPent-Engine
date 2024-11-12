@@ -8,5 +8,6 @@ namespace ThreadUtil {
 	void InitSection(CRITICAL_SECTION& Section);
 	void DeleteSection(CRITICAL_SECTION& Section);
 	void Lock(CRITICAL_SECTION& Section);
+	void TryLock(CRITICAL_SECTION& Section);
 	void Unlock(CRITICAL_SECTION& Section);
 }

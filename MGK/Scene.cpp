@@ -270,7 +270,7 @@ DWORD WINAPI Scene::ObjectIndexUpdateThread(LPVOID Param) {
 	Scene* scene = static_cast<Scene*>(Param);
 
 	while (true) {
-		ThreadUtil::Lock(scene->Section);
+		ThreadUtil::TryLock(scene->Section);
 		for (auto Object = begin(scene->ObjectIndex); Object != end(scene->ObjectIndex); ) {
 			if (Object->second->DeleteMark) {
 				delete Object->second;
