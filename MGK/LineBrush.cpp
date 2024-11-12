@@ -71,5 +71,5 @@ void LineBrush::Render() {
 	glUniform1i(BoolBlurLocation, 0);
 	glUniformMatrix4fv(ImageModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
 
-	imageUtil.Render(LineTex);
+	imageUtil.Render(COLOR_TEXTURE);
 }

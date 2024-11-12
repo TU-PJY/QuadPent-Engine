@@ -8,8 +8,9 @@ std::wstring FontUtil::ToWstr(const std::string& str) {
     return Wstr;
 }
 
-bool FontUtil::Import(const std::string& FontFilePath, DWORD& NumFonts) {
+bool FontUtil::Import(const std::string& FontFilePath) {
     std::wstring Path = ToWstr(FontFilePath);
+    DWORD NumFonts{};
 
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);
 

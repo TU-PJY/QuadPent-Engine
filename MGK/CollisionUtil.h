@@ -54,7 +54,7 @@ private:
 	bool OverlapOnAxis(const OOBB& OBB1, const OOBB& OBB2, const glm::vec2& Axis);
 };
 
-class BoundingSphere {
+class BoundingCircle {
 private:
 	glm::vec2 Center{};
 	GLfloat Radius{};
@@ -71,6 +71,6 @@ private:
 public:
 	void Update(GLfloat X, GLfloat Y, GLfloat Diameter);
 	void Render();
-	bool CheckCollision(const BoundingSphere& Other);
+	bool CheckCollision(const BoundingCircle& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 };

@@ -32,10 +32,8 @@ public:
 	std::string ObjectTag{};
 	int ObjectLayer{};
 
-	bool SwapCommand{};
-	bool DeleteCommand{};
-	bool FloatingCommand{};
-	bool StaticCommand{};
+	bool FloatingOpt{};
+	bool StaticOpt{};
 
 	// Initialize matrix. Select a rendering type.
 	void InitRenderState(int RenderType=RENDER_TYPE_DEFAULT);
@@ -158,7 +156,7 @@ public:
 	virtual OOBB GetOOBB() { return{}; }
 
 	// Obtains an BoundingSphere object from a specific object class.
-	virtual BoundingSphere GetBoundingSphere() { return {}; }
+	virtual BoundingCircle GetBoundingSphere() { return {}; }
 
 private:
 	void PrepareRender(); 

@@ -8,9 +8,9 @@
 
 DWORD WINAPI SystemResourceCreateThread(LPVOID Param) {
 	soundUtil.Import(IntroSound, MGK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
-	imageUtil.PreLoad(ImageEngineLogo, MGK_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
-	imageUtil.PreLoad(ImageFMODLogo, FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
-	imageUtil.PreLoad(LineTex, LINE_TEXTURE_DIRECTORY);
+	imageUtil.PreLoad(MGK_LOGO, MGK_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
+	imageUtil.PreLoad(FMOD_LOGO, FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
+	imageUtil.PreLoad(COLOR_TEXTURE, LINE_TEXTURE_DIRECTORY);
 
 	GLU_CIRCLE = gluNewQuadric();
 	GLU_LINE_CIRCLE = gluNewQuadric();
@@ -22,8 +22,7 @@ DWORD WINAPI SystemResourceCreateThread(LPVOID Param) {
 	int ElementSize = sizeof(FONT_PATH[0]);
 	int Length = TotalSize / ElementSize;
 	for (int i = 0; i < Length; ++i) {
-		DWORD Num = i;
-		FontUtil::Import(FONT_PATH[i], Num);
+		FontUtil::Import(FONT_PATH[i]);
 	}
 #endif
 
@@ -46,10 +45,6 @@ public:
 				break;
 			}
 		}
-	}
-
-	LoadingScreen() {
-		SetColor(1.0, 1.0, 1.0);
 	}
 
 	void UpdateFunc(float FT) {

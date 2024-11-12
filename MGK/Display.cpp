@@ -24,18 +24,20 @@ void Framework::SetFrameLimit(int FrameLimit) {
 }
 
 void Framework::SwitchScreenState() {
-	if (!FullscreenState) {
+	switch (FullscreenState) {
+	case false:
 		glutFullScreen();
 		WIDTH = GetSystemMetrics(SM_CXSCREEN);
 		HEIGHT = GetSystemMetrics(SM_CYSCREEN);
 		FullscreenState = true;
-	}
+		break;
 
-	else {
+	case true:
 		WIDTH = WINDOW_WIDTH;
 		HEIGHT = WINDOW_HEIGHT;
 		glutReshapeWindow(WIDTH, HEIGHT);
 		glutPositionWindow(0, 0);
 		FullscreenState = false;
+		break;
 	}
 }

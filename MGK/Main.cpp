@@ -18,6 +18,7 @@ GLvoid Framework::Framework() {
 	if (UpdateActivateCommand) {
 		cameraCon.Update(DeltaTime);
 		scene.Routine();
+		scene.ProcessCommandListQueue();
 		soundUtil.Update();
 	}
 

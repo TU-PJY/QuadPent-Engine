@@ -33,17 +33,27 @@ void CameraController::Rotate(GLfloat Value) {
 }
 
 void CameraController::Zoom(int Type, GLfloat Value) {
-	if (Type == ZOOM_IN)
+	switch (Type) {
+	case ZOOM_IN:
 		camera.ZoomValue = camera.ZoomValue / (1.0f - Value);
-	else if (Type == ZOOM_OUT)
+		break;
+
+	case ZOOM_OUT:
 		camera.ZoomValue = camera.ZoomValue * (1.0f - Value);
+		break;
+	}
 }
 
 GLfloat CameraController::CalculateNextZoom(int Type, GLfloat Value) {
-	if(Type == ZOOM_IN)
+	switch (Type) {
+	case ZOOM_IN:
 		return camera.ZoomValue / (1.0f - Value);
-	else if(Type == ZOOM_OUT)
+		break;
+
+	case ZOOM_OUT:
 		return camera.ZoomValue * (1.0f - Value);
+		break;
+	}
 }
 
 void CameraController::ChangeZoom(GLfloat Value) {

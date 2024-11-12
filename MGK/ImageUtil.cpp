@@ -39,14 +39,16 @@ void ImageUtil::Import(Image& ImageStruct, std::string FileName, int Type) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	if (Type == IMAGE_TYPE_LINEAR) {
+	switch (Type) {
+	case IMAGE_TYPE_LINEAR:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	}
+		break;
 
-	else if (Type == IMAGE_TYPE_NEAREST) {
+	case IMAGE_TYPE_NEAREST:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		break;
 	}
 
 	unsigned char* texture_data = stbi_load(FileName.c_str(), &Width, &Height, &Channel, 4);
@@ -81,14 +83,16 @@ void ImageUtil::FinishLoad() {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-		if (B.ImageType == IMAGE_TYPE_LINEAR) {
+		switch (B.ImageType) {
+		case IMAGE_TYPE_LINEAR:
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		}
+			break;
 
-		else if (B.ImageType == IMAGE_TYPE_NEAREST) {
+		case IMAGE_TYPE_NEAREST:
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			break;
 		}
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, B.Width, B.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, B.TextureData);

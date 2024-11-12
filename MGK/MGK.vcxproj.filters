@@ -82,9 +82,6 @@
     <Filter Include="[5]___________[ MGK ]\[ Util ]\[ AnimationUtil ]">
       <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ MathUtil ]">
-      <UniqueIdentifier>{4a85a4fd-aaad-4cd4-9601-add0201898fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Clipping Util ]">
       <UniqueIdentifier>{9bceb82f-2ade-4d6d-9360-521458e8d522}</UniqueIdentifier>
     </Filter>
@@ -163,6 +160,9 @@
     <Filter Include="[5]___________[ MGK ]\[ System ]\[ System Object ]">
       <UniqueIdentifier>{c8dde2fb-f4fd-4595-9cdf-614100ed40cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Math Util ]">
+      <UniqueIdentifier>{4a85a4fd-aaad-4cd4-9601-add0201898fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMode1.cpp">
@@ -223,7 +223,7 @@
       <Filter>[5]___________[ MGK ]\[ System ]\[ Framework ]</Filter>
     </ClCompile>
     <ClCompile Include="MathUtil.cpp">
-      <Filter>[5]___________[ MGK ]\[ Util ]\[ MathUtil ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ Math Util ]</Filter>
     </ClCompile>
     <ClCompile Include="ClippingUtil.cpp">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Clipping Util ]</Filter>
@@ -339,7 +339,7 @@
       <Filter>[5]___________[ MGK ]\[ Scene ]</Filter>
     </ClInclude>
     <ClInclude Include="MathUtil.h">
-      <Filter>[5]___________[ MGK ]\[ Util ]\[ MathUtil ]</Filter>
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ Math Util ]</Filter>
     </ClInclude>
     <ClInclude Include="ClippingUtil.h">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Clipping Util ]</Filter>

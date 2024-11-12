@@ -22,11 +22,25 @@ void EX::SwitchValue(int& TargetValue, int Value1, int Value2) {
 }
 
 void EX::ClampValue(float& Value, float Dest, int Type) {
-	if ((Type == CLAMP_GREATER && Value > Dest) || (Type == CLAMP_LESS && Value < Dest))
-		Value = Dest;
+	switch (Type) {
+	case CLAMP_GREATER:
+		if (Value > Dest) Value = Dest;
+		break;
+
+	case CLAMP_LESS:
+		if (Value < Dest) Value = Dest;
+		break;
+	}
 }
 
 void EX::ClampValue(int& Value, int Dest, int Type) {
-	if ((Type == CLAMP_GREATER && Value > Dest) || (Type == CLAMP_LESS && Value < Dest))
-		Value = Dest;
+	switch (Type) {
+	case CLAMP_GREATER:
+		if (Value > Dest) Value = Dest;
+		break;
+
+	case CLAMP_LESS:
+		if (Value < Dest) Value = Dest;
+		break;
+	}
 }

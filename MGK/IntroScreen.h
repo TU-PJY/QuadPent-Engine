@@ -9,21 +9,14 @@ private:
 
 	SoundChannel IntroChannel{};
 
-	GLfloat LogoSize = 2.0;
+	GLfloat LogoSize = 1.0;
 	GLfloat LogoTransparent = 1.0;
-	GLfloat Rotation{};
-	GLfloat RotateValue = 40.0;
-
-	PopBounce PBA;
-	SinLoop LSA;
+	GLfloat LogoPosition = -0.5;
+	GLfloat RectPosition = -0.5;
 
 	int Scene{};
 
 public:
-	IntroScreen() {
-		SetColor(1.0, 1.0, 1.0);
-	}
-
 	void InputKey(int State, unsigned char NormalKey, int SpecialKey) {
 		if (State == NORMAL_KEY_DOWN) {
 			switch (NormalKey) {
@@ -41,58 +34,75 @@ public:
 
 	void UpdateFunc(float FT) {
 		timer.Update(FT);
-
-		if (timer.Sec() >= 1 && Scene == 0) {
-			soundUtil.PlaySound(IntroSound, IntroChannel);
-			++Scene;
-		}
-
-		if (Scene == 1) {
-			LogoSize = PBA.Update(1.0, 2.0, 8.0, 8.0, 5.0, FT);
-			Rotation = LSA.Update(RotateValue, 10, FT);
-			RotateValue = Math::Lerp(RotateValue, 0.0, 4, FT);
-		}
-
-		if (timer.Sec() >= 3 && Scene == 1) {
-			LogoTransparent -= FT * 2;
-			if (LogoTransparent <= 0) {
-				LogoTransparent = 0;
-				LogoSize = 2.0;
+		switch (Scene) {
+		case 0:
+			if (timer.Sec() >= 1) {
+				soundUtil.PlaySound(IntroSound, IntroChannel);
+				timer.Reset();
 				++Scene;
 			}
-		}
+			break;
+			
 
-		if (Scene == 2) {
-			if (timer.Sec() >= 4) {
-				LogoTransparent = Math::Lerp(LogoTransparent, 1.0, 10, FT);
-				LogoSize = Math::Lerp(LogoSize, 1.0, 10, FT);
-				if (timer.Sec() >= 6)
-					++Scene;
+		case 1:
+			RectPosition -= FT * 1.5;
+			LogoPosition += FT * 1.5;
+			EX::ClampValue(RectPosition, -1.0, CLAMP_LESS);
+			EX::ClampValue(LogoPosition, 0.0, CLAMP_GREATER);
+
+			if (timer.MiliSec() >= 2.5) {
+				LogoTransparent -= FT * 2;
+				EX::ClampValue(LogoTransparent, 0.0, CLAMP_LESS);
 			}
-		}
 
-		if (Scene == 3) {
-			LogoTransparent -= FT * 2;
-			if (LogoTransparent <= 0)
-				LogoTransparent = 0;
-		}
+			if (timer.MiliSec() >= 4) {
+				RectPosition = -0.5;
+				LogoPosition = -0.5;
+				LogoTransparent = 1.0;
+				timer.Reset();
+				++Scene;
+			}
+			break;
 
-		if (timer.Sec() >= 7 && Scene == 3)
-			scene.SwitchMode(START_MODE);
+
+		case 2:
+			RectPosition -= FT * 1.5;
+			LogoPosition += FT * 1.5;
+			EX::ClampValue(RectPosition, -1.0, CLAMP_LESS);
+			EX::ClampValue(LogoPosition, 0.0, CLAMP_GREATER);
+
+			if (timer.MiliSec() >= 2.5) {
+				LogoTransparent -= FT * 2;
+				EX::ClampValue(LogoTransparent, 0.0, CLAMP_LESS);
+			}
+
+			if (timer.Sec() >= 4)
+				scene.SwitchMode(START_MODE);
+			
+			break;
+		}
 	}
 
 	void RenderFunc() {
+		AlphaClipping::First();
 		InitRenderState(RENDER_TYPE_STATIC);
+		Transform::Move(TranslateMatrix, RectPosition, 0.0);
+		Render(COLOR_TEXTURE);
 
-		if (Scene == 1) {
-			Transform::Rotate(RotateMatrix, Rotation);
-			Transform::Scale(ScaleMatrix, LogoSize, LogoSize);
-			Render(ImageEngineLogo, LogoTransparent);
+		AlphaClipping::Second();
+		InitRenderState(RENDER_TYPE_STATIC);
+		Transform::Move(TranslateMatrix, LogoPosition, 0.0);
+
+		switch (Scene) {
+		case 1:
+			Render(MGK_LOGO, LogoTransparent);
+			break;
+
+		case 2: case 3:
+			Render(FMOD_LOGO, LogoTransparent);
+			break;
 		}
 
-		else if (Scene == 2 || Scene == 3) {
-			Transform::Scale(ScaleMatrix, LogoSize, LogoSize);
-			Render(ImageFMODLogo, LogoTransparent);
-		}
+		AlphaClipping::End();
 	}
 };

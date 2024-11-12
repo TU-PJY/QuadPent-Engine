@@ -36,10 +36,15 @@ Scene scene;
 void Framework::SetupSystem(int argc, char** argv) {
 	HWND hWnd = GetConsoleWindow();
 
-	if (!SHOW_CONSOLE)
-		ShowWindow(hWnd, SW_HIDE);
-	else
+	switch (SHOW_CONSOLE) {
+	case true:
 		ShowWindow(hWnd, SW_SHOWNORMAL);
+		break;
+
+	case false:
+		ShowWindow(hWnd, SW_HIDE);
+		break;
+	}
 
 	glutInit(&argc, argv);
 	SetupWindow();

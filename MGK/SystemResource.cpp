@@ -2,8 +2,8 @@
 #include "ImageUtil.h"
 #include "SoundUtil.h"
 
-Image LineTex;
-Image ImageEngineLogo, ImageFMODLogo, ImageSpinner;
+Image COLOR_TEXTURE;
+Image MGK_LOGO, FMOD_LOGO, ImageSpinner;
 Sound IntroSound;
 
 GLUquadric* GLU_CIRCLE;

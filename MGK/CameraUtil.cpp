@@ -32,36 +32,45 @@ void Camera::SetCamera(int RenderType) {
 	CamDirection = vec3(0.0f, 0.0f, 0.0f);
 	CamUp = vec3(0.0f, 1.0f, 0.0f);
 
-	if (RenderType == RENDER_TYPE_DEFAULT)
+	switch (RenderType) {
+	case RENDER_TYPE_DEFAULT:
 		StaticMode = false;
-	else if (RenderType == RENDER_TYPE_STATIC)
+		break;
+
+	case RENDER_TYPE_STATIC:
 		StaticMode = true;
+		break;
+	}
 }
 
 void Camera::PrepareRender(int ShaderType) {
 	ViewMatrix = glm::mat4(1.0f);
 	Projection = glm::mat4(1.0f);
 
-	if (StaticMode) {
-		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
-		Projection = glm::ortho((ASPECT * -1.0f), (ASPECT * 1.0f), -1.0f, 1.0f, -1.0f, 1.0f);
-	}
-
-	else {
+	switch (StaticMode) {
+	case false:
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
 		ViewMatrix = ViewMatrix * TranslateMatrix * RotateMatrix;
 		Projection = glm::ortho((ASPECT * -1.0f) / ZoomValue, (ASPECT * 1.0f) / ZoomValue, -1.0f / ZoomValue, 1.0f / ZoomValue, -1.0f, 1.0f);
+		break;
+
+	case true:
+		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
+		Projection = glm::ortho((ASPECT * -1.0f), (ASPECT * 1.0f), -1.0f, 1.0f, -1.0f, 1.0f);
+		break;
 	}
 
-	if (ShaderType == SHADER_TYPE_IMAGE) {
+	switch (ShaderType) {
+	case SHADER_TYPE_IMAGE:
 		glUniformMatrix4fv(ImageProjectionLocation, 1, GL_FALSE, &Projection[0][0]);
 		glUniformMatrix4fv(ImageViewLocation, 1, GL_FALSE, &ViewMatrix[0][0]);
 		glUniform3f(ImageViewPositionLocation, CamPos.x, CamPos.y, CamPos.z);
-	}
+		break;
 
-	else if (ShaderType == SHADER_TYPE_TEXT) {
+	case SHADER_TYPE_TEXT:
 		glUniformMatrix4fv(TextProjectionLocation, 1, GL_FALSE, &Projection[0][0]);
 		glUniformMatrix4fv(TextViewLocation, 1, GL_FALSE, &ViewMatrix[0][0]);
 		glUniform3f(TextViewPositionLocation, CamPos.x, CamPos.y, CamPos.z);
+		break;
 	}
 }

@@ -146,14 +146,14 @@ bool OOBB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 
 
 
-void BoundingSphere::Update(GLfloat X, GLfloat Y, GLfloat SizeValue) {
+void BoundingCircle::Update(GLfloat X, GLfloat Y, GLfloat SizeValue) {
 	Center.x = X;
 	Center.y = Y;
 	Radius = SizeValue * 0.5;
 	Size = SizeValue;
 }
 
-void BoundingSphere::Render() {
+void BoundingCircle::Render() {
 #ifdef SHOW_BOUND_BOX
 	Circle.SetColor(1.0, 0.0, 0.0);
 	LineCircle.SetColor(1.0, 0.0, 0.0);
@@ -165,7 +165,7 @@ void BoundingSphere::Render() {
 #endif
 }
 
-bool BoundingSphere::CheckCollision(const BoundingSphere& Other) {
+bool BoundingCircle::CheckCollision(const BoundingCircle& Other) {
 	if (Math::CalcDistance(Center.x, Center.y, Other.Center.x, Other.Center.y) < Radius + Other.Radius) {
 		Collide = true;
 		return true;
@@ -175,7 +175,7 @@ bool BoundingSphere::CheckCollision(const BoundingSphere& Other) {
 	return false;
 }
 
-bool BoundingSphere::CheckCollisionPoint(GLfloat X, GLfloat Y) {
+bool BoundingCircle::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 	if (Math::CalcDistance(Center.x, Center.y, X, Y) < Radius) {
 		Collide = true;
 		return true;
