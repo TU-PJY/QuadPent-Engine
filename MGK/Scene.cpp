@@ -1,4 +1,6 @@
 #include "Scene.h"
+#include <chrono>
+#include <thread>
 
 void Scene::InputFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
@@ -37,6 +39,8 @@ void Scene::Routine() {
 
 void Scene::Init(Function ModeFunction) {
 	ObjectCommandList.reserve(1000);
+	ThreadUtil::InitSection(Section);
+	ThreadUtil::New(UpdateThread, ObjectIndexUpdateThread, this);
 	ModeFunction();
 }
 
@@ -102,32 +106,43 @@ void Scene::ResetControlState(GameObject* Object) {
 }
 
 void Scene::ResetControlState(std::string Tag) {
+	ThreadUtil::Lock(Section);
 	auto Object = ObjectIndex.find(Tag);
 	if (Object != end(ObjectIndex))
 		Object->second->ResetControlState();
+	ThreadUtil::Unlock(Section);
 }
 
 void Scene::InputKey(std::string Tag, int State, unsigned char NormalKey, int SpecialKey) {
+	ThreadUtil::Lock(Section);
 	auto Object = ObjectIndex.find(Tag);
 	if (Object != end(ObjectIndex))
 		Object->second->InputKey(State, NormalKey, SpecialKey);
+	ThreadUtil::Unlock(Section);
 }
 
 void Scene::InputMouse(std::string Tag, int State) {
+	ThreadUtil::Lock(Section);
 	auto Object = ObjectIndex.find(Tag);
 	if (Object != end(ObjectIndex))
 		Object->second->InputMouse(State);
+	ThreadUtil::Unlock(Section);
 }
 
 void Scene::InputScroll(std::string Tag, int State) {
+	ThreadUtil::Lock(Section);
 	auto Object = ObjectIndex.find(Tag);
 	if (Object != end(ObjectIndex))
 		Object->second->InputScroll(State);
+	ThreadUtil::Unlock(Section);
 }
 
 void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
 	ObjectList[AddLayer].emplace_back(Object);
-	ObjectIndex.insert(std::make_pair(Tag, Object));
+
+	ThreadUtil::Lock(Section);
+	ObjectIndex.insert(std::pair(Tag, Object));
+	ThreadUtil::Unlock(Section);
 
 	Object->ObjectTag = Tag;
 	Object->ObjectLayer = AddLayer;
@@ -162,28 +177,36 @@ void Scene::DeleteObject(GameObject* Object) {
 
 void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
+		ThreadUtil::Lock(Section);
 		auto Object = ObjectIndex.find(Tag);
-		if (Object != end(ObjectIndex)) 
+		if (Object != end(ObjectIndex))
 			SubmitCommand(COMMAND_OBJECT_DELETE, Object->second->ObjectLayer, CurrentReferPosition);
+		ThreadUtil::Unlock(Section);
 	}
 
 	else if (DeleteRange == DELETE_RANGE_EQUAL) {
+		ThreadUtil::Lock(Section);
 		auto Range = ObjectIndex.equal_range(Tag);
 		if (Range.first != Range.second) {
 			for (auto Object = Range.first; Object != Range.second; ++Object) {
-				if (Object->first == Tag) 
+				if (Object->first == Tag)
 					SubmitCommand(COMMAND_OBJECT_DELETE, Object->second->ObjectLayer, CurrentReferPosition);
 			}
 		}
+		ThreadUtil::Unlock(Section);
 	}
 }
 
 GameObject* Scene::Find(std::string Tag) {
+	GameObject* Found{};
+
+	ThreadUtil::Lock(Section);
 	auto Object = ObjectIndex.find(Tag);
 	if (Object != end(ObjectIndex))
-		return Object->second;
+		Found = Object->second;
+	ThreadUtil::Unlock(Section);
 
-	return nullptr;
+	return Found;
 }
 
 GameObject* Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
@@ -195,7 +218,11 @@ GameObject* Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
 }
 
 std::pair<ObjectRange, ObjectRange> Scene::EqualRange(std::string Tag) {
-	return ObjectIndex.equal_range(Tag);
+	ThreadUtil::Lock(Section);
+	auto Range = ObjectIndex.equal_range(Tag);
+	ThreadUtil::Unlock(Section);
+
+	return Range;
 }
 
 size_t Scene::LayerSize(int TargetLayer) {
@@ -209,8 +236,7 @@ void Scene::ProcessCommandListQueue() {
 
 			switch (Command.CommandType) {
 			case COMMAND_OBJECT_DELETE:
-				delete (*Object);
-				(*Object) = nullptr;
+				(*Object)->DeleteMark = true;
 				ObjectList[Command.ObjectLayer].erase(Object);
 				break;
 
@@ -223,8 +249,6 @@ void Scene::ProcessCommandListQueue() {
 		}
 
 		ObjectCommandList.clear();
-		std::erase_if(ObjectIndex, [](std::pair<std::string, GameObject*> Object) { return !Object.second; });
-
 		CommandExist = false;
 	}
 }
@@ -240,6 +264,28 @@ void Scene::SubmitCommand(int CommandType, int ObjectLayer, int ReferPosition, i
 	ObjectCommandList.emplace_back(Command);
 
 	CommandExist = true;
+}
+
+DWORD WINAPI Scene::ObjectIndexUpdateThread(LPVOID Param) {
+	Scene* scene = static_cast<Scene*>(Param);
+
+	while (true) {
+		ThreadUtil::Lock(scene->Section);
+		for (auto Object = begin(scene->ObjectIndex); Object != end(scene->ObjectIndex); ) {
+			if (Object->second->DeleteMark) {
+				delete Object->second;
+				Object->second = nullptr;
+				Object = scene->ObjectIndex.erase(Object);
+				continue;
+			}
+			++Object;
+		}
+		ThreadUtil::Unlock(scene->Section);
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	}
+
+	return 0;
 }
 
 void Scene::ClearFloatingObject() {

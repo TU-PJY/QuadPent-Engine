@@ -34,6 +34,7 @@ public:
 
 	bool FloatingOpt{};
 	bool StaticOpt{};
+	bool DeleteMark{};
 
 	// Initialize matrix. Select a rendering type.
 	void InitRenderState(int RenderType=RENDER_TYPE_DEFAULT);
@@ -156,7 +157,7 @@ public:
 	virtual OOBB GetOOBB() { return{}; }
 
 	// Obtains an BoundingSphere object from a specific object class.
-	virtual BoundingCircle GetBoundingSphere() { return {}; }
+	virtual BoundingCircle GetBoundingCircle() { return {}; }
 
 private:
 	void PrepareRender(); 

@@ -18,18 +18,18 @@ void ThreadUtil::Delete(HANDLE& HandleValue) {
 	CloseHandle(HandleValue);
 }
 
-void ThreadUtil::InitSection(LPCRITICAL_SECTION& Section) {
-	InitializeCriticalSection(Section);
+void ThreadUtil::InitSection(CRITICAL_SECTION& Section) {
+	InitializeCriticalSection(&Section);
 }
 
-void ThreadUtil::DeleteSection(LPCRITICAL_SECTION& Section) {
-	DeleteCriticalSection(Section);
+void ThreadUtil::DeleteSection(CRITICAL_SECTION& Section) {
+	DeleteCriticalSection(&Section);
 }
 
-void ThreadUtil::Lock(LPCRITICAL_SECTION& Section) {
-	EnterCriticalSection(Section);
+void ThreadUtil::Lock(CRITICAL_SECTION& Section) {
+	EnterCriticalSection(&Section);
 }
 
-void ThreadUtil::Unlock(LPCRITICAL_SECTION& Section) {
-	LeaveCriticalSection(Section);
+void ThreadUtil::Unlock(CRITICAL_SECTION& Section) {
+	LeaveCriticalSection(&Section);
 }

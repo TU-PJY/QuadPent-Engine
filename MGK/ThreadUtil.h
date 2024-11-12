@@ -5,8 +5,8 @@ namespace ThreadUtil {
 	void New(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param=NULL);
 	bool IsRunning(HANDLE& HandleValue);
 	void Delete(HANDLE& HandleValue);
-	void InitSection(LPCRITICAL_SECTION& Section);
-	void DeleteSection(LPCRITICAL_SECTION& Section);
-	void Lock(LPCRITICAL_SECTION& Section);
-	void Unlock(LPCRITICAL_SECTION& Section);
+	void InitSection(CRITICAL_SECTION& Section);
+	void DeleteSection(CRITICAL_SECTION& Section);
+	void Lock(CRITICAL_SECTION& Section);
+	void Unlock(CRITICAL_SECTION& Section);
 }
