@@ -39,7 +39,7 @@ void Scene::Routine() {
 
 void Scene::Init(Function ModeFunction) {
 	ObjectCommandList.reserve(1000);
-	ThreadUtil::InitSection(Section);
+	ThreadUtil::InitSectionAndCount(Section, 4000);
 	ThreadUtil::New(UpdateThread, ObjectIndexUpdateThread, this);
 	ModeFunction();
 }
@@ -108,7 +108,7 @@ void Scene::ResetControlState(GameObject* Object) {
 void Scene::ResetControlState(std::string Tag) {
 	ThreadUtil::Lock(Section);
 	auto Object = ObjectIndex.find(Tag);
-	if (Object != end(ObjectIndex))
+	if (Object != end(ObjectIndex) && !Object->second->DeleteMark)
 		Object->second->ResetControlState();
 	ThreadUtil::Unlock(Section);
 }
@@ -116,7 +116,7 @@ void Scene::ResetControlState(std::string Tag) {
 void Scene::InputKey(std::string Tag, int State, unsigned char NormalKey, int SpecialKey) {
 	ThreadUtil::Lock(Section);
 	auto Object = ObjectIndex.find(Tag);
-	if (Object != end(ObjectIndex))
+	if (Object != end(ObjectIndex) && !Object->second->DeleteMark)
 		Object->second->InputKey(State, NormalKey, SpecialKey);
 	ThreadUtil::Unlock(Section);
 }
@@ -124,7 +124,7 @@ void Scene::InputKey(std::string Tag, int State, unsigned char NormalKey, int Sp
 void Scene::InputMouse(std::string Tag, int State) {
 	ThreadUtil::Lock(Section);
 	auto Object = ObjectIndex.find(Tag);
-	if (Object != end(ObjectIndex))
+	if (Object != end(ObjectIndex) && !Object->second->DeleteMark)
 		Object->second->InputMouse(State);
 	ThreadUtil::Unlock(Section);
 }
@@ -132,7 +132,7 @@ void Scene::InputMouse(std::string Tag, int State) {
 void Scene::InputScroll(std::string Tag, int State) {
 	ThreadUtil::Lock(Section);
 	auto Object = ObjectIndex.find(Tag);
-	if (Object != end(ObjectIndex))
+	if (Object != end(ObjectIndex) && !Object->second->DeleteMark)
 		Object->second->InputScroll(State);
 	ThreadUtil::Unlock(Section);
 }
@@ -270,7 +270,7 @@ DWORD WINAPI Scene::ObjectIndexUpdateThread(LPVOID Param) {
 	Scene* scene = static_cast<Scene*>(Param);
 
 	while (true) {
-		ThreadUtil::TryLock(scene->Section);
+		ThreadUtil::Lock(scene->Section);
 		for (auto Object = begin(scene->ObjectIndex); Object != end(scene->ObjectIndex); ) {
 			if (Object->second->DeleteMark) {
 				delete Object->second;
