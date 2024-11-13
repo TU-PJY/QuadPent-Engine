@@ -1,26 +1,25 @@
 #include "FileUtil.h"
 #include "Setting.h"
 
-void FileUtil::Import(std::string FolderName, std::string FileName, DataSet DSet) {
+void FileUtil::Import(std::string FileName, DataSet DSet) {
 	if (FileExist)
 		return;
 
-	std::string TempFileName = FileName;
+	std::string TempFileName = GetFileName(FileName);
+	std::string DataFileName = TempFileName;
 
 	if (!USE_FILE_SECURITY)
-		TempFileName += ".xml";
+		DataFileName += ".xml";
 
-	std::filesystem::path FolderPath = FolderName;
-	if (!std::filesystem::exists(FolderName)) {
+	std::filesystem::path FolderPath = GetFolderPath(FileName, TempFileName);
+	if (!std::filesystem::exists(FolderPath)) {
 		if (!std::filesystem::create_directory(FolderPath)) {
-			std::cout << "Falied to find folder" << std::endl;
+			std::cout << "Falied to create folder" << std::endl;
 			exit(EXIT_FAILURE);
 		}
 	}
 
-	FilePath = FolderPath / TempFileName;
-	FilePathStr = FilePath.string();
-
+	FilePathStr = DataFileName;
 	DataSetBuffer = DSet;
 
 	if (!LoadDataFile(FilePathStr)) {
@@ -30,7 +29,7 @@ void FileUtil::Import(std::string FolderName, std::string FileName, DataSet DSet
 
 	Root = FindRoot();
 	CheckDataVersion();
-	std::cout << "File Util Opened file: " << FilePathStr << std::endl;
+	std::cout << "File util opened file: " << FilePathStr << std::endl;
 	FileExist = true;
 }
 
@@ -278,4 +277,20 @@ std::string FileUtil::Decrypt(const std::string& CipherText, const byte Key[], c
 	}
 
 	return PlainText;
+}
+
+std::string FileUtil::GetFileName(const std::string& FileDirectory) {
+	std::string MainString = FileDirectory;
+	size_t Pos = MainString.rfind("//");
+
+	return (Pos != std::string::npos) ? MainString.substr(Pos + 2) : MainString;
+}
+
+std::string FileUtil::GetFolderPath(const std::string& String, const std::string& RemoveString) {
+	std::string MainString = String;
+	size_t Pos{};
+	while ((Pos = MainString.find(RemoveString)) != std::string::npos)
+		MainString.erase(Pos, RemoveString.length());
+	
+	return MainString;
 }

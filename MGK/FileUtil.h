@@ -8,7 +8,7 @@
 #include "cryptopp/osrng.h"
 #include "cryptopp/hex.h"
 #include "EngineHeader.h"
-#include "GameData.h"
+#include "GameFile.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -33,7 +33,7 @@ private:
 	bool FileExist{};
 
 public:
-	void Import(std::string FolderName, std::string FileName, DataSet DSet);
+	void Import(std::string FileName, DataSet DSet);
 	void UpdateDigitData(std::string CategoryName, std::string DataName, float Value);
 	void UpdateStringData(std::string CategoryName, std::string DataName, std::string Value);
 	float LoadDigitData(std::string CategoryName, std::string DataName);
@@ -61,4 +61,6 @@ private:
 	void UpdateDataFile();
 	std::string Encrypt(const std::string& PlainText, const byte Key[], const byte IV[]);
 	std::string Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]);
+	std::string GetFileName(const std::string& FileDirectory);
+	std::string FileUtil::GetFolderPath(const std::string& String, const std::string& RemoveString);
 };

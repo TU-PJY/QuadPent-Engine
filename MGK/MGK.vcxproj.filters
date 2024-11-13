@@ -10,9 +10,6 @@
     <Filter Include="[1]___________[ Resources ]\[ Game Resource ]">
       <UniqueIdentifier>{471a1c4e-f93c-409b-b71c-df69808118a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[1]___________[ Resources ]\[ Game Data ]">
-      <UniqueIdentifier>{5cc44f36-1978-4df0-84ee-7042daee1b18}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[2]___________[ GameMode ]">
       <UniqueIdentifier>{824d0f24-8e5b-4c58-99e5-e019f51ea99a}</UniqueIdentifier>
     </Filter>
@@ -42,9 +39,6 @@
     </Filter>
     <Filter Include="[6]___________[ Template ]">
       <UniqueIdentifier>{a0f3d2c9-d45e-42c5-ac1f-c1a53d8811ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[1]___________[ Resources ]\[ Game Data ]\Link">
-      <UniqueIdentifier>{3e32a507-7a8b-4c31-8fd6-287164654376}</UniqueIdentifier>
     </Filter>
     <Filter Include="[5]___________[ MGK ]">
       <UniqueIdentifier>{7f6a4887-d06e-4c65-963d-2b7d61cea12c}</UniqueIdentifier>
@@ -163,6 +157,9 @@
     <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Math Util ]">
       <UniqueIdentifier>{4a85a4fd-aaad-4cd4-9601-add0201898fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[1]___________[ Resources ]\[ Game File ]">
+      <UniqueIdentifier>{5cc44f36-1978-4df0-84ee-7042daee1b18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMode1.cpp">
@@ -252,8 +249,8 @@
     <ClCompile Include="GameResource.cpp">
       <Filter>[1]___________[ Resources ]\[ Game Resource ]</Filter>
     </ClCompile>
-    <ClCompile Include="GameData.cpp">
-      <Filter>[1]___________[ Resources ]\[ Game Data ]</Filter>
+    <ClCompile Include="GameFile.cpp">
+      <Filter>[1]___________[ Resources ]\[ Game File ]</Filter>
     </ClCompile>
     <ClCompile Include="ScriptUtil.cpp">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Script Util ]</Filter>
@@ -365,8 +362,8 @@
     <ClInclude Include="GameResource.h">
       <Filter>[1]___________[ Resources ]\[ Game Resource ]</Filter>
     </ClInclude>
-    <ClInclude Include="GameData.h">
-      <Filter>[1]___________[ Resources ]\[ Game Data ]</Filter>
+    <ClInclude Include="GameFile.h">
+      <Filter>[1]___________[ Resources ]\[ Game File ]</Filter>
     </ClInclude>
     <ClInclude Include="ScriptUtil.h">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Script Util ]</Filter>
@@ -391,18 +388,6 @@
     </ClInclude>
     <ClInclude Include="ThreadUtil.h">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Thread Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="SystemFileLink.h">
-      <Filter>[5]___________[ MGK ]\[ System ]\[ System Resource ]</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceFileLink.h">
-      <Filter>[1]___________[ Resources ]\[ Game Resource ]</Filter>
-    </ClInclude>
-    <ClInclude Include="ScriptFileLink.h">
-      <Filter>[1]___________[ Resources ]\[ Game Data ]\Link</Filter>
-    </ClInclude>
-    <ClInclude Include="DataFileLink.h">
-      <Filter>[1]___________[ Resources ]\[ Game Data ]\Link</Filter>
     </ClInclude>
     <ClInclude Include="CircleBrush.h">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
