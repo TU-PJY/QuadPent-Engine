@@ -4,8 +4,34 @@
 
 // You can get the mode file template from ModeTemplate.txt
 
+class object : public GameObject {
+public:
+	TextUtil text;
+	TimerUtil timer;
+	int num{};
+
+	object() {
+		text.Init(L"ProFontWindows", FW_BOLD);
+		text.SetAlign(ALIGN_MIDDLE);
+		text.SetColor(0.0, 0.0, 0.0);
+	}
+
+	void UpdateFunc(float FT) {
+		timer.Update(FT);
+		if (timer.Sec() >= 1) {
+			num++;
+			timer.Reset();
+		}
+	}
+
+	void RenderFunc() {
+		text.Render(0.0, 0.0, 0.1, 1.0, L"Hello World! %d", num);
+	}
+};
+
 void GameMode1::Start() {
 	Framework::SetBackColor(0.5, 0.5, 0.5);
+	scene.AddObject(new object, "object", LAYER_1);
 
 	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
 	scene.RegisterDestructor(Destructor);

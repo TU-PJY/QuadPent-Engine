@@ -1,5 +1,6 @@
 #include "TextUtil.h"
 #include "CameraUtil.h"
+#include "TransformUtil.h"
 
 void TextUtil::Init(const wchar_t* FontName, int Type, int Italic) {
 	hDC = wglGetCurrentDC();
@@ -27,87 +28,61 @@ void TextUtil::SetAlign(int AlignOpt) {
 	TextAlign = AlignOpt;
 }
 
-void TextUtil::Rotate(GLfloat Radians) {
-	Rotation = Radians;
-}
-
-void TextUtil::SetLineSpace(GLfloat Value) {
-	NewLineSpace = Value;
-}
-
-void TextUtil::LineNumber(int LineNum) {
-	CurrentHeight -= GLfloat(1 - LineNum) * NewLineSpace;
-}
-
-void TextUtil::ResetLineSpace() {
-	NewLineSpace = 0.0;
-}
-
-void TextUtil::ResetLine() {
-	CurrentHeight = 0.0;
+void TextUtil::Rotate(GLfloat RotationValue) {
+	Rotation = RotationValue;
 }
 
 void TextUtil::SetRenderType(int Type) {
 	RenderType = Type;
 }
 
-void TextUtil::EnableAutoLine() {
-	AutoNewLine = true;
-}
-
-void TextUtil::DisableAutoLine() {
-	AutoNewLine = false;
-}
-
-void TextUtil::SetAutoLineWordSpace(int Value) {
-	WordNumForNewLine = Value;
-}
-
 void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
 	wchar_t Text[256]{};
-
 	va_list Args{};
 
 	va_start(Args, Format);
 	vswprintf(Text, sizeof(Text)/ sizeof(wchar_t), Format, Args);
 	va_end(Args);
 
-	if (Format == NULL)
+	if (Format == NULL)  
 		return;
 
 	unsigned char CharIndex{};
-	GLfloat CurrentPositionX = 0.0f;
-	GLfloat Length{};
+
+	TextWordCount = wcslen(Text);
+	ProcessGlyphCache(Text);
 
 	if (TextAlign != ALIGN_DEFAULT)
-		GetLength(Length, CharIndex, Text, Size);
+		TextLength = GetLength(CharIndex, Text);
 
-	for (int i = 0; i < wcslen(Text); ++i) {
-		InitMatrix();
-		RotateMatrix = rotate(RotateMatrix, glm::radians(Rotation), glm::vec3(0.0, 0.0, 1.0));
-		ScaleMatrix = scale(ScaleMatrix, glm::vec3(Size, Size, 0.0));
+	Offset = 0.0;
+	RenderPosition = glm::vec2(X, Y);
+	TextRenderSize = Size;
+	Transparency = TransparencyValue;
+
+	Transform::Identity(RotateMatrix);
+	Transform::Identity(ScaleMatrix);
+	Transform::Rotate(RotateMatrix, Rotation);
+	Transform::Scale(ScaleMatrix, TextRenderSize, TextRenderSize);
+
+	for (int i = 0; i < TextWordCount; ++i) {
+		Transform::Identity(TranslateMatrix);
 
 		switch (TextAlign) {
 		case ALIGN_DEFAULT:
-			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X + CurrentPositionX, Y + CurrentHeight, 0.0));
+			Transform::Move(TranslateMatrix, RenderPosition.x + Offset, RenderPosition.y);
 			break;
+
 		case ALIGN_MIDDLE:
-			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length / 2 + CurrentPositionX, Y + CurrentHeight, 0.0));
+			Transform::Move(TranslateMatrix, RenderPosition.x - (TextLength / 2.0) + Offset, RenderPosition.y);
 			break;
+
 		case ALIGN_LEFT:
-			TranslateMatrix = translate(TranslateMatrix, glm::vec3(X - Length + CurrentPositionX, Y + CurrentHeight, 0.0));
+			Transform::Move(TranslateMatrix, RenderPosition.x - TextLength + Offset, RenderPosition.y);
 			break;
 		}
-
-		Transparency = TransparencyValue;
-
 		camera.SetCamera(RenderType);
 		PrepareRender();
-
-		for (const auto& ch : Text) {
-			if (!CheckGlyphCache(ch))
-				LoadGlyph(ch);
-		}
 
 		glPushAttrib(GL_LIST_BIT);
 		glListBase(FontBase);
@@ -117,37 +92,21 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyVa
 
 		unsigned int CharIndex = Text[i];
 		if (CharIndex < 65536)
-			CurrentPositionX += TextGlyph[CharIndex].gmfCellIncX * (Size / 1.0f);
-
-		if (AutoNewLine) {
-			++CurrentWordNum;
-			if (CurrentWordNum == WordNumForNewLine) {
-				CurrentWordNum = 0;
-				CurrentHeight += NewLineSpace;
-			}
-		}
+			Offset += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
 	}
-
-	if (AutoNewLine)
-		CurrentHeight = 0.0;
 }
-
 
 
 ////////////////// private
-void TextUtil::GetLength(GLfloat& Length, unsigned Index, const wchar_t* Text, GLfloat Size) {
-	Length = 0.0f;
+GLfloat TextUtil::GetLength(unsigned Index, const wchar_t* Text) {
+	GLfloat Length{};
 	for (int i = 0; i < wcslen(Text); ++i) {
 		unsigned int CharIndex = Text[i];
 		if (CharIndex < 65536)
-			Length += TextGlyph[CharIndex].gmfCellIncX * (Size / 1.0f);
+			Length += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
 	}
-}
 
-void TextUtil::InitMatrix() {
-	TranslateMatrix = glm::mat4(1.0f);
-	RotateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
+	return Length;
 }
 
 void TextUtil::PrepareRender() {
@@ -159,11 +118,18 @@ void TextUtil::PrepareRender() {
 	glUniformMatrix4fv(TextModelLocation, 1, GL_FALSE, value_ptr(RotateMatrix * TranslateMatrix * ScaleMatrix));
 }
 
-bool TextUtil::CheckGlyphCache(wchar_t Char) {
+void TextUtil::ProcessGlyphCache(wchar_t* Text) {
+	for (int i = 0; i < TextWordCount; ++i) {
+		if (!CheckGlyphCache(Text[i]))
+			LoadGlyph(Text[i]);
+	}
+}
+
+bool TextUtil::CheckGlyphCache(wchar_t& Char) {
 	return GlyphCache.find(Char) != GlyphCache.end() && GlyphCache[Char];
 }
 
-void TextUtil::LoadGlyph(wchar_t Char) {
+void TextUtil::LoadGlyph(wchar_t& Char) {
 	if (Char >= 65536)
 		return;
 

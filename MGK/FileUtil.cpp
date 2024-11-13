@@ -1,13 +1,13 @@
 #include "FileUtil.h"
 #include "Setting.h"
 
-void FileUtil::Import(std::string FileDirectory, DataSet DSet) {
+void FileUtil::Import(std::string FileDirectory, DataFormat Format) {
 	if (FileExist)
 		return;
 
 	std::string FolderPath = GetFolderPath(FileDirectory, GetFileName(FileDirectory));
 	FilePath = FileDirectory;
-	DataSetBuffer = DSet;
+	DataFormatInfo = Format;
 
 	if (!USE_FILE_SECURITY)
 		FilePath += ".xml";
@@ -65,7 +65,7 @@ void FileUtil::SetupData() {
 
 	Root = FindRoot();
 
-	for (auto const& D : DataSetBuffer) {
+	for (auto const& D : DataFormatInfo) {
 		if(!FindCategory(D.CategoryName))
 			AddCategory(D.CategoryName);
 

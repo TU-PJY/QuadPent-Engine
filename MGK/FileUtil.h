@@ -27,12 +27,12 @@ private:
 	TiXmlDocument Doc{};
 	TiXmlElement* Root{};
 	
-	DataSet DataSetBuffer{};
+	DataFormat DataFormatInfo{};
 
 	bool FileExist{};
 
 public:
-	void Import(std::string FileName, DataSet DSet);
+	void Import(std::string FileName, DataFormat Format);
 	void UpdateDigitData(std::string CategoryName, std::string DataName, float Value);
 	void UpdateStringData(std::string CategoryName, std::string DataName, std::string Value);
 	float LoadDigitData(std::string CategoryName, std::string DataName);

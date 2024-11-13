@@ -117,7 +117,7 @@ struct FileData {
 	float DigitValue;
 	std::string StringValue;
 };
-using DataSet = std::vector<FileData>;
+using DataFormat = std::vector<FileData>;
 
 // image struct
 typedef struct {
