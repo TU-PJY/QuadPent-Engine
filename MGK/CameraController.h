@@ -12,9 +12,6 @@ public:
 	// Update camera variables.
 	void Update(float FT);
 
-	// Initialize the camera position matrix and rotation matrix.
-	void InitMatrix();
-
 	// Apply the updated values ​​to the camera matrix.
 	void CalcMatrix();
 

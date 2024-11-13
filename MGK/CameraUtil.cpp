@@ -1,4 +1,5 @@
 #include "CameraUtil.h"
+#include "TransformUtil.h"
 
 void Camera::CalculateASPECT() {
 	ASPECT = (float)WIDTH / (float)HEIGHT;
@@ -14,10 +15,10 @@ void Camera::CalculateASPECT() {
 void Camera::Init() {
 	CalculateASPECT();
 
-	ViewMatrix = glm::mat4(1.0f);
-	Projection = glm::mat4(1.0f);
-	TranslateMatrix = glm::mat4(1.0f);
-	RotateMatrix = glm::mat4(1.0f);
+	Transform::Identity(ViewMatrix);
+	Transform::Identity(Projection);
+	Transform::Identity(TranslateMatrix);
+	Transform::Identity(RotateMatrix);
 
 	SetCamera(RENDER_TYPE_DEFAULT);
 }
@@ -44,8 +45,8 @@ void Camera::SetCamera(int RenderType) {
 }
 
 void Camera::PrepareRender(int ShaderType) {
-	ViewMatrix = glm::mat4(1.0f);
-	Projection = glm::mat4(1.0f);
+	Transform::Identity(ViewMatrix);
+	Transform::Identity(Projection);
 
 	switch (StaticMode) {
 	case false:

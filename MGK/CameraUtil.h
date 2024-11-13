@@ -7,7 +7,7 @@ private:
 	bool StaticMode{};
 	
 public:
-	glm::mat4 ViewMatrix{}, Projection{}, TranslateMatrix{}, RotateMatrix{};
+	glm::mat4 ViewMatrix{ 1.0 }, Projection{ 1.0 }, TranslateMatrix{ 1.0 }, RotateMatrix{ 1.0 };
 	GLfloat ZoomValue{ 1.0f };
 
 	void CalculateASPECT();

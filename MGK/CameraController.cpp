@@ -8,13 +8,9 @@ void CameraController::Update(float FT) {
 	CalcMatrix();
 }
 
-void CameraController::InitMatrix() {
-	camera.TranslateMatrix = glm::mat4(1.0f);
-	camera.RotateMatrix = glm::mat4(1.0f);
-}
-
 void CameraController::CalcMatrix() {
-	InitMatrix();
+	Transform::Identity(camera.TranslateMatrix);
+	Transform::Identity(camera.RotateMatrix);
 	Transform::Move(camera.TranslateMatrix, Position.x, Position.y);
 	Transform::Rotate(camera.RotateMatrix, Rotation);
 }

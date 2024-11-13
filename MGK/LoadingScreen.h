@@ -34,6 +34,7 @@ class LoadingScreen : public GameObject {
 private:
 	HANDLE ThreadHandle{};
 	GLfloat Rotation{};
+	GLfloat Transparent{1.0};
 	bool LoadCommand{};
 
 public:
@@ -55,13 +56,18 @@ public:
 				ThreadUtil::Delete(ThreadHandle);
 				imageUtil.FinishLoad();
 
-				if (!ENABLE_INTRO_SCREEN) {
-					soundUtil.Release(IntroSound);
-					scene.SwitchMode(START_MODE);
-				}
+				Transparent -= FT * 2.0;
+				EX::ClampValue(Transparent, 0.0, CLAMP_LESS);
 
-				else
-					scene.SwitchMode(IntroMode::Start);
+				if (Transparent == 0.0) {
+					if (!ENABLE_INTRO_SCREEN) {
+						soundUtil.Release(IntroSound);
+						scene.SwitchMode(START_MODE);
+					}
+
+					else
+						scene.SwitchMode(IntroMode::Start);
+				}
 			}
 		}
 
@@ -79,8 +85,10 @@ public:
 
 	void RenderFunc() {
 		InitRenderState(RENDER_TYPE_STATIC);
+		Transform::Move(TranslateMatrix, ASP(1.0) - 0.15, -1.0 + 0.15);
+		Transform::Scale(ScaleMatrix, 0.25, 0.25);
 		Transform::Rotate(RotateMatrix, Rotation);
-		Render(ImageSpinner);
+		Render(ImageSpinner, Transparent);
 	}
 };
 
