@@ -156,7 +156,7 @@ public:
 	// Obtains an OOBB object from a specific object class.
 	virtual OOBB GetOOBB() { return{}; }
 
-	// Obtains an BoundingSphere object from a specific object class.
+	// Obtains an BoundingCircle object from a specific object class.
 	virtual BoundingCircle GetBoundingCircle() { return {}; }
 
 private:

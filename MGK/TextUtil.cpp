@@ -10,6 +10,8 @@ void TextUtil::Init(const wchar_t* FontName, int Type, int Italic) {
 		-1, 0, 0, 0, Type, Italic, FALSE, FALSE, DEFAULT_CHARSET, OUT_RASTER_PRECIS, CLIP_DEFAULT_PRECIS,
 		NONANTIALIASED_QUALITY, FF_DONTCARE | DEFAULT_PITCH, FontName
 	);
+
+	LineLength.reserve(20);
 }
 
 void TextUtil::SetColor(GLfloat R, GLfloat G, GLfloat B) {
@@ -26,6 +28,14 @@ void TextUtil::SetColorRGB(int R, int G, int B) {
 
 void TextUtil::SetAlign(int AlignOpt) {
 	TextAlign = AlignOpt;
+}
+
+void TextUtil::SetLineSpace(GLfloat Value) {
+	TextLineSpace = Value;
+}
+
+void TextUtil::SetClampMiddle(bool Flag) {
+	ClampMiddle = Flag;
 }
 
 void TextUtil::Rotate(GLfloat RotationValue) {
@@ -47,15 +57,10 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyVa
 	if (Format == NULL)  
 		return;
 
-	unsigned char CharIndex{};
-
 	TextWordCount = wcslen(Text);
 	ProcessGlyphCache(Text);
+	CalculateTextLength(Text);
 
-	if (TextAlign != ALIGN_DEFAULT)
-		TextLength = GetLength(CharIndex, Text);
-
-	Offset = 0.0;
 	RenderPosition = glm::vec2(X, Y);
 	TextRenderSize = Size;
 	Transparency = TransparencyValue;
@@ -66,39 +71,29 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyVa
 	Transform::Scale(ScaleMatrix, TextRenderSize, TextRenderSize);
 
 	for (int i = 0; i < TextWordCount; ++i) {
-		Transform::Identity(TranslateMatrix);
-
-		switch (TextAlign) {
-		case ALIGN_DEFAULT:
-			Transform::Move(TranslateMatrix, RenderPosition.x + Offset, RenderPosition.y);
-			break;
-
-		case ALIGN_MIDDLE:
-			Transform::Move(TranslateMatrix, RenderPosition.x - (TextLength / 2.0) + Offset, RenderPosition.y);
-			break;
-
-		case ALIGN_LEFT:
-			Transform::Move(TranslateMatrix, RenderPosition.x - TextLength + Offset, RenderPosition.y);
-			break;
+		if (Text[i] == L'\n') {
+			SetNewLine();
+			continue;
 		}
+
+		TransformText();
 		camera.SetCamera(RenderType);
 		PrepareRender();
 
 		glPushAttrib(GL_LIST_BIT);
 		glListBase(FontBase);
-
 		glCallLists(1, GL_UNSIGNED_SHORT, &Text[i]);
 		glPopAttrib();
 
 		unsigned int CharIndex = Text[i];
 		if (CharIndex < 65536)
-			Offset += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
+			RenderPosition.x += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
 	}
 }
 
 
 ////////////////// private
-GLfloat TextUtil::GetLength(unsigned Index, const wchar_t* Text) {
+GLfloat TextUtil::GetLength(const wchar_t* Text) {
 	GLfloat Length{};
 	for (int i = 0; i < wcslen(Text); ++i) {
 		unsigned int CharIndex = Text[i];
@@ -107,6 +102,77 @@ GLfloat TextUtil::GetLength(unsigned Index, const wchar_t* Text) {
 	}
 
 	return Length;
+}
+
+void TextUtil::GetLineLength(const wchar_t* Text) {
+	LineLength.clear();
+	GLfloat CurrentLineLength{};
+
+	for (int i = 0; i < wcslen(Text); ++i) {
+		if (Text[i] == L'\n') {
+			LineLength.emplace_back(CurrentLineLength);
+			CurrentLineLength = 0.0f; 
+			continue;
+		}
+
+		unsigned int CharIndex = Text[i];
+		if (CharIndex < 65536) 
+			CurrentLineLength += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
+	}
+
+	if (CurrentLineLength > 0.0f)
+		LineLength.emplace_back(CurrentLineLength);
+}
+
+void TextUtil::CalculateTextLength(const wchar_t* Text) {
+	switch (TextAlign) {
+	case ALIGN_MIDDLE: case ALIGN_LEFT:
+		GetLineLength(Text);
+		TextLength = LineLength[0];
+
+		MiddleHeight = 0.0;
+		if (ClampMiddle) {
+			size_t LineNum = LineLength.size();
+			for (int i = 0; i < LineNum; ++i)
+				MiddleHeight += TextLineSpace;
+			MiddleHeight /= 2.0;
+		}
+		break;
+
+	case ALIGN_DEFAULT:
+		TextLength = GetLength(Text);
+		break;
+	}
+
+	CurrentLine = 0;
+}
+
+void TextUtil::SetNewLine() {
+	RenderPosition.y -= TextLineSpace;
+	RenderPosition.x = 0.0;
+
+	if (TextAlign != ALIGN_DEFAULT) {
+		++CurrentLine;
+		TextLength = LineLength[CurrentLine];
+	}
+}
+
+void TextUtil::TransformText() {
+	Transform::Identity(TranslateMatrix);
+
+	switch (TextAlign) {
+	case ALIGN_DEFAULT:
+		Transform::Move(TranslateMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
+		break;
+
+	case ALIGN_MIDDLE:
+		Transform::Move(TranslateMatrix, RenderPosition.x - (TextLength / 2.0), RenderPosition.y + MiddleHeight);
+		break;
+
+	case ALIGN_LEFT:
+		Transform::Move(TranslateMatrix, RenderPosition.x - TextLength, RenderPosition.y + MiddleHeight);
+		break;
+	}
 }
 
 void TextUtil::PrepareRender() {

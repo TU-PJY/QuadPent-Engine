@@ -16,12 +16,17 @@ private:
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
 
 	glm::vec2 RenderPosition{};
-	GLfloat Offset{};
 	GLfloat Rotation{};
 
 	size_t TextWordCount{};
 	GLfloat TextLength{};
 	GLfloat TextRenderSize{};
+	GLfloat TextLineSpace{};
+	GLfloat MiddleHeight{};
+
+	std::vector<GLfloat> LineLength{};
+	wchar_t* PrevText{};
+	int CurrentLine{};
 
 	GLfloat Transparency{ 1.0f };
 
@@ -35,6 +40,7 @@ private:
 
 	int TextAlign{ ALIGN_DEFAULT };
 	int RenderType{ RENDER_TYPE_STATIC };
+	bool ClampMiddle{};
 
 
 public:
@@ -43,12 +49,18 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
 	void SetAlign(int AlignOpt);
+	void SetLineSpace(GLfloat Value);
+	void SetClampMiddle(bool Flag);
 	void Rotate(GLfloat RotationValue);
 	void SetRenderType(int Type);
 	void Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);
 
 private:
-	GLfloat GetLength(unsigned Index, const wchar_t* Text);
+	GLfloat GetLength(const wchar_t* Text);
+	void GetLineLength(const wchar_t* Text);
+	void CalculateTextLength(const wchar_t* Text);
+	void SetNewLine();
+	void TransformText();
 	void PrepareRender();
 	void ProcessGlyphCache(wchar_t* Text);
 	bool CheckGlyphCache(wchar_t& Char);
