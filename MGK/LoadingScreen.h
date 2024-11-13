@@ -56,16 +56,15 @@ public:
 				ThreadUtil::Delete(ThreadHandle);
 				imageUtil.FinishLoad();
 
-				Transparent -= FT * 2.0;
-				EX::ClampValue(Transparent, 0.0, CLAMP_LESS);
+				if (!ENABLE_INTRO_SCREEN) {
+					soundUtil.Release(IntroSound);
+					scene.SwitchMode(START_MODE);
+				}
 
-				if (Transparent == 0.0) {
-					if (!ENABLE_INTRO_SCREEN) {
-						soundUtil.Release(IntroSound);
-						scene.SwitchMode(START_MODE);
-					}
-
-					else
+				else {
+					Transparent -= FT * 2.0;
+					EX::ClampValue(Transparent, 0.0, CLAMP_LESS);
+					if(Transparent == 0.0)
 						scene.SwitchMode(IntroMode::Start);
 				}
 			}
