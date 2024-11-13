@@ -39,8 +39,8 @@ constexpr bool SHOW_CONSOLE = true;
 enum Layer
 { LAYER_1, LAYER_2, LAYER_3, END };
 
-// scene container reserve option
-constexpr int OBJECT_LIST_RESERVE = 500;
+// scene object command list buffer size option
+constexpr int OBJECT_COMMAND_LIST_BUFFER_SIZE = 1000;
 
 
 

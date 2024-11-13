@@ -34,12 +34,12 @@ enum CommandType {
 	COMMAND_OBJECT_SWAP
 };
 
-typedef struct {
+struct ObjectCommand {
 	int CommandType;
 	int ObjectLayer;
-	int TargetLayer;
 	int ReferPosition;
-}ObjectCommand;
+	int TargetLayer;
+};
 
 
 class Scene {
@@ -62,9 +62,6 @@ private:
 
 	bool UpdateActivateCommand{ true };
 	bool CommandExist{};
-
-	HANDLE UpdateThread{};
-	CRITICAL_SECTION Section{};
 
 public:
 	// Returns the name of the currently running mode.
@@ -154,7 +151,6 @@ public:
 
 private:
 	void SubmitCommand(int CommandType, int ObjectLayer, int ReferPosition, int TargetLayer=0);
-	static DWORD WINAPI ObjectIndexUpdateThread(LPVOID Param);
 	void ClearFloatingObject();
 	void ClearAll();
 };
