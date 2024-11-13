@@ -35,8 +35,8 @@ void LineRectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLf
 }
 
 void LineRectBrush::DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat OffsetY, GLfloat Width, GLfloat Height, GLfloat RotationValue) {
-	TranslateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
+	Transform::Identity(TranslateMatrix);
+	Transform::Identity(ScaleMatrix);
 
 	Transform::Move(TranslateMatrix, X, Y);
 	Transform::Rotate(TranslateMatrix, RotationValue);
@@ -83,8 +83,8 @@ void RectBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void RectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat RotationValue, GLfloat Transparency) {
-	TranslateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
+	Transform::Identity(TranslateMatrix);
+	Transform::Identity(ScaleMatrix);
 	TransparencyValue = Transparency;
 
 	Transform::Move(TranslateMatrix, X, Y);

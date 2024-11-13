@@ -73,7 +73,7 @@ void LineCircleBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void LineCircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Width, GLfloat Transparency) {
-	TranslateMatrix = glm::mat4(1.0f);
+	Transform::Identity(TranslateMatrix);
 	TransparencyValue = 1.0f;
 
 	Transform::Move(TranslateMatrix, X, Y);

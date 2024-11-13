@@ -40,7 +40,7 @@ private:
 
 	int TextAlign{ ALIGN_DEFAULT };
 	int RenderType{ RENDER_TYPE_STATIC };
-	bool ClampMiddle{};
+	bool ClampMiddleCommand{};
 
 
 public:

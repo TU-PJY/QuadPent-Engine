@@ -4,11 +4,11 @@
 #include <cmath>
 
 void GameObject::InitRenderState(int RenderType) {
-	TranslateMatrix = glm::mat4(1.0f);
-	RotateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
-	ImageAspectMatrix = glm::mat4(1.0f);
-	FlipMatrix = glm::mat4(1.0f);
+	Transform::Identity(TranslateMatrix);
+	Transform::Identity(RotateMatrix);
+	Transform::Identity(ScaleMatrix);
+	Transform::Identity(ImageAspectMatrix);
+	Transform::Identity(FlipMatrix);
 
 	TransparencyValue = 1.0f;
 	BlurValue = 0.0;

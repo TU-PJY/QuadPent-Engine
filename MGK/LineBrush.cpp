@@ -23,8 +23,8 @@ void LineBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width, GLfloat Transparency) {
-	TranslateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
+	Transform::Identity(TranslateMatrix);
+	Transform::Identity(ScaleMatrix);
 	TransparencyValue = Transparency;
 
 	Length = Math::CalcDistance(X1, Y1, X2, Y2);
@@ -39,8 +39,8 @@ void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Wid
 }
 
 void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfloat Transparency) {
-	TranslateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
+	Transform::Identity(TranslateMatrix);
+	Transform::Identity(ScaleMatrix);
 	TransparencyValue = Transparency;
 
 	Transform::Move(TranslateMatrix, (X1 + X2) / 2.0, Y);
@@ -50,8 +50,8 @@ void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfl
 }
 
 void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfloat Transparency) {
-	TranslateMatrix = glm::mat4(1.0f);
-	ScaleMatrix = glm::mat4(1.0f);
+	Transform::Identity(TranslateMatrix);
+	Transform::Identity(ScaleMatrix);
 	TransparencyValue = Transparency;
 
 	Transform::Move(TranslateMatrix, X, (Y1 + Y2) / 2.0);

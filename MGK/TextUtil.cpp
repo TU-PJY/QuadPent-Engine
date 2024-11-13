@@ -35,7 +35,7 @@ void TextUtil::SetLineSpace(GLfloat Value) {
 }
 
 void TextUtil::SetClampMiddle(bool Flag) {
-	ClampMiddle = Flag;
+	ClampMiddleCommand = Flag;
 }
 
 void TextUtil::Rotate(GLfloat RotationValue) {
@@ -131,7 +131,7 @@ void TextUtil::CalculateTextLength(const wchar_t* Text) {
 		TextLength = LineLength[0];
 
 		MiddleHeight = 0.0;
-		if (ClampMiddle) {
+		if (ClampMiddleCommand) {
 			size_t LineNum = LineLength.size();
 			for (int i = 0; i < LineNum; ++i)
 				MiddleHeight += TextLineSpace;
