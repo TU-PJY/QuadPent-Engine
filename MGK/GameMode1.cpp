@@ -10,6 +10,7 @@ void GameMode1::Start() {
 	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
 	scene.RegisterDestructor(Destructor);
 	scene.RegisterModeName("GameMode1");
+
 }
 
 void GameMode1::Destructor() {

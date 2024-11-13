@@ -111,9 +111,9 @@ enum ImageFlipEnum {
 
 // data set struct
 struct FileData {
+	int DataType;
 	std::string CategoryName;
 	std::string DataName;
-	int DataType;
 	float DigitValue;
 	std::string StringValue;
 };

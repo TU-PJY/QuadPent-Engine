@@ -1,35 +1,28 @@
 #include "FileUtil.h"
 #include "Setting.h"
 
-void FileUtil::Import(std::string FileName, DataSet DSet) {
+void FileUtil::Import(std::string FileDirectory, DataSet DSet) {
 	if (FileExist)
 		return;
 
-	std::string TempFileName = GetFileName(FileName);
-	std::string DataFileName = TempFileName;
-
-	if (!USE_FILE_SECURITY)
-		DataFileName += ".xml";
-
-	std::filesystem::path FolderPath = GetFolderPath(FileName, TempFileName);
-	if (!std::filesystem::exists(FolderPath)) {
-		if (!std::filesystem::create_directory(FolderPath)) {
-			std::cout << "Falied to create folder" << std::endl;
-			exit(EXIT_FAILURE);
-		}
-	}
-
-	FilePathStr = DataFileName;
+	std::string FolderPath = GetFolderPath(FileDirectory, GetFileName(FileDirectory));
+	FilePath = FileDirectory;
 	DataSetBuffer = DSet;
 
-	if (!LoadDataFile(FilePathStr)) {
+	if (!USE_FILE_SECURITY)
+		FilePath += ".xml";
+
+	if (!std::filesystem::exists(FolderPath))
+		std::filesystem::create_directories(FolderPath);
+
+	if (!LoadDataFile(FilePath)) {
 		SetupData();
 		return;
 	}
 
 	Root = FindRoot();
 	CheckDataVersion();
-	std::cout << "File util opened file: " << FilePathStr << std::endl;
+	std::cout << "File util opened file: " << FilePath << std::endl;
 	FileExist = true;
 }
 
@@ -92,7 +85,7 @@ void FileUtil::SetupData() {
 	UpdateDataFile();
 
 	if (!FileExist) {
-		std::cout << "Created new data file: " << FilePathStr << std::endl;
+		std::cout << "Created new data file: " << FilePath << std::endl;
 		FileExist = true;
 	}
 }
@@ -238,13 +231,13 @@ void FileUtil::UpdateDataFile() {
 		std::string XML_String = Printer.CStr();
 		std::string EncryptedXML = Encrypt(XML_String, AES_KEY, IV_KEY);
 
-		std::ofstream ExportFile(FilePathStr, std::ios::binary);
+		std::ofstream ExportFile(FilePath, std::ios::binary);
 		ExportFile.write(EncryptedXML.c_str(), EncryptedXML.size());
 		ExportFile.close();
 	}
 
 	else
-		Doc.SaveFile(FilePathStr.c_str());
+		Doc.SaveFile(FilePath.c_str());
 }
 
 std::string FileUtil::Encrypt(const std::string& PlainText, const byte Key[], const byte IV[]) {
@@ -286,11 +279,11 @@ std::string FileUtil::GetFileName(const std::string& FileDirectory) {
 	return (Pos != std::string::npos) ? MainString.substr(Pos + 2) : MainString;
 }
 
-std::string FileUtil::GetFolderPath(const std::string& String, const std::string& RemoveString) {
-	std::string MainString = String;
-	size_t Pos{};
-	while ((Pos = MainString.find(RemoveString)) != std::string::npos)
-		MainString.erase(Pos, RemoveString.length());
+std::string FileUtil::GetFolderPath(const std::string& FileDirectory, const std::string& RemoveString) {
+	std::string MainString = FileDirectory;
+	size_t Pos = MainString.rfind("//");
+	if (Pos != std::string::npos)
+		MainString = MainString.substr(0, Pos);
 	
 	return MainString;
 }

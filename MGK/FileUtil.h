@@ -23,8 +23,7 @@ using namespace CryptoPP;
 // write and read
 class FileUtil {
 private:
-	std::string FilePathStr{};
-	std::filesystem::path FilePath{};
+	std::string FilePath{};
 	TiXmlDocument Doc{};
 	TiXmlElement* Root{};
 	
@@ -62,5 +61,5 @@ private:
 	std::string Encrypt(const std::string& PlainText, const byte Key[], const byte IV[]);
 	std::string Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]);
 	std::string GetFileName(const std::string& FileDirectory);
-	std::string FileUtil::GetFolderPath(const std::string& String, const std::string& RemoveString);
+	std::string GetFolderPath(const std::string& FileDirectory, const std::string& RemoveString);
 };
