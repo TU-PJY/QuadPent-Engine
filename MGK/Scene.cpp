@@ -206,19 +206,23 @@ size_t Scene::LayerSize(int TargetLayer) {
 
 void Scene::ProcessCommandListQueue() {
 	if (CommandExist) {
+		std::array<int, Layers> Offset{};
+
 		for (auto& Command : ObjectCommandList) {
-			auto Object = begin(ObjectList[Command.ObjectLayer]) + Command.ReferPosition;
+			auto Object = begin(ObjectList[Command.ObjectLayer]) + Command.ReferPosition - Offset[Command.ObjectLayer];
 
 			switch (Command.CommandType) {
 			case COMMAND_OBJECT_DELETE:
 				(*Object)->DeleteMark = true;
 				ObjectList[Command.ObjectLayer].erase(Object);
+				++Offset[Command.ObjectLayer];
 				break;
 
 			case COMMAND_OBJECT_SWAP:
 				ObjectList[Command.TargetLayer].emplace_back((*Object));
 				(*Object)->ObjectLayer = Command.TargetLayer;
 				ObjectList[Command.ObjectLayer].erase(Object);
+				++Offset[Command.ObjectLayer];
 				break;
 			}
 		}
