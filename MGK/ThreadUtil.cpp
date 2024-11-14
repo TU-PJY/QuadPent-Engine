@@ -22,8 +22,8 @@ void ThreadUtil::InitSection(CRITICAL_SECTION& Section) {
 	InitializeCriticalSection(&Section);
 }
 
-void ThreadUtil::InitSectionAndCount(CRITICAL_SECTION& Section, int SpinCount) {
-	InitializeCriticalSectionAndSpinCount(&Section, SpinCount);
+bool ThreadUtil::InitSectionAndCount(CRITICAL_SECTION& Section, int SpinCount) {
+	return InitializeCriticalSectionAndSpinCount(&Section, SpinCount);
 }
 
 void ThreadUtil::DeleteSection(CRITICAL_SECTION& Section) {

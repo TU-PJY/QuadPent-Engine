@@ -6,7 +6,7 @@ namespace ThreadUtil {
 	bool IsRunning(HANDLE& HandleValue);
 	void Delete(HANDLE& HandleValue);
 	void InitSection(CRITICAL_SECTION& Section);
-	void InitSectionAndCount(CRITICAL_SECTION& Section, int SpinCount);
+	bool InitSectionAndCount(CRITICAL_SECTION& Section, int SpinCount);
 	void DeleteSection(CRITICAL_SECTION& Section);
 	void Lock(CRITICAL_SECTION& Section);
 	void TryLock(CRITICAL_SECTION& Section);

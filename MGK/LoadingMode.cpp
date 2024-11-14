@@ -5,7 +5,7 @@
 
 void LoadingMode::Start() {
 	Framework::SetBackColorRGB(31, 31, 31);
-	scene.AddObject(new LoadingScreen, "loading_screen", LAYER_1);
+	scene.AddObject(new LoadingScreen, "loading_screen", LAYER1);
 
 	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
 	scene.RegisterDestructor(Destructor);

@@ -34,7 +34,9 @@ public:
 
 	bool FloatingOpt{};
 	bool StaticOpt{};
-	bool DeleteMark{};
+
+	bool DeleteCommand{};
+	bool SwapCommand{};
 
 	// Initialize matrix. Select a rendering type.
 	void InitRenderState(int RenderType=RENDER_TYPE_DEFAULT);

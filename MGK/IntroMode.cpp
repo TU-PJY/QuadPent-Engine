@@ -4,7 +4,7 @@
 #include "IntroScreen.h"
 
 void IntroMode::Start() {
-	scene.AddObject(new IntroScreen, "intro_screen", LAYER_1);
+	scene.AddObject(new IntroScreen, "intro_screen", LAYER1);
 	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
 	scene.RegisterDestructor(Destructor);
 	scene.RegisterModeName("IntroMode");

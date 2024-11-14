@@ -37,10 +37,7 @@ constexpr bool SHOW_CONSOLE = true;
 // scene layer option
 // 'END' should be typed at last
 enum Layer
-{ LAYER_1, LAYER_2, LAYER_3, END };
-
-// scene object command list buffer size option
-constexpr int OBJECT_COMMAND_LIST_BUFFER_SIZE = 1000;
+{ LAYER1, LAYER2, LAYER3, END };
 
 
 

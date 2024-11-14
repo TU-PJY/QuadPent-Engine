@@ -29,16 +29,13 @@ void Scene::Routine() {
 			}
 
 			Object->RenderFunc();
-			
-			++CurrentReferPosition;
 		}
-
-		CurrentReferPosition = 0;
+		ProcessLayerCommand(i);
 	}
+	ProcessSceneCommand();
 }
 
 void Scene::Init(Function ModeFunction) {
-	ObjectCommandList.reserve(OBJECT_COMMAND_LIST_BUFFER_SIZE);
 	ModeFunction();
 }
 
@@ -152,29 +149,39 @@ void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Typ
 }
 
 void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
-	if (Object->ObjectLayer == TargetLayer)
+	if (Object->ObjectLayer == TargetLayer || Object->DeleteCommand)
 		return;
 
-	SubmitCommand(COMMAND_OBJECT_SWAP, Object->ObjectLayer, CurrentReferPosition, TargetLayer);
+	Object->SwapCommand = true;
+	AddCommandCount(Object->ObjectLayer);
+	Object->ObjectLayer = TargetLayer;
 }
 
 void Scene::DeleteObject(GameObject* Object) {
-	SubmitCommand(COMMAND_OBJECT_DELETE, Object->ObjectLayer, CurrentReferPosition);
+	if (Object->SwapCommand)
+		return;
+
+	Object->DeleteCommand = true;
+	AddCommandCount(Object->ObjectLayer);
 }
 
 void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
 		auto Object = ObjectIndex.find(Tag);
-		if (Object != end(ObjectIndex)) 
-			SubmitCommand(COMMAND_OBJECT_DELETE, Object->second->ObjectLayer, CurrentReferPosition);
+		if (Object != end(ObjectIndex) && !Object->second->SwapCommand) {
+			Object->second->DeleteCommand = true;
+			AddCommandCount(Object->second->ObjectLayer);
+		}
 	}
 
 	else if (DeleteRange == DELETE_RANGE_EQUAL) {
 		auto Range = ObjectIndex.equal_range(Tag);
 		if (Range.first != Range.second) {
 			for (auto Object = Range.first; Object != Range.second; ++Object) {
-				if (Object->first == Tag) 
-					SubmitCommand(COMMAND_OBJECT_DELETE, Object->second->ObjectLayer, CurrentReferPosition);
+				if (Object->first == Tag && !Object->second->SwapCommand) {
+					Object->second->DeleteCommand = true;
+					AddCommandCount(Object->second->ObjectLayer);
+				}
 			}
 		}
 	}
@@ -204,70 +211,75 @@ size_t Scene::LayerSize(int TargetLayer) {
 	return ObjectList[TargetLayer].size();
 }
 
-void Scene::ProcessCommandListQueue() {
-	if (CommandExist) {
-		for (auto& Command : ObjectCommandList) {
-			auto Object = begin(ObjectList[Command.ObjectLayer]) + Command.ReferPosition;
+//////// private ///////////////
+void Scene::AddCommandCount(int Layer) {
+	++LayerCommandCount[Layer];
+	++SceneCommandCount;
+}
 
-			switch (Command.CommandType) {
-			case COMMAND_OBJECT_DELETE:
-				(*Object)->DeleteMark = true;
-				ObjectList[Command.ObjectLayer].erase(Object);
-				break;
+void Scene::ProcessLayerCommand(int Layer) {
+	if (LayerCommandCount[Layer] == 0)
+		return;
 
-			case COMMAND_OBJECT_SWAP:
-				ObjectList[Command.TargetLayer].emplace_back((*Object));
-				(*Object)->ObjectLayer = Command.TargetLayer;
-				ObjectList[Command.ObjectLayer].erase(Object);
-				break;
-			}
+	for (auto Object = begin(ObjectList[Layer]); Object != end(ObjectList[Layer]);) {
+		if (LayerCommandCount[Layer] == 0)
+			break;
+
+		if ((*Object)->DeleteCommand) {
+			Object = ObjectList[Layer].erase(Object);
+			--LayerCommandCount[Layer];
+			continue;
+		}
+		else if ((*Object)->SwapCommand) {
+			auto Ptr = (*Object);
+			ObjectList[Ptr->ObjectLayer].emplace_back(Ptr);
+			Ptr->SwapCommand = false;
+			Object = ObjectList[Layer].erase(Object);
+			--LayerCommandCount[Layer];
+			--SceneCommandCount;
+			continue;
 		}
 
-		ObjectCommandList.clear();
-
-		for (auto Object = begin(ObjectIndex); Object != end(ObjectIndex); ) {
-			if (Object->second->DeleteMark) {
-				delete Object->second;
-				Object->second = nullptr;
-				Object = ObjectIndex.erase(Object);
-				continue;
-			}
-			++Object;
-		}
-
-		CommandExist = false;
+		++Object;
 	}
 }
 
+void Scene::ProcessSceneCommand() {
+	if (SceneCommandCount == 0)
+		return;
 
-//////// private ///////////////
-void Scene::SubmitCommand(int CommandType, int ObjectLayer, int ReferPosition, int TargetLayer) {
-	ObjectCommandList.emplace_back(ObjectCommand{CommandType, ObjectLayer,  ReferPosition, TargetLayer});
-	CommandExist = true;
+	for (auto Object = begin(ObjectIndex); Object != end(ObjectIndex);) {
+		if (SceneCommandCount == 0)
+			break;
+
+		if (Object->second->DeleteCommand) {
+			delete Object->second;
+			Object->second = nullptr;
+			--SceneCommandCount;
+			continue;
+		}
+		++Object;
+	}
 }
 
 void Scene::ClearFloatingObject() {
-	int ReferPosition{};
-
 	for (int i = 0; i < Layers; ++i) {
-		for (auto& Object : ObjectList[i]) {
-			if (Object->FloatingOpt && !Object->StaticOpt) 
-				SubmitCommand(COMMAND_OBJECT_DELETE, Object->ObjectLayer, ReferPosition);
-			++ReferPosition;
+		for (auto Object = begin(ObjectList[i]); Object != end(ObjectList[i]); ++ Object) {
+			if ((*Object)->FloatingOpt && !(*Object)->StaticOpt) {
+				(*Object)->DeleteCommand = true;
+				AddCommandCount(i);
+			}
 		}
-		ReferPosition = 0;
 	}
 }
 
 void Scene::ClearAll() {
-	int ReferPosition{};
-
 	for (int i = 0; i < Layers; ++i) {
-		for (auto& Object : ObjectList[i]) {
-			if (!Object->StaticOpt) 
-				SubmitCommand(COMMAND_OBJECT_DELETE, Object->ObjectLayer, ReferPosition);
-			++ReferPosition;
+		for (auto Object = begin(ObjectList[i]); Object != end(ObjectList[i]); ++ Object) {
+			if (!(*Object)->StaticOpt) {
+				(*Object)->DeleteCommand = true;
+				AddCommandCount(i);
+			}
 		}
-		ReferPosition = 0;
 	}
 }

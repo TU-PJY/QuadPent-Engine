@@ -4,7 +4,6 @@
 #include <array>
 #include <map>
 #include <deque>
-#include <vector>
 
 typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
@@ -29,25 +28,12 @@ enum ObjectType {
 	OBJECT_TYPE_FLOATING 
 };
 
-enum CommandType {
-	COMMAND_OBJECT_DELETE,
-	COMMAND_OBJECT_SWAP
-};
-
-struct ObjectCommand {
-	int CommandType;
-	int ObjectLayer;
-	int ReferPosition;
-	int TargetLayer;
-};
-
-
 class Scene {
 private:
 	std::array<std::deque<GameObject*>, Layers> ObjectList{};
 	std::multimap<std::string, GameObject*> ObjectIndex{};
-	std::vector<ObjectCommand> ObjectCommandList{};
-	int CurrentReferPosition{};
+	std::array<int, Layers> LayerCommandCount{};
+	int SceneCommandCount{};
 
 	std::string						  CurrentRunningMode{};
 	std::string						  PrevRunningMode{};
@@ -61,7 +47,6 @@ private:
 	Function						  DestructorBuffer{};
 
 	bool UpdateActivateCommand{ true };
-	bool CommandExist{};
 
 public:
 	// Returns the name of the currently running mode.
@@ -147,10 +132,10 @@ public:
 	// 	Returns the number of objects present in a specific Scene layer.
 	size_t LayerSize(int TargetLayer);
 
-	void ProcessCommandListQueue();
-
 private:
-	void SubmitCommand(int CommandType, int ObjectLayer, int ReferPosition, int TargetLayer=0);
+	void AddCommandCount(int Layer);
+	void ProcessLayerCommand(int Layer);
+	void ProcessSceneCommand();
 	void ClearFloatingObject();
 	void ClearAll();
 };
