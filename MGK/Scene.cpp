@@ -131,36 +131,32 @@ void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Typ
 	Object->ObjectTag = Tag;
 	Object->ObjectLayer = AddLayer;
 
-	if (Type1 == Type2 && Type1 == OBJECT_TYPE_STATIC) {
-		Object->StaticOpt = true;
+	if(Type1 == Type2) {
+		if(Type1 == OBJECT_TYPE_STATIC)
+			Object->StaticOpt = true;
+
+		else if(Type1 == OBJECT_TYPE_FLOATING)
+			Object->FloatingOpt = true;
+
 		return;
 	}
 
-	if (Type1 == Type2 && Type1 == OBJECT_TYPE_FLOATING) {
-		Object->FloatingOpt = true;
-		return;
+	else {
+		if(Type1 == OBJECT_TYPE_STATIC || Type2 == OBJECT_TYPE_STATIC)
+			Object->StaticOpt = true;
+
+		if(Type1 == OBJECT_TYPE_FLOATING || Type2 == OBJECT_TYPE_FLOATING)
+			Object->FloatingOpt = true;
 	}
-
-	if(Type1 == OBJECT_TYPE_STATIC || Type2 == OBJECT_TYPE_STATIC)
-		Object->StaticOpt = true;
-
-	if(Type1 == OBJECT_TYPE_FLOATING || Type2 == OBJECT_TYPE_FLOATING)
-		Object->FloatingOpt = true;
 }
 
 void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
-	if (Object->ObjectLayer == TargetLayer || Object->DeleteCommand)
-		return;
-
 	Object->SwapCommand = true;
 	AddCommandCount(Object->ObjectLayer);
 	Object->ObjectLayer = TargetLayer;
 }
 
 void Scene::DeleteObject(GameObject* Object) {
-	if (Object->SwapCommand)
-		return;
-
 	Object->DeleteCommand = true;
 	AddCommandCount(Object->ObjectLayer);
 }
@@ -168,7 +164,7 @@ void Scene::DeleteObject(GameObject* Object) {
 void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
 		auto Object = ObjectIndex.find(Tag);
-		if (Object != end(ObjectIndex) && !Object->second->SwapCommand) {
+		if (Object != end(ObjectIndex)) {
 			Object->second->DeleteCommand = true;
 			AddCommandCount(Object->second->ObjectLayer);
 		}
@@ -178,7 +174,7 @@ void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 		auto Range = ObjectIndex.equal_range(Tag);
 		if (Range.first != Range.second) {
 			for (auto Object = Range.first; Object != Range.second; ++Object) {
-				if (Object->first == Tag && !Object->second->SwapCommand) {
+				if (Object->first == Tag) {
 					Object->second->DeleteCommand = true;
 					AddCommandCount(Object->second->ObjectLayer);
 				}
@@ -221,10 +217,8 @@ void Scene::ProcessLayerCommand(int Layer) {
 	if (LayerCommandCount[Layer] == 0)
 		return;
 
-	for (auto Object = begin(ObjectList[Layer]); Object != end(ObjectList[Layer]);) {
-		if (LayerCommandCount[Layer] == 0)
-			break;
-
+	auto Object = begin(ObjectList[Layer]);
+	while (Object != end(ObjectList[Layer]) && LayerCommandCount[Layer] != 0) {
 		if ((*Object)->DeleteCommand) {
 			Object = ObjectList[Layer].erase(Object);
 			--LayerCommandCount[Layer];
@@ -248,10 +242,8 @@ void Scene::ProcessSceneCommand() {
 	if (SceneCommandCount == 0)
 		return;
 
-	for (auto Object = begin(ObjectIndex); Object != end(ObjectIndex);) {
-		if (SceneCommandCount == 0)
-			break;
-
+	auto Object = begin(ObjectIndex);
+	while (Object != end(ObjectIndex) && SceneCommandCount != 0) {
 		if (Object->second->DeleteCommand) {
 			delete Object->second;
 			Object->second = nullptr;
