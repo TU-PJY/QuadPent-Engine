@@ -247,6 +247,7 @@ void Scene::ProcessSceneCommand() {
 		if (Object->second->DeleteCommand) {
 			delete Object->second;
 			Object->second = nullptr;
+			Object = ObjectIndex.erase(Object);
 			--SceneCommandCount;
 			continue;
 		}
