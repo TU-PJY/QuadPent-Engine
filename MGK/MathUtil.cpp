@@ -2,13 +2,26 @@
 #include <cmath>
 
 
-void Math::LookAt(GLfloat& RotationVar, GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat RotationSpeed, float FT) {
+void Math::LookAt(GLfloat& RotationVar, GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat RotationSpeed, float FrameTime) {
 	GLfloat TargetAngle{}, ShortestAngle{};
-	TargetAngle = atan2(ToY - FromY, ToX - FromX) * (180 / 3.1415) - 90.0;
+	TargetAngle = CalcDegree(FromX, FromY, ToX, ToY) - 90.0;
 	TargetAngle = NormalizeDegree(TargetAngle);
 
 	if (RotationSpeed > 0)
-		ShortestAngle = std::lerp(ShortestAngle, CalculateShortestRotation(RotationVar, TargetAngle), FT * RotationSpeed);
+		ShortestAngle = std::lerp(ShortestAngle, CalculateShortestRotation(RotationVar, TargetAngle), FrameTime * RotationSpeed);
+	else
+		ShortestAngle = CalculateShortestRotation(RotationVar, TargetAngle);
+
+	RotationVar = NormalizeDegree(RotationVar + ShortestAngle);
+}
+
+void Math::LookAt(GLfloat& RotationVar, glm::vec2 Position1, glm::vec2 Position2, GLfloat RotationSpeed, float FrameTime) {
+	GLfloat TargetAngle{}, ShortestAngle{};
+	TargetAngle = CalcDegree(Position1, Position2) - 90.0;
+	TargetAngle = NormalizeDegree(TargetAngle);
+
+	if (RotationSpeed > 0)
+		ShortestAngle = std::lerp(ShortestAngle, CalculateShortestRotation(RotationVar, TargetAngle), FrameTime * RotationSpeed);
 	else
 		ShortestAngle = CalculateShortestRotation(RotationVar, TargetAngle);
 
@@ -27,9 +40,9 @@ void Math::LookAt(GLfloat& RotationVar, GLfloat Rotation, GLfloat RotationSpeed,
 	RotationVar = NormalizeDegree(RotationVar + ShortestAngle);
 }
 
-GLfloat Math::Lerp(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
+GLfloat Math::Lerp(GLfloat& Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
 	GLfloat Result = Speed * FrameTime;
-	if (Result <= 1.0 && Result >= 0.0)
+	if (Result < 1.0 && Result > 0.0)
 		return std::lerp(Value, Dest, Result);
 	else
 		return Value;
@@ -39,14 +52,29 @@ GLfloat Math::CalcDistance(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat To
 	return  std::sqrt(std::pow(FromX - ToX, 2) + std::pow(FromY - ToY, 2));
 }
 
+GLfloat Math::CalcDistance(glm::vec2 Position1, glm::vec2 Position2) {
+	return  std::sqrt(std::pow(Position1.x - Position2.x, 2) + std::pow(Position1.y - Position2.y, 2));
+}
+
+glm::vec2 Math::CalcMidPoint(glm::vec2 Position1, glm::vec2 Position2) {
+	return glm::vec2((Position1.x + Position2.x) / 2.0, (Position1.y + Position2.y) / 2.0);
+}
+
 GLfloat Math::CalcDegree(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {
 	return atan2(ToY - FromY, ToX - FromX) * (180.0 / 3.1415);
+}
+
+GLfloat Math::CalcDegree(glm::vec2 Position1, glm::vec2 Position2) {
+	return atan2(Position2.y - Position1.y, Position2.x - Position1.x) * (180.0 / 3.1415);
 }
 
 GLfloat Math::CalcRadians(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {
 	return atan2(ToY - FromY, ToX - FromX);
 }
 
+GLfloat Math::CalcRadians(glm::vec2 Position1, glm::vec2 Position2) {
+	return atan2(Position2.y - Position1.y, Position2.x - Position1.x);
+}
 
 
 //////////////////////////////////

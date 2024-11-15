@@ -1,6 +1,5 @@
 #pragma once
 #include "EngineHeader.h"
-#include <map>
 #include <string>
 
 class SoundUtil {
@@ -35,6 +34,8 @@ public:
 	void UnSetFreqCutOff(FMOD::Channel*& ChannelVar);
 	void SetDistance(FMOD::Channel*& ChannelVar, float MinDist, float MaxDist);
 	void SetListnerPosition(float X, float Y);
+	void SetListnerPosition(glm::vec2 Position);
 	void SetSoundPosition(FMOD::Channel*& ChannelVar, float X, float Y, float Diff);
+	void SetSoundPosition(FMOD::Channel*& ChannelVar, glm::vec2 Position, float Diff);
 };
 extern SoundUtil soundUtil;

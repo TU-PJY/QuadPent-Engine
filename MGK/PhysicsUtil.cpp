@@ -118,7 +118,7 @@ void PhysicsUtil::LinearDeceleration(GLfloat& Speed, float FT) {
 	}
 }
 
-void PhysicsUtil::Adjust2SpeedEqual(GLfloat& SpeedX, GLfloat& SpeedY) {
+void PhysicsUtil::AdjustSpeedEqual(GLfloat& SpeedX, GLfloat& SpeedY) {
 	GLfloat Length = std::sqrt(SpeedX * SpeedX + SpeedY * SpeedY);
 	if (Length > 1.0) {
 		SpeedX /= Length;

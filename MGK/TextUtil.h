@@ -41,6 +41,7 @@ private:
 	int TextAlign{ ALIGN_DEFAULT };
 	int RenderType{ RENDER_TYPE_STATIC };
 	bool ClampMiddleCommand{};
+	bool HeightMiddleCommand{};
 
 
 public:
@@ -51,6 +52,7 @@ public:
 	void SetAlign(int AlignOpt);
 	void SetLineSpace(GLfloat Value);
 	void SetClampMiddle(bool Flag);
+	void SetHeightMiddle(bool Flag);
 	void Rotate(GLfloat RotationValue);
 	void SetRenderType(int Type);
 	void Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);

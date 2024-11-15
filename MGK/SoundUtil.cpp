@@ -137,9 +137,25 @@ void SoundUtil::SetListnerPosition(float X, float Y) {
 	SoundSystem->set3DListenerAttributes(0, &ListenerPosition, 0, 0, 0);
 };
 
+void SoundUtil::SetListnerPosition(glm::vec2 Position) {
+	ListenerPosition.x = Position.x;
+	ListenerPosition.y = Position.y;
+	ListenerPosition.z = 0.0f;
+
+	SoundSystem->set3DListenerAttributes(0, &ListenerPosition, 0, 0, 0);
+}
+
 void SoundUtil::SetSoundPosition(FMOD::Channel*& ChannelVar, float X, float Y, float Diff) {
 	SoundPosition.x = X;
 	SoundPosition.y = Y;
+	SoundPosition.z = Diff;
+
+	ChannelVar->set3DAttributes(&SoundPosition, 0);
+}
+
+void SoundUtil::SetSoundPosition(FMOD::Channel*& ChannelVar, glm::vec2 Position, float Diff) {
+	SoundPosition.x = Position.x;
+	SoundPosition.y = Position.y;
 	SoundPosition.z = Diff;
 
 	ChannelVar->set3DAttributes(&SoundPosition, 0);

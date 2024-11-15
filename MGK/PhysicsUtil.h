@@ -37,5 +37,5 @@ public:
 	void LerpDeceleration(GLfloat& Speed, float FT);
 	void LinearAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT);
 	void LinearDeceleration(GLfloat& Speed, float FT);
-	void Adjust2SpeedEqual(GLfloat& SpeedX, GLfloat& SpeedY);
+	void AdjustSpeedEqual(GLfloat& SpeedX, GLfloat& SpeedY);
 };

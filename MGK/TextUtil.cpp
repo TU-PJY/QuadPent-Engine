@@ -38,6 +38,10 @@ void TextUtil::SetClampMiddle(bool Flag) {
 	ClampMiddleCommand = Flag;
 }
 
+void TextUtil::SetHeightMiddle(bool Flag) {
+	HeightMiddleCommand = Flag;
+}
+
 void TextUtil::Rotate(GLfloat RotationValue) {
 	Rotation = RotationValue;
 }
@@ -61,8 +65,10 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyVa
 	ProcessGlyphCache(Text);
 	CalculateTextLength(Text);
 
-	RenderPosition = glm::vec2(X, Y);
 	TextRenderSize = Size;
+	RenderPosition = glm::vec2(X, Y);
+	if (HeightMiddleCommand)
+		RenderPosition.y -= TextRenderSize * 0.5;
 	Transparency = TransparencyValue;
 
 	Transform::Identity(RotateMatrix);
