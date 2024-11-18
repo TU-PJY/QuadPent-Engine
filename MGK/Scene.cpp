@@ -27,16 +27,18 @@ void Scene::Routine() {
 				else
 					Object->UpdateFunc(FrameTime);
 			}
-
 			Object->RenderFunc();
+			Object->CheckDeleteReserveCommand();
+			++CurrentReferLocation;
 		}
-		ProcessLayerCommand(i);
+		CurrentReferLocation = 0;
 	}
-	ProcessSceneCommand();
 }
 
 void Scene::Init(Function ModeFunction) {
 	ModeFunction();
+	for(int i = 0; i < Layers; ++i)
+		DeleteLocation[i].reserve(DELETE_LOCATION_BUFFER_SIZE);
 }
 
 void Scene::SwitchMode(Function ModeFunction) {
@@ -152,32 +154,28 @@ void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Typ
 
 void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
 	Object->SwapCommand = true;
-	AddCommandCount(Object->ObjectLayer);
+	AddLocation(Object->ObjectLayer);
 	Object->ObjectLayer = TargetLayer;
 }
 
 void Scene::DeleteObject(GameObject* Object) {
 	Object->DeleteCommand = true;
-	AddCommandCount(Object->ObjectLayer);
+	AddLocation(Object->ObjectLayer);
 }
 
 void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
 		auto Object = ObjectIndex.find(Tag);
-		if (Object != end(ObjectIndex)) {
-			Object->second->DeleteCommand = true;
-			AddCommandCount(Object->second->ObjectLayer);
-		}
+		if (Object != end(ObjectIndex))
+			Object->second->DeleteReserveCommand = true;
 	}
 
 	else if (DeleteRange == DELETE_RANGE_EQUAL) {
 		auto Range = ObjectIndex.equal_range(Tag);
 		if (Range.first != Range.second) {
 			for (auto Object = Range.first; Object != Range.second; ++Object) {
-				if (Object->first == Tag) {
-					Object->second->DeleteCommand = true;
-					AddCommandCount(Object->second->ObjectLayer);
-				}
+				if (Object->first == Tag)
+					Object->second->DeleteReserveCommand = true;
 			}
 		}
 	}
@@ -207,34 +205,44 @@ size_t Scene::LayerSize(int TargetLayer) {
 	return ObjectList[TargetLayer].size();
 }
 
-//////// private ///////////////
-void Scene::AddCommandCount(int Layer) {
-	++LayerCommandCount[Layer];
-	++SceneCommandCount;
+void  Scene::CompleteCommand() {
+	ProcessObjectCommand();
+	ProcessSceneCommand();
 }
 
-void Scene::ProcessLayerCommand(int Layer) {
-	if (LayerCommandCount[Layer] == 0)
-		return;
+//////// private ///////////////
+void Scene::AddLocation(int Layer) {
+	DeleteLocation[Layer].emplace_back(CurrentReferLocation);
+}
 
-	auto Object = begin(ObjectList[Layer]);
-	while (Object != end(ObjectList[Layer]) && LayerCommandCount[Layer] != 0) {
-		if ((*Object)->DeleteCommand) {
-			Object = ObjectList[Layer].erase(Object);
-			--LayerCommandCount[Layer];
+void Scene::ProcessObjectCommand() {
+	int Offset{};
+
+	for (int Layer = 0; Layer < Layers; ++Layer) {
+		size_t Size = DeleteLocation[Layer].size();
+		if (Size == 0)
 			continue;
-		}
-		else if ((*Object)->SwapCommand) {
-			auto Ptr = (*Object);
-			ObjectList[Ptr->ObjectLayer].emplace_back(Ptr);
-			Ptr->SwapCommand = false;
-			Object = ObjectList[Layer].erase(Object);
-			--LayerCommandCount[Layer];
-			--SceneCommandCount;
-			continue;
+
+		for (int i = 0; i < Size; ++i) {
+			auto Object = ObjectList[Layer].begin() + DeleteLocation[Layer][i] - Offset;
+
+			if ((*Object)->DeleteCommand) {
+				ObjectList[Layer].erase(Object);
+				++SceneCommandCount;
+			}
+
+			else if ((*Object)->SwapCommand) {
+				auto Ptr = (*Object);
+				ObjectList[Ptr->ObjectLayer].emplace_back((*Object));
+				ObjectList[Layer].erase(Object);
+				Ptr->SwapCommand = false;
+			}
+
+			++Offset;
 		}
 
-		++Object;
+		DeleteLocation[Layer].clear();
+		Offset = 0;
 	}
 }
 
@@ -260,7 +268,7 @@ void Scene::ClearFloatingObject() {
 		for (auto Object = begin(ObjectList[i]); Object != end(ObjectList[i]); ++ Object) {
 			if ((*Object)->FloatingOpt && !(*Object)->StaticOpt) {
 				(*Object)->DeleteCommand = true;
-				AddCommandCount(i);
+				AddLocation(i);
 			}
 		}
 	}
@@ -271,7 +279,7 @@ void Scene::ClearAll() {
 		for (auto Object = begin(ObjectList[i]); Object != end(ObjectList[i]); ++ Object) {
 			if (!(*Object)->StaticOpt) {
 				(*Object)->DeleteCommand = true;
-				AddCommandCount(i);
+				AddLocation(i);
 			}
 		}
 	}

@@ -4,6 +4,7 @@
 #include <array>
 #include <map>
 #include <deque>
+#include <vector>
 
 typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
@@ -32,7 +33,9 @@ class Scene {
 private:
 	std::array<std::deque<GameObject*>, Layers> ObjectList{};
 	std::multimap<std::string, GameObject*> ObjectIndex{};
-	std::array<int, Layers> LayerCommandCount{};
+	std::array<std::vector<int>, Layers> DeleteLocation{};
+
+	int CurrentReferLocation{};
 	int SceneCommandCount{};
 
 	std::string						  CurrentRunningMode{};
@@ -132,9 +135,11 @@ public:
 	// 	Returns the number of objects present in a specific Scene layer.
 	size_t LayerSize(int TargetLayer);
 
+	void CompleteCommand();
+
 private:
-	void AddCommandCount(int Layer);
-	void ProcessLayerCommand(int Layer);
+	void AddLocation(int Layer);
+	void ProcessObjectCommand();
 	void ProcessSceneCommand();
 	void ClearFloatingObject();
 	void ClearAll();

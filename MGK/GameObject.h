@@ -34,7 +34,8 @@ public:
 
 	bool FloatingOpt{};
 	bool StaticOpt{};
-
+	
+	bool DeleteReserveCommand{};
 	bool DeleteCommand{};
 	bool SwapCommand{};
 
@@ -128,6 +129,8 @@ public:
 
 	// Specifies the local coordinates where the sound occurs.
 	void SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff);
+
+	void CheckDeleteReserveCommand();
 
 	
 

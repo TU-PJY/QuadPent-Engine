@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "ImageUtil.h"
 #include "CameraUtil.h"
+#include "Scene.h"
 #include <cmath>
 
 void GameObject::InitRenderState(int RenderType) {
@@ -178,6 +179,11 @@ void GameObject::SetSoundPosition(SoundChannel& ChannelVar, float X, float Y, fl
 
 void GameObject::SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff) {
 	soundUtil.SetSoundPosition(ChannelVar, Position.x, Position.y, Diff);
+}
+
+void GameObject::CheckDeleteReserveCommand() {
+	if (DeleteReserveCommand)
+		scene.DeleteObject(this);
 }
 
 ////////////////////////// private

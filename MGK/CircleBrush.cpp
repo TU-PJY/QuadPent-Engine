@@ -24,7 +24,7 @@ void CircleBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void CircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Transparency) {
-	TranslateMatrix = glm::mat4(1.0f);
+	Transform::Identity(TranslateMatrix);
 	TransparencyValue = 1.0f;
 
 	Transform::Move(TranslateMatrix, X, Y);

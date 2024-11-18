@@ -28,6 +28,9 @@ constexpr int FRAME_LIMITS = 0;
 // console window option
 constexpr bool SHOW_CONSOLE = true;
 
+// FPS indicator option
+constexpr bool SHOW_FPS = true;
+
 // show boundbox option
 #define SHOW_BOUND_BOX
 
@@ -38,6 +41,9 @@ constexpr bool SHOW_CONSOLE = true;
 // 'END' should be typed at last
 enum Layer
 { LAYER1, LAYER2, LAYER3, END };
+
+// Specifies the size of the deletion location buffer
+constexpr int DELETE_LOCATION_BUFFER_SIZE = 500;
 
 
 
