@@ -4,7 +4,7 @@
 
 GLfloat SinLoop::Update(GLfloat MoveScale, GLfloat Speed, float FrameTime) {
 	Num += Speed * FrameTime;
-	return sin(Num) * MoveScale;
+	return cos(Num) * MoveScale;
 }
 
 void SinLoop::SetValue(GLfloat Value) {
@@ -48,4 +48,29 @@ void PopBounce::Reset(){
 }
 
 
+GLfloat ReverseLerp::Update(GLfloat Value, GLfloat Dest, GLfloat Speed, GLfloat IncreaseSpeed, float FrameTime) {
+	GLfloat ReturnValue = Value;
+	GLfloat Diff = Dest - Value;
 
+	if (MoveState) {
+		if (std::abs(Diff) < std::abs(Velocity)) {
+			ReturnValue = Dest;
+			Velocity = 0.0;
+			Acc = 0.0;
+			MoveState = false;
+		}
+		else {
+			ReturnValue += Velocity * (Diff > 0 ? 1 : -1);
+			Velocity += Acc * Speed * FrameTime;
+			Acc += IncreaseSpeed * IncreaseSpeed * FrameTime;
+		}
+	}
+
+	return ReturnValue;
+}
+
+void ReverseLerp::Reset() {
+	Velocity = 0.0;
+	Acc = 0.0;
+	MoveState = true;
+}

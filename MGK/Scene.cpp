@@ -1,6 +1,4 @@
 #include "Scene.h"
-#include <chrono>
-#include <thread>
 
 void Scene::InputFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
@@ -37,8 +35,8 @@ void Scene::Routine() {
 
 void Scene::Init(Function ModeFunction) {
 	ModeFunction();
-	for(int i = 0; i < Layers; ++i)
-		DeleteLocation[i].reserve(DELETE_LOCATION_BUFFER_SIZE);
+	for (int Layer = 0; Layer < Layers; ++Layer)
+		DeleteLocation[Layer].reserve(DELETE_LOCATION_BUFFER_SIZE);
 }
 
 void Scene::SwitchMode(Function ModeFunction) {
@@ -156,13 +154,11 @@ void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
 	Object->SwapCommand = true;
 	AddLocation(Object->ObjectLayer, CurrentReferLocation);
 	Object->ObjectLayer = TargetLayer;
-	CommandExist = true;
 }
 
 void Scene::DeleteObject(GameObject* Object) {
 	Object->DeleteCommand = true;
 	AddLocation(Object->ObjectLayer, CurrentReferLocation);
-	CommandExist = true;
 }
 
 void Scene::DeleteObject(std::string Tag, int DeleteRange) {
@@ -219,6 +215,7 @@ void  Scene::CompleteCommand() {
 //////// private ///////////////
 void Scene::AddLocation(int Layer, int Position) {
 	DeleteLocation[Layer].emplace_back(Position);
+	CommandExist = true;
 }
 
 void Scene::ProcessObjectCommand() {
@@ -269,6 +266,7 @@ void Scene::ProcessSceneCommand() {
 void Scene::ClearFloatingObject() {
 	int ReferPosition{};
 	for (int Layer = 0; Layer < Layers; ++Layer) {
+		DeleteLocation[Layer].clear();
 		for (auto Object = begin(ObjectList[Layer]); Object != end(ObjectList[Layer]); ++ Object) {
 			if ((*Object)->FloatingOpt && !(*Object)->StaticOpt) {
 				(*Object)->DeleteCommand = true;
@@ -283,6 +281,7 @@ void Scene::ClearFloatingObject() {
 void Scene::ClearAll() {
 	int ReferPosition{};
 	for (int Layer = 0; Layer < Layers; ++Layer) {
+		DeleteLocation[Layer].clear();
 		for (auto Object = begin(ObjectList[Layer]); Object != end(ObjectList[Layer]); ++ Object) {
 			if (!(*Object)->StaticOpt) {
 				(*Object)->DeleteCommand = true;

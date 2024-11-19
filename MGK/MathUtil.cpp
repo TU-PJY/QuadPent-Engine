@@ -1,6 +1,8 @@
 #include "MathUtil.h"
 #include <cmath>
 
+GLfloat NormalizeDegree(GLfloat Degree);
+GLfloat CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest);
 
 void Math::LookAt(GLfloat& RotationVar, GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat RotationSpeed, float FrameTime) {
 	GLfloat TargetAngle{}, ShortestAngle{};
@@ -40,12 +42,14 @@ void Math::LookAt(GLfloat& RotationVar, GLfloat Rotation, GLfloat RotationSpeed,
 	RotationVar = NormalizeDegree(RotationVar + ShortestAngle);
 }
 
-GLfloat Math::Lerp(GLfloat& Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
-	GLfloat Result = Speed * FrameTime;
-	if (Result < 1.0 && Result > 0.0)
-		return std::lerp(Value, Dest, Result);
-	else
-		return Value;
+GLfloat Math::Lerp(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
+	GLfloat t = Speed * FrameTime;
+	GLfloat ReturnValue = Value;
+
+	if (t < 1.0 && t > 0.0)
+		ReturnValue = std::lerp(ReturnValue, Dest, t);
+
+	return ReturnValue;
 }
 
 GLfloat Math::CalcDistance(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {
@@ -81,13 +85,13 @@ GLfloat Math::CalcRadians(glm::vec2 Position1, glm::vec2 Position2) {
 
 
 
-GLfloat Math::NormalizeDegree(GLfloat Degree) {
+GLfloat NormalizeDegree(GLfloat Degree) {
 	while (Degree < 0) Degree += 360;
 	while (Degree >= 360) Degree -= 360;
 	return Degree;
 }
 
-GLfloat Math::CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest) {
+GLfloat CalculateShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest) {
 	GLfloat Diff = DegreeDest - CurrentDegree;
 
 	if (Diff > 180)

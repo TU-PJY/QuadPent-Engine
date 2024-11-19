@@ -36,3 +36,14 @@ public:
 	GLfloat Update(GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSpeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime);
 	void Reset();
 };
+
+class ReverseLerp {
+private:
+	bool MoveState{ true };
+	GLfloat Velocity{};
+	GLfloat Acc{};
+
+public:
+	GLfloat Update(GLfloat Value, GLfloat Dest, GLfloat Speed, GLfloat IncreaseSpeed, float FrameTime);
+	void Reset();
+};
