@@ -37,6 +37,7 @@ private:
 
 	int CurrentReferLocation{};
 	int SceneCommandCount{};
+	bool CommandExist{};
 
 	std::string						  CurrentRunningMode{};
 	std::string						  PrevRunningMode{};
@@ -138,7 +139,7 @@ public:
 	void CompleteCommand();
 
 private:
-	void AddLocation(int Layer);
+	void AddLocation(int Layer, int Position);
 	void ProcessObjectCommand();
 	void ProcessSceneCommand();
 	void ClearFloatingObject();

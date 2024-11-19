@@ -154,13 +154,15 @@ void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Typ
 
 void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
 	Object->SwapCommand = true;
-	AddLocation(Object->ObjectLayer);
+	AddLocation(Object->ObjectLayer, CurrentReferLocation);
 	Object->ObjectLayer = TargetLayer;
+	CommandExist = true;
 }
 
 void Scene::DeleteObject(GameObject* Object) {
 	Object->DeleteCommand = true;
-	AddLocation(Object->ObjectLayer);
+	AddLocation(Object->ObjectLayer, CurrentReferLocation);
+	CommandExist = true;
 }
 
 void Scene::DeleteObject(std::string Tag, int DeleteRange) {
@@ -206,13 +208,17 @@ size_t Scene::LayerSize(int TargetLayer) {
 }
 
 void  Scene::CompleteCommand() {
+	if(!CommandExist)
+		return;
+
 	ProcessObjectCommand();
 	ProcessSceneCommand();
+	CommandExist = false;
 }
 
 //////// private ///////////////
-void Scene::AddLocation(int Layer) {
-	DeleteLocation[Layer].emplace_back(CurrentReferLocation);
+void Scene::AddLocation(int Layer, int Position) {
+	DeleteLocation[Layer].emplace_back(Position);
 }
 
 void Scene::ProcessObjectCommand() {
@@ -264,23 +270,29 @@ void Scene::ProcessSceneCommand() {
 }
 
 void Scene::ClearFloatingObject() {
-	for (int i = 0; i < Layers; ++i) {
-		for (auto Object = begin(ObjectList[i]); Object != end(ObjectList[i]); ++ Object) {
+	int ReferPosition{};
+	for (int Layer = 0; Layer < Layers; ++Layer) {
+		for (auto Object = begin(ObjectList[Layer]); Object != end(ObjectList[Layer]); ++ Object) {
 			if ((*Object)->FloatingOpt && !(*Object)->StaticOpt) {
 				(*Object)->DeleteCommand = true;
-				AddLocation(i);
+				AddLocation(Layer, ReferPosition);
 			}
+			++ReferPosition;
 		}
+		ReferPosition = 0;
 	}
 }
 
 void Scene::ClearAll() {
-	for (int i = 0; i < Layers; ++i) {
-		for (auto Object = begin(ObjectList[i]); Object != end(ObjectList[i]); ++ Object) {
+	int ReferPosition{};
+	for (int Layer = 0; Layer < Layers; ++Layer) {
+		for (auto Object = begin(ObjectList[Layer]); Object != end(ObjectList[Layer]); ++ Object) {
 			if (!(*Object)->StaticOpt) {
 				(*Object)->DeleteCommand = true;
-				AddLocation(i);
+				AddLocation(Layer, ReferPosition);
 			}
+			++ReferPosition;
 		}
+		ReferPosition = 0;
 	}
 }
