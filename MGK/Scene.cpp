@@ -253,9 +253,6 @@ void Scene::ProcessObjectCommand() {
 }
 
 void Scene::ProcessSceneCommand() {
-	if (SceneCommandCount == 0)
-		return;
-
 	auto Object = begin(ObjectIndex);
 	while (Object != end(ObjectIndex) && SceneCommandCount != 0) {
 		if (Object->second->DeleteCommand) {
