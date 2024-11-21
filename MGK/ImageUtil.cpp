@@ -112,6 +112,11 @@ void ImageUtil::Render(Image& ImageStruct) {
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
+void ImageUtil::RenderRaw() {
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
 void ImageUtil::Release(Image& ImageStruct) {
 	glDeleteTextures(1, &ImageStruct.Texture);
 }

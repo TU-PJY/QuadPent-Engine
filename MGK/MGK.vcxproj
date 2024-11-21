@@ -230,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MGKResource\GLSL\ComputeMatrix.glsl" />
+    <None Include="MGKResource\GLSL\Fragment_Shape.glsl" />
     <None Include="MGKResource\GLSL\Fragment_Image.glsl" />
     <None Include="MGKResource\GLSL\Fragment_Text.glsl" />
     <None Include="MGKResource\GLSL\Vertex.glsl" />

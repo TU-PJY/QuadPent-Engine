@@ -51,15 +51,14 @@ void LineRectBrush::Render() {
 
 	Compt::ComputeMatrix(ResultMatrix, TranslateMatrix, ScaleMatrix);
 
-	glUseProgram(IMAGE_SHADER);
-	camera.PrepareRender(SHADER_TYPE_IMAGE);
+	glUseProgram(SHAPE_SHADER);
+	camera.PrepareRender(SHADER_TYPE_SHAPE);
 
-	glUniform1f(IMAGE_ALPHA_LOCATION, TransparencyValue);
-	glUniform3f(IMAGE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniform1i(BOOL_BLUR_LOCATION, 0);
-	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, value_ptr(ResultMatrix));
+	glUniform1f(SHAPE_ALPHA_LOCATION, TransparencyValue);
+	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, value_ptr(ResultMatrix));
 
-	imageUtil.Render(COLOR_TEXTURE);
+	imageUtil.RenderRaw();
 }
 
 
@@ -102,13 +101,12 @@ void RectBrush::Render() {
 
 	Compt::ComputeMatrix(ResultMatrix, TranslateMatrix, ScaleMatrix);
 
-	glUseProgram(IMAGE_SHADER);
-	camera.PrepareRender(SHADER_TYPE_IMAGE);
+	glUseProgram(SHAPE_SHADER);
+	camera.PrepareRender(SHADER_TYPE_SHAPE);
 
-	glUniform1f(IMAGE_ALPHA_LOCATION, TransparencyValue);
-	glUniform3f(IMAGE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniform1i(BOOL_BLUR_LOCATION, 0);
-	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, value_ptr(ResultMatrix));
+	glUniform1f(SHAPE_ALPHA_LOCATION, TransparencyValue);
+	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, value_ptr(ResultMatrix));
 
-	imageUtil.Render(COLOR_TEXTURE);
+	imageUtil.RenderRaw();
 }

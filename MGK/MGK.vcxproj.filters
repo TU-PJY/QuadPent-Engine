@@ -4,12 +4,6 @@
     <Filter Include="[0]___________[ Config ]">
       <UniqueIdentifier>{c229d7fb-288d-4e48-b8b0-7e7dbd38a78d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[1]___________[ Resources ]">
-      <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[1]___________[ Resources ]\[ Game Resource ]">
-      <UniqueIdentifier>{471a1c4e-f93c-409b-b71c-df69808118a8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[2]___________[ GameMode ]">
       <UniqueIdentifier>{824d0f24-8e5b-4c58-99e5-e019f51ea99a}</UniqueIdentifier>
     </Filter>
@@ -157,11 +151,17 @@
     <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Math Util ]">
       <UniqueIdentifier>{4a85a4fd-aaad-4cd4-9601-add0201898fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[1]___________[ Resources ]\[ Game File ]">
-      <UniqueIdentifier>{5cc44f36-1978-4df0-84ee-7042daee1b18}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Compute Util ]">
       <UniqueIdentifier>{f7456d94-6103-44fc-b1c5-33fe9e736f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ Resources ]">
+      <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ Resources ]\[ Game Resource ]">
+      <UniqueIdentifier>{471a1c4e-f93c-409b-b71c-df69808118a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ Resources ]\[ Game File ]">
+      <UniqueIdentifier>{5cc44f36-1978-4df0-84ee-7042daee1b18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -430,6 +430,9 @@
       <Filter>[5]___________[ MGK ]\[ GLSL ]</Filter>
     </None>
     <None Include="MGKResource\GLSL\ComputeMatrix.glsl">
+      <Filter>[5]___________[ MGK ]\[ GLSL ]</Filter>
+    </None>
+    <None Include="MGKResource\GLSL\Fragment_Shape.glsl">
       <Filter>[5]___________[ MGK ]\[ GLSL ]</Filter>
     </None>
   </ItemGroup>

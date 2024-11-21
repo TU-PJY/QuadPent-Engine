@@ -83,11 +83,7 @@ public:
 	}
 
 	void RenderFunc() {
-		InitRenderState(RENDER_TYPE_STATIC);
-		Transform::Move(TranslateMatrix, ASP(1.0) - 0.15, -1.0 + 0.15);
-		Transform::Scale(ScaleMatrix, 0.25, 0.25);
-		Transform::Rotate(RotateMatrix, Rotation);
-		Render(ImageSpinner, Transparent);
+		RenderImage(RENDER_TYPE_STATIC, ImageSpinner, ASP(1.0) - 0.15, -1.0 + 0.15, 0.25, 0.25, Rotation, Transparent);
 	}
 };
 

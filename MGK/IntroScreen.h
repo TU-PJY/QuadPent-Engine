@@ -85,21 +85,17 @@ public:
 
 	void RenderFunc() {
 		AlphaClipping::First();
-		InitRenderState(RENDER_TYPE_STATIC);
-		Transform::Move(TranslateMatrix, RectPosition, 0.0);
-		Render(COLOR_TEXTURE);
+		RenderImage(RENDER_TYPE_STATIC, COLOR_TEXTURE, RectPosition, 0.0, 1.0, 1.0);
 
 		AlphaClipping::Second();
-		InitRenderState(RENDER_TYPE_STATIC);
-		Transform::Move(TranslateMatrix, LogoPosition, 0.0);
 
 		switch (Scene) {
 		case 1:
-			Render(MGK_LOGO, LogoTransparent);
+			RenderImage(RENDER_TYPE_STATIC, MGK_LOGO, LogoPosition, 0.0, 1.0, 1.0, 0.0, LogoTransparent);
 			break;
 
 		case 2: case 3:
-			Render(FMOD_LOGO, LogoTransparent);
+			RenderImage(RENDER_TYPE_STATIC, FMOD_LOGO, LogoPosition, 0.0, 1.0, 1.0, 0.0, LogoTransparent);
 			break;
 		}
 

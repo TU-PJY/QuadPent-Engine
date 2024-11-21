@@ -63,7 +63,7 @@ void Camera::PrepareRender(int ShaderType) {
 
 	switch (ShaderType) {
 	case SHADER_TYPE_IMAGE:
-		glUniformMatrix4fv(IMGAE_PROJECTION_LOCARION, 1, GL_FALSE, &Projection[0][0]);
+		glUniformMatrix4fv(IMAGE_PROJECTION_LOCARION, 1, GL_FALSE, &Projection[0][0]);
 		glUniformMatrix4fv(IMAGE_VIEW_LOCATION, 1, GL_FALSE, &ViewMatrix[0][0]);
 		glUniform3f(IMAGE_VIEW_POSITION_LOCATION, CamPos.x, CamPos.y, CamPos.z);
 		break;
@@ -72,6 +72,12 @@ void Camera::PrepareRender(int ShaderType) {
 		glUniformMatrix4fv(TEXT_PROJECTION_LOCATION, 1, GL_FALSE, &Projection[0][0]);
 		glUniformMatrix4fv(TEXT_VIEW_LOCATION, 1, GL_FALSE, &ViewMatrix[0][0]);
 		glUniform3f(TEXT_VIEW_POSITION_LOCATION, CamPos.x, CamPos.y, CamPos.z);
+		break;
+
+	case SHADER_TYPE_SHAPE:
+		glUniformMatrix4fv(SHAPE_PROJECTION_LOCATION, 1, GL_FALSE, &Projection[0][0]);
+		glUniformMatrix4fv(SHAPE_VIEW_LOCATION, 1, GL_FALSE, &ViewMatrix[0][0]);
+		glUniform3f(SHAPE_VIEW_POSITION_LOCATION, CamPos.x, CamPos.y, CamPos.z);
 		break;
 	}
 }

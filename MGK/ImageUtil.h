@@ -13,6 +13,7 @@ public:
 	void PreLoad(Image& ImageStruct, std::string FileName, int Type=IMAGE_TYPE_NEAREST);
 	void FinishLoad();
 	void Render(Image& ImageStruct);
+	void RenderRaw();
 	void Release(Image& ImageStruct);
 };
 extern ImageUtil imageUtil;

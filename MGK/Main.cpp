@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "SoundUtil.h"
 #include "TextUtil.h"
+#include "RectBrush.h"
 #include <thread>
 #include <chrono>
 
@@ -13,7 +14,10 @@ bool UpdateActivateCommand;
 float PrevTime, CurrentTime, DeltaTime;
 
 // FPS indicator
-TextUtil FPS_Ind;
+RectBrush Rect;
+TextUtil FPS_IND;
+TimerUtil FPS_IND_REFRESH_TIMER;
+float CurrentDeltaTime = 1.0;
 
 GLvoid Framework::Framework() {
 	glClearColor(BackColor.r, BackColor.g, BackColor.b, 1.0f);
@@ -25,8 +29,16 @@ GLvoid Framework::Framework() {
 		cameraCon.Update(DeltaTime);
 		soundUtil.Update();
 
-		if (SHOW_FPS)
-			FPS_Ind.Render(-1.0 * ASPECT + 0.025, 0.95, 0.05, 1.0, L"FPS: %d", (int)(1.0 / DeltaTime));
+		if (SHOW_FPS) {
+			FPS_IND_REFRESH_TIMER.Update(DeltaTime);
+			if (FPS_IND_REFRESH_TIMER.Sec() >= 1) {
+				CurrentDeltaTime = DeltaTime;
+				FPS_IND_REFRESH_TIMER.Interpolate(1.0);
+			}
+
+			Rect.Draw(-1.0 * ASPECT + 0.1, 0.97, 0.3, 0.08, 0.0, 0.3);
+			FPS_IND.Render(-1.0 * ASPECT + 0.025, 0.95, 0.05, 1.0, L"FPS: %d", (int)(1.0 / CurrentDeltaTime));
+		}
 	}
 
 	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
@@ -49,8 +61,8 @@ void main(int argc, char** argv) {
 	Framework::SetupSystem(argc, argv);
 
 	if (SHOW_FPS) {
-		FPS_Ind.Init(L"Arial", FW_NORMAL);
-		FPS_Ind.SetColor(0.0, 1.0, 0.0);
+		FPS_IND.Init(L"Arial", FW_NORMAL);
+		FPS_IND.SetColor(1.0, 1.0, 1.0);
 	}
 
 	glutDisplayFunc(Framework::Framework);

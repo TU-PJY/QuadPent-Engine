@@ -67,15 +67,15 @@ void GameObject::UpdateLocalPosition(glm::vec2& Position) {
 
 void GameObject::Flip(int FlipOpt) {
 	switch (FlipOpt) {
-	case FLIP_H:
+	case FLIP_TYPE_X:
 		FlipMatrix = rotate(FlipMatrix, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
 		break;
 
-	case FLIP_V:
+	case FLIP_TYPE_Y:
 		FlipMatrix = rotate(FlipMatrix, glm::radians(180.0f), glm::vec3(1.0, 0.0, 0.0));
 		break;
 
-	case FLIP_HV:
+	case FLIP_TYPE_XY:
 		FlipMatrix = rotate(FlipMatrix, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
 		FlipMatrix = rotate(FlipMatrix, glm::radians(180.0f), glm::vec3(1.0, 0.0, 0.0));
 		break;
@@ -100,6 +100,16 @@ void GameObject::Render(Image& Image, GLfloat Transparency, bool DisableAdjustAs
 
 	PrepareRender();
 	imageUtil.Render(Image);
+}
+
+void GameObject::RenderImage(int RenderType, Image& Image, GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat Transparency, int FlipOpt, bool DisableAdjustAspect) {
+	InitRenderState(RenderType);
+	Transform::Move(TranslateMatrix, X, Y);
+	Transform::Rotate(RotateMatrix, Rotation);
+	Transform::Scale(ScaleMatrix, Width, Height);
+	Flip(FlipOpt);
+	TransparencyValue = Transparency;
+	Render(Image, Transparency, DisableAdjustAspect);
 }
 
 void GameObject::PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime) {

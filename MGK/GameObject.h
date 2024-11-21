@@ -69,12 +69,14 @@ public:
 	// Invert the image.Select the reverse direction.
 	void Flip(int FlipOpt);
 
-	//  Apply a blur effect to the image.If excessive values ​​are applied, the frame rate may deteriorate.
+	//  Apply a blur effect to the image. If excessive values ​​are applied, the frame rate may deteriorate.
 	void Blur(int Strength);
 
-	// Invert the image.Select the reverse direction.
+	//  Render the image.
 	void Render(Image& Image, GLfloat Transparency = 1.0, bool DisableAdjustAspect=false);
 
+	// Render the image in one step.
+	void RenderImage(int RenderType, Image& ImageSturct, GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat Transparency=1.0, int FlipOpt=FLIP_TYPE_NONE, bool DisableAdjustAspect=false);
 
 	// Play sound.You can specify the playback start point.
 	void PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime=0);
