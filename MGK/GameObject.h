@@ -17,7 +17,7 @@
 #include "SystemResource.h"
 #include "GameResource.h"
 #include "ThreadUtil.h"
-
+#include "ComputeUtil.h"
 
 class GameObject {
 public:
@@ -165,7 +165,7 @@ public:
 	virtual BoundingCircle GetBoundingCircle() { return {}; }
 
 private:
-	void PrepareRender(); 
+	void PrepareRender();
 	glm::vec4 ViewportPosition();
 	glm::vec4 LocalPosition();
 };

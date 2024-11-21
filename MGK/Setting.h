@@ -16,7 +16,7 @@ constexpr bool FULL_SCREEN_OPTION = false;
 
 //////////////////////////////////// Engine options
 // intro screen option
-constexpr bool ENABLE_INTRO_SCREEN = false;
+constexpr bool ENABLE_INTRO_SCREEN = true;
 
 // frame limits option
 // If this option is set to 0, the engine will run at maximum framerate.

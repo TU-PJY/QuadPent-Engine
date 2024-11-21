@@ -153,15 +153,19 @@ extern glm::vec3 BackColor;
 extern START_MODE_PTR START_MODE;
 
 // global scope shader
-extern GLuint ImageShader;
-extern GLuint TextShader;
+extern GLuint IMAGE_SHADER;
+extern GLuint TEXT_SHADER;
+extern GLuint MATRIX_COMPT_SHADER;
+
+// global SSBO I/O
+extern GLuint SSBO_MATRIX_INPUT, SSBO_MATRIX_OUTPUT;
 
 // global shader location
-extern ShaderLocation ImageTransparencyLocation, ImageColorLocation, ImageModelLocation;
-extern ShaderLocation BlurStrengthLocation, BoolBlurLocation, TexelSizeLocation;
-extern ShaderLocation TextTransparencyLocation, TextColorLocation, TextModelLocation;
-extern ShaderLocation ImageProjectionLocation, ImageViewLocation, ImageViewPositionLocation;
-extern ShaderLocation TextProjectionLocation, TextViewLocation, TextViewPositionLocation;
+extern ShaderLocation IMAGE_ALPHA_LOCATION, IMAGE_COLOR_LOCATION, IMAGE_MODEL_LOCATION;
+extern ShaderLocation BLUR_STRENGTH_LOCATION, BOOL_BLUR_LOCATION, TEXEL_SIZE_LOCATION;
+extern ShaderLocation TEXT_ALPHA_LOCATION, TEXT_COLOR_LOCATION, TEXT_MODEL_LOCATION;
+extern ShaderLocation IMGAE_PROJECTION_LOCARION, IMAGE_VIEW_LOCATION, IMAGE_VIEW_POSITION_LOCATION;
+extern ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VIEW_POSITION_LOCATION;
 
 namespace Framework {
 	GLvoid Framework();

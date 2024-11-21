@@ -1,6 +1,7 @@
 #include "TextUtil.h"
 #include "CameraUtil.h"
 #include "TransformUtil.h"
+#include "ComputeUtil.h"
 
 void TextUtil::Init(const wchar_t* FontName, int Type, int Italic) {
 	hDC = wglGetCurrentDC();
@@ -182,12 +183,14 @@ void TextUtil::TransformText() {
 }
 
 void TextUtil::PrepareRender() {
-	glUseProgram(TextShader);
+	Compt::ComputeMatrix(ResultMatrix, RotateMatrix, TranslateMatrix, ScaleMatrix);
+
+	glUseProgram(TEXT_SHADER);
 	camera.PrepareRender(SHADER_TYPE_TEXT);
 
-	glUniform1f(TextTransparencyLocation, Transparency);
-	glUniform3f(TextColorLocation, TextColor.r, TextColor.g, TextColor.b);
-	glUniformMatrix4fv(TextModelLocation, 1, GL_FALSE, value_ptr(RotateMatrix * TranslateMatrix * ScaleMatrix));
+	glUniform1f(TEXT_ALPHA_LOCATION, Transparency);
+	glUniform3f(TEXT_COLOR_LOCATION, TextColor.r, TextColor.g, TextColor.b);
+	glUniformMatrix4fv(TEXT_MODEL_LOCATION, 1, GL_FALSE, value_ptr(ResultMatrix));
 }
 
 void TextUtil::ProcessGlyphCache(wchar_t* Text) {

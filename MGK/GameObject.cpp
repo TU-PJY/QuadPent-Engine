@@ -90,24 +90,13 @@ void GameObject::Render(Image& Image, GLfloat Transparency, bool DisableAdjustAs
 	TransparencyValue = Transparency;
 
 	if (!DisableAdjustAspect) {
-		if (Image.Width > Image.Height) {
+		if (Image.Width > Image.Height)
 			ImageAspectMatrix = glm::scale(ImageAspectMatrix, glm::vec3(1.0, (GLfloat)Image.Height / (GLfloat)Image.Width, 1.0));
-			ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix * ImageAspectMatrix;
-		}
-		else if (Image.Width < Image.Height) {
+		else if (Image.Width < Image.Height) 
 			ImageAspectMatrix = glm::scale(ImageAspectMatrix, glm::vec3((GLfloat)Image.Width / (GLfloat)Image.Height, 1.0, 1.0));
-			ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix * ImageAspectMatrix;
-		}
-		else
-			ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix;
 	}
 
-	else
-		ResultMatrix = TranslateMatrix * RotateMatrix * ScaleMatrix;
-
-
-	if (FlipMatrix != glm::mat4(1.0f))
-		ResultMatrix *= FlipMatrix;
+	Compt::ComputeMatrix(ResultMatrix, TranslateMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 
 	PrepareRender();
 	imageUtil.Render(Image);
@@ -189,21 +178,21 @@ void GameObject::CheckDeleteReserveCommand() {
 ////////////////////////// private
 
 void GameObject::PrepareRender() {
-	glUseProgram(ImageShader);
+	glUseProgram(IMAGE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
-	glUniform1f(ImageTransparencyLocation, TransparencyValue);
-	glUniform3f(ImageColorLocation, ObjectColor.r, ObjectColor.g, ObjectColor.b);
+	glUniform1f(IMAGE_ALPHA_LOCATION, TransparencyValue);
+	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	if (BlurValue > 0.0) {
-		glUniform1i(BoolBlurLocation, 1);
-		glUniform1f(BlurStrengthLocation, BlurValue);
-		glUniform2f(TexelSizeLocation, ASP(1.0) / (GLfloat)WIDTH, 1.0 / (GLfloat)HEIGHT);
+		glUniform1i(BOOL_BLUR_LOCATION, 1);
+		glUniform1f(BLUR_STRENGTH_LOCATION, BlurValue);
+		glUniform2f(TEXEL_SIZE_LOCATION, ASP(1.0) / (GLfloat)WIDTH, 1.0 / (GLfloat)HEIGHT);
 	}
 	else  
-		glUniform1i(BoolBlurLocation, 0);
+		glUniform1i(BOOL_BLUR_LOCATION, 0);
 
-	glUniformMatrix4fv(ImageModelLocation, 1, GL_FALSE, value_ptr(ResultMatrix));
+	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, value_ptr(ResultMatrix));
 }
 
 glm::vec4 GameObject::ViewportPosition() {

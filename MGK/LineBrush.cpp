@@ -5,6 +5,7 @@
 #include "ShaderUtil.h"
 #include "CameraUtil.h"
 #include "SystemResource.h"
+#include "ComputeUtil.h"
 
 void LineBrush::SetRenderType(int Opt) {
 	RenderType = Opt;
@@ -63,13 +64,15 @@ void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfl
 void LineBrush::Render() {
 	camera.SetCamera(RenderType);
 
-	glUseProgram(ImageShader);
+	Compt::ComputeMatrix(ResultMatrix, TranslateMatrix, ScaleMatrix);
+
+	glUseProgram(IMAGE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
-	glUniform1f(ImageTransparencyLocation, TransparencyValue);
-	glUniform3f(ImageColorLocation, Color.r, Color.g, Color.b);
-	glUniform1i(BoolBlurLocation, 0);
-	glUniformMatrix4fv(ImageModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix * ScaleMatrix));
+	glUniform1f(IMAGE_ALPHA_LOCATION, TransparencyValue);
+	glUniform3f(IMAGE_COLOR_LOCATION, Color.r, Color.g, Color.b);
+	glUniform1i(BOOL_BLUR_LOCATION, 0);
+	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, value_ptr(ResultMatrix));
 
 	imageUtil.Render(COLOR_TEXTURE);
 }

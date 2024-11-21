@@ -38,13 +38,13 @@ void CircleBrush::Render() {
 	if (!CamInheritanceCommand)
 		camera.SetCamera(RenderType);
 
-	glUseProgram(ImageShader);
+	glUseProgram(IMAGE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
-	glUniform1f(ImageTransparencyLocation, TransparencyValue);
-	glUniform3f(ImageColorLocation, Color.r, Color.g, Color.b);
-	glUniform1i(BoolBlurLocation, 0);
-	glUniformMatrix4fv(ImageModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix));
+	glUniform1f(IMAGE_ALPHA_LOCATION, TransparencyValue);
+	glUniform3f(IMAGE_COLOR_LOCATION, Color.r, Color.g, Color.b);
+	glUniform1i(BOOL_BLUR_LOCATION, 0);
+	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, value_ptr(TranslateMatrix));
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	gluDisk(GLU_CIRCLE, 0.0, Radius, 80, 1);
@@ -88,13 +88,13 @@ void LineCircleBrush::Render() {
 	if (!CamInheritanceCommand)
 		camera.SetCamera(RenderType);
 
-	glUseProgram(ImageShader);
+	glUseProgram(IMAGE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
-	glUniform1f(ImageTransparencyLocation, TransparencyValue);
-	glUniform3f(ImageColorLocation, Color.r, Color.g, Color.b);
-	glUniform1i(BoolBlurLocation, 0);
-	glUniformMatrix4fv(ImageModelLocation, 1, GL_FALSE, value_ptr(TranslateMatrix));
+	glUniform1f(IMAGE_ALPHA_LOCATION, TransparencyValue);
+	glUniform3f(IMAGE_COLOR_LOCATION, Color.r, Color.g, Color.b);
+	glUniform1i(BOOL_BLUR_LOCATION, 0);
+	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, value_ptr(TranslateMatrix));
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	gluDisk(GLU_LINE_CIRCLE, Radius, Radius + WidthValue, 80, 1);

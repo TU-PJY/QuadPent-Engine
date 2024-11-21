@@ -4,14 +4,17 @@
 #include <stdarg.h>
 #include <fstream>
 
-GLuint ImageShader;
-GLuint TextShader;
+GLuint IMAGE_SHADER;
+GLuint TEXT_SHADER;
+GLuint MATRIX_COMPT_SHADER;
 
-ShaderLocation ImageTransparencyLocation, ImageColorLocation, ImageModelLocation;
-ShaderLocation BlurStrengthLocation, BoolBlurLocation, TexelSizeLocation;
-ShaderLocation TextTransparencyLocation, TextColorLocation, TextModelLocation;
-ShaderLocation ImageProjectionLocation, ImageViewLocation, ImageViewPositionLocation;
-ShaderLocation TextProjectionLocation, TextViewLocation, TextViewPositionLocation;
+GLuint SSBO_MATRIX_INPUT, SSBO_MATRIX_OUTPUT;
+
+ShaderLocation IMAGE_ALPHA_LOCATION, IMAGE_COLOR_LOCATION, IMAGE_MODEL_LOCATION;
+ShaderLocation BLUR_STRENGTH_LOCATION, BOOL_BLUR_LOCATION, TEXEL_SIZE_LOCATION;
+ShaderLocation TEXT_ALPHA_LOCATION, TEXT_COLOR_LOCATION, TEXT_MODEL_LOCATION;
+ShaderLocation IMGAE_PROJECTION_LOCARION, IMAGE_VIEW_LOCATION, IMAGE_VIEW_POSITION_LOCATION;
+ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VIEW_POSITION_LOCATION;
 
 char* ShaderUtil::LoadShaderFile(std::string FileName) {
 	std::ifstream ShaderFile(FileName, std::ios::in | std::ios::binary | std::ios::ate);
@@ -77,40 +80,74 @@ void ShaderUtil::LoadFragmentShader(std::string FragmentShader) {
 	}
 }
 
+void ShaderUtil::LoadComputeShader(std::string ComputeShader) {
+	compute_source = LoadShaderFile(ComputeShader);
+	compute_shader = glCreateShader(GL_COMPUTE_SHADER);
+	glShaderSource(compute_shader, 1, (const GLchar**)&compute_source, 0);
+	glCompileShader(compute_shader);
+
+	GLint Result{};
+	GLchar ErrorLog[512]{};
+
+	glGetShaderiv(compute_shader, GL_COMPILE_STATUS, &Result);
+
+	if (!Result) {
+		glGetShaderInfoLog(compute_shader, 512, NULL, ErrorLog);
+		std::cout << "ERROR: compute shader error\n" << ErrorLog << std::endl;
+
+		return;
+	}
+}
+
 void ShaderUtil::CreateShader(GLuint& Shader) {
 	Shader = glCreateProgram();
 	glAttachShader(Shader, vertex_shader);
 	glAttachShader(Shader, fragment_shader);
-
 	glLinkProgram(Shader);
-
 	glDeleteShader(vertex_shader);
 	glDeleteShader(fragment_shader);
+}
 
-	glUseProgram(Shader);
+void ShaderUtil::CreateComputeShader(GLuint& Shader) {
+	Shader = glCreateProgram();
+	glAttachShader(Shader, compute_shader);
+	glLinkProgram(Shader);
+	glDeleteShader(compute_shader);
 }
 
 void ShaderUtil::CreateShaderLocation() {
 	// Image Shader
-	ImageTransparencyLocation = glGetUniformLocation(ImageShader, "transparency");
-	ImageColorLocation =		glGetUniformLocation(ImageShader, "objectColor");
-	BlurStrengthLocation =		glGetUniformLocation(ImageShader, "Radius");
-	BoolBlurLocation =			glGetUniformLocation(ImageShader, "UseBlur");
-	TexelSizeLocation =			glGetUniformLocation(ImageShader, "TexelSize");
-	ImageModelLocation =		glGetUniformLocation(ImageShader, "model");
+	IMAGE_ALPHA_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "transparency");
+	IMAGE_COLOR_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "objectColor");
+	BLUR_STRENGTH_LOCATION       = glGetUniformLocation(IMAGE_SHADER, "Radius");
+	BOOL_BLUR_LOCATION           = glGetUniformLocation(IMAGE_SHADER, "UseBlur");
+	TEXEL_SIZE_LOCATION          = glGetUniformLocation(IMAGE_SHADER, "TexelSize");
+	IMAGE_MODEL_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "model");
 
 	// Text Shader
-	TextTransparencyLocation =  glGetUniformLocation(TextShader, "transparency");
-	TextColorLocation =			glGetUniformLocation(TextShader, "objectColor");
-	TextModelLocation =			glGetUniformLocation(TextShader, "model");
+	TEXT_ALPHA_LOCATION          = glGetUniformLocation(TEXT_SHADER, "transparency");
+	TEXT_COLOR_LOCATION          = glGetUniformLocation(TEXT_SHADER, "objectColor");
+	TEXT_MODEL_LOCATION          = glGetUniformLocation(TEXT_SHADER, "model");
 
 	// Image Camera
-	ImageProjectionLocation =	glGetUniformLocation(ImageShader, "projection");
-	ImageViewLocation =			glGetUniformLocation(ImageShader, "view");
-	ImageViewPositionLocation = glGetUniformLocation(ImageShader, "viewPos");
+	IMGAE_PROJECTION_LOCARION    = glGetUniformLocation(IMAGE_SHADER, "projection");
+	IMAGE_VIEW_LOCATION          = glGetUniformLocation(IMAGE_SHADER, "view");
+	IMAGE_VIEW_POSITION_LOCATION = glGetUniformLocation(IMAGE_SHADER, "viewPos");
 	
 	// Text Camera
-	TextProjectionLocation =	glGetUniformLocation(TextShader, "projection");
-	TextViewLocation =		    glGetUniformLocation(TextShader, "view");
-	TextViewPositionLocation =  glGetUniformLocation(TextShader, "viewPos");
+	TEXT_PROJECTION_LOCATION     = glGetUniformLocation(TEXT_SHADER, "projection");
+	TEXT_VIEW_LOCATION           = glGetUniformLocation(TEXT_SHADER, "view");
+	TEXT_VIEW_POSITION_LOCATION  = glGetUniformLocation(TEXT_SHADER, "viewPos");
+}
+
+void ShaderUtil::CreateSSBO() {
+	glGenBuffers(1, &SSBO_MATRIX_INPUT);
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO_MATRIX_INPUT);
+	glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(glm::mat4) * 5, nullptr, GL_STATIC_DRAW);
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, SSBO_MATRIX_INPUT);
+
+	glGenBuffers(1, &SSBO_MATRIX_OUTPUT);
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO_MATRIX_OUTPUT);
+	glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(glm::mat4), nullptr, GL_STATIC_DRAW);
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, SSBO_MATRIX_OUTPUT);
 }

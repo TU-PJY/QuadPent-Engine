@@ -3,7 +3,7 @@
 
 class LineRectBrush {
 private:
-	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
+	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
 
 	glm::vec3 Color{};
 	GLfloat Length{};
@@ -27,7 +27,7 @@ private:
 
 class RectBrush {
 private:
-	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f };
+	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
 
 	glm::vec3 Color{};
 	GLfloat Length{};

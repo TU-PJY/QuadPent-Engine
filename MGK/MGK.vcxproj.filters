@@ -160,6 +160,9 @@
     <Filter Include="[1]___________[ Resources ]\[ Game File ]">
       <UniqueIdentifier>{5cc44f36-1978-4df0-84ee-7042daee1b18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ Compute Util ]">
+      <UniqueIdentifier>{f7456d94-6103-44fc-b1c5-33fe9e736f54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMode1.cpp">
@@ -285,6 +288,9 @@
     <ClCompile Include="LoadingMode.cpp">
       <Filter>[5]___________[ MGK ]\[ System ]\[ System Mode ]\[ Loading Mode ]</Filter>
     </ClCompile>
+    <ClCompile Include="ComputeUtil.cpp">
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ Compute Util ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMode1.h">
@@ -404,6 +410,9 @@
     <ClInclude Include="LoadingScreen.h">
       <Filter>[5]___________[ MGK ]\[ System ]\[ System Object ]</Filter>
     </ClInclude>
+    <ClInclude Include="ComputeUtil.h">
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ Compute Util ]</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ModeTemplate.txt">
@@ -418,6 +427,9 @@
       <Filter>[5]___________[ MGK ]\[ GLSL ]</Filter>
     </None>
     <None Include="MGKResource\GLSL\Vertex.glsl">
+      <Filter>[5]___________[ MGK ]\[ GLSL ]</Filter>
+    </None>
+    <None Include="MGKResource\GLSL\ComputeMatrix.glsl">
       <Filter>[5]___________[ MGK ]\[ GLSL ]</Filter>
     </None>
   </ItemGroup>

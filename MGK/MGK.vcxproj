@@ -146,6 +146,7 @@
     <ClCompile Include="CircleBrush.cpp" />
     <ClCompile Include="ClippingUtil.cpp" />
     <ClCompile Include="CollisionUtil.cpp" />
+    <ClCompile Include="ComputeUtil.cpp" />
     <ClCompile Include="GameFile.cpp" />
     <ClCompile Include="FileUtil.cpp" />
     <ClCompile Include="FontUtil.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="CircleBrush.h" />
     <ClInclude Include="ClippingUtil.h" />
     <ClInclude Include="CollisionUtil.h" />
+    <ClInclude Include="ComputeUtil.h" />
     <ClInclude Include="GameFile.h" />
     <ClInclude Include="FileUtil.h" />
     <ClInclude Include="ExUtil.h" />
@@ -227,6 +229,7 @@
     <Text Include="ModeTemplate.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="MGKResource\GLSL\ComputeMatrix.glsl" />
     <None Include="MGKResource\GLSL\Fragment_Image.glsl" />
     <None Include="MGKResource\GLSL\Fragment_Text.glsl" />
     <None Include="MGKResource\GLSL\Vertex.glsl" />

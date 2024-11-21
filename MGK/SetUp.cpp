@@ -72,16 +72,25 @@ void Framework::SetupWindow() {
 		std::cout << "Unable to initialize GLEW\n\n";
 		exit(EXIT_FAILURE);
 	}
+
+	const GLubyte* Version = glGetString(GL_VERSION);
+	std::cout << Version << std::endl;
 }
 
 void Framework::LoadShader() {
 	shaderUtil.LoadVertexShader("MGKResource//GLSL//Vertex.glsl");
 	shaderUtil.LoadFragmentShader("MGKResource//GLSL//Fragment_Image.glsl");
-	shaderUtil.CreateShader(ImageShader);
+	shaderUtil.CreateShader(IMAGE_SHADER);
 
+	shaderUtil.LoadVertexShader("MGKResource//GLSL//Vertex.glsl");
 	shaderUtil.LoadFragmentShader("MGKResource//GLSL//Fragment_Text.glsl");
-	shaderUtil.CreateShader(TextShader);
+	shaderUtil.CreateShader(TEXT_SHADER);
+
+	shaderUtil.LoadComputeShader("MGKResource//GLSL//ComputeMatrix.glsl");
+	shaderUtil.CreateComputeShader(MATRIX_COMPT_SHADER);
+
 	shaderUtil.CreateShaderLocation();
+	shaderUtil.CreateSSBO();
 }
 
 void Framework::SetGlOption() {
