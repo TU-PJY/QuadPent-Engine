@@ -12,4 +12,4 @@ constexpr const char* FONT_PATH[]
 };
 #endif
 
-// Declare the resource and resourcee directory here.
+// Declare the resource and resourcee directory here. 
