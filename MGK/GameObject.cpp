@@ -67,6 +67,10 @@ void GameObject::UpdateLocalPosition(glm::vec2& Position) {
 
 void GameObject::Flip(int FlipOpt) {
 	switch (FlipOpt) {
+	case FLIP_TYPE_NONE:
+		Transform::Identity(FlipMatrix); 
+		break;
+
 	case FLIP_TYPE_X:
 		Transform::RotateX(FlipMatrix, 180.0f);
 		break;
@@ -86,36 +90,12 @@ void GameObject::Blur(int Strength) {
 	BlurValue = (GLfloat)Strength;
 }
 
-void GameObject::UnitMove(GLfloat X, GLfloat Y) {
-	Transform::Move(UnitTranslateMatrix, X, Y);
-}
-
-void GameObject::UnitMove(glm::vec2 Value) {
-	Transform::Move(UnitTranslateMatrix, Value);
-}
-
-void GameObject::ResetUnitMove() {
-	Transform::Identity(UnitTranslateMatrix);
-}
-
-void GameObject::UnitRotate(GLfloat Value) {
-	Transform::Rotate(UnitRotateMatrix, Value);
-}
-
-void GameObject::ResetUnitRotate() {
-	Transform::Identity(UnitRotateMatrix);
-}
-
-void GameObject::UnitScale(GLfloat SizeX, GLfloat SizeY) {
-	Transform::Scale(UnitScaleMatrix, SizeX, SizeY);
-}
-
-void GameObject::ResetUnitScale() {
-	Transform::Identity(UnitScaleMatrix);
-}
-
 void GameObject::UnitFlip(int FlipOpt) {
 	switch (FlipOpt) {
+	case FLIP_TYPE_NONE:
+		Transform::Identity(UnitFlipMatrix);
+		break;
+
 	case FLIP_TYPE_X:
 		Transform::RotateX(UnitFlipMatrix, 180.0f);
 		break;
@@ -131,24 +111,12 @@ void GameObject::UnitFlip(int FlipOpt) {
 	}
 }
 
-void GameObject::ResetUnitFlip() {
-	Transform::Identity(UnitFlipMatrix);
-}
-
 void GameObject::UnitTransparent(GLfloat Value) {
 	UnitTransparencyValue = Value;
 }
 
-void GameObject::ResetUnitTransparent() {
-	UnitTransparencyValue = 1.0f;
-}
-
 void GameObject::UnitBlur(int Value) {
 	UnitBlurValue = GLfloat(Value);
-}
-
-void GameObject::ResetUnitBlur() {
-	UnitBlurValue = 0.0f;
 }
 
 void GameObject::ResetUnitTransform() {

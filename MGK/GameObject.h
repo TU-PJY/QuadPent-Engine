@@ -73,52 +73,12 @@ public:
 	// Multiply the value by the window aspect ratio.
 	GLfloat ASP(GLfloat Value);
 
-	// Invert the image.Select the reverse direction.
-	void Flip(int FlipOpt);
-
-	// Moves the location by unit. It must be reset to an appropriate location after use.
-	void UnitMove(GLfloat X, GLfloat Y);
-
-	// Moves the location by unit. It must be reset to an appropriate location after use.
-	void UnitMove(glm::vec2 Value);
-
-	// Resets the unit position.
-	void ResetUnitMove();
-
-	// Inverts the object unit by unit. It must be reset to an appropriate location after use.
 	void UnitFlip(int FlipOpt);
-
-	// Disable unit wise inversion.
-	void ResetUnitFlip();
-
-	// Applies transparency on a unit by unit basis. It must be reset to an appropriate location after use.
 	void UnitTransparent(GLfloat Value);
-
-	// Resets transparency per unit.
-	void ResetUnitTransparent();
-
-	// Applies unit-level blur. It must be reset to an appropriate location after use.
 	void UnitBlur(int Value);
-
-	// Disable unit-level blur.
-	void ResetUnitBlur();
-
-	// Resets all unit transforms.
 	void ResetUnitTransform();
 
-	// Scale in units. It must be reset to an appropriate location after use.
-	void UnitScale(GLfloat SizeX, GLfloat SizeY);
-
-	// Resets the unit scale.
-	void ResetUnitScale();
-
-	// Apply rotation on a unit-by-unit basis. It must be reset to an appropriate location after use.
-	void UnitRotate(GLfloat Value);
-
-	// Resets the unit rotate.
-	void ResetUnitRotate();
-
-	//  Apply a blur effect to the image. If excessive values ​​are applied, the frame rate may deteriorate.
+	void Flip(int FlipOpt);
 	void Blur(int Strength);
 
 	//  Render the image.
