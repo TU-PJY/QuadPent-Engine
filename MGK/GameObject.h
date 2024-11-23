@@ -24,10 +24,17 @@ public:
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
 	glm::mat4 ImageAspectMatrix{ 1.0f }, FlipMatrix{ 1.0f };
 
+	glm::mat4 UnitTranslateMatrix{ 1.0f }, UnitRotateMatrix{ 1.0f }, UnitScaleMatrix{ 1.0f };
+	glm::mat4 UnitFlipMatrix{ 1.0f };
+
+	glm::mat4 ViewportPositionMatrix{ 1.0f };
+
 	glm::vec3 ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 
 	GLfloat TransparencyValue{ 1.0f };
+	GLfloat UnitTransparencyValue{ 1.0f };
 	GLfloat BlurValue{};
+	GLfloat UnitBlurValue{};
 
 	std::string ObjectTag{};
 	int ObjectLayer{};
@@ -69,14 +76,63 @@ public:
 	// Invert the image.Select the reverse direction.
 	void Flip(int FlipOpt);
 
+	// Moves the location by unit. It must be reset to an appropriate location after use.
+	void UnitMove(GLfloat X, GLfloat Y);
+
+	// Moves the location by unit. It must be reset to an appropriate location after use.
+	void UnitMove(glm::vec2 Value);
+
+	// Resets the unit position.
+	void ResetUnitMove();
+
+	// Inverts the object unit by unit. It must be reset to an appropriate location after use.
+	void UnitFlip(int FlipOpt);
+
+	// Disable unit wise inversion.
+	void ResetUnitFlip();
+
+	// Applies transparency on a unit by unit basis. It must be reset to an appropriate location after use.
+	void UnitTransparent(GLfloat Value);
+
+	// Resets transparency per unit.
+	void ResetUnitTransparent();
+
+	// Applies unit-level blur. It must be reset to an appropriate location after use.
+	void UnitBlur(int Value);
+
+	// Disable unit-level blur.
+	void ResetUnitBlur();
+
+	// Resets all unit transforms.
+	void ResetUnitTransform();
+
+	// Scale in units. It must be reset to an appropriate location after use.
+	void UnitScale(GLfloat SizeX, GLfloat SizeY);
+
+	// Resets the unit scale.
+	void ResetUnitScale();
+
+	// Apply rotation on a unit-by-unit basis. It must be reset to an appropriate location after use.
+	void UnitRotate(GLfloat Value);
+
+	// Resets the unit rotate.
+	void ResetUnitRotate();
+
 	//  Apply a blur effect to the image. If excessive values ​​are applied, the frame rate may deteriorate.
 	void Blur(int Strength);
 
 	//  Render the image.
-	void Render(Image& Image, GLfloat Transparency = 1.0, bool DisableAdjustAspect=false);
+	void Render(Image& Image, GLfloat Transparency = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
 	// Render the image in one step.
-	void RenderImage(int RenderType, Image& ImageSturct, GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat Transparency=1.0, int FlipOpt=FLIP_TYPE_NONE, bool DisableAdjustAspect=false);
+	void RenderImage(int RenderType, Image& ImageSturct, 
+		GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat Transparency=1.0, 
+		int FlipOpt=FLIP_TYPE_NONE, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
+
+	// Render the image in one step.
+	void RenderImage(int RenderType, Image& Image, 
+		glm::vec2 Position, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat Transparency=1.0, 
+		int FlipOpt=FLIP_TYPE_NONE, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
 	// Play sound.You can specify the playback start point.
 	void PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime=0);

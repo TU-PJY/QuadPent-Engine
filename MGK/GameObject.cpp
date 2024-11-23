@@ -68,16 +68,16 @@ void GameObject::UpdateLocalPosition(glm::vec2& Position) {
 void GameObject::Flip(int FlipOpt) {
 	switch (FlipOpt) {
 	case FLIP_TYPE_X:
-		FlipMatrix = rotate(FlipMatrix, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
+		Transform::RotateX(FlipMatrix, 180.0f);
 		break;
 
 	case FLIP_TYPE_Y:
-		FlipMatrix = rotate(FlipMatrix, glm::radians(180.0f), glm::vec3(1.0, 0.0, 0.0));
+		Transform::RotateY(FlipMatrix, 180.0f);
 		break;
 
 	case FLIP_TYPE_XY:
-		FlipMatrix = rotate(FlipMatrix, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
-		FlipMatrix = rotate(FlipMatrix, glm::radians(180.0f), glm::vec3(1.0, 0.0, 0.0));
+		Transform::RotateX(FlipMatrix, 180.0f);
+		Transform::RotateY(FlipMatrix, 180.0f);
 		break;
 	}
 }
@@ -86,30 +86,116 @@ void GameObject::Blur(int Strength) {
 	BlurValue = (GLfloat)Strength;
 }
 
-void GameObject::Render(Image& Image, GLfloat Transparency, bool DisableAdjustAspect) {
-	TransparencyValue = Transparency;
+void GameObject::UnitMove(GLfloat X, GLfloat Y) {
+	Transform::Move(UnitTranslateMatrix, X, Y);
+}
 
-	if (!DisableAdjustAspect) {
-		if (Image.Width > Image.Height)
-			ImageAspectMatrix = glm::scale(ImageAspectMatrix, glm::vec3(1.0, (GLfloat)Image.Height / (GLfloat)Image.Width, 1.0));
-		else if (Image.Width < Image.Height) 
-			ImageAspectMatrix = glm::scale(ImageAspectMatrix, glm::vec3((GLfloat)Image.Width / (GLfloat)Image.Height, 1.0, 1.0));
+void GameObject::UnitMove(glm::vec2 Value) {
+	Transform::Move(UnitTranslateMatrix, Value);
+}
+
+void GameObject::ResetUnitMove() {
+	Transform::Identity(UnitTranslateMatrix);
+}
+
+void GameObject::UnitRotate(GLfloat Value) {
+	Transform::Rotate(UnitRotateMatrix, Value);
+}
+
+void GameObject::ResetUnitRotate() {
+	Transform::Identity(UnitRotateMatrix);
+}
+
+void GameObject::UnitScale(GLfloat SizeX, GLfloat SizeY) {
+	Transform::Scale(UnitScaleMatrix, SizeX, SizeY);
+}
+
+void GameObject::ResetUnitScale() {
+	Transform::Identity(UnitScaleMatrix);
+}
+
+void GameObject::UnitFlip(int FlipOpt) {
+	switch (FlipOpt) {
+	case FLIP_TYPE_X:
+		Transform::RotateX(UnitFlipMatrix, 180.0f);
+		break;
+
+	case FLIP_TYPE_Y:
+		Transform::RotateY(UnitFlipMatrix, 180.0f);
+		break;
+
+	case FLIP_TYPE_XY:
+		Transform::RotateX(UnitFlipMatrix, 180.0f);
+		Transform::RotateY(UnitFlipMatrix, 180.0f);
+		break;
 	}
+}
 
-	Compt::ComputeMatrix(ResultMatrix, TranslateMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+void GameObject::ResetUnitFlip() {
+	Transform::Identity(UnitFlipMatrix);
+}
+
+void GameObject::UnitTransparent(GLfloat Value) {
+	UnitTransparencyValue = Value;
+}
+
+void GameObject::ResetUnitTransparent() {
+	UnitTransparencyValue = 1.0f;
+}
+
+void GameObject::UnitBlur(int Value) {
+	UnitBlurValue = GLfloat(Value);
+}
+
+void GameObject::ResetUnitBlur() {
+	UnitBlurValue = 0.0f;
+}
+
+void GameObject::ResetUnitTransform() {
+	Transform::Identity(UnitTranslateMatrix);
+	Transform::Identity(UnitRotateMatrix);
+	Transform::Identity(UnitScaleMatrix);
+	Transform::Identity(UnitFlipMatrix);
+	UnitTransparencyValue = 1.0f;
+	UnitBlurValue = 0.0f;
+}
+
+void GameObject::Render(Image& Image, GLfloat Transparency, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+	if (!DisableAdjustAspect)
+		Transform::ImageScale(ImageAspectMatrix, Image.Width, Image.Height);
+
+		Compt::ComputeMatrix(ResultMatrix, TranslateMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+		TransparencyValue = Transparency;
+
+	if (ApplyUnitTransform) {
+		Compt::ComputeMatrix(ResultMatrix, UnitTranslateMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+		TransparencyValue -= (1.0f - UnitTransparencyValue);
+		EX::ClampValue(TransparencyValue, 0.0, CLAMP_LESS);
+		BlurValue += UnitBlurValue;
+	}
 
 	PrepareRender();
 	imageUtil.Render(Image);
 }
 
-void GameObject::RenderImage(int RenderType, Image& Image, GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat Transparency, int FlipOpt, bool DisableAdjustAspect) {
+void GameObject::RenderImage(int RenderType, Image& Image, GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat Transparency, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	InitRenderState(RenderType);
 	Transform::Move(TranslateMatrix, X, Y);
 	Transform::Rotate(RotateMatrix, Rotation);
 	Transform::Scale(ScaleMatrix, Width, Height);
 	Flip(FlipOpt);
 	TransparencyValue = Transparency;
-	Render(Image, Transparency, DisableAdjustAspect);
+	Render(Image, Transparency, ApplyUnitTransform, DisableAdjustAspect);
+}
+
+void GameObject::RenderImage(int RenderType, Image& Image, glm::vec2 Position, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat Transparency, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+	InitRenderState(RenderType);
+	Transform::Move(TranslateMatrix, Position);
+	Transform::Rotate(RotateMatrix, Rotation);
+	Transform::Scale(ScaleMatrix, Width, Height);
+	Flip(FlipOpt);
+	TransparencyValue = Transparency;
+	Render(Image, Transparency, ApplyUnitTransform, DisableAdjustAspect);
 }
 
 void GameObject::PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime) {
@@ -206,7 +292,8 @@ void GameObject::PrepareRender() {
 }
 
 glm::vec4 GameObject::ViewportPosition() {
-	return camera.Projection * camera.ViewMatrix * ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	Compt::ComputeMatrix(ViewportPositionMatrix, camera.Projection, camera.ViewMatrix, ResultMatrix);
+	return ViewportPositionMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 glm::vec4 GameObject::LocalPosition() {
