@@ -1,15 +1,8 @@
 #include "FontUtil.h"
-
-std::wstring FontUtil::ToWstr(const std::string& str) {
-    int SizeNeed = MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), NULL, 0);
-    std::wstring Wstr(SizeNeed, 0);
-    MultiByteToWideChar(CP_UTF8, 0, &str[0], (int)str.size(), &Wstr[0], SizeNeed);
-
-    return Wstr;
-}
+#include "StringUtil.h"
 
 bool FontUtil::Import(const std::string& FontFilePath) {
-    std::wstring Path = ToWstr(FontFilePath);
+    std::wstring Path = StringUtil::ConvW(FontFilePath);
     DWORD NumFonts{};
 
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);

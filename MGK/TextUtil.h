@@ -56,10 +56,6 @@ public:
 	void Rotate(GLfloat RotationValue);
 	void SetAlpha(GLfloat Value);
 	void SetRenderType(int Type);
-	std::wstring W(const std::string& str);
-	void EraseString(std::string& Str);
-	void RemoveString(std::string& Str, std::string& RemoveStr);
-	void AddString(std::string& Str, std::string& AddStr);
 	void RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str);
 	void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...);
 

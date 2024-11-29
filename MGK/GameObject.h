@@ -18,6 +18,7 @@
 #include "GameResource.h"
 #include "ThreadUtil.h"
 #include "ComputeUtil.h"
+#include "StringUtil.h"
 
 class GameObject {
 public:

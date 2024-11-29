@@ -163,6 +163,9 @@
     <Filter Include="[1]___________[ Resources ]\[ Game File ]">
       <UniqueIdentifier>{5cc44f36-1978-4df0-84ee-7042daee1b18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ MGK ]\[ Util ]\[ String Util ]">
+      <UniqueIdentifier>{0d426163-3f7a-4344-9513-1c4da459934c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMode1.cpp">
@@ -291,6 +294,9 @@
     <ClCompile Include="ComputeUtil.cpp">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Compute Util ]</Filter>
     </ClCompile>
+    <ClCompile Include="StringUtil.cpp">
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ String Util ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMode1.h">
@@ -412,6 +418,9 @@
     </ClInclude>
     <ClInclude Include="ComputeUtil.h">
       <Filter>[5]___________[ MGK ]\[ Util ]\[ Compute Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtil.h">
+      <Filter>[5]___________[ MGK ]\[ Util ]\[ String Util ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

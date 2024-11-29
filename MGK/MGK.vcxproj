@@ -172,6 +172,7 @@
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="StartMode.cpp" />
     <ClCompile Include="ExUtil.cpp" />
+    <ClCompile Include="StringUtil.cpp" />
     <ClCompile Include="SystemResource.cpp" />
     <ClCompile Include="TextUtil.cpp" />
     <ClCompile Include="ThreadUtil.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="ShaderUtil.h" />
     <ClInclude Include="SoundUtil.h" />
     <ClInclude Include="Setting.h" />
+    <ClInclude Include="StringUtil.h" />
     <ClInclude Include="SystemResource.h" />
     <ClInclude Include="TextUtil.h" />
     <ClInclude Include="ThreadUtil.h" />

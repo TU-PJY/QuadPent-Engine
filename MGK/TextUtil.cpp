@@ -2,6 +2,7 @@
 #include "CameraUtil.h"
 #include "TransformUtil.h"
 #include "ComputeUtil.h"
+#include "StringUtil.h"
 
 void TextUtil::Init(const wchar_t* FontName, int Type, int Italic) {
 	hDC = wglGetCurrentDC();
@@ -55,32 +56,8 @@ void TextUtil::SetAlpha(GLfloat Value) {
 	TextAlphaValue = Value;
 }
 
-void TextUtil::AddString(std::string& Str, std::string& AddStr) {
-	Str += AddStr;
-}
-
-void TextUtil::EraseString(std::string& Str) {
-	Str.pop_back();
-}
-
-void TextUtil::RemoveString(std::string& Str, std::string& RemoveStr) {
-	size_t Pos = Str.find(RemoveStr);
-	while (Pos != std::string::npos) {
-		Str.erase(Pos, RemoveStr.length());
-		Pos = Str.find(RemoveStr);
-	}
-}
-
-std::wstring TextUtil::W(const std::string& Str) {
-	int SizeNeed = MultiByteToWideChar(CP_UTF8, 0, &Str[0], (int)Str.size(), NULL, 0);
-	std::wstring Wstr(SizeNeed, 0);
-	MultiByteToWideChar(CP_UTF8, 0, &Str[0], (int)Str.size(), &Wstr[0], SizeNeed);
-
-	return Wstr;
-}
-
 void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str) {
-	Render(X, Y, Size, W(Str).c_str());
+	Render(X, Y, Size, StringUtil::ConvW(Str).c_str());
 }
 
 void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...) {
