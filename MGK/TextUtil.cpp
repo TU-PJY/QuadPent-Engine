@@ -57,7 +57,7 @@ void TextUtil::SetTransparent(GLfloat Value) {
 }
 
 void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str) {
-	Render(X, Y, Size, StringUtil::Wchar(Str));
+	Render(X, Y, Size, StringUtil::Wstring(Str).c_str());
 }
 
 void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...) {

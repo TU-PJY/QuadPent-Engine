@@ -6,5 +6,4 @@ namespace StringUtil {
 	void EraseString(std::string& Str);
 	void RemoveString(std::string& Str, std::string& RemoveStr);
 	std::wstring Wstring(const std::string& Str);
-	const wchar_t* Wchar(const std::string& Str);
 }

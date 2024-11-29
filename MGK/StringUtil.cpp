@@ -23,11 +23,3 @@ std::wstring StringUtil::Wstring(const std::string& Str) {
 
 	return Wstr;
 }
-
-const wchar_t* StringUtil::Wchar(const std::string& Str) {
-	int SizeNeed = MultiByteToWideChar(CP_UTF8, 0, &Str[0], (int)Str.size(), NULL, 0);
-	std::wstring Wstr(SizeNeed, 0);
-	MultiByteToWideChar(CP_UTF8, 0, &Str[0], (int)Str.size(), &Wstr[0], SizeNeed);
-
-	return Wstr.c_str();
-}
