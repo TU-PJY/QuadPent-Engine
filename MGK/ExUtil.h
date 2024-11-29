@@ -1,9 +1,5 @@
 #pragma once
-
-enum ClampType { 
-	CLAMP_GREATER, 
-	CLAMP_LESS
-};
+#include "EngineHeader.h"
 
 namespace EX {
 	void SwitchBool(bool& Value);

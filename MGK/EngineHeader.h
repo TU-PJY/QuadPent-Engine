@@ -129,11 +129,16 @@ enum CheckTimeOptionEnum {
 	CHECK_AND_INTERPOLATE
 };
 
-enum UIClameEdgeEnum {
+enum UIClampEdgeEnum {
 	EDGE_LEFT_DOWN,
 	EDGE_LEFT_UP,
 	EDGE_RIGHT_UP,
 	EDGE_RIGHT_DOWN
+};
+
+enum EXClampTypeEnum {
+	CLAMP_GREATER,
+	CLAMP_LESS
 };
 
 // data set struct
