@@ -36,6 +36,7 @@ private:
 	std::array<std::vector<int>, Layers> DeleteLocation{};
 
 	int CurrentReferLocation{};
+	int CurrentLayerLocation{};
 	int SceneCommandCount{};
 	bool CommandExist{};
 
@@ -118,6 +119,7 @@ public:
 	void SwapLayer(GameObject* Object, int TargetLayer);
 
 	// Deletes an object from the Scene.
+	// If the object is located on a layer that is not currently being referenced, activates DeleteReserveCommand.
 	void DeleteObject(GameObject* Object);
 
 	// Deletes an object from the Scene.

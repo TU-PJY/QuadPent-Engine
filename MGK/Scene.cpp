@@ -17,6 +17,7 @@ void Scene::Resume() {
 }
 
 void Scene::Routine() {
+	CurrentLayerLocation = 0;
 	for (int i = 0; i < Layers; ++i) {
 		for (auto& Object : ObjectList[i]) {
 			if (UpdateActivateCommand) {
@@ -30,6 +31,7 @@ void Scene::Routine() {
 			++CurrentReferLocation;
 		}
 		CurrentReferLocation = 0;
+		++CurrentLayerLocation;
 	}
 }
 
@@ -157,8 +159,13 @@ void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
 }
 
 void Scene::DeleteObject(GameObject* Object) {
-	Object->DeleteCommand = true;
-	AddLocation(Object->ObjectLayer, CurrentReferLocation);
+	if (Object->ObjectLayer == CurrentLayerLocation) {
+		Object->DeleteCommand = true;
+		AddLocation(Object->ObjectLayer, CurrentReferLocation);
+	}
+
+	else
+		Object->DeleteReserveCommand = true;
 }
 
 void Scene::DeleteObject(std::string Tag, int DeleteRange) {

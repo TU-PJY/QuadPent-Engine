@@ -17,7 +17,7 @@ void GameMode1::Destructor() {
 void GameMode1::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {
 	if (State == NORMAL_KEY_DOWN) {
 		switch (NormalKey) {
-		case 27: //ESC
+		case NK_ESCAPE:
 			framework.Exit();
 			break;
 		}
