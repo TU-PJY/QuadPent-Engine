@@ -6,11 +6,11 @@ private:
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
 
 	glm::vec3 Color{};
-	GLfloat Length{};
-	GLfloat TransparencyValue{};
-	int RenderType{ RENDER_TYPE_DEFAULT };
+	GLfloat   Length{};
+	GLfloat   TransparencyValue{};
+	int       RenderType{ RENDER_TYPE_DEFAULT };
 
-	bool CamInheritanceCommand{};
+	bool      CamInheritanceCommand{};
 
 public:
 	LineRectBrush(bool Flag=false);
@@ -30,11 +30,11 @@ private:
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
 
 	glm::vec3 Color{};
-	GLfloat Length{};
-	GLfloat TransparencyValue{};
-	int RenderType{ RENDER_TYPE_DEFAULT };
+	GLfloat   Length{};
+	GLfloat   TransparencyValue{};
+	int       RenderType{ RENDER_TYPE_DEFAULT };
 
-	bool CamInheritanceCommand{};
+	bool      CamInheritanceCommand{};
 
 public:
 	RectBrush(bool Flag=false);

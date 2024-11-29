@@ -1,22 +1,22 @@
 #version 330 core
 
-in vec3 fragPos;
-in vec2 TexCoord;
+in vec3           fragPos;
+in vec2           TexCoord;
 
-out vec4 fragColor;
-uniform vec3 viewPos;
+out vec4          fragColor;
+uniform vec3      viewPos;
 
 uniform sampler2D outTexture;
-uniform float transparency;
-uniform vec3 objectColor;
+uniform float     transparency;
+uniform vec3      objectColor;
 
-uniform bool UseBlur;
-uniform float Radius; 
-uniform vec2 TexelSize;
+uniform bool      UseBlur;
+uniform float     Radius; 
+uniform vec2      TexelSize;
 
-vec4 BlurResult;
-vec4 DefaultResult;
-vec4 FinalResult;
+vec4              BlurResult;
+vec4              DefaultResult;
+vec4              FinalResult;
 
 vec4 ComputeBlur() {
     vec4 BlurResultValue = vec4(0.0);

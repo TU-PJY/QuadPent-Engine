@@ -2,7 +2,6 @@
 #include "EngineHeader.h"
 #include "RectBrush.h"
 #include "CircleBrush.h"
-#include <DirectXCollision.h>
 using namespace DirectX;
 
 class OOBB;
@@ -10,12 +9,12 @@ class BoundingCircle;
 
 class AABB {
 private:
-	BoundingBox aabb;
-	bool Collide{};
+	BoundingBox   aabb;
+	bool          Collide{};
 
 #ifdef SHOW_BOUND_BOX
 	LineRectBrush LineRect{true};
-	RectBrush Rect{true};
+	RectBrush     Rect{true};
 #endif
 
 public:
@@ -30,15 +29,16 @@ public:
 	BoundingBox Get() const;
 };
 
+
 class OOBB {
 private:
 	BoundingOrientedBox oobb;
-	GLfloat Rotation{};
-	bool Collide{};
+	GLfloat             Rotation{};
+	bool                Collide{};
 
 #ifdef SHOW_BOUND_BOX
-	LineRectBrush LineRect{ true };
-	RectBrush Rect{ true };
+	LineRectBrush       LineRect{ true };
+	RectBrush           Rect{ true };
 #endif
 
 public:
@@ -53,20 +53,20 @@ public:
 	BoundingOrientedBox Get() const;
 };
 
+
 class BoundingCircle {
 private:
-	BoundingSphere sphere;
-	glm::vec2 Center{};
-	GLfloat Radius{};
-	GLfloat Size{};
+	BoundingSphere  sphere;
+	glm::vec2       Center{};
+	GLfloat         Radius{};
+	GLfloat         Size{};
 
-	bool Collide{};
+	bool            Collide{};
 
 #ifdef SHOW_BOUND_BOX
 	LineCircleBrush LineCircle { true };
-	CircleBrush Circle{ true };
+	CircleBrush     Circle{ true };
 #endif
-
 
 public:
 	void Update(GLfloat X, GLfloat Y, GLfloat Diameter);

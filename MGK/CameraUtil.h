@@ -4,11 +4,11 @@
 class Camera {
 private:
 	glm::vec3 CamPos{}, CamDirection{}, CamUp{};
-	bool StaticMode{};
+	bool      StaticMode{};
 	
 public:
 	glm::mat4 ViewMatrix{ 1.0 }, Projection{ 1.0 }, TranslateMatrix{ 1.0 }, RotateMatrix{ 1.0 };
-	GLfloat ZoomValue{ 1.0f };
+	GLfloat   ZoomValue{ 1.0f };
 
 	void CalculateASPECT();
 	void Init();

@@ -17,7 +17,7 @@ class ScriptUtil {
 private:
 	TiXmlDocument Doc{};
 	TiXmlElement* Root{};
-	bool FileExist{};
+	bool          FileExist{};
 
 public:
 	void Import(std::string FileName);

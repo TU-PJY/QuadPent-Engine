@@ -15,7 +15,7 @@ private:
 	GLfloat GravityAcc{};
 	GLfloat MoveAcc{};
 
-	bool FallingState{};
+	bool    FallingState{};
 
 public:
 	bool GetFallingState();

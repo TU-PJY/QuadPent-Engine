@@ -5,13 +5,13 @@ class LineBrush {
 private:
 	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
 
-	GLfloat Width{};
-	GLfloat Rotation;
-	GLfloat Length{};
+	GLfloat   Width{};
+	GLfloat   Rotation;
+	GLfloat   Length{};
 	glm::vec3 Color{};
-	GLfloat TransparencyValue{};
+	GLfloat   TransparencyValue{};
 
-	int RenderType { RENDER_TYPE_DEFAULT };
+	int       RenderType { RENDER_TYPE_DEFAULT };
 
 public:
 	void SetRenderType(int Opt);

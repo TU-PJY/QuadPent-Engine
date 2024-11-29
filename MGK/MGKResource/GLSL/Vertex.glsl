@@ -3,8 +3,8 @@
 layout(location = 0) in vec3 inPosition;
 layout(location = 2) in vec2 vTexCoord;
 
-out vec3 fragPos;
-out vec2 TexCoord;
+out vec3     fragPos;
+out vec2     TexCoord;
 
 uniform mat4 model;
 uniform mat4 view;

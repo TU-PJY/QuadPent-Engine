@@ -5,16 +5,16 @@
 
 class IntroScreen : public GameObject {
 private:
-	TimerUtil timer;
+	TimerUtil    timer;
 
 	SoundChannel IntroChannel{};
 
-	GLfloat LogoSize = 1.0;
-	GLfloat LogoTransparent = 1.0;
-	GLfloat LogoPosition = -0.5;
-	GLfloat RectPosition = -0.5;
+	GLfloat      LogoSize        = 1.0;
+	GLfloat      LogoTransparent = 1.0;
+	GLfloat      LogoPosition    = -0.5;
+	GLfloat      RectPosition    = -0.5;
 
-	int Scene{};
+	int          Scene{}; 
 
 public:
 	void InputKey(int State, unsigned char NormalKey, int SpecialKey) {

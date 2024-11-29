@@ -4,8 +4,8 @@
 
 class ImageUtil {
 private:
-	GLuint VAO{};
-	std::vector<PreLoadInfo> LoadBuffer;
+	GLuint                   VAO{};
+	std::vector<PreLoadInfo> LoadBuffer{};
 
 public:
 	void Init();

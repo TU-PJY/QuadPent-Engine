@@ -5,14 +5,14 @@
 class SoundUtil {
 private:
 	FMOD::System* SoundSystem{};
-	FMOD::DSP* BeatDetector{};
-	FMOD::DSP* LowPass{};
+	FMOD::DSP*    BeatDetector{};
+	FMOD::DSP*    LowPass{};
 
-	FMOD_VECTOR ListenerPosition{};
-	FMOD_VECTOR SoundPosition{};
+	FMOD_VECTOR   ListenerPosition{};
+	FMOD_VECTOR   SoundPosition{};
 
-	FMOD_RESULT Result{};
-	void* ExtDvData{};
+	FMOD_RESULT   Result{};
+	void*         ExtDvData{};
 
 public:
 	void Init();

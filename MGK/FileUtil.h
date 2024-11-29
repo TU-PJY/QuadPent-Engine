@@ -23,13 +23,13 @@ using namespace CryptoPP;
 // write and read
 class FileUtil {
 private:
-	std::string FilePath{};
+	std::string   FilePath{};
 	TiXmlDocument Doc{};
 	TiXmlElement* Root{};
 	
-	DataFormat DataFormatInfo{};
+	DataFormat    DataFormatInfo{};
 
-	bool FileExist{};
+	bool          FileExist{};
 
 public:
 	void Import(std::string FileName, DataFormat Format);

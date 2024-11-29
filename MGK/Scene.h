@@ -10,35 +10,18 @@ typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
 constexpr int Layers = END;
 
-using ObjectRange = std::multimap<std::string, GameObject*>::iterator;
-
-enum DeleteRange { 
-	DELETE_RANGE_SINGLE, 
-	DELETE_RANGE_EQUAL 
-};
-
-enum ModeType { 
-	MODE_TYPE_NONE, 
-	MODE_TYPE_DEFAULT,
-	MODE_TYPE_FLOATING 
-};
-
-enum ObjectType { 
-	OBJECT_TYPE_NONE, 
-	OBJECT_TYPE_STATIC, 
-	OBJECT_TYPE_FLOATING 
-};
+using ObjectRange    = std::multimap<std::string, GameObject*>::iterator;
 
 class Scene {
 private:
 	std::array<std::deque<GameObject*>, Layers> ObjectList{};
-	std::multimap<std::string, GameObject*> ObjectIndex{};
-	std::array<std::vector<int>, Layers> DeleteLocation{};
+	std::multimap<std::string, GameObject*>     ObjectIndex{};
+	std::array<std::vector<int>, Layers>        DeleteLocation{};
 
-	int CurrentReferLocation{};
-	int CurrentLayerLocation{};
-	int SceneCommandCount{};
-	bool CommandExist{};
+	int                               CurrentReferLocation{};
+	int                               CurrentLayerLocation{};
+	int                               SceneCommandCount{};
+	bool                              CommandExist{};
 
 	std::string						  CurrentRunningMode{};
 	std::string						  PrevRunningMode{};
@@ -51,7 +34,7 @@ private:
 	ControllerFunction				  ControllerBuffer{};
 	Function						  DestructorBuffer{};
 
-	bool UpdateActivateCommand{ true };
+	bool                              UpdateActivateCommand{ true };
 
 public:
 	// Returns the name of the currently running mode.

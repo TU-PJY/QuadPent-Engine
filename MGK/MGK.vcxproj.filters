@@ -34,12 +34,6 @@
     <Filter Include="[4]___________[ MGK ]">
       <UniqueIdentifier>{7f6a4887-d06e-4c65-963d-2b7d61cea12c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ GLSL ]">
-      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Scene ]">
-      <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[4]___________[ MGK ]\[ Util ]">
       <UniqueIdentifier>{019278b2-60d4-4cad-b935-d813a31f2c87}</UniqueIdentifier>
     </Filter>
@@ -151,9 +145,6 @@
     <Filter Include="[4]___________[ MGK ]\[ System ]\[ System Object ]">
       <UniqueIdentifier>{c8dde2fb-f4fd-4595-9cdf-614100ed40cc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Header ]">
-      <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[4]___________[ MGK ]\[ Config ]">
       <UniqueIdentifier>{c229d7fb-288d-4e48-b8b0-7e7dbd38a78d}</UniqueIdentifier>
     </Filter>
@@ -165,6 +156,15 @@
     </Filter>
     <Filter Include="[5]___________[ Resources ]\[ Game File ]">
       <UniqueIdentifier>{5cc44f36-1978-4df0-84ee-7042daee1b18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ MGK ]\[ System ]\[ Header ]">
+      <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ MGK ]\[ System ]\[ GLSL ]">
+      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ MGK ]\[ System ]\[ Scene ]">
+      <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -214,7 +214,7 @@
       <Filter>[4]___________[ MGK ]\[ System ]\[ System Resource ]</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>[4]___________[ MGK ]\[ Scene ]</Filter>
+      <Filter>[4]___________[ MGK ]\[ System ]\[ Scene ]</Filter>
     </ClCompile>
     <ClCompile Include="SetUp.cpp">
       <Filter>[4]___________[ MGK ]\[ System ]\[ Framework ]</Filter>
@@ -342,10 +342,10 @@
       <Filter>[4]___________[ MGK ]\[ Util ]\[ AnimationUtil ]</Filter>
     </ClInclude>
     <ClInclude Include="EngineHeader.h">
-      <Filter>[4]___________[ MGK ]\[ Header ]</Filter>
+      <Filter>[4]___________[ MGK ]\[ System ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>[4]___________[ MGK ]\[ Scene ]</Filter>
+      <Filter>[4]___________[ MGK ]\[ System ]\[ Scene ]</Filter>
     </ClInclude>
     <ClInclude Include="MathUtil.h">
       <Filter>[4]___________[ MGK ]\[ Util ]\[ Math Util ]</Filter>
@@ -430,19 +430,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MGKResource\GLSL\Fragment_Image.glsl">
-      <Filter>[4]___________[ MGK ]\[ GLSL ]</Filter>
+      <Filter>[4]___________[ MGK ]\[ System ]\[ GLSL ]</Filter>
     </None>
     <None Include="MGKResource\GLSL\Fragment_Text.glsl">
-      <Filter>[4]___________[ MGK ]\[ GLSL ]</Filter>
+      <Filter>[4]___________[ MGK ]\[ System ]\[ GLSL ]</Filter>
     </None>
     <None Include="MGKResource\GLSL\Vertex.glsl">
-      <Filter>[4]___________[ MGK ]\[ GLSL ]</Filter>
+      <Filter>[4]___________[ MGK ]\[ System ]\[ GLSL ]</Filter>
     </None>
     <None Include="MGKResource\GLSL\ComputeMatrix.glsl">
-      <Filter>[4]___________[ MGK ]\[ GLSL ]</Filter>
+      <Filter>[4]___________[ MGK ]\[ System ]\[ GLSL ]</Filter>
     </None>
     <None Include="MGKResource\GLSL\Fragment_Shape.glsl">
-      <Filter>[4]___________[ MGK ]\[ GLSL ]</Filter>
+      <Filter>[4]___________[ MGK ]\[ System ]\[ GLSL ]</Filter>
     </None>
   </ItemGroup>
 </Project>

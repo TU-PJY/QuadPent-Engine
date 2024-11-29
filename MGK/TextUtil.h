@@ -6,36 +6,36 @@
 
 class TextUtil {
 private:
-	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
+	glm::mat4                TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
 
-	glm::vec2 RenderPosition{};
-	GLfloat Rotation{};
+	glm::vec2                RenderPosition{};
+	GLfloat                  Rotation{};
 
-	size_t TextWordCount{};
-	GLfloat TextLength{};
-	GLfloat TextRenderSize{};
-	GLfloat TextLineSpace{};
-	GLfloat MiddleHeight{};
+	size_t                   TextWordCount{};
+	GLfloat                  TextLength{};
+	GLfloat                  TextRenderSize{};
+	GLfloat                  TextLineSpace{};
+	GLfloat                  MiddleHeight{};
 
-	std::vector<GLfloat> LineLengthBuffer{};
-	std::wstring CurrentText{};
-	std::wstring PrevText{};
-	int CurrentLine{};
+	std::vector<GLfloat>     LineLengthBuffer{};
+	std::wstring             CurrentText{};
+	std::wstring             PrevText{};
+	int                      CurrentLine{};
 
-	GLfloat TextAlphaValue{ 1.0f };
+	GLfloat                  TextAlphaValue{ 1.0f };
 
-	glm::vec3 TextColor{ glm::vec3(1.0, 1.0, 1.0) };
+	glm::vec3                TextColor{ glm::vec3(1.0, 1.0, 1.0) };
 	std::map <wchar_t, bool> GlyphCache;
 
-	HDC hDC{};
-	HFONT Font{};
-	GLuint FontBase{};
-	GLYPHMETRICSFLOAT TextGlyph[65536]{};
+	HDC                      hDC{};
+	HFONT                    Font{};
+	GLuint                   FontBase{};
+	GLYPHMETRICSFLOAT        TextGlyph[65536]{};
 
-	int TextAlign{ ALIGN_DEFAULT };
-	int RenderType{ RENDER_TYPE_STATIC };
-	int HeightAlign{ HEIGHT_ALIGN_DEFAULT };
-	bool FixMiddleCommand{};
+	int                      TextAlign{ ALIGN_DEFAULT };
+	int                      RenderType{ RENDER_TYPE_STATIC };
+	int                      HeightAlign{ HEIGHT_ALIGN_DEFAULT };
+	bool                     FixMiddleCommand{};
 
 
 public:

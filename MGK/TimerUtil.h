@@ -4,7 +4,7 @@
 class TimerUtil {
 private:
 	GLfloat Time{};
-	bool StopState{};
+	bool    StopState{};
 	
 public:
 	void Update(float FT);
@@ -24,8 +24,8 @@ class Metronome {
 private:
 	GLdouble BeatInterval{};
 	GLdouble Time{};
-	bool StopState{};
-	bool BeatState{};
+	bool     StopState{};
+	bool     BeatState{};
 
 public:
 	void SetBPM(int Value);

@@ -4,7 +4,7 @@
 
 GLfloat SinLoop::Update(GLfloat MoveScale, GLfloat Speed, float FrameTime) {
 	Num += Speed * FrameTime;
-	return cos(Num) * MoveScale;
+	return sin(Num) * MoveScale;
 }
 
 void SinLoop::SetValue(GLfloat Value) {

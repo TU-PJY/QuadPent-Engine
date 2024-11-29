@@ -6,11 +6,11 @@ private:
 	glm::mat4 TranslateMatrix{ 1.0f };
 
 	glm::vec3 Color{};
-	GLfloat Radius{};
-	GLfloat TransparencyValue{};
-	int RenderType{ RENDER_TYPE_DEFAULT };
+	GLfloat   Radius{};
+	GLfloat   TransparencyValue{};
+	int       RenderType{ RENDER_TYPE_DEFAULT };
 
-	bool CamInheritanceCommand{};
+	bool      CamInheritanceCommand{};
 
 public:
 	CircleBrush(bool Flag = false);
@@ -28,11 +28,11 @@ private:
 	glm::mat4 TranslateMatrix{ 1.0f };
 
 	glm::vec3 Color{};
-	GLfloat Radius{}, WidthValue{};
-	GLfloat TransparencyValue{};
-	int RenderType{ RENDER_TYPE_DEFAULT };
+	GLfloat   Radius{}, WidthValue{};
+	GLfloat   TransparencyValue{};
+	int       RenderType{ RENDER_TYPE_DEFAULT };
 
-	bool CamInheritanceCommand{};
+	bool      CamInheritanceCommand{};
 
 public:
 	LineCircleBrush(bool Flag = false);

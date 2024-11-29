@@ -32,10 +32,10 @@ DWORD WINAPI SystemResourceCreateThread(LPVOID Param) {
 
 class LoadingScreen : public GameObject {
 private:
-	HANDLE ThreadHandle{};
+	HANDLE  ThreadHandle{};
 	GLfloat Rotation{};
 	GLfloat Transparent{1.0};
-	bool LoadCommand{};
+	bool    LoadCommand{};
 
 public:
 	void InputKey(int State, unsigned char NormalKey, int SpecialKey) {
