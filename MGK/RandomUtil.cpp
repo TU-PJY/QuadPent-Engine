@@ -13,5 +13,5 @@ GLfloat Random::Gen(int DistType, GLfloat Min, GLfloat Max) {
 		return UID(RD);
 	}
 
-	return 0.0
+	return 0.0;
 }
