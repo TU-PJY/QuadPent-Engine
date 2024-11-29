@@ -12,4 +12,6 @@ GLfloat Random::Gen(int DistType, GLfloat Min, GLfloat Max) {
 		std::uniform_int_distribution UID{ (int)Min, (int)Max };
 		return UID(RD);
 	}
+
+	return 0.0
 }

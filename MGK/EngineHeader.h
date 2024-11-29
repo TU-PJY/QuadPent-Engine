@@ -1,6 +1,7 @@
 #pragma once
 #pragma warning(disable: 4244) 
 #pragma warning(disable: 4305) 
+#pragma warning(disable: 26444) 
 #include "Setting.h"
 #include "glew.h"
 #include "freeglut.h"
