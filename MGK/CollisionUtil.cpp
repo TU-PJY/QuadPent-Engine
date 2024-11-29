@@ -7,35 +7,13 @@
 
 
 void AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
-	OffsetX = xScale / 2;
-	OffsetY = yScale / 2;
-
-	LeftX = X - OffsetX;
-	RightX = X + OffsetX;
-	LeftY = Y - OffsetY;
-	RightY = Y + OffsetY;
-
-	Center.x = X;
-	Center.y = Y;
-
-	Width = xScale;
-	Height = yScale;
+	aabb.Center = XMFLOAT3(X, Y, 0.0);
+	aabb.Extents = XMFLOAT3(xScale / 2.0, yScale / 2.0, 0.0);
 }
 
 void AABB::Update(glm::vec2 Position, GLfloat xScale, GLfloat yScale) {
-	OffsetX = xScale / 2;
-	OffsetY = yScale / 2;
-
-	LeftX = Position.x - OffsetX;
-	RightX = Position.x + OffsetX;
-	LeftY = Position.y - OffsetY;
-	RightY = Position.y + OffsetY;
-
-	Center.x = Position.x;
-	Center.y = Position.y;
-
-	Width = xScale;
-	Height = yScale;
+	aabb.Center = XMFLOAT3(Position.x, Position.y, 0.0);
+	aabb.Extents = XMFLOAT3(xScale / 2.0, yScale / 2.0, 0.0);
 }
 
 void AABB::Render() {
@@ -43,30 +21,37 @@ void AABB::Render() {
 	LineRect.SetColor(1.0, 0.0, 0.0);
 	Rect.SetColor(1.0, 0.0, 0.0);
 
-	LineRect.Draw(Center.x, Center.y, Width, Height, 0.01, 0.0);
+	LineRect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, 0.01, 0.0);
 
 	if (Collide)
-		Rect.Draw(Center.x, Center.y, Width, Height, 0.0, 0.3);
+		Rect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, 0.0, 0.3);
 #endif
 }
 
 bool AABB::CheckCollision(const AABB& Other) {
-	if (RightX < Other.LeftX || LeftX > Other.RightX) {
-		Collide = false;
-		return false;
+	if (aabb.Intersects(Other.aabb)) {
+		Collide = true;
+		return true;
 	}
 
-	if (RightY < Other.LeftY || LeftY > Other.RightY) {
-		Collide = false;
-		return false;
-	}
-	
-	Collide = true;
-	return true;
+	Collide = false;
+	return false;
 }
 
 bool AABB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
-	if ((LeftX <= X && X <= RightX) && (LeftY <= Y && Y <= RightY)) {
+	XMFLOAT3 Point(X, Y, 0.0);
+	if (aabb.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
+		Collide = true;
+		return true;
+	}
+
+	Collide = false;
+	return false;
+}
+
+bool AABB::CheckCollisionPoint(glm::vec2 Position) {
+	XMFLOAT3 Point(Position.x, Position.y, 0.0);
+	if (aabb.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
 		Collide = true;
 		return true;
 	}
@@ -78,28 +63,18 @@ bool AABB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
 
 
 void OOBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue) {
-	Center = glm::vec2(X, Y);
-	Offset = glm::vec2(BoxWidth / 2, BoxHeight / 2);
-
-	GLfloat Rad = glm::radians(RotationValue);
-	Axis[0] = glm::vec2(std::cos(Rad), std::sin(Rad));
-	Axis[1] = glm::vec2(-std::sin(Rad), std::cos(Rad));
-
-	Width = BoxWidth;
-	Height = BoxHeight;
+	oobb.Center = XMFLOAT3(X, Y, 0.0);
+	oobb.Extents = XMFLOAT3(BoxWidth / 2.0, BoxHeight / 2.0, 0.0);
+	XMVECTOR Quaternion = XMQuaternionRotationRollPitchYaw(0.0, 0.0, XMConvertToRadians(RotationValue));
+	XMStoreFloat4(&oobb.Orientation, Quaternion);
 	Rotation = RotationValue;
 }
 
 void OOBB::Update(glm::vec2 Position, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue) {
-	Center = Position;
-	Offset = glm::vec2(BoxWidth / 2, BoxHeight / 2);
-
-	GLfloat Rad = glm::radians(RotationValue);
-	Axis[0] = glm::vec2(std::cos(Rad), std::sin(Rad));
-	Axis[1] = glm::vec2(-std::sin(Rad), std::cos(Rad));
-
-	Width = BoxWidth;
-	Height = BoxHeight;
+	oobb.Center = XMFLOAT3(Position.x, Position.y, 0.0);
+	oobb.Extents = XMFLOAT3(BoxWidth / 2.0, BoxHeight / 2.0, 0.0);
+	XMVECTOR Quaternion = XMQuaternionRotationRollPitchYaw(0.0, 0.0, XMConvertToRadians(RotationValue));
+	XMStoreFloat4(&oobb.Orientation, Quaternion);
 	Rotation = RotationValue;
 }
 
@@ -108,84 +83,55 @@ void OOBB::Render() {
 	LineRect.SetColor(1.0, 0.0, 0.0);
 	Rect.SetColor(1.0, 0.0, 0.0);
 
-	LineRect.Draw(Center.x, Center.y, Width, Height, 0.01, Rotation);
+	LineRect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, 0.01, Rotation);
 
 	if (Collide)
-		Rect.Draw(Center.x, Center.y, Width, Height, Rotation, 0.3);
+		Rect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, Rotation, 0.3);
 #endif
 }
 
-std::pair<float, float> OOBB::Project(const OOBB& oobb, const glm::vec2& Axis) {
-	Corners[0] = oobb.Center + oobb.Axis[0] * oobb.Offset.x + oobb.Axis[1] * oobb.Offset.y;
-	Corners[1] = oobb.Center + oobb.Axis[0] * oobb.Offset.x - oobb.Axis[1] * oobb.Offset.y;
-	Corners[2] = oobb.Center - oobb.Axis[0] * oobb.Offset.x + oobb.Axis[1] * oobb.Offset.y;
-	Corners[3] = oobb.Center - oobb.Axis[0] * oobb.Offset.x - oobb.Axis[1] * oobb.Offset.y;
-
-	float Min = glm::dot(Corners[0], Axis);
-	float Max = Min;
-
-	for (int i = 1; i < 4; i++) {
-		float Projection = glm::dot(Corners[i], Axis);
-
-		if (Projection < Min)
-			Min = Projection;
-
-		if (Projection > Max)
-			Max = Projection;
-	}
-
-	return std::make_pair(Min, Max);
-}
-
-bool OOBB::OverlapOnAxis(const OOBB& oobb1, const OOBB& oobb2, const glm::vec2& Axis) {
-	auto [Min1, Max1] = Project(oobb1, Axis);
-	auto [Min2, Max2] = Project(oobb2, Axis);
-
-	return !(Max1 < Min2 || Max2 < Min1);
-}
-
 bool OOBB::CheckCollision(const OOBB& Other) {
-	glm::vec2 Axises[] = { Axis[0], Axis[1], Other.Axis[0], Other.Axis[1] };
-
-	for (const auto& Axis : Axises) {
-		if (!OverlapOnAxis(*this, Other, Axis)) {
-			Collide = false;
-			return false;
-		}
+	if (oobb.Intersects(Other.oobb)) {
+		Collide = true;
+		return true;
 	}
 
-	Collide = true;
-	return true;
+	Collide = false;
+	return false;
 }
 
 bool OOBB::CheckCollisionPoint(GLfloat X, GLfloat Y) {
-	glm::vec2 D = glm::vec2(X, Y) - Center;
-
-	for (int i = 0; i < 2; ++i) {
-		GLfloat Dist = glm::dot(D, Axis[i]);
-		if (std::abs(Dist) > Offset[i]) {
-			Collide = false;
-			return false;
-		}
+	XMFLOAT3 Point(X, Y, 0.0);
+	if (oobb.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
+		Collide = true;
+		return true;
 	}
 
-	Collide = true;
-	return true;
+	Collide = false;
+	return false;
+}
+
+bool OOBB::CheckCollisionPoint(glm::vec2 Position) {
+	XMFLOAT3 Point(Position.x, Position.y, 0.0);
+	if (oobb.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
+		Collide = true;
+		return true;
+	}
+
+	Collide = false;
+	return false;
 }
 
 
 
 void BoundingCircle::Update(GLfloat X, GLfloat Y, GLfloat SizeValue) {
-	Center.x = X;
-	Center.y = Y;
-	Radius = SizeValue * 0.5;
-	Size = SizeValue;
+	sphere.Center = XMFLOAT3(X, Y, 0.0);
+	sphere.Radius = SizeValue * 0.5;
 }
 
 void BoundingCircle::Update(glm::vec2 Position, GLfloat SizeValue) {
-	Center = Position;
-	Radius = SizeValue * 0.5;
-	Size = SizeValue;
+	sphere.Center = XMFLOAT3(Position.x, Position.y, 0.0);
+	sphere.Radius = SizeValue * 0.5;
 }
 
 void BoundingCircle::Render() {
@@ -193,15 +139,15 @@ void BoundingCircle::Render() {
 	Circle.SetColor(1.0, 0.0, 0.0);
 	LineCircle.SetColor(1.0, 0.0, 0.0);
 
-	LineCircle.Draw(Center.x, Center.y, Size, 0.01);
+	LineCircle.Draw(sphere.Center.x, sphere.Center.y, sphere.Radius * 2.0 - 0.01, 0.01);
 
 	if (Collide)
-		Circle.Draw(Center.x, Center.y, Size, 0.3);
+		Circle.Draw(sphere.Center.x, sphere.Center.y, sphere.Radius * 2.0, 0.3);
 #endif
 }
 
 bool BoundingCircle::CheckCollision(const BoundingCircle& Other) {
-	if (Math::CalcDistance(Center.x, Center.y, Other.Center.x, Other.Center.y) < Radius + Other.Radius) {
+	if (sphere.Intersects(Other.sphere)) {
 		Collide = true;
 		return true;
 	}
@@ -211,7 +157,19 @@ bool BoundingCircle::CheckCollision(const BoundingCircle& Other) {
 }
 
 bool BoundingCircle::CheckCollisionPoint(GLfloat X, GLfloat Y) {
-	if (Math::CalcDistance(Center.x, Center.y, X, Y) < Radius) {
+	XMFLOAT3 Point(X, Y, 0.0);
+	if (sphere.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
+		Collide = true;
+		return true;
+	}
+
+	Collide = false;
+	return false;
+}
+
+bool BoundingCircle::CheckCollisionPoint(glm::vec2 Position) {
+	XMFLOAT3 Point(Position.x, Position.y, 0.0);
+	if (sphere.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
 		Collide = true;
 		return true;
 	}

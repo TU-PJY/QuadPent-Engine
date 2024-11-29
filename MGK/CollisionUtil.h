@@ -2,16 +2,12 @@
 #include "EngineHeader.h"
 #include "RectBrush.h"
 #include "CircleBrush.h"
+#include <DirectXCollision.h>
+using namespace DirectX;
 
 class AABB {
 private:
-	GLfloat LeftX{}, LeftY{};
-	GLfloat RightX{}, RightY{};
-	GLfloat OffsetX{}, OffsetY{};
-
-	glm::vec2 Center{};
-	GLfloat Width{}, Height{};
-
+	BoundingBox aabb;
 	bool Collide{};
 
 #ifdef SHOW_BOUND_BOX
@@ -25,18 +21,13 @@ public:
 	void Render();
 	bool CheckCollision(const AABB& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
+	bool CheckCollisionPoint(glm::vec2 Position);
 };
 
 class OOBB {
 private:
-	glm::vec2 Offset{};
-	glm::vec2 Axis[2]{};
-	glm::vec2 Corners[4]{};
-
-	glm::vec2 Center{};
-	GLfloat Width{}, Height{};
+	BoundingOrientedBox oobb;
 	GLfloat Rotation{};
-
 	bool Collide{};
 
 #ifdef SHOW_BOUND_BOX
@@ -50,14 +41,12 @@ public:
 	void Render();
 	bool CheckCollision(const OOBB& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
-
-private:
-	std::pair<float, float> Project(const OOBB& OBB, const glm::vec2& Axis);
-	bool OverlapOnAxis(const OOBB& OBB1, const OOBB& OBB2, const glm::vec2& Axis);
+	bool CheckCollisionPoint(glm::vec2 Position);
 };
 
 class BoundingCircle {
 private:
+	BoundingSphere sphere;
 	glm::vec2 Center{};
 	GLfloat Radius{};
 	GLfloat Size{};
@@ -76,4 +65,5 @@ public:
 	void Render();
 	bool CheckCollision(const BoundingCircle& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
+	bool CheckCollisionPoint(glm::vec2 Position);
 };
