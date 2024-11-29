@@ -36,9 +36,8 @@ public:
 		timer.Update(FT);
 		switch (Scene) {
 		case 0:
-			if (timer.Sec() >= 1) {
+			if (timer.CheckMiliSec(1.0, 1, CHECK_AND_INTERPOLATE)) {
 				soundUtil.PlaySound(IntroSound, IntroChannel);
-				timer.Reset();
 				++Scene;
 			}
 			break;
@@ -50,16 +49,15 @@ public:
 			EX::ClampValue(RectPosition, -1.0, CLAMP_LESS);
 			EX::ClampValue(LogoPosition, 0.0, CLAMP_GREATER);
 
-			if (timer.MiliSec() >= 2.5) {
+			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
 				LogoTransparent -= FT * 2;
 				EX::ClampValue(LogoTransparent, 0.0, CLAMP_LESS);
 			}
 
-			if (timer.MiliSec() >= 4) {
+			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_INTERPOLATE)) {
 				RectPosition = -0.5;
 				LogoPosition = -0.5;
 				LogoTransparent = 1.0;
-				timer.Reset();
 				++Scene;
 			}
 			break;
@@ -71,12 +69,12 @@ public:
 			EX::ClampValue(RectPosition, -1.0, CLAMP_LESS);
 			EX::ClampValue(LogoPosition, 0.0, CLAMP_GREATER);
 
-			if (timer.MiliSec() >= 2.5) {
+			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
 				LogoTransparent -= FT * 2;
 				EX::ClampValue(LogoTransparent, 0.0, CLAMP_LESS);
 			}
 
-			if (timer.Sec() >= 4)
+			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_RESUME))
 				scene.SwitchMode(START_MODE);
 			
 			break;

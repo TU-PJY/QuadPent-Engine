@@ -44,3 +44,19 @@ void EX::ClampValue(int& Value, int Dest, int Type) {
 		break;
 	}
 }
+
+bool EX::CheckClampValue(float& Value, float Dest, int Type) {
+	EX::ClampValue(Value, Dest, Type);
+	if (Value == Dest)
+		return true;
+
+	return false;
+}
+
+bool EX::CheckClampValue(int& Value, int Dest, int Type) {
+	EX::ClampValue(Value, Dest, Type);
+	if (Value == Dest)
+		return true;
+
+	return false;
+}

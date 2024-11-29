@@ -63,8 +63,7 @@ public:
 
 				else {
 					Transparent -= FT * 2.0;
-					EX::ClampValue(Transparent, 0.0, CLAMP_LESS);
-					if(Transparent == 0.0)
+					if(EX::CheckClampValue(Transparent, 0.0, CLAMP_LESS))
 						scene.SwitchMode(IntroMode::Start);
 				}
 			}

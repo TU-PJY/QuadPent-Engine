@@ -7,4 +7,6 @@ namespace EX {
 	void SwitchValue(int& TargetValue, int Value1, int Value2);
 	void ClampValue(float& Value, float Dest, int Type);
 	void ClampValue(int& Value, int Dest, int Type);
+	bool CheckClampValue(float& Value, float Dest, int Type);
+	bool CheckClampValue(int& Value, int Dest, int Type);
  }
