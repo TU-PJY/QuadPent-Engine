@@ -4,35 +4,8 @@
 
 // You can get the mode file template from ModeTemplate.txt
 
-class test : public GameObject {
-public:
-	AABB aabb;
-	AABB aabb2;
-	OOBB oobb, oobb2;
-	BoundingCircle bc, bc2;
-	GLfloat Rotation{};
-
-	void UpdateFunc(float FT) {
-		bc.Update(mouse.x, mouse.y, 0.5);
-		bc2.Update(0.0, 0.0, 0.5);
-		//bc2.CheckCollisionPoint(mouse.x, mouse.y);
-		bc2.CheckCollision(bc);
-	}
-
-	void RenderFunc() {
-		InitRenderState();
-		Transform::Scale(ScaleMatrix, 0.0, 0.0);
-		Transform::Move(TranslateMatrix, mouse.x, mouse.y);
-		Render(COLOR_TEXTURE);
-		bc.Render();
-		bc2.Render();
-	}
-};
-
 void GameMode1::Start() {
 	Framework::SetBackColor(0.5, 0.5, 0.5);
-
-	scene.AddObject(new test, "test", LAYER1);
 
 	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
 	scene.RegisterDestructor(Destructor);

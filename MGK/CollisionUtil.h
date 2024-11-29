@@ -5,6 +5,9 @@
 #include <DirectXCollision.h>
 using namespace DirectX;
 
+class OOBB;
+class BoundingCircle;
+
 class AABB {
 private:
 	BoundingBox aabb;
@@ -20,8 +23,11 @@ public:
 	void Update(glm::vec2 Position, GLfloat xScale, GLfloat yScale);
 	void Render();
 	bool CheckCollision(const AABB& Other);
+	bool CheckCollision(const OOBB& Other);
+	bool CheckCollision(const BoundingCircle& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 	bool CheckCollisionPoint(glm::vec2 Position);
+	BoundingBox Get() const;
 };
 
 class OOBB {
@@ -40,8 +46,11 @@ public:
 	void Update(glm::vec2 Position, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
 	void Render();
 	bool CheckCollision(const OOBB& Other);
+	bool CheckCollision(const AABB& Other);
+	bool CheckCollision(const BoundingCircle& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 	bool CheckCollisionPoint(glm::vec2 Position);
+	BoundingOrientedBox Get() const;
 };
 
 class BoundingCircle {
@@ -64,6 +73,9 @@ public:
 	void Update(glm::vec2 Position, GLfloat SizeValue);
 	void Render();
 	bool CheckCollision(const BoundingCircle& Other);
+	bool CheckCollision(const AABB& Other);
+	bool CheckCollision(const OOBB& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 	bool CheckCollisionPoint(glm::vec2 Position);
+	BoundingSphere Get() const;
 };
