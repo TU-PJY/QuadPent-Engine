@@ -111,6 +111,18 @@ enum ImageFlipEnum {
 	FLIP_TYPE_XY
 };
 
+enum TextAlignEnum {
+	ALIGN_DEFAULT,
+	ALIGN_MIDDLE,
+	ALIGN_LEFT
+};
+
+enum HeightClampEnum {
+	HEIGHT_ALIGN_DEFAULT,
+	HEIGHT_ALIGN_MIDDLE,
+	HEIGHT_ALIGN_UNDER
+};
+
 // data set struct
 struct FileData {
 	int DataType;
@@ -186,3 +198,6 @@ namespace Framework {
 	void LoadShader();
 	void Exit();
 }
+
+// Multiply the value by the window aspect ratio.
+GLfloat ASP(GLfloat Value);

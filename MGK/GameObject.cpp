@@ -35,10 +35,6 @@ void GameObject::SetColorRGB(int R, int G, int B) {
 	ObjectColor.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-GLfloat GameObject::ASP(GLfloat Value) {
-	return Value * ASPECT;
-}
-
 void GameObject::UpdateViewportPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect) {
 	if (ApplyAspect)
 		ValueX = ASP(ViewportPosition().x);

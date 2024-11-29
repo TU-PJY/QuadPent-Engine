@@ -28,12 +28,12 @@ void TextUtil::SetLineSpace(GLfloat Value) {
 	TextLineSpace = Value;
 }
 
-void TextUtil::SetClampMiddle(bool Flag) {
-	ClampMiddleCommand = Flag;
+void TextUtil::SetFixMiddle(bool Flag) {
+	FixMiddleCommand = Flag;
 }
 
-void TextUtil::SetHeightMiddle(bool Flag) {
-	HeightMiddleCommand = Flag;
+void TextUtil::SetHeightAlign(int Type) {
+	HeightAlign = Type;
 }
 
 void TextUtil::SetColor(GLfloat R, GLfloat G, GLfloat B) {
@@ -52,12 +52,12 @@ void TextUtil::Rotate(GLfloat RotationValue) {
 	Rotation = RotationValue;
 }
 
-void TextUtil::SetAlpha(GLfloat Value) {
+void TextUtil::SetTransparent(GLfloat Value) {
 	TextAlphaValue = Value;
 }
 
 void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str) {
-	Render(X, Y, Size, StringUtil::ConvW(Str).c_str());
+	Render(X, Y, Size, StringUtil::Wchar(Str));
 }
 
 void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...) {
@@ -77,8 +77,19 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format,
 
 	TextRenderSize = Size;
 	RenderPosition = glm::vec2(X, Y);
-	if (HeightMiddleCommand)
+
+	switch (HeightAlign) {
+	case HEIGHT_ALIGN_DEFAULT:
+		break;
+
+	case HEIGHT_ALIGN_MIDDLE:
 		RenderPosition.y -= TextRenderSize * 0.5;
+		break;
+
+	case HEIGHT_ALIGN_UNDER:
+		RenderPosition.y -= TextRenderSize;
+		break;
+	}
 
 	Transform::Identity(RotateMatrix);
 	Transform::Identity(ScaleMatrix);
@@ -146,7 +157,7 @@ void TextUtil::CalculateTextLength(const wchar_t* Text) {
 		TextLength = LineLengthBuffer[0];
 
 		MiddleHeight = 0.0;
-		if (ClampMiddleCommand) {
+		if (FixMiddleCommand) {
 			size_t LineNum = LineLengthBuffer.size();
 			for (int i = 0; i < LineNum; ++i)
 				MiddleHeight += TextLineSpace;

@@ -4,13 +4,6 @@
 #include <windows.h>
 #include <map>
 
-enum Align { 
-	ALIGN_DEFAULT, 
-	ALIGN_MIDDLE, 
-	ALIGN_LEFT 
-};
-
-
 class TextUtil {
 private:
 	glm::mat4 TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
@@ -40,8 +33,8 @@ private:
 
 	int TextAlign{ ALIGN_DEFAULT };
 	int RenderType{ RENDER_TYPE_STATIC };
-	bool ClampMiddleCommand{};
-	bool HeightMiddleCommand{};
+	int HeightAlign{ HEIGHT_ALIGN_DEFAULT };
+	bool FixMiddleCommand{};
 
 
 public:
@@ -51,10 +44,10 @@ public:
 	void SetColorRGB(int R, int G, int B);
 	void SetAlign(int AlignOpt);
 	void SetLineSpace(GLfloat Value);
-	void SetClampMiddle(bool Flag);
-	void SetHeightMiddle(bool Flag);
+	void SetFixMiddle(bool Flag);
+	void SetHeightAlign(int Type);
 	void Rotate(GLfloat RotationValue);
-	void SetAlpha(GLfloat Value);
+	void SetTransparent(GLfloat Value);
 	void SetRenderType(int Type);
 	void RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str);
 	void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...);

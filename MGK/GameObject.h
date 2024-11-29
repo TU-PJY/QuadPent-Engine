@@ -71,9 +71,6 @@ public:
 	// Updates the object's position relative to the local coordinate system.
 	void UpdateLocalPosition(glm::vec2& Position);
 
-	// Multiply the value by the window aspect ratio.
-	GLfloat ASP(GLfloat Value);
-
 	void UnitFlip(int FlipOpt);
 	void UnitTransparent(GLfloat Value);
 	void UnitBlur(int Value);

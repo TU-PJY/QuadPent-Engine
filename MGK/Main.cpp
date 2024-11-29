@@ -36,8 +36,8 @@ GLvoid Framework::Framework() {
 				FPS_IND_REFRESH_TIMER.Interpolate(1.0);
 			}
 
-			Rect.Draw(-1.0 * ASPECT + 0.1, 0.97, 0.3, 0.08, 0.0, 0.3);
-			FPS_IND.Render(-1.0 * ASPECT + 0.025, 0.95, 0.05, L"FPS: %d", (int)(1.0 / CurrentDeltaTime));
+			Rect.Draw(WindowRect.lx + 0.125, WindowRect.ry - 0.04, 0.25, 0.08, 0.0, 0.3);
+			FPS_IND.Render(WindowRect.lx + 0.01, WindowRect.ry, 0.05, L"FPS: %d", (int)(1.0 / CurrentDeltaTime));
 		}
 	}
 
@@ -63,6 +63,7 @@ void main(int argc, char** argv) {
 	if (SHOW_FPS) {
 		FPS_IND.Init(L"Arial", FW_NORMAL);
 		FPS_IND.SetColor(1.0, 1.0, 1.0);
+		FPS_IND.SetHeightAlign(HEIGHT_ALIGN_UNDER);
 	}
 
 	glutDisplayFunc(Framework::Framework);
@@ -72,4 +73,8 @@ void main(int argc, char** argv) {
 
 void Framework::Exit() {
 	glutDestroyWindow(1);
+}
+
+GLfloat ASP(GLfloat Value) {
+	return Value * ASPECT;
 }
