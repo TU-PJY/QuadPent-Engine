@@ -14,6 +14,8 @@ public:
 	int Sec();
 	GLfloat MiliSec(int DemicalPlace=1);
 	void Interpolate(GLfloat Value);
+	bool CheckSec(int DestTime, int CheckOption);
+	bool CheckMiliSec(GLfloat DestTime, int DemicalPlace, int CheckOption);
 };
 
 

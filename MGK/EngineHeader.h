@@ -117,10 +117,23 @@ enum TextAlignEnum {
 	ALIGN_LEFT
 };
 
-enum HeightClampEnum {
+enum TextHeightClampEnum {
 	HEIGHT_ALIGN_DEFAULT,
 	HEIGHT_ALIGN_MIDDLE,
 	HEIGHT_ALIGN_UNDER
+};
+
+enum CheckTimeOptionEnum {
+	CHECK_AND_RESUME,
+	CHECK_AND_RESET,
+	CHECK_AND_INTERPOLATE
+};
+
+enum UIClameEdgeEnum {
+	EDGE_LEFT_DOWN,
+	EDGE_LEFT_UP,
+	EDGE_RIGHT_UP,
+	EDGE_RIGHT_DOWN
 };
 
 // data set struct

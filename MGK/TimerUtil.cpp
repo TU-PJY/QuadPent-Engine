@@ -33,7 +33,42 @@ void TimerUtil::Interpolate(GLfloat Value) {
 	Time = OverTime;
 }
 
+bool TimerUtil::CheckSec(int DestTime, int CheckOption) {
+	if (Sec() >= DestTime) {
+		switch (CheckOption) {
+		case CHECK_AND_RESUME:
+			return true;
 
+		case CHECK_AND_RESET:
+			Reset();
+			return true;
+
+		case CHECK_AND_INTERPOLATE:
+			Interpolate((GLfloat)DestTime);
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool TimerUtil::CheckMiliSec(GLfloat DestTime, int DemicalPlace, int CheckOption) {
+	if (MiliSec(DemicalPlace) >= DestTime) {
+		switch (CheckOption) {
+		case CHECK_AND_RESUME:
+			return true;
+
+		case CHECK_AND_RESET:
+			Reset();
+			return true;
+
+		case CHECK_AND_INTERPOLATE:
+			Interpolate(DestTime);
+			return true;
+		}
+	}
+	return false;
+}
 
 
 void Metronome::SetBPM(int BPM) {

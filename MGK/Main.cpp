@@ -17,6 +17,7 @@ float PrevTime, CurrentTime, DeltaTime;
 RectBrush Rect;
 TextUtil FPS_IND;
 TimerUtil FPS_IND_REFRESH_TIMER;
+glm::vec2 RectPosition;
 float CurrentDeltaTime = 1.0;
 
 GLvoid Framework::Framework() {
@@ -31,12 +32,11 @@ GLvoid Framework::Framework() {
 
 		if (SHOW_FPS) {
 			FPS_IND_REFRESH_TIMER.Update(DeltaTime);
-			if (FPS_IND_REFRESH_TIMER.Sec() >= 1) {
+			if (FPS_IND_REFRESH_TIMER.CheckSec(1, CHECK_AND_INTERPOLATE))
 				CurrentDeltaTime = DeltaTime;
-				FPS_IND_REFRESH_TIMER.Interpolate(1.0);
-			}
 
-			Rect.Draw(WindowRect.lx + 0.125, WindowRect.ry - 0.04, 0.25, 0.08, 0.0, 0.3);
+			UI::ClampPositionToCorner(EDGE_LEFT_UP, RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.0);
+			Rect.Draw(RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.3);
 			FPS_IND.Render(WindowRect.lx + 0.01, WindowRect.ry, 0.05, L"FPS: %d", (int)(1.0 / CurrentDeltaTime));
 		}
 	}

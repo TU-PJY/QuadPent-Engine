@@ -67,21 +67,22 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format,
 	va_start(Args, Format);
 	vswprintf(Text, sizeof(Text)/ sizeof(wchar_t), Format, Args);
 	va_end(Args);
+	CurrentText = std::wstring(Text);
 
-	if (Format == NULL)  
+	if (Format == NULL)
 		return;
 
-	TextWordCount = wcslen(Text);
-	ProcessGlyphCache(Text);
-	CalculateTextLength(Text);
+	if (CurrentText != PrevText) {
+		TextWordCount = wcslen(Text);
+		ProcessGlyphCache(Text);
+		CalculateTextLength(Text);
+		PrevText = CurrentText;
+	}
 
 	TextRenderSize = Size;
 	RenderPosition = glm::vec2(X, Y);
 
 	switch (HeightAlign) {
-	case HEIGHT_ALIGN_DEFAULT:
-		break;
-
 	case HEIGHT_ALIGN_MIDDLE:
 		RenderPosition.y -= TextRenderSize * 0.5;
 		break;

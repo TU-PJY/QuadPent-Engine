@@ -18,7 +18,8 @@ private:
 	GLfloat MiddleHeight{};
 
 	std::vector<GLfloat> LineLengthBuffer{};
-	wchar_t* PrevText{};
+	std::wstring CurrentText{};
+	std::wstring PrevText{};
 	int CurrentLine{};
 
 	GLfloat TextAlphaValue{ 1.0f };
