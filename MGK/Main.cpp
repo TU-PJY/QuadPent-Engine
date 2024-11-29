@@ -32,7 +32,7 @@ GLvoid Framework::Framework() {
 
 		if (SHOW_FPS) {
 			FPS_IND_REFRESH_TIMER.Update(DeltaTime);
-			if (FPS_IND_REFRESH_TIMER.CheckSec(1, CHECK_AND_INTERPOLATE))
+			if (FPS_IND_REFRESH_TIMER.CheckMiliSec(0.5, 1, CHECK_AND_INTERPOLATE))
 				CurrentDeltaTime = DeltaTime;
 
 			UI::ClampPositionToCorner(EDGE_LEFT_UP, RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.0);
