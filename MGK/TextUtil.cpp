@@ -12,19 +12,11 @@ void TextUtil::Init(const wchar_t* FontName, int Type, int Italic) {
 		NONANTIALIASED_QUALITY, FF_DONTCARE | DEFAULT_PITCH, FontName
 	);
 
-	LineLength.reserve(20);
+	LineLengthBuffer.reserve(20);
 }
 
-void TextUtil::SetColor(GLfloat R, GLfloat G, GLfloat B) {
-	TextColor.r = R;
-	TextColor.g = G;
-	TextColor.b = B;
-}
-
-void TextUtil::SetColorRGB(int R, int G, int B) {
-	TextColor.r = (1.0f / 255.0f) * (GLfloat)R;
-	TextColor.g = (1.0f / 255.0f) * (GLfloat)G;
-	TextColor.b = (1.0f / 255.0f) * (GLfloat)B;
+void TextUtil::SetRenderType(int Type) {
+	RenderType = Type;
 }
 
 void TextUtil::SetAlign(int AlignOpt) {
@@ -43,15 +35,55 @@ void TextUtil::SetHeightMiddle(bool Flag) {
 	HeightMiddleCommand = Flag;
 }
 
+void TextUtil::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+	TextColor.r = R;
+	TextColor.g = G;
+	TextColor.b = B;
+}
+
+void TextUtil::SetColorRGB(int R, int G, int B) {
+	TextColor.r = (1.0f / 255.0f) * (GLfloat)R;
+	TextColor.g = (1.0f / 255.0f) * (GLfloat)G;
+	TextColor.b = (1.0f / 255.0f) * (GLfloat)B;
+}
+
 void TextUtil::Rotate(GLfloat RotationValue) {
 	Rotation = RotationValue;
 }
 
-void TextUtil::SetRenderType(int Type) {
-	RenderType = Type;
+void TextUtil::SetAlpha(GLfloat Value) {
+	TextAlphaValue = Value;
 }
 
-void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...) {
+void TextUtil::AddString(std::string& Str, std::string& AddStr) {
+	Str += AddStr;
+}
+
+void TextUtil::EraseString(std::string& Str) {
+	Str.pop_back();
+}
+
+void TextUtil::RemoveString(std::string& Str, std::string& RemoveStr) {
+	size_t Pos = Str.find(RemoveStr);
+	while (Pos != std::string::npos) {
+		Str.erase(Pos, RemoveStr.length());
+		Pos = Str.find(RemoveStr);
+	}
+}
+
+std::wstring TextUtil::W(const std::string& Str) {
+	int SizeNeed = MultiByteToWideChar(CP_UTF8, 0, &Str[0], (int)Str.size(), NULL, 0);
+	std::wstring Wstr(SizeNeed, 0);
+	MultiByteToWideChar(CP_UTF8, 0, &Str[0], (int)Str.size(), &Wstr[0], SizeNeed);
+
+	return Wstr;
+}
+
+void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str) {
+	Render(X, Y, Size, W(Str).c_str());
+}
+
+void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...) {
 	wchar_t Text[256]{};
 	va_list Args{};
 
@@ -70,7 +102,6 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyVa
 	RenderPosition = glm::vec2(X, Y);
 	if (HeightMiddleCommand)
 		RenderPosition.y -= TextRenderSize * 0.5;
-	Transparency = TransparencyValue;
 
 	Transform::Identity(RotateMatrix);
 	Transform::Identity(ScaleMatrix);
@@ -112,12 +143,12 @@ GLfloat TextUtil::GetLength(const wchar_t* Text) {
 }
 
 void TextUtil::GetLineLength(const wchar_t* Text) {
-	LineLength.clear();
+	LineLengthBuffer.clear();
 	GLfloat CurrentLineLength{};
 
 	for (int i = 0; i < wcslen(Text); ++i) {
 		if (Text[i] == L'\n') {
-			LineLength.emplace_back(CurrentLineLength);
+			LineLengthBuffer.emplace_back(CurrentLineLength);
 			CurrentLineLength = 0.0f; 
 			continue;
 		}
@@ -128,18 +159,18 @@ void TextUtil::GetLineLength(const wchar_t* Text) {
 	}
 
 	if (CurrentLineLength > 0.0f)
-		LineLength.emplace_back(CurrentLineLength);
+		LineLengthBuffer.emplace_back(CurrentLineLength);
 }
 
 void TextUtil::CalculateTextLength(const wchar_t* Text) {
 	switch (TextAlign) {
 	case ALIGN_MIDDLE: case ALIGN_LEFT:
 		GetLineLength(Text);
-		TextLength = LineLength[0];
+		TextLength = LineLengthBuffer[0];
 
 		MiddleHeight = 0.0;
 		if (ClampMiddleCommand) {
-			size_t LineNum = LineLength.size();
+			size_t LineNum = LineLengthBuffer.size();
 			for (int i = 0; i < LineNum; ++i)
 				MiddleHeight += TextLineSpace;
 			MiddleHeight /= 2.0;
@@ -160,7 +191,7 @@ void TextUtil::SetNewLine() {
 
 	if (TextAlign != ALIGN_DEFAULT) {
 		++CurrentLine;
-		TextLength = LineLength[CurrentLine];
+		TextLength = LineLengthBuffer[CurrentLine];
 	}
 }
 
@@ -188,7 +219,7 @@ void TextUtil::PrepareRender() {
 	glUseProgram(TEXT_SHADER);
 	camera.PrepareRender(SHADER_TYPE_TEXT);
 
-	glUniform1f(TEXT_ALPHA_LOCATION, Transparency);
+	glUniform1f(TEXT_ALPHA_LOCATION, TextAlphaValue);
 	glUniform3f(TEXT_COLOR_LOCATION, TextColor.r, TextColor.g, TextColor.b);
 	glUniformMatrix4fv(TEXT_MODEL_LOCATION, 1, GL_FALSE, value_ptr(ResultMatrix));
 }

@@ -37,7 +37,7 @@ GLvoid Framework::Framework() {
 			}
 
 			Rect.Draw(-1.0 * ASPECT + 0.1, 0.97, 0.3, 0.08, 0.0, 0.3);
-			FPS_IND.Render(-1.0 * ASPECT + 0.025, 0.95, 0.05, 1.0, L"FPS: %d", (int)(1.0 / CurrentDeltaTime));
+			FPS_IND.Render(-1.0 * ASPECT + 0.025, 0.95, 0.05, L"FPS: %d", (int)(1.0 / CurrentDeltaTime));
 		}
 	}
 

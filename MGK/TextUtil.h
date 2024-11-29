@@ -24,11 +24,11 @@ private:
 	GLfloat TextLineSpace{};
 	GLfloat MiddleHeight{};
 
-	std::vector<GLfloat> LineLength{};
+	std::vector<GLfloat> LineLengthBuffer{};
 	wchar_t* PrevText{};
 	int CurrentLine{};
 
-	GLfloat Transparency{ 1.0f };
+	GLfloat TextAlphaValue{ 1.0f };
 
 	glm::vec3 TextColor{ glm::vec3(1.0, 1.0, 1.0) };
 	std::map <wchar_t, bool> GlyphCache;
@@ -54,8 +54,14 @@ public:
 	void SetClampMiddle(bool Flag);
 	void SetHeightMiddle(bool Flag);
 	void Rotate(GLfloat RotationValue);
+	void SetAlpha(GLfloat Value);
 	void SetRenderType(int Type);
-	void Render(GLfloat X, GLfloat Y, GLfloat Size, GLfloat TransparencyValue, const wchar_t* Format, ...);
+	std::wstring W(const std::string& str);
+	void EraseString(std::string& Str);
+	void RemoveString(std::string& Str, std::string& RemoveStr);
+	void AddString(std::string& Str, std::string& AddStr);
+	void RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str);
+	void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...);
 
 private:
 	GLfloat GetLength(const wchar_t* Text);
