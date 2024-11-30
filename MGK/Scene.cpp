@@ -82,13 +82,13 @@ void Scene::ReleaseDestructor() {
 	DestructorBuffer = nullptr;
 }
 
-void Scene::StartFloatingMode(Function ModeFunction, bool FloatingFocus) {
+void Scene::StartFloatingMode(Function ModeFunction, bool FloatingFocusFlag) {
 	if (FloatingActivateCommand)
 		return;
 
 	PrevRunningMode = CurrentRunningMode;
 	ModeFunction();
-	FloatingFocusCommand = FloatingFocus;
+	FloatingFocusCommand = FloatingFocusFlag;
 
 	FloatingActivateCommand = true;
 }

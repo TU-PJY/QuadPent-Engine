@@ -73,7 +73,7 @@ public:
 
 	// Start floating mode.Existing objects are not deleted.
 	// When true is specified for FloatingFocus, only floating objects are updated. This state is cleared when floating mode ends.
-	void StartFloatingMode(Function ModeFunction, bool FloatingFocus=false);
+	void StartFloatingMode(Function ModeFunction, bool FloatingFocusFlag=false);
 
 	// Exit floating mode.Floating objects are deleted, and regular objects are not deleted.
 	void EndFloatingMode();
