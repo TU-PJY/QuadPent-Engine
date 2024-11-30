@@ -230,11 +230,6 @@ void GameObject::SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, 
 	soundUtil.SetSoundPosition(ChannelVar, Position.x, Position.y, Diff);
 }
 
-void GameObject::CheckDeleteReserveCommand() {
-	if (DeleteReserveCommand)
-		scene.DeleteObject(this);
-}
-
 ////////////////////////// private
 
 void GameObject::PrepareRender() {

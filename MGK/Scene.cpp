@@ -20,14 +20,23 @@ void Scene::Routine() {
 	CurrentLayerLocation = 0;
 	for (int i = 0; i < Layers; ++i) {
 		for (auto& Object : ObjectList[i]) {
-			if (UpdateActivateCommand) {
-				if (FloatingFocusCommand && Object->FloatingOpt)
-					Object->UpdateFunc(FrameTime);
-				else
-					Object->UpdateFunc(FrameTime);
+			if (!Object->DeleteCommand) {
+				if (UpdateActivateCommand) {
+					if (FloatingFocusCommand && Object->FloatingOpt)
+						Object->UpdateFunc(FrameTime);
+					else
+						Object->UpdateFunc(FrameTime);
+				}
+				Object->RenderFunc();
+				if (Object->DeleteReserveCommand) {
+					Object->DeleteCommand = true;
+					AddLocation(CurrentLayerLocation, CurrentReferLocation);
+				}
+				else if (Object->SwapReserveCommand) {
+					Object->SwapCommand = true;
+					AddLocation(CurrentLayerLocation, CurrentReferLocation);
+				}
 			}
-			Object->RenderFunc();
-			Object->CheckDeleteReserveCommand();
 			++CurrentReferLocation;
 		}
 		CurrentReferLocation = 0;
@@ -153,19 +162,12 @@ void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Typ
 }
 
 void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
-	Object->SwapCommand = true;
-	AddLocation(Object->ObjectLayer, CurrentReferLocation);
+	Object->SwapReserveCommand = true;
 	Object->ObjectLayer = TargetLayer;
 }
 
 void Scene::DeleteObject(GameObject* Object) {
-	if (Object->ObjectLayer == CurrentLayerLocation) {
-		Object->DeleteCommand = true;
-		AddLocation(Object->ObjectLayer, CurrentReferLocation);
-	}
-
-	else
-		Object->DeleteReserveCommand = true;
+	Object->DeleteReserveCommand = true;
 }
 
 void Scene::DeleteObject(std::string Tag, int DeleteRange) {
@@ -271,31 +273,15 @@ void Scene::ProcessSceneCommand() {
 }
 
 void Scene::ClearFloatingObject() {
-	int ReferPosition{};
-	for (int Layer = 0; Layer < Layers; ++Layer) {
-		DeleteLocation[Layer].clear();
-		for (auto Object = begin(ObjectList[Layer]); Object != end(ObjectList[Layer]); ++ Object) {
-			if ((*Object)->FloatingOpt && !(*Object)->StaticOpt) {
-				(*Object)->DeleteCommand = true;
-				AddLocation(Layer, ReferPosition);
-			}
-			++ReferPosition;
-		}
-		ReferPosition = 0;
+	for (auto const& Object : ObjectIndex) {
+		if (Object.second->FloatingOpt)
+			Object.second->DeleteReserveCommand = true;
 	}
 }
 
 void Scene::ClearAll() {
-	int ReferPosition{};
-	for (int Layer = 0; Layer < Layers; ++Layer) {
-		DeleteLocation[Layer].clear();
-		for (auto Object = begin(ObjectList[Layer]); Object != end(ObjectList[Layer]); ++ Object) {
-			if (!(*Object)->StaticOpt) {
-				(*Object)->DeleteCommand = true;
-				AddLocation(Layer, ReferPosition);
-			}
-			++ReferPosition;
-		}
-		ReferPosition = 0;
+	for (auto const& Object : ObjectIndex) {
+		if (!Object.second->StaticOpt)
+			Object.second->DeleteReserveCommand = true;
 	}
 }

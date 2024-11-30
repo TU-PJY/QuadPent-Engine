@@ -45,6 +45,7 @@ public:
 	
 	bool        DeleteReserveCommand{};
 	bool        DeleteCommand{};
+	bool        SwapReserveCommand{};
 	bool        SwapCommand{};
 
 	// Initialize matrix. Select a rendering type.
@@ -145,9 +146,6 @@ public:
 
 	// Specifies the local coordinates where the sound occurs.
 	void SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff);
-
-	void CheckDeleteReserveCommand();
-
 	
 
 	// class destructor
