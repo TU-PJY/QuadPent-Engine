@@ -17,7 +17,6 @@ void Scene::Resume() {
 }
 
 void Scene::Routine() {
-	CurrentLayerLocation = 0;
 	for (int i = 0; i < Layers; ++i) {
 		for (auto& Object : ObjectList[i]) {
 			if (!Object->DeleteCommand) {
@@ -30,17 +29,16 @@ void Scene::Routine() {
 				Object->RenderFunc();
 				if (Object->DeleteReserveCommand) {
 					Object->DeleteCommand = true;
-					AddLocation(CurrentLayerLocation, CurrentReferLocation);
+					AddLocation(i, CurrentReferLocation);
 				}
 				else if (Object->SwapReserveCommand) {
 					Object->SwapCommand = true;
-					AddLocation(CurrentLayerLocation, CurrentReferLocation);
+					AddLocation(i, CurrentReferLocation);
 				}
 			}
 			++CurrentReferLocation;
 		}
 		CurrentReferLocation = 0;
-		++CurrentLayerLocation;
 	}
 }
 

@@ -19,7 +19,6 @@ private:
 	std::array<std::vector<int>, Layers>        DeleteLocation{};
 
 	int                               CurrentReferLocation{};
-	int                               CurrentLayerLocation{};
 	int                               SceneCommandCount{};
 	bool                              CommandExist{};
 
