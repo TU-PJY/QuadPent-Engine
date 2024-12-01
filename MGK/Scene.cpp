@@ -19,23 +19,25 @@ void Scene::Resume() {
 void Scene::Routine() {
 	for (int i = 0; i < Layers; ++i) {
 		for (auto& Object : ObjectList[i]) {
-			if (!Object->DeleteCommand) {
-				if (UpdateActivateCommand) {
-					if (FloatingFocusCommand && Object->FloatingOpt)
-						Object->UpdateFunc(FrameTime);
-					else
-						Object->UpdateFunc(FrameTime);
-				}
-				Object->RenderFunc();
-				if (Object->DeleteReserveCommand) {
-					Object->DeleteCommand = true;
-					AddLocation(i, CurrentReferLocation);
-				}
-				else if (Object->SwapReserveCommand) {
-					Object->SwapCommand = true;
-					AddLocation(i, CurrentReferLocation);
-				}
+			if (UpdateActivateCommand) {
+				if (FloatingFocusCommand && Object->FloatingOpt)
+					Object->UpdateFunc(FrameTime);
+				else
+					Object->UpdateFunc(FrameTime);
 			}
+
+			Object->RenderFunc();
+
+			if (Object->DeleteReserveCommand) {
+				Object->DeleteCommand = true;
+				AddLocation(i, CurrentReferLocation);
+			}
+
+			else if (Object->SwapReserveCommand) {
+				Object->SwapCommand = true;
+				AddLocation(i, CurrentReferLocation);
+			}
+			
 			++CurrentReferLocation;
 		}
 		CurrentReferLocation = 0;
@@ -272,7 +274,7 @@ void Scene::ProcessSceneCommand() {
 
 void Scene::ClearFloatingObject() {
 	for (auto const& Object : ObjectIndex) {
-		if (Object.second->FloatingOpt)
+		if (Object.second->FloatingOpt && !Object.second->StaticOpt)
 			Object.second->DeleteReserveCommand = true;
 	}
 }
