@@ -95,6 +95,9 @@ public:
 
 	// Play sound.You can specify the playback start point.
 	void PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime=0);
+	
+	//Play the sound only once. You can specify the playback start point.
+	void PlaySoundOnce(Sound Sound, SoundChannel& ChannelVar, bool& BoolValue, unsigned int StartTime=0);
 
 	// Pause the sound. It is played when false is entered in Flag.
 	void PauseSound(SoundChannel& ChannelVar, bool Flag);

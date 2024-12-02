@@ -166,6 +166,13 @@ void GameObject::PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int S
 	soundUtil.PlaySound(Sound, ChannelVar, StartTime);
 }
 
+void GameObject::PlaySoundOnce(Sound Sound, SoundChannel& ChannelVar, bool& BoolValue, unsigned int StartTime) {
+	if (BoolValue) {
+		soundUtil.PlaySound(Sound, ChannelVar, StartTime);
+		BoolValue = false;
+	}
+}
+
 void GameObject::PauseSound(SoundChannel& ChannelVar, bool Flag) {
 	soundUtil.PauseSound(ChannelVar, Flag);
 }
