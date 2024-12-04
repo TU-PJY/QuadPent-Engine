@@ -52,6 +52,13 @@ GLfloat Math::Lerp(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) 
 	return ReturnValue;
 }
 
+void Math::UpdateLerp(GLfloat& Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
+	GLfloat t = Speed * FrameTime;
+
+	if (t < 1.0 && t > 0.0)
+		Value = std::lerp(Value, Dest, t);
+}
+
 GLfloat Math::CalcDistance(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {
 	return  std::sqrt(std::pow(FromX - ToX, 2) + std::pow(FromY - ToY, 2));
 }

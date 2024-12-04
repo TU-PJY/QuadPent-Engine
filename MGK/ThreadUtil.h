@@ -2,9 +2,9 @@
 #include "EngineHeader.h"
 
 namespace ThreadUtil {
-	void New(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param=NULL);
+	void Create(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param=NULL);
 	bool IsRunning(HANDLE& HandleValue);
-	void Delete(HANDLE& HandleValue);
+	void Close(HANDLE& HandleValue);
 	void InitSection(CRITICAL_SECTION& Section);
 	bool InitSectionAndCount(CRITICAL_SECTION& Section, int SpinCount);
 	void DeleteSection(CRITICAL_SECTION& Section);

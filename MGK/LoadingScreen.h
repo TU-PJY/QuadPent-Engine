@@ -53,7 +53,7 @@ public:
 			Rotation -= 200 * FT;
 
 			if (!ThreadUtil::IsRunning(ThreadHandle)) {
-				ThreadUtil::Delete(ThreadHandle);
+				ThreadUtil::Close(ThreadHandle);
 				imageUtil.FinishLoad();
 
 				if (!ENABLE_INTRO_SCREEN) {
@@ -75,7 +75,7 @@ public:
 			soundUtil.Init();
 
 			imageUtil.Import(ImageSpinner, MGK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
-			ThreadUtil::New(ThreadHandle, SystemResourceCreateThread);
+			ThreadUtil::Create(ThreadHandle, SystemResourceCreateThread);
 
 			LoadCommand = true;
 		}

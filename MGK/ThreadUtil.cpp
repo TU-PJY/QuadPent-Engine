@@ -1,7 +1,7 @@
 #include "ThreadUtil.h"
 
 
-void ThreadUtil::New(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param) {
+void ThreadUtil::Create(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param) {
 	HandleValue = CreateThread(NULL, 0, ThreadFunction, Param, 0, NULL);
 }
 
@@ -14,7 +14,7 @@ bool ThreadUtil::IsRunning(HANDLE& HandleValue) {
 	return false;
 }
 
-void ThreadUtil::Delete(HANDLE& HandleValue) {
+void ThreadUtil::Close(HANDLE& HandleValue) {
 	CloseHandle(HandleValue);
 }
 

@@ -145,9 +145,6 @@
     <Filter Include="[4]___________[ MGK ]\[ System ]\[ System Object ]">
       <UniqueIdentifier>{c8dde2fb-f4fd-4595-9cdf-614100ed40cc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Config ]">
-      <UniqueIdentifier>{c229d7fb-288d-4e48-b8b0-7e7dbd38a78d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ Resources ]">
       <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
     </Filter>
@@ -165,6 +162,9 @@
     </Filter>
     <Filter Include="[4]___________[ MGK ]\[ System ]\[ Scene ]">
       <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[0]___________[ Config ]">
+      <UniqueIdentifier>{c229d7fb-288d-4e48-b8b0-7e7dbd38a78d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -274,7 +274,7 @@
       <Filter>[4]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
     </ClCompile>
     <ClCompile Include="StartMode.cpp">
-      <Filter>[4]___________[ MGK ]\[ Config ]</Filter>
+      <Filter>[0]___________[ Config ]</Filter>
     </ClCompile>
     <ClCompile Include="TransformUtil.cpp">
       <Filter>[4]___________[ MGK ]\[ Util ]\[ Transform Util ]</Filter>
@@ -393,7 +393,7 @@
       <Filter>[4]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
     </ClInclude>
     <ClInclude Include="Setting.h">
-      <Filter>[4]___________[ MGK ]\[ Config ]</Filter>
+      <Filter>[0]___________[ Config ]</Filter>
     </ClInclude>
     <ClInclude Include="TransformUtil.h">
       <Filter>[4]___________[ MGK ]\[ Util ]\[ Transform Util ]</Filter>
