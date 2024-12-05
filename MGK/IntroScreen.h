@@ -12,7 +12,7 @@ private:
 	GLfloat      LogoPosition    = -0.3;
 	GLfloat      AnimationSpeed  = 0.5;
 
-	SinLerp Slerp{};
+	SinLerp      Slerp{};
 
 	int          Scene{}; 
 
