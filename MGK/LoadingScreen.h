@@ -82,7 +82,7 @@ public:
 	}
 
 	void RenderFunc() {
-		RenderImage(RENDER_TYPE_STATIC, LOADING_SPINNER, ASP(1.0) - 0.15, -1.0 + 0.15, 0.25, 0.25, Rotation, Transparent);
+		DrawImage(RENDER_TYPE_STATIC, LOADING_SPINNER, ASP(1.0) - 0.15, -1.0 + 0.15, 0.25, 0.25, Rotation, Transparent);
 	}
 };
 

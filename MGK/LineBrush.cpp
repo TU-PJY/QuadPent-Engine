@@ -28,11 +28,11 @@ void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Wid
 	Transform::Identity(ScaleMatrix);
 	TransparencyValue = Transparency;
 
-	Length = Math::CalcDistance(X1, Y1, X2, Y2);
-	Rotation = Math::CalcRadians(X1, Y1, X2, Y2);
+	Length = Math::ComputeDistance(X1, Y1, X2, Y2);
+	Rotation = Math::ComputeRadians(X1, Y1, X2, Y2);
 
 	Transform::Move(TranslateMatrix, X1, Y1);
-	Transform::RotateRad(TranslateMatrix, Rotation);
+	Transform::RotateRadians(TranslateMatrix, Rotation);
 	Transform::Move(TranslateMatrix, Length / 2.0, 0.0);
 	Transform::Scale(ScaleMatrix, Length + Width, Width);
 

@@ -80,11 +80,11 @@ public:
 	void RenderFunc() {
 		switch (Scene) {
 		case 1:
-			RenderImage(RENDER_TYPE_STATIC, MGK_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent);
+			DrawImage(RENDER_TYPE_STATIC, MGK_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent);
 			break;
 
 		case 2: case 3:
-			RenderImage(RENDER_TYPE_STATIC, FMOD_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent);
+			DrawImage(RENDER_TYPE_STATIC, FMOD_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent);
 			break;
 		}
 	}

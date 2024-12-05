@@ -68,16 +68,16 @@ void GameObject::Flip(int FlipOpt) {
 		break;
 
 	case FLIP_TYPE_X:
-		Transform::RotateX(FlipMatrix, 180.0f);
+		Transform::RotateH(FlipMatrix, 180.0f);
 		break;
 
 	case FLIP_TYPE_Y:
-		Transform::RotateY(FlipMatrix, 180.0f);
+		Transform::RotateV(FlipMatrix, 180.0f);
 		break;
 
 	case FLIP_TYPE_XY:
-		Transform::RotateX(FlipMatrix, 180.0f);
-		Transform::RotateY(FlipMatrix, 180.0f);
+		Transform::RotateH(FlipMatrix, 180.0f);
+		Transform::RotateV(FlipMatrix, 180.0f);
 		break;
 	}
 }
@@ -93,16 +93,16 @@ void GameObject::UnitFlip(int FlipOpt) {
 		break;
 
 	case FLIP_TYPE_X:
-		Transform::RotateX(UnitFlipMatrix, 180.0f);
+		Transform::RotateH(UnitFlipMatrix, 180.0f);
 		break;
 
 	case FLIP_TYPE_Y:
-		Transform::RotateY(UnitFlipMatrix, 180.0f);
+		Transform::RotateV(UnitFlipMatrix, 180.0f);
 		break;
 
 	case FLIP_TYPE_XY:
-		Transform::RotateX(UnitFlipMatrix, 180.0f);
-		Transform::RotateY(UnitFlipMatrix, 180.0f);
+		Transform::RotateH(UnitFlipMatrix, 180.0f);
+		Transform::RotateV(UnitFlipMatrix, 180.0f);
 		break;
 	}
 }
@@ -142,7 +142,7 @@ void GameObject::Render(Image& Image, GLfloat Transparency, bool ApplyUnitTransf
 	imageUtil.Render(Image);
 }
 
-void GameObject::RenderImage(int RenderType, Image& Image, GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat Transparency, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void GameObject::DrawImage(int RenderType, Image& Image, GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat Transparency, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	InitRenderState(RenderType);
 	Transform::Move(TranslateMatrix, X, Y);
 	Transform::Rotate(RotateMatrix, Rotation);
@@ -152,7 +152,7 @@ void GameObject::RenderImage(int RenderType, Image& Image, GLfloat X, GLfloat Y,
 	Render(Image, Transparency, ApplyUnitTransform, DisableAdjustAspect);
 }
 
-void GameObject::RenderImage(int RenderType, Image& Image, glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat Transparency, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void GameObject::DrawImage(int RenderType, Image& Image, glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat Transparency, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	InitRenderState(RenderType);
 	Transform::Move(TranslateMatrix, Position);
 	Transform::Rotate(RotateMatrix, Rotation);

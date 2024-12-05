@@ -16,15 +16,15 @@ void Transform::Rotate(glm::mat4& Matrix, GLfloat Degree) {
 	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(0.0, 0.0, 1.0));
 }
 
-void Transform::RotateRad(glm::mat4& Matrix, GLfloat Radians) {
+void Transform::RotateRadians(glm::mat4& Matrix, GLfloat Radians) {
 	Matrix = rotate(Matrix, Radians, glm::vec3(0.0, 0.0, 1.0));
 }
 
-void Transform::RotateY(glm::mat4& Matrix, GLfloat Degree) {
+void Transform::RotateV(glm::mat4& Matrix, GLfloat Degree) {
 	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(1.0, 0.0, 0.0));
 }
 
-void Transform::RotateX(glm::mat4& Matrix, GLfloat Degree) {
+void Transform::RotateH(glm::mat4& Matrix, GLfloat Degree) {
 	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(0.0, 1.0, 0.0));
 }
 

@@ -84,12 +84,12 @@ public:
 	void Render(Image& Image, GLfloat Transparency = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
 	// Render the image in one step.
-	void RenderImage(int RenderType, Image& ImageSturct, 
+	void DrawImage(int RenderType, Image& ImageSturct, 
 		GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat Transparency=1.0, 
 		int FlipOpt=FLIP_TYPE_NONE, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
 	// Render the image in one step.
-	void RenderImage(int RenderType, Image& Image, 
+	void DrawImage(int RenderType, Image& Image, 
 		glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat Transparency=1.0, 
 		int FlipOpt=FLIP_TYPE_NONE, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
