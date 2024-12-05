@@ -10,7 +10,9 @@ private:
 	GLfloat      LogoSize        = 1.0;
 	GLfloat      LogoTransparent = 0.0;
 	GLfloat      LogoPosition    = -0.3;
-	GLfloat      AnimationSpeed  = 5.0;
+	GLfloat      AnimationSpeed  = 0.5;
+
+	SinLerp Slerp{};
 
 	int          Scene{}; 
 
@@ -43,8 +45,8 @@ public:
 
 		case 1:
 			if (timer.MiliSec() < 2.5) {
-				Math::UpdateLerp(LogoPosition, 0.0, AnimationSpeed, FT);
-				Math::UpdateLerp(LogoTransparent, 1.0, AnimationSpeed, FT);
+				LogoPosition = Slerp.Update(LogoPosition, 0.0, AnimationSpeed, FT);
+				LogoTransparent = Slerp.Update(LogoTransparent, 1.0, AnimationSpeed, FT);
 			}
 
 			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
@@ -54,6 +56,7 @@ public:
 
 			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_INTERPOLATE)) {
 				LogoPosition = -0.3;
+				Slerp.Reset();
 				++Scene;
 			}
 			break;
@@ -61,8 +64,8 @@ public:
 
 		case 2:
 			if (timer.MiliSec() < 2.5) {
-				Math::UpdateLerp(LogoPosition, 0.0, AnimationSpeed, FT);
-				Math::UpdateLerp(LogoTransparent, 1.0, AnimationSpeed, FT);
+				LogoPosition = Slerp.Update(LogoPosition, 0.0, AnimationSpeed, FT);
+				LogoTransparent = Slerp.Update(LogoTransparent, 1.0, AnimationSpeed, FT);;
 			}
 
 			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
