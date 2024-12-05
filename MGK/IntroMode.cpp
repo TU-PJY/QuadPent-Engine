@@ -11,7 +11,7 @@ void IntroMode::Start() {
 }
 
 void IntroMode::Destructor() {
-	soundUtil.Release(IntroSound);
+	soundUtil.Release(INTRO_SOUND);
 }
 
 void IntroMode::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {

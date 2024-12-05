@@ -58,8 +58,19 @@ bool PhysicsUtil::CheckFloorCollision(GLfloat& HeightPosition) {
 	return false;
 }
 
+bool PhysicsUtil::CheckFloorCollision(glm::vec2& DestPosition) {
+	if (DestPosition.y <= FloorHeight + HeightOffset)
+		return true;
+	return false;
+}
+
 void PhysicsUtil::LandOnFloor(GLfloat& HeightPosition) {
 	HeightPosition = FloorHeight + HeightOffset;
+	FallingState = false;
+}
+
+void PhysicsUtil::LandOnFloor(glm::vec2& DestPosition) {
+	DestPosition.y = FloorHeight + HeightOffset;
 	FallingState = false;
 }
 
@@ -69,6 +80,15 @@ void PhysicsUtil::UpdateFalling(GLfloat& HeightPosition, float FrameTime) {
 		HeightPosition += GravityAcc * FrameTime;
 		if (CheckFloorCollision(HeightPosition))
 			LandOnFloor(HeightPosition);
+	}
+}
+
+void PhysicsUtil::UpdateFalling(glm::vec2& DestPosition, float FrameTime) {
+	if (FallingState) {
+		GravityAcc -= Gravity * FrameTime;
+		DestPosition.y += GravityAcc * FrameTime;
+		if (CheckFloorCollision(DestPosition.y))
+			LandOnFloor(DestPosition.y);
 	}
 }
 
@@ -87,6 +107,23 @@ void PhysicsUtil::UpdateBouncing(GLfloat& HeightPosition, float FrameTime) {
 		}
 	}
 }
+
+void PhysicsUtil::UpdateBouncing(glm::vec2& DestPosition, float FrameTime) {
+	if (FallingState) {
+		GravityAcc -= Gravity * FrameTime;
+		DestPosition.y += GravityAcc * FrameTime;
+		if (CheckFloorCollision(DestPosition.y)) {
+			if (fabs(GravityAcc) <= MinRebounceValue)
+				LandOnFloor(DestPosition.y);
+			else {
+				DestPosition.y = FloorHeight + HeightOffset;
+				GravityAcc *= -1;
+				GravityAcc -= RebounceReduce;
+			}
+		}
+	}
+}
+
 
 void PhysicsUtil::LerpAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT) {
 	Speed = Math::Lerp(Speed, DestSpeed, AccValue * (1.0 - Friction), FT);

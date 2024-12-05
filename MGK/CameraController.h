@@ -19,7 +19,7 @@ public:
 	void Move(GLfloat X, GLfloat Y);
 
 	// Move the camera position.
-	void Move(glm::vec2 PositionValue);
+	void Move(glm::vec2& PositionValue);
 
 	// Rotate the camera.
 	void Rotate(GLfloat Value);

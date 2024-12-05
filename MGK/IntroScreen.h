@@ -35,7 +35,7 @@ public:
 		switch (Scene) {
 		case 0:
 			if (timer.CheckMiliSec(1.0, 1, CHECK_AND_INTERPOLATE)) {
-				soundUtil.PlaySound(IntroSound, IntroChannel);
+				soundUtil.PlaySound(INTRO_SOUND, IntroChannel);
 				++Scene;
 			}
 			break;

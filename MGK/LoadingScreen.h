@@ -7,7 +7,7 @@
 #include "FontUtil.h"
 
 DWORD WINAPI SystemResourceCreateThread(LPVOID Param) {
-	soundUtil.Import(IntroSound, MGK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
+	soundUtil.Import(INTRO_SOUND, MGK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
 	imageUtil.PreLoad(MGK_LOGO, MGK_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
 	imageUtil.PreLoad(FMOD_LOGO, FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
 	imageUtil.PreLoad(COLOR_TEXTURE, LINE_TEXTURE_DIRECTORY);
@@ -57,7 +57,7 @@ public:
 				imageUtil.FinishLoad();
 
 				if (!ENABLE_INTRO_SCREEN) {
-					soundUtil.Release(IntroSound);
+					soundUtil.Release(INTRO_SOUND);
 					scene.SwitchMode(START_MODE);
 				}
 
@@ -74,7 +74,7 @@ public:
 			imageUtil.Init();
 			soundUtil.Init();
 
-			imageUtil.Import(ImageSpinner, MGK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
+			imageUtil.Import(LOADING_SPINNER, MGK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 			ThreadUtil::Create(ThreadHandle, SystemResourceCreateThread);
 
 			LoadCommand = true;
@@ -82,7 +82,7 @@ public:
 	}
 
 	void RenderFunc() {
-		RenderImage(RENDER_TYPE_STATIC, ImageSpinner, ASP(1.0) - 0.15, -1.0 + 0.15, 0.25, 0.25, Rotation, Transparent);
+		RenderImage(RENDER_TYPE_STATIC, LOADING_SPINNER, ASP(1.0) - 0.15, -1.0 + 0.15, 0.25, 0.25, Rotation, Transparent);
 	}
 };
 

@@ -55,22 +55,22 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 
 	// Overlays color over the image.
-	void SetColor(glm::vec3 Color);
+	void SetColor(glm::vec3& Color);
 
 	// Overlays color over the image.
 	void SetColorRGB(int R, int G, int B);
 
 	// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
-	void UpdateViewportPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect = true);
+	void UpdateViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect = true);
 
 	// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
-	void UpdateViewportPosition(glm::vec2& Position, bool ApplyAspect);
+	void UpdateViewportPosition(glm::vec2& DestValue, bool ApplyAspect);
 
 	// Updates the object's position relative to the local coordinate system.
-	void UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY);
+	void UpdateLocalPosition(GLfloat& DestX, GLfloat& DestY);
 
 	// Updates the object's position relative to the local coordinate system.
-	void UpdateLocalPosition(glm::vec2& Position);
+	void UpdateLocalPosition(glm::vec2& DestPosition);
 
 	void UnitFlip(int FlipOpt);
 	void UnitTransparent(GLfloat Value);
@@ -90,7 +90,7 @@ public:
 
 	// Render the image in one step.
 	void RenderImage(int RenderType, Image& Image, 
-		glm::vec2 Position, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat Transparency=1.0, 
+		glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat Transparency=1.0, 
 		int FlipOpt=FLIP_TYPE_NONE, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
 	// Play sound.You can specify the playback start point.
@@ -142,7 +142,7 @@ public:
 	void SetListnerPosition(float X, float Y);
 
 	// Specifies the local coordinates at which you hear the sound.
-	void SetListnerPosition(glm::vec2 Position);
+	void SetListnerPosition(glm::vec2& Position);
 
 	// Specifies the local coordinates where the sound occurs.
 	void SetSoundPosition(SoundChannel& ChannelVar, float X, float Y, float Diff);

@@ -20,7 +20,7 @@ void CameraController::Move(GLfloat X, GLfloat Y) {
 	Position.y = -Y;
 }
 
-void CameraController::Move(glm::vec2 PositionValue) {
+void CameraController::Move(glm::vec2& PositionValue) {
 	Position = -PositionValue;
 }
 

@@ -30,9 +30,13 @@ public:
 	void SetRebounceReduce(GLfloat Value);
 	void SetMinimumRebounce(GLfloat Value);
 	bool CheckFloorCollision(GLfloat& Position);
+	bool CheckFloorCollision(glm::vec2& DestPosition);
 	void LandOnFloor(GLfloat& Position);
+	void LandOnFloor(glm::vec2& DestPosition);
 	void UpdateFalling(GLfloat& HeightPosition, float FrameTime);
+	void UpdateFalling(glm::vec2& DestPosition, float FrameTime);
 	void UpdateBouncing(GLfloat& HeightPosition, float FrameTime);
+	void UpdateBouncing(glm::vec2& DestPosition, float FrameTime);
 	void LerpAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT);
 	void LerpDeceleration(GLfloat& Speed, float FT);
 	void LinearAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT);

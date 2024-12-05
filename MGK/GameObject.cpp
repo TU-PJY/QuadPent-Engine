@@ -23,7 +23,7 @@ void GameObject::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	ObjectColor.b = B;
 }
 
-void GameObject::SetColor(glm::vec3 Color) {
+void GameObject::SetColor(glm::vec3& Color) {
 	ObjectColor.r = Color.r;
 	ObjectColor.g = Color.g;
 	ObjectColor.b = Color.b;
@@ -35,30 +35,30 @@ void GameObject::SetColorRGB(int R, int G, int B) {
 	ObjectColor.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void GameObject::UpdateViewportPosition(GLfloat& ValueX, GLfloat& ValueY, bool ApplyAspect) {
+void GameObject::UpdateViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect) {
 	if (ApplyAspect)
-		ValueX = ASP(ViewportPosition().x);
+		DestX = ASP(ViewportPosition().x);
 	else
-		ValueX = ViewportPosition().x;
-	ValueY = ViewportPosition().y;
+		DestX = ViewportPosition().x;
+	DestY = ViewportPosition().y;
 }
 
-void GameObject::UpdateViewportPosition(glm::vec2& Position, bool ApplyAspect) {
+void GameObject::UpdateViewportPosition(glm::vec2& DestValue, bool ApplyAspect) {
 	if (ApplyAspect) {
-		Position.x = ASP(ViewportPosition().x);
-		Position.y = ViewportPosition().y;
+		DestValue.x = ASP(ViewportPosition().x);
+		DestValue.y = ViewportPosition().y;
 	}
 	else
-		Position = ViewportPosition();
+		DestValue = ViewportPosition();
 }
 
-void GameObject::UpdateLocalPosition(GLfloat& ValueX, GLfloat& ValueY) {
-	ValueX = LocalPosition().x;
-	ValueY = LocalPosition().y;
+void GameObject::UpdateLocalPosition(GLfloat& DestX, GLfloat& DestY) {
+	DestX = LocalPosition().x;
+	DestY = LocalPosition().y;
 }
 
-void GameObject::UpdateLocalPosition(glm::vec2& Position) {
-	Position = LocalPosition();
+void GameObject::UpdateLocalPosition(glm::vec2& DestPosition) {
+	DestPosition = LocalPosition();
 }
 
 void GameObject::Flip(int FlipOpt) {
@@ -152,7 +152,7 @@ void GameObject::RenderImage(int RenderType, Image& Image, GLfloat X, GLfloat Y,
 	Render(Image, Transparency, ApplyUnitTransform, DisableAdjustAspect);
 }
 
-void GameObject::RenderImage(int RenderType, Image& Image, glm::vec2 Position, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat Transparency, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void GameObject::RenderImage(int RenderType, Image& Image, glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat Transparency, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	InitRenderState(RenderType);
 	Transform::Move(TranslateMatrix, Position);
 	Transform::Rotate(RotateMatrix, Rotation);
@@ -225,7 +225,7 @@ void GameObject::SetListnerPosition(float X, float Y) {
 	soundUtil.SetListnerPosition(X, Y);
 }
 
-void GameObject::SetListnerPosition(glm::vec2 Position) {
+void GameObject::SetListnerPosition(glm::vec2& Position) {
 	soundUtil.SetListnerPosition(Position.x, Position.y);
 }
 

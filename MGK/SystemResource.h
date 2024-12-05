@@ -7,9 +7,12 @@ constexpr const char* MGK_LOADING_SPINNER_DIRECTORY = "MGKResource//Image//Commo
 constexpr const char* FMOD_LOGO_DIRECTORY = "MGKResource//Image//Common//FMOD_Logo.png";
 constexpr const char* LINE_TEXTURE_DIRECTORY = "MGKResource//Image//ShapeUtil//Texture_Line.png";
 
-extern Image MGK_LOGO, FMOD_LOGO, ImageSpinner;
+extern Image MGK_LOGO;
+extern Image FMOD_LOGO;
 extern Image COLOR_TEXTURE;
-extern Sound IntroSound;
+extern Image LOADING_SPINNER;
 
 extern GLUquadric* GLU_CIRCLE;
 extern GLUquadric* GLU_LINE_CIRCLE;
+
+extern Sound INTRO_SOUND;

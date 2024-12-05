@@ -19,13 +19,13 @@ private:
 
 public:
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
-	void Update(glm::vec2 Position, GLfloat xScale, GLfloat yScale);
+	void Update(glm::vec2& Position, GLfloat xScale, GLfloat yScale);
 	void Render();
 	bool CheckCollision(const AABB& Other);
 	bool CheckCollision(const OOBB& Other);
 	bool CheckCollision(const BoundingCircle& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
-	bool CheckCollisionPoint(glm::vec2 Position);
+	bool CheckCollisionPoint(glm::vec2& Position);
 	BoundingBox Get() const;
 };
 
@@ -43,13 +43,13 @@ private:
 
 public:
 	void Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
-	void Update(glm::vec2 Position, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
+	void Update(glm::vec2& Position, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
 	void Render();
 	bool CheckCollision(const OOBB& Other);
 	bool CheckCollision(const AABB& Other);
 	bool CheckCollision(const BoundingCircle& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
-	bool CheckCollisionPoint(glm::vec2 Position);
+	bool CheckCollisionPoint(glm::vec2& Position);
 	BoundingOrientedBox Get() const;
 };
 
@@ -70,12 +70,12 @@ private:
 
 public:
 	void Update(GLfloat X, GLfloat Y, GLfloat Diameter);
-	void Update(glm::vec2 Position, GLfloat SizeValue);
+	void Update(glm::vec2& Position, GLfloat SizeValue);
 	void Render();
 	bool CheckCollision(const BoundingCircle& Other);
 	bool CheckCollision(const AABB& Other);
 	bool CheckCollision(const OOBB& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
-	bool CheckCollisionPoint(glm::vec2 Position);
+	bool CheckCollisionPoint(glm::vec2& Position);
 	BoundingSphere Get() const;
 };
