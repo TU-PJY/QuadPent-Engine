@@ -27,6 +27,8 @@ typedef void(*START_MODE_PTR)(void);
 using Sound          = FMOD::Sound*;
 using SoundChannel   = FMOD::Channel*;
 using ShaderLocation = unsigned int;
+using StringDataSet  = std::vector<std::string>;
+using DigitDataSet   = std::vector<float>;
 
 enum KeyState {
 	NORMAL_KEY_DOWN,

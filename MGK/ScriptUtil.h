@@ -7,6 +7,7 @@
 #include "cryptopp/osrng.h"
 #include "cryptopp/hex.h"
 #include "Setting.h"
+#include "EngineHeader.h"
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -24,6 +25,8 @@ public:
 	void ImportSecure(std::string FileName);
 	float LoadDigitData(std::string CategoryName, std::string DataName);
 	std::string LoadStringData(std::string CategoryName, std::string DataName);
+	DigitDataSet LoadCategoryDigitData(std::string CategoryName);
+	StringDataSet LoadCategoryStringData(std::string CategoryName);
 	void Release();
 
 private:

@@ -1,4 +1,5 @@
 #include "ScriptUtil.h"
+#include "EngineHeader.h"
 
 void ScriptUtil::Import(std::string FileName) {
 	if (FileExist)
@@ -48,6 +49,33 @@ std::string ScriptUtil::LoadStringData(std::string CategoryName, std::string Dat
 	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
+DigitDataSet ScriptUtil::LoadCategoryDigitData(std::string CategoryName) {
+	DigitDataSet LoadedData{};
+	TiXmlElement* Category = FindCategory(CategoryName);
+
+	TiXmlAttribute* Attribute = Category->FirstAttribute();
+	while (Attribute) {
+		LoadedData.emplace_back(std::stof(Attribute->Value()));
+		Attribute = Attribute->Next();
+	}
+
+	return LoadedData;
+}
+
+StringDataSet ScriptUtil::LoadCategoryStringData(std::string CategoryName) {
+	StringDataSet LoadedData{};
+	TiXmlElement* Category = FindCategory(CategoryName);
+
+	TiXmlAttribute* Attribute = Category->FirstAttribute();
+	while (Attribute) {
+		LoadedData.emplace_back((std::string)Attribute->Value());
+		Attribute = Attribute->Next();
+	}
+
+	return LoadedData;
+}
+
+//////////////////////////////// private
 float ScriptUtil::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
 	const char* DataValue = CategoryVar->Attribute(DataName.c_str());
 	if (DataValue)

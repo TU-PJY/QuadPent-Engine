@@ -3,8 +3,8 @@
 #include <random>
 
 enum Dist {
-	DIST_REAL, 
-	DIST_INT
+	RANDOM_TYPE_REAL, 
+	RANDOM_TYPE_INT
 };
 
 namespace Random {

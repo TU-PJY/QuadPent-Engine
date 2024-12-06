@@ -44,6 +44,32 @@ std::string FileUtil::LoadStringData(std::string CategoryName, std::string DataN
 	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
+DigitDataSet FileUtil::LoadCategoryDigitData(std::string CategoryName) {
+	DigitDataSet LoadedData{};
+	TiXmlElement* Category = FindCategory(CategoryName);
+
+	const TiXmlAttribute* Attribute = Category->FirstAttribute();
+	while (Attribute) {
+		LoadedData.emplace_back(std::stof(Attribute->Value()));
+		Attribute = Attribute->Next();
+	}
+
+	return LoadedData;
+}
+
+StringDataSet FileUtil::LoadCategoryStringData(std::string CategoryName) {
+	StringDataSet LoadedData{};
+	TiXmlElement* Category = FindCategory(CategoryName);
+
+	const TiXmlAttribute* Attribute = Category->FirstAttribute();
+	while (Attribute) {
+		LoadedData.emplace_back((std::string)Attribute->Value());
+		Attribute = Attribute->Next();
+	}
+
+	return LoadedData;
+}
+
 void FileUtil::ResetData() {
 	Doc.Clear();
 	FileExist = false;
