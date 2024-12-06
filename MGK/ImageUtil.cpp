@@ -60,7 +60,7 @@ void ImageUtil::Import(Image& ImageStruct, std::string FileName, int Type) {
 }
 
 void ImageUtil::PreLoad(Image& ImageStruct, std::string FileName, int Type) {
-	PreLoadInfo PLI;
+	PreLoadInfo PLI{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* texture_data = stbi_load(FileName.c_str(), &Width, &Height, &Channel, 4);
 
