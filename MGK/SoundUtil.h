@@ -1,4 +1,7 @@
 #pragma once
+#include "SystemConfig.h"
+
+#ifdef USE_SOUND_SYSTEM
 #include "EngineHeader.h"
 #include <string>
 
@@ -39,3 +42,4 @@ public:
 	void SetSoundPosition(FMOD::Channel*& ChannelVar, glm::vec2 Position, float Diff);
 };
 extern SoundUtil soundUtil;
+#endif

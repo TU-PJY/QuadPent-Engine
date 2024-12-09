@@ -1,4 +1,7 @@
 #pragma once
+#include "SystemConfig.h"
+
+#ifdef USE_FILE_SYSTEM
 #define _CRT_SECURE_NO_WARNINGS
 #include "Setting.h"
 #include "tinyxml/tinyxml.h"
@@ -65,3 +68,4 @@ private:
 	std::string GetFileName(const std::string& FileDirectory);
 	std::string GetFolderPath(const std::string& FileDirectory, const std::string& RemoveString);
 };
+#endif

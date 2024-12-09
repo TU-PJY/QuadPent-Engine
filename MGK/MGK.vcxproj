@@ -218,6 +218,7 @@
     <ClInclude Include="SoundUtil.h" />
     <ClInclude Include="Setting.h" />
     <ClInclude Include="StringUtil.h" />
+    <ClInclude Include="SystemConfig.h" />
     <ClInclude Include="SystemResource.h" />
     <ClInclude Include="TextUtil.h" />
     <ClInclude Include="ThreadUtil.h" />

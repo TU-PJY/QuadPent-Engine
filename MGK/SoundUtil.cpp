@@ -1,4 +1,6 @@
 #include "SoundUtil.h"
+
+#ifdef USE_SOUND_SYSTEM
 #include <vector>
 #include "Setting.h"
 
@@ -160,3 +162,4 @@ void SoundUtil::SetSoundPosition(FMOD::Channel*& ChannelVar, glm::vec2 Position,
 
 	ChannelVar->set3DAttributes(&SoundPosition, 0);
 }
+#endif

@@ -1,4 +1,6 @@
 #include "ScriptUtil.h"
+
+#ifdef USE_FILE_SYSTEM
 #include "EngineHeader.h"
 
 void ScriptUtil::Import(std::string FileName) {
@@ -120,3 +122,4 @@ std::string ScriptUtil::Decrypt(const std::string& CipherText, const byte Key[],
 
 	return PlainText;
 }
+#endif

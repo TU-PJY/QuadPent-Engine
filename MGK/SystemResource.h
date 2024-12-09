@@ -15,4 +15,6 @@ extern Image LOADING_SPINNER;
 extern GLUquadric* GLU_CIRCLE;
 extern GLUquadric* GLU_LINE_CIRCLE;
 
+#ifdef USE_SOUND_SYSTEM
 extern Sound INTRO_SOUND;
+#endif

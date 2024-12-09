@@ -162,6 +162,7 @@ void GameObject::DrawImage(int RenderType, Image& Image, glm::vec2& Position, GL
 	Render(Image, Transparency, ApplyUnitTransform, DisableAdjustAspect);
 }
 
+#ifdef USE_SOUND_SYSTEM
 void GameObject::PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime) {
 	soundUtil.PlaySound(Sound, ChannelVar, StartTime);
 }
@@ -236,6 +237,7 @@ void GameObject::SetSoundPosition(SoundChannel& ChannelVar, float X, float Y, fl
 void GameObject::SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff) {
 	soundUtil.SetSoundPosition(ChannelVar, Position.x, Position.y, Diff);
 }
+#endif
 
 ////////////////////////// private
 

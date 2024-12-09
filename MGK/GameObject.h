@@ -2,7 +2,11 @@
 #include "CollisionUtil.h"
 #include "PhysicsUtil.h"
 #include "RandomUtil.h"
+
+#ifdef USE_SOUND_SYSTEM
 #include "SoundUtil.h"
+#endif
+
 #include "imageUtil.h"
 #include "TextUtil.h"
 #include "TimerUtil.h"
@@ -93,6 +97,7 @@ public:
 		glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat Transparency=1.0, 
 		int FlipOpt=FLIP_TYPE_NONE, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
+#ifdef USE_SOUND_SYSTEM
 	// Play sound.You can specify the playback start point.
 	void PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime=0);
 	
@@ -149,6 +154,7 @@ public:
 
 	// Specifies the local coordinates where the sound occurs.
 	void SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff);
+#endif
 	
 
 	// class destructor

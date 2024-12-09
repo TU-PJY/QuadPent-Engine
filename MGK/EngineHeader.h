@@ -2,6 +2,7 @@
 #pragma warning(disable: 4244)
 #pragma warning(disable: 4305)
 #pragma warning(disable: 26444)
+#include "SystemConfig.h"
 #include "Setting.h"
 #include "glew.h"
 #include "freeglut.h"
@@ -9,8 +10,6 @@
 #include "glm/ext.hpp"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-#include "fmod.hpp"
-#include "fmod_errors.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -18,17 +17,28 @@
 #include <DirectXCollision.h>
 using namespace DirectX;
 
+#ifdef USE_SOUND_SYSTEM
+#include "fmod.hpp"
+#include "fmod_errors.h"
+#endif
+
 extern float DestFPS;
 extern int FPSLimit;
 
 extern bool FullscreenState;
 
 typedef void(*START_MODE_PTR)(void);
+using ShaderLocation = unsigned int;
+
+#ifdef USE_SOUND_SYSTEM
 using Sound          = FMOD::Sound*;
 using SoundChannel   = FMOD::Channel*;
-using ShaderLocation = unsigned int;
+#endif
+
+#ifdef USE_FILE_SYSTEM
 using StringDataSet  = std::vector<std::string>;
 using DigitDataSet   = std::vector<float>;
+#endif
 
 enum KeyState {
 	NORMAL_KEY_DOWN,
@@ -105,10 +115,12 @@ enum ImageTypeEnum {
 	IMAGE_TYPE_NEAREST
 };
 
+#ifdef USE_FILE_SYSTEM
 enum DataTypeEnum {
 	DATA_TYPE_DIGIT,
 	DATA_TYPE_STRING
 };
+#endif
 
 enum ImageFlipEnum {
 	FLIP_TYPE_NONE,
@@ -171,6 +183,7 @@ namespace Preset {
 	constexpr float HalfNegative = -XM_PI / 6.0;
 }
 
+#ifdef USE_FILE_SYSTEM
 // data set struct
 struct FileData {
 	int         DataType;
@@ -180,6 +193,7 @@ struct FileData {
 	std::string StringValue;
 };
 using DataFormat = std::vector<FileData>;
+#endif
 
 // image struct
 typedef struct {

@@ -166,6 +166,9 @@
     <Filter Include="[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]">
       <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[4]___________[ MGK ]\[ System ]\[ System Config ]">
+      <UniqueIdentifier>{6d7cc11a-2226-40e3-82ce-9a1d561e46ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMode1.cpp">
@@ -421,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="StringUtil.h">
       <Filter>[4]___________[ MGK ]\[ Util ]\[ String Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemConfig.h">
+      <Filter>[4]___________[ MGK ]\[ System ]\[ System Config ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

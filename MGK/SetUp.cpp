@@ -29,7 +29,11 @@ ShaderUtil shaderUtil;
 Camera camera;
 CameraController cameraCon;
 ImageUtil imageUtil;
+
+#ifdef USE_SOUND_SYSTEM
 SoundUtil soundUtil;
+#endif
+
 MouseUtil mouse;
 Scene scene;
 

@@ -10,4 +10,6 @@ Image LOADING_SPINNER;
 GLUquadric* GLU_CIRCLE;
 GLUquadric* GLU_LINE_CIRCLE;
 
+#ifdef USE_SOUND_SYSTEM
 Sound INTRO_SOUND;
+#endif

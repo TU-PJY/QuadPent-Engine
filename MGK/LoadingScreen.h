@@ -7,7 +7,10 @@
 #include "FontUtil.h"
 
 DWORD WINAPI SystemResourceCreateThread(LPVOID Param) {
+#ifdef USE_SOUND_SYSTEM
 	soundUtil.Import(INTRO_SOUND, MGK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
+#endif
+
 	imageUtil.PreLoad(MGK_LOGO, MGK_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
 	imageUtil.PreLoad(FMOD_LOGO, FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
 	imageUtil.PreLoad(COLOR_TEXTURE, LINE_TEXTURE_DIRECTORY);
@@ -57,7 +60,9 @@ public:
 				imageUtil.FinishLoad();
 
 				if (!ENABLE_INTRO_SCREEN) {
+#ifdef USE_SOUND_SYSTEM
 					soundUtil.Release(INTRO_SOUND);
+#endif
 					scene.SwitchMode(START_MODE);
 				}
 
@@ -72,7 +77,9 @@ public:
 		else {
 			camera.Init();
 			imageUtil.Init();
+#ifdef USE_SOUND_SYSTEM
 			soundUtil.Init();
+#endif
 
 			imageUtil.Import(LOADING_SPINNER, MGK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 			ThreadUtil::Create(ThreadHandle, SystemResourceCreateThread);

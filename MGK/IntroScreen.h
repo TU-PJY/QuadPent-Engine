@@ -5,7 +5,9 @@
 class IntroScreen : public GameObject {
 private:
 	TimerUtil    timer;
+#ifdef USE_SOUND_SYSTEM
 	SoundChannel IntroChannel{};
+#endif
 
 	GLfloat      LogoSize        = 1.0;
 	GLfloat      LogoTransparent = 0.0;
@@ -21,7 +23,9 @@ public:
 		if (State == NORMAL_KEY_DOWN) {
 			switch (NormalKey) {
 			case NK_ENTER:
+#ifdef USE_SOUND_SYSTEM
 				StopSound(IntroChannel);
+#endif
 				scene.SwitchMode(START_MODE);
 				break;
 
@@ -37,7 +41,9 @@ public:
 		switch (Scene) {
 		case 0:
 			if (timer.CheckMiliSec(1.0, 1, CHECK_AND_INTERPOLATE)) {
+#ifdef USE_SOUND_SYSTEM
 				soundUtil.PlaySound(INTRO_SOUND, IntroChannel);
+#endif
 				++Scene;
 			}
 			break;

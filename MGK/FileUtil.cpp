@@ -1,4 +1,6 @@
 #include "FileUtil.h"
+
+#ifdef USE_FILE_SYSTEM
 #include "Setting.h"
 
 void FileUtil::Import(std::string FileDirectory, DataFormat Format) {
@@ -313,3 +315,4 @@ std::string FileUtil::GetFolderPath(const std::string& FileDirectory, const std:
 	
 	return MainString;
 }
+#endif

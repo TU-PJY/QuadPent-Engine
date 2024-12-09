@@ -2,7 +2,9 @@
 #include "CameraUtil.h"
 #include "CameraController.h"
 #include "Scene.h"
+#ifdef USE_SOUND_SYSTEM
 #include "SoundUtil.h"
+#endif
 #include "TextUtil.h"
 #include "RectBrush.h"
 #include <thread>
@@ -28,7 +30,9 @@ GLvoid Framework::Framework() {
 		scene.Routine();
 		scene.CompleteCommand();
 		cameraCon.Update(DeltaTime);
+#ifdef USE_SOUND_SYSTEM
 		soundUtil.Update();
+#endif
 
 		if (SHOW_FPS) {
 			FPS_IND_REFRESH_TIMER.Update(DeltaTime);
