@@ -169,6 +169,9 @@
     <Filter Include="[4]___________[ MGK ]\[ System ]\[ System Config ]">
       <UniqueIdentifier>{6d7cc11a-2226-40e3-82ce-9a1d561e46ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ Resources ]\[ Global Value ]">
+      <UniqueIdentifier>{e836178f-6dbb-4450-a3f6-069d9441980d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameMode1.cpp">
@@ -300,6 +303,9 @@
     <ClCompile Include="StringUtil.cpp">
       <Filter>[4]___________[ MGK ]\[ Util ]\[ String Util ]</Filter>
     </ClCompile>
+    <ClCompile Include="GlobalValue.cpp">
+      <Filter>[5]___________[ Resources ]\[ Global Value ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMode1.h">
@@ -427,6 +433,9 @@
     </ClInclude>
     <ClInclude Include="SystemConfig.h">
       <Filter>[4]___________[ MGK ]\[ System ]\[ System Config ]</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalValue.h">
+      <Filter>[5]___________[ Resources ]\[ Global Value ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

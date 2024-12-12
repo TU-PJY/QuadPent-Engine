@@ -2,11 +2,13 @@
 #include "CameraUtil.h"
 #include "CameraController.h"
 #include "Scene.h"
+#include "TextUtil.h"
+#include "RectBrush.h"
+
 #ifdef USE_SOUND_SYSTEM
 #include "SoundUtil.h"
 #endif
-#include "TextUtil.h"
-#include "RectBrush.h"
+
 #include <thread>
 #include <chrono>
 

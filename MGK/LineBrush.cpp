@@ -71,7 +71,7 @@ void LineBrush::Render() {
 
 	glUniform1f(SHAPE_ALPHA_LOCATION, TransparencyValue);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, value_ptr(ResultMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 
 	imageUtil.RenderRaw();
 }

@@ -2,11 +2,6 @@
 #include "CollisionUtil.h"
 #include "PhysicsUtil.h"
 #include "RandomUtil.h"
-
-#ifdef USE_SOUND_SYSTEM
-#include "SoundUtil.h"
-#endif
-
 #include "imageUtil.h"
 #include "TextUtil.h"
 #include "TimerUtil.h"
@@ -23,6 +18,16 @@
 #include "ThreadUtil.h"
 #include "ComputeUtil.h"
 #include "StringUtil.h"
+#include "GlobalValue.h"
+
+#ifdef USE_SOUND_SYSTEM
+#include "SoundUtil.h"
+#endif
+
+#ifdef USE_FILE_SYSTEM
+#include "ScriptUtil.h"
+#include "FileUtil.h"
+#endif
 
 class GameObject {
 public:
