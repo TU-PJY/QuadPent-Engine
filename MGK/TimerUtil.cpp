@@ -46,6 +46,10 @@ bool TimerUtil::CheckSec(int DestTime, int CheckOption) {
 		case CHECK_AND_INTERPOLATE:
 			Interpolate((GLfloat)DestTime);
 			return true;
+
+		case CHECK_AND_STOP:
+			Stop();
+			return true;
 		}
 	}
 
@@ -64,6 +68,10 @@ bool TimerUtil::CheckMiliSec(GLfloat DestTime, int DemicalPlace, int CheckOption
 
 		case CHECK_AND_INTERPOLATE:
 			Interpolate(DestTime);
+			return true;
+
+		case CHECK_AND_STOP:
+			Stop();
 			return true;
 		}
 	}

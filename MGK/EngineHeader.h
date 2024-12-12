@@ -144,7 +144,8 @@ enum TextHeightClampEnum {
 enum CheckTimeOptionEnum {
 	CHECK_AND_RESUME,
 	CHECK_AND_RESET,
-	CHECK_AND_INTERPOLATE
+	CHECK_AND_INTERPOLATE,
+	CHECK_AND_STOP
 };
 
 enum UIClampEdgeEnum {
