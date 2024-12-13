@@ -36,6 +36,16 @@ void Transform::Scale(glm::mat4& Matrix, glm::vec2& Size) {
 	Matrix = scale(Matrix, glm::vec3(Size.x, Size.y, 1.0));
 }
 
+void Transform::Shear(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
+	Matrix[1][0] += X;
+	Matrix[0][1] += Y;
+}
+
+void Transform::Shear(glm::mat4& Matrix, glm::vec2 Value) {
+	Matrix[1][0] += Value.x;
+	Matrix[0][1] += Value.y;
+}
+
 void Transform::ImageScale(glm::mat4& Matrix, GLfloat Width, GLfloat Height) {
 	if (Width > Height)
 		Matrix = glm::scale(Matrix, glm::vec3(1.0, (GLfloat)Height / (GLfloat)Width, 1.0));
