@@ -75,10 +75,12 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format,
 	if (CurrentText != PrevText) {
 		TextWordCount = wcslen(Text);
 		ProcessGlyphCache(Text);
-		CalculateTextLength(Text);
 		PrevText = CurrentText;
 	}
 
+	CalculateTextLength(Text);
+
+	CurrentLine = 0;
 	TextRenderSize = Size;
 	RenderPosition = glm::vec2(X, Y);
 
@@ -120,17 +122,6 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format,
 
 
 ////////////////// private
-GLfloat TextUtil::GetLength(const wchar_t* Text) {
-	GLfloat Length{};
-	for (int i = 0; i < wcslen(Text); ++i) {
-		unsigned int CharIndex = Text[i];
-		if (CharIndex < 65536)
-			Length += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
-	}
-
-	return Length;
-}
-
 void TextUtil::GetLineLength(const wchar_t* Text) {
 	LineLengthBuffer.clear();
 	GLfloat CurrentLineLength{};
@@ -152,26 +143,17 @@ void TextUtil::GetLineLength(const wchar_t* Text) {
 }
 
 void TextUtil::CalculateTextLength(const wchar_t* Text) {
-	switch (TextAlign) {
-	case ALIGN_MIDDLE: case ALIGN_LEFT:
-		GetLineLength(Text);
-		TextLength = LineLengthBuffer[0];
-
-		MiddleHeight = 0.0;
-		if (FixMiddleCommand) {
-			size_t LineNum = LineLengthBuffer.size();
-			for (int i = 0; i < LineNum; ++i)
-				MiddleHeight += TextLineSpace;
-			MiddleHeight /= 2.0;
-		}
-		break;
-
-	case ALIGN_DEFAULT:
-		TextLength = GetLength(Text);
-		break;
-	}
-
+	GetLineLength(Text);
 	CurrentLine = 0;
+	TextLength = LineLengthBuffer[0];
+
+	MiddleHeight = 0.0;
+	if (FixMiddleCommand) {
+		size_t LineNum = LineLengthBuffer.size();
+		for (int i = 0; i < LineNum; ++i)
+			MiddleHeight += TextLineSpace;
+		MiddleHeight /= 2.0;
+	}
 }
 
 void TextUtil::SetNewLine() {

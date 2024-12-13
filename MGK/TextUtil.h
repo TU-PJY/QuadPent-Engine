@@ -54,7 +54,6 @@ public:
 	void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...);
 
 private:
-	GLfloat GetLength(const wchar_t* Text);
 	void GetLineLength(const wchar_t* Text);
 	void CalculateTextLength(const wchar_t* Text);
 	void SetNewLine();

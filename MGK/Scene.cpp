@@ -136,6 +136,9 @@ void Scene::InputScroll(std::string Tag, int State) {
 }
 
 void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
+	if (AddLayer > Layers)
+		return;
+
 	ObjectList[AddLayer].emplace_back(Object);
 	ObjectIndex.insert(std::pair(Tag, Object));
 

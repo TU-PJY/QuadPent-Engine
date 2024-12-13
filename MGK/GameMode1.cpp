@@ -23,6 +23,8 @@ void GameMode1::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialK
 			break;
 		}
 	}
+
+	scene.InputKey("object", State, NormalKey, SpecialKey);
 }
 
 void GameMode1::ProcessMouseButton(int State) {
