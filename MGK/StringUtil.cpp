@@ -45,6 +45,9 @@ void StringUtil::RemoveString(std::string& Str, std::string RemoveStr) {
 }
 
 std::wstring StringUtil::Wstring(const std::string& Str) {
+	if (Str.empty())
+		return L"";
+
 	int SizeNeed = MultiByteToWideChar(CP_ACP, 0, Str.c_str(), (int)Str.size(), NULL, 0);
 	if (SizeNeed <= 0) 
 		return L"";
