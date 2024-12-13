@@ -1,14 +1,42 @@
 #include "StringUtil.h"
 
-void StringUtil::AddString(std::string& Str, std::string& AddStr) {
+void StringUtil::InputChar(std::string& Str, unsigned char AddChar, bool UseNewLine) {
+	switch (AddChar) {
+	case NK_TAB: case NK_ESCAPE:
+		break;
+
+	case NK_SPACE:
+		AddString(Str, " ");
+		break;
+
+	case NK_BACKSPACE:
+		EraseString(Str);
+		break;
+
+	case NK_ENTER:
+		if (!UseNewLine) break;
+		AddString(Str, "\n");
+		break;
+
+	default:
+		Str += static_cast<char>(AddChar);
+		break;
+	}
+}
+
+void StringUtil::AddString(std::string& Str, std::string AddStr) {
 	Str += AddStr;
 }
 
 void StringUtil::EraseString(std::string& Str) {
-	Str.pop_back();
+	if(!Str.empty())
+		Str.pop_back();
 }
 
-void StringUtil::RemoveString(std::string& Str, std::string& RemoveStr) {
+void StringUtil::RemoveString(std::string& Str, std::string RemoveStr) {
+	if (Str.empty())
+		return;
+
 	size_t Pos = Str.find(RemoveStr);
 	while (Pos != std::string::npos) {
 		Str.erase(Pos, RemoveStr.length());

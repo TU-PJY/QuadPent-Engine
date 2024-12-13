@@ -93,10 +93,11 @@ enum SpecialKeySet {
 };
 
 enum NormalKeySet {
-	NK_SPACE  = 32,
-	NK_ENTER  = 13,
-	NK_ESCAPE = 27,
-	NK_TAB    = 9
+	NK_SPACE     = 32,
+	NK_ENTER     = 13,
+	NK_ESCAPE    = 27,
+	NK_TAB       = 9,
+	NK_BACKSPACE = 8
 };
 
 enum RenderTypeEnum {
