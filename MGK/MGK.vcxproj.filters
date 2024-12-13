@@ -246,18 +246,6 @@
     <ClCompile Include="ExUtil.cpp">
       <Filter>[4]___________[ MGK ]\[ Util ]\[ EX Util ]</Filter>
     </ClCompile>
-    <ClCompile Include="tinyxml\tinyxmlparser.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml\tinyxmlerror.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml\tinyxml.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml\tinystr.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]</Filter>
-    </ClCompile>
     <ClCompile Include="GameResource.cpp">
       <Filter>[5]___________[ Resources ]\[ Game Resource ]</Filter>
     </ClCompile>
@@ -305,6 +293,18 @@
     </ClCompile>
     <ClCompile Include="GlobalValue.cpp">
       <Filter>[5]___________[ Resources ]\[ Global Value ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\tinyxml\tinystr.cpp">
+      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\tinyxml\tinyxml.cpp">
+      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\tinyxml\tinyxmlerror.cpp">
+      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\tinyxml\tinyxmlparser.cpp">
+      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -374,12 +374,6 @@
     <ClInclude Include="ExUtil.h">
       <Filter>[4]___________[ MGK ]\[ Util ]\[ EX Util ]</Filter>
     </ClInclude>
-    <ClInclude Include="tinyxml\tinystr.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ Header ]</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyxml\tinyxml.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ Header ]</Filter>
-    </ClInclude>
     <ClInclude Include="GameResource.h">
       <Filter>[5]___________[ Resources ]\[ Game Resource ]</Filter>
     </ClInclude>
@@ -436,6 +430,12 @@
     </ClInclude>
     <ClInclude Include="GlobalValue.h">
       <Filter>[5]___________[ Resources ]\[ Global Value ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\tinyxml\tinystr.h">
+      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ Header ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\tinyxml\tinyxml.h">
+      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

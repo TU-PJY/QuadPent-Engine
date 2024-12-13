@@ -11,7 +11,7 @@ void GameObject::InitRenderState(int RenderType) {
 	Transform::Identity(ImageAspectMatrix);
 	Transform::Identity(FlipMatrix);
 
-	TransparencyValue = 1.0f;
+	Opacity = 1.0f;
 	BlurValue = 0.0;
 
 	camera.SetCamera(RenderType);
@@ -107,11 +107,11 @@ void GameObject::UnitFlip(int FlipOpt) {
 	}
 }
 
-void GameObject::UnitTransparent(GLfloat Value) {
-	UnitTransparencyValue = Value;
+void GameObject::SetUnitOpacity(GLfloat Value) {
+	UnitOpacity = Value;
 }
 
-void GameObject::UnitBlur(int Value) {
+void GameObject::SetUnitBlur(int Value) {
 	UnitBlurValue = GLfloat(Value);
 }
 
@@ -120,21 +120,21 @@ void GameObject::ResetUnitTransform() {
 	Transform::Identity(UnitRotateMatrix);
 	Transform::Identity(UnitScaleMatrix);
 	Transform::Identity(UnitFlipMatrix);
-	UnitTransparencyValue = 1.0f;
+	UnitOpacity = 1.0f;
 	UnitBlurValue = 0.0f;
 }
 
-void GameObject::Render(Image& Image, GLfloat Transparency, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void GameObject::Render(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	if (!DisableAdjustAspect)
 		Transform::ImageScale(ImageAspectMatrix, Image.Width, Image.Height);
 
 		Compt::ComputeMatrix(ResultMatrix, TranslateMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
-		TransparencyValue = Transparency;
+		Opacity = OpacityValue;
 
 	if (ApplyUnitTransform) {
 		Compt::ComputeMatrix(ResultMatrix, UnitTranslateMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
-		TransparencyValue -= (1.0f - UnitTransparencyValue);
-		EX::ClampValue(TransparencyValue, 0.0, CLAMP_LESS);
+		Opacity -= (1.0f - UnitOpacity);
+		EX::ClampValue(Opacity, 0.0, CLAMP_LESS);
 		BlurValue += UnitBlurValue;
 	}
 
@@ -142,24 +142,24 @@ void GameObject::Render(Image& Image, GLfloat Transparency, bool ApplyUnitTransf
 	imageUtil.Render(Image);
 }
 
-void GameObject::DrawImage(int RenderType, Image& Image, GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat Transparency, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void GameObject::DrawImage(int RenderType, Image& Image, GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat OpacityValue, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	InitRenderState(RenderType);
 	Transform::Move(TranslateMatrix, X, Y);
 	Transform::Rotate(RotateMatrix, Rotation);
 	Transform::Scale(ScaleMatrix, Width, Height);
 	Flip(FlipOpt);
-	TransparencyValue = Transparency;
-	Render(Image, Transparency, ApplyUnitTransform, DisableAdjustAspect);
+	Opacity = OpacityValue;
+	Render(Image, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
 }
 
-void GameObject::DrawImage(int RenderType, Image& Image, glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat Transparency, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void GameObject::DrawImage(int RenderType, Image& Image, glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat OpacityValue, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	InitRenderState(RenderType);
 	Transform::Move(TranslateMatrix, Position);
 	Transform::Rotate(RotateMatrix, Rotation);
 	Transform::Scale(ScaleMatrix, Width, Height);
 	Flip(FlipOpt);
-	TransparencyValue = Transparency;
-	Render(Image, Transparency, ApplyUnitTransform, DisableAdjustAspect);
+	Opacity = OpacityValue;
+	Render(Image, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
 }
 
 #ifdef USE_SOUND_SYSTEM
@@ -245,7 +245,7 @@ void GameObject::PrepareRender() {
 	glUseProgram(IMAGE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
-	glUniform1f(IMAGE_ALPHA_LOCATION, TransparencyValue);
+	glUniform1f(IMAGE_OPACITY_LOCATION, Opacity);
 	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	if (BlurValue > 0.0) {

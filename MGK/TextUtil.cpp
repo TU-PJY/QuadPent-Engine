@@ -52,8 +52,8 @@ void TextUtil::Rotate(GLfloat RotationValue) {
 	Rotation = RotationValue;
 }
 
-void TextUtil::SetTransparent(GLfloat Value) {
-	TextAlphaValue = Value;
+void TextUtil::SetOpacity(GLfloat Value) {
+	Opacity = Value;
 }
 
 void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str) {
@@ -190,7 +190,7 @@ void TextUtil::PrepareRender() {
 	glUseProgram(TEXT_SHADER);
 	camera.PrepareRender(SHADER_TYPE_TEXT);
 
-	glUniform1f(TEXT_ALPHA_LOCATION, TextAlphaValue);
+	glUniform1f(TEXT_OPACITY_LOCATION, Opacity);
 	glUniform3f(TEXT_COLOR_LOCATION, TextColor.r, TextColor.g, TextColor.b);
 	glUniformMatrix4fv(TEXT_MODEL_LOCATION, 1, GL_FALSE, value_ptr(ResultMatrix));
 }

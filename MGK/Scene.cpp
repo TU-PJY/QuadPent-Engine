@@ -28,15 +28,11 @@ void Scene::Routine() {
 
 			Object->RenderFunc();
 
-			if (Object->DeleteReserveCommand) {
-				Object->DeleteCommand = true;
+			if (Object->DeleteCommand)
 				AddLocation(i, CurrentReferLocation);
-			}
 
-			else if (Object->SwapReserveCommand) {
-				Object->SwapCommand = true;
+			else if (Object->SwapCommand)
 				AddLocation(i, CurrentReferLocation);
-			}
 			
 			++CurrentReferLocation;
 		}
@@ -165,19 +161,19 @@ void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Typ
 }
 
 void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
-	Object->SwapReserveCommand = true;
+	Object->SwapCommand = true;
 	Object->ObjectLayer = TargetLayer;
 }
 
 void Scene::DeleteObject(GameObject* Object) {
-	Object->DeleteReserveCommand = true;
+	Object->DeleteCommand = true;
 }
 
 void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
 		auto Object = ObjectIndex.find(Tag);
 		if (Object != end(ObjectIndex))
-			Object->second->DeleteReserveCommand = true;
+			Object->second->DeleteCommand = true;
 	}
 
 	else if (DeleteRange == DELETE_RANGE_EQUAL) {
@@ -185,7 +181,7 @@ void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 		if (Range.first != Range.second) {
 			for (auto Object = Range.first; Object != Range.second; ++Object) {
 				if (Object->first == Tag)
-					Object->second->DeleteReserveCommand = true;
+					Object->second->DeleteCommand = true;
 			}
 		}
 	}
@@ -219,8 +215,8 @@ void  Scene::CompleteCommand() {
 	if(!CommandExist)
 		return;
 
-	ProcessObjectCommand();
-	ProcessSceneCommand();
+	UpdateObjectList();
+	UpdateObjectIndex();
 	CommandExist = false;
 }
 
@@ -230,7 +226,7 @@ void Scene::AddLocation(int Layer, int Position) {
 	CommandExist = true;
 }
 
-void Scene::ProcessObjectCommand() {
+void Scene::UpdateObjectList() {
 	int Offset{};
 
 	for (int Layer = 0; Layer < Layers; ++Layer) {
@@ -239,7 +235,7 @@ void Scene::ProcessObjectCommand() {
 			continue;
 
 		for (int i = 0; i < Size; ++i) {
-			auto Object = ObjectList[Layer].begin() + DeleteLocation[Layer][i] - Offset;
+			auto Object = begin(ObjectList[Layer]) + DeleteLocation[Layer][i] - Offset;
 
 			if ((*Object)->DeleteCommand) {
 				ObjectList[Layer].erase(Object);
@@ -261,7 +257,7 @@ void Scene::ProcessObjectCommand() {
 	}
 }
 
-void Scene::ProcessSceneCommand() {
+void Scene::UpdateObjectIndex() {
 	auto Object = begin(ObjectIndex);
 	while (Object != end(ObjectIndex) && SceneCommandCount != 0) {
 		if (Object->second->DeleteCommand) {
@@ -278,13 +274,13 @@ void Scene::ProcessSceneCommand() {
 void Scene::ClearFloatingObject() {
 	for (auto const& Object : ObjectIndex) {
 		if (Object.second->FloatingOpt && !Object.second->StaticOpt)
-			Object.second->DeleteReserveCommand = true;
+			Object.second->DeleteCommand = true;
 	}
 }
 
 void Scene::ClearAll() {
 	for (auto const& Object : ObjectIndex) {
 		if (!Object.second->StaticOpt)
-			Object.second->DeleteReserveCommand = true;
+			Object.second->DeleteCommand = true;
 	}
 }

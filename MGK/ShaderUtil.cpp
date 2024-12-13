@@ -11,14 +11,14 @@ GLuint MATRIX_COMPT_SHADER;
 
 GLuint SSBO_MATRIX_INPUT, SSBO_MATRIX_OUTPUT;
 
-ShaderLocation IMAGE_ALPHA_LOCATION, IMAGE_COLOR_LOCATION, IMAGE_MODEL_LOCATION;
+ShaderLocation IMAGE_OPACITY_LOCATION, IMAGE_COLOR_LOCATION, IMAGE_MODEL_LOCATION;
 ShaderLocation IMAGE_PROJECTION_LOCARION, IMAGE_VIEW_LOCATION, IMAGE_VIEW_POSITION_LOCATION;
 ShaderLocation BLUR_STRENGTH_LOCATION, BOOL_BLUR_LOCATION, TEXEL_SIZE_LOCATION;
 
-ShaderLocation TEXT_ALPHA_LOCATION, TEXT_COLOR_LOCATION, TEXT_MODEL_LOCATION;
+ShaderLocation TEXT_OPACITY_LOCATION, TEXT_COLOR_LOCATION, TEXT_MODEL_LOCATION;
 ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VIEW_POSITION_LOCATION;
 
-ShaderLocation SHAPE_ALPHA_LOCATION, SHAPE_COLOR_LOCATION, SHAPE_MODEL_LOCATION;
+ShaderLocation SHAPE_OPACITY_LOCATION, SHAPE_COLOR_LOCATION, SHAPE_MODEL_LOCATION;
 ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW_POSITION_LOCATION;
 
 char* ShaderUtil::LoadShaderFile(std::string FileName) {
@@ -122,7 +122,7 @@ void ShaderUtil::CreateComputeShader(GLuint& Shader) {
 
 void ShaderUtil::CreateShaderLocation() {
 	// Image Shader
-	IMAGE_ALPHA_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "transparency");
+	IMAGE_OPACITY_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "transparency");
 	IMAGE_COLOR_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "objectColor");
 	IMAGE_MODEL_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "model");
 	BLUR_STRENGTH_LOCATION       = glGetUniformLocation(IMAGE_SHADER, "Radius");
@@ -130,12 +130,12 @@ void ShaderUtil::CreateShaderLocation() {
 	TEXEL_SIZE_LOCATION          = glGetUniformLocation(IMAGE_SHADER, "TexelSize");
 
 	// Text Shader
-	TEXT_ALPHA_LOCATION          = glGetUniformLocation(TEXT_SHADER, "transparency");
+	TEXT_OPACITY_LOCATION          = glGetUniformLocation(TEXT_SHADER, "transparency");
 	TEXT_COLOR_LOCATION          = glGetUniformLocation(TEXT_SHADER, "objectColor");
 	TEXT_MODEL_LOCATION          = glGetUniformLocation(TEXT_SHADER, "model");
 
 	// Shape Shader
-	SHAPE_ALPHA_LOCATION         = glGetUniformLocation(SHAPE_SHADER, "transparency");
+	SHAPE_OPACITY_LOCATION         = glGetUniformLocation(SHAPE_SHADER, "transparency");
 	SHAPE_COLOR_LOCATION         = glGetUniformLocation(SHAPE_SHADER, "objectColor");
 	SHAPE_MODEL_LOCATION         = glGetUniformLocation(SHAPE_SHADER, "model");
 

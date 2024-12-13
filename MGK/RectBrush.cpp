@@ -26,8 +26,8 @@ void LineRectBrush::SetColorRGB(int R, int G, int B) {
 	Color.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void LineRectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat Width, GLfloat RotationValue, GLfloat Transparency) {
-	TransparencyValue = Transparency;
+void LineRectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat Width, GLfloat RotationValue, GLfloat OpacityValue) {
+	Opacity = OpacityValue;
 	DrawLine(X, Y, 0.0, SizeY / 2.0, SizeX + Width, Width, RotationValue);
 	DrawLine(X, Y, 0.0, -SizeY / 2.0, SizeX + Width, Width, RotationValue);
 	DrawLine(X, Y, -SizeX / 2.0, 0.0, Width, SizeY + Width, RotationValue);
@@ -54,7 +54,7 @@ void LineRectBrush::Render() {
 	glUseProgram(SHAPE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_SHAPE);
 
-	glUniform1f(SHAPE_ALPHA_LOCATION, TransparencyValue);
+	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 
@@ -83,10 +83,10 @@ void RectBrush::SetColorRGB(int R, int G, int B) {
 	Color.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void RectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat RotationValue, GLfloat Transparency) {
+void RectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat RotationValue, GLfloat OpacityValue) {
 	Transform::Identity(TranslateMatrix);
 	Transform::Identity(ScaleMatrix);
-	TransparencyValue = Transparency;
+	Opacity = OpacityValue;
 
 	Transform::Move(TranslateMatrix, X, Y);
 	Transform::Rotate(TranslateMatrix, RotationValue);
@@ -104,7 +104,7 @@ void RectBrush::Render() {
 	glUseProgram(SHAPE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_SHAPE);
 
-	glUniform1f(SHAPE_ALPHA_LOCATION, TransparencyValue);
+	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 

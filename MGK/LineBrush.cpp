@@ -23,10 +23,10 @@ void LineBrush::SetColorRGB(int R, int G, int B) {
 	Color.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width, GLfloat Transparency) {
+void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width, GLfloat OpacityValue) {
 	Transform::Identity(TranslateMatrix);
 	Transform::Identity(ScaleMatrix);
-	TransparencyValue = Transparency;
+	Opacity = OpacityValue;
 
 	Length = Math::ComputeDistance(X1, Y1, X2, Y2);
 	Rotation = Math::ComputeRadians(X1, Y1, X2, Y2);
@@ -39,10 +39,10 @@ void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Wid
 	Render();
 }
 
-void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfloat Transparency) {
+void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfloat OpacityValue) {
 	Transform::Identity(TranslateMatrix);
 	Transform::Identity(ScaleMatrix);
-	TransparencyValue = Transparency;
+	Opacity = OpacityValue;
 
 	Transform::Move(TranslateMatrix, (X1 + X2) / 2.0, Y);
 	Transform::Scale(ScaleMatrix, fabs(X1 - X2) + Width, Width);
@@ -50,10 +50,10 @@ void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfl
 	Render();
 }
 
-void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfloat Transparency) {
+void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfloat OpacityValue) {
 	Transform::Identity(TranslateMatrix);
 	Transform::Identity(ScaleMatrix);
-	TransparencyValue = Transparency;
+	Opacity = OpacityValue;
 
 	Transform::Move(TranslateMatrix, X, (Y1 + Y2) / 2.0);
 	Transform::Scale(ScaleMatrix, Width, fabs(Y1 - Y2) + Width);
@@ -69,7 +69,7 @@ void LineBrush::Render() {
 	glUseProgram(SHAPE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_SHAPE);
 
-	glUniform1f(SHAPE_ALPHA_LOCATION, TransparencyValue);
+	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 

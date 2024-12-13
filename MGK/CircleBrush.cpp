@@ -23,12 +23,12 @@ void CircleBrush::SetColorRGB(int R, int G, int B) {
 	Color.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void CircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Transparency) {
+void CircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat OpacityValue) {
 	Transform::Identity(TranslateMatrix);
-	TransparencyValue = 1.0f;
+	Opacity = 1.0f;
 
 	Transform::Move(TranslateMatrix, X, Y);
-	TransparencyValue = Transparency;
+	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 
 	Render();
@@ -41,7 +41,7 @@ void CircleBrush::Render() {
 	glUseProgram(SHAPE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_SHAPE);
 
-	glUniform1f(SHAPE_ALPHA_LOCATION, TransparencyValue);
+	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(TranslateMatrix));
 
@@ -70,12 +70,12 @@ void LineCircleBrush::SetColorRGB(int R, int G, int B) {
 	Color.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void LineCircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Width, GLfloat Transparency) {
+void LineCircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Width, GLfloat OpacityValue) {
 	Transform::Identity(TranslateMatrix);
-	TransparencyValue = 1.0f;
+	Opacity = 1.0f;
 
 	Transform::Move(TranslateMatrix, X, Y);
-	TransparencyValue = Transparency;
+	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 	WidthValue = Width;
 
@@ -89,7 +89,7 @@ void LineCircleBrush::Render() {
 	glUseProgram(SHAPE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_SHAPE);
 
-	glUniform1f(SHAPE_ALPHA_LOCATION, TransparencyValue);
+	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(TranslateMatrix));
 

@@ -7,7 +7,7 @@ private:
 
 	glm::vec3 Color{};
 	GLfloat   Radius{};
-	GLfloat   TransparencyValue{};
+	GLfloat   Opacity{};
 	int       RenderType{ RENDER_TYPE_DEFAULT };
 
 	bool      CamInheritanceCommand{};
@@ -17,7 +17,7 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
 	void SetRenderType(int Opt);
-	void Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Transparency=1.0f);
+	void Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat OpacityValue=1.0f);
 
 private:
 	void Render();
@@ -29,7 +29,7 @@ private:
 
 	glm::vec3 Color{};
 	GLfloat   Radius{}, WidthValue{};
-	GLfloat   TransparencyValue{};
+	GLfloat   Opacity{};
 	int       RenderType{ RENDER_TYPE_DEFAULT };
 
 	bool      CamInheritanceCommand{};
@@ -39,7 +39,7 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
 	void SetRenderType(int Opt);
-	void Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Width, GLfloat Transparency = 1.0f);
+	void Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Width, GLfloat OpacityValue = 1.0f);
 
 private:
 	void Render();

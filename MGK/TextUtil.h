@@ -22,7 +22,7 @@ private:
 	std::wstring             PrevText{};
 	int                      CurrentLine{};
 
-	GLfloat                  TextAlphaValue{ 1.0f };
+	GLfloat                  Opacity{ 1.0f };
 
 	glm::vec3                TextColor{ glm::vec3(1.0, 1.0, 1.0) };
 	std::map <wchar_t, bool> GlyphCache;
@@ -48,7 +48,7 @@ public:
 	void SetFixMiddle(bool Flag);
 	void SetHeightAlign(int Type);
 	void Rotate(GLfloat RotationValue);
-	void SetTransparent(GLfloat Value);
+	void SetOpacity(GLfloat Value);
 	void SetRenderType(int Type);
 	void RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str);
 	void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...);

@@ -124,8 +124,8 @@ public:
 
 private:
 	void AddLocation(int Layer, int Position);
-	void ProcessObjectCommand();
-	void ProcessSceneCommand();
+	void UpdateObjectList();
+	void UpdateObjectIndex();
 	void ClearFloatingObject();
 	void ClearAll();
 };

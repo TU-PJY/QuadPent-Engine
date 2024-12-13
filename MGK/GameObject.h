@@ -41,8 +41,8 @@ public:
 
 	glm::vec3   ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 
-	GLfloat     TransparencyValue{ 1.0f };
-	GLfloat     UnitTransparencyValue{ 1.0f };
+	GLfloat     Opacity{ 1.0f };
+	GLfloat     UnitOpacity{ 1.0f };
 	GLfloat     BlurValue{};
 	GLfloat     UnitBlurValue{};
 
@@ -52,9 +52,7 @@ public:
 	bool        FloatingOpt{};
 	bool        StaticOpt{};
 	
-	bool        DeleteReserveCommand{};
 	bool        DeleteCommand{};
-	bool        SwapReserveCommand{};
 	bool        SwapCommand{};
 
 	// Initialize matrix. Select a rendering type.
@@ -82,24 +80,24 @@ public:
 	void UpdateLocalPosition(glm::vec2& DestPosition);
 
 	void UnitFlip(int FlipOpt);
-	void UnitTransparent(GLfloat Value);
-	void UnitBlur(int Value);
+	void SetUnitOpacity(GLfloat Value);
+	void SetUnitBlur(int Value);
 	void ResetUnitTransform();
 
 	void Flip(int FlipOpt);
 	void Blur(int Strength);
 
 	//  Render the image.
-	void Render(Image& Image, GLfloat Transparency = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
+	void Render(Image& Image, GLfloat OpacityValue = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
 	// Render the image in one step.
 	void DrawImage(int RenderType, Image& ImageSturct, 
-		GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat Transparency=1.0, 
+		GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat OpacityValue=1.0, 
 		int FlipOpt=FLIP_TYPE_NONE, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
 	// Render the image in one step.
 	void DrawImage(int RenderType, Image& Image, 
-		glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat Transparency=1.0, 
+		glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat OpacityValue =1.0,
 		int FlipOpt=FLIP_TYPE_NONE, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
 #ifdef USE_SOUND_SYSTEM

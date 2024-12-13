@@ -3,12 +3,12 @@
 
 #ifdef USE_FILE_SYSTEM
 #define _CRT_SECURE_NO_WARNINGS
-#include "tinyxml/tinyxml.h"
-#include "cryptopp/aes.h" 
-#include "cryptopp/filters.h"
-#include "cryptopp/modes.h"
-#include "cryptopp/osrng.h"
-#include "cryptopp/hex.h"
+#include "Library/tinyxml/tinyxml.h"
+#include "Library/cryptopp/aes.h" 
+#include "Library/cryptopp/filters.h"
+#include "Library/cryptopp/modes.h"
+#include "Library/cryptopp/osrng.h"
+#include "Library/cryptopp/hex.h"
 #include "Setting.h"
 #include "EngineHeader.h"
 #include "GameFile.h"

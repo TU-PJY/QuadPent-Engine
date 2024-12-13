@@ -364,8 +364,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Not ignored files
-!MGK/FMOD/**
-!MGK/cryptopp/**
-!MGK/OpenGL/**
+!MGK/Library/**
 !MGK/MGKResource/**
 !ScriptTools/**
