@@ -113,10 +113,10 @@ void Scene::ResetControlState(std::string Tag) {
 		Object->second->ResetControlState();
 }
 
-void Scene::InputKey(std::string Tag, int State, unsigned char NormalKey, int SpecialKey) {
+void Scene::InputKey(std::string Tag, KeyEvent& Event) {
 	auto Object = ObjectIndex.find(Tag);
 	if (Object != end(ObjectIndex))
-		Object->second->InputKey(State, NormalKey, SpecialKey);
+		Object->second->InputKey(Event);
 }
 
 void Scene::InputMouse(std::string Tag, int State) {

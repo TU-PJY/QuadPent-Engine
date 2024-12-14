@@ -19,9 +19,9 @@ private:
 	int          Scene{}; 
 
 public:
-	void InputKey(int State, unsigned char NormalKey, int SpecialKey) {
-		if (State == NORMAL_KEY_DOWN) {
-			switch (NormalKey) {
+	void InputKey(KeyEvent& Event) {
+		if (Event.State == NORMAL_KEY_DOWN) {
+			switch (Event.NormalKey) {
 			case NK_ENTER:
 #ifdef USE_SOUND_SYSTEM
 				StopSound(IntroChannel);

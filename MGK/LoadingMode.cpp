@@ -16,7 +16,8 @@ void LoadingMode::Destructor() {}
 
 
 void LoadingMode::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {
-	scene.InputKey("loading_screen", State, NormalKey, SpecialKey);
+	KeyEvent Event{ State, NormalKey, SpecialKey };
+	scene.InputKey("loading_screen", Event);
 }
 
 void LoadingMode::ProcessMouseButton(int State) {
@@ -54,21 +55,28 @@ void LoadingMode::MousePassiveMotion(int X, int Y) {
 }
 
 void LoadingMode::MouseButton(int Button, int State, int X, int Y) {
-	if (State == GLUT_DOWN) {
-		if (Button == GLUT_LEFT_BUTTON)
-			ProcessMouseButton(LEFT_BUTTON_DOWN);
-		else if (Button == GLUT_RIGHT_BUTTON)
-			ProcessMouseButton(RIGHT_BUTTON_DOWN);
-		else if (Button == GLUT_MIDDLE_BUTTON)
-			ProcessMouseButton(MIDDLE_BUTTON_DOWN);
-	}
-	else if (State == GLUT_UP) {
-		if (Button == GLUT_LEFT_BUTTON)
-			ProcessMouseButton(LEFT_BUTTON_UP);
-		else if (Button == GLUT_RIGHT_BUTTON)
-			ProcessMouseButton(RIGHT_BUTTON_UP);
-		else if (Button == GLUT_MIDDLE_BUTTON)
-			ProcessMouseButton(MIDDLE_BUTTON_UP);
+	switch (State) {
+	case GLUT_DOWN:
+		switch (Button) {
+		case GLUT_LEFT_BUTTON:
+			ProcessMouseButton(LEFT_BUTTON_DOWN);   break;
+		case GLUT_RIGHT_BUTTON:
+			ProcessMouseButton(RIGHT_BUTTON_DOWN);  break;
+		case GLUT_MIDDLE_BUTTON:
+			ProcessMouseButton(MIDDLE_BUTTON_DOWN); break;
+		}
+		break;
+
+	case GLUT_UP:
+		switch (Button) {
+		case GLUT_LEFT_BUTTON:
+			ProcessMouseButton(LEFT_BUTTON_UP);   break;
+		case GLUT_RIGHT_BUTTON:
+			ProcessMouseButton(RIGHT_BUTTON_UP);  break;
+		case GLUT_MIDDLE_BUTTON:
+			ProcessMouseButton(MIDDLE_BUTTON_UP); break;
+		}
+		break;
 	}
 }
 

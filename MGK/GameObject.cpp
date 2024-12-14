@@ -82,8 +82,8 @@ void GameObject::Flip(int FlipOpt) {
 	}
 }
 
-void GameObject::Blur(int Strength) {
-	BlurValue = (GLfloat)Strength;
+void GameObject::Blur(GLfloat Strength) {
+	BlurValue = Strength;
 }
 
 void GameObject::UnitFlip(int FlipOpt) {
@@ -138,7 +138,7 @@ void GameObject::Render(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransf
 		BlurValue += UnitBlurValue;
 	}
 
-	PrepareRender();
+	PrepareRender(Image);
 	imageUtil.Render(Image);
 }
 
@@ -241,7 +241,7 @@ void GameObject::SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, 
 
 ////////////////////////// private
 
-void GameObject::PrepareRender() {
+void GameObject::PrepareRender(Image& ImageStruct) {
 	glUseProgram(IMAGE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
@@ -251,7 +251,7 @@ void GameObject::PrepareRender() {
 	if (BlurValue > 0.0) {
 		glUniform1i(BOOL_BLUR_LOCATION, 1);
 		glUniform1f(BLUR_STRENGTH_LOCATION, BlurValue);
-		glUniform2f(TEXEL_SIZE_LOCATION, ASP(1.0) / (GLfloat)WIDTH, 1.0 / (GLfloat)HEIGHT);
+		glUniform2f(TEXEL_SIZE_LOCATION, 1.0 / (GLfloat)ImageStruct.Width, 1.0 / (GLfloat)ImageStruct.Height);
 	}
 	else  
 		glUniform1i(BOOL_BLUR_LOCATION, 0);

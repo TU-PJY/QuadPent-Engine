@@ -85,7 +85,7 @@ public:
 	void ResetUnitTransform();
 
 	void Flip(int FlipOpt);
-	void Blur(int Strength);
+	void Blur(GLfloat Strength);
 
 	//  Render the image.
 	void Render(Image& Image, GLfloat OpacityValue = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
@@ -170,7 +170,7 @@ public:
 	virtual void RenderFunc() {}
 
 	// Sends keyboard events to a specific object class.
-	virtual void InputKey(int State, unsigned char NormalKey, int SpecialKey) {}
+	virtual void InputKey(KeyEvent& Event) {}
 
 	// Sends mouse events to a specific object class.
 	virtual void InputMouse(int State) {}
@@ -191,7 +191,7 @@ public:
 	virtual BoundingCircle GetBoundingCircle() { return {}; }
 
 private:
-	void PrepareRender();
+	void PrepareRender(Image& ImageStruct);
 	glm::vec4 ViewportPosition();
 	glm::vec4 LocalPosition();
 };

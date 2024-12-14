@@ -5,7 +5,7 @@
 // You can get the mode file template from ModeTemplate.txt
 
 void GameMode1::Start() {
-	Framework::SetBackColor(0.5, 0.5, 0.5);
+	Framework::SetBackColor(0.3, 0.3, 0.3);
 
 	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
 	scene.RegisterDestructor(Destructor);
@@ -16,8 +16,10 @@ void GameMode1::Destructor() {
 }
 
 void GameMode1::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {
-	if (State == NORMAL_KEY_DOWN) {
-		switch (NormalKey) {
+	KeyEvent Event{ State, NormalKey, SpecialKey };
+
+	if (Event.State == NORMAL_KEY_DOWN) {
+		switch (Event.NormalKey) {
 		case NK_ESCAPE:
 			Framework::Exit();
 			break;
@@ -65,21 +67,28 @@ void GameMode1::MouseWheel(int Button, int Wheel, int X, int Y) {
 }
 
 void GameMode1::MouseButton(int Button, int State, int X, int Y) {
-	if (State == GLUT_DOWN) {
-		if (Button == GLUT_LEFT_BUTTON)
-			ProcessMouseButton(LEFT_BUTTON_DOWN);
-		else if (Button == GLUT_RIGHT_BUTTON)
-			ProcessMouseButton(RIGHT_BUTTON_DOWN);
-		else if (Button == GLUT_MIDDLE_BUTTON)
-			ProcessMouseButton(MIDDLE_BUTTON_DOWN);
-	}
-	else if (State == GLUT_UP) {
-		if (Button == GLUT_LEFT_BUTTON)
-			ProcessMouseButton(LEFT_BUTTON_UP);
-		else if (Button == GLUT_RIGHT_BUTTON)
-			ProcessMouseButton(RIGHT_BUTTON_UP);
-		else if (Button == GLUT_MIDDLE_BUTTON)
-			ProcessMouseButton(MIDDLE_BUTTON_UP);
+	switch (State) {
+	case GLUT_DOWN:
+		switch (Button) {
+		case GLUT_LEFT_BUTTON:
+			ProcessMouseButton(LEFT_BUTTON_DOWN);   break;
+		case GLUT_RIGHT_BUTTON:
+			ProcessMouseButton(RIGHT_BUTTON_DOWN);  break;
+		case GLUT_MIDDLE_BUTTON:
+			ProcessMouseButton(MIDDLE_BUTTON_DOWN); break;
+		}
+		break;
+
+	case GLUT_UP:
+		switch (Button) {
+		case GLUT_LEFT_BUTTON:
+			ProcessMouseButton(LEFT_BUTTON_UP);   break;
+		case GLUT_RIGHT_BUTTON:
+			ProcessMouseButton(RIGHT_BUTTON_UP);  break;
+		case GLUT_MIDDLE_BUTTON:
+			ProcessMouseButton(MIDDLE_BUTTON_UP); break;
+		}
+		break;
 	}
 }
 

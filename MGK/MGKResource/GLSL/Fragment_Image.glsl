@@ -20,19 +20,26 @@ vec4              FinalResult;
 
 vec4 ComputeBlur() {
     vec4 BlurResultValue = vec4(0.0);
-    vec4 BlurColor = vec4(0.0);
-    float BlurTotal = 0.0;
+    vec4 totalColor = vec4(0.0);
+    float totalAlpha = 0.0;
+    float totalWeight = 0.0;
     int BlurNum = int(Radius);
+    int kernelSize = (BlurNum * 2 + 1) * (BlurNum * 2 + 1);
 
-    for(int y = -BlurNum; y <= BlurNum; y++) {
-        for(int x = -BlurNum; x <= BlurNum; x++) {
+    for (int y = -BlurNum; y <= BlurNum; ++y) {
+        for (int x = -BlurNum; x <= BlurNum; ++x) {
             vec2 offset = vec2(float(x), float(y)) * TexelSize * 3.0;
             vec4 sample = texture(outTexture, TexCoord + offset);
-            BlurColor += sample;
-            BlurTotal += 1.0;
+            
+            float weight = sample.a;
+            totalColor += sample * weight;
+            totalAlpha += sample.a;
+            totalWeight += weight;
         }
     }
-    BlurResultValue = BlurColor / BlurTotal;
+
+    vec4 weightedColor = vec4(totalColor.rgb / totalWeight, totalAlpha / float(kernelSize));
+    BlurResultValue = mix(vec4(0.0), weightedColor, step(0.0, totalWeight));
 
     return BlurResultValue;
 }
@@ -41,6 +48,6 @@ void main() {
     BlurResult = mix(vec4(0.0), ComputeBlur(), float(UseBlur));
     DefaultResult = mix(texture(outTexture, TexCoord), vec4(0.0), float(UseBlur));
 
-    FinalResult = mix(DefaultResult, BlurResult, float(UseBlur));
-    fragColor = mix(vec4(FinalResult.rgb + objectColor.rgb, FinalResult.a * transparency), vec4(0.0), step(FinalResult.a, 0.01));
+   FinalResult = mix(DefaultResult, BlurResult, float(UseBlur));
+   fragColor = vec4(FinalResult.rgb + objectColor.rgb, FinalResult.a * transparency);
 }

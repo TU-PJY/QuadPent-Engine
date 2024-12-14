@@ -218,6 +218,12 @@ struct ViewportRect {
 };
 extern ViewportRect WindowRect;
 
+typedef struct {
+	int State;
+	unsigned char NormalKey;
+	int SpecialKey;
+}KeyEvent;
+
 // display width, height and apsect ratio
 extern int WIDTH, HEIGHT;
 extern int PREV_WIDTH, PREV_HEIGHT;

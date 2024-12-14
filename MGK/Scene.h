@@ -84,7 +84,7 @@ public:
 	void ResetControlState(std::string Tag);
 
 	// Sends keyboard events to a specific object class.
-	void InputKey(std::string Tag, int State, unsigned char NormalKey, int SpecialKey);
+	void InputKey(std::string Tag, KeyEvent& Event);
 
 	// Sends mouse events to a specific object class.
 	void InputMouse(std::string Tag, int State);
