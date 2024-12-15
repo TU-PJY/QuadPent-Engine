@@ -11,7 +11,7 @@ void GameObject::InitRenderState(int RenderType) {
 	Transform::Identity(ImageAspectMatrix);
 	Transform::Identity(FlipMatrix);
 
-	Opacity = 1.0f;
+	ObjectOpacity = 1.0f;
 	ObjectBlur = 0.0;
 
 	camera.SetCamera(RenderType);
@@ -61,7 +61,7 @@ void GameObject::UpdateLocalPosition(glm::vec2& DestPosition) {
 	DestPosition = LocalPosition();
 }
 
-void GameObject::Flip(int FlipOpt) {
+void GameObject::SetFlip(int FlipOpt) {
 	switch (FlipOpt) {
 	case FLIP_TYPE_NONE:
 		Transform::Identity(FlipMatrix); 
@@ -86,7 +86,7 @@ void GameObject::SetBlur(GLfloat Strength) {
 	ObjectBlur = Strength;
 }
 
-void GameObject::UnitFlip(int FlipOpt) {
+void GameObject::SetUnitFlip(int FlipOpt) {
 	switch (FlipOpt) {
 	case FLIP_TYPE_NONE:
 		Transform::Identity(UnitFlipMatrix);
@@ -129,12 +129,12 @@ void GameObject::Render(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransf
 		Transform::ImageScale(ImageAspectMatrix, Image.Width, Image.Height);
 
 		Compt::ComputeMatrix(ResultMatrix, TranslateMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
-		Opacity = OpacityValue;
+		ObjectOpacity = OpacityValue;
 
 	if (ApplyUnitTransform) {
 		Compt::ComputeMatrix(ResultMatrix, UnitTranslateMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
-		Opacity -= (1.0f - UnitOpacity);
-		EX::ClampValue(Opacity, 0.0, CLAMP_LESS);
+		ObjectOpacity -= (1.0f - UnitOpacity);
+		EX::ClampValue(ObjectOpacity, 0.0, CLAMP_LESS);
 		ObjectBlur += UnitBlur;
 	}
 
@@ -147,8 +147,8 @@ void GameObject::DrawImage(int RenderType, Image& Image, GLfloat X, GLfloat Y, G
 	Transform::Move(TranslateMatrix, X, Y);
 	Transform::Rotate(RotateMatrix, Rotation);
 	Transform::Scale(ScaleMatrix, Width, Height);
-	Flip(FlipOpt);
-	Opacity = OpacityValue;
+	SetFlip(FlipOpt);
+	ObjectOpacity = OpacityValue;
 	Render(Image, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
 }
 
@@ -157,8 +157,8 @@ void GameObject::DrawImage(int RenderType, Image& Image, glm::vec2& Position, GL
 	Transform::Move(TranslateMatrix, Position);
 	Transform::Rotate(RotateMatrix, Rotation);
 	Transform::Scale(ScaleMatrix, Width, Height);
-	Flip(FlipOpt);
-	Opacity = OpacityValue;
+	SetFlip(FlipOpt);
+	ObjectOpacity = OpacityValue;
 	Render(Image, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
 }
 
@@ -245,7 +245,7 @@ void GameObject::PrepareRender(Image& ImageStruct) {
 	glUseProgram(IMAGE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_IMAGE);
 
-	glUniform1f(IMAGE_OPACITY_LOCATION, Opacity);
+	glUniform1f(IMAGE_OPACITY_LOCATION, ObjectOpacity);
 	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	if (ObjectBlur > 0.0) {

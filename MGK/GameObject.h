@@ -41,7 +41,7 @@ public:
 
 	glm::vec3   ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 
-	GLfloat     Opacity{ 1.0f };
+	GLfloat     ObjectOpacity{ 1.0f };
 	GLfloat     UnitOpacity{ 1.0f };
 	GLfloat     ObjectBlur{};
 	GLfloat     UnitBlur{};
@@ -79,12 +79,12 @@ public:
 	// Updates the object's position relative to the local coordinate system.
 	void UpdateLocalPosition(glm::vec2& DestPosition);
 
-	void UnitFlip(int FlipOpt);
+	void SetUnitFlip(int FlipOpt);
 	void SetUnitOpacity(GLfloat Value);
 	void SetUnitBlur(GLfloat Strength);
 	void ResetUnitTransform();
 
-	void Flip(int FlipOpt);
+	void SetFlip(int FlipOpt);
 	void SetBlur(GLfloat Strength);
 
 	//  Render the image.
