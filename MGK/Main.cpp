@@ -35,16 +35,6 @@ GLvoid Framework::Framework() {
 #ifdef USE_SOUND_SYSTEM
 		soundUtil.Update();
 #endif
-
-		if (SHOW_FPS) {
-			FPS_IND_REFRESH_TIMER.Update(DeltaTime);
-			if (FPS_IND_REFRESH_TIMER.CheckMiliSec(0.5, 1, CHECK_AND_INTERPOLATE))
-				CurrentDeltaTime = DeltaTime;
-
-			UI::ClampPositionToCorner(EDGE_LEFT_UP, RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.0);
-			Rect.Draw(RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.3);
-			FPS_IND.Render(WindowRect.lx + 0.01, WindowRect.ry, 0.05, L"FPS: %d", (int)(1.0 / CurrentDeltaTime));
-		}
 	}
 
 	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
@@ -65,13 +55,6 @@ GLvoid Framework::Framework() {
 
 void main(int argc, char** argv) {
 	Framework::SetupSystem(argc, argv);
-
-	if (SHOW_FPS) {
-		FPS_IND.Init(L"Arial", FW_NORMAL);
-		FPS_IND.SetColor(1.0, 1.0, 1.0);
-		FPS_IND.SetHeightAlign(HEIGHT_ALIGN_UNDER);
-	}
-
 	glutDisplayFunc(Framework::Framework);
 	glutReshapeFunc(Framework::DisplayReshape);
 	glutMainLoop();

@@ -437,6 +437,9 @@
     <ClInclude Include="Library\tinyxml\tinyxml.h">
       <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
+    <ClInclude Include="FPSInd.h">
+      <Filter>[4]___________[ MGK ]\[ System ]\[ System Object ]</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ModeTemplate.txt">

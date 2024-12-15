@@ -5,6 +5,7 @@
 #include "IntroMode.h"
 #include "CameraUtil.h"
 #include "FontUtil.h"
+#include "FPSInd.h"
 
 DWORD WINAPI SystemResourceCreateThread(LPVOID Param) {
 #ifdef USE_SOUND_SYSTEM
@@ -63,13 +64,16 @@ public:
 #ifdef USE_SOUND_SYSTEM
 					soundUtil.Release(INTRO_SOUND);
 #endif
+					scene.AddObject(new FPSInd, "fps_ind", END - 1, OBJECT_TYPE_STATIC);
 					scene.SwitchMode(START_MODE);
 				}
 
 				else {
 					Transparent -= FT * 2.0;
-					if(EX::CheckClampValue(Transparent, 0.0, CLAMP_LESS))
+					if (EX::CheckClampValue(Transparent, 0.0, CLAMP_LESS)) {
+						scene.AddObject(new FPSInd, "fps_ind", END - 1, OBJECT_TYPE_STATIC);
 						scene.SwitchMode(IntroMode::Start);
+					}
 				}
 			}
 		}

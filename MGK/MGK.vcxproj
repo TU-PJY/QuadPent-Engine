@@ -193,6 +193,7 @@
     <ClInclude Include="ClippingUtil.h" />
     <ClInclude Include="CollisionUtil.h" />
     <ClInclude Include="ComputeUtil.h" />
+    <ClInclude Include="FPSInd.h" />
     <ClInclude Include="GameFile.h" />
     <ClInclude Include="FileUtil.h" />
     <ClInclude Include="ExUtil.h" />
