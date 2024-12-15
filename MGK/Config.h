@@ -20,7 +20,7 @@ constexpr bool ENABLE_INTRO_SCREEN = true;
 
 // frame limits option
 // If this option is set to 0, the engine will run at maximum framerate.
-constexpr int FRAME_LIMITS = 0;
+constexpr int FRAME_LIMITS = 144;
 
 
 
@@ -29,7 +29,7 @@ constexpr int FRAME_LIMITS = 0;
 constexpr bool SHOW_CONSOLE = true;
 
 // FPS indicator option
-constexpr bool SHOW_FPS = true;
+constexpr bool SHOW_FPS = false;
 
 // show boundbox option
 #define SHOW_BOUND_BOX

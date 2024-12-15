@@ -3,7 +3,7 @@
 #pragma warning(disable: 4305)
 #pragma warning(disable: 26444)
 #include "SystemConfig.h"
-#include "Setting.h"
+#include "Config.h"
 #include "glew.h"
 #include "freeglut.h"
 #include "freeglut_ext.h"
@@ -184,6 +184,14 @@ namespace Preset {
 	constexpr float HalfPositive = XM_PI / 6.0;
 	constexpr float HalfNegative = -XM_PI / 6.0;
 }
+
+// ray vector struct
+typedef struct {
+	XMVECTOR Origin;
+	XMVECTOR Direction;
+	GLfloat Distance;
+	GLfloat Length;
+}RayVector;
 
 #ifdef USE_FILE_SYSTEM
 // data set struct

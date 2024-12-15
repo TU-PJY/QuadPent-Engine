@@ -87,10 +87,63 @@ GLfloat Math::ComputeRadians(glm::vec2& Position1, glm::vec2& Position2) {
 	return atan2(Position2.y - Position1.y, Position2.x - Position1.x);
 }
 
+RayVector Math::ComputeRay(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {
+	XMVECTOR RayOrigin = XMVectorSet(FromX, FromY, 0.0, 0.0);
+	float Angle = ComputeRadians(FromX, FromY, ToX, ToY);
+	float DirectionX = cos(Angle);
+	float DirectionY = sin(Angle);
+
+	XMVECTOR RayDirection = XMVectorSet(DirectionX, DirectionY, 0.0f, 0.0f);
+	RayDirection = XMVector2Normalize(RayDirection);
+	GLfloat RayLength = ComputeDistance(FromX, FromY, ToX, ToY);
+	GLfloat Distance = 0.0;
+
+	return { RayOrigin, RayDirection, Distance, RayLength };
+}
+
+RayVector Math::ComputeRay(glm::vec2 From, glm::vec2 To) {
+	XMVECTOR RayOrigin = XMVectorSet(From.x, From.y, 0.0, 0.0);
+	float Angle = ComputeRadians(From.x, From.y, To.x, To.y);
+	float DirectionX = cos(Angle);
+	float DirectionY = sin(Angle);
+
+	XMVECTOR RayDirection = XMVectorSet(DirectionX, DirectionY, 0.0f, 0.0f);
+	RayDirection = XMVector2Normalize(RayDirection);
+	GLfloat RayLength = ComputeDistance(From.x, From.y, To.x, To.y);
+	GLfloat Distance = 0.0;
+
+	return { RayOrigin, RayDirection, Distance, RayLength };
+}
+
+RayVector Math::ComputeRayWithDegree(GLfloat OriginX, GLfloat OriginY, GLfloat Degree, GLfloat LengthValue) {
+	XMVECTOR RayOrigin = XMVectorSet(OriginX, OriginY, 0.0, 0.0);
+	float Angle = glm::radians(Degree);
+	float DirectionX = cos(Angle);
+	float DirectionY = sin(Angle);
+
+	XMVECTOR RayDirection = XMVectorSet(DirectionX, DirectionY, 0.0f, 0.0f);
+	RayDirection = XMVector2Normalize(RayDirection);
+	GLfloat RayLength = LengthValue;
+	GLfloat Distance = 0.0;
+
+	return { RayOrigin, RayDirection, Distance, RayLength };
+}
+
+RayVector Math::ComputeRayWithDegree(glm::vec2 Origin, GLfloat Degree, GLfloat LengthValue) {
+	XMVECTOR RayOrigin = XMVectorSet(Origin.x, Origin.y, 0.0, 0.0);
+	float Angle = glm::radians(Degree);
+	float DirectionX = cos(Angle);
+	float DirectionY = sin(Angle);
+
+	XMVECTOR RayDirection = XMVectorSet(DirectionX, DirectionY, 0.0f, 0.0f);
+	RayDirection = XMVector2Normalize(RayDirection);
+	GLfloat RayLength = LengthValue;
+	GLfloat Distance = 0.0;
+
+	return { RayOrigin, RayDirection, Distance, RayLength };
+}
 
 //////////////////////////////////
-
-
 
 GLfloat NormalizeDegree(GLfloat Degree) {
 	while (Degree < 0) Degree += 360;

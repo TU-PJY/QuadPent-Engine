@@ -79,6 +79,32 @@ bool AABB::CheckCollisionPoint(glm::vec2& Position) {
 	return false;
 }
 
+bool AABB::CheckCollisionRay(RayVector& Ray) {
+	if (aabb.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
+		Collide = true;
+		return true;
+	}
+
+	Collide = false;
+	return false;
+}
+
+bool AABB::CheckCollisionLine(RayVector& Ray) {
+	if (aabb.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
+		if (Ray.Distance <= Ray.Length) {
+			Collide = true;
+			return true;
+		}
+		else {
+			Collide = false;
+			return false;
+		}
+	}
+
+	Collide = false;
+	return false;
+}
+
 BoundingBox AABB::Get() const{
 	return aabb;
 }
@@ -164,6 +190,33 @@ bool OOBB::CheckCollisionPoint(glm::vec2& Position) {
 	return false;
 }
 
+bool OOBB::CheckCollisionRay(RayVector& Ray) {
+	if (oobb.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
+		Collide = true;
+		return true;
+	}
+
+	Collide = false;
+	return false;
+}
+
+
+bool OOBB::CheckCollisionLine(RayVector& Ray) {
+	if (oobb.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
+		if (Ray.Distance <= Ray.Length) {
+			Collide = true;
+			return true;
+		}
+		else {
+			Collide = false;
+			return false;
+		}
+	}
+
+	Collide = false;
+	return false;
+}
+
 BoundingOrientedBox OOBB::Get() const {
 	return oobb;
 }
@@ -242,6 +295,33 @@ bool BoundingCircle::CheckCollisionPoint(glm::vec2& Position) {
 	Collide = false;
 	return false;
 }
+
+bool BoundingCircle::CheckCollisionRay(RayVector& Ray) {
+	if (sphere.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
+		Collide = true;
+		return true;
+	}
+
+	Collide = false;
+	return false;
+}
+
+bool BoundingCircle::CheckCollisionLine(RayVector& Ray) {
+	if (sphere.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
+		if (Ray.Distance <= Ray.Length) {
+			Collide = true;
+			return true;
+		}
+		else {
+			Collide = false;
+			return false;
+		}
+	}
+
+	Collide = false;
+	return false;
+}
+
 
 BoundingSphere BoundingCircle::Get() const {
 	return sphere;

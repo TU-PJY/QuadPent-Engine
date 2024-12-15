@@ -17,14 +17,10 @@ bool UpdateActivateCommand;
 // frametime values
 float PrevTime, CurrentTime, DeltaTime;
 
-// FPS indicator
-RectBrush Rect;
-TextUtil FPS_IND;
-TimerUtil FPS_IND_REFRESH_TIMER;
-glm::vec2 RectPosition;
-float CurrentDeltaTime = 1.0;
-
 GLvoid Framework::Framework() {
+	if (FPSLimit > 0)
+		std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(DestFPS)));
+
 	glClearColor(BackColor.r, BackColor.g, BackColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
@@ -38,10 +34,6 @@ GLvoid Framework::Framework() {
 	}
 
 	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
-	
-	if(FPSLimit > 0)
-		std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(DestFPS)));
-
 	DeltaTime = (CurrentTime - PrevTime) / 1000.0;
 	scene.InputFrameTime(DeltaTime);
 

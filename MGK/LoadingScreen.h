@@ -21,11 +21,15 @@ DWORD WINAPI SystemResourceCreateThread(LPVOID Param) {
 	gluQuadricDrawStyle(GLU_CIRCLE, GLU_FILL);
 	gluQuadricDrawStyle(GLU_LINE_CIRCLE, GLU_FILL);
 
+	FontUtil::Import(ROBOTO_FONT_DIRECTORY, true);
+
+#ifdef USE_CUSTOM_FONT
 	int TotalSize = sizeof(FONT_PATH);
 	int ElementSize = sizeof(FONT_PATH[0]);
 	int Length = TotalSize / ElementSize;
 	for (int i = 0; i < Length; ++i)
 		FontUtil::Import(FONT_PATH[i], true);
+#endif
 
 	return 0;
 }
@@ -60,15 +64,17 @@ public:
 				if (!ENABLE_INTRO_SCREEN) {
 #ifdef USE_SOUND_SYSTEM
 					soundUtil.Release(INTRO_SOUND);
-#endif
-					scene.AddObject(new FPSInd, "fps_ind", END - 1, OBJECT_TYPE_STATIC);
+#endif				
+					if(SHOW_FPS)
+						scene.AddObject(new FPSInd, "fps_ind", END - 1, OBJECT_TYPE_STATIC);
 					scene.SwitchMode(START_MODE);
 				}
 
 				else {
 					Transparent -= FT * 2.0;
 					if (EX::CheckClampValue(Transparent, 0.0, CLAMP_LESS)) {
-						scene.AddObject(new FPSInd, "fps_ind", END - 1, OBJECT_TYPE_STATIC);
+						if(SHOW_FPS)
+							scene.AddObject(new FPSInd, "fps_ind", END - 1, OBJECT_TYPE_STATIC);
 						scene.SwitchMode(IntroMode::Start);
 					}
 				}

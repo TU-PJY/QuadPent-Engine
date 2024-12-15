@@ -26,6 +26,8 @@ public:
 	bool CheckCollision(const BoundingCircle& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 	bool CheckCollisionPoint(glm::vec2& Position);
+	bool CheckCollisionRay(RayVector& Ray);
+	bool CheckCollisionLine(RayVector& Ray);
 	BoundingBox Get() const;
 };
 
@@ -50,6 +52,8 @@ public:
 	bool CheckCollision(const BoundingCircle& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 	bool CheckCollisionPoint(glm::vec2& Position);
+	bool CheckCollisionRay(RayVector& Ray);
+	bool CheckCollisionLine(RayVector& Ray);
 	BoundingOrientedBox Get() const;
 };
 
@@ -77,5 +81,7 @@ public:
 	bool CheckCollision(const OOBB& Other);
 	bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 	bool CheckCollisionPoint(glm::vec2& Position);
+	bool CheckCollisionRay(RayVector& Ray);
+	bool CheckCollisionLine(RayVector& Ray);
 	BoundingSphere Get() const;
 };

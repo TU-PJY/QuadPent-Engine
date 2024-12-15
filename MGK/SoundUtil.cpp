@@ -2,7 +2,7 @@
 
 #ifdef USE_SOUND_SYSTEM
 #include <vector>
-#include "Setting.h"
+#include "Config.h"
 
 std::vector<float> FFTdata(FFT_SIZE);
 

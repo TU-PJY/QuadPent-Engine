@@ -221,7 +221,7 @@
     <ClInclude Include="ScriptUtil.h" />
     <ClInclude Include="ShaderUtil.h" />
     <ClInclude Include="SoundUtil.h" />
-    <ClInclude Include="Setting.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="StringUtil.h" />
     <ClInclude Include="SystemConfig.h" />
     <ClInclude Include="SystemResource.h" />

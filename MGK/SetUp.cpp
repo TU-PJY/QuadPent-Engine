@@ -6,7 +6,7 @@
 #include "ShaderUtil.h"
 #include "SoundUtil.h"
 #include "MouseUtil.h"
-#include "Setting.h"
+#include "Config.h"
 #include <windows.h>
 
 #include "LoadingMode.h"

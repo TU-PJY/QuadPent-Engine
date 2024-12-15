@@ -395,7 +395,7 @@
     <ClInclude Include="RectBrush.h">
       <Filter>[4]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
     </ClInclude>
-    <ClInclude Include="Setting.h">
+    <ClInclude Include="Config.h">
       <Filter>[0]___________[ Config ]</Filter>
     </ClInclude>
     <ClInclude Include="TransformUtil.h">

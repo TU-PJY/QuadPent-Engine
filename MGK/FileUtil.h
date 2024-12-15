@@ -3,7 +3,7 @@
 
 #ifdef USE_FILE_SYSTEM
 #define _CRT_SECURE_NO_WARNINGS
-#include "Setting.h"
+#include "Config.h"
 #include "Library/tinyxml/tinyxml.h"
 #include "Library/cryptopp/aes.h" 
 #include "Library/cryptopp/filters.h"

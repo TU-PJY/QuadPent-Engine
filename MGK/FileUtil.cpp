@@ -1,7 +1,7 @@
 #include "FileUtil.h"
 
 #ifdef USE_FILE_SYSTEM
-#include "Setting.h"
+#include "Config.h"
 
 void FileUtil::Import(std::string FileDirectory, DataFormat Format) {
 	if (FileExist)
