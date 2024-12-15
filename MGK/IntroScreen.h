@@ -13,8 +13,10 @@ private:
 	GLfloat      LogoTransparent = 0.0;
 	GLfloat      LogoPosition    = -0.3;
 	GLfloat      AnimationSpeed  = 0.5;
+	GLfloat      BlurValue = 5.0;
 
 	SinLerp      Slerp{};
+	SinLerp      BlurLerp{};
 
 	int          Scene{}; 
 
@@ -53,6 +55,7 @@ public:
 			if (timer.MiliSec() < 2.5) {
 				LogoPosition = Slerp.Update(LogoPosition, 0.0, AnimationSpeed, FT);
 				LogoTransparent = Slerp.Update(LogoTransparent, 1.0, AnimationSpeed, FT);
+				BlurValue = BlurLerp.Update(BlurValue, 0.0, AnimationSpeed, FT);
 			}
 
 			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
@@ -62,7 +65,9 @@ public:
 
 			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_INTERPOLATE)) {
 				LogoPosition = -0.3;
+				BlurValue = 5.0;
 				Slerp.Reset();
+				BlurLerp.Reset();
 				++Scene;
 			}
 			break;
@@ -71,7 +76,8 @@ public:
 		case 2:
 			if (timer.MiliSec() < 2.5) {
 				LogoPosition = Slerp.Update(LogoPosition, 0.0, AnimationSpeed, FT);
-				LogoTransparent = Slerp.Update(LogoTransparent, 1.0, AnimationSpeed, FT);;
+				LogoTransparent = Slerp.Update(LogoTransparent, 1.0, AnimationSpeed, FT);
+				BlurValue = BlurLerp.Update(BlurValue, 0.0, AnimationSpeed, FT);
 			}
 
 			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
@@ -87,13 +93,16 @@ public:
 	}
 
 	void RenderFunc() {
+		ResetUnitTransform();
+		SetUnitBlur(BlurValue);
+
 		switch (Scene) {
 		case 1:
-			DrawImage(RENDER_TYPE_STATIC, MGK_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent);
+			DrawImage(RENDER_TYPE_STATIC, MGK_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent, FLIP_TYPE_NONE, true);
 			break;
 
 		case 2: case 3:
-			DrawImage(RENDER_TYPE_STATIC, FMOD_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent);
+			DrawImage(RENDER_TYPE_STATIC, FMOD_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent, FLIP_TYPE_NONE, true);
 			break;
 		}
 	}

@@ -12,7 +12,7 @@ void GameObject::InitRenderState(int RenderType) {
 	Transform::Identity(FlipMatrix);
 
 	Opacity = 1.0f;
-	BlurValue = 0.0;
+	ObjectBlur = 0.0;
 
 	camera.SetCamera(RenderType);
 }
@@ -82,8 +82,8 @@ void GameObject::Flip(int FlipOpt) {
 	}
 }
 
-void GameObject::Blur(GLfloat Strength) {
-	BlurValue = Strength;
+void GameObject::SetBlur(GLfloat Strength) {
+	ObjectBlur = Strength;
 }
 
 void GameObject::UnitFlip(int FlipOpt) {
@@ -111,8 +111,8 @@ void GameObject::SetUnitOpacity(GLfloat Value) {
 	UnitOpacity = Value;
 }
 
-void GameObject::SetUnitBlur(int Value) {
-	UnitBlurValue = GLfloat(Value);
+void GameObject::SetUnitBlur(GLfloat Strength) {
+	UnitBlur = Strength;
 }
 
 void GameObject::ResetUnitTransform() {
@@ -121,7 +121,7 @@ void GameObject::ResetUnitTransform() {
 	Transform::Identity(UnitScaleMatrix);
 	Transform::Identity(UnitFlipMatrix);
 	UnitOpacity = 1.0f;
-	UnitBlurValue = 0.0f;
+	UnitBlur = 0.0f;
 }
 
 void GameObject::Render(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
@@ -135,7 +135,7 @@ void GameObject::Render(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransf
 		Compt::ComputeMatrix(ResultMatrix, UnitTranslateMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
 		Opacity -= (1.0f - UnitOpacity);
 		EX::ClampValue(Opacity, 0.0, CLAMP_LESS);
-		BlurValue += UnitBlurValue;
+		ObjectBlur += UnitBlur;
 	}
 
 	PrepareRender(Image);
@@ -248,9 +248,9 @@ void GameObject::PrepareRender(Image& ImageStruct) {
 	glUniform1f(IMAGE_OPACITY_LOCATION, Opacity);
 	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
-	if (BlurValue > 0.0) {
+	if (ObjectBlur > 0.0) {
 		glUniform1i(BOOL_BLUR_LOCATION, 1);
-		glUniform1f(BLUR_STRENGTH_LOCATION, BlurValue);
+		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlur);
 		glUniform2f(TEXEL_SIZE_LOCATION, 1.0 / (GLfloat)ImageStruct.Width, 1.0 / (GLfloat)ImageStruct.Height);
 	}
 	else  

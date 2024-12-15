@@ -1,7 +1,7 @@
 #include "FontUtil.h"
 #include "StringUtil.h"
 
-bool FontUtil::Import(const std::string& FontFilePath) {
+bool FontUtil::Import(const std::string& FontFilePath, bool LoadInThread) {
     std::wstring Path = StringUtil::Wstring(FontFilePath);
     DWORD NumFonts{};
 
@@ -14,7 +14,10 @@ bool FontUtil::Import(const std::string& FontFilePath) {
     else
         std::cout << "Loaded Font " << FontFilePath << std::endl;
 
-    SendMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
+    if(LoadInThread)
+        PostMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
+    else
+        SendMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
 
     return true;
 }

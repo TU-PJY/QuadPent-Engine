@@ -20,15 +20,12 @@ DWORD WINAPI SystemResourceCreateThread(LPVOID Param) {
 	GLU_LINE_CIRCLE = gluNewQuadric();
 	gluQuadricDrawStyle(GLU_CIRCLE, GLU_FILL);
 	gluQuadricDrawStyle(GLU_LINE_CIRCLE, GLU_FILL);
-	
-#ifdef USE_CUSTOM_FONT
+
 	int TotalSize = sizeof(FONT_PATH);
 	int ElementSize = sizeof(FONT_PATH[0]);
 	int Length = TotalSize / ElementSize;
-	for (int i = 0; i < Length; ++i) {
-		FontUtil::Import(FONT_PATH[i]);
-	}
-#endif
+	for (int i = 0; i < Length; ++i)
+		FontUtil::Import(FONT_PATH[i], true);
 
 	return 0;
 }

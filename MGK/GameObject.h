@@ -43,8 +43,8 @@ public:
 
 	GLfloat     Opacity{ 1.0f };
 	GLfloat     UnitOpacity{ 1.0f };
-	GLfloat     BlurValue{};
-	GLfloat     UnitBlurValue{};
+	GLfloat     ObjectBlur{};
+	GLfloat     UnitBlur{};
 
 	std::string ObjectTag{};
 	int         ObjectLayer{};
@@ -81,11 +81,11 @@ public:
 
 	void UnitFlip(int FlipOpt);
 	void SetUnitOpacity(GLfloat Value);
-	void SetUnitBlur(int Value);
+	void SetUnitBlur(GLfloat Strength);
 	void ResetUnitTransform();
 
 	void Flip(int FlipOpt);
-	void Blur(GLfloat Strength);
+	void SetBlur(GLfloat Strength);
 
 	//  Render the image.
 	void Render(Image& Image, GLfloat OpacityValue = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);

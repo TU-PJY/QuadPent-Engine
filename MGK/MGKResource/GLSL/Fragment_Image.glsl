@@ -23,12 +23,12 @@ vec4 ComputeBlur() {
     vec4 totalColor = vec4(0.0);
     float totalAlpha = 0.0;
     float totalWeight = 0.0;
-    int BlurNum = int(Radius);
+    int BlurNum = 4;
     int kernelSize = (BlurNum * 2 + 1) * (BlurNum * 2 + 1);
 
     for (int y = -BlurNum; y <= BlurNum; ++y) {
         for (int x = -BlurNum; x <= BlurNum; ++x) {
-            vec2 offset = vec2(float(x), float(y)) * TexelSize * 3.0;
+            vec2 offset = vec2(float(x), float(y)) * TexelSize * Radius;
             vec4 sample = texture(outTexture, TexCoord + offset);
             
             float weight = sample.a;
