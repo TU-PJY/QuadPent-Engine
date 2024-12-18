@@ -227,7 +227,7 @@ struct ViewportRect {
 extern ViewportRect WindowRect;
 
 typedef struct {
-	int State;
+	int Type;
 	unsigned char NormalKey;
 	int SpecialKey;
 }KeyEvent;

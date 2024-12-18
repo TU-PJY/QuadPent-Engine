@@ -22,7 +22,7 @@ private:
 
 public:
 	void InputKey(KeyEvent& Event) {
-		if (Event.State == NORMAL_KEY_DOWN) {
+		if (Event.Type == NORMAL_KEY_DOWN) {
 			switch (Event.NormalKey) {
 			case NK_ENTER:
 #ifdef USE_SOUND_SYSTEM

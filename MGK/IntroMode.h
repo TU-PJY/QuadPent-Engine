@@ -6,8 +6,8 @@ namespace IntroMode {
 	void Destructor();
 
 	void ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey);
-	void ProcessMouseButton(int State);
-	void ProcessMouseWheel(int State);
+	void ProcessMouseButton(int Type);
+	void ProcessMouseWheel(int Type);
 	void MouseButton(int Button, int State, int X, int Y);
 	void MouseWheel(int Button, int Wheel, int X, int Y);
 	void KeyDown(unsigned char KEY, int X, int Y);

@@ -41,10 +41,11 @@ private:
 	GLfloat Rotation{};
 	GLfloat Transparent{1.0};
 	bool    LoadCommand{};
+	bool    ThreadEnd{};
 
 public:
 	void InputKey(KeyEvent& Event) {
-		if (Event.State == NORMAL_KEY_DOWN) {
+		if (Event.Type == NORMAL_KEY_DOWN) {
 			switch (Event.NormalKey) {
 			case NK_ESCAPE:
 				Framework::Exit();
@@ -57,8 +58,12 @@ public:
 		if (LoadCommand) {
 			Rotation -= 200 * FT;
 
-			if (!ThreadUtil::IsRunning(ThreadHandle)) {
+			if (!ThreadUtil::IsRunning(ThreadHandle) && !ThreadEnd) {
 				ThreadUtil::Close(ThreadHandle);
+				ThreadEnd = true;
+			}
+
+			if(ThreadEnd) {
 				imageUtil.FinishLoad();
 
 				if (!ENABLE_INTRO_SCREEN) {

@@ -21,11 +21,11 @@ void IntroMode::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialK
 	scene.InputKey("intro_screen", Event);
 }
 
-void IntroMode::ProcessMouseButton(int State) {
+void IntroMode::ProcessMouseButton(int Type) {
 
 }
 
-void IntroMode::ProcessMouseWheel(int State) {
+void IntroMode::ProcessMouseWheel(int Type) {
 
 }
 

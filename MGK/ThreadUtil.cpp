@@ -15,7 +15,8 @@ bool ThreadUtil::IsRunning(HANDLE& HandleValue) {
 }
 
 void ThreadUtil::Close(HANDLE& HandleValue) {
-	CloseHandle(HandleValue);
+	if(HandleValue)
+		CloseHandle(HandleValue);
 }
 
 void ThreadUtil::InitSection(CRITICAL_SECTION& Section) {

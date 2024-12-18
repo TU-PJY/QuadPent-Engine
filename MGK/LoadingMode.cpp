@@ -20,11 +20,11 @@ void LoadingMode::ProcessKeyboard(int State, unsigned char NormalKey, int Specia
 	scene.InputKey("loading_screen", Event);
 }
 
-void LoadingMode::ProcessMouseButton(int State) {
+void LoadingMode::ProcessMouseButton(int Type) {
 
 }
 
-void LoadingMode::ProcessMouseWheel(int State) {
+void LoadingMode::ProcessMouseWheel(int Type) {
 
 }
 

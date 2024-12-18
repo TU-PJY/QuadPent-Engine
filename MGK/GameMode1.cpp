@@ -18,7 +18,7 @@ void GameMode1::Destructor() {
 void GameMode1::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {
 	KeyEvent Event{ State, NormalKey, SpecialKey };
 
-	if (Event.State == NORMAL_KEY_DOWN) {
+	if (Event.Type == NORMAL_KEY_DOWN) {
 		switch (Event.NormalKey) {
 		case NK_ESCAPE:
 			Framework::Exit();
@@ -27,10 +27,10 @@ void GameMode1::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialK
 	}
 }
 
-void GameMode1::ProcessMouseButton(int State) {
+void GameMode1::ProcessMouseButton(int Type) {
 }
 
-void GameMode1::ProcessMouseWheel(int State) {
+void GameMode1::ProcessMouseWheel(int Type) {
 }
 
 

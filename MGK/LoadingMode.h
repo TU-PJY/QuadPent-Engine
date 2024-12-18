@@ -6,8 +6,8 @@ namespace LoadingMode {
 	void Destructor();
 
 	void ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey);
-	void ProcessMouseButton(int State);
-	void ProcessMouseWheel(int Button);
+	void ProcessMouseButton(int Type);
+	void ProcessMouseWheel(int Type);
 	void KeyDown(unsigned char KEY, int X, int Y);
 	void KeyUp(unsigned char KEY, int X, int Y);
 	void SpecialKeyUp(int KEY, int X, int Y);

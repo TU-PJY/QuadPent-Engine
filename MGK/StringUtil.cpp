@@ -29,8 +29,11 @@ void StringUtil::AddString(std::string& Str, std::string AddStr) {
 }
 
 void StringUtil::EraseString(std::string& Str) {
-	if(!Str.empty())
+	if (!Str.empty()) {
 		Str.pop_back();
+		if (Str.back() == '\n')
+			Str.pop_back();
+	}
 }
 
 void StringUtil::RemoveString(std::string& Str, std::string RemoveStr) {
