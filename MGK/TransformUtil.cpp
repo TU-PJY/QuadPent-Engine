@@ -48,7 +48,7 @@ void Transform::Shear(glm::mat4& Matrix, glm::vec2& Value) {
 
 void Transform::ImageScale(glm::mat4& Matrix, GLfloat Width, GLfloat Height) {
 	if (Width > Height)
-		Matrix = glm::scale(Matrix, glm::vec3(1.0, (GLfloat)Height / (GLfloat)Width, 1.0));
+		Matrix = glm::scale(Matrix, glm::vec3(1.0, Height / Width, 1.0));
 	else if (Width < Height)
-		Matrix = glm::scale(Matrix, glm::vec3((GLfloat)Width / (GLfloat)Height, 1.0, 1.0));
+		Matrix = glm::scale(Matrix, glm::vec3(Width / Height, 1.0, 1.0));
 }
