@@ -122,37 +122,37 @@ void ShaderUtil::CreateComputeShader(GLuint& Shader) {
 
 void ShaderUtil::CreateShaderLocation() {
 	// Image Shader
-	IMAGE_OPACITY_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "transparency");
-	IMAGE_COLOR_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "objectColor");
-	IMAGE_MODEL_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "model");
-	BLUR_STRENGTH_LOCATION       = glGetUniformLocation(IMAGE_SHADER, "Radius");
-	BOOL_BLUR_LOCATION           = glGetUniformLocation(IMAGE_SHADER, "UseBlur");
-	TEXEL_SIZE_LOCATION          = glGetUniformLocation(IMAGE_SHADER, "TexelSize");
+	IMAGE_OPACITY_LOCATION       = glGetUniformLocation(IMAGE_SHADER, "Opacity");
+	IMAGE_COLOR_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "Color");
+	IMAGE_MODEL_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "ModelMatrix");
+	BLUR_STRENGTH_LOCATION       = glGetUniformLocation(IMAGE_SHADER, "BlurStrength");
+	BOOL_BLUR_LOCATION           = glGetUniformLocation(IMAGE_SHADER, "BlurState");
+	TEXEL_SIZE_LOCATION          = glGetUniformLocation(IMAGE_SHADER, "TextureSize");
 
 	// Text Shader
-	TEXT_OPACITY_LOCATION          = glGetUniformLocation(TEXT_SHADER, "transparency");
-	TEXT_COLOR_LOCATION          = glGetUniformLocation(TEXT_SHADER, "objectColor");
-	TEXT_MODEL_LOCATION          = glGetUniformLocation(TEXT_SHADER, "model");
+	TEXT_OPACITY_LOCATION        = glGetUniformLocation(TEXT_SHADER, "Opacity");
+	TEXT_COLOR_LOCATION          = glGetUniformLocation(TEXT_SHADER, "Color");
+	TEXT_MODEL_LOCATION          = glGetUniformLocation(TEXT_SHADER, "ModelMatrix");
 
 	// Shape Shader
-	SHAPE_OPACITY_LOCATION         = glGetUniformLocation(SHAPE_SHADER, "transparency");
-	SHAPE_COLOR_LOCATION         = glGetUniformLocation(SHAPE_SHADER, "objectColor");
-	SHAPE_MODEL_LOCATION         = glGetUniformLocation(SHAPE_SHADER, "model");
+	SHAPE_OPACITY_LOCATION       = glGetUniformLocation(SHAPE_SHADER, "Opacity");
+	SHAPE_COLOR_LOCATION         = glGetUniformLocation(SHAPE_SHADER, "Color");
+	SHAPE_MODEL_LOCATION         = glGetUniformLocation(SHAPE_SHADER, "ModelMatrix");
 
 	// Image Camera
-	IMAGE_PROJECTION_LOCARION    = glGetUniformLocation(IMAGE_SHADER, "projection");
-	IMAGE_VIEW_LOCATION          = glGetUniformLocation(IMAGE_SHADER, "view");
-	IMAGE_VIEW_POSITION_LOCATION = glGetUniformLocation(IMAGE_SHADER, "viewPos");
+	IMAGE_PROJECTION_LOCARION    = glGetUniformLocation(IMAGE_SHADER, "ProjectionMatrix");
+	IMAGE_VIEW_LOCATION          = glGetUniformLocation(IMAGE_SHADER, "ViewMatrix");
+	IMAGE_VIEW_POSITION_LOCATION = glGetUniformLocation(IMAGE_SHADER, "ViewPosition");
 	
 	// Text Camera
-	TEXT_PROJECTION_LOCATION     = glGetUniformLocation(TEXT_SHADER, "projection");
-	TEXT_VIEW_LOCATION           = glGetUniformLocation(TEXT_SHADER, "view");
-	TEXT_VIEW_POSITION_LOCATION  = glGetUniformLocation(TEXT_SHADER, "viewPos");
+	TEXT_PROJECTION_LOCATION     = glGetUniformLocation(TEXT_SHADER, "ProjectionMatrix");
+	TEXT_VIEW_LOCATION           = glGetUniformLocation(TEXT_SHADER, "ViewMatrix");
+	TEXT_VIEW_POSITION_LOCATION  = glGetUniformLocation(TEXT_SHADER, "ViewPosition");
 
 	// Shape Camera
-	SHAPE_PROJECTION_LOCATION    = glGetUniformLocation(SHAPE_SHADER, "projection");
-	SHAPE_VIEW_LOCATION          = glGetUniformLocation(SHAPE_SHADER, "view");
-	SHAPE_VIEW_POSITION_LOCATION = glGetUniformLocation(SHAPE_SHADER, "viewPos");
+	SHAPE_PROJECTION_LOCATION    = glGetUniformLocation(SHAPE_SHADER, "ProjectionMatrix");
+	SHAPE_VIEW_LOCATION          = glGetUniformLocation(SHAPE_SHADER, "ViewMatrix");
+	SHAPE_VIEW_POSITION_LOCATION = glGetUniformLocation(SHAPE_SHADER, "ViewPosition");
 }
 
 void ShaderUtil::CreateSSBO() {

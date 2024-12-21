@@ -1,15 +1,15 @@
 #version 330 core
 
-in vec3       fragPos;
-in vec2       TexCoord;
+in vec3       FragPosition;
+in vec2       TextureCoord;
 
-out vec4      fragColor;
+out vec4      FragColor;
 
-uniform vec3  objectColor;
-uniform vec3  viewPos;
+uniform vec3  Color;
+uniform vec3  ViewPosition;
 
-uniform float transparency;
+uniform float Opacity;
 
 void main() {
-    fragColor = vec4(objectColor.rgb, transparency);
+    FragColor = vec4(Color.rgb, Opacity);
 }

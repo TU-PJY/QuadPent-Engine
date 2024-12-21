@@ -1,18 +1,18 @@
 #version 330 core
 
-layout(location = 0) in vec3 inPosition;
-layout(location = 2) in vec2 vTexCoord;
+layout(location = 0) in vec3 InputPosition;
+layout(location = 2) in vec2 VTextureCoord;
 
-out vec3     fragPos;
-out vec2     TexCoord;
+out vec3     FragPosition;
+out vec2     TextureCoord;
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
+uniform mat4 ModelMatrix;
+uniform mat4 ViewMatrix;
+uniform mat4 ProjectionMatrix;
 
 
 void main() {
-    gl_Position = projection * view * model * vec4(inPosition, 1.0);
-    fragPos = vec3(model * vec4(inPosition, 1.0));
-    TexCoord = vTexCoord;
+    gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(InputPosition, 1.0);
+    FragPosition = vec3(ModelMatrix * vec4(InputPosition, 1.0));
+    TextureCoord = VTextureCoord;
 }
