@@ -4,7 +4,7 @@
 class Camera {
 private:
 	glm::vec3 CamPos{}, CamDirection{}, CamUp{};
-	bool      StaticMode{};
+	bool      StaticRenderCommand{};
 	
 public:
 	glm::mat4 ViewMatrix{ 1.0 }, Projection{ 1.0 }, TranslateMatrix{ 1.0 }, RotateMatrix{ 1.0 };

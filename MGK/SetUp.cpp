@@ -27,7 +27,7 @@ glm::vec3 BackColor;
 
 ShaderUtil shaderUtil;
 Camera camera;
-CameraController cameraCon;
+CameraController camController;
 ImageUtil imageUtil;
 
 #ifdef USE_SOUND_SYSTEM

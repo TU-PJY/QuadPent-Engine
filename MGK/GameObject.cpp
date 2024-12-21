@@ -249,12 +249,12 @@ void GameObject::PrepareRender(Image& ImageStruct) {
 	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	if (ObjectBlur > 0.0) {
-		glUniform1i(BOOL_BLUR_LOCATION, 1);
+		glUniform1i(BLUR_STATE_LOCATION, 1);
 		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlur);
-		glUniform2f(TEXEL_SIZE_LOCATION, 1.0 / (GLfloat)ImageStruct.Width, 1.0 / (GLfloat)ImageStruct.Height);
+		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (GLfloat)ImageStruct.Width, 1.0 / (GLfloat)ImageStruct.Height);
 	}
 	else  
-		glUniform1i(BOOL_BLUR_LOCATION, 0);
+		glUniform1i(BLUR_STATE_LOCATION, 0);
 
 	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 }

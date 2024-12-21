@@ -24,11 +24,11 @@ void EX::SwitchValue(int& TargetValue, int Value1, int Value2) {
 void EX::ClampValue(float& Value, float Dest, int Type) {
 	switch (Type) {
 	case CLAMP_GREATER:
-		if (Value > Dest) Value = Dest;
+		if (Value >= Dest) Value = Dest;
 		break;
 
 	case CLAMP_LESS:
-		if (Value < Dest) Value = Dest;
+		if (Value <= Dest) Value = Dest;
 		break;
 	}
 }
@@ -36,11 +36,11 @@ void EX::ClampValue(float& Value, float Dest, int Type) {
 void EX::ClampValue(int& Value, int Dest, int Type) {
 	switch (Type) {
 	case CLAMP_GREATER:
-		if (Value > Dest) Value = Dest;
+		if (Value >= Dest) Value = Dest;
 		break;
 
 	case CLAMP_LESS:
-		if (Value < Dest) Value = Dest;
+		if (Value <= Dest) Value = Dest;
 		break;
 	}
 }

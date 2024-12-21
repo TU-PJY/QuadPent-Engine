@@ -33,32 +33,21 @@ void Camera::SetCamera(int RenderType) {
 	CamDirection = vec3(0.0f, 0.0f, 0.0f);
 	CamUp = vec3(0.0f, 1.0f, 0.0f);
 
-	switch (RenderType) {
-	case RENDER_TYPE_DEFAULT:
-		StaticMode = false;
-		break;
-
-	case RENDER_TYPE_STATIC:
-		StaticMode = true;
-		break;
-	}
+	StaticRenderCommand = RenderType;
 }
 
 void Camera::PrepareRender(int ShaderType) {
 	Transform::Identity(ViewMatrix);
 	Transform::Identity(Projection);
 
-	switch (StaticMode) {
-	case false:
+	if (!StaticRenderCommand) {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
 		ViewMatrix = ViewMatrix * TranslateMatrix * RotateMatrix;
 		Projection = glm::ortho((ASPECT * -1.0f) / ZoomValue, (ASPECT * 1.0f) / ZoomValue, -1.0f / ZoomValue, 1.0f / ZoomValue, -1.0f, 1.0f);
-		break;
-
-	case true:
+	}
+	else {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
 		Projection = glm::ortho((ASPECT * -1.0f), (ASPECT * 1.0f), -1.0f, 1.0f, -1.0f, 1.0f);
-		break;
 	}
 
 	switch (ShaderType) {

@@ -33,4 +33,4 @@ public:
 	// Returns the zoom numerical change value according to the entered value.
 	GLfloat CalculateNextZoom(int Type, GLfloat Value);
 };
-extern CameraController cameraCon;
+extern CameraController camController;
