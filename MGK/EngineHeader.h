@@ -156,6 +156,11 @@ enum UIClampEdgeEnum {
 	EDGE_RIGHT_DOWN
 };
 
+enum LineSTypeEnum {
+	LINE_TYPE_RECT,
+	LINE_TYPE_ROUND
+};
+
 enum EXClampTypeEnum {
 	CLAMP_GREATER,
 	CLAMP_LESS
