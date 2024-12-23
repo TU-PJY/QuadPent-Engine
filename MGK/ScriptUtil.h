@@ -11,7 +11,6 @@
 #include "Library/cryptopp/hex.h"
 #include "Config.h"
 #include "EngineHeader.h"
-#include "GameFile.h"
 #include <iostream>
 #include <string>
 #include <fstream>

@@ -18,7 +18,6 @@
 #include "ThreadUtil.h"
 #include "ComputeUtil.h"
 #include "StringUtil.h"
-#include "GlobalValue.h"
 
 #ifdef USE_SOUND_SYSTEM
 #include "SoundUtil.h"

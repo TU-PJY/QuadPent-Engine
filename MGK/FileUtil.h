@@ -11,7 +11,6 @@
 #include "Library/cryptopp/osrng.h"
 #include "Library/cryptopp/hex.h"
 #include "EngineHeader.h"
-#include "GameFile.h"
 #include <iostream>
 #include <iomanip>
 #include <string>

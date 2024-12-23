@@ -44,7 +44,7 @@ public:
 		case 0:
 			if (timer.CheckMiliSec(1.0, 1, CHECK_AND_INTERPOLATE)) {
 #ifdef USE_SOUND_SYSTEM
-				soundUtil.PlaySound(INTRO_SOUND, IntroChannel);
+				soundUtil.PlaySound(SysRes.INTRO_SOUND, IntroChannel);
 #endif
 				++Scene;
 			}
@@ -98,11 +98,11 @@ public:
 
 		switch (Scene) {
 		case 1:
-			DrawImage(RENDER_TYPE_STATIC, MGK_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent, FLIP_TYPE_NONE, true);
+			DrawImage(RENDER_TYPE_STATIC, SysRes.MGK_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent, FLIP_TYPE_NONE, true);
 			break;
 
 		case 2: case 3:
-			DrawImage(RENDER_TYPE_STATIC, FMOD_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent, FLIP_TYPE_NONE, true);
+			DrawImage(RENDER_TYPE_STATIC, SysRes.FMOD_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent, FLIP_TYPE_NONE, true);
 			break;
 		}
 	}

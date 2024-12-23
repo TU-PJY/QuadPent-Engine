@@ -24,7 +24,6 @@ using namespace DirectX;
 
 extern float DestFPS;
 extern int FPSLimit;
-
 extern bool FullscreenState;
 
 typedef void(*START_MODE_PTR)(void);

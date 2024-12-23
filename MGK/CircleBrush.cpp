@@ -45,7 +45,7 @@ void CircleBrush::Render() {
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(TranslateMatrix));
 
-	gluDisk(GLU_CIRCLE, 0.0, Radius, 80, 1);
+	gluDisk(SysRes.GLU_CIRCLE, 0.0, Radius, 80, 1);
 }
 
 
@@ -93,5 +93,5 @@ void LineCircleBrush::Render() {
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(TranslateMatrix));
 
-	gluDisk(GLU_LINE_CIRCLE, Radius, Radius + WidthValue, 80, 1);
+	gluDisk(SysRes.GLU_LINE_CIRCLE, Radius, Radius + WidthValue, 80, 1);
 }

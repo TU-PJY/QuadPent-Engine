@@ -7,6 +7,7 @@
 #include "SoundUtil.h"
 #include "MouseUtil.h"
 #include "Config.h"
+#include "GameResource.h"
 #include <windows.h>
 
 #include "LoadingMode.h"
@@ -18,7 +19,6 @@ int PREV_WIDTH, PREV_HEIGHT;
 
 float DestFPS;
 int FPSLimit;
-
 bool FullscreenState;
 
 GLfloat ASPECT;
@@ -29,6 +29,12 @@ ShaderUtil shaderUtil;
 Camera camera;
 CameraController camController;
 ImageUtil imageUtil;
+
+SystemResource SysRes;
+SpriteResource Sprite;
+VoxResource Vox;
+DataResource Data;
+GlobalValue Global;
 
 #ifdef USE_SOUND_SYSTEM
 SoundUtil soundUtil;
@@ -114,5 +120,5 @@ void Framework::InitSystem() {
 	if (FPSLimit > 0)
 		DestFPS = 1000.0 / (float)FPSLimit;
 
-	scene.Init(LoadingMode::Start);
+	scene.Init(LoadingMode.Start);
 }

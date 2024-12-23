@@ -1,128 +1,116 @@
-//////////////////////  cpp
-
-#include "GameMode1.h"
+#pragma once
 #include "Scene.h"
 #include "MouseUtil.h"
 
-void GameMode1::Start() {
-	Framework::SetBackColor(0.3, 0.3, 0.3);
+class Template {
+public:
+	static Template* M_Inst;
+	Template() {
+		M_Inst = this;
+	}
 
-	scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
-	scene.RegisterDestructor(Destructor);
-	scene.RegisterModeName("GameMode1");
-}
+	static void Start() {
+		Framework::SetBackColor(0.3, 0.3, 0.3);
 
-void GameMode1::Destructor() {
-}
+		scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
+		scene.RegisterDestructor(Destructor);
+		scene.RegisterModeName("TemplateMode");
+	}
 
-void GameMode1::ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {
-	KeyEvent Event{ State, NormalKey, SpecialKey };
+	static void Destructor() {
 
-	if (Event.State == NORMAL_KEY_DOWN) {
-		switch (Event.NormalKey) {
-		case NK_ESCAPE:
-			Framework::Exit();
+	}
+
+	/////////////////////////////////////////////////////////////
+
+	void ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {
+		KeyEvent Event{ State, NormalKey, SpecialKey };
+
+		if (Event.Type == NORMAL_KEY_DOWN) {
+			switch (Event.NormalKey) {
+			case NK_ESCAPE:
+				Framework::Exit();
+				break;
+			}
+		}
+	}
+
+	void ProcessMouseButton(int Type) {
+
+	}
+
+	void ProcessMouseWheel(int Type) {
+
+	}
+
+/////////////////////////////////////////////////////////////
+
+	static void KeyDown(unsigned char KEY, int X, int Y) {
+		M_Inst->ProcessKeyboard(NORMAL_KEY_DOWN, KEY, NULL);
+	}
+
+	static void KeyUp(unsigned char KEY, int X, int Y) {
+		M_Inst->ProcessKeyboard(NORMAL_KEY_UP, KEY, NULL);
+	}
+
+	static void SpecialKeyDown(int KEY, int X, int Y) {
+		M_Inst->ProcessKeyboard(SPECIAL_KEY_DOWN, NULL, KEY);
+	}
+
+	static void SpecialKeyUp(int KEY, int X, int Y) {
+		M_Inst->ProcessKeyboard(SPECIAL_KEY_UP, NULL, KEY);
+	}
+
+	static void MouseMotion(int X, int Y) {
+		mouse.ConvertPosition(X, Y);
+	}
+
+	static void MousePassiveMotion(int X, int Y) {
+		mouse.ConvertPosition(X, Y);
+	}
+
+	static void MouseWheel(int Button, int Wheel, int X, int Y) {
+		if (Wheel > 0)
+			M_Inst->ProcessMouseWheel(WHEEL_UP);
+		else if (Wheel < 0)
+			M_Inst->ProcessMouseWheel(WHEEL_DOWN);
+	}
+
+	static void MouseButton(int Button, int State, int X, int Y) {
+		switch (State) {
+		case GLUT_DOWN:
+			switch (Button) {
+			case GLUT_LEFT_BUTTON:
+				M_Inst->ProcessMouseButton(LEFT_BUTTON_DOWN);   break;
+			case GLUT_RIGHT_BUTTON:
+				M_Inst->ProcessMouseButton(RIGHT_BUTTON_DOWN);  break;
+			case GLUT_MIDDLE_BUTTON:
+				M_Inst->ProcessMouseButton(MIDDLE_BUTTON_DOWN); break;
+			}
+			break;
+
+		case GLUT_UP:
+			switch (Button) {
+			case GLUT_LEFT_BUTTON:
+				M_Inst->ProcessMouseButton(LEFT_BUTTON_UP);   break;
+			case GLUT_RIGHT_BUTTON:
+				M_Inst->ProcessMouseButton(RIGHT_BUTTON_UP);  break;
+			case GLUT_MIDDLE_BUTTON:
+				M_Inst->ProcessMouseButton(MIDDLE_BUTTON_UP); break;
+			}
 			break;
 		}
 	}
-}
 
-void GameMode1::ProcessMouseButton(int Type) {
-}
-
-void GameMode1::ProcessMouseWheel(int Type) {
-}
-
-
-
-void GameMode1::KeyDown(unsigned char KEY, int X, int Y) {
-	ProcessKeyboard(NORMAL_KEY_DOWN, KEY, NULL);
-}
-
-void GameMode1::KeyUp(unsigned char KEY, int X, int Y) {
-	ProcessKeyboard(NORMAL_KEY_UP, KEY, NULL);
-}
-
-void GameMode1::SpecialKeyDown(int KEY, int X, int Y) {
-	ProcessKeyboard(SPECIAL_KEY_DOWN, NULL, KEY);
-}
-
-void GameMode1::SpecialKeyUp(int KEY, int X, int Y) {
-	ProcessKeyboard(SPECIAL_KEY_UP, NULL, KEY);
-}
-
-void GameMode1::MouseMotion(int X, int Y) {
-	mouse.ConvertPosition(X, Y);
-}
-
-void GameMode1::MousePassiveMotion(int X, int Y) {
-	mouse.ConvertPosition(X, Y);
-}
-
-void GameMode1::MouseWheel(int Button, int Wheel, int X, int Y) {
-	if (Wheel > 0)
-		ProcessMouseWheel(WHEEL_UP);
-	else if (Wheel < 0)
-		ProcessMouseWheel(WHEEL_DOWN);
-}
-
-void GameMode1::MouseButton(int Button, int State, int X, int Y) {
-	switch (State) {
-	case GLUT_DOWN:
-		switch (Button) {
-		case GLUT_LEFT_BUTTON:
-			ProcessMouseButton(LEFT_BUTTON_DOWN);   break;
-		case GLUT_RIGHT_BUTTON:
-			ProcessMouseButton(RIGHT_BUTTON_DOWN);  break;
-		case GLUT_MIDDLE_BUTTON:
-			ProcessMouseButton(MIDDLE_BUTTON_DOWN); break;
-		}
-		break;
-
-	case GLUT_UP:
-		switch (Button) {
-		case GLUT_LEFT_BUTTON:
-			ProcessMouseButton(LEFT_BUTTON_UP);   break;
-		case GLUT_RIGHT_BUTTON:
-			ProcessMouseButton(RIGHT_BUTTON_UP);  break;
-		case GLUT_MIDDLE_BUTTON:
-			ProcessMouseButton(MIDDLE_BUTTON_UP); break;
-		}
-		break;
+	static void Controller() {
+		glutMotionFunc(MouseMotion);
+		glutPassiveMotionFunc(MousePassiveMotion);
+		glutKeyboardFunc(KeyDown);
+		glutKeyboardUpFunc(KeyUp);
+		glutMouseWheelFunc(MouseWheel);
+		glutMouseFunc(MouseButton);
+		glutSpecialFunc(SpecialKeyDown);
+		glutSpecialUpFunc(SpecialKeyUp);
 	}
-}
-
-void GameMode1::Controller() {
-	glutMotionFunc(MouseMotion);
-	glutPassiveMotionFunc(MousePassiveMotion);
-	glutKeyboardFunc(KeyDown);
-	glutKeyboardUpFunc(KeyUp);
-	glutMouseWheelFunc(MouseWheel);
-	glutMouseFunc(MouseButton);
-	glutSpecialFunc(SpecialKeyDown);
-	glutSpecialUpFunc(SpecialKeyUp);
-}
-
-
-////////////////////// header
-
-#pragma once
-#include "EngineHeader.h"
-
-namespace GameMode1 {
-	void Start();
-	void Destructor();
-
-	void ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey);
-	void ProcessMouseButton(int Type);
-	void ProcessMouseWheel(int Type);
-	void KeyDown(unsigned char KEY, int X, int Y);
-	void KeyUp(unsigned char KEY, int X, int Y);
-	void SpecialKeyUp(int KEY, int X, int Y);
-	void SpecialKeyDown(int KEY, int X, int Y);
-	void MouseMotion(int X, int Y);
-	void MousePassiveMotion(int X, int Y);
-	void MouseWheel(int Button, int Wheel, int X, int Y);
-	void MouseButton(int Button, int State, int X, int Y);
-	void Controller();
-}
+};
+extern Template TemplateMode;
