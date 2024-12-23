@@ -8,7 +8,7 @@ public:
 };
 
 // Declare the sound resource or directory here. 
-class VoxResource {
+class AudioResource {
 public:
 
 };
@@ -38,6 +38,6 @@ constexpr const char* FONT_PATH[]
 #endif
 
 extern SpriteResource Sprite;
-extern VoxResource Vox;
+extern AudioResource Audio;
 extern DataResource Data;
 extern GlobalValue Global;

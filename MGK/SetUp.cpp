@@ -32,7 +32,7 @@ ImageUtil imageUtil;
 
 SystemResource SysRes;
 SpriteResource Sprite;
-VoxResource Vox;
+AudioResource Audio;
 DataResource Data;
 GlobalValue Global;
 
