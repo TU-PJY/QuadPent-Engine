@@ -71,7 +71,7 @@ public:
 					soundUtil.Release(INTRO_SOUND);
 #endif				
 					if(SHOW_FPS)
-						scene.AddObject(new FPSInd, "fps_ind", END - 1, OBJECT_TYPE_STATIC);
+						scene.AddObject(new FPSInd, "fps_ind", EOL - 1, OBJECT_TYPE_STATIC);
 					scene.SwitchMode(START_MODE);
 				}
 
@@ -79,7 +79,7 @@ public:
 					Transparent -= FT * 2.0;
 					if (EX::CheckClampValue(Transparent, 0.0, CLAMP_LESS)) {
 						if(SHOW_FPS)
-							scene.AddObject(new FPSInd, "fps_ind", END - 1, OBJECT_TYPE_STATIC);
+							scene.AddObject(new FPSInd, "fps_ind", EOL - 1, OBJECT_TYPE_STATIC);
 						scene.SwitchMode(IntroMode::Start);
 					}
 				}

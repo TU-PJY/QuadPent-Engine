@@ -31,111 +31,6 @@
     <Filter Include="[3]___________[ Camera ]\[ Controller ]">
       <UniqueIdentifier>{1480f021-43d6-4f12-9a82-8d6fb6ea2cfc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[4]___________[ MGK ]">
-      <UniqueIdentifier>{7f6a4887-d06e-4c65-963d-2b7d61cea12c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]">
-      <UniqueIdentifier>{019278b2-60d4-4cad-b935-d813a31f2c87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Collision Util ]">
-      <UniqueIdentifier>{4048cd52-6e69-47f1-ad3d-07de4f88f83e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Mouse Util ]">
-      <UniqueIdentifier>{3fbba05c-17d5-4a1e-9a94-8c237067a9a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Shader Util ]">
-      <UniqueIdentifier>{b56d104c-471b-4b68-914e-a701e7902ee0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Text Util ]">
-      <UniqueIdentifier>{ebbafb29-e74d-4f67-ae00-7ab61d0dd40e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Random Util ]">
-      <UniqueIdentifier>{a260c5f1-65f3-4ff6-afa8-97676fbd2054}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Timer Util ]">
-      <UniqueIdentifier>{6c809ee9-0b72-4df6-a180-049726371c03}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Physics Util ]">
-      <UniqueIdentifier>{63469aed-9fc3-41f7-bbf0-32d2050b40a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ AnimationUtil ]">
-      <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Clipping Util ]">
-      <UniqueIdentifier>{9bceb82f-2ade-4d6d-9360-521458e8d522}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ UI Util ]">
-      <UniqueIdentifier>{4bc61999-6038-4873-89f1-097ff59edac5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Move Util ]">
-      <UniqueIdentifier>{a3986c5c-3d03-4f63-ba7d-4f37ac97802a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ EX Util ]">
-      <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Script Util ]">
-      <UniqueIdentifier>{81f53a74-031c-406e-82e2-a9d6a7f85d59}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Shape Util ]">
-      <UniqueIdentifier>{74b0aa9a-a87c-4a17-bdd5-d4f93ac8a450}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Line ]">
-      <UniqueIdentifier>{186e77d4-d667-4ca8-a7db-0c4ff78a4275}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Rect ]">
-      <UniqueIdentifier>{1717a6b1-c315-40dc-a9e1-71209e40100b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Circle ]">
-      <UniqueIdentifier>{8ca8864d-f116-4649-ac79-d0c373874068}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Transform Util ]">
-      <UniqueIdentifier>{97cfbf89-8ee3-4d67-b4fb-aed1f7833e3b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Font Util ]">
-      <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Image Util ]">
-      <UniqueIdentifier>{fa74e18f-898f-4b61-addd-ca55a9892895}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Sound Util ]">
-      <UniqueIdentifier>{22512964-c0e1-42b6-8ae0-9c32d227bc22}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Thread Util ]">
-      <UniqueIdentifier>{7fd964a6-1f53-4574-8c6f-a2bbbea7a889}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ File Util ]">
-      <UniqueIdentifier>{d2e93683-5de8-4639-98b5-ff99bff6c54f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Math Util ]">
-      <UniqueIdentifier>{4a85a4fd-aaad-4cd4-9601-add0201898fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ Compute Util ]">
-      <UniqueIdentifier>{f7456d94-6103-44fc-b1c5-33fe9e736f54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ Util ]\[ String Util ]">
-      <UniqueIdentifier>{0d426163-3f7a-4344-9513-1c4da459934c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]">
-      <UniqueIdentifier>{802bfb93-2599-4817-b15c-634efd1f40d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ System Resource ]">
-      <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ Framework ]">
-      <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ System Mode ]">
-      <UniqueIdentifier>{9d92d68b-96f8-4a78-90d4-bd16df8b7372}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ System Mode ]\[ Intro Mode ]">
-      <UniqueIdentifier>{b3877809-c61b-43d2-a51a-52425aa4c51a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ System Mode ]\[ Loading Mode ]">
-      <UniqueIdentifier>{8ab71929-5074-4ccb-9031-e8dd84b6c09a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ System Object ]">
-      <UniqueIdentifier>{c8dde2fb-f4fd-4595-9cdf-614100ed40cc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ Resources ]">
       <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
     </Filter>
@@ -145,32 +40,134 @@
     <Filter Include="[5]___________[ Resources ]\[ Game File ]">
       <UniqueIdentifier>{5cc44f36-1978-4df0-84ee-7042daee1b18}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ Header ]">
-      <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ GLSL ]">
-      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ Scene ]">
-      <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[0]___________[ Config ]">
       <UniqueIdentifier>{c229d7fb-288d-4e48-b8b0-7e7dbd38a78d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ TinyXML ]">
-      <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ Header ]">
-      <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]">
-      <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[4]___________[ MGK ]\[ System ]\[ System Config ]">
-      <UniqueIdentifier>{6d7cc11a-2226-40e3-82ce-9a1d561e46ba}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ Resources ]\[ Global Value ]">
       <UniqueIdentifier>{e836178f-6dbb-4450-a3f6-069d9441980d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]">
+      <UniqueIdentifier>{7f6a4887-d06e-4c65-963d-2b7d61cea12c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]">
+      <UniqueIdentifier>{019278b2-60d4-4cad-b935-d813a31f2c87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Collision Util ]">
+      <UniqueIdentifier>{4048cd52-6e69-47f1-ad3d-07de4f88f83e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Mouse Util ]">
+      <UniqueIdentifier>{3fbba05c-17d5-4a1e-9a94-8c237067a9a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Shader Util ]">
+      <UniqueIdentifier>{b56d104c-471b-4b68-914e-a701e7902ee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Text Util ]">
+      <UniqueIdentifier>{ebbafb29-e74d-4f67-ae00-7ab61d0dd40e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Random Util ]">
+      <UniqueIdentifier>{a260c5f1-65f3-4ff6-afa8-97676fbd2054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Timer Util ]">
+      <UniqueIdentifier>{6c809ee9-0b72-4df6-a180-049726371c03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Physics Util ]">
+      <UniqueIdentifier>{63469aed-9fc3-41f7-bbf0-32d2050b40a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ AnimationUtil ]">
+      <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Clipping Util ]">
+      <UniqueIdentifier>{9bceb82f-2ade-4d6d-9360-521458e8d522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ UI Util ]">
+      <UniqueIdentifier>{4bc61999-6038-4873-89f1-097ff59edac5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Move Util ]">
+      <UniqueIdentifier>{a3986c5c-3d03-4f63-ba7d-4f37ac97802a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ EX Util ]">
+      <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Script Util ]">
+      <UniqueIdentifier>{81f53a74-031c-406e-82e2-a9d6a7f85d59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Shape Util ]">
+      <UniqueIdentifier>{74b0aa9a-a87c-4a17-bdd5-d4f93ac8a450}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]">
+      <UniqueIdentifier>{186e77d4-d667-4ca8-a7db-0c4ff78a4275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]">
+      <UniqueIdentifier>{1717a6b1-c315-40dc-a9e1-71209e40100b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]">
+      <UniqueIdentifier>{8ca8864d-f116-4649-ac79-d0c373874068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Transform Util ]">
+      <UniqueIdentifier>{97cfbf89-8ee3-4d67-b4fb-aed1f7833e3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Font Util ]">
+      <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Image Util ]">
+      <UniqueIdentifier>{fa74e18f-898f-4b61-addd-ca55a9892895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Sound Util ]">
+      <UniqueIdentifier>{22512964-c0e1-42b6-8ae0-9c32d227bc22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Thread Util ]">
+      <UniqueIdentifier>{7fd964a6-1f53-4574-8c6f-a2bbbea7a889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ File Util ]">
+      <UniqueIdentifier>{d2e93683-5de8-4639-98b5-ff99bff6c54f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Math Util ]">
+      <UniqueIdentifier>{4a85a4fd-aaad-4cd4-9601-add0201898fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ Compute Util ]">
+      <UniqueIdentifier>{f7456d94-6103-44fc-b1c5-33fe9e736f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Util ]\[ String Util ]">
+      <UniqueIdentifier>{0d426163-3f7a-4344-9513-1c4da459934c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Framework ]">
+      <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ GLSL ]">
+      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Header ]">
+      <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ Scene ]">
+      <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ System Config ]">
+      <UniqueIdentifier>{6d7cc11a-2226-40e3-82ce-9a1d561e46ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ System Mode ]">
+      <UniqueIdentifier>{9d92d68b-96f8-4a78-90d4-bd16df8b7372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ System Mode ]\[ Intro Mode ]">
+      <UniqueIdentifier>{b3877809-c61b-43d2-a51a-52425aa4c51a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ System Mode ]\[ Loading Mode ]">
+      <UniqueIdentifier>{8ab71929-5074-4ccb-9031-e8dd84b6c09a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ System Object ]">
+      <UniqueIdentifier>{c8dde2fb-f4fd-4595-9cdf-614100ed40cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ System Resource ]">
+      <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ TinyXML ]">
+      <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ TinyXML ]\[ Header ]">
+      <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[4]___________[ System ]\[ TinyXML ]\[ CPP ]">
+      <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -181,70 +178,70 @@
       <Filter>[2]___________[ Object ]\[3][ Template ]</Filter>
     </ClCompile>
     <ClCompile Include="CollisionUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Collision Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Collision Util ]</Filter>
     </ClCompile>
     <ClCompile Include="ImageUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Image Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Image Util ]</Filter>
     </ClCompile>
     <ClCompile Include="MouseUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Mouse Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Mouse Util ]</Filter>
     </ClCompile>
     <ClCompile Include="TextUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Text Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Text Util ]</Filter>
     </ClCompile>
     <ClCompile Include="SoundUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Sound Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Sound Util ]</Filter>
     </ClCompile>
     <ClCompile Include="FileUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ File Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ File Util ]</Filter>
     </ClCompile>
     <ClCompile Include="FontUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Font Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Font Util ]</Filter>
     </ClCompile>
     <ClCompile Include="RandomUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Random Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Random Util ]</Filter>
     </ClCompile>
     <ClCompile Include="TimerUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Timer Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Timer Util ]</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Physics Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Physics Util ]</Filter>
     </ClCompile>
     <ClCompile Include="ShaderUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Shader Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Shader Util ]</Filter>
     </ClCompile>
     <ClCompile Include="AnimationUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ AnimationUtil ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ AnimationUtil ]</Filter>
     </ClCompile>
     <ClCompile Include="SystemResource.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ System Resource ]</Filter>
+      <Filter>[4]___________[ System ]\[ System Resource ]</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ Scene ]</Filter>
+      <Filter>[4]___________[ System ]\[ Scene ]</Filter>
     </ClCompile>
     <ClCompile Include="SetUp.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ Framework ]</Filter>
+      <Filter>[4]___________[ System ]\[ Framework ]</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ Framework ]</Filter>
+      <Filter>[4]___________[ System ]\[ Framework ]</Filter>
     </ClCompile>
     <ClCompile Include="Display.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ Framework ]</Filter>
+      <Filter>[4]___________[ System ]\[ Framework ]</Filter>
     </ClCompile>
     <ClCompile Include="MathUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Math Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Math Util ]</Filter>
     </ClCompile>
     <ClCompile Include="ClippingUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Clipping Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Clipping Util ]</Filter>
     </ClCompile>
     <ClCompile Include="UiUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ UI Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
     </ClCompile>
     <ClCompile Include="MoveUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Move Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Move Util ]</Filter>
     </ClCompile>
     <ClCompile Include="ExUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ EX Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ EX Util ]</Filter>
     </ClCompile>
     <ClCompile Include="GameResource.cpp">
       <Filter>[5]___________[ Resources ]\[ Game Resource ]</Filter>
@@ -253,7 +250,7 @@
       <Filter>[5]___________[ Resources ]\[ Game File ]</Filter>
     </ClCompile>
     <ClCompile Include="ScriptUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Script Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
     </ClCompile>
     <ClCompile Include="CameraUtil.cpp">
       <Filter>[3]___________[ Camera ]\[ Camera ]</Filter>
@@ -262,49 +259,49 @@
       <Filter>[3]___________[ Camera ]\[ Controller ]</Filter>
     </ClCompile>
     <ClCompile Include="LineBrush.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
     </ClCompile>
     <ClCompile Include="RectBrush.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
     </ClCompile>
     <ClCompile Include="StartMode.cpp">
       <Filter>[0]___________[ Config ]</Filter>
     </ClCompile>
     <ClCompile Include="TransformUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Transform Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Transform Util ]</Filter>
     </ClCompile>
     <ClCompile Include="ThreadUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Thread Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Thread Util ]</Filter>
     </ClCompile>
     <ClCompile Include="CircleBrush.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
     </ClCompile>
     <ClCompile Include="IntroMode.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ System Mode ]\[ Intro Mode ]</Filter>
+      <Filter>[4]___________[ System ]\[ System Mode ]\[ Intro Mode ]</Filter>
     </ClCompile>
     <ClCompile Include="LoadingMode.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ System Mode ]\[ Loading Mode ]</Filter>
+      <Filter>[4]___________[ System ]\[ System Mode ]\[ Loading Mode ]</Filter>
     </ClCompile>
     <ClCompile Include="ComputeUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Compute Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Compute Util ]</Filter>
     </ClCompile>
     <ClCompile Include="StringUtil.cpp">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ String Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ String Util ]</Filter>
     </ClCompile>
     <ClCompile Include="GlobalValue.cpp">
       <Filter>[5]___________[ Resources ]\[ Global Value ]</Filter>
     </ClCompile>
     <ClCompile Include="Library\tinyxml\tinystr.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[4]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="Library\tinyxml\tinyxml.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[4]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="Library\tinyxml\tinyxmlerror.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[4]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="Library\tinyxml\tinyxmlparser.cpp">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[4]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -315,64 +312,64 @@
       <Filter>[2]___________[ Object ]\[3][ Template ]</Filter>
     </ClInclude>
     <ClInclude Include="CollisionUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Collision Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Collision Util ]</Filter>
     </ClInclude>
     <ClInclude Include="ImageUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Image Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Image Util ]</Filter>
     </ClInclude>
     <ClInclude Include="MouseUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Mouse Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Mouse Util ]</Filter>
     </ClInclude>
     <ClInclude Include="ShaderUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Shader Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Shader Util ]</Filter>
     </ClInclude>
     <ClInclude Include="TextUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Text Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Text Util ]</Filter>
     </ClInclude>
     <ClInclude Include="SoundUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Sound Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Sound Util ]</Filter>
     </ClInclude>
     <ClInclude Include="FileUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ File Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ File Util ]</Filter>
     </ClInclude>
     <ClInclude Include="FontUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Font Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Font Util ]</Filter>
     </ClInclude>
     <ClInclude Include="RandomUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Random Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Random Util ]</Filter>
     </ClInclude>
     <ClInclude Include="TimerUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Timer Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Timer Util ]</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Physics Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Physics Util ]</Filter>
     </ClInclude>
     <ClInclude Include="AnimationUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ AnimationUtil ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ AnimationUtil ]</Filter>
     </ClInclude>
     <ClInclude Include="EngineHeader.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ Header ]</Filter>
+      <Filter>[4]___________[ System ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ Scene ]</Filter>
+      <Filter>[4]___________[ System ]\[ Scene ]</Filter>
     </ClInclude>
     <ClInclude Include="MathUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Math Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Math Util ]</Filter>
     </ClInclude>
     <ClInclude Include="ClippingUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Clipping Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Clipping Util ]</Filter>
     </ClInclude>
     <ClInclude Include="UiUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ UI Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
     </ClInclude>
     <ClInclude Include="SystemResource.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ System Resource ]</Filter>
+      <Filter>[4]___________[ System ]\[ System Resource ]</Filter>
     </ClInclude>
     <ClInclude Include="MoveUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Move Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Move Util ]</Filter>
     </ClInclude>
     <ClInclude Include="ExUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ EX Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ EX Util ]</Filter>
     </ClInclude>
     <ClInclude Include="GameResource.h">
       <Filter>[5]___________[ Resources ]\[ Game Resource ]</Filter>
@@ -381,7 +378,7 @@
       <Filter>[5]___________[ Resources ]\[ Game File ]</Filter>
     </ClInclude>
     <ClInclude Include="ScriptUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Script Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
     </ClInclude>
     <ClInclude Include="CameraUtil.h">
       <Filter>[3]___________[ Camera ]\[ Camera ]</Filter>
@@ -390,55 +387,55 @@
       <Filter>[3]___________[ Camera ]\[ Controller ]</Filter>
     </ClInclude>
     <ClInclude Include="LineBrush.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
     </ClInclude>
     <ClInclude Include="RectBrush.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
     </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>[0]___________[ Config ]</Filter>
     </ClInclude>
     <ClInclude Include="TransformUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Transform Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Transform Util ]</Filter>
     </ClInclude>
     <ClInclude Include="ThreadUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Thread Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Thread Util ]</Filter>
     </ClInclude>
     <ClInclude Include="CircleBrush.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
     </ClInclude>
     <ClInclude Include="IntroMode.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ System Mode ]\[ Intro Mode ]</Filter>
+      <Filter>[4]___________[ System ]\[ System Mode ]\[ Intro Mode ]</Filter>
     </ClInclude>
     <ClInclude Include="LoadingMode.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ System Mode ]\[ Loading Mode ]</Filter>
+      <Filter>[4]___________[ System ]\[ System Mode ]\[ Loading Mode ]</Filter>
     </ClInclude>
     <ClInclude Include="IntroScreen.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ System Object ]</Filter>
+      <Filter>[4]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="LoadingScreen.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ System Object ]</Filter>
+      <Filter>[4]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="ComputeUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ Compute Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ Compute Util ]</Filter>
     </ClInclude>
     <ClInclude Include="StringUtil.h">
-      <Filter>[4]___________[ MGK ]\[ Util ]\[ String Util ]</Filter>
+      <Filter>[4]___________[ System ]\[ Util ]\[ String Util ]</Filter>
     </ClInclude>
     <ClInclude Include="SystemConfig.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ System Config ]</Filter>
+      <Filter>[4]___________[ System ]\[ System Config ]</Filter>
     </ClInclude>
     <ClInclude Include="GlobalValue.h">
       <Filter>[5]___________[ Resources ]\[ Global Value ]</Filter>
     </ClInclude>
     <ClInclude Include="Library\tinyxml\tinystr.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ Header ]</Filter>
+      <Filter>[4]___________[ System ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Library\tinyxml\tinyxml.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ TinyXML ]\[ Header ]</Filter>
+      <Filter>[4]___________[ System ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="FPSInd.h">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ System Object ]</Filter>
+      <Filter>[4]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -448,19 +445,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MGKResource\GLSL\Fragment_Image.glsl">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ GLSL ]</Filter>
+      <Filter>[4]___________[ System ]\[ GLSL ]</Filter>
     </None>
     <None Include="MGKResource\GLSL\Fragment_Text.glsl">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ GLSL ]</Filter>
+      <Filter>[4]___________[ System ]\[ GLSL ]</Filter>
     </None>
     <None Include="MGKResource\GLSL\Vertex.glsl">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ GLSL ]</Filter>
+      <Filter>[4]___________[ System ]\[ GLSL ]</Filter>
     </None>
     <None Include="MGKResource\GLSL\ComputeMatrix.glsl">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ GLSL ]</Filter>
+      <Filter>[4]___________[ System ]\[ GLSL ]</Filter>
     </None>
     <None Include="MGKResource\GLSL\Fragment_Shape.glsl">
-      <Filter>[4]___________[ MGK ]\[ System ]\[ GLSL ]</Filter>
+      <Filter>[4]___________[ System ]\[ GLSL ]</Filter>
     </None>
   </ItemGroup>
 </Project>

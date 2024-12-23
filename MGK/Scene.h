@@ -8,7 +8,7 @@
 
 typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
-constexpr int Layers = END;
+constexpr int Layers = EOL;
 
 using ObjectRange    = std::multimap<std::string, GameObject*>::iterator;
 
