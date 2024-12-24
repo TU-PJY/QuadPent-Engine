@@ -31,9 +31,11 @@ public:
 				scene.SwitchMode(START_MODE);
 				break;
 
+#ifdef ENABLE_DEV_EXIT
 			case NK_ESCAPE:
 				Framework::Exit();
 				break;
+#endif
 			}
 		}
 	}

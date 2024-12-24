@@ -17,13 +17,12 @@ private:
 
 public:
 	void InputKey(KeyEvent& Event) {
+#ifdef ENABLE_DEV_EXIT
 		if (Event.Type == NORMAL_KEY_DOWN) {
-			switch (Event.NormalKey) {
-			case NK_ESCAPE:
+			if (Event.NormalKey == NK_ESCAPE)
 				Framework::Exit();
-				break;
-			}
 		}
+#endif
 	}
 
 	void UpdateFunc(float FT) {
