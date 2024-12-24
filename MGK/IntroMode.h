@@ -5,56 +5,88 @@
 
 class Intro_Mode {
 public:
+	std::string ModeName{ "IntroMode" };
+	int         ModeType{ MODE_TYPE_DEFAULT };
+	bool        UseObjectPtr{ false };
+
+	std::vector<std::string> InputObjectTag
+	{
+		"intro_screen",
+	};
+
+	std::vector<GameObject*> InputObject{};
+
+	/////////////////////////////////////////////////////////////
+
+	static void Start() {
+		scene.AddObject(new IntroScreen, "intro_screen", LAYER1);
+		SetUp();
+	}
+
+	static void Destructor() {
+		ClearObjectPtr();
+	}
+
+	/////////////////////////////////////////////////////////////
+	// Fold here
+#pragma region FoldRegion 
 	static Intro_Mode* M_Inst;
+
 	Intro_Mode() {
 		M_Inst = this;
 	}
 
-	static void Start() {
-		scene.AddObject(new IntroScreen, "intro_screen", LAYER1);
-		scene.RegisterController(Controller, MODE_TYPE_DEFAULT);
+	static void SetUp() {
+		scene.RegisterModeName(M_Inst->ModeName);
 		scene.RegisterDestructor(Destructor);
-		scene.RegisterModeName("IntroMode");
+		scene.RegisterController(Controller, M_Inst->ModeType);
 	}
 
-	static void Destructor() {
-#ifdef USE_SOUND_SYSTEM
-		soundUtil.Release(SysRes.INTRO_SOUND);
-#endif
+	static void AddObjectPtr(std::string ObjectTag) {
+		if (!M_Inst->UseObjectPtr)  return;
+		auto Object = scene.Find(ObjectTag);
+		if (Object)  M_Inst->InputObject.emplace_back(Object);
 	}
 
-	/////////////////////////////////////////////////////////////
-
-	void ProcessKeyboard(int State, unsigned char NormalKey, int SpecialKey) {
-		KeyEvent Event{ State, NormalKey, SpecialKey };
-
-		scene.InputKey("intro_screen", Event);
+	static void ClearObjectPtr() {
+		if (!M_Inst->UseObjectPtr)  return;
+		M_Inst->InputObject.clear();
 	}
 
-	void ProcessMouseButton(int Type) {
-
+	static void ProcessKeyEvent(KeyEvent& Event) {
+		if (!M_Inst->UseObjectPtr) {
+			for (auto const& Object : M_Inst->InputObjectTag)
+				scene.InputKey(Object, Event);
+		}
+		else {
+			for (auto const& Object : M_Inst->InputObject) {
+				if (Object)  Object->InputKey(Event);
+			}
+		}
 	}
-
-	void ProcessMouseWheel(int Type) {
-
-	}
-
-	/////////////////////////////////////////////////////////////
 
 	static void KeyDown(unsigned char KEY, int X, int Y) {
-		M_Inst->ProcessKeyboard(NORMAL_KEY_DOWN, KEY, NULL);
+#ifdef ENABLE_DEV_EXIT
+		if (KEY == NK_ESCAPE)
+			Framework::Exit();
+#endif
+		KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
+		ProcessKeyEvent(Event);
 	}
 
 	static void KeyUp(unsigned char KEY, int X, int Y) {
-		M_Inst->ProcessKeyboard(NORMAL_KEY_UP, KEY, NULL);
+		KeyEvent Event{ NORMAL_KEY_UP, KEY, NULL };
+		ProcessKeyEvent(Event);
 	}
 
 	static void SpecialKeyDown(int KEY, int X, int Y) {
-		M_Inst->ProcessKeyboard(SPECIAL_KEY_DOWN, NULL, KEY);
+		KeyEvent Event{ SPECIAL_KEY_DOWN, NULL, KEY };
+		ProcessKeyEvent(Event);
 	}
 
 	static void SpecialKeyUp(int KEY, int X, int Y) {
-		M_Inst->ProcessKeyboard(SPECIAL_KEY_UP, NULL, KEY);
+		KeyEvent Event{ SPECIAL_KEY_UP, NULL, KEY };
+		ProcessKeyEvent(Event);
 	}
 
 	static void MouseMotion(int X, int Y) {
@@ -66,35 +98,61 @@ public:
 	}
 
 	static void MouseWheel(int Button, int Wheel, int X, int Y) {
+		int WheelEvent = -1;
+
 		if (Wheel > 0)
-			M_Inst->ProcessMouseWheel(WHEEL_UP);
+			WheelEvent = WHEEL_UP;
 		else if (Wheel < 0)
-			M_Inst->ProcessMouseWheel(WHEEL_DOWN);
+			WheelEvent = WHEEL_DOWN;
+
+		if (WheelEvent != -1) {
+			if (!M_Inst->UseObjectPtr) {
+				for (auto const& Object : M_Inst->InputObjectTag)
+					scene.InputScroll(Object, WheelEvent);
+			}
+			else {
+				for (auto const& Object : M_Inst->InputObject)
+					if (Object)  Object->InputScroll(WheelEvent);
+			}
+		}
 	}
 
 	static void MouseButton(int Button, int State, int X, int Y) {
+		int ButtonEvent = -1;
+
 		switch (State) {
 		case GLUT_DOWN:
 			switch (Button) {
 			case GLUT_LEFT_BUTTON:
-				M_Inst->ProcessMouseButton(LEFT_BUTTON_DOWN);   break;
+				ButtonEvent = LEFT_BUTTON_DOWN;   break;
 			case GLUT_RIGHT_BUTTON:
-				M_Inst->ProcessMouseButton(RIGHT_BUTTON_DOWN);  break;
+				ButtonEvent = RIGHT_BUTTON_DOWN;  break;
 			case GLUT_MIDDLE_BUTTON:
-				M_Inst->ProcessMouseButton(MIDDLE_BUTTON_DOWN); break;
+				ButtonEvent = MIDDLE_BUTTON_DOWN; break;
 			}
 			break;
 
 		case GLUT_UP:
 			switch (Button) {
 			case GLUT_LEFT_BUTTON:
-				M_Inst->ProcessMouseButton(LEFT_BUTTON_UP);   break;
+				ButtonEvent = LEFT_BUTTON_UP;   break;
 			case GLUT_RIGHT_BUTTON:
-				M_Inst->ProcessMouseButton(RIGHT_BUTTON_UP);  break;
+				ButtonEvent = RIGHT_BUTTON_UP;  break;
 			case GLUT_MIDDLE_BUTTON:
-				M_Inst->ProcessMouseButton(MIDDLE_BUTTON_UP); break;
+				ButtonEvent = MIDDLE_BUTTON_UP; break;
 			}
 			break;
+		}
+
+		if (ButtonEvent != -1) {
+			if (!M_Inst->UseObjectPtr) {
+				for (auto const& Object : M_Inst->InputObjectTag)
+					scene.InputMouse(Object, ButtonEvent);
+			}
+			else {
+				for (auto const& Object : M_Inst->InputObject)
+					if (Object)  Object->InputMouse(ButtonEvent);
+			}
 		}
 	}
 
@@ -108,5 +166,6 @@ public:
 		glutSpecialFunc(SpecialKeyDown);
 		glutSpecialUpFunc(SpecialKeyUp);
 	}
+#pragma endregion
 };
 extern Intro_Mode IntroMode;
