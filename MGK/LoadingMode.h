@@ -102,15 +102,13 @@ public:
 		else if (Wheel < 0)
 			WheelEvent = WHEEL_DOWN;
 
-		if (WheelEvent != -1) {
-			if (!M_Inst->UseObjectPtr) {
-				for (auto const& Object : M_Inst->InputObjectTag)
-					scene.InputScroll(Object, WheelEvent);
-			}
-			else {
-				for (auto const& Object : M_Inst->InputObject)
-					if (Object)  Object->InputScroll(WheelEvent);
-			}
+		if (!M_Inst->UseObjectPtr) {
+			for (auto const& Object : M_Inst->InputObjectTag)
+				scene.InputScroll(Object, WheelEvent);
+		}
+		else {
+			for (auto const& Object : M_Inst->InputObject)
+				if (Object)  Object->InputScroll(WheelEvent);
 		}
 	}
 
@@ -141,15 +139,13 @@ public:
 			break;
 		}
 
-		if (ButtonEvent != -1) {
-			if (!M_Inst->UseObjectPtr) {
-				for (auto const& Object : M_Inst->InputObjectTag)
-					scene.InputMouse(Object, ButtonEvent);
-			}
-			else {
-				for (auto const& Object : M_Inst->InputObject)
-					if (Object)  Object->InputMouse(ButtonEvent);
-			}
+		if (!M_Inst->UseObjectPtr) {
+			for (auto const& Object : M_Inst->InputObjectTag)
+				scene.InputMouse(Object, ButtonEvent);
+		}
+		else {
+			for (auto const& Object : M_Inst->InputObject)
+				if (Object)  Object->InputMouse(ButtonEvent);
 		}
 	}
 
