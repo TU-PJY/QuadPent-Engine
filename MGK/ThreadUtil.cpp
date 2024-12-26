@@ -1,5 +1,6 @@
 #include "ThreadUtil.h"
 
+ThreadUtil threadUtil;
 
 void ThreadUtil::Create(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param) {
 	HandleValue = CreateThread(NULL, 0, ThreadFunction, Param, 0, NULL);

@@ -27,7 +27,7 @@ GLvoid Framework::Framework() {
 	if (UpdateActivateCommand) {
 		scene.Routine();
 		scene.CompleteCommand();
-		camController.Update(DeltaTime);
+		CameraControl->UpdateCamera(DeltaTime);
 #ifdef USE_SOUND_SYSTEM
 		soundUtil.Update();
 #endif

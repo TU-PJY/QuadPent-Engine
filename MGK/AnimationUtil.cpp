@@ -18,7 +18,7 @@ void SinLoop::Reset() {
 
 GLfloat SinLerp::Update(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
 	Num += FrameTime * Speed;
-	EX::ClampValue(Num, Preset::MaxPositive, CLAMP_GREATER);
+	EX.ClampValue(Num, Preset::MaxPositive, CLAMP_GREATER);
 	GLfloat Progress = (sin(Num) - sin(Preset::MaxNegative)) / (sin(Preset::MaxPositive) - sin(Preset::MaxNegative));
 
 	return Value + (Dest - Value) * Progress;
@@ -35,7 +35,7 @@ GLfloat PopBounce::Update(GLfloat SizeDest, GLfloat ShakeScale, GLfloat SizeIncr
 	if (Num3 >= SizeDest) {
 		Num3 = SizeDest;
 		Num1 += FrameTime * ShakeSpeed;
-		Num2 = Math::Lerp(Num2, ShakeScale, ShakeReduceSpeed, FrameTime);
+		Num2 = mathUtil.Lerp(Num2, ShakeScale, ShakeReduceSpeed, FrameTime);
 	}
 
 	return Num3 + sin(Num1) * (ShakeScale - Num2);

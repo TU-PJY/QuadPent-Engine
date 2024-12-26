@@ -57,7 +57,7 @@ void TextUtil::SetOpacity(GLfloat Value) {
 }
 
 void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str) {
-	Render(X, Y, Size, StringUtil::Wstring(Str).c_str());
+	Render(X, Y, Size, stringUtil.Wstring(Str).c_str());
 }
 
 void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...) {
@@ -94,10 +94,10 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format,
 		break;
 	}
 
-	Transform::Identity(RotateMatrix);
-	Transform::Identity(ScaleMatrix);
-	Transform::Rotate(RotateMatrix, Rotation);
-	Transform::Scale(ScaleMatrix, TextRenderSize, TextRenderSize);
+	transform.Identity(RotateMatrix);
+	transform.Identity(ScaleMatrix);
+	transform.Rotate(RotateMatrix, Rotation);
+	transform.Scale(ScaleMatrix, TextRenderSize, TextRenderSize);
 
 	for (int i = 0; i < TextWordCount; ++i) {
 		if (Text[i] == L'\n') {
@@ -167,25 +167,25 @@ void TextUtil::SetNewLine() {
 }
 
 void TextUtil::TransformText() {
-	Transform::Identity(TranslateMatrix);
+	transform.Identity(TranslateMatrix);
 
 	switch (TextAlign) {
 	case ALIGN_DEFAULT:
-		Transform::Move(TranslateMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
+		transform.Move(TranslateMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
 		break;
 
 	case ALIGN_MIDDLE:
-		Transform::Move(TranslateMatrix, RenderPosition.x - (TextLength / 2.0), RenderPosition.y + MiddleHeight);
+		transform.Move(TranslateMatrix, RenderPosition.x - (TextLength / 2.0), RenderPosition.y + MiddleHeight);
 		break;
 
 	case ALIGN_LEFT:
-		Transform::Move(TranslateMatrix, RenderPosition.x - TextLength, RenderPosition.y + MiddleHeight);
+		transform.Move(TranslateMatrix, RenderPosition.x - TextLength, RenderPosition.y + MiddleHeight);
 		break;
 	}
 }
 
 void TextUtil::PrepareRender() {
-	Compt::ComputeMatrix(ResultMatrix, RotateMatrix, TranslateMatrix, ScaleMatrix);
+	computeUtil.ComputeMatrix(ResultMatrix, RotateMatrix, TranslateMatrix, ScaleMatrix);
 
 	glUseProgram(TEXT_SHADER);
 	camera.PrepareRender(SHADER_TYPE_TEXT);

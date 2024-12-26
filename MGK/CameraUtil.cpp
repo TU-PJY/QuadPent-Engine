@@ -15,10 +15,10 @@ void Camera::CalculateASPECT() {
 void Camera::Init() {
 	CalculateASPECT();
 
-	Transform::Identity(ViewMatrix);
-	Transform::Identity(Projection);
-	Transform::Identity(TranslateMatrix);
-	Transform::Identity(RotateMatrix);
+	transform.Identity(ViewMatrix);
+	transform.Identity(Projection);
+	transform.Identity(TranslateMatrix);
+	transform.Identity(RotateMatrix);
 
 	SetCamera(RENDER_TYPE_DEFAULT);
 }
@@ -37,8 +37,8 @@ void Camera::SetCamera(int RenderType) {
 }
 
 void Camera::PrepareRender(int ShaderType) {
-	Transform::Identity(ViewMatrix);
-	Transform::Identity(Projection);
+	transform.Identity(ViewMatrix);
+	transform.Identity(Projection);
 
 	if (!StaticRenderCommand) {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);

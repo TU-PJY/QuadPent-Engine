@@ -21,14 +21,24 @@ float DestFPS;
 int FPSLimit;
 bool FullscreenState;
 
+Camera camera;
+GameObject* CameraControl;
+
 GLfloat ASPECT;
 ViewportRect WindowRect;
 glm::vec3 BackColor;
 
 ShaderUtil shaderUtil;
-Camera camera;
-CameraController camController;
 ImageUtil imageUtil;
+RandomUtil randomUtil;
+MoveUtil moveUtil;
+EX_Util EX;
+MathUtil mathUtil;
+ComputeUtil computeUtil;
+FontUtil fontUtil;
+StringUtil stringUtil;
+ColorClipping colorClip;
+AlphaClipping alphaClip;
 
 SystemResource SysRes;
 SpriteResource Sprite;
@@ -119,6 +129,9 @@ void Framework::InitSystem() {
 	FPSLimit = FRAME_LIMITS;
 	if (FPSLimit > 0)
 		DestFPS = 1000.0 / (float)FPSLimit;
+
+	scene.AddObject(new CameraController, "MGK_OBJECT_CAMERA_CONTROLLER", LAYER1, OBJECT_TYPE_STATIC);
+	CameraControl = scene.Find("MGK_OBJECT_CAMERA_CONTROLLER");
 
 	scene.Init(LoadingMode.Start);
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-class FPSInd : public GameObject {
+class FPS_Indicator : public GameObject {
 private:
 	RectBrush Rect{};
 	TextUtil Text{};
@@ -10,7 +10,7 @@ private:
 	float CurrentDeltaTime = 1.0;
 
 public:
-	FPSInd() {
+	FPS_Indicator() {
 		Text.Init(L"Roboto", FW_NORMAL);
 		Text.SetColor(1.0, 1.0, 1.0);
 		Text.SetHeightAlign(HEIGHT_ALIGN_UNDER);
@@ -23,7 +23,7 @@ public:
 	}
 
 	void RenderFunc() {
-		UI::ClampPositionToCorner(EDGE_LEFT_UP, RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.0);
+		UI.ClampPositionToCorner(EDGE_LEFT_UP, RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.0);
 		Rect.Draw(RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.3);
 		Text.Render(WindowRect.lx + 0.01, WindowRect.ry, 0.06, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
 	}

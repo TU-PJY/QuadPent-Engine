@@ -18,6 +18,7 @@
 #include "ThreadUtil.h"
 #include "ComputeUtil.h"
 #include "StringUtil.h"
+#include "MoveUtil.h"
 
 #ifdef USE_SOUND_SYSTEM
 #include "SoundUtil.h"
@@ -188,6 +189,15 @@ public:
 
 	// Obtains an BoundingCircle object from a specific object class.
 	virtual BoundingCircle GetBoundingCircle() { return {}; }
+
+	// camera functions
+	virtual void UpdateCamera(float FT) {}
+	virtual void MoveCamera(GLfloat X, GLfloat Y) {}
+	virtual void MoveCamera(glm::vec2 Position) {}
+	virtual void RotateCamera(GLfloat Degree) {}
+	virtual void CameraZoom(int ZoomType, GLfloat ZoomValue) {}
+	virtual void ChangeCameraZoom(GLfloat ZoomValue) {}
+	virtual GLfloat ComputeNextZoom(int ZoomType, GLfloat ZoomValue) { return {}; }
 
 private:
 	void PrepareRender(Image& ImageStruct);

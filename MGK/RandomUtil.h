@@ -2,11 +2,11 @@
 #include "EngineHeader.h"
 #include <random>
 
-enum Dist {
-	RANDOM_TYPE_REAL, 
-	RANDOM_TYPE_INT
-};
+class RandomUtil {
+private:
+	std::random_device RD{};
 
-namespace Random {
+public:
 	GLfloat Gen(int DistType, GLfloat Min, GLfloat Max);
-}
+};
+extern RandomUtil randomUtil;

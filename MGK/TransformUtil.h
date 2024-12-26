@@ -1,7 +1,8 @@
 #pragma once
 #include "EngineHeader.h"
 
-namespace Transform {
+class Transform {
+public:
 	void Identity(glm::mat4& Matrix);
 	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
 	void Move(glm::mat4& Matrix, glm::vec2& Position);
@@ -14,4 +15,5 @@ namespace Transform {
 	void ImageScale(glm::mat4& Matrix, GLfloat Width, GLfloat Height);
 	void RotateV(glm::mat4& Matrix, GLfloat Degree);
 	void RotateH(glm::mat4& Matrix, GLfloat Degree);
-}
+};
+extern Transform transform;

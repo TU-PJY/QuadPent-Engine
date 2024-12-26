@@ -58,9 +58,6 @@
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Physics Util ]">
       <UniqueIdentifier>{63469aed-9fc3-41f7-bbf0-32d2050b40a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ AnimationUtil ]">
-      <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Clipping Util ]">
       <UniqueIdentifier>{9bceb82f-2ade-4d6d-9360-521458e8d522}</UniqueIdentifier>
     </Filter>
@@ -150,6 +147,9 @@
     </Filter>
     <Filter Include="[4]___________[ Resources ]">
       <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ AnimationUtil ]">
+      <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

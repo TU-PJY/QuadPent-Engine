@@ -1,6 +1,6 @@
 #include "ComputeUtil.h"
 
-void Compt::ComputeMatrix(glm::mat4& Dest, glm::mat4& Matrix1, glm::mat4& Matrix2, glm::mat4& Matrix3, glm::mat4& Matrix4, glm::mat4& Matrix5) {
+void ComputeUtil::ComputeMatrix(glm::mat4& Dest, glm::mat4& Matrix1, glm::mat4& Matrix2, glm::mat4& Matrix3, glm::mat4& Matrix4, glm::mat4& Matrix5) {
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO_MATRIX_INPUT);
 	glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(Matrix1));
 	glBufferSubData(GL_SHADER_STORAGE_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(Matrix2));

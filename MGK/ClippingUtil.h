@@ -1,14 +1,19 @@
 #pragma once
 #include "EngineHeader.h"
 
-namespace ColorClipping {
+class ColorClipping {
+public:
 	void First();
 	void Second();
 	void End();
-}
+};
 
-namespace AlphaClipping {
+class AlphaClipping {
+public:
 	void First();
 	void Second();
 	void End();
-}
+};
+
+extern ColorClipping colorClip;
+extern AlphaClipping alphaClip;

@@ -2,56 +2,58 @@
 #include "CameraUtil.h"
 #include "TransformUtil.h"
 
-void CameraController::Update(float FT) {
+void CameraController::InputKey(KeyEvent& Event) {
+
+}
+
+void CameraController::UpdateCamera(float FT){
 	// add logic here
-
-	CalcMatrix();
+	ComputeCameraMatrix();
 }
 
-void CameraController::CalcMatrix() {
-	Transform::Identity(camera.TranslateMatrix);
-	Transform::Identity(camera.RotateMatrix);
-	Transform::Move(camera.TranslateMatrix, Position.x, Position.y);
-	Transform::Rotate(camera.RotateMatrix, Rotation);
+void CameraController::MoveCamera(GLfloat X, GLfloat Y){
+	Position.x = X;
+	Position.y = Y;
 }
 
-void CameraController::Move(GLfloat X, GLfloat Y) {
-	Position.x = -X;
-	Position.y = -Y;
+void CameraController::MoveCamera(glm::vec2& PositionValue){
+	Position = PositionValue;
 }
 
-void CameraController::Move(glm::vec2& PositionValue) {
-	Position = -PositionValue;
+void CameraController::RotateCamera(GLfloat Degree){
+	Rotation = Degree;
 }
 
-void CameraController::Rotate(GLfloat Value) {
-	Rotation = Value;
-}
-
-void CameraController::Zoom(int Type, GLfloat Value) {
-	switch (Type) {
+void CameraController::CameraZoom(int ZoomType, GLfloat ZoomValue){
+	switch (ZoomType) {
 	case ZOOM_IN:
-		camera.ZoomValue = camera.ZoomValue / (1.0f - Value);
+		camera.ZoomValue = camera.ZoomValue / (1.0f - ZoomValue);
 		break;
 
 	case ZOOM_OUT:
-		camera.ZoomValue = camera.ZoomValue * (1.0f - Value);
+		camera.ZoomValue = camera.ZoomValue * (1.0f - ZoomValue);
 		break;
 	}
 }
 
-GLfloat CameraController::CalculateNextZoom(int Type, GLfloat Value) {
-	switch (Type) {
-	case ZOOM_IN:
-		return camera.ZoomValue / (1.0f - Value);
-		break;
-
-	case ZOOM_OUT:
-		return camera.ZoomValue * (1.0f - Value);
-		break;
-	}
+void CameraController::ChangeCameraZoom(GLfloat ZoomValue){
+	camera.ZoomValue = ZoomValue;
 }
 
-void CameraController::ChangeZoom(GLfloat Value) {
-	camera.ZoomValue = Value;
+GLfloat CameraController::ComputeNextZoom(int ZoomType, GLfloat ZoomValue) {
+	if (ZoomType == ZOOM_IN)
+		return camera.ZoomValue / (1.0f - ZoomValue);
+	else if (ZoomType == ZOOM_OUT)
+		return camera.ZoomValue * (1.0f - ZoomValue);
+	else
+		return camera.ZoomValue;
+}
+
+///////////////////////////////////////// private
+
+void CameraController::ComputeCameraMatrix(){
+	transform.Identity(camera.TranslateMatrix);
+	transform.Identity(camera.RotateMatrix);
+	transform.Move(camera.TranslateMatrix, Position.x, Position.y);
+	transform.Rotate(camera.RotateMatrix, Rotation);
 }

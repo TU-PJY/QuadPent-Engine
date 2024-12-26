@@ -5,11 +5,11 @@
 #include <cmath>
 
 void GameObject::InitRenderState(int RenderType) {
-	Transform::Identity(TranslateMatrix);
-	Transform::Identity(RotateMatrix);
-	Transform::Identity(ScaleMatrix);
-	Transform::Identity(ImageAspectMatrix);
-	Transform::Identity(FlipMatrix);
+	transform.Identity(TranslateMatrix);
+	transform.Identity(RotateMatrix);
+	transform.Identity(ScaleMatrix);
+	transform.Identity(ImageAspectMatrix);
+	transform.Identity(FlipMatrix);
 
 	ObjectOpacity = 1.0f;
 	ObjectBlur = 0.0;
@@ -64,20 +64,20 @@ void GameObject::UpdateLocalPosition(glm::vec2& DestPosition) {
 void GameObject::SetFlip(int FlipOpt) {
 	switch (FlipOpt) {
 	case FLIP_TYPE_NONE:
-		Transform::Identity(FlipMatrix); 
+		transform.Identity(FlipMatrix);
 		break;
 
 	case FLIP_TYPE_X:
-		Transform::RotateH(FlipMatrix, 180.0f);
+		transform.RotateH(FlipMatrix, 180.0f);
 		break;
 
 	case FLIP_TYPE_Y:
-		Transform::RotateV(FlipMatrix, 180.0f);
+		transform.RotateV(FlipMatrix, 180.0f);
 		break;
 
 	case FLIP_TYPE_XY:
-		Transform::RotateH(FlipMatrix, 180.0f);
-		Transform::RotateV(FlipMatrix, 180.0f);
+		transform.RotateH(FlipMatrix, 180.0f);
+		transform.RotateV(FlipMatrix, 180.0f);
 		break;
 	}
 }
@@ -89,20 +89,20 @@ void GameObject::SetBlur(GLfloat Strength) {
 void GameObject::SetUnitFlip(int FlipOpt) {
 	switch (FlipOpt) {
 	case FLIP_TYPE_NONE:
-		Transform::Identity(UnitFlipMatrix);
+		transform.Identity(UnitFlipMatrix);
 		break;
 
 	case FLIP_TYPE_X:
-		Transform::RotateH(UnitFlipMatrix, 180.0f);
+		transform.RotateH(UnitFlipMatrix, 180.0f);
 		break;
 
 	case FLIP_TYPE_Y:
-		Transform::RotateV(UnitFlipMatrix, 180.0f);
+		transform.RotateV(UnitFlipMatrix, 180.0f);
 		break;
 
 	case FLIP_TYPE_XY:
-		Transform::RotateH(UnitFlipMatrix, 180.0f);
-		Transform::RotateV(UnitFlipMatrix, 180.0f);
+		transform.RotateH(UnitFlipMatrix, 180.0f);
+		transform.RotateV(UnitFlipMatrix, 180.0f);
 		break;
 	}
 }
@@ -116,25 +116,25 @@ void GameObject::SetUnitBlur(GLfloat Strength) {
 }
 
 void GameObject::ResetUnitTransform() {
-	Transform::Identity(UnitTranslateMatrix);
-	Transform::Identity(UnitRotateMatrix);
-	Transform::Identity(UnitScaleMatrix);
-	Transform::Identity(UnitFlipMatrix);
+	transform.Identity(UnitTranslateMatrix);
+	transform.Identity(UnitRotateMatrix);
+	transform.Identity(UnitScaleMatrix);
+	transform.Identity(UnitFlipMatrix);
 	UnitOpacity = 1.0f;
 	UnitBlur = 0.0f;
 }
 
 void GameObject::Render(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	if (!DisableAdjustAspect)
-		Transform::ImageScale(ImageAspectMatrix, Image.Width, Image.Height);
+		transform.ImageScale(ImageAspectMatrix, Image.Width, Image.Height);
 
-		Compt::ComputeMatrix(ResultMatrix, TranslateMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+		computeUtil.ComputeMatrix(ResultMatrix, TranslateMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 		ObjectOpacity = OpacityValue;
 
 	if (ApplyUnitTransform) {
-		Compt::ComputeMatrix(ResultMatrix, UnitTranslateMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+		computeUtil.ComputeMatrix(ResultMatrix, UnitTranslateMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
 		ObjectOpacity -= (1.0f - UnitOpacity);
-		EX::ClampValue(ObjectOpacity, 0.0, CLAMP_LESS);
+		EX.ClampValue(ObjectOpacity, 0.0, CLAMP_LESS);
 		ObjectBlur += UnitBlur;
 	}
 
@@ -144,9 +144,9 @@ void GameObject::Render(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransf
 
 void GameObject::DrawImage(int RenderType, Image& Image, GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat OpacityValue, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	InitRenderState(RenderType);
-	Transform::Move(TranslateMatrix, X, Y);
-	Transform::Rotate(RotateMatrix, Rotation);
-	Transform::Scale(ScaleMatrix, Width, Height);
+	transform.Move(TranslateMatrix, X, Y);
+	transform.Rotate(RotateMatrix, Rotation);
+	transform.Scale(ScaleMatrix, Width, Height);
 	SetFlip(FlipOpt);
 	ObjectOpacity = OpacityValue;
 	Render(Image, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
@@ -154,9 +154,9 @@ void GameObject::DrawImage(int RenderType, Image& Image, GLfloat X, GLfloat Y, G
 
 void GameObject::DrawImage(int RenderType, Image& Image, glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat OpacityValue, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	InitRenderState(RenderType);
-	Transform::Move(TranslateMatrix, Position);
-	Transform::Rotate(RotateMatrix, Rotation);
-	Transform::Scale(ScaleMatrix, Width, Height);
+	transform.Move(TranslateMatrix, Position);
+	transform.Rotate(RotateMatrix, Rotation);
+	transform.Scale(ScaleMatrix, Width, Height);
 	SetFlip(FlipOpt);
 	ObjectOpacity = OpacityValue;
 	Render(Image, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
@@ -260,7 +260,7 @@ void GameObject::PrepareRender(Image& ImageStruct) {
 }
 
 glm::vec4 GameObject::ViewportPosition() {
-	Compt::ComputeMatrix(ViewportPositionMatrix, camera.Projection, camera.ViewMatrix, ResultMatrix);
+	computeUtil.ComputeMatrix(ViewportPositionMatrix, camera.Projection, camera.ViewMatrix, ResultMatrix);
 	return ViewportPositionMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }
 

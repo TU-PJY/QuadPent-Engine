@@ -1,5 +1,7 @@
 #include "TransformUtil.h"
 
+Transform transform;
+
 void Transform::Identity(glm::mat4& Matrix) {
 	Matrix = glm::mat4(1.0f);
 }

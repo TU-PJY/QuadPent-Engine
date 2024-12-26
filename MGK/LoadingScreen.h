@@ -29,8 +29,8 @@ public:
 		if (LoadCommand) {
 			Rotation -= 200 * FT;
 
-			if (!ThreadUtil::IsRunning(ThreadHandle) && !ThreadEnd) {
-				ThreadUtil::Close(ThreadHandle);
+			if (!threadUtil.IsRunning(ThreadHandle) && !ThreadEnd) {
+				threadUtil.Close(ThreadHandle);
 				ThreadEnd = true;
 			}
 
@@ -42,15 +42,15 @@ public:
 					soundUtil.Release(SysRes.INTRO_SOUND);
 #endif				
 					if(SHOW_FPS)
-						scene.AddObject(new FPSInd, "fps_ind", EOL - 1, OBJECT_TYPE_STATIC);
+						scene.AddObject(new FPS_Indicator, "MGK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
 					scene.SwitchMode(START_MODE);
 				}
 
 				else {
 					Transparent -= FT * 2.0;
-					if (EX::CheckClampValue(Transparent, 0.0, CLAMP_LESS)) {
+					if (EX.CheckClampValue(Transparent, 0.0, CLAMP_LESS)) {
 						if(SHOW_FPS)
-							scene.AddObject(new FPSInd, "fps_ind", EOL - 1, OBJECT_TYPE_STATIC);
+							scene.AddObject(new FPS_Indicator, "MGK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
 						scene.SwitchMode(IntroMode.Start);
 					}
 				}
@@ -65,7 +65,7 @@ public:
 #endif
 
 			imageUtil.Import(SysRes.LOADING_SPINNER, SysRes.MGK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
-			ThreadUtil::Create(ThreadHandle, SystemResourceCreateThread);
+			threadUtil.Create(ThreadHandle, SystemResourceCreateThread);
 
 			LoadCommand = true;
 		}
@@ -89,7 +89,7 @@ public:
 		gluQuadricDrawStyle(SysRes.GLU_CIRCLE, GLU_FILL);
 		gluQuadricDrawStyle(SysRes.GLU_LINE_CIRCLE, GLU_FILL);
 
-		FontUtil::Import(SysRes.ROBOTO_FONT_DIRECTORY, true);
+		fontUtil.Import(SysRes.ROBOTO_FONT_DIRECTORY, true);
 
 #ifdef USE_CUSTOM_FONT
 		int TotalSize = sizeof(FONT_PATH);

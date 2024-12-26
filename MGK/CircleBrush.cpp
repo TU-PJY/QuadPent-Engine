@@ -24,10 +24,10 @@ void CircleBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void CircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat OpacityValue) {
-	Transform::Identity(TranslateMatrix);
+	transform.Identity(TranslateMatrix);
 	Opacity = 1.0f;
 
-	Transform::Move(TranslateMatrix, X, Y);
+	transform.Move(TranslateMatrix, X, Y);
 	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 
@@ -71,10 +71,10 @@ void LineCircleBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void LineCircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Width, GLfloat OpacityValue) {
-	Transform::Identity(TranslateMatrix);
+	transform.Identity(TranslateMatrix);
 	Opacity = 1.0f;
 
-	Transform::Move(TranslateMatrix, X, Y);
+	transform.Move(TranslateMatrix, X, Y);
 	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 	WidthValue = Width;

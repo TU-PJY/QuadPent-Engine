@@ -1,6 +1,8 @@
 #include "UiUtil.h"
 
-void UI::ClampMatrixToCorner(int EdgePosition, glm::mat4& Matrix, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
+UI_Util UI;
+
+void UI_Util::ClampMatrixToCorner(int EdgePosition, glm::mat4& Matrix, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
 	switch (EdgePosition) {
 	case EDGE_LEFT_DOWN:
 		Matrix = translate(Matrix, glm::vec3(WindowRect.lx + Width / 2.0 + GapX, WindowRect.ly + Height / 2.0 + GapY, 0.0));
@@ -20,11 +22,11 @@ void UI::ClampMatrixToCorner(int EdgePosition, glm::mat4& Matrix, GLfloat Width,
 	}
 }
 
-void UI::ClampMatrixToPosition(glm::mat4& Matrix, GLfloat PositionX, GLfloat PositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
+void UI_Util::ClampMatrixToPosition(glm::mat4& Matrix, GLfloat PositionX, GLfloat PositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
 	Matrix = translate(Matrix, glm::vec3(PositionX + Width / 2.0 + GapX, PositionY + Height / 2.0 + GapY, 0.0));
 }
 
-void UI::ClampPositionToCorner(int EdgePosition, GLfloat& PositionX, GLfloat& PositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
+void UI_Util::ClampPositionToCorner(int EdgePosition, GLfloat& PositionX, GLfloat& PositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
 	switch (EdgePosition) {
 	case EDGE_LEFT_DOWN:
 		PositionX = WindowRect.lx + Width / 2.0 + GapX;
@@ -48,7 +50,7 @@ void UI::ClampPositionToCorner(int EdgePosition, GLfloat& PositionX, GLfloat& Po
 	}
 }
 
-void UI::ClampPositionToCoord(GLfloat& ThisPositionX, GLfloat& ThisPositionY, GLfloat OtherPositionX, GLfloat OtherPositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
+void UI_Util::ClampPositionToCoord(GLfloat& ThisPositionX, GLfloat& ThisPositionY, GLfloat OtherPositionX, GLfloat OtherPositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
 	ThisPositionX = OtherPositionX + Width / 2.0 + GapX;
 	ThisPositionY = OtherPositionY + Height / 2.0 + GapY;
 }

@@ -2,7 +2,7 @@
 #include "StringUtil.h"
 
 bool FontUtil::Import(const std::string& FontFilePath, bool LoadInThread) {
-    std::wstring Path = StringUtil::Wstring(FontFilePath);
+    std::wstring Path = stringUtil.Wstring(FontFilePath);
     DWORD NumFonts{};
 
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);

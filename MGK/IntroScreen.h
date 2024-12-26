@@ -62,7 +62,7 @@ public:
 
 			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
 				LogoTransparent -= FT * 2;
-				EX::ClampValue(LogoTransparent, 0.0, CLAMP_LESS);
+				EX.ClampValue(LogoTransparent, 0.0, CLAMP_LESS);
 			}
 
 			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_INTERPOLATE)) {
@@ -84,7 +84,7 @@ public:
 
 			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
 				LogoTransparent -= FT * 2;
-				EX::ClampValue(LogoTransparent, 0.0, CLAMP_LESS);
+				EX.ClampValue(LogoTransparent, 0.0, CLAMP_LESS);
 			}
 
 			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_RESUME))

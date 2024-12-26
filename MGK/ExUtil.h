@@ -1,7 +1,8 @@
 #pragma once
 #include "EngineHeader.h"
 
-namespace EX {
+class EX_Util {
+public:
 	void SwitchBool(bool& Value);
 	void SwitchValue(float& TargetValue, float Value1, float Value2);
 	void SwitchValue(int& TargetValue, int Value1, int Value2);
@@ -9,4 +10,5 @@ namespace EX {
 	void ClampValue(int& Value, int Dest, int Type);
 	bool CheckClampValue(float& Value, float Dest, int Type);
 	bool CheckClampValue(int& Value, int Dest, int Type);
- }
+};
+extern EX_Util EX;

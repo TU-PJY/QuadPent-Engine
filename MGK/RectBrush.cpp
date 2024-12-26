@@ -35,13 +35,13 @@ void LineRectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLf
 }
 
 void LineRectBrush::DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat OffsetY, GLfloat Width, GLfloat Height, GLfloat RotationValue) {
-	Transform::Identity(TranslateMatrix);
-	Transform::Identity(ScaleMatrix);
+	transform.Identity(TranslateMatrix);
+	transform.Identity(ScaleMatrix);
 
-	Transform::Move(TranslateMatrix, X, Y);
-	Transform::Rotate(TranslateMatrix, RotationValue);
-	Transform::Move(TranslateMatrix, OffsetX, OffsetY);
-	Transform::Scale(ScaleMatrix, Width, Height);
+	transform.Move(TranslateMatrix, X, Y);
+	transform.Rotate(TranslateMatrix, RotationValue);
+	transform.Move(TranslateMatrix, OffsetX, OffsetY);
+	transform.Scale(ScaleMatrix, Width, Height);
 	Render();
 }
 
@@ -49,7 +49,7 @@ void LineRectBrush::Render() {
 	if (!CamInheritanceCommand)
 		camera.SetCamera(RenderType);
 
-	Compt::ComputeMatrix(ResultMatrix, TranslateMatrix, ScaleMatrix);
+	computeUtil.ComputeMatrix(ResultMatrix, TranslateMatrix, ScaleMatrix);
 
 	glUseProgram(SHAPE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_SHAPE);
@@ -84,13 +84,13 @@ void RectBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void RectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat RotationValue, GLfloat OpacityValue) {
-	Transform::Identity(TranslateMatrix);
-	Transform::Identity(ScaleMatrix);
+	transform.Identity(TranslateMatrix);
+	transform.Identity(ScaleMatrix);
 	Opacity = OpacityValue;
 
-	Transform::Move(TranslateMatrix, X, Y);
-	Transform::Rotate(TranslateMatrix, RotationValue);
-	Transform::Scale(ScaleMatrix, SizeX, SizeY);
+	transform.Move(TranslateMatrix, X, Y);
+	transform.Rotate(TranslateMatrix, RotationValue);
+	transform.Scale(ScaleMatrix, SizeX, SizeY);
 
 	Render();
 }
@@ -99,7 +99,7 @@ void RectBrush::Render() {
 	if(!CamInheritanceCommand)
 		camera.SetCamera(RenderType);
 
-	Compt::ComputeMatrix(ResultMatrix, TranslateMatrix, ScaleMatrix);
+	computeUtil.ComputeMatrix(ResultMatrix, TranslateMatrix, ScaleMatrix);
 
 	glUseProgram(SHAPE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_SHAPE);

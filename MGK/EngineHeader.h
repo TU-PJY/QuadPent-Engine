@@ -99,6 +99,11 @@ enum NormalKeySet {
 	NK_BACKSPACE = 8
 };
 
+enum ZoomType{
+	ZOOM_IN, 
+	ZOOM_OUT
+};
+
 enum RenderTypeEnum {
 	RENDER_TYPE_DEFAULT,
 	RENDER_TYPE_STATIC
@@ -180,6 +185,11 @@ enum ObjectTypeEnum {
 	OBJECT_TYPE_NONE,
 	OBJECT_TYPE_STATIC,
 	OBJECT_TYPE_FLOATING
+};
+
+enum DistTypeEnum {
+	RANDOM_TYPE_REAL,
+	RANDOM_TYPE_INT
 };
 
 namespace Preset {

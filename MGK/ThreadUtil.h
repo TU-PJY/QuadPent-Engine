@@ -1,8 +1,9 @@
 #pragma once
 #include "EngineHeader.h"
 
-namespace ThreadUtil {
-	void Create(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param=NULL);
+class ThreadUtil {
+public:
+	void Create(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param = NULL);
 	bool IsRunning(HANDLE& HandleValue);
 	void Close(HANDLE& HandleValue);
 	void InitSection(CRITICAL_SECTION& Section);
@@ -11,4 +12,5 @@ namespace ThreadUtil {
 	void Lock(CRITICAL_SECTION& Section);
 	void TryLock(CRITICAL_SECTION& Section);
 	void Unlock(CRITICAL_SECTION& Section);
-}
+};
+extern ThreadUtil threadUtil;

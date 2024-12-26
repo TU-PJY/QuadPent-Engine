@@ -126,32 +126,32 @@ void PhysicsUtil::UpdateBouncing(glm::vec2& DestPosition, float FrameTime) {
 
 
 void PhysicsUtil::LerpAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT) {
-	Speed = Math::Lerp(Speed, DestSpeed, AccValue * (1.0 - Friction), FT);
+	Speed = mathUtil.Lerp(Speed, DestSpeed, AccValue * (1.0 - Friction), FT);
 }
 
 void PhysicsUtil::LerpDeceleration(GLfloat& Speed, float FT) {
-	Speed = Math::Lerp(Speed, 0.0, Friction, FT);
+	Speed = mathUtil.Lerp(Speed, 0.0, Friction, FT);
 }
 
 void PhysicsUtil::LinearAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT) {
 	if (DestSpeed > 0.0) {
 		Speed += AccValue * (1.0 - Friction) * FT;
-		EX::ClampValue(Speed, DestSpeed, CLAMP_GREATER);
+		EX.ClampValue(Speed, DestSpeed, CLAMP_GREATER);
 	}
 	else {
 		Speed -= AccValue * (1.0 - Friction) * FT;
-		EX::ClampValue(Speed, DestSpeed, CLAMP_LESS);
+		EX.ClampValue(Speed, DestSpeed, CLAMP_LESS);
 	}
 }
 
 void PhysicsUtil::LinearDeceleration(GLfloat& Speed, float FT) {
 	if (Speed > 0) {
 		Speed -= Friction * FT;
-		EX::ClampValue(Speed, 0.0, CLAMP_LESS);
+		EX.ClampValue(Speed, 0.0, CLAMP_LESS);
 	}
 	else if (Speed < 0) {
 		Speed += Friction * FT;
-		EX::ClampValue(Speed, 0.0, CLAMP_GREATER);
+		EX.ClampValue(Speed, 0.0, CLAMP_GREATER);
 	}
 }
 

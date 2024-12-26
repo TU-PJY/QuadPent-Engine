@@ -1,6 +1,8 @@
 #pragma once
 #include "EngineHeader.h"
 
-namespace FontUtil {
+class FontUtil {
+public:
 	bool Import(const std::string& fontFilePath, bool LoadInThread);
-}
+};
+extern FontUtil fontUtil;
