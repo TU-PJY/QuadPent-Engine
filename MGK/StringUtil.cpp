@@ -1,5 +1,7 @@
 #include "StringUtil.h"
 
+StringUtil stringUtil;
+
 void StringUtil::InputChar(std::string& Str, unsigned char AddChar, bool UseNewLine) {
 	switch (AddChar) {
 	case NK_TAB: case NK_ESCAPE:

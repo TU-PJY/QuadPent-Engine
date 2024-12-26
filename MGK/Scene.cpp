@@ -1,5 +1,7 @@
 #include "Scene.h"
 
+Scene scene;
+
 void Scene::InputFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
 }

@@ -4,6 +4,8 @@
 #include <vector>
 #include "Config.h"
 
+SoundUtil soundUtil;
+
 std::vector<float> FFTdata(FFT_SIZE);
 
 void SoundUtil::Init() {

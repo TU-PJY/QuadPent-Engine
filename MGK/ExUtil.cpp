@@ -1,5 +1,7 @@
 #include "ExUtil.h"
 
+EX_Util EX;
+
 void EX_Util::SwitchBool(bool& Value) {
 	if (!Value)
 		Value = true;

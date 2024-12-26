@@ -4,6 +4,8 @@
 #include <stdarg.h>
 #include <fstream>
 
+ShaderUtil shaderUtil;
+
 GLuint IMAGE_SHADER;
 GLuint TEXT_SHADER;
 GLuint SHAPE_SHADER;

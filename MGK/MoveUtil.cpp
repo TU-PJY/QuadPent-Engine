@@ -1,5 +1,7 @@
 #include "MoveUtil.h"
 
+MoveUtil moveUtil;
+
 void MoveUtil::MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT) {
 	Position += Speed * MoveDirection * FT;
 }

@@ -1,6 +1,8 @@
 #include "FontUtil.h"
 #include "StringUtil.h"
 
+FontUtil fontUtil;
+
 bool FontUtil::Import(const std::string& FontFilePath, bool LoadInThread) {
     std::wstring Path = stringUtil.Wstring(FontFilePath);
     DWORD NumFonts{};

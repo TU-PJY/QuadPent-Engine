@@ -28,30 +28,11 @@ GLfloat ASPECT;
 ViewportRect WindowRect;
 glm::vec3 BackColor;
 
-ShaderUtil shaderUtil;
-ImageUtil imageUtil;
-RandomUtil randomUtil;
-MoveUtil moveUtil;
-EX_Util EX;
-MathUtil mathUtil;
-ComputeUtil computeUtil;
-FontUtil fontUtil;
-StringUtil stringUtil;
-ColorClipping colorClip;
-AlphaClipping alphaClip;
-
 SystemResource SysRes;
 SpriteResource Sprite;
 AudioResource Audio;
 DataResource Data;
 GlobalValue Global;
-
-#ifdef USE_SOUND_SYSTEM
-SoundUtil soundUtil;
-#endif
-
-MouseUtil mouse;
-Scene scene;
 
 void Framework::SetupSystem(int argc, char** argv) {
 	HWND hWnd = GetConsoleWindow();

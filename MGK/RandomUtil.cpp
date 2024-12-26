@@ -1,5 +1,7 @@
 #include "RandomUtil.h"
 
+RandomUtil randomUtil;
+
 GLfloat RandomUtil::Gen(int DistType, GLfloat Min, GLfloat Max) {
 	if (DistType == RANDOM_TYPE_REAL) {
 		std::uniform_real_distribution URD{ Min, Max };

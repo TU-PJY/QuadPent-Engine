@@ -1,6 +1,8 @@
 #include "MathUtil.h"
 #include <cmath>
 
+MathUtil mathUtil;
+
 void MathUtil::LookAt(GLfloat& DestRotation, GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat RotationSpeed, float FrameTime) {
 	GLfloat TargetAngle{}, ShortestAngle{};
 	TargetAngle = Computedegree(FromX, FromY, ToX, ToY) - 90.0;
