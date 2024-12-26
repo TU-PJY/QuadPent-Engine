@@ -1,8 +1,4 @@
 #include "GameObject.h"
-#include "ImageUtil.h"
-#include "CameraUtil.h"
-#include "Scene.h"
-#include <cmath>
 
 void GameObject::InitRenderState(int RenderType) {
 	transform.Identity(TranslateMatrix);

@@ -151,6 +151,9 @@
     <Filter Include="[5]___________[ System ]\[ Util ]\[ AnimationUtil ]">
       <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[0] [ Pack ]">
+      <UniqueIdentifier>{38262568-5f1a-4ff0-9a03-cc13df33dcd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -394,6 +397,9 @@
     </ClInclude>
     <ClInclude Include="IntroMode.h">
       <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilPack.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[0] [ Pack ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

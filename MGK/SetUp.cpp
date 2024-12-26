@@ -2,10 +2,7 @@
 #include "Scene.h"
 #include "CameraUtil.h"
 #include "CameraController.h"
-#include "ImageUtil.h"
 #include "ShaderUtil.h"
-#include "SoundUtil.h"
-#include "MouseUtil.h"
 #include "Config.h"
 #include "GameResource.h"
 #include <windows.h>

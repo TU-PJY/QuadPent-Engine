@@ -222,6 +222,7 @@
     <ClInclude Include="TimerUtil.h" />
     <ClInclude Include="TransformUtil.h" />
     <ClInclude Include="UiUtil.h" />
+    <ClInclude Include="UtilPack.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ModeTemplate.txt" />
