@@ -22,12 +22,6 @@
     <Filter Include="[3]___________[ Camera ]">
       <UniqueIdentifier>{a94ebc27-9b04-4c84-b876-bb9fcb87cae4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[3]___________[ Camera ]\[ Camera ]">
-      <UniqueIdentifier>{f246ec1e-8aa5-4a4c-86c6-75a511ec4ed6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[3]___________[ Camera ]\[ Controller ]">
-      <UniqueIdentifier>{1480f021-43d6-4f12-9a82-8d6fb6ea2cfc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[0]___________[ Config ]">
       <UniqueIdentifier>{c229d7fb-288d-4e48-b8b0-7e7dbd38a78d}</UniqueIdentifier>
     </Filter>
@@ -154,6 +148,9 @@
     <Filter Include="[5]___________[ System ]\[ Util ]\[0] [ Pack ]">
       <UniqueIdentifier>{38262568-5f1a-4ff0-9a03-cc13df33dcd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Camera Util ]">
+      <UniqueIdentifier>{f246ec1e-8aa5-4a4c-86c6-75a511ec4ed6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -226,10 +223,7 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
     </ClCompile>
     <ClCompile Include="CameraUtil.cpp">
-      <Filter>[3]___________[ Camera ]\[ Camera ]</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraController.cpp">
-      <Filter>[3]___________[ Camera ]\[ Controller ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Camera Util ]</Filter>
     </ClCompile>
     <ClCompile Include="LineBrush.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
@@ -269,6 +263,9 @@
     </ClCompile>
     <ClCompile Include="SysMode.cpp">
       <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraController.cpp">
+      <Filter>[3]___________[ Camera ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -339,10 +336,7 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
     </ClInclude>
     <ClInclude Include="CameraUtil.h">
-      <Filter>[3]___________[ Camera ]\[ Camera ]</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraController.h">
-      <Filter>[3]___________[ Camera ]\[ Controller ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Camera Util ]</Filter>
     </ClInclude>
     <ClInclude Include="LineBrush.h">
       <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
@@ -400,6 +394,9 @@
     </ClInclude>
     <ClInclude Include="UtilPack.h">
       <Filter>[5]___________[ System ]\[ Util ]\[0] [ Pack ]</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraController.h">
+      <Filter>[3]___________[ Camera ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
