@@ -4,7 +4,7 @@
 // Declare the sprite resource or directory here. 
 class SpriteResource {
 public:
-
+	SpriteSheet spriteTest{};
 };
 
 // Declare the sound resource or directory here. 
@@ -16,7 +16,7 @@ public:
 // Data Format list
 // Write your data format here.
 // {  Data Type, Category Name, Data Name, Digit Value, String Value }
-class DataResource {
+class DataFormatResource {
 public:
 
 };
@@ -39,5 +39,5 @@ constexpr const char* FONT_PATH[]
 
 extern SpriteResource Sprite;
 extern AudioResource Audio;
-extern DataResource Data;
+extern DataFormatResource Format;
 extern GlobalValue Global;

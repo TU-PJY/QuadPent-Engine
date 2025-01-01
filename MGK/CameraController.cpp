@@ -6,7 +6,7 @@ void CameraController::InputKey(KeyEvent& Event) {
 
 }
 
-void CameraController::UpdateCamera(float FT){
+void CameraController::UpdateFunc(float FT){
 	// add logic here
 	ComputeCameraMatrix();
 }

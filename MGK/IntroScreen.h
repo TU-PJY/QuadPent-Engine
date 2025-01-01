@@ -10,13 +10,11 @@ private:
 #endif
 
 	GLfloat      LogoSize        = 1.0;
-	GLfloat      LogoTransparent = 0.0;
+	GLfloat      LogoOpacity = 0.0;
 	GLfloat      LogoPosition    = -0.3;
 	GLfloat      AnimationSpeed  = 0.5;
-	GLfloat      BlurValue = 5.0;
 
 	SinLerp      Slerp{};
-	SinLerp      BlurLerp{};
 
 	int          Scene{}; 
 
@@ -26,7 +24,7 @@ public:
 			switch (Event.NormalKey) {
 			case NK_ENTER:
 #ifdef USE_SOUND_SYSTEM
-				StopSound(IntroChannel);
+				soundUtil.StopSound(IntroChannel);
 #endif
 				scene.SwitchMode(START_MODE);
 				break;
@@ -56,20 +54,17 @@ public:
 		case 1:
 			if (timer.MiliSec() < 2.5) {
 				LogoPosition = Slerp.Update(LogoPosition, 0.0, AnimationSpeed, FT);
-				LogoTransparent = Slerp.Update(LogoTransparent, 1.0, AnimationSpeed, FT);
-				BlurValue = BlurLerp.Update(BlurValue, 0.0, AnimationSpeed, FT);
+				LogoOpacity = Slerp.Update(LogoOpacity, 1.0, AnimationSpeed, FT);
 			}
 
 			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
-				LogoTransparent -= FT * 2;
-				EX.ClampValue(LogoTransparent, 0.0, CLAMP_LESS);
+				LogoOpacity -= FT * 2;
+				EX.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
 			}
 
 			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_INTERPOLATE)) {
 				LogoPosition = -0.3;
-				BlurValue = 5.0;
 				Slerp.Reset();
-				BlurLerp.Reset();
 				++Scene;
 			}
 			break;
@@ -78,13 +73,12 @@ public:
 		case 2:
 			if (timer.MiliSec() < 2.5) {
 				LogoPosition = Slerp.Update(LogoPosition, 0.0, AnimationSpeed, FT);
-				LogoTransparent = Slerp.Update(LogoTransparent, 1.0, AnimationSpeed, FT);
-				BlurValue = BlurLerp.Update(BlurValue, 0.0, AnimationSpeed, FT);
+				LogoOpacity = Slerp.Update(LogoOpacity, 1.0, AnimationSpeed, FT);
 			}
 
 			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
-				LogoTransparent -= FT * 2;
-				EX.ClampValue(LogoTransparent, 0.0, CLAMP_LESS);
+				LogoOpacity -= FT * 2;
+				EX.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
 			}
 
 			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_RESUME))
@@ -95,16 +89,16 @@ public:
 	}
 
 	void RenderFunc() {
-		ResetUnitTransform();
-		SetUnitBlur(BlurValue);
+		BeginRender(RENDER_TYPE_STATIC);
+		transform.Move(TranslateMatrix, 0.0, LogoPosition);
 
 		switch (Scene) {
 		case 1:
-			DrawImage(RENDER_TYPE_STATIC, SysRes.MGK_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent, FLIP_TYPE_NONE, true);
+			RenderSprite(SysRes.MGK_LOGO, LogoOpacity);
 			break;
 
 		case 2: case 3:
-			DrawImage(RENDER_TYPE_STATIC, SysRes.FMOD_LOGO, 0.0, LogoPosition, 1.0, 1.0, 0.0, LogoTransparent, FLIP_TYPE_NONE, true);
+			RenderSprite(SysRes.FMOD_LOGO, LogoOpacity);
 			break;
 		}
 	}

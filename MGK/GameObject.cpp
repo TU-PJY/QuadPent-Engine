@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-void GameObject::InitRenderState(int RenderType) {
+void GameObject::BeginRender(int RenderType) {
 	transform.Identity(TranslateMatrix);
 	transform.Identity(RotateMatrix);
 	transform.Identity(ScaleMatrix);
@@ -31,7 +31,7 @@ void GameObject::SetColorRGB(int R, int G, int B) {
 	ObjectColor.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void GameObject::UpdateViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect) {
+void GameObject::ComputeViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect) {
 	if (ApplyAspect)
 		DestX = ASP(ViewportPosition().x);
 	else
@@ -39,7 +39,7 @@ void GameObject::UpdateViewportPosition(GLfloat& DestX, GLfloat& DestY, bool App
 	DestY = ViewportPosition().y;
 }
 
-void GameObject::UpdateViewportPosition(glm::vec2& DestValue, bool ApplyAspect) {
+void GameObject::ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspect) {
 	if (ApplyAspect) {
 		DestValue.x = ASP(ViewportPosition().x);
 		DestValue.y = ViewportPosition().y;
@@ -48,12 +48,12 @@ void GameObject::UpdateViewportPosition(glm::vec2& DestValue, bool ApplyAspect) 
 		DestValue = ViewportPosition();
 }
 
-void GameObject::UpdateLocalPosition(GLfloat& DestX, GLfloat& DestY) {
+void GameObject::ComputeLocalPosition(GLfloat& DestX, GLfloat& DestY) {
 	DestX = LocalPosition().x;
 	DestY = LocalPosition().y;
 }
 
-void GameObject::UpdateLocalPosition(glm::vec2& DestPosition) {
+void GameObject::ComputeLocalPosition(glm::vec2& DestPosition) {
 	DestPosition = LocalPosition();
 }
 
@@ -120,12 +120,12 @@ void GameObject::ResetUnitTransform() {
 	UnitBlur = 0.0f;
 }
 
-void GameObject::Render(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void GameObject::RenderSprite(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	if (!DisableAdjustAspect)
 		transform.ImageScale(ImageAspectMatrix, Image.Width, Image.Height);
 
-		computeUtil.ComputeMatrix(ResultMatrix, TranslateMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
-		ObjectOpacity = OpacityValue;
+	computeUtil.ComputeMatrix(ResultMatrix, TranslateMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+	ObjectOpacity = OpacityValue;
 
 	if (ApplyUnitTransform) {
 		computeUtil.ComputeMatrix(ResultMatrix, UnitTranslateMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
@@ -138,102 +138,26 @@ void GameObject::Render(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransf
 	imageUtil.Render(Image);
 }
 
-void GameObject::DrawImage(int RenderType, Image& Image, GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat OpacityValue, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
-	InitRenderState(RenderType);
-	transform.Move(TranslateMatrix, X, Y);
-	transform.Rotate(RotateMatrix, Rotation);
-	transform.Scale(ScaleMatrix, Width, Height);
-	SetFlip(FlipOpt);
+void GameObject::RenderSpriteSheet(SpriteSheet& SpriteSheetStruct, GLfloat OpacityValue, GLfloat& Frame, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+	if ((int)Frame >= SpriteSheetStruct.Frame)
+		Frame = 0.0;
+
+	if (!DisableAdjustAspect)
+		transform.ImageScale(ImageAspectMatrix, SpriteSheetStruct.Width, SpriteSheetStruct.Height);
+
+	computeUtil.ComputeMatrix(ResultMatrix, TranslateMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 	ObjectOpacity = OpacityValue;
-	Render(Image, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
-}
 
-void GameObject::DrawImage(int RenderType, Image& Image, glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation, GLfloat OpacityValue, int FlipOpt, bool ApplyUnitTransform, bool DisableAdjustAspect) {
-	InitRenderState(RenderType);
-	transform.Move(TranslateMatrix, Position);
-	transform.Rotate(RotateMatrix, Rotation);
-	transform.Scale(ScaleMatrix, Width, Height);
-	SetFlip(FlipOpt);
-	ObjectOpacity = OpacityValue;
-	Render(Image, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
-}
-
-#ifdef USE_SOUND_SYSTEM
-void GameObject::PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime) {
-	soundUtil.PlaySound(Sound, ChannelVar, StartTime);
-}
-
-void GameObject::PlaySoundOnce(Sound Sound, SoundChannel& ChannelVar, bool& BoolValue, unsigned int StartTime) {
-	if (BoolValue) {
-		soundUtil.PlaySound(Sound, ChannelVar, StartTime);
-		BoolValue = false;
+	if (ApplyUnitTransform) {
+		computeUtil.ComputeMatrix(ResultMatrix, UnitTranslateMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+		ObjectOpacity -= (1.0f - UnitOpacity);
+		EX.ClampValue(ObjectOpacity, 0.0, CLAMP_LESS);
+		ObjectBlur += UnitBlur;
 	}
-}
 
-void GameObject::PauseSound(SoundChannel& ChannelVar, bool Flag) {
-	soundUtil.PauseSound(ChannelVar, Flag);
+	PrepareRender(SpriteSheetStruct);
+	imageUtil.RenderSheet(SpriteSheetStruct, (int)Frame);
 }
-
-void GameObject::StopSound(SoundChannel& ChannelVar) {
-	soundUtil.StopSound(ChannelVar);
-}
-
-void GameObject::SetPlaySpeed(SoundChannel& ChannelVar, float PlaySpeed) {
-	soundUtil.SetPlaySpeed(ChannelVar, PlaySpeed);
-}
-
-void GameObject::ResetPlaySpeed(SoundChannel& ChannelVar) {
-	soundUtil.ResetPlaySpeed(ChannelVar);
-}
-
-void GameObject::EnableFreqCutoff(SoundChannel& ChannelVar, float Frequency) {
-	soundUtil.SetFreqCutOff(ChannelVar, Frequency);
-}
-
-void GameObject::EnableBeatDetect(SoundChannel& ChannelVar) {
-	soundUtil.SetBeatDetect(ChannelVar);
-}
-
-void GameObject::DetectBeat(GLfloat& Value, float ThresHold, float SamplingRate) {
-	Value =  soundUtil.DetectBeat(ThresHold, SamplingRate);
-}
-
-GLfloat GameObject::DetectBeat(float ThresHold, float SamplingRate) {
-	return soundUtil.DetectBeat(ThresHold, SamplingRate);
-}
-
-bool GameObject::IsBeat(float ThresHold, float SamplingRate) {
-	return soundUtil.IsBeat(ThresHold, SamplingRate);
-}
-
-void GameObject::DisableFreqCutoff(SoundChannel& ChannelVar) {
-	soundUtil.UnSetFreqCutOff(ChannelVar);
-}
-
-void GameObject::DisableBeatDetect(SoundChannel& ChannelVar) {
-	soundUtil.UnSetBeatDetect(ChannelVar);
-}
-
-void GameObject::SetSoundDistance(SoundChannel& ChannelVar, float MinDist, float MaxDist) {
-	soundUtil.SetDistance(ChannelVar, MinDist, MaxDist);
-}
-
-void GameObject::SetListnerPosition(float X, float Y) {
-	soundUtil.SetListnerPosition(X, Y);
-}
-
-void GameObject::SetListnerPosition(glm::vec2& Position) {
-	soundUtil.SetListnerPosition(Position.x, Position.y);
-}
-
-void GameObject::SetSoundPosition(SoundChannel& ChannelVar, float X, float Y, float Diff) {
-	soundUtil.SetSoundPosition(ChannelVar, X, Y, Diff);
-}
-
-void GameObject::SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff) {
-	soundUtil.SetSoundPosition(ChannelVar, Position.x, Position.y, Diff);
-}
-#endif
 
 ////////////////////////// private
 
@@ -250,6 +174,24 @@ void GameObject::PrepareRender(Image& ImageStruct) {
 		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (GLfloat)ImageStruct.Width, 1.0 / (GLfloat)ImageStruct.Height);
 	}
 	else  
+		glUniform1i(BLUR_STATE_LOCATION, 0);
+
+	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
+}
+
+void GameObject::PrepareRender(SpriteSheet& SpriteSheetStruct) {
+	glUseProgram(IMAGE_SHADER);
+	camera.PrepareRender(SHADER_TYPE_IMAGE);
+
+	glUniform1f(IMAGE_OPACITY_LOCATION, ObjectOpacity);
+	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
+
+	if (ObjectBlur > 0.0) {
+		glUniform1i(BLUR_STATE_LOCATION, 1);
+		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlur);
+		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (GLfloat)SpriteSheetStruct.Width, 1.0 / (GLfloat)SpriteSheetStruct.Height);
+	}
+	else
 		glUniform1i(BLUR_STATE_LOCATION, 0);
 
 	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));

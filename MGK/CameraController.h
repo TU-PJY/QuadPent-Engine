@@ -7,7 +7,7 @@ public:
 	GLfloat Rotation{};
 
 	void InputKey(KeyEvent& Event);
-	void UpdateCamera(float FT);
+	void UpdateFunc(float FT);
 	void MoveCamera(GLfloat X, GLfloat Y);
 	void MoveCamera(glm::vec2& PositionValue);
 	void RotateCamera(GLfloat Degree);

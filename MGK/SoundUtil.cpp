@@ -19,11 +19,11 @@ void SoundUtil::Init() {
 	SoundSystem->set3DSettings(1.0, 1.0, 2.0); 
 }
 
-void SoundUtil::Import(Sound& Sound, std::string FileName, FMOD_MODE Option) {
+void SoundUtil::Load(FMOD::Sound*& Sound, std::string FileName, FMOD_MODE Option) {
 	SoundSystem->createSound(FileName.c_str(), Option, 0, &Sound);
 }
 
-void SoundUtil::Release(Sound& Sound) {
+void SoundUtil::Release(FMOD::Sound*& Sound) {
 	Sound->release();
 }
 
@@ -35,6 +35,13 @@ void SoundUtil::PlaySound(FMOD::Sound* Sound, FMOD::Channel*& ChannelVar, unsign
 	SoundSystem->playSound(Sound, 0, false, &ChannelVar);
 	if (Ms > 0)
 		ChannelVar->setPosition(Ms, FMOD_TIMEUNIT_MS);
+}
+
+void SoundUtil::PlaySoundOnce(FMOD::Sound* Sound, FMOD::Channel*& ChannelVar, bool& FlagValue, unsigned int Ms) {
+	if (FlagValue) {
+		SoundSystem->playSound(Sound, 0, false, &ChannelVar);
+		FlagValue = false;
+	}
 }
 
 void SoundUtil::PauseSound(FMOD::Channel*& ChannelVar, bool Flag) {

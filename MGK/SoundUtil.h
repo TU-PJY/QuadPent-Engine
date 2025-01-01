@@ -19,10 +19,11 @@ private:
 
 public:
 	void Init();
-	void Import(Sound& Sound, std::string FileName, FMOD_MODE Option);
-	void Release(Sound& Sound);
+	void Load(FMOD::Sound*& Sound, std::string FileName, FMOD_MODE Option=FMOD_DEFAULT);
+	void Release(FMOD::Sound*& Sound);
 	void Update();
 	void PlaySound(FMOD::Sound* Sound, FMOD::Channel*& ChannelVar, unsigned int Ms=0);
+	void PlaySoundOnce(FMOD::Sound* Sound, FMOD::Channel*& ChannelVar, bool& FlagValue, unsigned int Ms=0);
 	void PauseSound(FMOD::Channel*& ChannelVar, bool Flag);
 	void StopSound(FMOD::Channel*& ChannelVar);
 	unsigned int GetLength(FMOD::Sound* Sound);

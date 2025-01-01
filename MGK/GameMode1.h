@@ -26,6 +26,7 @@ public:
 
 	static void Start() {
 		Framework::SetBackColor(0.3, 0.3, 0.3);
+
 		// Add task here
 		SetUp();
 	}

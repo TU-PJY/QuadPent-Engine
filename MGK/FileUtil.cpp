@@ -3,7 +3,7 @@
 #ifdef USE_FILE_SYSTEM
 #include "Config.h"
 
-void FileUtil::Import(std::string FileDirectory, DataFormat Format) {
+void FileUtil::Load(std::string FileDirectory, DataFormat Format) {
 	if (FileExist)
 		return;
 

@@ -37,7 +37,7 @@ public:
 	bool        SwapCommand{};
 
 	// Initialize matrix. Select a rendering type.
-	void InitRenderState(int RenderType=RENDER_TYPE_DEFAULT);
+	void BeginRender(int RenderType=RENDER_TYPE_DEFAULT);
 
 	// Overlays color over the image.
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
@@ -49,16 +49,16 @@ public:
 	void SetColorRGB(int R, int G, int B);
 
 	// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
-	void UpdateViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect = true);
+	void ComputeViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect = true);
 
 	// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
-	void UpdateViewportPosition(glm::vec2& DestValue, bool ApplyAspect);
+	void ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspect);
 
 	// Updates the object's position relative to the local coordinate system.
-	void UpdateLocalPosition(GLfloat& DestX, GLfloat& DestY);
+	void ComputeLocalPosition(GLfloat& DestX, GLfloat& DestY);
 
 	// Updates the object's position relative to the local coordinate system.
-	void UpdateLocalPosition(glm::vec2& DestPosition);
+	void ComputeLocalPosition(glm::vec2& DestPosition);
 
 	void SetUnitFlip(int FlipOpt);
 	void SetUnitOpacity(GLfloat Value);
@@ -69,78 +69,11 @@ public:
 	void SetBlur(GLfloat Strength);
 
 	//  Render the image.
-	void Render(Image& Image, GLfloat OpacityValue = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
+	void RenderSprite(Image& Image, GLfloat OpacityValue = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
-	// Render the image in one step.
-	void DrawImage(int RenderType, Image& ImageSturct, 
-		GLfloat X, GLfloat Y, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat OpacityValue=1.0, 
-		int FlipOpt=FLIP_TYPE_NONE, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
-
-	// Render the image in one step.
-	void DrawImage(int RenderType, Image& Image, 
-		glm::vec2& Position, GLfloat Width, GLfloat Height, GLfloat Rotation=0.0, GLfloat OpacityValue =1.0,
-		int FlipOpt=FLIP_TYPE_NONE, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
-
-#ifdef USE_SOUND_SYSTEM
-	// Play sound.You can specify the playback start point.
-	void PlaySound(Sound Sound, SoundChannel& ChannelVar, unsigned int StartTime=0);
+	// Render the sprite sheet.
+	void RenderSpriteSheet(SpriteSheet& SpriteSheetStruct, GLfloat OpacityValue, GLfloat& Frame, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 	
-	//Play the sound only once. You can specify the playback start point.
-	void PlaySoundOnce(Sound Sound, SoundChannel& ChannelVar, bool& BoolValue, unsigned int StartTime=0);
-
-	// Pause the sound. It is played when false is entered in Flag.
-	void PauseSound(SoundChannel& ChannelVar, bool Flag);
-
-	// Stop the sound.
-	void StopSound(SoundChannel& ChannelVar);
-
-	// Adjust the sound playback speed.
-	void SetPlaySpeed(SoundChannel& ChannelVar, float PlaySpeed);
-
-	// Resets sound playback speed to default.
-	void ResetPlaySpeed(SoundChannel& ChannelVar);
-
-	// Activates the frequency cutoff effect.
-	void EnableFreqCutoff(SoundChannel& ChannelVar, float Frequency);
-
-	// Activates beat detection.
-	void EnableBeatDetect(SoundChannel& ChannelVar);
-
-	// Detects the beats of sound in real time. 
-	// Applies the detected result to a specific value. You can adjust detection sensitivity with ThreasHold and SamplingRate.
-	void DetectBeat(GLfloat& Value, float ThresHold, float SamplingRate);
-
-	// Recognizes the beats of sound in real time.
-	// Returns the detected result value.You can adjust detection sensitivity with ThresHold and SamplingRate.
-	GLfloat DetectBeat(float ThresHold, float SamplingRate);
-
-	// Detects the beats of sound in real time. 
-	// Returns whether the bit is detected. You can adjust detection sensitivity with ThresHold and SamplingRate.
-	bool IsBeat(float ThresHold, float SamplingRate);
-
-	// Disables the frequency cutoff effect.
-	void DisableFreqCutoff(SoundChannel& ChannelVar);
-
-	// Disables beat detection.
-	void DisableBeatDetect(SoundChannel& ChannelVar);
-
-	// Specifies how much the sound volume changes over distance.
-	void SetSoundDistance(SoundChannel& ChannelVar, float MinDist, float MaxDist);
-
-	// Specifies the local coordinates at which you hear the sound.
-	void SetListnerPosition(float X, float Y);
-
-	// Specifies the local coordinates at which you hear the sound.
-	void SetListnerPosition(glm::vec2& Position);
-
-	// Specifies the local coordinates where the sound occurs.
-	void SetSoundPosition(SoundChannel& ChannelVar, float X, float Y, float Diff);
-
-	// Specifies the local coordinates where the sound occurs.
-	void SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff);
-#endif
-	
-
 	// class destructor
 	virtual ~GameObject() {}
 
@@ -172,7 +105,6 @@ public:
 	virtual BoundingCircle GetBoundingCircle() { return {}; }
 
 	// camera functions
-	virtual void UpdateCamera(float FT) {}
 	virtual void MoveCamera(GLfloat X, GLfloat Y) {}
 	virtual void MoveCamera(glm::vec2 Position) {}
 	virtual void RotateCamera(GLfloat Degree) {}
@@ -180,8 +112,12 @@ public:
 	virtual void ChangeCameraZoom(GLfloat ZoomValue) {}
 	virtual GLfloat ComputeNextZoom(int ZoomType, GLfloat ZoomValue) { return {}; }
 
+	// FPS indicator function
+	virtual void RenderIndicator() {}
+
 private:
 	void PrepareRender(Image& ImageStruct);
+	void PrepareRender(SpriteSheet& SpriteSheetStruct);
 	glm::vec4 ViewportPosition();
 	glm::vec4 LocalPosition();
 };

@@ -1,5 +1,6 @@
 #include "EngineHeader.h"
 #include "CameraController.h"
+#include "FPSInd.h"
 #include "Scene.h"
 
 #ifdef USE_SOUND_SYSTEM
@@ -24,11 +25,13 @@ GLvoid Framework::Framework() {
 	if (UpdateActivateCommand) {
 		scene.Routine();
 		scene.CompleteCommand();
-		CameraControl->UpdateCamera(DeltaTime);
 #ifdef USE_SOUND_SYSTEM
 		soundUtil.Update();
 #endif
 	}
+
+	if (Indicator)
+		Indicator->RenderIndicator();
 
 	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
 	DeltaTime = (CurrentTime - PrevTime) / 1000.0;

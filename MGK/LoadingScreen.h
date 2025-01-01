@@ -11,7 +11,7 @@ class LoadingScreen : public GameObject {
 private:
 	HANDLE  ThreadHandle{};
 	GLfloat Rotation{};
-	GLfloat Transparent{1.0};
+	GLfloat SpinnerOpacity{1.0};
 	bool    LoadCommand{};
 	bool    ThreadEnd{};
 
@@ -35,22 +35,26 @@ public:
 			}
 
 			if(ThreadEnd) {
-				imageUtil.FinishLoad();
+				imageUtil.Map();
 
 				if (!ENABLE_INTRO_SCREEN) {
 #ifdef USE_SOUND_SYSTEM
 					soundUtil.Release(SysRes.INTRO_SOUND);
 #endif				
-					if(SHOW_FPS)
+					if (SHOW_FPS) {
 						scene.AddObject(new FPS_Indicator, "MGK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
+						Indicator = scene.Find("MGK_OBJECT_FPS_INDICATOR");
+					}
 					scene.SwitchMode(START_MODE);
 				}
 
 				else {
-					Transparent -= FT * 2.0;
-					if (EX.CheckClampValue(Transparent, 0.0, CLAMP_LESS)) {
-						if(SHOW_FPS)
+					SpinnerOpacity -= FT * 2.0;
+					if (EX.CheckClampValue(SpinnerOpacity, 0.0, CLAMP_LESS)) {
+						if (SHOW_FPS) {
 							scene.AddObject(new FPS_Indicator, "MGK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
+							Indicator = scene.Find("MGK_OBJECT_FPS_INDICATOR");
+						}
 						scene.SwitchMode(IntroMode.Start);
 					}
 				}
@@ -63,8 +67,7 @@ public:
 #ifdef USE_SOUND_SYSTEM
 			soundUtil.Init();
 #endif
-
-			imageUtil.Import(SysRes.LOADING_SPINNER, SysRes.MGK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
+			imageUtil.Load(SysRes.LOADING_SPINNER, SysRes.MGK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 			threadUtil.Create(ThreadHandle, SystemResourceCreateThread);
 
 			LoadCommand = true;
@@ -72,12 +75,16 @@ public:
 	}
 
 	void RenderFunc() {
-		DrawImage(RENDER_TYPE_STATIC, SysRes.LOADING_SPINNER, ASP(1.0) - 0.15, -1.0 + 0.15, 0.25, 0.25, Rotation, Transparent);
+		BeginRender(RENDER_TYPE_STATIC);
+		transform.Move(TranslateMatrix, WindowRect.rx - 0.15, -0.85);
+		transform.Scale(ScaleMatrix, 0.25, 0.25);
+		transform.Rotate(RotateMatrix, Rotation);
+		RenderSprite(SysRes.LOADING_SPINNER, SpinnerOpacity);
 	}
 
 	static DWORD WINAPI SystemResourceCreateThread(LPVOID Param) {
 #ifdef USE_SOUND_SYSTEM
-		soundUtil.Import(SysRes.INTRO_SOUND, SysRes.MGK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
+		soundUtil.Load(SysRes.INTRO_SOUND, SysRes.MGK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
 #endif
 
 		imageUtil.PreLoad(SysRes.MGK_LOGO, SysRes.MGK_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
@@ -89,14 +96,14 @@ public:
 		gluQuadricDrawStyle(SysRes.GLU_CIRCLE, GLU_FILL);
 		gluQuadricDrawStyle(SysRes.GLU_LINE_CIRCLE, GLU_FILL);
 
-		fontUtil.Import(SysRes.ROBOTO_FONT_DIRECTORY, true);
+		fontUtil.Load(SysRes.ROBOTO_FONT_DIRECTORY, true);
 
 #ifdef USE_CUSTOM_FONT
 		int TotalSize = sizeof(FONT_PATH);
 		int ElementSize = sizeof(FONT_PATH[0]);
 		int Length = TotalSize / ElementSize;
 		for (int i = 0; i < Length; ++i)
-			FontUtil::Import(FONT_PATH[i], true);
+			fontUtil.Load(FONT_PATH[i], true);
 #endif
 
 		return 0;

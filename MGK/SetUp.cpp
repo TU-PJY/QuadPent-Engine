@@ -20,6 +20,7 @@ bool FullscreenState;
 
 Camera camera;
 GameObject* CameraControl;
+GameObject* Indicator;
 
 GLfloat ASPECT;
 ViewportRect WindowRect;
@@ -28,7 +29,7 @@ glm::vec3 BackColor;
 SystemResource SysRes;
 SpriteResource Sprite;
 AudioResource Audio;
-DataResource Data;
+DataFormatResource Format;
 GlobalValue Global;
 
 void Framework::SetupSystem(int argc, char** argv) {

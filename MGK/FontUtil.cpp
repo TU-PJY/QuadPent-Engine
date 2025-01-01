@@ -3,7 +3,7 @@
 
 FontUtil fontUtil;
 
-bool FontUtil::Import(const std::string& FontFilePath, bool LoadInThread) {
+bool FontUtil::Load(const std::string& FontFilePath, bool LoadInThread) {
     std::wstring Path = stringUtil.Wstring(FontFilePath);
     DWORD NumFonts{};
 

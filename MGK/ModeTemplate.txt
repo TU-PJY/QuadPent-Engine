@@ -12,7 +12,7 @@ public:
 	bool        UseObjectPtr{ false };
 
 	// type object tag to input device event
-	// Not used if UseObjectPtr is false
+	// Not used if UseObjectPtr is true
 	std::vector<std::string> InputObjectTag
 	{
 

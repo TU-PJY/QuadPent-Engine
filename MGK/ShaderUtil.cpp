@@ -50,18 +50,18 @@ char* ShaderUtil::LoadShaderFile(std::string FileName) {
 }
 
 void ShaderUtil::LoadVertexShader(std::string VertexShader) {
-	vertex_source = LoadShaderFile(VertexShader);
-	vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertex_shader, 1, (const GLchar**)&vertex_source, 0);
-	glCompileShader(vertex_shader);
+	VertexShaderSource = LoadShaderFile(VertexShader);
+	VertexShaderBuffer = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(VertexShaderBuffer, 1, (const GLchar**)&VertexShaderSource, 0);
+	glCompileShader(VertexShaderBuffer);
 
 	GLint Result{};
 	GLchar ErrorLog[512]{};
 
-	glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &Result);
+	glGetShaderiv(VertexShaderBuffer, GL_COMPILE_STATUS, &Result);
 
 	if (!Result) {
-		glGetShaderInfoLog(vertex_shader, 512, NULL, ErrorLog);
+		glGetShaderInfoLog(VertexShaderBuffer, 512, NULL, ErrorLog);
 		std::cout << "ERROR: vertex shader error\n" << ErrorLog << std::endl;
 
 		return;
@@ -69,18 +69,18 @@ void ShaderUtil::LoadVertexShader(std::string VertexShader) {
 }
 
 void ShaderUtil::LoadFragmentShader(std::string FragmentShader) {
-	fragment_source = LoadShaderFile(FragmentShader);
-	fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragment_shader, 1, (const GLchar**)&fragment_source, 0);
-	glCompileShader(fragment_shader);
+	FragmentShaderSource = LoadShaderFile(FragmentShader);
+	FragmentShaderBuffer = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(FragmentShaderBuffer, 1, (const GLchar**)&FragmentShaderSource, 0);
+	glCompileShader(FragmentShaderBuffer);
 
 	GLint Result{};
 	GLchar ErrorLog[512]{};
 
-	glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &Result);
+	glGetShaderiv(FragmentShaderBuffer, GL_COMPILE_STATUS, &Result);
 
 	if (!Result) {
-		glGetShaderInfoLog(fragment_shader, 512, NULL, ErrorLog);
+		glGetShaderInfoLog(FragmentShaderBuffer, 512, NULL, ErrorLog);
 		std::cout << "ERROR: fragment shader error\n" << ErrorLog << std::endl;
 
 		return;
@@ -88,18 +88,18 @@ void ShaderUtil::LoadFragmentShader(std::string FragmentShader) {
 }
 
 void ShaderUtil::LoadComputeShader(std::string ComputeShader) {
-	compute_source = LoadShaderFile(ComputeShader);
-	compute_shader = glCreateShader(GL_COMPUTE_SHADER);
-	glShaderSource(compute_shader, 1, (const GLchar**)&compute_source, 0);
-	glCompileShader(compute_shader);
+	ComputeShaderSource = LoadShaderFile(ComputeShader);
+	CommputeShaderBuffer = glCreateShader(GL_COMPUTE_SHADER);
+	glShaderSource(CommputeShaderBuffer, 1, (const GLchar**)&ComputeShaderSource, 0);
+	glCompileShader(CommputeShaderBuffer);
 
 	GLint Result{};
 	GLchar ErrorLog[512]{};
 
-	glGetShaderiv(compute_shader, GL_COMPILE_STATUS, &Result);
+	glGetShaderiv(CommputeShaderBuffer, GL_COMPILE_STATUS, &Result);
 
 	if (!Result) {
-		glGetShaderInfoLog(compute_shader, 512, NULL, ErrorLog);
+		glGetShaderInfoLog(CommputeShaderBuffer, 512, NULL, ErrorLog);
 		std::cout << "ERROR: compute shader error\n" << ErrorLog << std::endl;
 
 		return;
@@ -108,18 +108,18 @@ void ShaderUtil::LoadComputeShader(std::string ComputeShader) {
 
 void ShaderUtil::CreateShader(GLuint& Shader) {
 	Shader = glCreateProgram();
-	glAttachShader(Shader, vertex_shader);
-	glAttachShader(Shader, fragment_shader);
+	glAttachShader(Shader, VertexShaderBuffer);
+	glAttachShader(Shader, FragmentShaderBuffer);
 	glLinkProgram(Shader);
-	glDeleteShader(vertex_shader);
-	glDeleteShader(fragment_shader);
+	glDeleteShader(VertexShaderBuffer);
+	glDeleteShader(FragmentShaderBuffer);
 }
 
 void ShaderUtil::CreateComputeShader(GLuint& Shader) {
 	Shader = glCreateProgram();
-	glAttachShader(Shader, compute_shader);
+	glAttachShader(Shader, CommputeShaderBuffer);
 	glLinkProgram(Shader);
-	glDeleteShader(compute_shader);
+	glDeleteShader(CommputeShaderBuffer);
 }
 
 void ShaderUtil::CreateShaderLocation() {

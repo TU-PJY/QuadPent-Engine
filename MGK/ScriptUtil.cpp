@@ -3,7 +3,7 @@
 #ifdef USE_FILE_SYSTEM
 #include "EngineHeader.h"
 
-void ScriptUtil::Import(std::string FileName) {
+void ScriptUtil::Load(std::string FileName) {
 	if (FileExist)
 		return;
 

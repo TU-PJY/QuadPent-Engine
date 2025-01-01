@@ -3,6 +3,6 @@
 
 class FontUtil {
 public:
-	bool Import(const std::string& fontFilePath, bool LoadInThread);
+	bool Load(const std::string& fontFilePath, bool LoadInThread);
 };
 extern FontUtil fontUtil;

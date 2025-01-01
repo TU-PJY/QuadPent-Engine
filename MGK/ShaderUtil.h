@@ -4,8 +4,8 @@
 
 class ShaderUtil {
 private:
-	GLchar* vertex_source{}, *fragment_source{}, *compute_source{};
-	GLuint  vertex_shader{}, fragment_shader{}, compute_shader{};
+	GLchar* VertexShaderSource{}, *FragmentShaderSource{}, *ComputeShaderSource{};
+	GLuint  VertexShaderBuffer{}, FragmentShaderBuffer{}, CommputeShaderBuffer{};
 
 public:
 	char* LoadShaderFile(std::string file);

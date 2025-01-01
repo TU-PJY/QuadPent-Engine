@@ -225,6 +225,12 @@ typedef struct {
 	int          Width, Height;
 }Image;
 
+typedef struct {
+	std::vector<unsigned int> Texture;
+	int                Width, Height;
+	int                Frame;
+}SpriteSheet;
+
 // pre load image struct
 typedef struct {
 	Image*         ImagePtr;
