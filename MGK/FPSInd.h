@@ -16,10 +16,10 @@ public:
 		Text.SetHeightAlign(HEIGHT_ALIGN_UNDER);
 	}
 
-	void UpdateFunc(float FT) {
-		FPS_IND_REFRESH_TIMER.Update(FT);
+	void UpdateFunc(float FrameTime) {
+		FPS_IND_REFRESH_TIMER.Update(FrameTime);
 		if (FPS_IND_REFRESH_TIMER.CheckMiliSec(0.5, 1, CHECK_AND_INTERPOLATE))
-			CurrentDeltaTime = FT;
+			CurrentDeltaTime = FrameTime;
 	}
 
 	void RenderIndicator() {

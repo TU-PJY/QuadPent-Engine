@@ -38,8 +38,8 @@ public:
 		}
 	}
 
-	void UpdateFunc(float FT) {
-		timer.Update(FT);
+	void UpdateFunc(float FrameTime) {
+		timer.Update(FrameTime);
 		switch (Scene) {
 		case 0:
 			if (timer.CheckMiliSec(1.0, 1, CHECK_AND_INTERPOLATE)) {
@@ -53,12 +53,12 @@ public:
 
 		case 1:
 			if (timer.MiliSec() < 2.5) {
-				LogoPosition = Slerp.Update(LogoPosition, 0.0, AnimationSpeed, FT);
-				LogoOpacity = Slerp.Update(LogoOpacity, 1.0, AnimationSpeed, FT);
+				LogoPosition = Slerp.Update(LogoPosition, 0.0, AnimationSpeed, FrameTime);
+				LogoOpacity = Slerp.Update(LogoOpacity, 1.0, AnimationSpeed, FrameTime);
 			}
 
 			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
-				LogoOpacity -= FT * 2;
+				LogoOpacity -= FrameTime * 2;
 				EX.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
 			}
 
@@ -72,12 +72,12 @@ public:
 
 		case 2:
 			if (timer.MiliSec() < 2.5) {
-				LogoPosition = Slerp.Update(LogoPosition, 0.0, AnimationSpeed, FT);
-				LogoOpacity = Slerp.Update(LogoOpacity, 1.0, AnimationSpeed, FT);
+				LogoPosition = Slerp.Update(LogoPosition, 0.0, AnimationSpeed, FrameTime);
+				LogoOpacity = Slerp.Update(LogoOpacity, 1.0, AnimationSpeed, FrameTime);
 			}
 
 			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
-				LogoOpacity -= FT * 2;
+				LogoOpacity -= FrameTime * 2;
 				EX.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
 			}
 

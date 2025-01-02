@@ -25,9 +25,9 @@ public:
 #endif
 	}
 
-	void UpdateFunc(float FT) {
+	void UpdateFunc(float FrameTime) {
 		if (LoadCommand) {
-			Rotation -= 200 * FT;
+			Rotation -= 200 * FrameTime;
 
 			if (!threadUtil.IsRunning(ThreadHandle) && !ThreadEnd) {
 				threadUtil.Close(ThreadHandle);
@@ -49,7 +49,7 @@ public:
 				}
 
 				else {
-					SpinnerOpacity -= FT * 2.0;
+					SpinnerOpacity -= FrameTime * 2.0;
 					if (EX.CheckClampValue(SpinnerOpacity, 0.0, CLAMP_LESS)) {
 						if (SHOW_FPS) {
 							scene.AddObject(new FPS_Indicator, "MGK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);

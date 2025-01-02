@@ -225,6 +225,7 @@ typedef struct {
 	int          Width, Height;
 }Image;
 
+// sprite sheet struct
 typedef struct {
 	std::vector<unsigned int> Texture;
 	int                Width, Height;
@@ -234,11 +235,16 @@ typedef struct {
 // pre load image struct
 typedef struct {
 	Image*         ImagePtr;
-	int            Width, Height;
-	unsigned int   Texture;
 	unsigned char* TextureData;
 	int            ImageType;
 }PreLoadInfo;
+
+// pre load sprite sheet struct
+typedef struct {
+	SpriteSheet*   SpriteSheetPtr;
+	std::vector<unsigned char*> TextureData;
+	int            ImageType;
+}PreLoadSpriteSheetInfo;
 
 // corner position of display
 struct ViewportRect {

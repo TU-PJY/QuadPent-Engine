@@ -78,7 +78,7 @@ public:
 	virtual ~GameObject() {}
 
 	// Updates a value inside an object class.
-	virtual void UpdateFunc(float FT) {}
+	virtual void UpdateFunc(float FrameTime) {}
 
 	// Renders image resources used by object classes.
 	virtual void RenderFunc() {}

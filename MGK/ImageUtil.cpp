@@ -108,13 +108,13 @@ void ImageUtil::LoadClip(Image& ImageStruct, std::string FilePath, int X, int Y,
 	ImageStruct.Height = ClipHeight;
 }
 
-void ImageUtil::SetSpriteSheetSize(int ValueClipWidth, int ValueClipHeight, int ValueNumRow, int ValueNumCol, int ValueEndRow, int ValueStartCol) {
+void ImageUtil::SetSpriteSheetSize(int ValueClipWidth, int ValueClipHeight, int ValueNumRow, int ValueNumCol, int ValueStartCol, int ValueBlank) {
 	ClipWidth = ValueClipWidth;
 	ClipHeight = ValueClipHeight;
 	NumRow = ValueNumRow;
 	NumCol = ValueNumCol;
-	EndRow = ValueEndRow;
-	StartCol = ValueStartCol;
+	StartLocation = ValueStartCol;
+	BlankLocation = ValueBlank;
 }
 
 void ImageUtil::LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
@@ -125,14 +125,14 @@ void ImageUtil::LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string File
 
 	SpriteSheetStruct.Texture.assign(NumRow * NumCol, {});
 
-	if (EndRow != 0) 
-		SpriteSheetStruct.Frame = NumRow * NumCol - (NumRow - EndRow);
+	if (BlankLocation != 0) 
+		SpriteSheetStruct.Frame = NumRow * NumCol - (NumRow - BlankLocation);
 	else 
 		SpriteSheetStruct.Frame = NumRow * NumCol;
 
 	int CurrentIndex{};
 	int CurrentXPosition = 0;
-	int CurrentYPosition = Height - ClipHeight * StartCol;
+	int CurrentYPosition = Height - ClipHeight * StartLocation;
 	EX.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 	for (int C = 0; C < NumCol; ++C) {
@@ -184,15 +184,65 @@ void ImageUtil::LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string File
 	SpriteSheetStruct.Height = ClipHeight;
 }
 
+void ImageUtil::PreLoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
+	PreLoadSpriteSheetInfo PLSS{};
+	int Width{}, Height{}, Channel{};
+	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
+
+	SpriteSheetStruct.Texture.assign(NumRow * NumCol, {});
+
+	if (BlankLocation != 0)
+		SpriteSheetStruct.Frame = NumRow * NumCol - (NumRow - BlankLocation);
+	else
+		SpriteSheetStruct.Frame = NumRow * NumCol;
+
+	int CurrentXPosition = 0;
+	int CurrentYPosition = Height - ClipHeight * StartLocation;
+	EX.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+
+	for (int C = 0; C < NumCol; ++C) {
+		for (int R = 0; R < NumRow; ++R) {
+			unsigned char* ClippedTextureData = (unsigned char*)malloc(ClipWidth * ClipHeight * Channel);
+			if (!ClippedTextureData) {
+				stbi_image_free(TextureData);
+				return;
+			}
+
+			for (int i = 0; i < ClipHeight; ++i)
+				memcpy(ClippedTextureData + i * ClipWidth * Channel, TextureData + ((CurrentYPosition + i) * Width + CurrentXPosition) * Channel, ClipWidth * Channel);
+
+			PLSS.TextureData.emplace_back(ClippedTextureData);
+
+			CurrentXPosition += ClipWidth;
+			EX.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
+		}
+
+		CurrentYPosition -= ClipHeight;
+		EX.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+
+		CurrentXPosition = 0;
+	}
+
+	SpriteSheetStruct.Width = ClipWidth;
+	SpriteSheetStruct.Height = ClipHeight;
+
+	PLSS.SpriteSheetPtr = &SpriteSheetStruct;
+	PLSS.ImageType = Type;
+
+	LoadSpriteSheetBuffer.emplace_back(PLSS);
+
+	stbi_image_free(TextureData);
+}
+
 void ImageUtil::PreLoad(Image& ImageStruct, std::string FilePath, int Type) {
 	PreLoadInfo PLI{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 
+	ImageStruct.Width = Width;
+	ImageStruct.Height = Height;
 	PLI.ImagePtr = &ImageStruct;
 	PLI.ImageType = Type;
-	PLI.Width = Width;
-	PLI.Height = Height;
 	PLI.TextureData = TextureData;
 
 	LoadBuffer.emplace_back(PLI);
@@ -219,10 +269,10 @@ void ImageUtil::PreLoadClip(Image& ImageStruct, std::string FilePath, int X, int
 	for (int Row = 0; Row < ClipHeight; ++Row)
 		memcpy(ClippedTextureData + Row * ClipWidth * Channel, TextureData + ((Y + Row) * Width + X) * Channel, ClipWidth * Channel);
 
+	ImageStruct.Width = ClipWidth;
+	ImageStruct.Height = ClipHeight;
 	PLI.ImagePtr = &ImageStruct;
 	PLI.ImageType = Type;
-	PLI.Width = ClipWidth;
-	PLI.Height = ClipHeight;
 	PLI.TextureData = ClippedTextureData;
 
 	stbi_image_free(TextureData);
@@ -231,36 +281,60 @@ void ImageUtil::PreLoadClip(Image& ImageStruct, std::string FilePath, int X, int
 }
 
 void ImageUtil::Map() {
-	if (LoadBuffer.empty())
-		return;
+	if (!LoadBuffer.empty()) {
+		for (auto& B : LoadBuffer) {
+			glGenTextures(1, &B.ImagePtr->Texture);
+			glBindTexture(GL_TEXTURE_2D, B.ImagePtr->Texture);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	for (auto& B : LoadBuffer) {
-		glGenTextures(1, &B.Texture);
-		glBindTexture(GL_TEXTURE_2D, B.Texture);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			switch (B.ImageType) {
+			case IMAGE_TYPE_LINEAR:
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+				break;
 
-		switch (B.ImageType) {
-		case IMAGE_TYPE_LINEAR:
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			break;
+			case IMAGE_TYPE_NEAREST:
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+				break;
+			}
 
-		case IMAGE_TYPE_NEAREST:
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			break;
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, B.ImagePtr->Width, B.ImagePtr->Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, B.TextureData);
+			stbi_image_free(B.TextureData);
 		}
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, B.Width, B.Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, B.TextureData);
-		stbi_image_free(B.TextureData);
-
-		B.ImagePtr->Width = B.Width;
-		B.ImagePtr->Height = B.Height;
-		B.ImagePtr->Texture = B.Texture;
+		LoadBuffer.clear();
 	}
 
-	LoadBuffer.clear();
+	if (!LoadSpriteSheetBuffer.empty()) {
+		for (auto& B : LoadSpriteSheetBuffer) {
+			size_t SheetSize = B.SpriteSheetPtr->Texture.size();
+			for (int i = 0; i < SheetSize; ++i) {
+				glGenTextures(1, &B.SpriteSheetPtr->Texture[i]);
+				glBindTexture(GL_TEXTURE_2D, B.SpriteSheetPtr->Texture[i]);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+				switch (B.ImageType) {
+				case IMAGE_TYPE_LINEAR:
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+					break;
+
+				case IMAGE_TYPE_NEAREST:
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+					break;
+				}
+
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, B.SpriteSheetPtr->Width, B.SpriteSheetPtr->Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, B.TextureData[i]);
+				stbi_image_free(B.TextureData[i]);
+			}
+		}
+
+		LoadSpriteSheetBuffer.clear();
+	}
 }
 
 void ImageUtil::Render(Image& ImageStruct) {
