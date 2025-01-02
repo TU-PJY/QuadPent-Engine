@@ -30,7 +30,7 @@ GLvoid Framework::Framework() {
 #endif
 	}
 
-	if (Indicator)
+	if (SHOW_FPS)
 		Indicator->RenderIndicator();
 
 	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
