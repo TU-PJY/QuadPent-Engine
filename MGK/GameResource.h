@@ -4,7 +4,7 @@
 // Declare the sprite resource or directory here. 
 class SpriteResource {
 public:
-	SpriteSheet spriteTest{};
+
 };
 
 // Declare the sound resource or directory here. 
