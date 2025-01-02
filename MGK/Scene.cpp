@@ -241,7 +241,7 @@ void Scene::UpdateObjectList() {
 
 			if ((*Object)->DeleteCommand) {
 				ObjectList[Layer].erase(Object);
-				++SceneCommandCount;
+				++IndexCommandCount;
 			}
 
 			else if ((*Object)->SwapCommand) {
@@ -261,12 +261,12 @@ void Scene::UpdateObjectList() {
 
 void Scene::UpdateObjectIndex() {
 	auto Object = begin(ObjectIndex);
-	while (Object != end(ObjectIndex) && SceneCommandCount != 0) {
+	while (Object != end(ObjectIndex) && IndexCommandCount != 0) {
 		if (Object->second->DeleteCommand) {
 			delete Object->second;
 			Object->second = nullptr;
 			Object = ObjectIndex.erase(Object);
-			--SceneCommandCount;
+			--IndexCommandCount;
 			continue;
 		}
 		++Object;

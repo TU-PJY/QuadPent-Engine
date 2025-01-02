@@ -25,5 +25,6 @@ public:
 	void RenderSheet(SpriteSheet& SpriteSheetStruct, int Frame);
 	void RenderRaw();
 	void Release(Image& ImageStruct);
+	void ReleaseSpriteSheet(SpriteSheet& SpriteSheetStruct);
 };
 extern ImageUtil imageUtil;

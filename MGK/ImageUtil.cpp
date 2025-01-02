@@ -358,3 +358,9 @@ void ImageUtil::RenderRaw() {
 void ImageUtil::Release(Image& ImageStruct) {
 	glDeleteTextures(1, &ImageStruct.Texture);
 }
+
+void ImageUtil::ReleaseSpriteSheet(SpriteSheet& SpriteSheetStruct) {
+	size_t SheetSize = SpriteSheetStruct.Texture.size();
+	for(int i = 0; i < SheetSize; ++i)
+		glDeleteTextures(1, &SpriteSheetStruct.Texture[i]);
+}
