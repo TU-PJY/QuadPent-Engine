@@ -23,6 +23,14 @@ void Framework::SetFrameLimit(int FrameLimit) {
 	DestFPS = 1000.0 / (float)FPSLimit;
 }
 
+void Framework::HideCursor() {
+	glutSetCursor(GLUT_CURSOR_NONE);
+}
+
+void Framework::ShowCursor() {
+	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+}
+
 void Framework::SwitchScreenState() {
 	switch (FullscreenState) {
 	case false:
