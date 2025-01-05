@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "MouseUtil.h"
+#include "CameraController.h"
 
 class GameMode1 {
 public:
@@ -8,18 +9,17 @@ public:
 	std::string ModeName { "GameMode1" };
 	int         ModeType { MODE_TYPE_DEFAULT };
 
-	// When this option is activated, objects are accessed using object pointers instead of object tags.
-	bool        UseObjectPtr{ false };
+	// when you activate this option, you can access the camera controller.
+	bool        UseCameraController{ false };
 
 	// type object tag to input device event
-	// Not used if UseObjectPtr is false
 	std::vector<std::string> InputObjectTag
 	{
 
 	};
 
-	// Used when activating the UseObjectPtr option.
-	// You can use AddObjectPtr(std::stringTag) to add an object pointer to control.
+	// this is a container that stores object pointers for accessing object controllers.
+	// a pointer to the object corresponding to the tag entered in InputObjectTag is added when the mode starts.
 	std::vector<GameObject*> InputObject{};
 
 	/////////////////////////////////////////////////////////////
@@ -32,7 +32,6 @@ public:
 	}
 
 	static void Destructor() {
-		ClearObjectPtr();
 		// Add task here
 	}
 
@@ -46,33 +45,26 @@ public:
 	}
 
 	static void SetUp() {
+		M_Inst->InputObject.clear();
+
+		for (auto const& Tag : M_Inst->InputObjectTag) {
+			if (auto Object = scene.Find(Tag); Object)
+				M_Inst->InputObject.emplace_back(Object);
+		}
+
+		if (M_Inst->UseCameraController)
+			M_Inst->InputObject.emplace_back(CameraControl);
+		
 		scene.RegisterModeName(M_Inst->ModeName);
 		scene.RegisterDestructor(Destructor);
 		scene.RegisterController(Controller, M_Inst->ModeType);
 	}
 
-	static void AddObjectPtr(std::string ObjectTag) {
-		if (!M_Inst->UseObjectPtr)  return;
-		auto Object = scene.Find(ObjectTag);
-		if (Object)  M_Inst->InputObject.emplace_back(Object);
-	}
-
-	static void ClearObjectPtr() {
-		if (!M_Inst->UseObjectPtr)  return;
-		M_Inst->InputObject.clear();
-	}
-
 	static void ProcessKeyEvent(KeyEvent& Event) {
-		if (!M_Inst->UseObjectPtr) {
-			for (auto const& Object : M_Inst->InputObjectTag)
-				scene.InputKey(Object, Event);
-		}
-		else {
-			for (auto const& Object : M_Inst->InputObject)
-				if (Object)  Object->InputKey(Event);
-		}
-	}
+		for (auto const& Object : M_Inst->InputObject)
+			if (Object)  Object->InputKey(Event);
 
+	}
 	static void KeyDown(unsigned char KEY, int X, int Y) {
 #ifdef ENABLE_DEV_EXIT
 		if (KEY == NK_ESCAPE)
@@ -113,18 +105,12 @@ public:
 		else if (Wheel < 0)
 			WheelEvent = WHEEL_DOWN;
 
-		if (!M_Inst->UseObjectPtr) {
-			for (auto const& Object : M_Inst->InputObjectTag)
-				scene.InputScroll(Object, WheelEvent);
-		}
-		else {
-			for (auto const& Object : M_Inst->InputObject)
-				if (Object)  Object->InputScroll(WheelEvent);
-		}
+		for (auto const& Object : M_Inst->InputObject)
+			if (Object)  Object->InputScroll(WheelEvent);
 	}
 
 	static void MouseButton(int Button, int State, int X, int Y) {
-		int ButtonEvent = -1;
+		int ButtonEvent{};
 
 		switch (State) {
 		case GLUT_DOWN:
@@ -149,15 +135,9 @@ public:
 			}
 			break;
 		}
-
-		if (!M_Inst->UseObjectPtr) {
-			for (auto const& Object : M_Inst->InputObjectTag)
-				scene.InputMouse(Object, ButtonEvent);
-		}
-		else {
-			for (auto const& Object : M_Inst->InputObject)
-				if (Object)  Object->InputMouse(ButtonEvent);
-		}
+		
+		for (auto const& Object : M_Inst->InputObject)
+			if (Object)  Object->InputMouse(ButtonEvent);
 	}
 
 	static void Controller() {
