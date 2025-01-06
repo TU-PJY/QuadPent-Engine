@@ -110,7 +110,7 @@ public:
 	}
 
 	static void MouseButton(int Button, int State, int X, int Y) {
-		int ButtonEvent{};
+		int ButtonEvent{-1};
 
 		switch (State) {
 		case GLUT_DOWN:
@@ -136,8 +136,10 @@ public:
 			break;
 		}
 		
-		for (auto const& Object : M_Inst->InputObject)
-			if (Object)  Object->InputMouse(ButtonEvent);
+		if (ButtonEvent != -1) {
+			for (auto const& Object : M_Inst->InputObject)
+				if (Object)  Object->InputMouse(ButtonEvent);
+		}
 	}
 
 	static void Controller() {
