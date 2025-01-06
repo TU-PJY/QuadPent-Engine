@@ -46,6 +46,18 @@ GLvoid Framework::Framework() {
 }
 
 void main(int argc, char** argv) {
+	if (SHOW_CONSOLE) {
+		if (AllocConsole()) {
+			FILE* FP{};
+
+			freopen_s(&FP, "CONOUT$", "w", stdout);
+			freopen_s(&FP, "CONIN$", "r", stdin);
+			freopen_s(&FP, "CONERR$", "w", stderr);
+
+			std::cout << "Console initialized successfully." << std::endl;
+		}
+	}
+
 	Framework::SetupSystem(argc, argv);
 	glutDisplayFunc(Framework::Framework);
 	glutReshapeFunc(Framework::DisplayReshape);
