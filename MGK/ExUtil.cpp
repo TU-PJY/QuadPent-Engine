@@ -62,3 +62,21 @@ bool EX_Util::CheckClampValue(int& Value, int Dest, int Type) {
 
 	return false;
 }
+
+void EX_Util::InputBoolSwitch(int SwitchingOption, int EventType, bool& DestBoolValue) {
+	if (SwitchingOption == TRUE_KEY_DOWN) {
+		if (EventType == NORMAL_KEY_DOWN || EventType == SPECIAL_KEY_DOWN)
+			DestBoolValue = true;
+
+		else if (EventType == NORMAL_KEY_UP || EventType == SPECIAL_KEY_UP)
+			DestBoolValue = false;
+	}
+
+	else if (SwitchingOption == FALSE_KEY_DOWN) {
+		if (EventType == NORMAL_KEY_DOWN || EventType == SPECIAL_KEY_DOWN)
+			DestBoolValue = false;
+
+		else if (EventType == NORMAL_KEY_UP || EventType == SPECIAL_KEY_UP)
+			DestBoolValue = true;
+	}
+}

@@ -192,6 +192,11 @@ enum DistTypeEnum {
 	RANDOM_TYPE_INT
 };
 
+enum SwitchTypeEnum {
+	TRUE_KEY_DOWN,
+	FALSE_KEY_DOWN
+};
+
 namespace Preset {
 	constexpr float MaxPositive  = XM_PI / 2.0;
 	constexpr float MaxNegative  = -XM_PI / 2.0;

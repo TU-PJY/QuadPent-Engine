@@ -10,5 +10,6 @@ public:
 	void ClampValue(int& Value, int Dest, int Type);
 	bool CheckClampValue(float& Value, float Dest, int Type);
 	bool CheckClampValue(int& Value, int Dest, int Type);
+	void InputBoolSwitch(int SwitchingOption, int EventType, bool& DestBoolValue);
 };
 extern EX_Util EX;
