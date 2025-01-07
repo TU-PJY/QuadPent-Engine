@@ -15,7 +15,7 @@ public:
 	void Init();
 	void Load(Image& ImageStruct, std::string FilePath, int Type=IMAGE_TYPE_NEAREST);
 	void LoadClip(Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type=IMAGE_TYPE_NEAREST);
-	void SetSpriteSheetSize(int ValueClipWidth, int ValueClipHeight, int ValueNumRow, int ValueNumCol, int ValueStartCol=1, int ValueBlank=0);
+	void SetSpriteSheetSize(int ValueClipWidth, int ValueClipHeight, int ValueNumRow, int ValueNumCol, int ValueStartCol=1, int ValueNumBlank=0);
 	void LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type=IMAGE_TYPE_NEAREST);
 	void PreLoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type=IMAGE_TYPE_NEAREST);
 	void PreLoad(Image& ImageStruct, std::string FilePath, int Type=IMAGE_TYPE_NEAREST);

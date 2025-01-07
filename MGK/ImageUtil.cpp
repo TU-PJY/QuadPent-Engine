@@ -108,13 +108,13 @@ void ImageUtil::LoadClip(Image& ImageStruct, std::string FilePath, int X, int Y,
 	ImageStruct.Height = ClipHeight;
 }
 
-void ImageUtil::SetSpriteSheetSize(int ValueClipWidth, int ValueClipHeight, int ValueNumRow, int ValueNumCol, int ValueStartCol, int ValueBlank) {
+void ImageUtil::SetSpriteSheetSize(int ValueClipWidth, int ValueClipHeight, int ValueNumRow, int ValueNumCol, int ValueStartCol, int ValueNumBlank) {
 	ClipWidth = ValueClipWidth;
 	ClipHeight = ValueClipHeight;
 	NumRow = ValueNumRow;
 	NumCol = ValueNumCol;
 	StartLocation = ValueStartCol;
-	BlankLocation = ValueBlank;
+	BlankLocation = ValueNumBlank;
 }
 
 void ImageUtil::LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
