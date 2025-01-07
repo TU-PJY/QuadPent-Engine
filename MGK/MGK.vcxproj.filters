@@ -16,9 +16,6 @@
     <Filter Include="[2]___________[ Object ]\[2][ Floating Object ]">
       <UniqueIdentifier>{b9e501bb-a47d-43b6-ada9-6bde123338ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[2]___________[ Object ]\[3][ Template ]">
-      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]___________[ Camera ]">
       <UniqueIdentifier>{a94ebc27-9b04-4c84-b876-bb9fcb87cae4}</UniqueIdentifier>
     </Filter>
@@ -151,10 +148,13 @@
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Camera Util ]">
       <UniqueIdentifier>{f246ec1e-8aa5-4a4c-86c6-75a511ec4ed6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ System ]\[ GameObject ]">
+      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
-      <Filter>[2]___________[ Object ]\[3][ Template ]</Filter>
+      <Filter>[5]___________[ System ]\[ GameObject ]</Filter>
     </ClCompile>
     <ClCompile Include="CollisionUtil.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ Collision Util ]</Filter>
@@ -270,7 +270,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
-      <Filter>[2]___________[ Object ]\[3][ Template ]</Filter>
+      <Filter>[5]___________[ System ]\[ GameObject ]</Filter>
     </ClInclude>
     <ClInclude Include="CollisionUtil.h">
       <Filter>[5]___________[ System ]\[ Util ]\[ Collision Util ]</Filter>
