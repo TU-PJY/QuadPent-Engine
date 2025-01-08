@@ -80,7 +80,6 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format,
 
 	CalculateTextLength(Text);
 
-	MiddleHeight = 0.0;
 	CurrentLine = 0;
 	TextRenderSize = Size;
 	RenderPosition = glm::vec2(X, Y);
