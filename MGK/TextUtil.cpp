@@ -24,8 +24,8 @@ void TextUtil::SetAlign(int AlignOpt) {
 	TextAlign = AlignOpt;
 }
 
-void TextUtil::SetLineSpace(GLfloat Value) {
-	TextLineSpace = Value;
+void TextUtil::SetLineGap(GLfloat Value) {
+	TextLineGap = Value;
 }
 
 void TextUtil::SetFixMiddle(bool Flag) {
@@ -80,6 +80,7 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format,
 
 	CalculateTextLength(Text);
 
+	MiddleHeight = 0.0;
 	CurrentLine = 0;
 	TextRenderSize = Size;
 	RenderPosition = glm::vec2(X, Y);
@@ -101,7 +102,7 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format,
 
 	for (int i = 0; i < TextWordCount; ++i) {
 		if (Text[i] == L'\n') {
-			SetNewLine();
+			NextLine();
 			continue;
 		}
 
@@ -151,13 +152,13 @@ void TextUtil::CalculateTextLength(const wchar_t* Text) {
 	if (FixMiddleCommand) {
 		size_t LineNum = LineLengthBuffer.size();
 		for (int i = 0; i < LineNum; ++i)
-			MiddleHeight += TextLineSpace;
+			MiddleHeight += (TextLineGap + TextRenderSize);
 		MiddleHeight /= 2.0;
 	}
 }
 
-void TextUtil::SetNewLine() {
-	RenderPosition.y -= TextLineSpace;
+void TextUtil::NextLine() {
+	RenderPosition.y -= (TextLineGap + TextRenderSize);
 	RenderPosition.x = 0.0;
 
 	if (TextAlign != ALIGN_DEFAULT) {

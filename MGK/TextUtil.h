@@ -14,7 +14,7 @@ private:
 	size_t                   TextWordCount{};
 	GLfloat                  TextLength{};
 	GLfloat                  TextRenderSize{};
-	GLfloat                  TextLineSpace{};
+	GLfloat                  TextLineGap{};
 	GLfloat                  MiddleHeight{};
 
 	std::vector<GLfloat>     LineLengthBuffer{};
@@ -23,14 +23,13 @@ private:
 	int                      CurrentLine{};
 
 	GLfloat                  Opacity{ 1.0f };
-
 	glm::vec3                TextColor{ glm::vec3(1.0, 1.0, 1.0) };
-	std::map <wchar_t, bool> GlyphCache;
 
 	HDC                      hDC{};
 	HFONT                    Font{};
 	GLuint                   FontBase{};
 	GLYPHMETRICSFLOAT        TextGlyph[65536]{};
+	std::map <wchar_t, bool> GlyphCache;
 
 	int                      TextAlign{ ALIGN_DEFAULT };
 	int                      RenderType{ RENDER_TYPE_STATIC };
@@ -44,7 +43,7 @@ public:
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColorRGB(int R, int G, int B);
 	void SetAlign(int AlignOpt);
-	void SetLineSpace(GLfloat Value);
+	void SetLineGap(GLfloat Value);
 	void SetFixMiddle(bool Flag);
 	void SetHeightAlign(int Type);
 	void Rotate(GLfloat RotationValue);
@@ -56,7 +55,7 @@ public:
 private:
 	void GetLineLength(const wchar_t* Text);
 	void CalculateTextLength(const wchar_t* Text);
-	void SetNewLine();
+	void NextLine();
 	void TransformText();
 	void PrepareRender();
 	void ProcessGlyphCache(wchar_t* Text);
