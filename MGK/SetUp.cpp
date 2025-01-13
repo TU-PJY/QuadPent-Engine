@@ -32,7 +32,7 @@ AudioResource Audio;
 DataFormatResource Format;
 GlobalValue Global;
 
-void Framework::SetupSystem(int argc, char** argv) {
+void System::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);
 	SetupWindow();
 	LoadShader();
@@ -41,7 +41,7 @@ void Framework::SetupSystem(int argc, char** argv) {
 }
 
 
-void Framework::SetupWindow() {
+void System::SetupWindow() {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
 
 	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - HEIGHT / 2);
@@ -64,7 +64,7 @@ void Framework::SetupWindow() {
 	std::cout << Version << std::endl;
 }
 
-void Framework::LoadShader() {
+void System::LoadShader() {
 	shaderUtil.LoadVertexShader("MGKResource//GLSL//Vertex.glsl");
 	shaderUtil.LoadFragmentShader("MGKResource//GLSL//Fragment_Image.glsl");
 	shaderUtil.CreateShader(IMAGE_SHADER);
@@ -84,7 +84,7 @@ void Framework::LoadShader() {
 	shaderUtil.CreateSSBO();
 }
 
-void Framework::SetGlOption() {
+void System::SetGlOption() {
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_ALPHA_TEST);
 	glEnable(GL_BLEND);
@@ -92,7 +92,7 @@ void Framework::SetGlOption() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void Framework::InitSystem() {
+void System::InitSystem() {
 	FPSLimit = FRAME_LIMITS;
 	if (FPSLimit > 0)
 		DestFPS = 1000.0 / (float)FPSLimit;

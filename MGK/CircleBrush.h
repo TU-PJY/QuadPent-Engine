@@ -3,8 +3,6 @@
 
 class CircleBrush {
 private:
-	glm::mat4 TranslateMatrix{ 1.0f };
-
 	glm::vec3 Color{};
 	GLfloat   Radius{};
 	GLfloat   Opacity{};
@@ -25,8 +23,6 @@ private:
 
 class LineCircleBrush {
 private:
-	glm::mat4 TranslateMatrix{ 1.0f };
-
 	glm::vec3 Color{};
 	GLfloat   Radius{}, WidthValue{};
 	GLfloat   Opacity{};

@@ -58,8 +58,11 @@ public:
 	// Enter the frame time in Scene.
 	void InputFrameTime(float ElapsedTime);
 
-	// Executes update and rendering of the scene.
-	void Routine();
+	// Executes update of the scene.
+	void Update();
+
+	// Executes rendering of the scene.
+	void Render();
 
 	// Switch to a specific mode.
 	void SwitchMode(Function ModeFunction);

@@ -31,7 +31,7 @@ public:
 
 #ifdef ENABLE_DEV_EXIT
 			case NK_ESCAPE:
-				Framework::Exit();
+				System::Exit();
 				break;
 #endif
 			}

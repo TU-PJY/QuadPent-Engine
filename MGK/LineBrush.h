@@ -3,8 +3,6 @@
 
 class LineBrush {
 private:
-	glm::mat4 TranslateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
-
 	GLfloat   Rotation;
 	GLfloat   Length{};
 	glm::vec3 Color{};

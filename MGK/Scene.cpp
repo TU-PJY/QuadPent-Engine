@@ -18,7 +18,7 @@ void Scene::Resume() {
 	UpdateActivateCommand = true;
 }
 
-void Scene::Routine() {
+void Scene::Update() {
 	for (int i = 0; i < Layers; ++i) {
 		for (auto& Object : ObjectList[i]) {
 			if (UpdateActivateCommand) {
@@ -28,17 +28,23 @@ void Scene::Routine() {
 					Object->UpdateFunc(FrameTime);
 			}
 
-			Object->RenderFunc();
-
 			if (Object->DeleteCommand)
 				AddLocation(i, CurrentReferLocation);
 
 			else if (Object->SwapCommand)
 				AddLocation(i, CurrentReferLocation);
-			
+
 			++CurrentReferLocation;
 		}
 		CurrentReferLocation = 0;
+	}
+}
+
+void Scene::Render() {
+	for (int i = 0; i < Layers; ++i) {
+		for (auto& Object : ObjectList[i]) {
+			Object->RenderFunc();
+		}
 	}
 }
 

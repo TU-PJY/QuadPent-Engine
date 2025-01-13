@@ -154,6 +154,7 @@
     <ClCompile Include="Library\tinyxml\tinyxml.cpp" />
     <ClCompile Include="Library\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="Library\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="LineBrush.cpp" />
     <ClCompile Include="MathUtil.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="EngineHeader.h" />
     <ClInclude Include="Library\tinyxml\tinystr.h" />
     <ClInclude Include="Library\tinyxml\tinyxml.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ImageUtil.h" />
     <ClInclude Include="GameResource.h" />

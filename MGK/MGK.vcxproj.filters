@@ -103,9 +103,6 @@
     <Filter Include="[5]___________[ System ]\[ Util ]\[ String Util ]">
       <UniqueIdentifier>{0d426163-3f7a-4344-9513-1c4da459934c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ System ]\[ Framework ]">
-      <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ System ]\[ GLSL ]">
       <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
     </Filter>
@@ -150,6 +147,12 @@
     </Filter>
     <Filter Include="[5]___________[ System ]\[ GameObject ]">
       <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Main ]">
+      <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Matrix ]">
+      <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -196,13 +199,13 @@
       <Filter>[5]___________[ System ]\[ Scene ]</Filter>
     </ClCompile>
     <ClCompile Include="SetUp.cpp">
-      <Filter>[5]___________[ System ]\[ Framework ]</Filter>
+      <Filter>[5]___________[ System ]\[ Main ]</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>[5]___________[ System ]\[ Framework ]</Filter>
+      <Filter>[5]___________[ System ]\[ Main ]</Filter>
     </ClCompile>
     <ClCompile Include="Display.cpp">
-      <Filter>[5]___________[ System ]\[ Framework ]</Filter>
+      <Filter>[5]___________[ System ]\[ Main ]</Filter>
     </ClCompile>
     <ClCompile Include="MathUtil.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ Math Util ]</Filter>
@@ -266,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="CameraController.cpp">
       <Filter>[3]___________[ Camera ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>[5]___________[ System ]\[ Matrix ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +403,9 @@
     </ClInclude>
     <ClInclude Include="CameraController.h">
       <Filter>[3]___________[ Camera ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>[5]___________[ System ]\[ Matrix ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

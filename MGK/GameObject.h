@@ -12,14 +12,6 @@
 
 class GameObject {
 public:
-	glm::mat4   TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
-	glm::mat4   ImageAspectMatrix{ 1.0f }, FlipMatrix{ 1.0f };
-
-	glm::mat4   UnitTranslateMatrix{ 1.0f }, UnitRotateMatrix{ 1.0f }, UnitScaleMatrix{ 1.0f };
-	glm::mat4   UnitFlipMatrix{ 1.0f };
-
-	glm::mat4   ViewportPositionMatrix{ 1.0f };
-
 	glm::vec3   ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
 
 	GLfloat     ObjectOpacity{ 1.0f };

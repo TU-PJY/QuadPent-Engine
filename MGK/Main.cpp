@@ -15,7 +15,7 @@ bool UpdateActivateCommand;
 // frametime values
 float PrevTime, CurrentTime, DeltaTime;
 
-GLvoid Framework::Framework() {
+GLvoid System::Main() {
 	if (FPSLimit > 0)
 		std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(DestFPS)));
 
@@ -23,7 +23,8 @@ GLvoid Framework::Framework() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	if (UpdateActivateCommand) {
-		scene.Routine();
+		scene.Update();
+		scene.Render();
 		scene.CompleteCommand();
 #ifdef USE_SOUND_SYSTEM
 		soundUtil.Update();
@@ -58,13 +59,13 @@ void main(int argc, char** argv) {
 		}
 	}
 
-	Framework::SetupSystem(argc, argv);
-	glutDisplayFunc(Framework::Framework);
-	glutReshapeFunc(Framework::DisplayReshape);
+	System::SetupSystem(argc, argv);
+	glutDisplayFunc(System::Main);
+	glutReshapeFunc(System::DisplayReshape);
 	glutMainLoop();
 }
 
-void Framework::Exit() {
+void System::Exit() {
 	glutDestroyWindow(1);
 }
 

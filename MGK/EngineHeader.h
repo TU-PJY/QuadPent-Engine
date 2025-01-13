@@ -294,8 +294,8 @@ extern ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VIEW_PO
 extern ShaderLocation SHAPE_OPACITY_LOCATION, SHAPE_COLOR_LOCATION, SHAPE_MODEL_LOCATION;
 extern ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW_POSITION_LOCATION;
 
-namespace Framework {
-	GLvoid Framework();
+namespace System {
+	GLvoid Main();
 	GLvoid DisplayReshape(int w, int h);
 	void SwitchScreenState();
 	void SetFrameLimit(int FrameLimit);

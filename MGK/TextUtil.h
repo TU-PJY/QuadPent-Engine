@@ -6,8 +6,6 @@
 
 class TextUtil {
 private:
-	glm::mat4                TranslateMatrix{ 1.0f }, RotateMatrix{ 1.0f }, ScaleMatrix{ 1.0f }, ResultMatrix{ 1.0f };
-
 	glm::vec2                RenderPosition{};
 	GLfloat                  Rotation{};
 

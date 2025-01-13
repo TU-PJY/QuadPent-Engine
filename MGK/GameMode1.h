@@ -25,7 +25,7 @@ public:
 	/////////////////////////////////////////////////////////////
 
 	static void Start() {
-		Framework::SetBackColor(0.3, 0.3, 0.3);
+		System::SetBackColor(0.3, 0.3, 0.3);
 
 		// Add task here
 		SetUp();
@@ -68,7 +68,7 @@ public:
 	static void KeyDown(unsigned char KEY, int X, int Y) {
 #ifdef ENABLE_DEV_EXIT
 		if (KEY == NK_ESCAPE)
-			Framework::Exit();
+			System::Exit();
 #endif
 		KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
 		ProcessKeyEvent(Event);
