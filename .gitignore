@@ -364,6 +364,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Not ignored files
-!MGK/Library/**
-!MGK/MGKResource/**
+!mata_SDK/Library/**
+!mata_SDK/SDKResource/**
 !ScriptTools/**

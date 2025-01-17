@@ -1,5 +1,5 @@
 #pragma once
-// mata_Game_Development_Kit Version 4
+// mata_SDK Version 4
 
 //////////////////////////////////// Window options
 // window name

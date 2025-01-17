@@ -65,19 +65,19 @@ void System::SetupWindow() {
 }
 
 void System::LoadShader() {
-	shaderUtil.LoadVertexShader("MGKResource//GLSL//Vertex.glsl");
-	shaderUtil.LoadFragmentShader("MGKResource//GLSL//Fragment_Image.glsl");
+	shaderUtil.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
+	shaderUtil.LoadFragmentShader("SDKResource//GLSL//Fragment_Image.glsl");
 	shaderUtil.CreateShader(IMAGE_SHADER);
 
-	shaderUtil.LoadVertexShader("MGKResource//GLSL//Vertex.glsl");
-	shaderUtil.LoadFragmentShader("MGKResource//GLSL//Fragment_Text.glsl");
+	shaderUtil.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
+	shaderUtil.LoadFragmentShader("SDKResource//GLSL//Fragment_Text.glsl");
 	shaderUtil.CreateShader(TEXT_SHADER);
 
-	shaderUtil.LoadVertexShader("MGKResource//GLSL//Vertex.glsl");
-	shaderUtil.LoadFragmentShader("MGKResource//GLSL//Fragment_Shape.glsl");
+	shaderUtil.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
+	shaderUtil.LoadFragmentShader("SDKResource//GLSL//Fragment_Shape.glsl");
 	shaderUtil.CreateShader(SHAPE_SHADER);
 
-	shaderUtil.LoadComputeShader("MGKResource//GLSL//ComputeMatrix.glsl");
+	shaderUtil.LoadComputeShader("SDKResource//GLSL//ComputeMatrix.glsl");
 	shaderUtil.CreateComputeShader(MATRIX_COMPT_SHADER);
 
 	shaderUtil.CreateShaderLocation();

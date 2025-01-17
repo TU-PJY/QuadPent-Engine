@@ -24,7 +24,7 @@
     <ProjectGuid>{65f9b162-c676-4993-a470-e1df72114fdb}</ProjectGuid>
     <RootNamespace>GL2D</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>MGK</ProjectName>
+    <ProjectName>mata_SDK</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
