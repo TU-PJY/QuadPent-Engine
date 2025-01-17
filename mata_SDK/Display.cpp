@@ -1,37 +1,37 @@
 #include "EngineHeader.h"
 
-GLvoid System::DisplayReshape(int w, int h) {
+GLvoid SDKSystem::DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
 	WIDTH = w;
 	HEIGHT = h;
 }
 
-void System::SetBackColor(GLfloat R, GLfloat G, GLfloat B) {
+void SDKSystem::SetBackColor(GLfloat R, GLfloat G, GLfloat B) {
 	BackColor.r = R;
 	BackColor.g = G;
 	BackColor.b = B;
 }
 
-void System::SetBackColorRGB(int R, int G, int B) {
+void SDKSystem::SetBackColorRGB(int R, int G, int B) {
 	BackColor.r = (1.0f / 255.0f) * (GLfloat)R;
 	BackColor.g = (1.0f / 255.0f) * (GLfloat)G;
 	BackColor.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void System::SetFrameLimit(int FrameLimit) {
+void SDKSystem::SetFrameLimit(int FrameLimit) {
 	FPSLimit = FrameLimit;
 	DestFPS = 1000.0 / (float)FPSLimit;
 }
 
-void System::HideCursor() {
+void SDKSystem::HideCursor() {
 	glutSetCursor(GLUT_CURSOR_NONE);
 }
 
-void System::ShowCursor() {
+void SDKSystem::ShowCursor() {
 	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 }
 
-void System::SwitchScreenState() {
+void SDKSystem::SwitchScreenState() {
 	switch (FullscreenState) {
 	case false:
 		glutFullScreen();

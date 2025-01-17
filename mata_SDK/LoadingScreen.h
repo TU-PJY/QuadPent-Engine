@@ -20,7 +20,7 @@ public:
 #ifdef ENABLE_DEV_EXIT
 		if (Event.Type == NORMAL_KEY_DOWN) {
 			if (Event.NormalKey == NK_ESCAPE)
-				System::Exit();
+				System.Exit();
 		}
 #endif
 	}

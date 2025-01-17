@@ -14,10 +14,6 @@ int WIDTH = WINDOW_WIDTH;
 int HEIGHT = WINDOW_HEIGHT;
 int PREV_WIDTH, PREV_HEIGHT;
 
-float DestFPS;
-int FPSLimit;
-bool FullscreenState;
-
 Camera camera;
 GameObject* CameraControl;
 GameObject* Indicator;
@@ -32,7 +28,7 @@ AudioResource Audio;
 DataFormatResource Format;
 GlobalValue Global;
 
-void System::SetupSystem(int argc, char** argv) {
+void SDKSystem::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);
 	SetupWindow();
 	LoadShader();
@@ -41,7 +37,7 @@ void System::SetupSystem(int argc, char** argv) {
 }
 
 
-void System::SetupWindow() {
+void SDKSystem::SetupWindow() {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
 
 	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - HEIGHT / 2);
@@ -64,7 +60,7 @@ void System::SetupWindow() {
 	std::cout << Version << std::endl;
 }
 
-void System::LoadShader() {
+void SDKSystem::LoadShader() {
 	shaderUtil.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
 	shaderUtil.LoadFragmentShader("SDKResource//GLSL//Fragment_Image.glsl");
 	shaderUtil.CreateShader(IMAGE_SHADER);
@@ -84,7 +80,7 @@ void System::LoadShader() {
 	shaderUtil.CreateSSBO();
 }
 
-void System::SetGlOption() {
+void SDKSystem::SetGlOption() {
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_ALPHA_TEST);
 	glEnable(GL_BLEND);
@@ -92,7 +88,7 @@ void System::SetGlOption() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void System::InitSystem() {
+void SDKSystem::InitSystem() {
 	FPSLimit = FRAME_LIMITS;
 	if (FPSLimit > 0)
 		DestFPS = 1000.0 / (float)FPSLimit;

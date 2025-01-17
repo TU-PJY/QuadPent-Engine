@@ -10,19 +10,19 @@
 #include <thread>
 #include <chrono>
 
-bool UpdateActivateCommand;
+SDKSystem System;
+SDKSystem* SDKSystem::S_Inst;
 
-// frametime values
-float PrevTime, CurrentTime, DeltaTime;
-
-GLvoid System::Main() {
-	if (FPSLimit > 0)
-		std::this_thread::sleep_for(std::chrono::milliseconds(static_cast <int>(DestFPS)));
+GLvoid SDKSystem::Main() {
+	if (S_Inst->FPSLimit > 0) {
+		std::chrono::duration<double> Duration(S_Inst->DestFPS);
+		std::this_thread::sleep_for(Duration);
+	}
 
 	glClearColor(BackColor.r, BackColor.g, BackColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	if (UpdateActivateCommand) {
+	if (S_Inst->UpdateActivateCommand) {
 		scene.Update();
 		scene.Render();
 		scene.CompleteCommand();
@@ -34,16 +34,16 @@ GLvoid System::Main() {
 	if (SHOW_FPS && Indicator)
 		Indicator->RenderIndicator();
 
-	CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
-	DeltaTime = (CurrentTime - PrevTime) / 1000.0;
-	scene.InputFrameTime(DeltaTime);
+	S_Inst->CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
+	S_Inst->DeltaTime = (S_Inst->CurrentTime - S_Inst->PrevTime) / 1000.0;
+	scene.InputFrameTime(S_Inst->DeltaTime);
 
-	PrevTime = CurrentTime;
+	S_Inst->PrevTime = S_Inst->CurrentTime;
 
 	glutSwapBuffers();
 	glutPostRedisplay();
 
-	UpdateActivateCommand = true;
+	S_Inst->UpdateActivateCommand = true;
 }
 
 void main(int argc, char** argv) {
@@ -59,13 +59,13 @@ void main(int argc, char** argv) {
 		}
 	}
 
-	System::SetupSystem(argc, argv);
-	glutDisplayFunc(System::Main);
-	glutReshapeFunc(System::DisplayReshape);
+	System.SetupSystem(argc, argv);
+	glutDisplayFunc(System.Main);
+	glutReshapeFunc(System.DisplayReshape);
 	glutMainLoop();
 }
 
-void System::Exit() {
+void SDKSystem::Exit() {
 	glutDestroyWindow(1);
 }
 

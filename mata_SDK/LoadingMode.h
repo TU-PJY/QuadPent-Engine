@@ -19,7 +19,7 @@ public:
 	/////////////////////////////////////////////////////////////
 
 	static void Start() {
-		System::SetBackColorRGB(31, 31, 31);
+		System.SetBackColorRGB(31, 31, 31);
 		scene.AddObject(new LoadingScreen, "loading_screen", LAYER1);
 		SetUp();
 	}

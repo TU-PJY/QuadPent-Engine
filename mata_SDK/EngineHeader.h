@@ -294,9 +294,25 @@ extern ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VIEW_PO
 extern ShaderLocation SHAPE_OPACITY_LOCATION, SHAPE_COLOR_LOCATION, SHAPE_MODEL_LOCATION;
 extern ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW_POSITION_LOCATION;
 
-namespace System {
-	GLvoid Main();
-	GLvoid DisplayReshape(int w, int h);
+class SDKSystem {
+private:
+	bool  UpdateActivateCommand{};
+	float PrevTime{}, CurrentTime{}, DeltaTime{};
+
+	float DestFPS{};
+	int   FPSLimit{};
+
+	bool  FullscreenState{};
+
+public:
+	static SDKSystem* S_Inst;
+
+	SDKSystem() {
+		S_Inst = this;
+	}
+
+	static GLvoid Main();
+	static GLvoid DisplayReshape(int w, int h);
 	void SwitchScreenState();
 	void SetFrameLimit(int FrameLimit);
 	void HideCursor();
@@ -309,7 +325,8 @@ namespace System {
 	void SetupWindow();
 	void LoadShader();
 	void Exit();
-}
+};
+extern SDKSystem System;
 
 // Multiply the value by the window aspect ratio.
 GLfloat ASP(GLfloat Value);
