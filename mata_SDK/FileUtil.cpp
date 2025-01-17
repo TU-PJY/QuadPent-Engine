@@ -1,4 +1,5 @@
 #include "FileUtil.h"
+#include "Scene.h"
 
 #ifdef USE_FILE_SYSTEM
 #include "Config.h"
@@ -29,20 +30,28 @@ void FileUtil::Load(std::string FileDirectory, DataFormat Format) {
 }
 
 void FileUtil::UpdateDigitData(std::string CategoryName, std::string DataName, float Value) {
+	CategorySearch = CategoryName;
+	DataSearch = DataName;
 	WriteDigitData(FindCategory(CategoryName), DataName, Value);
 	UpdateDataFile();
 }
 
 void FileUtil::UpdateStringData(std::string CategoryName, std::string DataName, std::string Value) {
+	CategorySearch = CategoryName;
+	DataSearch = DataName;
 	WriteStringData(FindCategory(CategoryName), DataName, Value);
 	UpdateDataFile();
 }
 
 float FileUtil::LoadDigitData(std::string CategoryName, std::string DataName) {
+	CategorySearch = CategoryName;
+	DataSearch = DataName;
 	return GetDigitData(FindCategory(CategoryName), DataName);
 }
 
 std::string FileUtil::LoadStringData(std::string CategoryName, std::string DataName) {
+	CategorySearch = CategoryName;
+	DataSearch = DataName;
 	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
@@ -178,20 +187,30 @@ void FileUtil::AddStringData(std::string CategoryName, std::string DataName, std
 }
 
 void FileUtil::WriteDigitData(TiXmlElement* CategoryVar, std::string DataName, float Value) {
+	if (!CategoryVar) {
+		scene.ErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
+		return;
+	}
+
 	if (CategoryVar->Attribute(DataName.c_str()))
 		CategoryVar->SetDoubleAttribute(DataName.c_str(), Value);
 	else {
-		std::cout << "Failed to update data" << std::endl;
-		exit(EXIT_FAILURE);
+		scene.ErrorScreen(ERROR_TYPE_DATA_FILE_DATA_WRITE, CategorySearch, DataSearch);
+		return;
 	}
 }
 
 void FileUtil::WriteStringData(TiXmlElement* CategoryVar, std::string DataName, std::string Value) {
+	if (!CategoryVar) {
+		scene.ErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
+		return;
+	}
+
 	if (CategoryVar->Attribute(DataName.c_str()))
 		CategoryVar->SetAttribute(DataName.c_str(), Value.c_str());
 	else {
-		std::cout << "Failed to update string data" << std::endl;
-		exit(EXIT_FAILURE);
+		scene.ErrorScreen(ERROR_TYPE_DATA_FILE_DATA_WRITE, CategorySearch, DataSearch);
+		return;
 	}
 }
 
@@ -200,8 +219,8 @@ float FileUtil::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
 	if (DataValue)
 		return std::stof(DataValue);
 	else {
-		std::cout << "Failed to find data" << std::endl;
-		exit(EXIT_FAILURE);
+		scene.ErrorScreen(ERROR_TYPE_DATA_FILE_DATA_LOAD, CategorySearch, DataSearch);
+		return 0.0;
 	}
 }
 
@@ -210,8 +229,8 @@ std::string FileUtil::GetStringData(TiXmlElement* CategoryVar, std::string DataN
 	if (DataValue)
 		return (std::string)DataValue;
 	else {
-		std::cout << "Failed to find data" << std::endl;
-		exit(EXIT_FAILURE);
+		scene.ErrorScreen(ERROR_TYPE_DATA_FILE_DATA_LOAD, CategorySearch, DataSearch);
+		return "";
 	}
 }
 
@@ -224,8 +243,15 @@ TiXmlElement* FileUtil::FindCategory(std::string CategoryName) {
 }
 
 std::string FileUtil::FindData(std::string CategoryName, std::string DataName) {
-	const char* DataValue = FindCategory(CategoryName)->Attribute(DataName.c_str());
-	return DataValue ? (std::string)DataValue : "";
+	TiXmlElement* FoundCategory = FindCategory(CategoryName);
+	if (!FoundCategory) {
+		scene.ErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategoryName);
+		return "";
+	}
+	else {
+		const char* DataValue = FindCategory(CategoryName)->Attribute(DataName.c_str());
+		return (std::string)DataValue;
+	}
 }
 
 bool FileUtil::LoadDataFile(std::string FileName) {
@@ -241,9 +267,10 @@ bool FileUtil::LoadDataFile(std::string FileName) {
 		Doc.Parse(DecryptedXML.c_str());
 
 		if (Doc.Error()) {
-			std::cout << "Failed to parse data file" << std::endl;
-			exit(EXIT_FAILURE);
+			scene.ErrorScreen(ERROR_TYPE_DATA_FILE_PARSE, FileName);
+			return false;
 		}
+
 		return true;
 	}
 

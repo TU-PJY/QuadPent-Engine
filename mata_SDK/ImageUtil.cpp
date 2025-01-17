@@ -3,6 +3,7 @@
 #include "stb_image.h"
 #include "SystemResource.h"
 #include "EXUtil.h"
+#include "Scene.h"
 
 ImageUtil imageUtil;
 
@@ -55,6 +56,11 @@ void ImageUtil::Load(Image& ImageStruct, std::string FilePath, int Type) {
 	}
 
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
+	if (!TextureData) {
+		scene.ErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		return;
+	}
+
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, TextureData);
 	stbi_image_free(TextureData);
 
@@ -83,8 +89,10 @@ void ImageUtil::LoadClip(Image& ImageStruct, std::string FilePath, int X, int Y,
 	}
 
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
-	if (!TextureData)
+	if (!TextureData) {
+		scene.ErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
+	}
 
 	if (X + ClipWidth > Width || Y + ClipHeight > Height) {
 		stbi_image_free(TextureData);
@@ -120,8 +128,10 @@ void ImageUtil::SetSpriteSheetSize(int ValueClipWidth, int ValueClipHeight, int 
 void ImageUtil::LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
-	if (!TextureData)
+	if (!TextureData) {
+		scene.ErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
+	}
 
 	SpriteSheetStruct.Texture.assign(NumRow * NumCol, {});
 
@@ -188,6 +198,10 @@ void ImageUtil::PreLoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string F
 	PreLoadSpriteSheetInfo PLSS{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
+	if (!TextureData) {
+		scene.ErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		return;
+	}
 
 	SpriteSheetStruct.Texture.assign(NumRow * NumCol, {});
 
@@ -238,6 +252,10 @@ void ImageUtil::PreLoad(Image& ImageStruct, std::string FilePath, int Type) {
 	PreLoadInfo PLI{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
+	if (!TextureData) {
+		scene.ErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		return;
+	}
 
 	ImageStruct.Width = Width;
 	ImageStruct.Height = Height;
@@ -252,8 +270,10 @@ void ImageUtil::PreLoadClip(Image& ImageStruct, std::string FilePath, int X, int
 	PreLoadInfo PLI{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
-	if (!TextureData)
+	if (!TextureData) {
+		scene.ErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
+	}
 
 	if (X + ClipWidth > Width || Y + ClipHeight > Height) {
 		stbi_image_free(TextureData);

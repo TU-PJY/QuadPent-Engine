@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "ErrorMessage.h"
 
 Scene scene;
 
@@ -19,6 +20,11 @@ void Scene::Resume() {
 }
 
 void Scene::Update() {
+	if (ErrorOccured) {
+		SwitchToErrorScreen();
+		ErrorOccured = false;
+	}
+
 	for (int i = 0; i < Layers; ++i) {
 		for (auto& Object : ObjectList[i]) {
 			if (UpdateActivateCommand) {
@@ -219,13 +225,20 @@ size_t Scene::LayerSize(int TargetLayer) {
 	return ObjectList[TargetLayer].size();
 }
 
-void  Scene::CompleteCommand() {
+void Scene::CompleteCommand() {
 	if(!CommandExist)
 		return;
 
 	UpdateObjectList();
 	UpdateObjectIndex();
 	CommandExist = false;
+}
+
+void Scene::ErrorScreen(int ErrorType, std::string Value1, std::string Value2) {
+	Value1Buffer = Value1;
+	Value2Buffer = Value2;
+	ErrorTypeBuffer = ErrorType;
+	ErrorOccured = true;
 }
 
 //////// private ///////////////
@@ -291,4 +304,13 @@ void Scene::ClearAll() {
 		if (!Object.second->StaticOpt)
 			Object.second->DeleteCommand = true;
 	}
+}
+
+void Scene::SwitchToErrorScreen() {
+	ClearAll();
+
+	if (Value2Buffer.empty())
+		AddObject(new ErrorMessage(ErrorTypeBuffer, Value1Buffer), "error_message", LAYER1);
+	else
+		AddObject(new ErrorMessage(ErrorTypeBuffer, Value1Buffer, Value2Buffer), "error_message", LAYER1);
 }

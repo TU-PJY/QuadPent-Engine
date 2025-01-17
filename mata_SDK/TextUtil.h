@@ -7,6 +7,7 @@
 class TextUtil {
 private:
 	glm::vec2                RenderPosition{};
+	GLfloat                  RenderStartPosition{};
 	GLfloat                  Rotation{};
 
 	size_t                   TextWordCount{};
@@ -33,7 +34,6 @@ private:
 	int                      RenderType{ RENDER_TYPE_STATIC };
 	int                      HeightAlign{ HEIGHT_ALIGN_DEFAULT };
 	bool                     FixMiddleCommand{};
-
 
 public:
 	~TextUtil();

@@ -1,5 +1,6 @@
 #include "FontUtil.h"
 #include "StringUtil.h"
+#include "Scene.h"
 
 FontUtil fontUtil;
 
@@ -10,7 +11,7 @@ bool FontUtil::Load(const std::string& FontFilePath, bool LoadInThread) {
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);
 
     if (NumFonts == 0) {
-        std::cout << "Failed to load font from file." << std::endl;
+        scene.ErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
         return false;
     }
     else

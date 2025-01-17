@@ -2,6 +2,7 @@
 #pragma warning(disable: 4244)
 #pragma warning(disable: 4305)
 #pragma warning(disable: 26444)
+#pragma comment(lib, "winmm.lib")
 #include "SystemConfig.h"
 #include "Config.h"
 #include "glew.h"
@@ -13,6 +14,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <mmsystem.h>
 #include <DirectXMath.h>
 #include <DirectXCollision.h>
 using namespace DirectX;
@@ -331,3 +333,17 @@ extern SDKSystem System;
 
 // Multiply the value by the window aspect ratio.
 GLfloat ASP(GLfloat Value);
+
+enum SystemErrorTypeEnum {
+	ERROR_TYPE_IMAGE_LOAD,
+	ERROR_TYPE_AUDIO_LOAD,
+	ERROR_TYPE_FONT_LOAD,
+	ERROR_TYPE_SCRIPT_LOAD,
+	ERROR_TYPE_SCRIPT_PARSE,
+	ERROR_TYPE_SCRIPT_DATA,
+	ERROR_TYPE_SCRIPT_CATEGORY,
+	ERROR_TYPE_DATA_FILE_PARSE,
+	ERROR_TYPE_DATA_FILE_DATA_LOAD,
+	ERROR_TYPE_DATA_FILE_DATA_WRITE,
+	ERROR_TYPE_DATA_FILE_CATEGORY,
+};

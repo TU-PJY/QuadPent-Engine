@@ -1,3 +1,4 @@
+#include "Scene.h"
 #include "SoundUtil.h"
 
 #ifdef USE_SOUND_SYSTEM
@@ -20,7 +21,9 @@ void SoundUtil::Init() {
 }
 
 void SoundUtil::Load(FMOD::Sound*& Sound, std::string FileName, FMOD_MODE Option) {
-	SoundSystem->createSound(FileName.c_str(), Option, 0, &Sound);
+	HRESULT Result = SoundSystem->createSound(FileName.c_str(), Option, 0, &Sound);
+	if (Result != FMOD_OK)
+		scene.ErrorScreen(ERROR_TYPE_AUDIO_LOAD, FileName);
 }
 
 void SoundUtil::Release(FMOD::Sound*& Sound) {

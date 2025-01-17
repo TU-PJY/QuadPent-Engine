@@ -1,4 +1,5 @@
 #include "ScriptUtil.h"
+#include "Scene.h"
 
 #ifdef USE_FILE_SYSTEM
 void ScriptUtil::Load(std::string FileName) {
@@ -6,8 +7,8 @@ void ScriptUtil::Load(std::string FileName) {
 		return;
 
 	if (!Doc.LoadFile(FileName.c_str())) {
-		std::cout << "Failed to open script file" << std::endl;
-		exit(EXIT_FAILURE);
+		scene.ErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
+		return;
 	}
 
 	Root = Doc.RootElement();
@@ -17,8 +18,8 @@ void ScriptUtil::Load(std::string FileName) {
 void ScriptUtil::ImportSecure(std::string FileName) {
 	std::ifstream EncryptedFile(FileName, std::ios::binary);
 	if (!EncryptedFile) {
-		std::cout << "Failed to open script file" << std::endl;
-		exit(EXIT_FAILURE);
+		scene.ErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
+		return;
 	}
 
 	std::string EncryptedContent((std::istreambuf_iterator<char>(EncryptedFile)), std::istreambuf_iterator<char>());
@@ -28,8 +29,8 @@ void ScriptUtil::ImportSecure(std::string FileName) {
 	Doc.Parse(DecryptedXML.c_str());
 
 	if (Doc.Error()) {
-		std::cout << "Failed to parse script file" << std::endl;
-		exit(EXIT_FAILURE);
+		scene.ErrorScreen(ERROR_TYPE_SCRIPT_PARSE, FileName);
+		return;
 	}
 
 	Root = Doc.RootElement();
@@ -42,16 +43,25 @@ void ScriptUtil::Release() {
 }
 
 float ScriptUtil::LoadDigitData(std::string CategoryName, std::string DataName) {
+	CategorySearch = CategoryName;
+	DataSearch = DataName;
 	return GetDigitData(FindCategory(CategoryName), DataName);
 }
 
 std::string ScriptUtil::LoadStringData(std::string CategoryName, std::string DataName) {
+	CategorySearch = CategoryName;
+	DataSearch = DataName;
 	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
 DigitDataSet ScriptUtil::LoadCategoryDigitData(std::string CategoryName) {
 	DigitDataSet LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
+
+	if (!Category) {
+		scene.ErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
+		return {};
+	}
 
 	TiXmlAttribute* Attribute = Category->FirstAttribute();
 	while (Attribute) {
@@ -65,6 +75,11 @@ DigitDataSet ScriptUtil::LoadCategoryDigitData(std::string CategoryName) {
 StringDataSet ScriptUtil::LoadCategoryStringData(std::string CategoryName) {
 	StringDataSet LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
+
+	if (!Category) {
+		scene.ErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
+		return {};
+	}
 
 	TiXmlAttribute* Attribute = Category->FirstAttribute();
 	while (Attribute) {
@@ -81,8 +96,8 @@ float ScriptUtil::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) 
 	if (DataValue)
 		return std::stof(DataValue);
 	else {
-		std::cout << "Failed to find data" << std::endl;
-		exit(EXIT_FAILURE);
+		scene.ErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
+		return 0.0;
 	}
 }
 
@@ -91,8 +106,8 @@ std::string ScriptUtil::GetStringData(TiXmlElement* CategoryVar, std::string Dat
 	if (DataValue)
 		return (std::string)DataValue;
 	else {
-		std::cout << "Failed to find data" << std::endl;
-		exit(EXIT_FAILURE);
+		scene.ErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
+		return "";
 	}
 }
 
@@ -101,8 +116,15 @@ TiXmlElement* ScriptUtil::FindCategory(std::string CategoryName) {
 }
 
 std::string ScriptUtil::FindData(std::string CategoryName, std::string DataName) {
-	const char* DataValue = FindCategory(CategoryName)->Attribute(DataName.c_str());
-	return DataValue ? (std::string)DataValue : "";
+	TiXmlElement* FoundCategory = FindCategory(CategoryName);
+	if (!FoundCategory) {
+		scene.ErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
+		return "";
+	}
+	else {
+		const char* DataValue = FoundCategory->Attribute(DataName.c_str());
+		return (std::string)DataValue;
+	}
 }
 
 std::string ScriptUtil::Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]) {

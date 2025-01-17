@@ -42,8 +42,8 @@ public:
 					soundUtil.Release(SysRes.INTRO_SOUND);
 #endif				
 					if (SHOW_FPS) {
-						scene.AddObject(new FPS_Indicator, "MGK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
-						Indicator = scene.Find("MGK_OBJECT_FPS_INDICATOR");
+						scene.AddObject(new FPS_Indicator, "SDK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
+						Indicator = scene.Find("SDK_OBJECT_FPS_INDICATOR");
 					}
 					scene.SwitchMode(START_MODE);
 				}
@@ -52,8 +52,8 @@ public:
 					SpinnerOpacity -= FrameTime * 2.0;
 					if (EX.CheckClampValue(SpinnerOpacity, 0.0, CLAMP_LESS)) {
 						if (SHOW_FPS) {
-							scene.AddObject(new FPS_Indicator, "MGK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
-							Indicator = scene.Find("MGK_OBJECT_FPS_INDICATOR");
+							scene.AddObject(new FPS_Indicator, "SDK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
+							Indicator = scene.Find("SDK_OBJECT_FPS_INDICATOR");
 						}
 						scene.SwitchMode(IntroMode.Start);
 					}
@@ -88,6 +88,7 @@ public:
 #endif
 
 		imageUtil.PreLoad(SysRes.SDK_LOGO, SysRes.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+		imageUtil.PreLoad(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.PreLoad(SysRes.FMOD_LOGO, SysRes.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.PreLoad(SysRes.COLOR_TEXTURE, SysRes.COLOR_TEXTURE_DIRECTORY);
 

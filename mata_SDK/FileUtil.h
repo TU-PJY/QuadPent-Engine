@@ -33,7 +33,12 @@ private:
 
 	bool          FileExist{};
 
+	std::string   CategorySearch{};
+	std::string   DataSearch{};
+
 public:
+	FileUtil() {}
+
 	void Load(std::string FileName, DataFormat Format);
 	void UpdateDigitData(std::string CategoryName, std::string DataName, float Value);
 	void UpdateStringData(std::string CategoryName, std::string DataName, std::string Value);

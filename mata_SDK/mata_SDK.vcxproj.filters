@@ -407,6 +407,9 @@
     <ClInclude Include="Matrix.h">
       <Filter>[5]___________[ System ]\[ Matrix ]</Filter>
     </ClInclude>
+    <ClInclude Include="ErrorMessage.h">
+      <Filter>[5]___________[ System ]\[ System Object ]</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ModeTemplate_Manual.txt">

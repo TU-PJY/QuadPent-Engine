@@ -35,6 +35,11 @@ private:
 
 	bool                              UpdateActivateCommand{ true };
 
+	bool                              ErrorOccured{};
+	int								  ErrorTypeBuffer{};
+	std::string						  Value1Buffer{};
+	std::string						  Value2Buffer{};
+
 public:
 	// Returns the name of the currently running mode.
 	std::string Mode();
@@ -125,11 +130,14 @@ public:
 
 	void CompleteCommand();
 
+	void ErrorScreen(int ErrorType, std::string Value1, std::string Value2="");
+
 private:
 	void AddLocation(int Layer, int Position);
 	void UpdateObjectList();
 	void UpdateObjectIndex();
 	void ClearFloatingObject();
 	void ClearAll();
+	void SwitchToErrorScreen();
 };
 extern Scene scene;

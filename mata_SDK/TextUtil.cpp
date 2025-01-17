@@ -61,11 +61,11 @@ void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str) {
 }
 
 void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...) {
-	wchar_t Text[256]{};
+	wchar_t Text[512]{};
 	va_list Args{};
 
 	va_start(Args, Format);
-	vswprintf(Text, sizeof(Text)/ sizeof(wchar_t), Format, Args);
+	vswprintf(Text, sizeof(Text) / sizeof(wchar_t), Format, Args);
 	va_end(Args);
 	CurrentText = std::wstring(Text);
 
@@ -83,6 +83,7 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format,
 	CurrentLine = 0;
 	TextRenderSize = Size;
 	RenderPosition = glm::vec2(X, Y);
+	RenderStartPosition = RenderPosition.x;
 
 	switch (HeightAlign) {
 	case HEIGHT_ALIGN_MIDDLE:
@@ -158,7 +159,7 @@ void TextUtil::CalculateTextLength(const wchar_t* Text) {
 
 void TextUtil::NextLine() {
 	RenderPosition.y -= (TextLineGap + TextRenderSize);
-	RenderPosition.x = 0.0;
+	RenderPosition.x = RenderStartPosition;
 
 	if (TextAlign != ALIGN_DEFAULT) {
 		++CurrentLine;

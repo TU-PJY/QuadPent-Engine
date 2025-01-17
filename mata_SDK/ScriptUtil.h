@@ -23,7 +23,12 @@ private:
 	TiXmlElement* Root{};
 	bool          FileExist{};
 
+	std::string   CategorySearch{};
+	std::string   DataSearch{};
+
 public:
+	ScriptUtil() {}
+
 	void Load(std::string FileName);
 	void ImportSecure(std::string FileName);
 	float LoadDigitData(std::string CategoryName, std::string DataName);
