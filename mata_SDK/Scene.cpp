@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "ErrorMessage.h"
+#include "SoundUtil.h"
 
 Scene scene;
 
@@ -20,9 +21,11 @@ void Scene::Resume() {
 }
 
 void Scene::Update() {
-	if (ErrorOccured) {
+	if (!ErrorScreenState && ErrorOccured) {
+		soundUtil.StopAllSounds();
 		SwitchToErrorScreen();
-		ErrorOccured = false;
+		UpdateActivateCommand = false;
+		ErrorScreenState = true;
 	}
 
 	for (int i = 0; i < Layers; ++i) {

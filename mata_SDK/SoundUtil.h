@@ -41,6 +41,7 @@ public:
 	void SetListnerPosition(glm::vec2 Position);
 	void SetSoundPosition(FMOD::Channel*& ChannelVar, float X, float Y, float Diff);
 	void SetSoundPosition(FMOD::Channel*& ChannelVar, glm::vec2 Position, float Diff);
+	void StopAllSounds();
 };
 extern SoundUtil soundUtil;
 #endif

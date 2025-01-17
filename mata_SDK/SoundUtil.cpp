@@ -174,4 +174,18 @@ void SoundUtil::SetSoundPosition(FMOD::Channel*& ChannelVar, glm::vec2 Position,
 
 	ChannelVar->set3DAttributes(&SoundPosition, 0);
 }
+
+void SoundUtil::StopAllSounds() {
+	FMOD::ChannelGroup* MasterChannelGroup{};
+
+	FMOD_RESULT Result = SoundSystem->getMasterChannelGroup(&MasterChannelGroup);
+	if (Result != FMOD_OK) {
+		printf("FMOD error! (%d) %s\n", Result, FMOD_ErrorString(Result));
+		return;
+	}
+
+	Result = MasterChannelGroup->stop();
+	if (Result != FMOD_OK)
+		printf("FMOD error! (%d) %s\n", Result, FMOD_ErrorString(Result));
+}
 #endif

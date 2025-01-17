@@ -36,6 +36,7 @@ private:
 	bool                              UpdateActivateCommand{ true };
 
 	bool                              ErrorOccured{};
+	bool                              ErrorScreenState{};
 	int								  ErrorTypeBuffer{};
 	std::string						  Value1Buffer{};
 	std::string						  Value2Buffer{};
