@@ -67,7 +67,7 @@ public:
 #ifdef USE_SOUND_SYSTEM
 			soundUtil.Init();
 #endif
-			imageUtil.Load(SysRes.LOADING_SPINNER, SysRes.MGK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
+			imageUtil.Load(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 			threadUtil.Create(ThreadHandle, SystemResourceCreateThread);
 
 			LoadCommand = true;
@@ -84,19 +84,19 @@ public:
 
 	static DWORD WINAPI SystemResourceCreateThread(LPVOID Param) {
 #ifdef USE_SOUND_SYSTEM
-		soundUtil.Load(SysRes.INTRO_SOUND, SysRes.MGK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
+		soundUtil.Load(SysRes.INTRO_SOUND, SysRes.SDK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
 #endif
 
-		imageUtil.PreLoad(SysRes.MGK_LOGO, SysRes.MGK_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
+		imageUtil.PreLoad(SysRes.SDK_LOGO, SysRes.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.PreLoad(SysRes.FMOD_LOGO, SysRes.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.PreLoad(SysRes.COLOR_TEXTURE, SysRes.LINE_TEXTURE_DIRECTORY);
+		imageUtil.PreLoad(SysRes.COLOR_TEXTURE, SysRes.COLOR_TEXTURE_DIRECTORY);
 
 		SysRes.GLU_CIRCLE = gluNewQuadric();
 		SysRes.GLU_LINE_CIRCLE = gluNewQuadric();
 		gluQuadricDrawStyle(SysRes.GLU_CIRCLE, GLU_FILL);
 		gluQuadricDrawStyle(SysRes.GLU_LINE_CIRCLE, GLU_FILL);
 
-		fontUtil.Load(SysRes.ROBOTO_FONT_DIRECTORY, true);
+		fontUtil.Load(SysRes.SYSTEM_FONT_DIRECTORY, true);
 
 #ifdef USE_CUSTOM_FONT
 		int TotalSize = sizeof(FONT_PATH);

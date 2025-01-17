@@ -171,7 +171,7 @@
     <ClCompile Include="ShaderUtil.cpp" />
     <ClCompile Include="SoundUtil.cpp" />
     <ClCompile Include="Display.cpp" />
-    <ClCompile Include="Modes.cpp" />
+    <ClCompile Include="[0]_Modes.cpp" />
     <ClCompile Include="ExUtil.cpp" />
     <ClCompile Include="StringUtil.cpp" />
     <ClCompile Include="SysMode.cpp" />
@@ -193,7 +193,7 @@
     <ClInclude Include="FileUtil.h" />
     <ClInclude Include="ExUtil.h" />
     <ClInclude Include="FontUtil.h" />
-    <ClInclude Include="EngineHeader.h" />
+    <ClInclude Include="SDKHeader.h" />
     <ClInclude Include="Library\tinyxml\tinystr.h" />
     <ClInclude Include="Library\tinyxml\tinyxml.h" />
     <ClInclude Include="Matrix.h" />

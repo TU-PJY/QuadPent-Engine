@@ -1,6 +1,5 @@
 #pragma once
-#include "Scene.h"
-#include "EngineHeader.h"
+#include "GameObject.h"
 
 class IntroScreen : public GameObject {
 private:
@@ -94,7 +93,7 @@ public:
 
 		switch (Scene) {
 		case 1:
-			RenderSprite(SysRes.MGK_LOGO, LogoOpacity);
+			RenderSprite(SysRes.SDK_LOGO, LogoOpacity);
 			break;
 
 		case 2: case 3:

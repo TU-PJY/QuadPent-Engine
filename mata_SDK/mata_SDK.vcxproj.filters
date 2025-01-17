@@ -234,9 +234,6 @@
     <ClCompile Include="RectBrush.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
     </ClCompile>
-    <ClCompile Include="Modes.cpp">
-      <Filter>[0]___________[ Config ]</Filter>
-    </ClCompile>
     <ClCompile Include="TransformUtil.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ Transform Util ]</Filter>
     </ClCompile>
@@ -272,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="Matrix.cpp">
       <Filter>[5]___________[ System ]\[ Matrix ]</Filter>
+    </ClCompile>
+    <ClCompile Include="[0]_Modes.cpp">
+      <Filter>[1]___________[ GameMode ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,7 +314,7 @@
     <ClInclude Include="AnimationUtil.h">
       <Filter>[5]___________[ System ]\[ Util ]\[ AnimationUtil ]</Filter>
     </ClInclude>
-    <ClInclude Include="EngineHeader.h">
+    <ClInclude Include="SDKHeader.h">
       <Filter>[5]___________[ System ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">

@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineHeader.h"
+#include "SDKHeader.h"
 
 // Declare the sprite resource or directory here. 
 class SpriteResource {

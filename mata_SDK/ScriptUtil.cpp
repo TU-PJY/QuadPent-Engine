@@ -1,8 +1,6 @@
 #include "ScriptUtil.h"
 
 #ifdef USE_FILE_SYSTEM
-#include "EngineHeader.h"
-
 void ScriptUtil::Load(std::string FileName) {
 	if (FileExist)
 		return;

@@ -14,12 +14,12 @@ constexpr bool FULL_SCREEN_OPTION = false;
 
 
 
-//////////////////////////////////// Engine options
+//////////////////////////////////// SDK options
 // intro screen option
 constexpr bool ENABLE_INTRO_SCREEN = true;
 
 // frame limits option
-// If this option is set to 0, the engine will run at maximum framerate.
+// If this option is set to 0, the system will run at maximum framerate.
 constexpr int FRAME_LIMITS = 0;
 
 

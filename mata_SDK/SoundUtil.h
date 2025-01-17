@@ -2,7 +2,7 @@
 #include "SystemConfig.h"
 
 #ifdef USE_SOUND_SYSTEM
-#include "EngineHeader.h"
+#include "SDKHeader.h"
 #include <string>
 
 class SoundUtil {
