@@ -49,3 +49,11 @@ void SDKSystem::SwitchScreenState() {
 		break;
 	}
 }
+
+void SDKSystem::ChangeScreenSize(int ScreenWidth, int ScreenHeight) {
+	WIDTH = ScreenWidth;
+	HEIGHT = ScreenHeight;
+	glutReshapeWindow(WIDTH, HEIGHT);
+	glutPositionWindow(0, 0);
+	FullscreenState = false;
+}

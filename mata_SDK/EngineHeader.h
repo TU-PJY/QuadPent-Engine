@@ -314,6 +314,7 @@ public:
 	static GLvoid Main();
 	static GLvoid DisplayReshape(int w, int h);
 	void SwitchScreenState();
+	void ChangeScreenSize(int ScreenWidth, int ScreenHeight);
 	void SetFrameLimit(int FrameLimit);
 	void HideCursor();
 	void ShowCursor();
