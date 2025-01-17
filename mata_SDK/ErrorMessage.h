@@ -6,10 +6,17 @@ class ErrorMessage : public GameObject {
 private:
 	TextUtil Text{};
 	std::string Result{};
-	bool InitCommand{};
 
 public:
 	ErrorMessage(int Type, std::string Value) {
+		System.SetBackColorRGB(31, 31, 31);
+
+		Text.Init(L"Roboto", FW_NORMAL);
+		Text.SetColor(1.0, 1.0, 1.0);
+		Text.SetLineGap(0.01);
+
+		PlaySound(TEXT("SDKResource\\Sound\\SDK_Error_Sound.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
 		Result = "An error occurred in the mata_SDK system.\n\n";
 
 		switch (Type) {
@@ -91,18 +98,6 @@ public:
 		if (SysRes.SDK_LOGO_ERROR.Texture != 0) {
 			BeginRender(RENDER_TYPE_STATIC);
 			RenderSprite(SysRes.SDK_LOGO_ERROR, 0.3);
-		}
-
-		if (!InitCommand) {
-			System.SetBackColorRGB(31, 31, 31);
-
-			Text.Init(L"Roboto", FW_NORMAL);
-			Text.SetColor(1.0, 1.0, 1.0);
-			Text.SetLineGap(0.01);
-
-			PlaySound(TEXT("SDKResource\\Sound\\SDK_Error_Sound.wav"), NULL, SND_FILENAME | SND_ASYNC);
-
-			InitCommand = true;
 		}
 
 		Text.RenderStr(ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);
