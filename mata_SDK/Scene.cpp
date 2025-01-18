@@ -121,34 +121,6 @@ void Scene::EndFloatingMode() {
 	FloatingFocusCommand = false;
 }
 
-void Scene::ResetControlState(GameObject* Object) {
-	Object->ResetControlState();
-}
-
-void Scene::ResetControlState(std::string Tag) {
-	auto Object = ObjectIndex.find(Tag);
-	if (Object != end(ObjectIndex))
-		Object->second->ResetControlState();
-}
-
-void Scene::InputKey(std::string Tag, KeyEvent& Event) {
-	auto Object = ObjectIndex.find(Tag);
-	if (Object != end(ObjectIndex))
-		Object->second->InputKey(Event);
-}
-
-void Scene::InputMouse(std::string Tag, int State) {
-	auto Object = ObjectIndex.find(Tag);
-	if (Object != end(ObjectIndex))
-		Object->second->InputMouse(State);
-}
-
-void Scene::InputScroll(std::string Tag, int State) {
-	auto Object = ObjectIndex.find(Tag);
-	if (Object != end(ObjectIndex))
-		Object->second->InputScroll(State);
-}
-
 void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
 	if (AddLayer > Layers)
 		return;

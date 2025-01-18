@@ -86,21 +86,6 @@ public:
 	// Exit floating mode.Floating objects are deleted, and regular objects are not deleted.
 	void EndFloatingMode();
 	
-	// Initializes the control state of a specific object.
-	void ResetControlState(GameObject* Object);
-
-	// Initializes the control state of a specific object.
-	void ResetControlState(std::string Tag);
-
-	// Sends keyboard events to a specific object class.
-	void InputKey(std::string Tag, KeyEvent& Event);
-
-	// Sends mouse events to a specific object class.
-	void InputMouse(std::string Tag, int State);
-
-	// Sends mouse scroll events to a specific object class.
-	void InputScroll(std::string Tag, int State);
-
 	// Add an object to the scene. You can give two options to an object.
 	// OBJECT_TYPE_STATIC: It will not be deleted even if the mode is changed.
 	// OBJECT_TYPE_FLOATING: Specify it as a floating mode object.
