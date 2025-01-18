@@ -17,7 +17,8 @@ void Scene::Stop() {
 }
 
 void Scene::Resume() {
-	UpdateActivateCommand = true;
+	if (!ErrorOccured)
+		UpdateActivateCommand = true;
 }
 
 void Scene::Update() {

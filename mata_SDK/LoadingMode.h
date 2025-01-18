@@ -1,17 +1,20 @@
 #pragma once
 #include "Scene.h"
 #include "MouseUtil.h"
+#include "CameraController.h"
+
 #include "LoadingScreen.h"
 
 class Loading_Mode {
 public:
 	std::string ModeName{ "LoadingMode" };
 	int         ModeType{ MODE_TYPE_DEFAULT };
-	bool        UseObjectPtr{ false };
+
+	bool        UseCameraController{ false };
 
 	std::vector<std::string> InputObjectTag
 	{
-		"loading_screen",
+		"loading_screen"
 	};
 
 	std::vector<GameObject*> InputObject{};
@@ -25,11 +28,10 @@ public:
 	}
 
 	static void Destructor() {
-		ClearObjectPtr();
+
 	}
 
 	/////////////////////////////////////////////////////////////
-	// Fold here
 #pragma region FoldRegion 
 	static Loading_Mode* M_Inst;
 
@@ -38,35 +40,31 @@ public:
 	}
 
 	static void SetUp() {
+		M_Inst->InputObject.clear();
+
+		for (auto const& Tag : M_Inst->InputObjectTag) {
+			if (auto Object = scene.Find(Tag); Object)
+				M_Inst->InputObject.emplace_back(Object);
+		}
+
+		if (M_Inst->UseCameraController)
+			M_Inst->InputObject.emplace_back(CameraControl);
+
 		scene.RegisterModeName(M_Inst->ModeName);
 		scene.RegisterDestructor(Destructor);
 		scene.RegisterController(Controller, M_Inst->ModeType);
 	}
 
-	static void AddObjectPtr(std::string ObjectTag) {
-		if (!M_Inst->UseObjectPtr)  return;
-		auto Object = scene.Find(ObjectTag);
-		if (Object)  M_Inst->InputObject.emplace_back(Object);
-	}
-
-	static void ClearObjectPtr() {
-		if (!M_Inst->UseObjectPtr)  return;
-		M_Inst->InputObject.clear();
-	}
-
 	static void ProcessKeyEvent(KeyEvent& Event) {
-		if (!M_Inst->UseObjectPtr) {
-			for (auto const& Object : M_Inst->InputObjectTag)
-				scene.InputKey(Object, Event);
-		}
-		else {
-			for (auto const& Object : M_Inst->InputObject) {
-				if (Object)  Object->InputKey(Event);
-			}
-		}
-	}
+		for (auto const& Object : M_Inst->InputObject)
+			if (Object)  Object->InputKey(Event);
 
+	}
 	static void KeyDown(unsigned char KEY, int X, int Y) {
+#ifdef ENABLE_DEV_EXIT
+		if (KEY == NK_ESCAPE)
+			System.Exit();
+#endif
 		KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
 		ProcessKeyEvent(Event);
 	}
@@ -95,25 +93,19 @@ public:
 	}
 
 	static void MouseWheel(int Button, int Wheel, int X, int Y) {
-		int WheelEvent = -1;
+		int WheelEvent{};
 
 		if (Wheel > 0)
 			WheelEvent = WHEEL_UP;
 		else if (Wheel < 0)
 			WheelEvent = WHEEL_DOWN;
 
-		if (!M_Inst->UseObjectPtr) {
-			for (auto const& Object : M_Inst->InputObjectTag)
-				scene.InputScroll(Object, WheelEvent);
-		}
-		else {
-			for (auto const& Object : M_Inst->InputObject)
-				if (Object)  Object->InputScroll(WheelEvent);
-		}
+		for (auto const& Object : M_Inst->InputObject)
+			if (Object)  Object->InputScroll(WheelEvent);
 	}
 
 	static void MouseButton(int Button, int State, int X, int Y) {
-		int ButtonEvent = -1;
+		int ButtonEvent{};
 
 		switch (State) {
 		case GLUT_DOWN:
@@ -139,14 +131,8 @@ public:
 			break;
 		}
 
-		if (!M_Inst->UseObjectPtr) {
-			for (auto const& Object : M_Inst->InputObjectTag)
-				scene.InputMouse(Object, ButtonEvent);
-		}
-		else {
-			for (auto const& Object : M_Inst->InputObject)
-				if (Object)  Object->InputMouse(ButtonEvent);
-		}
+		for (auto const& Object : M_Inst->InputObject)
+			if (Object)  Object->InputMouse(ButtonEvent);
 	}
 
 	static void Controller() {

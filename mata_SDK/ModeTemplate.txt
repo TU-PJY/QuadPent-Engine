@@ -89,7 +89,7 @@ public:
 	}
 
 	static void MouseWheel(int Button, int Wheel, int X, int Y) {
-		int WheelEvent = -1;
+		int WheelEvent{};
 
 		if (Wheel > 0)
 			WheelEvent = WHEEL_UP;
