@@ -32,7 +32,7 @@ void Scene::Update() {
 	for (int i = 0; i < Layers; ++i) {
 		for (auto& Object : ObjectList[i]) {
 			if (UpdateActivateCommand) {
-				if (FloatingFocusCommand && Object->FloatingOpt)
+				if (FloatingFocusCommand && Object->FloatingCommand)
 					Object->UpdateFunc(FrameTime);
 				else
 					Object->UpdateFunc(FrameTime);
@@ -126,27 +126,26 @@ void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Typ
 		return;
 
 	ObjectList[AddLayer].emplace_back(Object);
-	ObjectIndex.insert(std::pair(Tag, Object));
 
 	Object->ObjectTag = Tag;
 	Object->ObjectLayer = AddLayer;
 
 	if(Type1 == Type2) {
 		if(Type1 == OBJECT_TYPE_STATIC)
-			Object->StaticOpt = true;
+			Object->StaticCommand = true;
 
 		else if(Type1 == OBJECT_TYPE_FLOATING)
-			Object->FloatingOpt = true;
+			Object->FloatingCommand = true;
 
 		return;
 	}
 
 	else {
 		if(Type1 == OBJECT_TYPE_STATIC || Type2 == OBJECT_TYPE_STATIC)
-			Object->StaticOpt = true;
+			Object->StaticCommand = true;
 
 		if(Type1 == OBJECT_TYPE_FLOATING || Type2 == OBJECT_TYPE_FLOATING)
-			Object->FloatingOpt = true;
+			Object->FloatingCommand = true;
 	}
 }
 
@@ -161,26 +160,33 @@ void Scene::DeleteObject(GameObject* Object) {
 
 void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
-		auto Object = ObjectIndex.find(Tag);
-		if (Object != end(ObjectIndex))
-			Object->second->DeleteCommand = true;
+		for (int Layer = 0; Layer < Layers; ++Layer) {
+			for (auto const& Object : ObjectList[Layer]) {
+				if (Object->ObjectTag == Tag) {
+					Object->DeleteCommand = true;
+					return;
+				}
+			}
+		}
 	}
 
-	else if (DeleteRange == DELETE_RANGE_EQUAL) {
-		auto Range = ObjectIndex.equal_range(Tag);
-		if (Range.first != Range.second) {
-			for (auto Object = Range.first; Object != Range.second; ++Object) {
-				if (Object->first == Tag)
-					Object->second->DeleteCommand = true;
+	else if (DeleteRange == DELETE_RANGE_ALL) {
+		for (int Layer = 0; Layer < Layers; ++Layer) {
+			for (auto const& Object : ObjectList[Layer]) {
+				if (Object->ObjectTag == Tag)
+					Object->DeleteCommand = true;
 			}
 		}
 	}
 }
 
 GameObject* Scene::Find(std::string Tag) {
-	auto Object = ObjectIndex.find(Tag);
-	if (Object != end(ObjectIndex))
-		return Object->second;
+	for (int Layer = 0; Layer < Layers; ++Layer) {
+		for (auto const& Object : ObjectList[Layer]) {
+			if (Object->ObjectTag == Tag)
+				return Object;
+		}
+	}
 
 	return nullptr;
 }
@@ -193,10 +199,6 @@ GameObject* Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
 	return nullptr;
 }
 
-std::pair<ObjectRange, ObjectRange> Scene::EqualRange(std::string Tag) {
-	return ObjectIndex.equal_range(Tag);
-}
-
 size_t Scene::LayerSize(int TargetLayer) {
 	return ObjectList[TargetLayer].size();
 }
@@ -206,7 +208,6 @@ void Scene::CompleteCommand() {
 		return;
 
 	UpdateObjectList();
-	UpdateObjectIndex();
 	CommandExist = false;
 }
 
@@ -235,8 +236,9 @@ void Scene::UpdateObjectList() {
 			auto Object = begin(ObjectList[Layer]) + DeleteLocation[Layer][i] - Offset;
 
 			if ((*Object)->DeleteCommand) {
+				delete* Object;
+				*Object = nullptr;
 				ObjectList[Layer].erase(Object);
-				++IndexCommandCount;
 			}
 
 			else if ((*Object)->SwapCommand) {
@@ -254,31 +256,21 @@ void Scene::UpdateObjectList() {
 	}
 }
 
-void Scene::UpdateObjectIndex() {
-	auto Object = begin(ObjectIndex);
-	while (Object != end(ObjectIndex) && IndexCommandCount != 0) {
-		if (Object->second->DeleteCommand) {
-			delete Object->second;
-			Object->second = nullptr;
-			Object = ObjectIndex.erase(Object);
-			--IndexCommandCount;
-			continue;
-		}
-		++Object;
-	}
-}
-
 void Scene::ClearFloatingObject() {
-	for (auto const& Object : ObjectIndex) {
-		if (Object.second->FloatingOpt && !Object.second->StaticOpt)
-			Object.second->DeleteCommand = true;
+	for (int Layer = 0; Layer < Layers; ++Layer) {
+		for (auto const& Object : ObjectList[Layer]) {
+			if (Object->FloatingCommand && !Object->StaticCommand)
+				Object->DeleteCommand = true;
+		}
 	}
 }
 
 void Scene::ClearAll() {
-	for (auto const& Object : ObjectIndex) {
-		if (!Object.second->StaticOpt)
-			Object.second->DeleteCommand = true;
+	for (int Layer = 0; Layer < Layers; ++Layer) {
+		for (auto const& Object : ObjectList[Layer]) {
+			if(!Object->StaticCommand)
+				Object->DeleteCommand = true;
+		}
 	}
 }
 

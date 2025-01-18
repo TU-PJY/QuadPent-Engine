@@ -27,8 +27,19 @@ public:
 
 	}
 
-    /////////////////////////////////////////////////////////////
-#pragma region FoldRegion 
+	/////////////////////////////////////////////////////////////
+
+	void AddControlObject(GameObject* Object) {
+		InputObject.emplace_back(Object);
+	}
+
+	void DeleteControlObject(GameObject* Object) {
+		auto Target = std::find(begin(InputObject), end(InputObject), Object);
+		if (Target != end(InputObject))
+			InputObject.erase(Target);
+	}
+
+	/////////////////////////////////////////////////////////////
 	static Template* M_Inst;
 
 	Template() {

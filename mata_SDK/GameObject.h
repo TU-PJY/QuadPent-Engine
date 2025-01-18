@@ -22,8 +22,8 @@ public:
 	std::string ObjectTag{};
 	int         ObjectLayer{};
 
-	bool        FloatingOpt{};
-	bool        StaticOpt{};
+	bool        FloatingCommand{};
+	bool        StaticCommand{};
 	
 	bool        DeleteCommand{};
 	bool        SwapCommand{};

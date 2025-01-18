@@ -174,7 +174,7 @@ enum EXClampTypeEnum {
 
 enum DeleteRangeEnum {
 	DELETE_RANGE_SINGLE,
-	DELETE_RANGE_EQUAL
+	DELETE_RANGE_ALL
 };
 
 enum ModeTypeEnum {

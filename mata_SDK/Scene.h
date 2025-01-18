@@ -2,7 +2,6 @@
 #include "GameObject.h"
 #include <algorithm>
 #include <array>
-#include <map>
 #include <deque>
 #include <vector>
 
@@ -10,16 +9,12 @@ typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
 constexpr int Layers = EOL;
 
-using ObjectRange    = std::multimap<std::string, GameObject*>::iterator;
-
 class Scene {
 private:
 	std::array<std::deque<GameObject*>, Layers> ObjectList{};
-	std::multimap<std::string, GameObject*>     ObjectIndex{};
 	std::array<std::vector<int>, Layers>        DeleteLocation{};
 
 	int                               CurrentReferLocation{};
-	int                               IndexCommandCount{};
 	bool                              CommandExist{};
 
 	std::string						  CurrentRunningMode{};
@@ -49,6 +44,7 @@ public:
 	void Stop();
 
 	// Resume scene updates.
+	// It cannot be used when an error occurs.
 	void Resume();
 
 	// Register the mode name to run.
@@ -99,6 +95,7 @@ public:
 	void DeleteObject(GameObject* Object);
 
 	// Deletes an object from the Scene.
+	// The DELETE_RANGE_SINGLE option is recommended when the target object is guaranteed to exist as a single object.
 	void DeleteObject(std::string Tag, int deleteRange);
 
 	// Gets a pointer to a specific object that exists in the Scene. Returns nullptr for objects that do not exist.
@@ -108,20 +105,18 @@ public:
 	// You need to find the number of objects that exist in a specific layer and then access it using the for statement.
 	GameObject* FindMulti(std::string Tag, int SearchLayer, int Index);
 
-	// Gets a range of multiple objects with a specific tag that exist in the Scene. The range can be accessed using the for statement.
-	std::pair<ObjectRange, ObjectRange> EqualRange(std::string Tag);
-
 	// 	Returns the number of objects present in a specific Scene layer.
 	size_t LayerSize(int TargetLayer);
 
+	// Checks the state of an object and takes action appropriate to the state.
 	void CompleteCommand();
 
+	// When an error occurs, it switches to the error screen and stops the system.
 	void ErrorScreen(int ErrorType, std::string Value1, std::string Value2="");
 
 private:
 	void AddLocation(int Layer, int Position);
 	void UpdateObjectList();
-	void UpdateObjectIndex();
 	void ClearFloatingObject();
 	void ClearAll();
 	void SwitchToErrorScreen();

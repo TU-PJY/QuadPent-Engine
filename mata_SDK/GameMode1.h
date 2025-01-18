@@ -37,6 +37,19 @@ public:
 	}
 
     /////////////////////////////////////////////////////////////
+	// Adds a control object to the mode.
+	void AddControlObject(GameObject* Object) {
+		InputObject.emplace_back(Object);
+	}
+
+	// Deletes a control object from mode.
+	void DeleteControlObject(GameObject* Object) {
+		auto Target = std::find(begin(InputObject), end(InputObject), Object);
+		if (Target != end(InputObject))
+			InputObject.erase(Target);
+	}
+
+	/////////////////////////////////////////////////////////////
 	// Fold here
 #pragma region FoldRegion 
 	static GameMode1* M_Inst;
