@@ -72,6 +72,11 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format,
 	if (Format == NULL)
 		return;
 
+	CurrentLine = 0;
+	TextRenderSize = Size;
+	RenderPosition = glm::vec2(X, Y);
+	RenderStartPosition = RenderPosition.x;
+
 	if (CurrentText != PrevText) {
 		TextWordCount = wcslen(Text);
 		ProcessGlyphCache(Text);
@@ -79,11 +84,6 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format,
 	}
 
 	CalculateTextLength(Text);
-
-	CurrentLine = 0;
-	TextRenderSize = Size;
-	RenderPosition = glm::vec2(X, Y);
-	RenderStartPosition = RenderPosition.x;
 
 	switch (HeightAlign) {
 	case HEIGHT_ALIGN_MIDDLE:
@@ -145,7 +145,6 @@ void TextUtil::GetLineLength(const wchar_t* Text) {
 
 void TextUtil::CalculateTextLength(const wchar_t* Text) {
 	GetLineLength(Text);
-	CurrentLine = 0;
 	TextLength = LineLengthBuffer[0];
 
 	MiddleHeight = 0.0;

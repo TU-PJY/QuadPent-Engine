@@ -14,6 +14,8 @@ public:
 		Text.Init(L"Roboto", FW_NORMAL);
 		Text.SetColor(1.0, 1.0, 1.0);
 		Text.SetHeightAlign(HEIGHT_ALIGN_UNDER);
+
+		Rect.SetRenderType(RENDER_TYPE_STATIC);
 	}
 
 	void UpdateFunc(float FrameTime) {
