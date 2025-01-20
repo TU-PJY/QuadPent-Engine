@@ -74,8 +74,8 @@ public:
 	static void ProcessKeyEvent(KeyEvent& Event) {
 		for (auto const& Object : M_Inst->InputObject)
 			if (Object)  Object->InputKey(Event);
-
 	}
+	
 	static void KeyDown(unsigned char KEY, int X, int Y) {
 #ifdef ENABLE_DEV_EXIT
 		if (KEY == NK_ESCAPE)
