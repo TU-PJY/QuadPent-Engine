@@ -250,6 +250,9 @@ std::string FileUtil::FindData(std::string CategoryName, std::string DataName) {
 	}
 	else {
 		const char* DataValue = FindCategory(CategoryName)->Attribute(DataName.c_str());
+		if(!DataValue)
+			return "";
+		
 		return (std::string)DataValue;
 	}
 }
