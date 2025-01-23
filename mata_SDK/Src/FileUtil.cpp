@@ -55,8 +55,8 @@ std::string FileUtil::LoadStringData(std::string CategoryName, std::string DataN
 	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
-DigitDataSet FileUtil::LoadCategoryDigitData(std::string CategoryName) {
-	DigitDataSet LoadedData{};
+DigitDataVec FileUtil::LoadCategoryDigitData(std::string CategoryName) {
+	DigitDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 
 	const TiXmlAttribute* Attribute = Category->FirstAttribute();
@@ -68,8 +68,8 @@ DigitDataSet FileUtil::LoadCategoryDigitData(std::string CategoryName) {
 	return LoadedData;
 }
 
-StringDataSet FileUtil::LoadCategoryStringData(std::string CategoryName) {
-	StringDataSet LoadedData{};
+StringDataVec FileUtil::LoadCategoryStringData(std::string CategoryName) {
+	StringDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 
 	const TiXmlAttribute* Attribute = Category->FirstAttribute();

@@ -33,8 +33,8 @@ public:
 	void ImportSecure(std::string FileName);
 	float LoadDigitData(std::string CategoryName, std::string DataName);
 	std::string LoadStringData(std::string CategoryName, std::string DataName);
-	DigitDataSet LoadCategoryDigitData(std::string CategoryName);
-	StringDataSet LoadCategoryStringData(std::string CategoryName);
+	DigitDataVec LoadCategoryDigitData(std::string CategoryName);
+	StringDataVec LoadCategoryStringData(std::string CategoryName);
 	void Release();
 
 private:

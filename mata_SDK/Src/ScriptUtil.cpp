@@ -54,8 +54,8 @@ std::string ScriptUtil::LoadStringData(std::string CategoryName, std::string Dat
 	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
-DigitDataSet ScriptUtil::LoadCategoryDigitData(std::string CategoryName) {
-	DigitDataSet LoadedData{};
+DigitDataVec ScriptUtil::LoadCategoryDigitData(std::string CategoryName) {
+	DigitDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 
 	if (!Category) {
@@ -72,8 +72,8 @@ DigitDataSet ScriptUtil::LoadCategoryDigitData(std::string CategoryName) {
 	return LoadedData;
 }
 
-StringDataSet ScriptUtil::LoadCategoryStringData(std::string CategoryName) {
-	StringDataSet LoadedData{};
+StringDataVec ScriptUtil::LoadCategoryStringData(std::string CategoryName) {
+	StringDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 
 	if (!Category) {

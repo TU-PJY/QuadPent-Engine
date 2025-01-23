@@ -38,8 +38,8 @@ using SoundChannelGroup = std::vector <FMOD::Channel*>;
 #endif
 
 #ifdef USE_FILE_SYSTEM
-using StringDataSet  = std::vector<std::string>;
-using DigitDataSet   = std::vector<float>;
+using StringDataVec  = std::vector<std::string>;
+using DigitDataVec   = std::vector<float>;
 #endif
 
 enum KeyState {
