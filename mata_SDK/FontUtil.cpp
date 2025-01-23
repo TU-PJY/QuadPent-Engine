@@ -11,7 +11,7 @@ bool FontUtil::Load(const std::string& FontFilePath, bool LoadInThread) {
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);
 
     if (NumFonts == 0) {
-        scene.ErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
+        scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
         return false;
     }
     else

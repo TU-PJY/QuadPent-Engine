@@ -9,11 +9,15 @@
 
 class LoadingScreen : public GameObject {
 private:
-	HANDLE  ThreadHandle{};
+	HANDLE  SystemResourceLoadHandle{};
+	HANDLE  UserResourceLoadHandle{};
+
 	GLfloat Rotation{};
 	GLfloat SpinnerOpacity{1.0};
+
 	bool    LoadCommand{};
-	bool    ThreadEnd{};
+	bool    SystemResourceLoadEnd{};
+	bool    UserResourceLoadEnd{};
 
 public:
 	void InputKey(KeyEvent& Event) {
@@ -29,12 +33,18 @@ public:
 		if (LoadCommand) {
 			Rotation -= 200 * FrameTime;
 
-			if (!threadUtil.IsRunning(ThreadHandle) && !ThreadEnd) {
-				threadUtil.Close(ThreadHandle);
-				ThreadEnd = true;
+			if (!threadUtil.IsRunning(SystemResourceLoadHandle) && !SystemResourceLoadEnd) {
+				threadUtil.Close(SystemResourceLoadHandle);
+				threadUtil.Create(UserResourceLoadHandle, UserResourceLoader);
+				SystemResourceLoadEnd = true;
 			}
 
-			if(ThreadEnd) {
+			if (!threadUtil.IsRunning(UserResourceLoadHandle) && !UserResourceLoadEnd) {
+				threadUtil.Close(UserResourceLoadHandle);
+				UserResourceLoadEnd = true;
+			}
+
+			if(SystemResourceLoadEnd && UserResourceLoadEnd) {
 				imageUtil.Map();
 
 				if (!ENABLE_INTRO_SCREEN) {
@@ -68,7 +78,7 @@ public:
 			soundUtil.Init();
 #endif
 			imageUtil.Load(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
-			threadUtil.Create(ThreadHandle, SystemResourceCreateThread);
+			threadUtil.Create(SystemResourceLoadHandle, SystemResourceLoader);
 
 			LoadCommand = true;
 		}
@@ -79,18 +89,18 @@ public:
 		transform.Move(TranslateMatrix, WindowRect.rx - 0.15, -0.85);
 		transform.Scale(ScaleMatrix, 0.25, 0.25);
 		transform.Rotate(RotateMatrix, Rotation);
-		RenderSprite(SysRes.LOADING_SPINNER, SpinnerOpacity);
+		RenderImage(SysRes.LOADING_SPINNER, SpinnerOpacity);
 	}
 
-	static DWORD WINAPI SystemResourceCreateThread(LPVOID Param) {
+	static DWORD WINAPI SystemResourceLoader(LPVOID Param) {
 #ifdef USE_SOUND_SYSTEM
 		soundUtil.Load(SysRes.INTRO_SOUND, SysRes.SDK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
 #endif
 
-		imageUtil.PreLoad(SysRes.SDK_LOGO, SysRes.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.PreLoad(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.PreLoad(SysRes.FMOD_LOGO, SysRes.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.PreLoad(SysRes.COLOR_TEXTURE, SysRes.COLOR_TEXTURE_DIRECTORY);
+		imageUtil.LoadT(SysRes.SDK_LOGO, SysRes.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+		imageUtil.LoadT(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+		imageUtil.LoadT(SysRes.FMOD_LOGO, SysRes.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
+		imageUtil.LoadT(SysRes.COLOR_TEXTURE, SysRes.COLOR_TEXTURE_DIRECTORY);
 
 		SysRes.GLU_CIRCLE = gluNewQuadric();
 		SysRes.GLU_LINE_CIRCLE = gluNewQuadric();
@@ -98,14 +108,6 @@ public:
 		gluQuadricDrawStyle(SysRes.GLU_LINE_CIRCLE, GLU_FILL);
 
 		fontUtil.Load(SysRes.SYSTEM_FONT_DIRECTORY, true);
-
-#ifdef USE_CUSTOM_FONT
-		int TotalSize = sizeof(FONT_PATH);
-		int ElementSize = sizeof(FONT_PATH[0]);
-		int Length = TotalSize / ElementSize;
-		for (int i = 0; i < Length; ++i)
-			fontUtil.Load(FONT_PATH[i], true);
-#endif
 
 		return 0;
 	}

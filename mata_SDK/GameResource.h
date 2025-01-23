@@ -1,14 +1,16 @@
 #pragma once
 #include "SDKHeader.h"
+#include "ScriptUtil.h"
+#include "FileUtil.h"
 
 // Declare the sprite resource or directory here. 
-class SpriteResource {
+class ImageResource {
 public:
 
 };
 
 // Declare the sound resource or directory here. 
-class AudioResource {
+class SoundResource {
 public:
 
 };
@@ -22,7 +24,7 @@ public:
 };
 
 // Declare the global value here.
-class GlobalValue {
+class GlobalResource {
 public:
 
 };
@@ -37,7 +39,9 @@ constexpr const char* FONT_PATH[]
 };
 #endif
 
-extern SpriteResource Sprite;
-extern AudioResource Audio;
-extern DataFormatResource Format;
-extern GlobalValue Global;
+extern ImageResource Img;
+extern SoundResource Snd;
+extern DataFormatResource Fmt;
+extern GlobalResource Glo;
+
+DWORD WINAPI UserResourceLoader(LPVOID lpParam);

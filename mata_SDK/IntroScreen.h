@@ -93,11 +93,11 @@ public:
 
 		switch (Scene) {
 		case 1:
-			RenderSprite(SysRes.SDK_LOGO, LogoOpacity);
+			RenderImage(SysRes.SDK_LOGO, LogoOpacity);
 			break;
 
 		case 2: case 3:
-			RenderSprite(SysRes.FMOD_LOGO, LogoOpacity);
+			RenderImage(SysRes.FMOD_LOGO, LogoOpacity);
 			break;
 		}
 	}

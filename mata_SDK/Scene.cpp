@@ -156,6 +156,7 @@ void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
 
 void Scene::DeleteObject(GameObject* Object) {
 	Object->DeleteCommand = true;
+	Object->ObjectTag = "";
 }
 
 void Scene::DeleteObject(std::string Tag, int DeleteRange) {
@@ -164,6 +165,7 @@ void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 			for (auto const& Object : ObjectList[Layer]) {
 				if (Object->ObjectTag == Tag) {
 					Object->DeleteCommand = true;
+					Object->ObjectTag = "";
 					return;
 				}
 			}
@@ -173,8 +175,10 @@ void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	else if (DeleteRange == DELETE_RANGE_ALL) {
 		for (int Layer = 0; Layer < Layers; ++Layer) {
 			for (auto const& Object : ObjectList[Layer]) {
-				if (Object->ObjectTag == Tag)
+				if (Object->ObjectTag == Tag) {
 					Object->DeleteCommand = true;
+					Object->ObjectTag = "";
+				}
 			}
 		}
 	}
@@ -211,7 +215,7 @@ void Scene::CompleteCommand() {
 	CommandExist = false;
 }
 
-void Scene::ErrorScreen(int ErrorType, std::string Value1, std::string Value2) {
+void Scene::SetErrorScreen(int ErrorType, std::string Value1, std::string Value2) {
 	Value1Buffer = Value1;
 	Value2Buffer = Value2;
 	ErrorTypeBuffer = ErrorType;
@@ -259,8 +263,10 @@ void Scene::UpdateObjectList() {
 void Scene::ClearFloatingObject() {
 	for (int Layer = 0; Layer < Layers; ++Layer) {
 		for (auto const& Object : ObjectList[Layer]) {
-			if (Object->FloatingCommand && !Object->StaticCommand)
+			if (Object->FloatingCommand && !Object->StaticCommand) {
 				Object->DeleteCommand = true;
+				Object->ObjectTag = "";
+			}
 		}
 	}
 }
@@ -268,8 +274,10 @@ void Scene::ClearFloatingObject() {
 void Scene::ClearAll() {
 	for (int Layer = 0; Layer < Layers; ++Layer) {
 		for (auto const& Object : ObjectList[Layer]) {
-			if(!Object->StaticCommand)
+			if (!Object->StaticCommand) {
 				Object->DeleteCommand = true;
+				Object->ObjectTag = "";
+			}
 		}
 	}
 }

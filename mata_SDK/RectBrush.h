@@ -13,6 +13,7 @@ private:
 public:
 	LineRectBrush(bool Flag=false);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
+	void SetColor(glm::vec3& ColorValue);
 	void SetColorRGB(int R, int G, int B);
 	void SetRenderType(int Opt);
 	void Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat Width, GLfloat RotationValue, GLfloat OpacityValue = 1.0f);
@@ -35,6 +36,7 @@ private:
 public:
 	RectBrush(bool Flag=false);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
+	void SetColor(glm::vec3& ColorValue);
 	void SetColorRGB(int R, int G, int B);
 	void SetRenderType(int Opt);
 	void Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat RotationValue, GLfloat OpacityValue = 1.0f);

@@ -17,6 +17,12 @@ void CircleBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	Color.b = B;
 }
 
+void CircleBrush::SetColor(glm::vec3& ColorValue) {
+	Color.r = ColorValue.r;
+	Color.g = ColorValue.g;
+	Color.b = ColorValue.b;
+}
+
 void CircleBrush::SetColorRGB(int R, int G, int B) {
 	Color.r = (1.0f / 255.0f) * (GLfloat)R;
 	Color.g = (1.0f / 255.0f) * (GLfloat)G;
@@ -62,6 +68,12 @@ void LineCircleBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	Color.r = R;
 	Color.g = G;
 	Color.b = B;
+}
+
+void LineCircleBrush::SetColor(glm::vec3& ColorValue) {
+	Color.r = ColorValue.r;
+	Color.g = ColorValue.g;
+	Color.b = ColorValue.b;
 }
 
 void LineCircleBrush::SetColorRGB(int R, int G, int B) {

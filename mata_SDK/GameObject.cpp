@@ -120,7 +120,7 @@ void GameObject::ResetUnitTransform() {
 	UnitBlur = 0.0f;
 }
 
-void GameObject::RenderSprite(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void GameObject::RenderImage(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	if (!DisableAdjustAspect)
 		transform.ImageScale(ImageAspectMatrix, Image.Width, Image.Height);
 

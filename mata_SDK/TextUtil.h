@@ -39,6 +39,7 @@ public:
 	~TextUtil();
 	void Init(const wchar_t* FontName, int Type, int Italic=FALSE);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
+	void SetColor(glm::vec3& Color);
 	void SetColorRGB(int R, int G, int B);
 	void SetAlign(int AlignOpt);
 	void SetLineGap(GLfloat Value);
@@ -46,9 +47,11 @@ public:
 	void SetHeightAlign(int Type);
 	void Rotate(GLfloat RotationValue);
 	void SetOpacity(GLfloat Value);
-	void SetRenderType(int Type);
-	void RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str);
+	void Render(glm::vec2& Position, GLfloat Size, const wchar_t* Format, ...);
 	void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...);
+	void RenderStr(glm::vec2& Position, GLfloat Size, std::string Str);
+	void RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string Str);
+	void SetRenderType(int Type);
 
 private:
 	void GetLineLength(const wchar_t* Text);

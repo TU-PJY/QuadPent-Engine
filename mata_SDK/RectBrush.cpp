@@ -20,6 +20,12 @@ void LineRectBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	Color.b = B;
 }
 
+void LineRectBrush::SetColor(glm::vec3& ColorValue) {
+	Color.r = ColorValue.r;
+	Color.g = ColorValue.g;
+	Color.b = ColorValue.b;
+}
+
 void LineRectBrush::SetColorRGB(int R, int G, int B) {
 	Color.r = (1.0f / 255.0f) * (GLfloat)R;
 	Color.g = (1.0f / 255.0f) * (GLfloat)G;
@@ -75,6 +81,12 @@ void RectBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	Color.r = R;
 	Color.g = G;
 	Color.b = B;
+}
+
+void RectBrush::SetColor(glm::vec3& ColorValue) {
+	Color.r = ColorValue.r;
+	Color.g = ColorValue.g;
+	Color.b = ColorValue.b;
 }
 
 void RectBrush::SetColorRGB(int R, int G, int B) {

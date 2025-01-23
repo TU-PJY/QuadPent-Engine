@@ -23,7 +23,7 @@ void SoundUtil::Init() {
 void SoundUtil::Load(FMOD::Sound*& Sound, std::string FileName, FMOD_MODE Option) {
 	HRESULT Result = SoundSystem->createSound(FileName.c_str(), Option, 0, &Sound);
 	if (Result != FMOD_OK)
-		scene.ErrorScreen(ERROR_TYPE_AUDIO_LOAD, FileName);
+		scene.SetErrorScreen(ERROR_TYPE_AUDIO_LOAD, FileName);
 }
 
 void SoundUtil::Release(FMOD::Sound*& Sound) {
@@ -139,6 +139,13 @@ void SoundUtil::UnSetFreqCutOff(FMOD::Channel*& ChannelVar) {
 	ChannelVar->removeDSP(LowPass);
 }
 
+void SoundUtil::StopAllSounds() {
+	FMOD::ChannelGroup* MasterChannelGroup{};
+
+	SoundSystem->getMasterChannelGroup(&MasterChannelGroup);
+	Result = MasterChannelGroup->stop();
+}
+
 void SoundUtil::SetDistance(FMOD::Channel*& ChannelVar, float MinDist, float MaxDist) {
 	ChannelVar->set3DMinMaxDistance(MinDist, MaxDist);
 }
@@ -173,19 +180,5 @@ void SoundUtil::SetSoundPosition(FMOD::Channel*& ChannelVar, glm::vec2 Position,
 	SoundPosition.z = Diff;
 
 	ChannelVar->set3DAttributes(&SoundPosition, 0);
-}
-
-void SoundUtil::StopAllSounds() {
-	FMOD::ChannelGroup* MasterChannelGroup{};
-
-	FMOD_RESULT Result = SoundSystem->getMasterChannelGroup(&MasterChannelGroup);
-	if (Result != FMOD_OK) {
-		printf("FMOD error! (%d) %s\n", Result, FMOD_ErrorString(Result));
-		return;
-	}
-
-	Result = MasterChannelGroup->stop();
-	if (Result != FMOD_OK)
-		printf("FMOD error! (%d) %s\n", Result, FMOD_ErrorString(Result));
 }
 #endif

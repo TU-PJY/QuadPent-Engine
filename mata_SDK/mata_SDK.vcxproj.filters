@@ -10,12 +10,6 @@
     <Filter Include="[2]___________[ Object ]">
       <UniqueIdentifier>{56801dea-cc93-4de6-be84-193b881c5076}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[2]___________[ Object ]\[1][ Main Object ]">
-      <UniqueIdentifier>{d6d673e8-1784-4513-a51f-e1fb334d2ea5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[2]___________[ Object ]\[2][ Floating Object ]">
-      <UniqueIdentifier>{b9e501bb-a47d-43b6-ada9-6bde123338ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[3]___________[ Camera ]">
       <UniqueIdentifier>{a94ebc27-9b04-4c84-b876-bb9fcb87cae4}</UniqueIdentifier>
     </Filter>
@@ -272,6 +266,9 @@
     </ClCompile>
     <ClCompile Include="[0]_Modes.cpp">
       <Filter>[1]___________[ GameMode ]</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceLoader.cpp">
+      <Filter>[4]___________[ Resources ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

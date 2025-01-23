@@ -57,7 +57,7 @@ void ImageUtil::Load(Image& ImageStruct, std::string FilePath, int Type) {
 
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		scene.ErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -90,7 +90,7 @@ void ImageUtil::LoadClip(Image& ImageStruct, std::string FilePath, int X, int Y,
 
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		scene.ErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -129,7 +129,7 @@ void ImageUtil::LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string File
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		scene.ErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -194,12 +194,12 @@ void ImageUtil::LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string File
 	SpriteSheetStruct.Height = ClipHeight;
 }
 
-void ImageUtil::PreLoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
+void ImageUtil::LoadSpriteSheetT(SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
 	PreLoadSpriteSheetInfo PLSS{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		scene.ErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -248,12 +248,12 @@ void ImageUtil::PreLoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string F
 	stbi_image_free(TextureData);
 }
 
-void ImageUtil::PreLoad(Image& ImageStruct, std::string FilePath, int Type) {
+void ImageUtil::LoadT(Image& ImageStruct, std::string FilePath, int Type) {
 	PreLoadInfo PLI{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		scene.ErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -266,12 +266,12 @@ void ImageUtil::PreLoad(Image& ImageStruct, std::string FilePath, int Type) {
 	LoadBuffer.emplace_back(PLI);
 }
 
-void ImageUtil::PreLoadClip(Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
+void ImageUtil::LoadClipT(Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
 	PreLoadInfo PLI{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		scene.ErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 

@@ -42,6 +42,12 @@ void TextUtil::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	TextColor.b = B;
 }
 
+void TextUtil::SetColor(glm::vec3& Color) {
+	TextColor.r = Color.r;
+	TextColor.g = Color.g;
+	TextColor.b = Color.b;
+}
+
 void TextUtil::SetColorRGB(int R, int G, int B) {
 	TextColor.r = (1.0f / 255.0f) * (GLfloat)R;
 	TextColor.g = (1.0f / 255.0f) * (GLfloat)G;
@@ -56,9 +62,67 @@ void TextUtil::SetOpacity(GLfloat Value) {
 	Opacity = Value;
 }
 
-void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string& Str) {
-	Render(X, Y, Size, stringUtil.Wstring(Str).c_str());
+void TextUtil::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Format, ...) {
+	wchar_t Text[512]{};
+	va_list Args{};
+
+	va_start(Args, Format);
+	vswprintf(Text, sizeof(Text) / sizeof(wchar_t), Format, Args);
+	va_end(Args);
+	CurrentText = std::wstring(Text);
+
+	if (Format == NULL)
+		return;
+
+	CurrentLine = 0;
+	TextRenderSize = Size;
+	RenderPosition = Position;
+	RenderStartPosition = RenderPosition.x;
+
+	if (CurrentText != PrevText) {
+		TextWordCount = wcslen(Text);
+		ProcessGlyphCache(Text);
+		PrevText = CurrentText;
+	}
+
+	CalculateTextLength(Text);
+
+	switch (HeightAlign) {
+	case HEIGHT_ALIGN_MIDDLE:
+		RenderPosition.y -= TextRenderSize * 0.5;
+		break;
+
+	case HEIGHT_ALIGN_UNDER:
+		RenderPosition.y -= TextRenderSize;
+		break;
+	}
+
+	transform.Identity(RotateMatrix);
+	transform.Identity(ScaleMatrix);
+	transform.Rotate(RotateMatrix, Rotation);
+	transform.Scale(ScaleMatrix, TextRenderSize, TextRenderSize);
+
+	for (int i = 0; i < TextWordCount; ++i) {
+		if (Text[i] == L'\n') {
+			NextLine();
+			continue;
+		}
+
+		TransformText();
+		camera.SetCamera(RenderType);
+		PrepareRender();
+
+		glPushAttrib(GL_LIST_BIT);
+		glListBase(FontBase);
+		glCallLists(1, GL_UNSIGNED_SHORT, &Text[i]);
+		glPopAttrib();
+
+		unsigned int CharIndex = Text[i];
+		if (CharIndex < 65536)
+			RenderPosition.x += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
+	}
 }
+
 
 void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...) {
 	wchar_t Text[512]{};
@@ -121,6 +185,13 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format,
 	}
 }
 
+void TextUtil::RenderStr(glm::vec2& Position, GLfloat Size, std::string Str) {
+	Render(Position.x, Position.y, Size, stringUtil.Wstring(Str).c_str());
+}
+
+void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string Str) {
+	Render(X, Y, Size, stringUtil.Wstring(Str).c_str());
+}
 
 ////////////////// private
 void TextUtil::GetLineLength(const wchar_t* Text) {

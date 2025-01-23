@@ -14,6 +14,7 @@ private:
 public:
 	void SetRenderType(int Opt);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
+	void SetColor(glm::vec3& ColorValue);
 	void SetColorRGB(int R, int G, int B);
 	void SetLineType(int LineTypeOpt);
 	void Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width, GLfloat OpacityValue = 1.0);

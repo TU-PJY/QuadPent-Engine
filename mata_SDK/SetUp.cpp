@@ -23,10 +23,10 @@ ViewportRect WindowRect;
 glm::vec3 BackColor;
 
 SystemResource SysRes;
-SpriteResource Sprite;
-AudioResource Audio;
-DataFormatResource Format;
-GlobalValue Global;
+ImageResource Img;
+SoundResource Snd;
+DataFormatResource Fmt;
+GlobalResource Glo;
 
 void SDKSystem::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);

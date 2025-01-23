@@ -155,6 +155,7 @@
     <ClCompile Include="Library\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="Library\tinyxml\tinyxmlparser.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="ResourceLoader.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="LineBrush.cpp" />
     <ClCompile Include="MathUtil.cpp" />

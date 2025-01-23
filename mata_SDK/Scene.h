@@ -112,7 +112,7 @@ public:
 	void CompleteCommand();
 
 	// When an error occurs, it switches to the error screen and stops the system.
-	void ErrorScreen(int ErrorType, std::string Value1, std::string Value2="");
+	void SetErrorScreen(int ErrorType, std::string Value1, std::string Value2="");
 
 private:
 	void AddLocation(int Layer, int Position);
