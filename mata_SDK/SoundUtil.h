@@ -5,6 +5,8 @@
 #include "SDKHeader.h"
 #include <string>
 
+#undef PlaySound
+
 class SoundUtil {
 private:
 	FMOD::System* SoundSystem{};
@@ -19,28 +21,35 @@ private:
 
 public:
 	void Init();
-	void Load(FMOD::Sound*& Sound, std::string FileName, FMOD_MODE Option=FMOD_DEFAULT);
-	void Release(FMOD::Sound*& Sound);
+	void Load(Sound& Sound, std::string FileName, FMOD_MODE Option=FMOD_DEFAULT);
+	void Release(Sound& Sound);
 	void Update();
-	void PlaySound(FMOD::Sound* Sound, FMOD::Channel*& ChannelVar, unsigned int Ms=0);
-	void PlaySoundOnce(FMOD::Sound* Sound, FMOD::Channel*& ChannelVar, bool& FlagValue, unsigned int Ms=0);
-	void PauseSound(FMOD::Channel*& ChannelVar, bool Flag);
-	void StopSound(FMOD::Channel*& ChannelVar);
-	unsigned int GetLength(FMOD::Sound* Sound);
-	unsigned int GetPlayTime(FMOD::Channel* ChannelVar);
-	void SetPlaySpeed(FMOD::Channel*& ChannelVar, float Speed);
-	void ResetPlaySpeed(FMOD::Channel*& ChannelVar);
-	void SetFreqCutOff(FMOD::Channel*& ChannelVar, float Frequency);
-	void SetBeatDetect(FMOD::Channel*& ChannelVar);
-	float DetectBeat(float Threshold, float SamplingRate);
-	bool IsBeat(float Threshold, float SamplingRate);
-	void UnSetBeatDetect(FMOD::Channel*& ChannelVar);
-	void UnSetFreqCutOff(FMOD::Channel*& ChannelVar);
-	void SetDistance(FMOD::Channel*& ChannelVar, float MinDist, float MaxDist);
+	void AddChannelToGroup(SoundChannelGroup& Group, Sound& Sound, SoundChannel& Channel);
+	void DeleteChannelFromGroup(SoundChannelGroup& Group, SoundChannel& Channel);
+	void ClearGroup(SoundChannelGroup& Group);
+	void PlayGroup(SoundChannelGroup& Group);
+	void StopGroup(SoundChannelGroup& Group);
+	void PauseGroup(SoundChannelGroup& Group, bool Flag);
+	void PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int Ms=0);
+	void PlaySoundOnce(Sound& Sound, SoundChannel& ChannelVar, bool& FlagValue, unsigned int Ms=0);
+	void PauseSound(SoundChannel& ChannelVar, bool Flag);
+	void StopSound(SoundChannel& ChannelVar);
+	unsigned int GetLength(Sound& Sound);
+	unsigned int GetPlayTime(SoundChannel& ChannelVar);
+	void SetPlaySpeed(SoundChannel& ChannelVar, float Speed);
+	void ResetPlaySpeed(SoundChannel& ChannelVar);
+	void SetFreqCutOff(SoundChannel& ChannelVar, float Frequency);
+	void SetBeatDetect(SoundChannel& ChannelVar);
+	float DetectBeat(float Threshold, int SamplingRate);
+	void UpdateBeatPower(float& DestValue, float Threshold, int SamplingRate);
+	bool IsBeat(float Threshold, int SamplingRate);
+	void UnSetBeatDetect(SoundChannel& ChannelVar);
+	void UnSetFreqCutOff(SoundChannel& ChannelVar);
+	void SetDistance(SoundChannel& ChannelVar, float MinDist, float MaxDist);
 	void SetListnerPosition(float X, float Y);
 	void SetListnerPosition(glm::vec2 Position);
-	void SetSoundPosition(FMOD::Channel*& ChannelVar, float X, float Y, float Diff);
-	void SetSoundPosition(FMOD::Channel*& ChannelVar, glm::vec2 Position, float Diff);
+	void SetSoundPosition(SoundChannel& ChannelVar, float X, float Y, float Diff);
+	void SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff);
 	void StopAllSounds();
 };
 extern SoundUtil soundUtil;

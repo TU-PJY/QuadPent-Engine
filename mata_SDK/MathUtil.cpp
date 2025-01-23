@@ -1,4 +1,5 @@
 #include "MathUtil.h"
+#include "EXUtil.h"
 #include <cmath>
 
 MathUtil mathUtil;
@@ -43,19 +44,15 @@ void MathUtil::LookAt(GLfloat& RotationDest, GLfloat Rotation, GLfloat RotationS
 
 GLfloat MathUtil::Lerp(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
 	GLfloat t = Speed * FrameTime;
-	GLfloat ReturnValue = Value;
+	EX.ClampValue(t, 1.0, CLAMP_GREATER);
 
-	if (t < 1.0 && t > 0.0)
-		ReturnValue = std::lerp(ReturnValue, Dest, t);
-
-	return ReturnValue;
+	return std::lerp(Value, Dest, t);
 }
 
 void MathUtil::UpdateLerp(GLfloat& DestValue, GLfloat Dest, GLfloat Speed, float FrameTime) {
 	GLfloat t = Speed * FrameTime;
-
-	if (t < 1.0 && t > 0.0)
-		DestValue = std::lerp(DestValue, Dest, t);
+	EX.ClampValue(t, 1.0, CLAMP_GREATER);
+	DestValue = std::lerp(DestValue, Dest, t);
 }
 
 GLfloat MathUtil::ComputeDistance(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {

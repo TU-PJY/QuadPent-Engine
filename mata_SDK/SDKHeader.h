@@ -34,6 +34,7 @@ using ShaderLocation = unsigned int;
 #ifdef USE_SOUND_SYSTEM
 using Sound          = FMOD::Sound*;
 using SoundChannel   = FMOD::Channel*;
+using SoundChannelGroup = std::vector <FMOD::Channel*>;
 #endif
 
 #ifdef USE_FILE_SYSTEM

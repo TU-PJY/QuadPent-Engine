@@ -20,13 +20,13 @@ void SoundUtil::Init() {
 	SoundSystem->set3DSettings(1.0, 1.0, 2.0); 
 }
 
-void SoundUtil::Load(FMOD::Sound*& Sound, std::string FileName, FMOD_MODE Option) {
+void SoundUtil::Load(Sound& Sound, std::string FileName, FMOD_MODE Option) {
 	HRESULT Result = SoundSystem->createSound(FileName.c_str(), Option, 0, &Sound);
 	if (Result != FMOD_OK)
 		scene.SetErrorScreen(ERROR_TYPE_AUDIO_LOAD, FileName);
 }
 
-void SoundUtil::Release(FMOD::Sound*& Sound) {
+void SoundUtil::Release(Sound& Sound) {
 	Sound->release();
 }
 
@@ -34,58 +34,90 @@ void SoundUtil::Update() {
 	SoundSystem->update();
 }
 
-void SoundUtil::PlaySound(FMOD::Sound* Sound, FMOD::Channel*& ChannelVar, unsigned int Ms) {
+void SoundUtil::AddChannelToGroup(SoundChannelGroup& Group, Sound& Sound, SoundChannel& Channel) {
+	SoundSystem->playSound(Sound, 0, true, &Channel);
+	Group.emplace_back(Channel);
+}
+
+void SoundUtil::DeleteChannelFromGroup(SoundChannelGroup& Group, SoundChannel& Channel) {
+	auto ChannelFound = std::find(begin(Group), end(Group), Channel);
+	if (ChannelFound != end(Group))
+		Group.erase(ChannelFound);
+}
+
+void SoundUtil::ClearGroup(SoundChannelGroup& Group) {
+	Group.clear();
+}
+
+void SoundUtil::PlayGroup(SoundChannelGroup& Group) {
+	for (auto const& G : Group)
+		G->setPaused(false);
+}
+
+void SoundUtil::StopGroup(SoundChannelGroup& Group) {
+	for (auto const& G : Group) {
+		G->setPaused(true);
+		G->setPosition(0, FMOD_TIMEUNIT_MS);
+	}
+}
+
+void SoundUtil::PauseGroup(SoundChannelGroup& Group, bool Flag) {
+	for (auto const& G : Group)
+		G->setPaused(Flag);
+}
+
+void SoundUtil::PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int Ms) {
 	SoundSystem->playSound(Sound, 0, false, &ChannelVar);
 	if (Ms > 0)
 		ChannelVar->setPosition(Ms, FMOD_TIMEUNIT_MS);
 }
 
-void SoundUtil::PlaySoundOnce(FMOD::Sound* Sound, FMOD::Channel*& ChannelVar, bool& FlagValue, unsigned int Ms) {
+void SoundUtil::PlaySoundOnce(Sound& Sound, SoundChannel&ChannelVar, bool& FlagValue, unsigned int Ms) {
 	if (FlagValue) {
 		SoundSystem->playSound(Sound, 0, false, &ChannelVar);
 		FlagValue = false;
 	}
 }
 
-void SoundUtil::PauseSound(FMOD::Channel*& ChannelVar, bool Flag) {
+void SoundUtil::PauseSound(SoundChannel& ChannelVar, bool Flag) {
 	ChannelVar->setPaused(Flag);
 }
 
-void SoundUtil::StopSound(FMOD::Channel*& ChannelVar) {
+void SoundUtil::StopSound(SoundChannel& ChannelVar) {
 	ChannelVar->stop();
 }
 
-unsigned int SoundUtil::GetLength(FMOD::Sound* Sound) {
+unsigned int SoundUtil::GetLength(Sound& Sound) {
 	unsigned int Length{};
 	Sound->getLength(&Length, FMOD_TIMEUNIT_MS);
 	return Length;
 }
 
-unsigned int SoundUtil::GetPlayTime(FMOD::Channel* ChannelVar) {
+unsigned int SoundUtil::GetPlayTime(SoundChannel& ChannelVar) {
 	unsigned int Position{};
 	ChannelVar->getPosition(&Position, FMOD_TIMEUNIT_MS);
 	return Position;
 }
 
-void SoundUtil::SetPlaySpeed(FMOD::Channel*& ChannelVar, float Speed) {
+void SoundUtil::SetPlaySpeed(SoundChannel& ChannelVar, float Speed) {
 	ChannelVar->setPitch(Speed);
 }
 
-void SoundUtil::ResetPlaySpeed(FMOD::Channel*& ChannelVar) {
+void SoundUtil::ResetPlaySpeed(SoundChannel& ChannelVar) {
 	ChannelVar->setPitch(1.0);
 }
 
-void SoundUtil::SetFreqCutOff(FMOD::Channel*& ChannelVar, float Frequency) {
+void SoundUtil::SetFreqCutOff(SoundChannel& ChannelVar, float Frequency) {
 	LowPass->setParameterFloat(FMOD_DSP_LOWPASS_CUTOFF, Frequency);
 	ChannelVar->addDSP(0, LowPass);
 }
 
-void SoundUtil::SetBeatDetect(FMOD::Channel*& ChannelVar) {
+void SoundUtil::SetBeatDetect(SoundChannel& ChannelVar) {
 	SoundSystem->createDSPByType(FMOD_DSP_TYPE_FFT, &BeatDetector);
 	ChannelVar->addDSP(0, BeatDetector);
 }
 
-float SoundUtil::DetectBeat(float Threshold, float SamplingRate) {
+float SoundUtil::DetectBeat(float Threshold, int SamplingRate) {
 	FMOD_DSP_PARAMETER_FFT* FFT = nullptr;
 	BeatDetector->getParameterData(FMOD_DSP_FFT_SPECTRUMDATA, (void**)&FFT, 0, 0, 0);
 
@@ -108,7 +140,30 @@ float SoundUtil::DetectBeat(float Threshold, float SamplingRate) {
 	return 0;
 }
 
-bool SoundUtil::IsBeat(float Threshold, float SamplingRate) {
+void SoundUtil::UpdateBeatPower(float& DestValue, float Threshold, int SamplingRate) {
+	FMOD_DSP_PARAMETER_FFT* FFT = nullptr;
+	BeatDetector->getParameterData(FMOD_DSP_FFT_SPECTRUMDATA, (void**)&FFT, 0, 0, 0);
+
+	if (FFT) {
+		int NumChannels = FFT->numchannels;
+
+		if (NumChannels > 0) {
+			memcpy(FFTdata.data(), FFT->spectrum[0], FFT_SIZE * sizeof(float));
+
+			float BassEnergy = 0.0f;
+
+			for (int i = 0; i < SamplingRate; ++i)
+				BassEnergy += FFTdata[i];
+
+			if (BassEnergy > Threshold)
+				DestValue = BassEnergy;
+		}
+	}
+
+	DestValue = 0.0;
+}
+
+bool SoundUtil::IsBeat(float Threshold, int SamplingRate) {
 	FMOD_DSP_PARAMETER_FFT* FFT = nullptr;
 	BeatDetector->getParameterData(FMOD_DSP_FFT_SPECTRUMDATA, (void**)&FFT, 0, 0, 0);
 
@@ -131,11 +186,11 @@ bool SoundUtil::IsBeat(float Threshold, float SamplingRate) {
 	return false;
 }
 
-void SoundUtil::UnSetBeatDetect(FMOD::Channel*& ChannelVar) {
+void SoundUtil::UnSetBeatDetect(SoundChannel& ChannelVar) {
 	ChannelVar->removeDSP(BeatDetector);
 }
 
-void SoundUtil::UnSetFreqCutOff(FMOD::Channel*& ChannelVar) {
+void SoundUtil::UnSetFreqCutOff(SoundChannel& ChannelVar) {
 	ChannelVar->removeDSP(LowPass);
 }
 
@@ -146,7 +201,7 @@ void SoundUtil::StopAllSounds() {
 	Result = MasterChannelGroup->stop();
 }
 
-void SoundUtil::SetDistance(FMOD::Channel*& ChannelVar, float MinDist, float MaxDist) {
+void SoundUtil::SetDistance(SoundChannel& ChannelVar, float MinDist, float MaxDist) {
 	ChannelVar->set3DMinMaxDistance(MinDist, MaxDist);
 }
 
@@ -166,7 +221,7 @@ void SoundUtil::SetListnerPosition(glm::vec2 Position) {
 	SoundSystem->set3DListenerAttributes(0, &ListenerPosition, 0, 0, 0);
 }
 
-void SoundUtil::SetSoundPosition(FMOD::Channel*& ChannelVar, float X, float Y, float Diff) {
+void SoundUtil::SetSoundPosition(SoundChannel& ChannelVar, float X, float Y, float Diff) {
 	SoundPosition.x = X;
 	SoundPosition.y = Y;
 	SoundPosition.z = Diff;
@@ -174,7 +229,7 @@ void SoundUtil::SetSoundPosition(FMOD::Channel*& ChannelVar, float X, float Y, f
 	ChannelVar->set3DAttributes(&SoundPosition, 0);
 }
 
-void SoundUtil::SetSoundPosition(FMOD::Channel*& ChannelVar, glm::vec2 Position, float Diff) {
+void SoundUtil::SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff) {
 	SoundPosition.x = Position.x;
 	SoundPosition.y = Position.y;
 	SoundPosition.z = Diff;
