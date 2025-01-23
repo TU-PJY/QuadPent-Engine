@@ -1,7 +1,7 @@
 #pragma once
-#include "Scene.h"
-#include "MouseUtil.h"
-#include "CameraController.h"
+#include <Scene.h>
+#include <MouseUtil.h>
+#include <CameraController.h>
 
 class Template {
 public:
