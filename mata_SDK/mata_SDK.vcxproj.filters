@@ -417,19 +417,19 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MGKResource\GLSL\Fragment_Image.glsl">
+    <None Include="SDKResource\GLSL\ComputeMatrix.glsl">
       <Filter>[5]___________[ System ]\[ GLSL ]</Filter>
     </None>
-    <None Include="MGKResource\GLSL\Fragment_Text.glsl">
+    <None Include="SDKResource\GLSL\Fragment_Image.glsl">
       <Filter>[5]___________[ System ]\[ GLSL ]</Filter>
     </None>
-    <None Include="MGKResource\GLSL\Vertex.glsl">
+    <None Include="SDKResource\GLSL\Fragment_Shape.glsl">
       <Filter>[5]___________[ System ]\[ GLSL ]</Filter>
     </None>
-    <None Include="MGKResource\GLSL\ComputeMatrix.glsl">
+    <None Include="SDKResource\GLSL\Fragment_Text.glsl">
       <Filter>[5]___________[ System ]\[ GLSL ]</Filter>
     </None>
-    <None Include="MGKResource\GLSL\Fragment_Shape.glsl">
+    <None Include="SDKResource\GLSL\Vertex.glsl">
       <Filter>[5]___________[ System ]\[ GLSL ]</Filter>
     </None>
   </ItemGroup>

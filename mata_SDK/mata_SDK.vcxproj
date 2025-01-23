@@ -234,11 +234,11 @@
     <Text Include="ModeTemplate_Manual.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MGKResource\GLSL\ComputeMatrix.glsl" />
-    <None Include="MGKResource\GLSL\Fragment_Shape.glsl" />
-    <None Include="MGKResource\GLSL\Fragment_Image.glsl" />
-    <None Include="MGKResource\GLSL\Fragment_Text.glsl" />
-    <None Include="MGKResource\GLSL\Vertex.glsl" />
+    <None Include="SDKResource\GLSL\ComputeMatrix.glsl" />
+    <None Include="SDKResource\GLSL\Fragment_Image.glsl" />
+    <None Include="SDKResource\GLSL\Fragment_Shape.glsl" />
+    <None Include="SDKResource\GLSL\Fragment_Text.glsl" />
+    <None Include="SDKResource\GLSL\Vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
