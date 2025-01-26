@@ -3,7 +3,6 @@
 #pragma warning(disable: 4305)
 #pragma warning(disable: 26444)
 #pragma comment(lib, "winmm.lib")
-#include "SystemConfig.h"
 #include "Config.h"
 #include "glew.h"
 #include "freeglut.h"
@@ -19,10 +18,8 @@
 #include <DirectXCollision.h>
 using namespace DirectX;
 
-#ifdef USE_SOUND_SYSTEM
 #include "fmod.hpp"
 #include "fmod_errors.h"
-#endif
 
 extern float DestFPS;
 extern int FPSLimit;
@@ -31,16 +28,13 @@ extern bool FullscreenState;
 typedef void(*START_MODE_PTR)(void);
 using ShaderLocation = unsigned int;
 
-#ifdef USE_SOUND_SYSTEM
 using Sound          = FMOD::Sound*;
 using SoundChannel   = FMOD::Channel*;
 using SoundChannelGroup = std::vector <FMOD::Channel*>;
-#endif
 
-#ifdef USE_FILE_SYSTEM
 using StringDataVec  = std::vector<std::string>;
 using DigitDataVec   = std::vector<float>;
-#endif
+
 
 enum KeyState {
 	NORMAL_KEY_DOWN,
@@ -123,12 +117,10 @@ enum ImageTypeEnum {
 	IMAGE_TYPE_NEAREST
 };
 
-#ifdef USE_FILE_SYSTEM
 enum DataTypeEnum {
 	DATA_TYPE_DIGIT,
 	DATA_TYPE_STRING
 };
-#endif
 
 enum ImageFlipEnum {
 	FLIP_TYPE_NONE,
@@ -215,7 +207,6 @@ typedef struct {
 	GLfloat Length;
 }RayVector;
 
-#ifdef USE_FILE_SYSTEM
 // data set struct
 struct FileData {
 	int         DataType;
@@ -225,7 +216,6 @@ struct FileData {
 	std::string StringValue;
 };
 using DataFormat = std::vector<FileData>;
-#endif
 
 // image struct
 typedef struct {

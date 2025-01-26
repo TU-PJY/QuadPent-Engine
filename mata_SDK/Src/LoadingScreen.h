@@ -10,14 +10,21 @@
 class LoadingScreen : public GameObject {
 private:
 	HANDLE  SystemResourceLoadHandle{};
-	HANDLE  UserResourceLoadHandle{};
-
-	GLfloat Rotation{};
-	GLfloat SpinnerOpacity{1.0};
-
 	bool    LoadCommand{};
 	bool    SystemResourceLoadEnd{};
-	bool    UserResourceLoadEnd{};
+
+	HANDLE  ImageResourceLoadHandle{};
+	HANDLE  SoundResourceLoadHandle{};
+	HANDLE  FileResourceLoadHandle{};
+	HANDLE  FontResourceLoadHandle{};
+
+	bool    ImageResourceLoadEnd{};
+	bool    SoundResourceLoadEnd{};
+	bool    FileResourceLoadEnd{};
+	bool    FontResourceLoadEnd{};
+
+	GLfloat Rotation{};
+	GLfloat SpinnerOpacity{ 1.0 };
 
 public:
 	void InputKey(KeyEvent& Event) {
@@ -35,22 +42,42 @@ public:
 
 			if (!threadUtil.IsRunning(SystemResourceLoadHandle) && !SystemResourceLoadEnd) {
 				threadUtil.Close(SystemResourceLoadHandle);
-				threadUtil.Create(UserResourceLoadHandle, UserResourceLoader);
+				threadUtil.Create(ImageResourceLoadHandle, ImageResourceLoader);
+				threadUtil.Create(SoundResourceLoadHandle, SoundResourceLoader);
+				threadUtil.Create(FileResourceLoadHandle, FileResourceLoader);
+				threadUtil.Create(FontResourceLoadHandle, FontResourceLoader);
+				std::cout << "System resource load completed." << std::endl;
 				SystemResourceLoadEnd = true;
 			}
 
-			if (!threadUtil.IsRunning(UserResourceLoadHandle) && !UserResourceLoadEnd) {
-				threadUtil.Close(UserResourceLoadHandle);
-				UserResourceLoadEnd = true;
+			if (!ImageResourceLoadEnd && !threadUtil.IsRunning(ImageResourceLoadHandle)) {
+				threadUtil.Close(ImageResourceLoadHandle);
+				std::cout << "Image resource load completed." << std::endl;
+				ImageResourceLoadEnd = true;
 			}
 
-			if(SystemResourceLoadEnd && UserResourceLoadEnd) {
+			if (!SoundResourceLoadEnd && !threadUtil.IsRunning(SoundResourceLoadHandle)) {
+				threadUtil.Close(SoundResourceLoadHandle);
+				std::cout << "Sound resource load completed." << std::endl;
+				SoundResourceLoadEnd = true;
+			}
+
+			if (!FileResourceLoadEnd && !threadUtil.IsRunning(FileResourceLoadHandle)) {
+				threadUtil.Close(FileResourceLoadHandle);
+				std::cout << "File resource load completed." << std::endl;
+				FileResourceLoadEnd = true;
+			}
+
+			if (!FontResourceLoadEnd && !threadUtil.IsRunning(FontResourceLoadHandle)) {
+				threadUtil.Close(FontResourceLoadHandle);
+				std::cout << "Font resource load completed." << std::endl;
+				FontResourceLoadEnd = true;
+			}
+
+			if(SystemResourceLoadEnd && ImageResourceLoadEnd && SoundResourceLoadEnd && FileResourceLoadEnd && FontResourceLoadEnd) {
 				imageUtil.Map();
 
 				if (!ENABLE_INTRO_SCREEN) {
-#ifdef USE_SOUND_SYSTEM
-					soundUtil.Release(SysRes.INTRO_SOUND);
-#endif				
 					if (SHOW_FPS) {
 						scene.AddObject(new FPS_Indicator, "SDK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
 						Indicator = scene.Find("SDK_OBJECT_FPS_INDICATOR");
@@ -74,9 +101,8 @@ public:
 		else {
 			camera.Init();
 			imageUtil.Init();
-#ifdef USE_SOUND_SYSTEM
 			soundUtil.Init();
-#endif
+
 			imageUtil.Load(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 			threadUtil.Create(SystemResourceLoadHandle, SystemResourceLoader);
 
@@ -85,11 +111,11 @@ public:
 	}
 
 	void RenderFunc() {
-		BeginRender(RENDER_TYPE_STATIC);
+		Begin(RENDER_TYPE_STATIC);
 		transform.Move(TranslateMatrix, WindowRect.rx - 0.15, -0.85);
 		transform.Scale(ScaleMatrix, 0.25, 0.25);
 		transform.Rotate(RotateMatrix, Rotation);
-		RenderImage(SysRes.LOADING_SPINNER, SpinnerOpacity);
+		ImgOut(SysRes.LOADING_SPINNER, SpinnerOpacity);
 	}
 
 	static DWORD WINAPI SystemResourceLoader(LPVOID Param) {
@@ -107,7 +133,7 @@ public:
 		gluQuadricDrawStyle(SysRes.GLU_CIRCLE, GLU_FILL);
 		gluQuadricDrawStyle(SysRes.GLU_LINE_CIRCLE, GLU_FILL);
 
-		fontUtil.Load(SysRes.SYSTEM_FONT_DIRECTORY, true);
+		fontUtil.LoadT(SysRes.SYSTEM_FONT_DIRECTORY);
 
 		return 0;
 	}

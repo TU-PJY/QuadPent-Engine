@@ -1,7 +1,4 @@
 #pragma once
-#include "SystemConfig.h"
-
-#ifdef USE_SOUND_SYSTEM
 #include "SDKHeader.h"
 #include <string>
 
@@ -33,6 +30,7 @@ public:
 	void PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int Ms=0);
 	void PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int Minutes, unsigned int Seconds);
 	void PlaySoundOnce(Sound& Sound, SoundChannel& ChannelVar, bool& FlagValue, unsigned int Ms=0);
+	void PlaySoundOnce(Sound& Sound, SoundChannel& ChannelVar, bool& FlagValue, unsigned int Minutes, unsigned int Seconds);
 	void PauseSound(SoundChannel& ChannelVar, bool Flag);
 	void StopSound(SoundChannel& ChannelVar);
 	unsigned int GetLength(Sound& Sound);
@@ -54,4 +52,3 @@ public:
 	void StopAllSounds();
 };
 extern SoundUtil soundUtil;
-#endif

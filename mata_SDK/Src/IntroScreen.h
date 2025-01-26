@@ -4,27 +4,23 @@
 class IntroScreen : public GameObject {
 private:
 	TimerUtil    timer;
-#ifdef USE_SOUND_SYSTEM
 	SoundChannel IntroChannel{};
-#endif
 
 	GLfloat      LogoSize        = 1.0;
-	GLfloat      LogoOpacity = 0.0;
+	GLfloat      LogoOpacity     = 0.0;
 	GLfloat      LogoPosition    = -0.3;
 	GLfloat      AnimationSpeed  = 0.5;
 
 	SinLerp      Slerp{};
 
-	int          Scene{}; 
+	int          SceneNumber{}; 
 
 public:
 	void InputKey(KeyEvent& Event) {
 		if (Event.Type == NORMAL_KEY_DOWN) {
 			switch (Event.NormalKey) {
 			case NK_ENTER:
-#ifdef USE_SOUND_SYSTEM
 				soundUtil.StopSound(IntroChannel);
-#endif
 				scene.SwitchMode(START_MODE);
 				break;
 
@@ -39,13 +35,11 @@ public:
 
 	void UpdateFunc(float FrameTime) {
 		timer.Update(FrameTime);
-		switch (Scene) {
+		switch (SceneNumber) {
 		case 0:
 			if (timer.CheckMiliSec(1.0, 1, CHECK_AND_INTERPOLATE)) {
-#ifdef USE_SOUND_SYSTEM
 				soundUtil.PlaySound(SysRes.INTRO_SOUND, IntroChannel);
-#endif
-				++Scene;
+				++SceneNumber;
 			}
 			break;
 			
@@ -64,7 +58,7 @@ public:
 			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_INTERPOLATE)) {
 				LogoPosition = -0.3;
 				Slerp.Reset();
-				++Scene;
+				++SceneNumber;
 			}
 			break;
 
@@ -88,16 +82,16 @@ public:
 	}
 
 	void RenderFunc() {
-		BeginRender(RENDER_TYPE_STATIC);
+		Begin(RENDER_TYPE_STATIC);
 		transform.Move(TranslateMatrix, 0.0, LogoPosition);
 
-		switch (Scene) {
+		switch (SceneNumber) {
 		case 1:
-			RenderImage(SysRes.SDK_LOGO, LogoOpacity);
+			ImgOut(SysRes.SDK_LOGO, LogoOpacity);
 			break;
 
 		case 2: case 3:
-			RenderImage(SysRes.FMOD_LOGO, LogoOpacity);
+			ImgOut(SysRes.FMOD_LOGO, LogoOpacity);
 			break;
 		}
 	}

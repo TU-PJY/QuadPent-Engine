@@ -9,8 +9,9 @@ public:
 	GLfloat ComputeDistance(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
 	GLfloat ComputeDistance(glm::vec2& Position1, glm::vec2& Position2);
 	glm::vec2 ComputeMidPoint(glm::vec2& Position1, glm::vec2& Position2);
-	GLfloat Lerp(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime);
-	void UpdateLerp(GLfloat& DestValue, GLfloat Dest, GLfloat Speed, float FrameTime);
+	void Lerp(GLfloat& DestValue, GLfloat Dest, GLfloat Speed, float FrameTime);
+	void Lerp(glm::vec2& DestValue, glm::vec2& Dest, GLfloat Speed, float FrameTime);
+	void Lerp(glm::vec3& DestValue, glm::vec3& Dest, GLfloat Speed, float FrameTime);
 	GLfloat Computedegree(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
 	GLfloat Computedegree(glm::vec2& Position1, glm::vec2& Position2);
 	GLfloat ComputeRadians(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);

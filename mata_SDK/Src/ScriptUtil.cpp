@@ -1,7 +1,6 @@
 #include "ScriptUtil.h"
 #include "Scene.h"
 
-#ifdef USE_FILE_SYSTEM
 void ScriptUtil::Load(std::string FileName) {
 	if (FileExist)
 		return;
@@ -143,4 +142,3 @@ std::string ScriptUtil::Decrypt(const std::string& CipherText, const byte Key[],
 
 	return PlainText;
 }
-#endif

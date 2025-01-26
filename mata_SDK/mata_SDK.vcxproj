@@ -141,6 +141,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Modes.cpp" />
     <ClCompile Include="Src\AnimationUtil.cpp" />
     <ClCompile Include="Src\CameraController.cpp" />
     <ClCompile Include="Src\CameraUtil.cpp" />
@@ -172,7 +173,6 @@
     <ClCompile Include="Src\ShaderUtil.cpp" />
     <ClCompile Include="Src\SoundUtil.cpp" />
     <ClCompile Include="Src\Display.cpp" />
-    <ClCompile Include="Src\[0]_Modes.cpp" />
     <ClCompile Include="Src\ExUtil.cpp" />
     <ClCompile Include="Src\StringUtil.cpp" />
     <ClCompile Include="Src\SysMode.cpp" />
@@ -183,6 +183,8 @@
     <ClCompile Include="Src\UiUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameMode1.h" />
+    <ClInclude Include="ModeHeader.h" />
     <ClInclude Include="Src\AnimationUtil.h" />
     <ClInclude Include="Src\CameraController.h" />
     <ClInclude Include="Src\CameraUtil.h" />
@@ -208,7 +210,6 @@
     <ClInclude Include="Src\LoadingMode.h" />
     <ClInclude Include="Src\LoadingScreen.h" />
     <ClInclude Include="Src\MathUtil.h" />
-    <ClInclude Include="Src\GameMode1.h" />
     <ClInclude Include="Src\MouseUtil.h" />
     <ClInclude Include="Src\GameObject.h" />
     <ClInclude Include="Src\MoveUtil.h" />
@@ -220,7 +221,6 @@
     <ClInclude Include="Src\SoundUtil.h" />
     <ClInclude Include="Src\Config.h" />
     <ClInclude Include="Src\StringUtil.h" />
-    <ClInclude Include="Src\SystemConfig.h" />
     <ClInclude Include="Src\SystemResource.h" />
     <ClInclude Include="Src\TextUtil.h" />
     <ClInclude Include="Src\ThreadUtil.h" />

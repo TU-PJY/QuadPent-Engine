@@ -1,7 +1,4 @@
 #pragma once
-#include "SystemConfig.h"
-
-#ifdef USE_FILE_SYSTEM
 #define _CRT_SECURE_NO_WARNINGS
 #include "Library/tinyxml/tinyxml.h"
 #include "Library/cryptopp/aes.h" 
@@ -44,4 +41,3 @@ private:
 	float GetDigitData(TiXmlElement* CategoryVar, std::string DataName);
 	std::string GetStringData(TiXmlElement* CategoryVar, std::string DataName);
 };
-#endif

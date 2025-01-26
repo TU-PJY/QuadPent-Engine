@@ -55,21 +55,6 @@
     <Filter Include="[5]___________[ System ]\[ Util ]\[ EX Util ]">
       <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Script Util ]">
-      <UniqueIdentifier>{81f53a74-031c-406e-82e2-a9d6a7f85d59}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shape Util ]">
-      <UniqueIdentifier>{74b0aa9a-a87c-4a17-bdd5-d4f93ac8a450}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]">
-      <UniqueIdentifier>{186e77d4-d667-4ca8-a7db-0c4ff78a4275}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]">
-      <UniqueIdentifier>{1717a6b1-c315-40dc-a9e1-71209e40100b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]">
-      <UniqueIdentifier>{8ca8864d-f116-4649-ac79-d0c373874068}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Transform Util ]">
       <UniqueIdentifier>{97cfbf89-8ee3-4d67-b4fb-aed1f7833e3b}</UniqueIdentifier>
     </Filter>
@@ -105,9 +90,6 @@
     </Filter>
     <Filter Include="[5]___________[ System ]\[ Scene ]">
       <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ System Config ]">
-      <UniqueIdentifier>{6d7cc11a-2226-40e3-82ce-9a1d561e46ba}</UniqueIdentifier>
     </Filter>
     <Filter Include="[5]___________[ System ]\[ System Mode ]">
       <UniqueIdentifier>{9d92d68b-96f8-4a78-90d4-bd16df8b7372}</UniqueIdentifier>
@@ -148,11 +130,26 @@
     <Filter Include="[5]___________[ System ]\[ Matrix ]">
       <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Sound Util ]\[ Shape Util ]">
+      <UniqueIdentifier>{74b0aa9a-a87c-4a17-bdd5-d4f93ac8a450}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Sound Util ]\[ Shape Util ]\[ Line ]">
+      <UniqueIdentifier>{186e77d4-d667-4ca8-a7db-0c4ff78a4275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Sound Util ]\[ Shape Util ]\[ Rect ]">
+      <UniqueIdentifier>{1717a6b1-c315-40dc-a9e1-71209e40100b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Sound Util ]\[ Shape Util ]\[ Circle ]">
+      <UniqueIdentifier>{8ca8864d-f116-4649-ac79-d0c373874068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ GameMode ]\[0]_Mode Source">
+      <UniqueIdentifier>{e5570cb2-8557-4f05-9d45-ce94e1bf6e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Physics Util ]\[ Script Util ]">
+      <UniqueIdentifier>{81f53a74-031c-406e-82e2-a9d6a7f85d59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Src\[0]_Modes.cpp">
-      <Filter>[1]___________[ GameMode ]</Filter>
-    </ClCompile>
     <ClCompile Include="Src\AnimationUtil.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ AnimationUtil ]</Filter>
     </ClCompile>
@@ -163,7 +160,7 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ Camera Util ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\CircleBrush.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Sound Util ]\[ Shape Util ]\[ Circle ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ClippingUtil.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ Clipping Util ]</Filter>
@@ -193,7 +190,7 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ Image Util ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\LineBrush.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Sound Util ]\[ Shape Util ]\[ Line ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\Main.cpp">
       <Filter>[5]___________[ System ]\[ Main ]</Filter>
@@ -217,7 +214,7 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ Random Util ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\RectBrush.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Sound Util ]\[ Shape Util ]\[ Rect ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ResourceLoader.cpp">
       <Filter>[4]___________[ Resources ]</Filter>
@@ -226,7 +223,7 @@
       <Filter>[5]___________[ System ]\[ Scene ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ScriptUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Physics Util ]\[ Script Util ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SetUp.cpp">
       <Filter>[5]___________[ System ]\[ Main ]</Filter>
@@ -270,6 +267,9 @@
     <ClCompile Include="Src\UiUtil.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
     </ClCompile>
+    <ClCompile Include="Modes.cpp">
+      <Filter>[1]___________[ GameMode ]\[0]_Mode Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\AnimationUtil.h">
@@ -282,7 +282,7 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ Camera Util ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\CircleBrush.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Sound Util ]\[ Shape Util ]\[ Circle ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ClippingUtil.h">
       <Filter>[5]___________[ System ]\[ Util ]\[ Clipping Util ]</Filter>
@@ -311,9 +311,6 @@
     <ClInclude Include="Src\FPSInd.h">
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GameMode1.h">
-      <Filter>[1]___________[ GameMode ]</Filter>
-    </ClInclude>
     <ClInclude Include="Src\GameObject.h">
       <Filter>[5]___________[ System ]\[ GameObject ]</Filter>
     </ClInclude>
@@ -330,12 +327,9 @@
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\LineBrush.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Sound Util ]\[ Shape Util ]\[ Line ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\LoadingMode.h">
-      <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\LoadingScreen.h">
       <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\MathUtil.h">
@@ -357,13 +351,13 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ Random Util ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\RectBrush.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Sound Util ]\[ Shape Util ]\[ Rect ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\Scene.h">
       <Filter>[5]___________[ System ]\[ Scene ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ScriptUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Physics Util ]\[ Script Util ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDKHeader.h">
       <Filter>[5]___________[ System ]\[ Header ]</Filter>
@@ -376,9 +370,6 @@
     </ClInclude>
     <ClInclude Include="Src\StringUtil.h">
       <Filter>[5]___________[ System ]\[ Util ]\[ String Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\SystemConfig.h">
-      <Filter>[5]___________[ System ]\[ System Config ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SystemResource.h">
       <Filter>[5]___________[ System ]\[ System Resource ]</Filter>
@@ -406,6 +397,15 @@
     </ClInclude>
     <ClInclude Include="Src\UtilPack.h">
       <Filter>[5]___________[ System ]\[ Util ]\[0] [ Pack ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LoadingScreen.h">
+      <Filter>[5]___________[ System ]\[ System Object ]</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode1.h">
+      <Filter>[1]___________[ GameMode ]</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeHeader.h">
+      <Filter>[1]___________[ GameMode ]\[0]_Mode Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

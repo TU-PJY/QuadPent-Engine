@@ -44,4 +44,7 @@ extern SoundResource Snd;
 extern DataFormatResource Fmt;
 extern GlobalResource Glo;
 
-DWORD WINAPI UserResourceLoader(LPVOID lpParam);
+DWORD WINAPI ImageResourceLoader(LPVOID lpParam);
+DWORD WINAPI SoundResourceLoader(LPVOID lpParam);
+DWORD WINAPI FileResourceLoader(LPVOID lpParam);
+DWORD WINAPI FontResourceLoader(LPVOID lpParam);

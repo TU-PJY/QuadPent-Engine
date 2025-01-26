@@ -1,7 +1,5 @@
 #pragma once
-#include <Scene.h>
-#include <MouseUtil.h>
-#include <CameraController.h>
+#include "ModeHeader.h"
 
 class GameMode1 {
 public:
@@ -38,16 +36,6 @@ public:
 
     /////////////////////////////////////////////////////////////
 	// Adds a control object to the mode.
-	void AddControlObject(GameObject* Object) {
-		InputObject.emplace_back(Object);
-	}
-
-	// Deletes a control object from mode.
-	void DeleteControlObject(GameObject* Object) {
-		auto Target = std::find(begin(InputObject), end(InputObject), Object);
-		if (Target != end(InputObject))
-			InputObject.erase(Target);
-	}
 
 	/////////////////////////////////////////////////////////////
 	// Fold here
@@ -68,6 +56,8 @@ public:
 
 		if (M_Inst->UseCameraController)
 			M_Inst->InputObject.emplace_back(CameraControl);
+
+		InputObjectListPtr = &M_Inst->InputObject;
 		
 		scene.RegisterModeName(M_Inst->ModeName);
 		scene.RegisterDestructor(Destructor);

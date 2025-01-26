@@ -60,6 +60,13 @@ constexpr int FFT_SIZE = 1024;
 
 
 
+//////////////////////////////////// MathUtil Options
+//When the relevant threshold is reached in MathUtil::Lerp(), the calculation is stopped immediately to optimize the amount of calculation.
+//When set to 0.0, calculation amount optimization is not performed.
+constexpr double LerpThreshold = 0.0001;
+
+
+
 //////////////////////////////////// File security Options
 // Application version
 constexpr float APPLICATION_VERSION = 1.0;

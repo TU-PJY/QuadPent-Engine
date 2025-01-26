@@ -20,8 +20,6 @@ public:
 	GLUquadric* GLU_CIRCLE{};
 	GLUquadric* GLU_LINE_CIRCLE{};
 
-#ifdef USE_SOUND_SYSTEM
 	Sound INTRO_SOUND{};
-#endif
 };
 extern SystemResource SysRes;

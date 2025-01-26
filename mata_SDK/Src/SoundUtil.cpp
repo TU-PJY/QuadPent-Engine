@@ -1,9 +1,7 @@
 #include "Scene.h"
 #include "SoundUtil.h"
-
-#ifdef USE_SOUND_SYSTEM
-#include <vector>
 #include "Config.h"
+#include <vector>
 
 SoundUtil soundUtil;
 
@@ -80,7 +78,16 @@ void SoundUtil::PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int M
 void SoundUtil::PlaySoundOnce(Sound& Sound, SoundChannel&ChannelVar, bool& FlagValue, unsigned int Ms) {
 	if (FlagValue) {
 		SoundSystem->playSound(Sound, 0, false, &ChannelVar);
+		if(Ms > 0)
+			ChannelVar->setPosition(Ms, FMOD_TIMEUNIT_MS);
 		FlagValue = false;
+	}
+}
+
+void SoundUtil::PlaySoundOnce(Sound& Sound, SoundChannel& ChannelVar, bool& FlagValue, unsigned int Minutes, unsigned int Seconds) {
+	if (FlagValue) {
+		SoundSystem->playSound(Sound, 0, false, &ChannelVar);
+		ChannelVar->setPosition((Minutes * 60 + Seconds) * 1000, FMOD_TIMEUNIT_MS);
 	}
 }
 
@@ -241,4 +248,3 @@ void SoundUtil::SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, f
 
 	ChannelVar->set3DAttributes(&SoundPosition, 0);
 }
-#endif

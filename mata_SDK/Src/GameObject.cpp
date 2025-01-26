@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-void GameObject::BeginRender(int RenderType) {
+void GameObject::Begin(int RenderType) {
 	transform.Identity(TranslateMatrix);
 	transform.Identity(RotateMatrix);
 	transform.Identity(ScaleMatrix);
@@ -120,7 +120,7 @@ void GameObject::ResetUnitTransform() {
 	UnitBlur = 0.0f;
 }
 
-void GameObject::RenderImage(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void GameObject::ImgOut(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	if (!DisableAdjustAspect)
 		transform.ImageScale(ImageAspectMatrix, Image.Width, Image.Height);
 
@@ -129,7 +129,7 @@ void GameObject::RenderImage(Image& Image, GLfloat OpacityValue, bool ApplyUnitT
 
 	if (ApplyUnitTransform) {
 		computeUtil.ComputeMatrix(ResultMatrix, UnitTranslateMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
-		ObjectOpacity -= (1.0f - UnitOpacity);
+		ObjectOpacity += UnitOpacity;
 		EX.ClampValue(ObjectOpacity, 0.0, CLAMP_LESS);
 		ObjectBlur += UnitBlur;
 	}
@@ -138,7 +138,7 @@ void GameObject::RenderImage(Image& Image, GLfloat OpacityValue, bool ApplyUnitT
 	imageUtil.Render(Image);
 }
 
-void GameObject::RenderSpriteSheet(SpriteSheet& SpriteSheetStruct, GLfloat OpacityValue, GLfloat& Frame, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void GameObject::SprSheetOut(SpriteSheet& SpriteSheetStruct, GLfloat OpacityValue, GLfloat& Frame, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	if ((int)Frame >= SpriteSheetStruct.Frame)
 		Frame = 0.0;
 

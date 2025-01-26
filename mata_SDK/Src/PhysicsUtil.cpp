@@ -126,11 +126,11 @@ void PhysicsUtil::UpdateBouncing(glm::vec2& DestPosition, float FrameTime) {
 
 
 void PhysicsUtil::LerpAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT) {
-	Speed = mathUtil.Lerp(Speed, DestSpeed, AccValue * (1.0 - Friction), FT);
+	mathUtil.Lerp(Speed, DestSpeed, AccValue * (1.0 - Friction), FT);
 }
 
 void PhysicsUtil::LerpDeceleration(GLfloat& Speed, float FT) {
-	Speed = mathUtil.Lerp(Speed, 0.0, Friction, FT);
+	mathUtil.Lerp(Speed, 0.0, Friction, FT);
 }
 
 void PhysicsUtil::LinearAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT) {

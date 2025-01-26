@@ -1,7 +1,5 @@
 #include "FileUtil.h"
 #include "Scene.h"
-
-#ifdef USE_FILE_SYSTEM
 #include "Config.h"
 
 void FileUtil::Load(std::string FileDirectory, DataFormat Format) {
@@ -345,4 +343,3 @@ std::string FileUtil::GetFolderPath(const std::string& FileDirectory, const std:
 	
 	return MainString;
 }
-#endif

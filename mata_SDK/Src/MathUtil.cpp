@@ -42,17 +42,50 @@ void MathUtil::LookAt(GLfloat& RotationDest, GLfloat Rotation, GLfloat RotationS
 	RotationDest = NormalizeDegree(RotationDest + ShortestAngle);
 }
 
-GLfloat MathUtil::Lerp(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
-	GLfloat t = Speed * FrameTime;
-	EX.ClampValue(t, 1.0, CLAMP_GREATER);
+void MathUtil::Lerp(GLfloat& DestValue, GLfloat Dest, GLfloat Speed, float FrameTime) {
+	if (LerpThreshold > 0.0 && abs(DestValue - Dest) <= LerpThreshold) {
+		DestValue = Dest;
+		return;
+	}
 
-	return std::lerp(Value, Dest, t);
-}
-
-void MathUtil::UpdateLerp(GLfloat& DestValue, GLfloat Dest, GLfloat Speed, float FrameTime) {
 	GLfloat t = Speed * FrameTime;
 	EX.ClampValue(t, 1.0, CLAMP_GREATER);
 	DestValue = std::lerp(DestValue, Dest, t);
+}
+
+void MathUtil::Lerp(glm::vec2& DestValue, glm::vec2& Dest, GLfloat Speed, float FrameTime) {
+	GLfloat t = Speed * FrameTime;
+	EX.ClampValue(t, 1.0, CLAMP_GREATER);
+
+	if (LerpThreshold > 0.0 && abs(DestValue.x - Dest.x) <= LerpThreshold) 
+		DestValue.x = Dest.x;
+	else 
+		DestValue.x = std::lerp(DestValue.x, Dest.x, t);
+
+	if (LerpThreshold > 0.0 && abs(DestValue.y - Dest.y) <= LerpThreshold)
+		DestValue.y = Dest.y;
+	else
+		DestValue.y = std::lerp(DestValue.y, Dest.y, t);
+}
+
+void MathUtil::Lerp(glm::vec3& DestValue, glm::vec3& Dest, GLfloat Speed, float FrameTime) {
+	GLfloat t = Speed * FrameTime;
+	EX.ClampValue(t, 1.0, CLAMP_GREATER);
+
+	if (LerpThreshold > 0.0 && abs(DestValue.x - Dest.x) <= LerpThreshold)
+		DestValue.x = Dest.x;
+	else
+		DestValue.x = std::lerp(DestValue.x, Dest.x, t);
+
+	if (LerpThreshold > 0.0 && abs(DestValue.y - Dest.y) <= LerpThreshold)
+		DestValue.y = Dest.y;
+	else
+		DestValue.y = std::lerp(DestValue.y, Dest.y, t);
+
+	if (LerpThreshold > 0.0 && abs(DestValue.z - Dest.z) <= LerpThreshold)
+		DestValue.z = Dest.z;
+	else
+		DestValue.z = std::lerp(DestValue.z, Dest.z, t);
 }
 
 GLfloat MathUtil::ComputeDistance(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY) {

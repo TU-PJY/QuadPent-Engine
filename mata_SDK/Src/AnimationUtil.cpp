@@ -35,7 +35,7 @@ GLfloat PopBounce::Update(GLfloat SizeDest, GLfloat ShakeScale, GLfloat SizeIncr
 	if (Num3 >= SizeDest) {
 		Num3 = SizeDest;
 		Num1 += FrameTime * ShakeSpeed;
-		Num2 = mathUtil.Lerp(Num2, ShakeScale, ShakeReduceSpeed, FrameTime);
+		mathUtil.Lerp(Num2, ShakeScale, ShakeReduceSpeed, FrameTime);
 	}
 
 	return Num3 + sin(Num1) * (ShakeScale - Num2);

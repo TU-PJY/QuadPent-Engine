@@ -18,5 +18,8 @@
 #include "TimerUtil.h"
 #include "TransformUtil.h"
 #include "UiUtil.h"
+#include "SoundUtil.h"
+#include "ScriptUtil.h"
+#include "FileUtil.h"
 #include "GameResource.h"
 #include "SystemResource.h"

@@ -1,15 +1,6 @@
 ﻿#pragma once
 #include "UtilPack.h"
 
-#ifdef USE_SOUND_SYSTEM
-#include "SoundUtil.h"
-#endif
-
-#ifdef USE_FILE_SYSTEM
-#include "ScriptUtil.h"
-#include "FileUtil.h"
-#endif
-
 class GameObject {
 public:
 	glm::vec3   ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
@@ -29,7 +20,7 @@ public:
 	bool        SwapCommand{};
 
 	// Initialize matrix. Select a rendering type.
-	void BeginRender(int RenderType=RENDER_TYPE_DEFAULT);
+	void Begin(int RenderType=RENDER_TYPE_DEFAULT);
 
 	// Overlays color over the image.
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
@@ -61,10 +52,10 @@ public:
 	void SetBlur(GLfloat Strength);
 
 	//  Render the image.
-	void RenderImage(Image& Image, GLfloat OpacityValue = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
+	void ImgOut(Image& Image, GLfloat OpacityValue = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
 	// Render the sprite sheet.
-	void RenderSpriteSheet(SpriteSheet& SpriteSheetStruct, GLfloat OpacityValue, GLfloat& Frame, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
+	void SprSheetOut(SpriteSheet& SpriteSheetStruct, GLfloat OpacityValue, GLfloat& Frame, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 	
 	// class destructor
 	virtual ~GameObject() {}
