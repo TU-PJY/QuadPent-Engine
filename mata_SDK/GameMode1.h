@@ -16,15 +16,10 @@ public:
 
 	};
 
-	// this is a container that stores object pointers for accessing object controllers.
-	// a pointer to the object corresponding to the tag entered in InputObjectTag is added when the mode starts.
-	std::vector<GameObject*> InputObject{};
-
 	/////////////////////////////////////////////////////////////
 
 	static void Start() {
 		System.SetBackColor(0.3, 0.3, 0.3);
-
 		// Add task here
 
 		SetUp();
@@ -34,12 +29,12 @@ public:
 		// Add task here
 	}
 
-    /////////////////////////////////////////////////////////////
-	// Adds a control object to the mode.
-
 	/////////////////////////////////////////////////////////////
 	// Fold here
 #pragma region FoldRegion 
+	// this is a container that stores object pointers for accessing object controllers.
+	// a pointer to the object corresponding to the tag entered in InputObjectTag is added when the mode starts.
+	std::vector<GameObject*> InputObject{};
 	static GameMode1* M_Inst;
 
 	GameMode1() {

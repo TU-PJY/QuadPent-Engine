@@ -1,12 +1,10 @@
 #pragma once
-#include <Scene.h>
-#include <MouseUtil.h>
-#include <CameraController.h>
+#include "ModeHeader.h"
 
-class GameMode1 {
+class Template {
 public:
 	// define mode name and mode type here
-	std::string ModeName { "GameMode1" };
+	std::string ModeName { "Template" };
 	int         ModeType { MODE_TYPE_DEFAULT };
 
 	// when you activate this option, you can access the camera controller.
@@ -18,15 +16,9 @@ public:
 
 	};
 
-	// this is a container that stores object pointers for accessing object controllers.
-	// a pointer to the object corresponding to the tag entered in InputObjectTag is added when the mode starts.
-	std::vector<GameObject*> InputObject{};
-
 	/////////////////////////////////////////////////////////////
 
 	static void Start() {
-		System.SetBackColor(0.3, 0.3, 0.3);
-
 		// Add task here
 
 		SetUp();
@@ -36,22 +28,12 @@ public:
 		// Add task here
 	}
 
-    /////////////////////////////////////////////////////////////
-	// Adds a control object to the mode.
-	void AddControlObject(GameObject* Object) {
-		InputObject.emplace_back(Object);
-	}
-
-	// Deletes a control object from mode.
-	void DeleteControlObject(GameObject* Object) {
-		auto Target = std::find(begin(InputObject), end(InputObject), Object);
-		if (Target != end(InputObject))
-			InputObject.erase(Target);
-	}
-
 	/////////////////////////////////////////////////////////////
 	// Fold here
 #pragma region FoldRegion 
+	// this is a container that stores object pointers for accessing object controllers.
+	// a pointer to the object corresponding to the tag entered in InputObjectTag is added when the mode starts.
+	std::vector<GameObject*> InputObject{};
 	static GameMode1* M_Inst;
 
 	GameMode1() {
@@ -68,6 +50,8 @@ public:
 
 		if (M_Inst->UseCameraController)
 			M_Inst->InputObject.emplace_back(CameraControl);
+
+		InputObjectListPtr = &M_Inst->InputObject;
 		
 		scene.RegisterModeName(M_Inst->ModeName);
 		scene.RegisterDestructor(Destructor);
@@ -166,4 +150,4 @@ public:
 	}
 #pragma endregion
 };
-extern GameMode1 Mode1;
+extern Template TemplateMode;

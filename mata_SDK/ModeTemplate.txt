@@ -1,7 +1,5 @@
 #pragma once
-#include <Scene.h>
-#include <MouseUtil.h>
-#include <CameraController.h>
+#include "ModeHeader.h"
 
 class Template {
 public:
@@ -15,8 +13,6 @@ public:
 
 	};
 
-	std::vector<GameObject*> InputObject{};
-
 	/////////////////////////////////////////////////////////////
 
 	static void Start() {
@@ -24,27 +20,15 @@ public:
 	}
 
 	static void Destructor() {
-
 	}
 
 	/////////////////////////////////////////////////////////////
+	// Fold here
+#pragma region FoldRegion 
+	std::vector<GameObject*> InputObject{};
+	static GameMode1* M_Inst;
 
-	void AddControlObject(GameObject* Object) {
-		InputObject.emplace_back(Object);
-	}
-
-	void DeleteControlObject(GameObject* Object) {
-		auto Target = std::find(begin(InputObject), end(InputObject), Object);
-		if (Target != end(InputObject))
-			InputObject.erase(Target);
-	}
-
-	/////////////////////////////////////////////////////////////
-	// fold here
-#pragma FoldRegion
-	static Template* M_Inst;
-
-	Template() {
+	GameMode1() {
 		M_Inst = this;
 	}
 
@@ -58,6 +42,8 @@ public:
 
 		if (M_Inst->UseCameraController)
 			M_Inst->InputObject.emplace_back(CameraControl);
+
+		InputObjectListPtr = &M_Inst->InputObject;
 		
 		scene.RegisterModeName(M_Inst->ModeName);
 		scene.RegisterDestructor(Destructor);
@@ -67,8 +53,8 @@ public:
 	static void ProcessKeyEvent(KeyEvent& Event) {
 		for (auto const& Object : M_Inst->InputObject)
 			if (Object)  Object->InputKey(Event);
+
 	}
-	
 	static void KeyDown(unsigned char KEY, int X, int Y) {
 #ifdef ENABLE_DEV_EXIT
 		if (KEY == NK_ESCAPE)
