@@ -26,5 +26,5 @@ void main() {
     mat4 Temp1234 = Temp123 * M4;
     mat4 finalM  = Temp1234 * M5;
 
-    Result[Row][Col] = finalM[Row][Col];
+    Result[Row][Col] = FinalM[Row][Col];
 }
