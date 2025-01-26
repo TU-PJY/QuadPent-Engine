@@ -32,21 +32,24 @@ void SDKSystem::ShowCursor() {
 }
 
 void SDKSystem::SwitchScreenState() {
-	switch (FullscreenState) {
-	case false:
+	if (!FullscreenState) {
 		glutFullScreen();
 		WIDTH = GetSystemMetrics(SM_CXSCREEN);
 		HEIGHT = GetSystemMetrics(SM_CYSCREEN);
 		FullscreenState = true;
-		break;
+	}
+	else {
+		RECT DisplayArea{};
 
-	case true:
-		WIDTH = WINDOW_WIDTH;
-		HEIGHT = WINDOW_HEIGHT;
-		glutReshapeWindow(WIDTH, HEIGHT);
-		glutPositionWindow(0, 0);
-		FullscreenState = false;
-		break;
+		if (SystemParametersInfo(SPI_GETWORKAREA, 0, &DisplayArea, 0)) {
+			int DisplayWidth = DisplayArea.right - DisplayArea.left;
+			int DisplayHeight = DisplayArea.bottom - DisplayArea.top;
+			WIDTH = DisplayWidth;
+			HEIGHT = DisplayHeight;
+			glutReshapeWindow(WIDTH, HEIGHT);
+			glutPositionWindow(0, 0);
+			FullscreenState = false;
+		}
 	}
 }
 
