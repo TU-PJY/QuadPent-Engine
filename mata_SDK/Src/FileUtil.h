@@ -42,6 +42,7 @@ public:
 	void UpdateStringData(std::string CategoryName, std::string DataName, std::string Value);
 	float LoadDigitData(std::string CategoryName, std::string DataName);
 	std::string LoadStringData(std::string CategoryName, std::string DataName);
+	std::wstring LoadWStringData(std::string Categoryname, std::string DataName);
 	std::vector<float> LoadCategoryDigitData(std::string CategoryName);
 	std::vector<std::string> LoadCategoryStringData(std::string CategoryName);
 	void ResetData();

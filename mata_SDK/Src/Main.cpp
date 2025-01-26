@@ -2,11 +2,6 @@
 #include "CameraController.h"
 #include "FPSInd.h"
 #include "Scene.h"
-
-#ifdef USE_SOUND_SYSTEM
-#include "SoundUtil.h"
-#endif
-
 #include <thread>
 #include <chrono>
 
@@ -47,6 +42,10 @@ GLvoid SDKSystem::Main() {
 }
 
 void main(int argc, char** argv) {
+	std::locale::global(std::locale(""));
+	std::wcout.imbue(std::locale());
+	std::cout.imbue(std::locale());
+
 	if (SHOW_CONSOLE) {
 		if (AllocConsole()) {
 			FILE* FP{};

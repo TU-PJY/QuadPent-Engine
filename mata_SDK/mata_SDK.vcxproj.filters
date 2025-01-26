@@ -145,7 +145,7 @@
     <Filter Include="[1]___________[ GameMode ]\[0]_Mode Source">
       <UniqueIdentifier>{e5570cb2-8557-4f05-9d45-ce94e1bf6e24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Physics Util ]\[ Script Util ]">
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Script Util ]">
       <UniqueIdentifier>{81f53a74-031c-406e-82e2-a9d6a7f85d59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -223,7 +223,7 @@
       <Filter>[5]___________[ System ]\[ Scene ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ScriptUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Physics Util ]\[ Script Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SetUp.cpp">
       <Filter>[5]___________[ System ]\[ Main ]</Filter>
@@ -357,7 +357,7 @@
       <Filter>[5]___________[ System ]\[ Scene ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ScriptUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Physics Util ]\[ Script Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDKHeader.h">
       <Filter>[5]___________[ System ]\[ Header ]</Filter>

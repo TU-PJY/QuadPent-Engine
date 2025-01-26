@@ -30,6 +30,7 @@ public:
 	void ImportSecure(std::string FileName);
 	float LoadDigitData(std::string CategoryName, std::string DataName);
 	std::string LoadStringData(std::string CategoryName, std::string DataName);
+	std::wstring LoadWstringData(std::string CategoryName, std::string DataName);
 	DigitDataVec LoadCategoryDigitData(std::string CategoryName);
 	StringDataVec LoadCategoryStringData(std::string CategoryName);
 	void Release();

@@ -1,6 +1,7 @@
 #include "FileUtil.h"
 #include "Scene.h"
 #include "Config.h"
+#include "StringUtil.h"
 
 void FileUtil::Load(std::string FileDirectory, DataFormat Format) {
 	if (FileExist)
@@ -51,6 +52,10 @@ std::string FileUtil::LoadStringData(std::string CategoryName, std::string DataN
 	CategorySearch = CategoryName;
 	DataSearch = DataName;
 	return GetStringData(FindCategory(CategoryName), DataName);
+}
+
+std::wstring FileUtil::LoadWStringData(std::string Categoryname, std::string DataName) {
+	return stringUtil.Wstring(LoadStringData(Categoryname, DataName));
 }
 
 DigitDataVec FileUtil::LoadCategoryDigitData(std::string CategoryName) {
@@ -265,7 +270,7 @@ bool FileUtil::LoadDataFile(std::string FileName) {
 		EncryptedFile.close();
 
 		std::string DecryptedXML = Decrypt(EncryptedContent, AES_KEY, IV_KEY);
-		Doc.Parse(DecryptedXML.c_str());
+		Doc.Parse(DecryptedXML.c_str(), nullptr, TIXML_ENCODING_UTF8);
 
 		if (Doc.Error()) {
 			scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_PARSE, FileName);
@@ -276,7 +281,7 @@ bool FileUtil::LoadDataFile(std::string FileName) {
 	}
 
 	else
-		return Doc.LoadFile(FileName.c_str());
+		return Doc.LoadFile(FileName.c_str(), TIXML_ENCODING_UTF8);
 }
 
 void FileUtil::UpdateDataFile() {

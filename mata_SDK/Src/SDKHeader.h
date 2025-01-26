@@ -10,6 +10,7 @@
 #include "glm/ext.hpp"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include <locale>
 #include <iostream>
 #include <vector>
 #include <string>

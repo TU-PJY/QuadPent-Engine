@@ -1,11 +1,12 @@
 #include "ScriptUtil.h"
 #include "Scene.h"
+#include "StringUtil.h"
 
 void ScriptUtil::Load(std::string FileName) {
 	if (FileExist)
 		return;
 
-	if (!Doc.LoadFile(FileName.c_str())) {
+	if (!Doc.LoadFile(FileName.c_str(), TIXML_ENCODING_UTF8)) {
 		scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
 		return;
 	}
@@ -26,7 +27,7 @@ void ScriptUtil::ImportSecure(std::string FileName) {
 	EncryptedFile.close();
 
 	std::string DecryptedXML = Decrypt(EncryptedContent, AES_KEY, IV_KEY);
-	Doc.Parse(DecryptedXML.c_str());
+	Doc.Parse(DecryptedXML.c_str(), nullptr, TIXML_ENCODING_UTF8);
 
 	if (Doc.Error()) {
 		scene.SetErrorScreen(ERROR_TYPE_SCRIPT_PARSE, FileName);
@@ -52,6 +53,10 @@ std::string ScriptUtil::LoadStringData(std::string CategoryName, std::string Dat
 	CategorySearch = CategoryName;
 	DataSearch = DataName;
 	return GetStringData(FindCategory(CategoryName), DataName);
+}
+
+std::wstring ScriptUtil::LoadWstringData(std::string CategoryName, std::string DataName) {
+	return stringUtil.Wstring(LoadStringData(CategoryName, DataName));
 }
 
 DigitDataVec ScriptUtil::LoadCategoryDigitData(std::string CategoryName) {
