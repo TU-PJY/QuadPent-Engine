@@ -150,262 +150,262 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>[5]___________[ System ]\[ GameObject ]</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Collision Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Image Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Mouse Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="TextUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Text Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Sound Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="FileUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ File Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="FontUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Font Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="RandomUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Random Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="TimerUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Timer Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Physics Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shader Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimationUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ AnimationUtil ]</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>[5]___________[ System ]\[ Scene ]</Filter>
-    </ClCompile>
-    <ClCompile Include="SetUp.cpp">
-      <Filter>[5]___________[ System ]\[ Main ]</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>[5]___________[ System ]\[ Main ]</Filter>
-    </ClCompile>
-    <ClCompile Include="Display.cpp">
-      <Filter>[5]___________[ System ]\[ Main ]</Filter>
-    </ClCompile>
-    <ClCompile Include="MathUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Math Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="ClippingUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Clipping Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="UiUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Move Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="ExUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ EX Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="ScriptUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Camera Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="LineBrush.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
-    </ClCompile>
-    <ClCompile Include="RectBrush.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Transform Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="ThreadUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Thread Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="CircleBrush.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
-    </ClCompile>
-    <ClCompile Include="ComputeUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Compute Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="StringUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ String Util ]</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\tinyxml\tinystr.cpp">
-      <Filter>[5]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\tinyxml\tinyxml.cpp">
-      <Filter>[5]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\tinyxml\tinyxmlerror.cpp">
-      <Filter>[5]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
-    </ClCompile>
-    <ClCompile Include="Library\tinyxml\tinyxmlparser.cpp">
-      <Filter>[5]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
-    </ClCompile>
-    <ClCompile Include="SysMode.cpp">
-      <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraController.cpp">
-      <Filter>[3]___________[ Camera ]</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrix.cpp">
-      <Filter>[5]___________[ System ]\[ Matrix ]</Filter>
-    </ClCompile>
-    <ClCompile Include="[0]_Modes.cpp">
+    <ClCompile Include="Src\[0]_Modes.cpp">
       <Filter>[1]___________[ GameMode ]</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceLoader.cpp">
+    <ClCompile Include="Src\AnimationUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ AnimationUtil ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CameraController.cpp">
+      <Filter>[3]___________[ Camera ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CameraUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Camera Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CircleBrush.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ClippingUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Clipping Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CollisionUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Collision Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ComputeUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Compute Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Display.cpp">
+      <Filter>[5]___________[ System ]\[ Main ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ExUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ EX Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\FileUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ File Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\FontUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Font Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GameObject.cpp">
+      <Filter>[5]___________[ System ]\[ GameObject ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ImageUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Image Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\LineBrush.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Main.cpp">
+      <Filter>[5]___________[ System ]\[ Main ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MathUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Math Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Matrix.cpp">
+      <Filter>[5]___________[ System ]\[ Matrix ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MouseUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Mouse Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MoveUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Move Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PhysicsUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Physics Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RandomUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Random Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\RectBrush.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ResourceLoader.cpp">
       <Filter>[4]___________[ Resources ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Scene.cpp">
+      <Filter>[5]___________[ System ]\[ Scene ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ScriptUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SetUp.cpp">
+      <Filter>[5]___________[ System ]\[ Main ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ShaderUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shader Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SoundUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Sound Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\StringUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ String Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SysMode.cpp">
+      <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TextUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Text Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ThreadUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Thread Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TimerUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Timer Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Library\tinyxml\tinystr.cpp">
+      <Filter>[5]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Library\tinyxml\tinyxml.cpp">
+      <Filter>[5]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Library\tinyxml\tinyxmlerror.cpp">
+      <Filter>[5]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Library\tinyxml\tinyxmlparser.cpp">
+      <Filter>[5]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TransformUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Transform Util ]</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\UiUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject.h">
-      <Filter>[5]___________[ System ]\[ GameObject ]</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Collision Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="ImageUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Image Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Mouse Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shader Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="TextUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Text Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Sound Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="FileUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ File Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="FontUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Font Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="RandomUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Random Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="TimerUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Timer Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Physics Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationUtil.h">
+    <ClInclude Include="Src\AnimationUtil.h">
       <Filter>[5]___________[ System ]\[ Util ]\[ AnimationUtil ]</Filter>
     </ClInclude>
-    <ClInclude Include="SDKHeader.h">
-      <Filter>[5]___________[ System ]\[ Header ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>[5]___________[ System ]\[ Scene ]</Filter>
-    </ClInclude>
-    <ClInclude Include="MathUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Math Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="ClippingUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Clipping Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="UiUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="SystemResource.h">
-      <Filter>[5]___________[ System ]\[ System Resource ]</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Move Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="ExUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ EX Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="ScriptUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Camera Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="LineBrush.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
-    </ClInclude>
-    <ClInclude Include="RectBrush.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>[0]___________[ Config ]</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Transform Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="ThreadUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Thread Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="CircleBrush.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
-    </ClInclude>
-    <ClInclude Include="IntroScreen.h">
-      <Filter>[5]___________[ System ]\[ System Object ]</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadingScreen.h">
-      <Filter>[5]___________[ System ]\[ System Object ]</Filter>
-    </ClInclude>
-    <ClInclude Include="ComputeUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Compute Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="StringUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ String Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="SystemConfig.h">
-      <Filter>[5]___________[ System ]\[ System Config ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\tinyxml\tinystr.h">
-      <Filter>[5]___________[ System ]\[ TinyXML ]\[ Header ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Library\tinyxml\tinyxml.h">
-      <Filter>[5]___________[ System ]\[ TinyXML ]\[ Header ]</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSInd.h">
-      <Filter>[5]___________[ System ]\[ System Object ]</Filter>
-    </ClInclude>
-    <ClInclude Include="GameResource.h">
-      <Filter>[4]___________[ Resources ]</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMode1.h">
-      <Filter>[1]___________[ GameMode ]</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadingMode.h">
-      <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
-    </ClInclude>
-    <ClInclude Include="IntroMode.h">
-      <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
-    </ClInclude>
-    <ClInclude Include="UtilPack.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[0] [ Pack ]</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraController.h">
+    <ClInclude Include="Src\CameraController.h">
       <Filter>[3]___________[ Camera ]</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix.h">
+    <ClInclude Include="Src\CameraUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Camera Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\CircleBrush.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ClippingUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Clipping Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\CollisionUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Collision Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ComputeUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Compute Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Config.h">
+      <Filter>[0]___________[ Config ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ErrorMessage.h">
+      <Filter>[5]___________[ System ]\[ System Object ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ExUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ EX Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\FileUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ File Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\FontUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Font Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\FPSInd.h">
+      <Filter>[5]___________[ System ]\[ System Object ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameMode1.h">
+      <Filter>[1]___________[ GameMode ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameObject.h">
+      <Filter>[5]___________[ System ]\[ GameObject ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GameResource.h">
+      <Filter>[4]___________[ Resources ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ImageUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Image Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\IntroMode.h">
+      <Filter>[5]___________[ System ]\[ System Object ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\IntroScreen.h">
+      <Filter>[5]___________[ System ]\[ System Object ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LineBrush.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LoadingMode.h">
+      <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\LoadingScreen.h">
+      <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\MathUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Math Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Matrix.h">
       <Filter>[5]___________[ System ]\[ Matrix ]</Filter>
     </ClInclude>
-    <ClInclude Include="ErrorMessage.h">
-      <Filter>[5]___________[ System ]\[ System Object ]</Filter>
+    <ClInclude Include="Src\MouseUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Mouse Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\MoveUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Move Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\PhysicsUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Physics Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\RandomUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Random Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\RectBrush.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Scene.h">
+      <Filter>[5]___________[ System ]\[ Scene ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ScriptUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SDKHeader.h">
+      <Filter>[5]___________[ System ]\[ Header ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ShaderUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shader Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SoundUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Sound Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\StringUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ String Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SystemConfig.h">
+      <Filter>[5]___________[ System ]\[ System Config ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SystemResource.h">
+      <Filter>[5]___________[ System ]\[ System Resource ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\TextUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Text Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ThreadUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Thread Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\TimerUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Timer Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Library\tinyxml\tinystr.h">
+      <Filter>[5]___________[ System ]\[ TinyXML ]\[ Header ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Library\tinyxml\tinyxml.h">
+      <Filter>[5]___________[ System ]\[ TinyXML ]\[ Header ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\TransformUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Transform Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UiUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\UtilPack.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[0] [ Pack ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
