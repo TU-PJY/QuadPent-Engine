@@ -72,6 +72,11 @@ void SoundUtil::PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int M
 		ChannelVar->setPosition(Ms, FMOD_TIMEUNIT_MS);
 }
 
+void SoundUtil::PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int Minutes, unsigned int Seconds) {
+	SoundSystem->playSound(Sound, 0, false, &ChannelVar);
+		ChannelVar->setPosition((Minutes * 60 + Seconds) * 1000, FMOD_TIMEUNIT_MS);
+}
+
 void SoundUtil::PlaySoundOnce(Sound& Sound, SoundChannel&ChannelVar, bool& FlagValue, unsigned int Ms) {
 	if (FlagValue) {
 		SoundSystem->playSound(Sound, 0, false, &ChannelVar);

@@ -12,6 +12,7 @@ void ScriptUtil::Load(std::string FileName) {
 	}
 
 	Root = Doc.RootElement();
+	std::cout << "Script util opened file: " << FileName << std::endl;
 	FileExist = true;
 }
 

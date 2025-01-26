@@ -11,7 +11,7 @@ void ComputeUtil::ComputeMatrix(glm::mat4& Dest, glm::mat4& Matrix1, glm::mat4& 
 	glBufferSubData(GL_SHADER_STORAGE_BUFFER, sizeof(glm::mat4) * 4, sizeof(glm::mat4), glm::value_ptr(Matrix5));
 
 	glUseProgram(MATRIX_COMPT_SHADER);
-	glDispatchCompute(4, 4, 1);
+	glDispatchCompute(1, 1, 1);
 	glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
 
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO_MATRIX_OUTPUT);

@@ -31,6 +31,7 @@ public:
 	void StopGroup(SoundChannelGroup& Group);
 	void PauseGroup(SoundChannelGroup& Group, bool Flag);
 	void PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int Ms=0);
+	void PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int Minutes, unsigned int Seconds);
 	void PlaySoundOnce(Sound& Sound, SoundChannel& ChannelVar, bool& FlagValue, unsigned int Ms=0);
 	void PauseSound(SoundChannel& ChannelVar, bool Flag);
 	void StopSound(SoundChannel& ChannelVar);
