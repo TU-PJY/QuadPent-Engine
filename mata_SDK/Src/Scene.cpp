@@ -125,13 +125,18 @@ void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Typ
 	if (AddLayer > Layers)
 		return;
 
+	if (Type1 == OBJECT_TYPE_STATIC_SINGLE || Type2 == OBJECT_TYPE_STATIC_SINGLE) {
+		if (auto Object = Find(Tag); Object)
+			return;
+	}
+
 	ObjectList[AddLayer].emplace_back(Object);
 
 	Object->ObjectTag = Tag;
 	Object->ObjectLayer = AddLayer;
 
 	if(Type1 == Type2) {
-		if(Type1 == OBJECT_TYPE_STATIC)
+		if(Type1 == OBJECT_TYPE_STATIC || Type1 == OBJECT_TYPE_STATIC_SINGLE)
 			Object->StaticCommand = true;
 
 		else if(Type1 == OBJECT_TYPE_FLOATING)
@@ -141,7 +146,7 @@ void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Typ
 	}
 
 	else {
-		if(Type1 == OBJECT_TYPE_STATIC || Type2 == OBJECT_TYPE_STATIC)
+		if(Type1 == OBJECT_TYPE_STATIC || Type2 == OBJECT_TYPE_STATIC || Type1 == OBJECT_TYPE_STATIC_SINGLE || Type2 == OBJECT_TYPE_STATIC_SINGLE)
 			Object->StaticCommand = true;
 
 		if(Type1 == OBJECT_TYPE_FLOATING || Type2 == OBJECT_TYPE_FLOATING)

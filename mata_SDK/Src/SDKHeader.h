@@ -179,6 +179,7 @@ enum ModeTypeEnum {
 enum ObjectTypeEnum {
 	OBJECT_TYPE_NONE,
 	OBJECT_TYPE_STATIC,
+	OBJECT_TYPE_STATIC_SINGLE,
 	OBJECT_TYPE_FLOATING
 };
 
@@ -250,11 +251,13 @@ struct ViewportRect {
 };
 extern ViewportRect WindowRect;
 
+// key event
 typedef struct {
 	int Type;
 	unsigned char NormalKey;
 	int SpecialKey;
 }KeyEvent;
+
 
 // display width, height and apsect ratio
 extern int WIDTH, HEIGHT;
