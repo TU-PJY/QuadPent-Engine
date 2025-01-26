@@ -24,7 +24,7 @@ void main() {
     mat4 Temp12   = M1 * M2;
     mat4 Temp123  = Temp12 * M3;
     mat4 Temp1234 = Temp123 * M4;
-    mat4 finalM  = Temp1234 * M5;
+    mat4 FinalM  = Temp1234 * M5;
 
     Result[Row][Col] = FinalM[Row][Col];
 }
