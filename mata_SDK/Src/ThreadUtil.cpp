@@ -6,12 +6,13 @@ void ThreadUtil::Create(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFuncti
 	HandleValue = CreateThread(NULL, 0, ThreadFunction, Param, 0, NULL);
 }
 
-bool ThreadUtil::IsRunning(HANDLE& HandleValue) {
+bool ThreadUtil::CheckAlive(HANDLE& HandleValue) {
 	DWORD Result;
 	GetExitCodeThread(HandleValue, &Result);
 
 	if (Result == STILL_ACTIVE)
 		return true;
+
 	return false;
 }
 

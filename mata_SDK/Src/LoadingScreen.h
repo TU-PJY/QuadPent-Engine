@@ -84,7 +84,7 @@ public:
 	}
 
 	bool LoadResources() {
-		if (!threadUtil.IsRunning(SystemResourceLoadHandle) && !SystemResourceLoadEnd) {
+		if (!threadUtil.CheckAlive(SystemResourceLoadHandle) && !SystemResourceLoadEnd) {
 			threadUtil.Close(SystemResourceLoadHandle);
 			threadUtil.Create(ImageResourceLoadHandle, ImageResourceLoader);
 			threadUtil.Create(SoundResourceLoadHandle, SoundResourceLoader);
@@ -94,25 +94,25 @@ public:
 			SystemResourceLoadEnd = true;
 		}
 
-		if (!ImageResourceLoadEnd && !threadUtil.IsRunning(ImageResourceLoadHandle)) {
+		if (!ImageResourceLoadEnd && !threadUtil.CheckAlive(ImageResourceLoadHandle)) {
 			threadUtil.Close(ImageResourceLoadHandle);
 			std::cout << "Image resource load completed." << std::endl;
 			ImageResourceLoadEnd = true;
 		}
 
-		if (!SoundResourceLoadEnd && !threadUtil.IsRunning(SoundResourceLoadHandle)) {
+		if (!SoundResourceLoadEnd && !threadUtil.CheckAlive(SoundResourceLoadHandle)) {
 			threadUtil.Close(SoundResourceLoadHandle);
 			std::cout << "Sound resource load completed." << std::endl;
 			SoundResourceLoadEnd = true;
 		}
 
-		if (!FileResourceLoadEnd && !threadUtil.IsRunning(FileResourceLoadHandle)) {
+		if (!FileResourceLoadEnd && !threadUtil.CheckAlive(FileResourceLoadHandle)) {
 			threadUtil.Close(FileResourceLoadHandle);
 			std::cout << "File resource load completed." << std::endl;
 			FileResourceLoadEnd = true;
 		}
 
-		if (!FontResourceLoadEnd && !threadUtil.IsRunning(FontResourceLoadHandle)) {
+		if (!FontResourceLoadEnd && !threadUtil.CheckAlive(FontResourceLoadHandle)) {
 			threadUtil.Close(FontResourceLoadHandle);
 			std::cout << "Font resource load completed." << std::endl;
 			FontResourceLoadEnd = true;
