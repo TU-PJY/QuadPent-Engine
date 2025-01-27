@@ -404,11 +404,11 @@
     <ClInclude Include="GameMode1.h">
       <Filter>[1]___________[ GameMode ]</Filter>
     </ClInclude>
-    <ClInclude Include="ModeHeader.h">
-      <Filter>[1]___________[ GameMode ]\[0]_Mode Source</Filter>
-    </ClInclude>
     <ClInclude Include="Src\SystemText.h">
       <Filter>[5]___________[ System ]\[ System Resource ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ModeHeader.h">
+      <Filter>[1]___________[ GameMode ]\[0]_Mode Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

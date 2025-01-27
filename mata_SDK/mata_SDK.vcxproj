@@ -184,7 +184,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameMode1.h" />
-    <ClInclude Include="ModeHeader.h" />
     <ClInclude Include="Src\AnimationUtil.h" />
     <ClInclude Include="Src\CameraController.h" />
     <ClInclude Include="Src\CameraUtil.h" />
@@ -197,6 +196,7 @@
     <ClInclude Include="Src\FileUtil.h" />
     <ClInclude Include="Src\ExUtil.h" />
     <ClInclude Include="Src\FontUtil.h" />
+    <ClInclude Include="Src\ModeHeader.h" />
     <ClInclude Include="Src\SDKHeader.h" />
     <ClInclude Include="Src\Library\tinyxml\tinystr.h" />
     <ClInclude Include="Src\Library\tinyxml\tinyxml.h" />

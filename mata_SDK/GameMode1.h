@@ -1,5 +1,5 @@
 #pragma once
-#include "ModeHeader.h"
+#include <ModeHeader.h>
 
 class GameMode1 {
 public:
