@@ -366,7 +366,11 @@ void ImageUtil::Render(Image& ImageStruct, GLfloat OpacityValue, bool ApplyUnitT
 	if (!DisableAdjustAspect)
 		transform.ImageScale(ImageAspectMatrix, ImageStruct.Width, ImageStruct.Height);
 
-	computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+	if (USE_COMPUTE_SHADER)
+		computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+	else
+		ResultMatrix = MoveMatrix * RotateMatrix * ScaleMatrix * ImageAspectMatrix * FlipMatrix;
+
 	ObjectOpacityValue = OpacityValue;
 
 	if (ApplyUnitTransform) {
@@ -390,7 +394,11 @@ void ImageUtil::RenderSpriteSheet(SpriteSheet& SpriteSheetStruct, GLfloat& Frame
 	if (!DisableAdjustAspect)
 		transform.ImageScale(ImageAspectMatrix, SpriteSheetStruct.Width, SpriteSheetStruct.Height);
 
-	computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+	if (USE_COMPUTE_SHADER)
+		computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+	else
+		ResultMatrix = MoveMatrix * RotateMatrix * ScaleMatrix * ImageAspectMatrix * FlipMatrix;
+
 	ObjectOpacityValue = OpacityValue;
 
 	if (ApplyUnitTransform) {

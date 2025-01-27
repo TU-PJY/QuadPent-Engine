@@ -115,9 +115,6 @@
     <Filter Include="[5]___________[ System ]\[ Util ]\[ AnimationUtil ]">
       <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[0] [ Pack ]">
-      <UniqueIdentifier>{38262568-5f1a-4ff0-9a03-cc13df33dcd9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Camera Util ]">
       <UniqueIdentifier>{f246ec1e-8aa5-4a4c-86c6-75a511ec4ed6}</UniqueIdentifier>
     </Filter>
@@ -147,6 +144,9 @@
     </Filter>
     <Filter Include="[5]___________[ System ]\[ GameObject ]\[ Object Value ]">
       <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ UI Util ]\[0] [ Pack ]">
+      <UniqueIdentifier>{38262568-5f1a-4ff0-9a03-cc13df33dcd9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -396,7 +396,7 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\UtilPack.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[0] [ Pack ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]\[0] [ Pack ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\LoadingScreen.h">
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>

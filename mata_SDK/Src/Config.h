@@ -22,6 +22,9 @@ constexpr bool ENABLE_INTRO_SCREEN = true;
 // If this option is set to 0, the system will run at maximum framerate.
 constexpr int FRAME_LIMITS = 0;
 
+// When enabled, the GPU computes matrices. When disabled, the CPU computes matrices.
+constexpr bool USE_COMPUTE_SHADER = false;
+
 
 
 //////////////////////////////////// Development options
@@ -68,6 +71,7 @@ constexpr double LERP_THRESHOLD = 0.0001;
 
 
 //////////////////////////////////// Text Options
+// Specifies the maximum length of string that TextUtil can process.
 constexpr int MAX_TEXT_LENGTH = 1024;
 
 

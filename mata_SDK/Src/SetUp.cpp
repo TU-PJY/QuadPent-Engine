@@ -94,10 +94,6 @@ void SDKSystem::SetGlOption() {
 }
 
 void SDKSystem::InitSystem() {
-	fontUtil.Load(SysRes.SYSTEM_FONT_DIRECTORY);
-	SystemText.Init(L"Roboto", FW_NORMAL);
-	std::cout << "SystemText initialized." << std::endl;
-
 	FPSLimit = FRAME_LIMITS;
 	if (FPSLimit > 0)
 		DestFPS = 1000.0 / (float)FPSLimit;

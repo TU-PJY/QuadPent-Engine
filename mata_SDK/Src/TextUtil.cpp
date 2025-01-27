@@ -266,7 +266,10 @@ void TextUtil::TransformText() {
 }
 
 void TextUtil::PrepareRender() {
-	computeUtil.ComputeMatrix(ResultMatrix, RotateMatrix, MoveMatrix, ScaleMatrix);
+	if (USE_COMPUTE_SHADER)
+		computeUtil.ComputeMatrix(ResultMatrix, RotateMatrix, MoveMatrix, ScaleMatrix);
+	else
+		ResultMatrix = RotateMatrix * MoveMatrix * ScaleMatrix;
 
 	glUseProgram(TEXT_SHADER);
 	camera.PrepareRender(SHADER_TYPE_TEXT);
