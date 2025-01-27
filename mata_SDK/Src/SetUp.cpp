@@ -26,7 +26,8 @@ SystemResource SysRes;
 ImageResource Img;
 SoundResource Snd;
 DataFormatResource Fmt;
-GlobalResource Glo;
+DataResource Dat;
+GlobalResource Glob;
 
 void SDKSystem::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);

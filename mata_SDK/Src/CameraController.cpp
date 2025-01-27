@@ -56,8 +56,8 @@ GLfloat CameraController::ComputeNextZoom(int ZoomType, GLfloat ZoomValue) {
 ///////////////////////////////////////// private
 
 void CameraController::ComputeCameraMatrix(){
-	transform.Identity(camera.TranslateMatrix);
+	transform.Identity(camera.MoveMatrix);
 	transform.Identity(camera.RotateMatrix);
-	transform.Move(camera.TranslateMatrix, CameraPosition.x, CameraPosition.y);
+	transform.Move(camera.MoveMatrix, CameraPosition.x, CameraPosition.y);
 	transform.Rotate(camera.RotateMatrix, CameraRotation);
 }

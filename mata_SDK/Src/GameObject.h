@@ -52,10 +52,10 @@ public:
 	void SetBlur(GLfloat Strength);
 
 	//  Render the image.
-	void ImgOut(Image& Image, GLfloat OpacityValue = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
+	void RenderImg(Image& Image, GLfloat OpacityValue = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 
 	// Render the sprite sheet.
-	void SprSheetOut(SpriteSheet& SpriteSheetStruct, GLfloat OpacityValue, GLfloat& Frame, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
+	void RenderSprSheet(SpriteSheet& SpriteSheetStruct, GLfloat OpacityValue, GLfloat& Frame, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 	
 	// class destructor
 	virtual ~GameObject() {}

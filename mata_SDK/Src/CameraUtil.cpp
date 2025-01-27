@@ -17,7 +17,7 @@ void Camera::Init() {
 
 	transform.Identity(ViewMatrix);
 	transform.Identity(Projection);
-	transform.Identity(TranslateMatrix);
+	transform.Identity(MoveMatrix);
 	transform.Identity(RotateMatrix);
 
 	SetCamera(RENDER_TYPE_DEFAULT);
@@ -42,7 +42,7 @@ void Camera::PrepareRender(int ShaderType) {
 
 	if (!StaticRenderCommand) {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
-		ViewMatrix = ViewMatrix * TranslateMatrix * RotateMatrix;
+		ViewMatrix = ViewMatrix * MoveMatrix * RotateMatrix;
 		Projection = glm::ortho((ASPECT * -1.0f) / ZoomValue, (ASPECT * 1.0f) / ZoomValue, -1.0f / ZoomValue, 1.0f / ZoomValue, -1.0f, 1.0f);
 	}
 	else {

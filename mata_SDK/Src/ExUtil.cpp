@@ -26,11 +26,11 @@ void EX_Util::SwitchValue(int& TargetValue, int Value1, int Value2) {
 void EX_Util::ClampValue(float& Value, float Dest, int Type) {
 	switch (Type) {
 	case CLAMP_GREATER:
-		if (Value >= Dest) Value = Dest;
+		if (Value > Dest) Value = Dest;
 		break;
 
 	case CLAMP_LESS:
-		if (Value <= Dest) Value = Dest;
+		if (Value < Dest) Value = Dest;
 		break;
 	}
 }
@@ -38,12 +38,46 @@ void EX_Util::ClampValue(float& Value, float Dest, int Type) {
 void EX_Util::ClampValue(int& Value, int Dest, int Type) {
 	switch (Type) {
 	case CLAMP_GREATER:
-		if (Value >= Dest) Value = Dest;
+		if (Value > Dest) Value = Dest;
 		break;
 
 	case CLAMP_LESS:
-		if (Value <= Dest) Value = Dest;
+		if (Value < Dest) Value = Dest;
 		break;
+	}
+}
+
+void EX_Util::ClampValue(int& Value, int Min, int Max, int Type) {
+	switch (Type) {
+	case CLAMP_FIXED:
+		if (Value < Min)
+			Value = Min;
+		else if (Value > Max)
+			Value = Max;
+		break;
+
+	case CLAMP_RETURN:
+		if (Value < Min)
+			Value = Max;
+		else if (Value > Max)
+			Value = Min;
+	}
+}
+
+void EX_Util::ClampValue(float& Value, float Min, float Max, int Type) {
+	switch (Type) {
+	case CLAMP_FIXED:
+		if (Value < Min)
+			Value = Min;
+		else if (Value > Max)
+			Value = Max;
+		break;
+
+	case CLAMP_RETURN:
+		if (Value < Min)
+			Value = Max;
+		else if (Value > Max)
+			Value = Min;
 	}
 }
 

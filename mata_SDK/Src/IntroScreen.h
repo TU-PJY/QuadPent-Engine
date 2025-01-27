@@ -20,7 +20,7 @@ public:
 		if (Event.Type == NORMAL_KEY_DOWN) {
 			switch (Event.NormalKey) {
 			case NK_ENTER:
-				soundUtil.StopSound(IntroChannel);
+				soundUtil.Stop(IntroChannel);
 				scene.SwitchMode(START_MODE);
 				break;
 
@@ -38,7 +38,7 @@ public:
 		switch (SceneNumber) {
 		case 0:
 			if (timer.CheckMiliSec(1.0, 1, CHECK_AND_INTERPOLATE)) {
-				soundUtil.PlaySound(SysRes.INTRO_SOUND, IntroChannel);
+				soundUtil.Play(SysRes.INTRO_SOUND, IntroChannel);
 				++SceneNumber;
 			}
 			break;
@@ -83,15 +83,15 @@ public:
 
 	void RenderFunc() {
 		Begin(RENDER_TYPE_STATIC);
-		transform.Move(TranslateMatrix, 0.0, LogoPosition);
+		transform.Move(MoveMatrix, 0.0, LogoPosition);
 
 		switch (SceneNumber) {
 		case 1:
-			ImgOut(SysRes.SDK_LOGO, LogoOpacity);
+			RenderImg(SysRes.SDK_LOGO, LogoOpacity);
 			break;
 
 		case 2: case 3:
-			ImgOut(SysRes.FMOD_LOGO, LogoOpacity);
+			RenderImg(SysRes.FMOD_LOGO, LogoOpacity);
 			break;
 		}
 	}

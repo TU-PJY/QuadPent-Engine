@@ -30,10 +30,10 @@ void CircleBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void CircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat OpacityValue) {
-	transform.Identity(TranslateMatrix);
+	transform.Identity(MoveMatrix);
 	Opacity = 1.0f;
 
-	transform.Move(TranslateMatrix, X, Y);
+	transform.Move(MoveMatrix, X, Y);
 	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 
@@ -49,7 +49,7 @@ void CircleBrush::Render() {
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(TranslateMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(MoveMatrix));
 
 	gluDisk(SysRes.GLU_CIRCLE, 0.0, Radius, 80, 1);
 }
@@ -83,10 +83,10 @@ void LineCircleBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void LineCircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Width, GLfloat OpacityValue) {
-	transform.Identity(TranslateMatrix);
+	transform.Identity(MoveMatrix);
 	Opacity = 1.0f;
 
-	transform.Move(TranslateMatrix, X, Y);
+	transform.Move(MoveMatrix, X, Y);
 	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 	WidthValue = Width;
@@ -103,7 +103,7 @@ void LineCircleBrush::Render() {
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(TranslateMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(MoveMatrix));
 
 	gluDisk(SysRes.GLU_LINE_CIRCLE, Radius, Radius + WidthValue, 80, 1);
 }

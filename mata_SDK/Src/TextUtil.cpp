@@ -238,25 +238,25 @@ void TextUtil::NextLine() {
 }
 
 void TextUtil::TransformText() {
-	transform.Identity(TranslateMatrix);
+	transform.Identity(MoveMatrix);
 
 	switch (TextAlign) {
 	case ALIGN_DEFAULT:
-		transform.Move(TranslateMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
+		transform.Move(MoveMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
 		break;
 
 	case ALIGN_MIDDLE:
-		transform.Move(TranslateMatrix, RenderPosition.x - (TextLength / 2.0), RenderPosition.y + MiddleHeight);
+		transform.Move(MoveMatrix, RenderPosition.x - (TextLength / 2.0), RenderPosition.y + MiddleHeight);
 		break;
 
 	case ALIGN_LEFT:
-		transform.Move(TranslateMatrix, RenderPosition.x - TextLength, RenderPosition.y + MiddleHeight);
+		transform.Move(MoveMatrix, RenderPosition.x - TextLength, RenderPosition.y + MiddleHeight);
 		break;
 	}
 }
 
 void TextUtil::PrepareRender() {
-	computeUtil.ComputeMatrix(ResultMatrix, RotateMatrix, TranslateMatrix, ScaleMatrix);
+	computeUtil.ComputeMatrix(ResultMatrix, RotateMatrix, MoveMatrix, ScaleMatrix);
 
 	glUseProgram(TEXT_SHADER);
 	camera.PrepareRender(SHADER_TYPE_TEXT);

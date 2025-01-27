@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
 void GameObject::Begin(int RenderType) {
-	transform.Identity(TranslateMatrix);
+	transform.Identity(MoveMatrix);
 	transform.Identity(RotateMatrix);
 	transform.Identity(ScaleMatrix);
 	transform.Identity(ImageAspectMatrix);
@@ -112,7 +112,7 @@ void GameObject::SetUnitBlur(GLfloat Strength) {
 }
 
 void GameObject::ResetUnitTransform() {
-	transform.Identity(UnitTranslateMatrix);
+	transform.Identity(UnitMoveMatrix);
 	transform.Identity(UnitRotateMatrix);
 	transform.Identity(UnitScaleMatrix);
 	transform.Identity(UnitFlipMatrix);
@@ -120,15 +120,15 @@ void GameObject::ResetUnitTransform() {
 	UnitBlur = 0.0f;
 }
 
-void GameObject::ImgOut(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void GameObject::RenderImg(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	if (!DisableAdjustAspect)
 		transform.ImageScale(ImageAspectMatrix, Image.Width, Image.Height);
 
-	computeUtil.ComputeMatrix(ResultMatrix, TranslateMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+	computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 	ObjectOpacity = OpacityValue;
 
 	if (ApplyUnitTransform) {
-		computeUtil.ComputeMatrix(ResultMatrix, UnitTranslateMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+		computeUtil.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
 		ObjectOpacity += UnitOpacity;
 		EX.ClampValue(ObjectOpacity, 0.0, CLAMP_LESS);
 		ObjectBlur += UnitBlur;
@@ -138,18 +138,18 @@ void GameObject::ImgOut(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransf
 	imageUtil.Render(Image);
 }
 
-void GameObject::SprSheetOut(SpriteSheet& SpriteSheetStruct, GLfloat OpacityValue, GLfloat& Frame, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void GameObject::RenderSprSheet(SpriteSheet& SpriteSheetStruct, GLfloat OpacityValue, GLfloat& Frame, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	if ((int)Frame >= SpriteSheetStruct.Frame)
 		Frame = 0.0;
 
 	if (!DisableAdjustAspect)
 		transform.ImageScale(ImageAspectMatrix, SpriteSheetStruct.Width, SpriteSheetStruct.Height);
 
-	computeUtil.ComputeMatrix(ResultMatrix, TranslateMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+	computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 	ObjectOpacity = OpacityValue;
 
 	if (ApplyUnitTransform) {
-		computeUtil.ComputeMatrix(ResultMatrix, UnitTranslateMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+		computeUtil.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
 		ObjectOpacity -= (1.0f - UnitOpacity);
 		EX.ClampValue(ObjectOpacity, 0.0, CLAMP_LESS);
 		ObjectBlur += UnitBlur;

@@ -23,6 +23,12 @@ public:
 
 };
 
+// Decalre the data resource or directory here.
+class DataResource {
+public:
+
+};
+
 // Declare the global value here.
 class GlobalResource {
 public:
@@ -42,9 +48,10 @@ constexpr const char* FONT_PATH[]
 extern ImageResource Img;
 extern SoundResource Snd;
 extern DataFormatResource Fmt;
-extern GlobalResource Glo;
+extern DataResource Dat;
+extern GlobalResource Glob;
 
 DWORD WINAPI ImageResourceLoader(LPVOID lpParam);
 DWORD WINAPI SoundResourceLoader(LPVOID lpParam);
-DWORD WINAPI FileResourceLoader(LPVOID lpParam);
+DWORD WINAPI DataResourceLoader(LPVOID lpParam);
 DWORD WINAPI FontResourceLoader(LPVOID lpParam);

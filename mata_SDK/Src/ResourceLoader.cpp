@@ -5,7 +5,6 @@
 DWORD WINAPI ImageResourceLoader(LPVOID lpParam) {
 	// load image resources here
 
-
 	return 0;
 }
 
@@ -15,8 +14,8 @@ DWORD WINAPI SoundResourceLoader(LPVOID lpParam) {
 	return 0;
 }
 
-DWORD WINAPI FileResourceLoader(LPVOID lpParam) {
-	// load file resources here
+DWORD WINAPI DataResourceLoader(LPVOID lpParam) {
+	// load data resources here
 
 	return 0;
 }

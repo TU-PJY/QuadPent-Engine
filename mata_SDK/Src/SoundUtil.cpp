@@ -64,18 +64,18 @@ void SoundUtil::PauseGroup(SoundChannelGroup& Group, bool Flag) {
 		G->setPaused(Flag);
 }
 
-void SoundUtil::PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int Ms) {
+void SoundUtil::Play(Sound& Sound, SoundChannel& ChannelVar, unsigned int Ms) {
 	SoundSystem->playSound(Sound, 0, false, &ChannelVar);
 	if (Ms > 0)
 		ChannelVar->setPosition(Ms, FMOD_TIMEUNIT_MS);
 }
 
-void SoundUtil::PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int Minutes, unsigned int Seconds) {
+void SoundUtil::Play(Sound& Sound, SoundChannel& ChannelVar, unsigned int Minutes, unsigned int Seconds) {
 	SoundSystem->playSound(Sound, 0, false, &ChannelVar);
 		ChannelVar->setPosition((Minutes * 60 + Seconds) * 1000, FMOD_TIMEUNIT_MS);
 }
 
-void SoundUtil::PlaySoundOnce(Sound& Sound, SoundChannel&ChannelVar, bool& FlagValue, unsigned int Ms) {
+void SoundUtil::PlayOnce(Sound& Sound, SoundChannel&ChannelVar, bool& FlagValue, unsigned int Ms) {
 	if (FlagValue) {
 		SoundSystem->playSound(Sound, 0, false, &ChannelVar);
 		if(Ms > 0)
@@ -84,18 +84,18 @@ void SoundUtil::PlaySoundOnce(Sound& Sound, SoundChannel&ChannelVar, bool& FlagV
 	}
 }
 
-void SoundUtil::PlaySoundOnce(Sound& Sound, SoundChannel& ChannelVar, bool& FlagValue, unsigned int Minutes, unsigned int Seconds) {
+void SoundUtil::PlayOnce(Sound& Sound, SoundChannel& ChannelVar, bool& FlagValue, unsigned int Minutes, unsigned int Seconds) {
 	if (FlagValue) {
 		SoundSystem->playSound(Sound, 0, false, &ChannelVar);
 		ChannelVar->setPosition((Minutes * 60 + Seconds) * 1000, FMOD_TIMEUNIT_MS);
 	}
 }
 
-void SoundUtil::PauseSound(SoundChannel& ChannelVar, bool Flag) {
+void SoundUtil::Pause(SoundChannel& ChannelVar, bool Flag) {
 	ChannelVar->setPaused(Flag);
 }
 
-void SoundUtil::StopSound(SoundChannel& ChannelVar) {
+void SoundUtil::Stop(SoundChannel& ChannelVar) {
 	ChannelVar->stop();
 }
 
@@ -152,7 +152,7 @@ float SoundUtil::DetectBeat(float Threshold, int SamplingRate) {
 	return 0;
 }
 
-void SoundUtil::UpdateBeatPower(float& DestValue, float Threshold, int SamplingRate) {
+void SoundUtil::DetectBeat(float& DestValue, float Threshold, int SamplingRate) {
 	FMOD_DSP_PARAMETER_FFT* FFT = nullptr;
 	BeatDetector->getParameterData(FMOD_DSP_FFT_SPECTRUMDATA, (void**)&FFT, 0, 0, 0);
 
@@ -198,11 +198,11 @@ bool SoundUtil::IsBeat(float Threshold, int SamplingRate) {
 	return false;
 }
 
-void SoundUtil::UnSetBeatDetect(SoundChannel& ChannelVar) {
+void SoundUtil::DisableBeatDetect(SoundChannel& ChannelVar) {
 	ChannelVar->removeDSP(BeatDetector);
 }
 
-void SoundUtil::UnSetFreqCutOff(SoundChannel& ChannelVar) {
+void SoundUtil::DisableFreqCutOff(SoundChannel& ChannelVar) {
 	ChannelVar->removeDSP(LowPass);
 }
 

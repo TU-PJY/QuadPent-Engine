@@ -97,7 +97,7 @@ public:
 	void RenderFunc() {
 		if (SysRes.SDK_LOGO_ERROR.Texture != 0) {
 			Begin(RENDER_TYPE_STATIC);
-			ImgOut(SysRes.SDK_LOGO_ERROR, 0.3);
+			RenderImg(SysRes.SDK_LOGO_ERROR, 0.3);
 		}
 
 		Text.RenderStr(ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);

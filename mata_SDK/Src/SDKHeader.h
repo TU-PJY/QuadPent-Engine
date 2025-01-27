@@ -163,7 +163,9 @@ enum LineSTypeEnum {
 
 enum EXClampTypeEnum {
 	CLAMP_GREATER,
-	CLAMP_LESS
+	CLAMP_LESS,
+	CLAMP_FIXED,
+	CLAMP_RETURN
 };
 
 enum DeleteRangeEnum {

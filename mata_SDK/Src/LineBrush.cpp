@@ -37,16 +37,16 @@ void LineBrush::SetLineType(int LineTypeOpt) {
 }
 
 void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width, GLfloat OpacityValue) {
-	transform.Identity(TranslateMatrix);
+	transform.Identity(MoveMatrix);
 	transform.Identity(ScaleMatrix);
 	Opacity = OpacityValue;
 
 	Length = mathUtil.ComputeDistance(X1, Y1, X2, Y2);
 	Rotation = mathUtil.ComputeRadians(X1, Y1, X2, Y2);
 
-	transform.Move(TranslateMatrix, X1, Y1);
-	transform.RotateRadians(TranslateMatrix, Rotation);
-	transform.Move(TranslateMatrix, Length / 2.0, 0.0);
+	transform.Move(MoveMatrix, X1, Y1);
+	transform.RotateRadians(MoveMatrix, Rotation);
+	transform.Move(MoveMatrix, Length / 2.0, 0.0);
 
 	if (LineType == LINE_TYPE_RECT)
 		transform.Scale(ScaleMatrix, Length + Width, Width);
@@ -60,11 +60,11 @@ void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Wid
 }
 
 void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfloat OpacityValue) {
-	transform.Identity(TranslateMatrix);
+	transform.Identity(MoveMatrix);
 	transform.Identity(ScaleMatrix);
 	Opacity = OpacityValue;
 
-	transform.Move(TranslateMatrix, (X1 + X2) / 2.0, Y);
+	transform.Move(MoveMatrix, (X1 + X2) / 2.0, Y);
 	if (LineType == LINE_TYPE_RECT)
 		transform.Scale(ScaleMatrix, fabs(X1 - X2) + Width, Width);
 	else if (LineType == LINE_TYPE_ROUND) 
@@ -77,11 +77,11 @@ void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfl
 }
 
 void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfloat OpacityValue) {
-	transform.Identity(TranslateMatrix);
+	transform.Identity(MoveMatrix);
 	transform.Identity(ScaleMatrix);
 	Opacity = OpacityValue;
 
-	transform.Move(TranslateMatrix, X, (Y1 + Y2) / 2.0);
+	transform.Move(MoveMatrix, X, (Y1 + Y2) / 2.0);
 	if (LineType == LINE_TYPE_RECT)
 		transform.Scale(ScaleMatrix, Width, fabs(Y1 - Y2) + Width);
 	else if (LineType == LINE_TYPE_ROUND)
@@ -96,7 +96,7 @@ void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfl
 void LineBrush::Render() {
 	camera.SetCamera(RenderType);
 
-	computeUtil.ComputeMatrix(ResultMatrix, TranslateMatrix, ScaleMatrix);
+	computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, ScaleMatrix);
 
 	glUseProgram(SHAPE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_SHAPE);
@@ -109,12 +109,12 @@ void LineBrush::Render() {
 }
 
 void LineBrush::DrawCircle(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width) {
-	transform.Identity(TranslateMatrix);
-	transform.Move(TranslateMatrix, X1, Y1);
+	transform.Identity(MoveMatrix);
+	transform.Move(MoveMatrix, X1, Y1);
 	RenderCircle(Width);
 
-	transform.Identity(TranslateMatrix);
-	transform.Move(TranslateMatrix, X2, Y2);
+	transform.Identity(MoveMatrix);
+	transform.Move(MoveMatrix, X2, Y2);
 	RenderCircle(Width);
 }
 
@@ -126,7 +126,7 @@ void LineBrush::RenderCircle(GLfloat Width) {
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(TranslateMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(MoveMatrix));
 
 	gluDisk(SysRes.GLU_CIRCLE, 0.0, Width * 0.5, 80, 1);
 }

@@ -2,8 +2,6 @@
 #include "SDKHeader.h"
 #include <string>
 
-#undef PlaySound
-
 class SoundUtil {
 private:
 	FMOD::System* SoundSystem{};
@@ -27,12 +25,12 @@ public:
 	void PlayGroup(SoundChannelGroup& Group);
 	void StopGroup(SoundChannelGroup& Group);
 	void PauseGroup(SoundChannelGroup& Group, bool Flag);
-	void PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int Ms=0);
-	void PlaySound(Sound& Sound, SoundChannel& ChannelVar, unsigned int Minutes, unsigned int Seconds);
-	void PlaySoundOnce(Sound& Sound, SoundChannel& ChannelVar, bool& FlagValue, unsigned int Ms=0);
-	void PlaySoundOnce(Sound& Sound, SoundChannel& ChannelVar, bool& FlagValue, unsigned int Minutes, unsigned int Seconds);
-	void PauseSound(SoundChannel& ChannelVar, bool Flag);
-	void StopSound(SoundChannel& ChannelVar);
+	void Play(Sound& Sound, SoundChannel& ChannelVar, unsigned int Ms=0);
+	void Play(Sound& Sound, SoundChannel& ChannelVar, unsigned int Minutes, unsigned int Seconds);
+	void PlayOnce(Sound& Sound, SoundChannel& ChannelVar, bool& FlagValue, unsigned int Ms=0);
+	void PlayOnce(Sound& Sound, SoundChannel& ChannelVar, bool& FlagValue, unsigned int Minutes, unsigned int Seconds);
+	void Pause(SoundChannel& ChannelVar, bool Flag);
+	void Stop(SoundChannel& ChannelVar);
 	unsigned int GetLength(Sound& Sound);
 	unsigned int GetPlayTime(SoundChannel& ChannelVar);
 	void SetPlaySpeed(SoundChannel& ChannelVar, float Speed);
@@ -40,10 +38,10 @@ public:
 	void SetFreqCutOff(SoundChannel& ChannelVar, float Frequency);
 	void SetBeatDetect(SoundChannel& ChannelVar);
 	float DetectBeat(float Threshold, int SamplingRate);
-	void UpdateBeatPower(float& DestValue, float Threshold, int SamplingRate);
+	void DetectBeat(float& DestValue, float Threshold, int SamplingRate);
 	bool IsBeat(float Threshold, int SamplingRate);
-	void UnSetBeatDetect(SoundChannel& ChannelVar);
-	void UnSetFreqCutOff(SoundChannel& ChannelVar);
+	void DisableBeatDetect(SoundChannel& ChannelVar);
+	void DisableFreqCutOff(SoundChannel& ChannelVar);
 	void SetDistance(SoundChannel& ChannelVar, float MinDist, float MaxDist);
 	void SetListnerPosition(float X, float Y);
 	void SetListnerPosition(glm::vec2 Position);

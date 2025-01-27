@@ -154,11 +154,6 @@ void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Typ
 	}
 }
 
-void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
-	Object->SwapCommand = true;
-	Object->ObjectLayer = TargetLayer;
-}
-
 void Scene::DeleteObject(GameObject* Object) {
 	Object->DeleteCommand = true;
 	Object->ObjectTag = "";
@@ -187,6 +182,28 @@ void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 			}
 		}
 	}
+}
+
+void Scene::RegisterInputObjectList(std::vector<GameObject*>& Vec) {
+	InputObjectListPtr = &Vec;
+}
+
+void Scene::AddInputObject(GameObject* Object) {
+	if (InputObjectListPtr)
+		InputObjectListPtr->emplace_back(Object);
+}
+
+void Scene::DeleteInputObject(GameObject* Object) {
+	if (InputObjectListPtr) {
+		auto Found = std::find(begin(*InputObjectListPtr), end(*InputObjectListPtr), Object);
+		if (Found != end(*InputObjectListPtr))
+			InputObjectListPtr->erase(Found);
+	}
+}
+
+void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
+	Object->SwapCommand = true;
+	Object->ObjectLayer = TargetLayer;
 }
 
 GameObject* Scene::Find(std::string Tag) {
