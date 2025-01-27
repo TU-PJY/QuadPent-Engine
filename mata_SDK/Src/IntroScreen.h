@@ -87,11 +87,11 @@ public:
 
 		switch (SceneNumber) {
 		case 1:
-			RenderImg(SysRes.SDK_LOGO, LogoOpacity);
+			imageUtil.Render(SysRes.SDK_LOGO, LogoOpacity);
 			break;
 
 		case 2: case 3:
-			RenderImg(SysRes.FMOD_LOGO, LogoOpacity);
+			imageUtil.Render(SysRes.FMOD_LOGO, LogoOpacity);
 			break;
 		}
 	}

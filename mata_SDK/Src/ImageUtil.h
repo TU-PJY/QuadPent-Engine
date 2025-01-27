@@ -20,11 +20,15 @@ public:
 	void LoadSpriteSheetT(SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type=IMAGE_TYPE_NEAREST);
 	void LoadT(Image& ImageStruct, std::string FilePath, int Type=IMAGE_TYPE_NEAREST);
 	void LoadClipT(Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type=IMAGE_TYPE_NEAREST);
-	void Map();
-	void Render(Image& ImageStruct);
-	void RenderSheet(SpriteSheet& SpriteSheetStruct, int Frame);
+	void Render(Image& ImageStruct, GLfloat OpacityValue=1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
+	void RenderSpriteSheet(SpriteSheet& SpriteSheetStruct, GLfloat& Frame, GLfloat OpacityValue= 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 	void RenderRaw();
 	void Release(Image& ImageStruct);
 	void ReleaseSpriteSheet(SpriteSheet& SpriteSheetStruct);
+	void Map();
+
+private:
+	void PrepareRender(Image& ImageStruct);
+	void PrepareRender(SpriteSheet& SpriteSheetStruct);
 };
 extern ImageUtil imageUtil;

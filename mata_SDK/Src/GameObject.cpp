@@ -7,8 +7,8 @@ void GameObject::Begin(int RenderType) {
 	transform.Identity(ImageAspectMatrix);
 	transform.Identity(FlipMatrix);
 
-	ObjectOpacity = 1.0f;
-	ObjectBlur = 0.0;
+	ObjectOpacityValue = 1.0f;
+	ObjectBlurValue = 0.0;
 
 	camera.SetCamera(RenderType);
 }
@@ -79,7 +79,7 @@ void GameObject::SetFlip(int FlipOpt) {
 }
 
 void GameObject::SetBlur(GLfloat Strength) {
-	ObjectBlur = Strength;
+	ObjectBlurValue = Strength;
 }
 
 void GameObject::SetUnitFlip(int FlipOpt) {
@@ -104,11 +104,11 @@ void GameObject::SetUnitFlip(int FlipOpt) {
 }
 
 void GameObject::SetUnitOpacity(GLfloat Value) {
-	UnitOpacity = Value;
+	UnitOpacityValue = Value;
 }
 
 void GameObject::SetUnitBlur(GLfloat Strength) {
-	UnitBlur = Strength;
+	UnitBlurValue = Strength;
 }
 
 void GameObject::ResetUnitTransform() {
@@ -116,86 +116,12 @@ void GameObject::ResetUnitTransform() {
 	transform.Identity(UnitRotateMatrix);
 	transform.Identity(UnitScaleMatrix);
 	transform.Identity(UnitFlipMatrix);
-	UnitOpacity = 1.0f;
-	UnitBlur = 0.0f;
-}
 
-void GameObject::RenderImg(Image& Image, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
-	if (!DisableAdjustAspect)
-		transform.ImageScale(ImageAspectMatrix, Image.Width, Image.Height);
-
-	computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
-	ObjectOpacity = OpacityValue;
-
-	if (ApplyUnitTransform) {
-		computeUtil.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
-		ObjectOpacity += UnitOpacity;
-		EX.ClampValue(ObjectOpacity, 0.0, CLAMP_LESS);
-		ObjectBlur += UnitBlur;
-	}
-
-	PrepareRender(Image);
-	imageUtil.Render(Image);
-}
-
-void GameObject::RenderSprSheet(SpriteSheet& SpriteSheetStruct, GLfloat OpacityValue, GLfloat& Frame, bool ApplyUnitTransform, bool DisableAdjustAspect) {
-	if ((int)Frame >= SpriteSheetStruct.Frame)
-		Frame = 0.0;
-
-	if (!DisableAdjustAspect)
-		transform.ImageScale(ImageAspectMatrix, SpriteSheetStruct.Width, SpriteSheetStruct.Height);
-
-	computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
-	ObjectOpacity = OpacityValue;
-
-	if (ApplyUnitTransform) {
-		computeUtil.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
-		ObjectOpacity -= (1.0f - UnitOpacity);
-		EX.ClampValue(ObjectOpacity, 0.0, CLAMP_LESS);
-		ObjectBlur += UnitBlur;
-	}
-
-	PrepareRender(SpriteSheetStruct);
-	imageUtil.RenderSheet(SpriteSheetStruct, (int)Frame);
+	UnitOpacityValue = 1.0f;
+	UnitBlurValue = 0.0f;
 }
 
 ////////////////////////// private
-
-void GameObject::PrepareRender(Image& ImageStruct) {
-	glUseProgram(IMAGE_SHADER);
-	camera.PrepareRender(SHADER_TYPE_IMAGE);
-
-	glUniform1f(IMAGE_OPACITY_LOCATION, ObjectOpacity);
-	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
-
-	if (ObjectBlur > 0.0) {
-		glUniform1i(BLUR_STATE_LOCATION, 1);
-		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlur);
-		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (GLfloat)ImageStruct.Width, 1.0 / (GLfloat)ImageStruct.Height);
-	}
-	else  
-		glUniform1i(BLUR_STATE_LOCATION, 0);
-
-	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
-}
-
-void GameObject::PrepareRender(SpriteSheet& SpriteSheetStruct) {
-	glUseProgram(IMAGE_SHADER);
-	camera.PrepareRender(SHADER_TYPE_IMAGE);
-
-	glUniform1f(IMAGE_OPACITY_LOCATION, ObjectOpacity);
-	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
-
-	if (ObjectBlur > 0.0) {
-		glUniform1i(BLUR_STATE_LOCATION, 1);
-		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlur);
-		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (GLfloat)SpriteSheetStruct.Width, 1.0 / (GLfloat)SpriteSheetStruct.Height);
-	}
-	else
-		glUniform1i(BLUR_STATE_LOCATION, 0);
-
-	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
-}
 
 glm::vec4 GameObject::ViewportPosition() {
 	computeUtil.ComputeMatrix(ViewportPositionMatrix, camera.Projection, camera.ViewMatrix, ResultMatrix);

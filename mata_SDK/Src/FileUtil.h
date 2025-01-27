@@ -37,7 +37,7 @@ private:
 public:
 	FileUtil() {}
 
-	void Load(std::string FileName, DataFormat Format);
+	void Load(std::string FileName, DataFormat Fmt);
 	void UpdateDigitData(std::string CategoryName, std::string DataName, float Value);
 	void UpdateStringData(std::string CategoryName, std::string DataName, std::string Value);
 	float LoadDigitData(std::string CategoryName, std::string DataName);

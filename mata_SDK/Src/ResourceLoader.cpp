@@ -21,13 +21,12 @@ DWORD WINAPI DataResourceLoader(LPVOID lpParam) {
 }
 
 DWORD WINAPI FontResourceLoader(LPVOID lpParam) {
-#ifdef USE_CUSTOM_FONT
-	int TotalSize = sizeof(FONT_PATH);
-	int ElementSize = sizeof(FONT_PATH[0]);
-	int Length = TotalSize / ElementSize;
-	for (int i = 0; i < Length; ++i)
-		fontUtil.LoadT(FONT_PATH[i]);
-#endif
+	// Load font resources here
 
 	return 0;
+}
+
+void InitText() {
+	// Init Text objects here
+
 }

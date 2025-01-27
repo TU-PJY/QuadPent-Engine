@@ -11,10 +11,6 @@ public:
 	ErrorMessage(int Type, std::string Value) {
 		System.SetBackColorRGB(31, 31, 31);
 
-		Text.Init(L"Roboto", FW_NORMAL);
-		Text.SetColor(1.0, 1.0, 1.0);
-		Text.SetLineGap(0.01);
-
 		PlaySoundW(TEXT("SDKResource\\Sound\\SDK_Error_Sound.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
 		Result = "An error occurred in the mata_SDK system.\n\n";
@@ -97,10 +93,14 @@ public:
 	void RenderFunc() {
 		if (SysRes.SDK_LOGO_ERROR.Texture != 0) {
 			Begin(RENDER_TYPE_STATIC);
-			RenderImg(SysRes.SDK_LOGO_ERROR, 0.3);
+			imageUtil.Render(SysRes.SDK_LOGO_ERROR, 0.3);
 		}
 
-		Text.RenderStr(ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);
-		Text.Render(ASP(-1.0) + 0.01, -1.0 + 0.02, 0.06, L"Press Alt + F4 or close window to terminate system...");
+		SystemText.Begin();
+		SystemText.SetColor(1.0, 1.0, 1.0);
+		SystemText.SetLineGap(0.01);
+		SystemText.RenderStr(ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);
+		SystemText.Render(ASP(-1.0) + 0.01, -1.0 + 0.02, 0.06, L"Press Alt + F4 or close window to terminate system...");
+		SystemText.Begin();
 	}
 };

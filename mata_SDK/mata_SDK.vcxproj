@@ -155,7 +155,7 @@
     <ClCompile Include="Src\Library\tinyxml\tinyxml.cpp" />
     <ClCompile Include="Src\Library\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="Src\Library\tinyxml\tinyxmlparser.cpp" />
-    <ClCompile Include="Src\Matrix.cpp" />
+    <ClCompile Include="Src\ObjectValue.cpp" />
     <ClCompile Include="Src\ResourceLoader.cpp" />
     <ClCompile Include="Src\Scene.cpp" />
     <ClCompile Include="Src\LineBrush.cpp" />
@@ -200,7 +200,7 @@
     <ClInclude Include="Src\SDKHeader.h" />
     <ClInclude Include="Src\Library\tinyxml\tinystr.h" />
     <ClInclude Include="Src\Library\tinyxml\tinyxml.h" />
-    <ClInclude Include="Src\Matrix.h" />
+    <ClInclude Include="Src\ObjectValue.h" />
     <ClInclude Include="Src\Scene.h" />
     <ClInclude Include="Src\ImageUtil.h" />
     <ClInclude Include="Src\GameResource.h" />
@@ -222,6 +222,7 @@
     <ClInclude Include="Src\Config.h" />
     <ClInclude Include="Src\StringUtil.h" />
     <ClInclude Include="Src\SystemResource.h" />
+    <ClInclude Include="Src\SystemText.h" />
     <ClInclude Include="Src\TextUtil.h" />
     <ClInclude Include="Src\ThreadUtil.h" />
     <ClInclude Include="Src\TimerUtil.h" />

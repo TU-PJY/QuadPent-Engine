@@ -5,6 +5,11 @@
 #include "EXUtil.h"
 #include "Scene.h"
 
+#include "ObjectValue.h"
+#include "TransformUtil.h"
+#include "ComputeUtil.h"
+
+
 ImageUtil imageUtil;
 
 GLfloat ImagePannel[][48] = {  // default size 1.0 * 1.0
@@ -357,13 +362,46 @@ void ImageUtil::Map() {
 	}
 }
 
-void ImageUtil::Render(Image& ImageStruct) {
+void ImageUtil::Render(Image& ImageStruct, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+	if (!DisableAdjustAspect)
+		transform.ImageScale(ImageAspectMatrix, ImageStruct.Width, ImageStruct.Height);
+
+	computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+	ObjectOpacityValue = OpacityValue;
+
+	if (ApplyUnitTransform) {
+		computeUtil.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+		ObjectOpacityValue += UnitOpacityValue;
+		EX.ClampValue(ObjectOpacityValue, 0.0, CLAMP_LESS);
+		ObjectBlurValue += UnitBlurValue;
+	}
+
+	PrepareRender(ImageStruct);
+
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, ImageStruct.Texture);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void ImageUtil::RenderSheet(SpriteSheet& SpriteSheetStruct, int Frame) {
+void ImageUtil::RenderSpriteSheet(SpriteSheet& SpriteSheetStruct, GLfloat& Frame, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+	if ((int)Frame >= SpriteSheetStruct.Frame)
+		Frame = 0.0;
+
+	if (!DisableAdjustAspect)
+		transform.ImageScale(ImageAspectMatrix, SpriteSheetStruct.Width, SpriteSheetStruct.Height);
+
+	computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+	ObjectOpacityValue = OpacityValue;
+
+	if (ApplyUnitTransform) {
+		computeUtil.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+		ObjectOpacityValue -= (1.0f - UnitOpacityValue);
+		EX.ClampValue(ObjectOpacityValue, 0.0, CLAMP_LESS);
+		ObjectBlurValue += UnitBlurValue;
+	}
+
+	PrepareRender(SpriteSheetStruct);
+
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, SpriteSheetStruct.Texture[Frame]);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -383,4 +421,40 @@ void ImageUtil::ReleaseSpriteSheet(SpriteSheet& SpriteSheetStruct) {
 	size_t SheetSize = SpriteSheetStruct.Texture.size();
 	for(int i = 0; i < SheetSize; ++i)
 		glDeleteTextures(1, &SpriteSheetStruct.Texture[i]);
+}
+
+void ImageUtil::PrepareRender(Image& ImageStruct) {
+	glUseProgram(IMAGE_SHADER);
+	camera.PrepareRender(SHADER_TYPE_IMAGE);
+
+	glUniform1f(IMAGE_OPACITY_LOCATION, ObjectOpacityValue);
+	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
+
+	if (ObjectBlurValue > 0.0) {
+		glUniform1i(BLUR_STATE_LOCATION, 1);
+		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlurValue);
+		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (GLfloat)ImageStruct.Width, 1.0 / (GLfloat)ImageStruct.Height);
+	}
+	else
+		glUniform1i(BLUR_STATE_LOCATION, 0);
+
+	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
+}
+
+void ImageUtil::PrepareRender(SpriteSheet& SpriteSheetStruct) {
+	glUseProgram(IMAGE_SHADER);
+	camera.PrepareRender(SHADER_TYPE_IMAGE);
+
+	glUniform1f(IMAGE_OPACITY_LOCATION, ObjectOpacityValue);
+	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
+
+	if (ObjectBlurValue > 0.0) {
+		glUniform1i(BLUR_STATE_LOCATION, 1);
+		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlurValue);
+		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (GLfloat)SpriteSheetStruct.Width, 1.0 / (GLfloat)SpriteSheetStruct.Height);
+	}
+	else
+		glUniform1i(BLUR_STATE_LOCATION, 0);
+
+	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 }

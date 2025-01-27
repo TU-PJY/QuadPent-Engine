@@ -3,13 +3,13 @@
 #include "ScriptUtil.h"
 #include "FileUtil.h"
 
-// Declare the sprite resource or directory here. 
+// Declare the sprite resource here. 
 class ImageResource {
 public:
 
 };
 
-// Declare the sound resource or directory here. 
+// Declare the sound resource here. 
 class SoundResource {
 public:
 
@@ -23,7 +23,7 @@ public:
 
 };
 
-// Decalre the data resource or directory here.
+// Decalre the data resource here.
 class DataResource {
 public:
 
@@ -35,23 +35,19 @@ public:
 
 };
 
-// Load your custom font.
-// USE_CUSTON_FONT must be enabled.
-//#define USE_CUSTOM_FONT
-#ifdef USE_CUSTOM_FONT
-constexpr const char* FONT_PATH[]
-{
-
+class TextResource {
+public:
 };
-#endif
 
 extern ImageResource Img;
 extern SoundResource Snd;
 extern DataFormatResource Fmt;
 extern DataResource Dat;
-extern GlobalResource Glob;
+extern GlobalResource Glb;
+extern TextResource Txt;
 
 DWORD WINAPI ImageResourceLoader(LPVOID lpParam);
 DWORD WINAPI SoundResourceLoader(LPVOID lpParam);
 DWORD WINAPI DataResourceLoader(LPVOID lpParam);
 DWORD WINAPI FontResourceLoader(LPVOID lpParam);
+void InitText();

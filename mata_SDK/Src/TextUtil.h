@@ -38,6 +38,7 @@ private:
 public:
 	~TextUtil();
 	void Init(const wchar_t* FontName, int Type, int Italic=FALSE);
+	void Begin(int RenderTypeFlag=RENDER_TYPE_STATIC);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColor(glm::vec3& Color);
 	void SetColorRGB(int R, int G, int B);
@@ -47,8 +48,8 @@ public:
 	void SetHeightAlign(int Type);
 	void Rotate(GLfloat RotationValue);
 	void SetOpacity(GLfloat Value);
-	void Render(glm::vec2& Position, GLfloat Size, const wchar_t* Format, ...);
-	void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...);
+	void Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...);
+	void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...);
 	void RenderStr(glm::vec2& Position, GLfloat Size, std::string Str);
 	void RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string Str);
 	void SetRenderType(int Type);

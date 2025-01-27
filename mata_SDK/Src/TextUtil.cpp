@@ -16,6 +16,16 @@ void TextUtil::Init(const wchar_t* FontName, int Type, int Italic) {
 	LineLengthBuffer.reserve(20);
 }
 
+void TextUtil::Begin(int RenderTypeFlag) {
+	RenderType = RenderTypeFlag;
+	TextAlign = ALIGN_DEFAULT;
+	HeightAlign = HEIGHT_ALIGN_DEFAULT;
+	FixMiddleCommand = false;
+	TextLineGap = 0.0;
+	Rotation = 0.0;
+	Opacity = 1.0;
+}
+
 void TextUtil::SetRenderType(int Type) {
 	RenderType = Type;
 }
@@ -62,16 +72,16 @@ void TextUtil::SetOpacity(GLfloat Value) {
 	Opacity = Value;
 }
 
-void TextUtil::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Format, ...) {
-	wchar_t Text[512]{};
+void TextUtil::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...) {
+	wchar_t Text[MAX_TEXT_LENGTH]{};
 	va_list Args{};
 
-	va_start(Args, Format);
-	vswprintf(Text, sizeof(Text) / sizeof(wchar_t), Format, Args);
+	va_start(Args, Fmt);
+	vswprintf(Text, sizeof(Text) / sizeof(wchar_t), Fmt, Args);
 	va_end(Args);
 	CurrentText = std::wstring(Text);
 
-	if (Format == NULL)
+	if (Fmt == NULL)
 		return;
 
 	CurrentLine = 0;
@@ -124,16 +134,16 @@ void TextUtil::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Format, 
 }
 
 
-void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Format, ...) {
-	wchar_t Text[512]{};
+void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...) {
+	wchar_t Text[MAX_TEXT_LENGTH]{};
 	va_list Args{};
 
-	va_start(Args, Format);
-	vswprintf(Text, sizeof(Text) / sizeof(wchar_t), Format, Args);
+	va_start(Args, Fmt);
+	vswprintf(Text, sizeof(Text) / sizeof(wchar_t), Fmt, Args);
 	va_end(Args);
 	CurrentText = std::wstring(Text);
 
-	if (Format == NULL)
+	if (Fmt == NULL)
 		return;
 
 	CurrentLine = 0;

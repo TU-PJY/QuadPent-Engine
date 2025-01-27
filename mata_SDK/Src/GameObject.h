@@ -3,13 +3,6 @@
 
 class GameObject {
 public:
-	glm::vec3   ObjectColor{ glm::vec3(0.0, 0.0, 0.0) };
-
-	GLfloat     ObjectOpacity{ 1.0f };
-	GLfloat     UnitOpacity{ 1.0f };
-	GLfloat     ObjectBlur{};
-	GLfloat     UnitBlur{};
-
 	std::string ObjectTag{};
 	int         ObjectLayer{};
 
@@ -50,12 +43,6 @@ public:
 
 	void SetFlip(int FlipOpt);
 	void SetBlur(GLfloat Strength);
-
-	//  Render the image.
-	void RenderImg(Image& Image, GLfloat OpacityValue = 1.0, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
-
-	// Render the sprite sheet.
-	void RenderSprSheet(SpriteSheet& SpriteSheetStruct, GLfloat OpacityValue, GLfloat& Frame, bool ApplyUnitTransform=false, bool DisableAdjustAspect=false);
 	
 	// class destructor
 	virtual ~GameObject() {}
@@ -99,8 +86,6 @@ public:
 	virtual void RenderIndicator() {}
 
 private:
-	void PrepareRender(Image& ImageStruct);
-	void PrepareRender(SpriteSheet& SpriteSheetStruct);
 	glm::vec4 ViewportPosition();
 	glm::vec4 LocalPosition();
 };

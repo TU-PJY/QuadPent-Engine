@@ -3,13 +3,13 @@
 #include "Config.h"
 #include "StringUtil.h"
 
-void FileUtil::Load(std::string FileDirectory, DataFormat Format) {
+void FileUtil::Load(std::string FileDirectory, DataFormat Fmt) {
 	if (FileExist)
 		return;
 
 	std::string FolderPath = GetFolderPath(FileDirectory, GetFileName(FileDirectory));
 	FilePath = FileDirectory;
-	DataFormatInfo = Format;
+	DataFormatInfo = Fmt;
 
 	if (!USE_FILE_SECURITY)
 		FilePath += ".xml";
