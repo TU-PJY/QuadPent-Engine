@@ -34,7 +34,7 @@ class GlobalResource {
 public:
 
 };
-
+// Declare the global text object here.
 class TextResource {
 public:
 };

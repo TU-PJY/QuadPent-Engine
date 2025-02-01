@@ -44,9 +44,6 @@ public:
 			imageUtil.Init();
 			soundUtil.Init();
 
-			imageUtil.Load(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-			imageUtil.Load(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
-
 			threadUtil.Create(SystemResourceLoadHandle, SystemResourceLoader);
 
 			LoadCommand = true;
@@ -57,9 +54,6 @@ public:
 
 			if (LoadResources()) {
 				if (!InitializationEnd) {
-					SystemText.Init(L"Roboto", FW_NORMAL);
-					std::cout << "SystemText initialized." << std::endl;
-
 					imageUtil.Map();
 					std::cout << "All of Image resources mapped." << std::endl;
 
@@ -110,6 +104,10 @@ public:
 			threadUtil.Create(DataResourceLoadHandle, DataResourceLoader);
 			threadUtil.Create(FontResourceLoadHandle, FontResourceLoader);
 			std::cout << "System resource load completed." << std::endl;
+
+			SystemText.Init(L"Roboto", FW_NORMAL);
+			std::cout << "SystemText initialized." << std::endl;
+
 			SystemResourceLoadEnd = true;
 		}
 
@@ -149,6 +147,8 @@ public:
 		soundUtil.Load(SysRes.INTRO_SOUND, SysRes.SDK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
 		imageUtil.LoadT(SysRes.SDK_LOGO, SysRes.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.LoadT(SysRes.FMOD_LOGO, SysRes.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
+		imageUtil.LoadT(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+		imageUtil.LoadT(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.LoadT(SysRes.COLOR_TEXTURE, SysRes.COLOR_TEXTURE_DIRECTORY);
 
 		SysRes.GLU_CIRCLE = gluNewQuadric();
