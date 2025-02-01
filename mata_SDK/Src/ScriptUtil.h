@@ -35,6 +35,8 @@ public:
 	StringDataVec LoadCategoryStringData(std::string CategoryName);
 	void Release();
 
+	int CountCategory();
+
 private:
 	TiXmlElement* FindCategory(std::string CategoryName);
 	std::string FindData(std::string CategoryName, std::string DataName);
