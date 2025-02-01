@@ -15,11 +15,11 @@ void Transform::Move(glm::mat4& Matrix, glm::vec2& Position) {
 }
 
 void Transform::Rotate(glm::mat4& Matrix, GLfloat Degree) {
-	Matrix = rotate(Matrix, glm::radians(Degree), glm::vec3(0.0, 0.0, 1.0));
+	Matrix = rotate(Matrix, glm::radians(-Degree), glm::vec3(0.0, 0.0, 1.0));
 }
 
 void Transform::RotateRadians(glm::mat4& Matrix, GLfloat Radians) {
-	Matrix = rotate(Matrix, Radians, glm::vec3(0.0, 0.0, 1.0));
+	Matrix = rotate(Matrix, -Radians, glm::vec3(0.0, 0.0, 1.0));
 }
 
 void Transform::RotateV(glm::mat4& Matrix, GLfloat Degree) {
@@ -53,4 +53,11 @@ void Transform::ImageScale(glm::mat4& Matrix, GLfloat Width, GLfloat Height) {
 		Matrix = glm::scale(Matrix, glm::vec3(1.0, Height / Width, 1.0));
 	else if (Width < Height)
 		Matrix = glm::scale(Matrix, glm::vec3(Width / Height, 1.0, 1.0));
+}
+
+bool Transform::CheckIdentity(glm::mat4& Matrix) {
+	if (std::memcmp(&Matrix, &IdentityMatrix, sizeof(glm::mat4)) != 0)
+		return false;
+	
+	return true;
 }

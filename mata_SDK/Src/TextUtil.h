@@ -38,7 +38,7 @@ private:
 public:
 	~TextUtil();
 	void Init(const wchar_t* FontName, int Type, int Italic=FALSE);
-	void Begin(int RenderTypeFlag=RENDER_TYPE_STATIC);
+	void Reset(int RenderTypeFlag=RENDER_TYPE_STATIC);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColor(glm::vec3& Color);
 	void SetColorRGB(int R, int G, int B);

@@ -368,13 +368,25 @@ void ImageUtil::Render(Image& ImageStruct, GLfloat OpacityValue, bool ApplyUnitT
 
 	if (USE_COMPUTE_SHADER)
 		computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
-	else
-		ResultMatrix = MoveMatrix * RotateMatrix * ScaleMatrix * ImageAspectMatrix * FlipMatrix;
+	else {
+		ResultMatrix = MoveMatrix;
+		if (!transform.CheckIdentity(RotateMatrix))      { ResultMatrix *= RotateMatrix; }
+		if (!transform.CheckIdentity(ScaleMatrix))       { ResultMatrix *= ScaleMatrix; }
+		if (!transform.CheckIdentity(ImageAspectMatrix)) { ResultMatrix *= ImageAspectMatrix; }
+		if (!transform.CheckIdentity(FlipMatrix))        { ResultMatrix *= FlipMatrix; }
+	}
 
 	ObjectOpacityValue = OpacityValue;
 
 	if (ApplyUnitTransform) {
-		computeUtil.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+		if(USE_COMPUTE_SHADER)
+			computeUtil.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+		else {
+			if (!transform.CheckIdentity(UnitMoveMatrix))   { ResultMatrix = UnitMoveMatrix * ResultMatrix; }
+			if (!transform.CheckIdentity(UnitRotateMatrix)) { ResultMatrix = UnitRotateMatrix * ResultMatrix; }
+			if (!transform.CheckIdentity(UnitScaleMatrix))  { ResultMatrix = UnitScaleMatrix * ResultMatrix; }
+			if (!transform.CheckIdentity(UnitFlipMatrix))   { ResultMatrix *= UnitFlipMatrix; }
+		}
 		ObjectOpacityValue += UnitOpacityValue;
 		EX.ClampValue(ObjectOpacityValue, 0.0, CLAMP_LESS);
 		ObjectBlurValue += UnitBlurValue;
@@ -396,13 +408,25 @@ void ImageUtil::RenderSpriteSheet(SpriteSheet& SpriteSheetStruct, GLfloat& Frame
 
 	if (USE_COMPUTE_SHADER)
 		computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
-	else
-		ResultMatrix = MoveMatrix * RotateMatrix * ScaleMatrix * ImageAspectMatrix * FlipMatrix;
+	else {
+		ResultMatrix = MoveMatrix;
+		if (!transform.CheckIdentity(RotateMatrix))      { ResultMatrix *= RotateMatrix; }
+		if (!transform.CheckIdentity(ScaleMatrix))       { ResultMatrix *= ScaleMatrix; }
+		if (!transform.CheckIdentity(ImageAspectMatrix)) { ResultMatrix *= ImageAspectMatrix; }
+		if (!transform.CheckIdentity(FlipMatrix))        { ResultMatrix *= FlipMatrix; }
+	}
 
 	ObjectOpacityValue = OpacityValue;
 
 	if (ApplyUnitTransform) {
-		computeUtil.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+		if (USE_COMPUTE_SHADER)
+			computeUtil.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+		else {
+			if (!transform.CheckIdentity(UnitMoveMatrix))   { ResultMatrix = UnitMoveMatrix * ResultMatrix; }
+			if (!transform.CheckIdentity(UnitRotateMatrix)) { ResultMatrix = UnitRotateMatrix * ResultMatrix; }
+			if (!transform.CheckIdentity(UnitScaleMatrix))  { ResultMatrix = UnitScaleMatrix * ResultMatrix; }
+			if (!transform.CheckIdentity(UnitFlipMatrix))   { ResultMatrix *= UnitFlipMatrix; }
+		}
 		ObjectOpacityValue -= (1.0f - UnitOpacityValue);
 		EX.ClampValue(ObjectOpacityValue, 0.0, CLAMP_LESS);
 		ObjectBlurValue += UnitBlurValue;

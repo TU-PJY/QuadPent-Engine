@@ -26,6 +26,8 @@ extern float DestFPS;
 extern int FPSLimit;
 extern bool FullscreenState;
 
+extern glm::mat4 IdentityMatrix;
+
 typedef void(*START_MODE_PTR)(void);
 using ShaderLocation = unsigned int;
 

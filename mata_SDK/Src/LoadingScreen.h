@@ -44,13 +44,15 @@ public:
 			imageUtil.Init();
 			soundUtil.Init();
 
+			imageUtil.Load(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
+
 			threadUtil.Create(SystemResourceLoadHandle, SystemResourceLoader);
 
 			LoadCommand = true;
 		}
 
 		else {
-			Rotation -= 200 * FrameTime;
+			Rotation += 200 * FrameTime;
 
 			if (LoadResources()) {
 				if (!InitializationEnd) {
@@ -148,7 +150,6 @@ public:
 		imageUtil.LoadT(SysRes.SDK_LOGO, SysRes.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.LoadT(SysRes.FMOD_LOGO, SysRes.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.LoadT(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.LoadT(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.LoadT(SysRes.COLOR_TEXTURE, SysRes.COLOR_TEXTURE_DIRECTORY);
 
 		SysRes.GLU_CIRCLE = gluNewQuadric();

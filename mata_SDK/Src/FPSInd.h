@@ -23,11 +23,11 @@ public:
 		UI.ClampPositionToCorner(EDGE_LEFT_UP, RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.0);
 		Rect.Draw(RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.3);
 
-		SystemText.Begin();
+		SystemText.Reset();
 		SystemText.SetColor(1.0, 1.0, 1.0);
 		SystemText.SetHeightAlign(HEIGHT_ALIGN_UNDER);
 		SystemText.Render(WindowRect.lx + 0.01, WindowRect.ry, 0.06, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
-		SystemText.Begin();
+		SystemText.Reset();
 	}
 };
 extern GameObject* Indicator;

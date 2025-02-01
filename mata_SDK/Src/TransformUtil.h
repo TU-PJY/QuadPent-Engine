@@ -14,6 +14,7 @@ public:
 	void Shear(glm::mat4& Matrix, GLfloat X, GLfloat Y);
 	void Shear(glm::mat4& Matrix, glm::vec2& Value);
 	void ImageScale(glm::mat4& Matrix, GLfloat Width, GLfloat Height);
+	bool CheckIdentity(glm::mat4& Matrix);
 	void RotateV(glm::mat4& Matrix, GLfloat Degree);
 	void RotateH(glm::mat4& Matrix, GLfloat Degree);
 };

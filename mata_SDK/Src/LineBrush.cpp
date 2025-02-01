@@ -38,7 +38,6 @@ void LineBrush::SetLineType(int LineTypeOpt) {
 
 void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width, GLfloat OpacityValue) {
 	transform.Identity(MoveMatrix);
-	transform.Identity(ScaleMatrix);
 	Opacity = OpacityValue;
 
 	Length = mathUtil.ComputeDistance(X1, Y1, X2, Y2);
@@ -49,9 +48,9 @@ void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Wid
 	transform.Move(MoveMatrix, Length / 2.0, 0.0);
 
 	if (LineType == LINE_TYPE_RECT)
-		transform.Scale(ScaleMatrix, Length + Width, Width);
+		transform.Scale(MoveMatrix, Length + Width, Width);
 	else if (LineType == LINE_TYPE_ROUND) 
-		transform.Scale(ScaleMatrix, Length, Width);
+		transform.Scale(MoveMatrix, Length, Width);
 
 	Render();
 
@@ -61,14 +60,13 @@ void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Wid
 
 void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfloat OpacityValue) {
 	transform.Identity(MoveMatrix);
-	transform.Identity(ScaleMatrix);
 	Opacity = OpacityValue;
 
 	transform.Move(MoveMatrix, (X1 + X2) / 2.0, Y);
 	if (LineType == LINE_TYPE_RECT)
-		transform.Scale(ScaleMatrix, fabs(X1 - X2) + Width, Width);
+		transform.Scale(MoveMatrix, fabs(X1 - X2) + Width, Width);
 	else if (LineType == LINE_TYPE_ROUND) 
-		transform.Scale(ScaleMatrix, fabs(X1 - X2), Width);
+		transform.Scale(MoveMatrix, fabs(X1 - X2), Width);
 
 	Render();
 
@@ -78,14 +76,13 @@ void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfl
 
 void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfloat OpacityValue) {
 	transform.Identity(MoveMatrix);
-	transform.Identity(ScaleMatrix);
 	Opacity = OpacityValue;
 
 	transform.Move(MoveMatrix, X, (Y1 + Y2) / 2.0);
 	if (LineType == LINE_TYPE_RECT)
-		transform.Scale(ScaleMatrix, Width, fabs(Y1 - Y2) + Width);
+		transform.Scale(MoveMatrix, Width, fabs(Y1 - Y2) + Width);
 	else if (LineType == LINE_TYPE_ROUND)
-		transform.Scale(ScaleMatrix, fabs(Y1 - Y2), Width);
+		transform.Scale(MoveMatrix, fabs(Y1 - Y2), Width);
 
 	Render();
 
@@ -96,14 +93,12 @@ void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfl
 void LineBrush::Render() {
 	camera.SetCamera(RenderType);
 
-	computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, ScaleMatrix);
-
 	glUseProgram(SHAPE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_SHAPE);
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(MoveMatrix));
 
 	imageUtil.RenderRaw();
 }

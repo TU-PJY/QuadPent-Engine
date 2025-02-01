@@ -96,11 +96,11 @@ public:
 			imageUtil.Render(SysRes.SDK_LOGO_ERROR, 0.3);
 		}
 
-		SystemText.Begin();
+		SystemText.Reset();
 		SystemText.SetColor(1.0, 1.0, 1.0);
 		SystemText.SetLineGap(0.01);
 		SystemText.RenderStr(ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);
 		SystemText.Render(ASP(-1.0) + 0.01, -1.0 + 0.02, 0.06, L"Press Alt + F4 or close window to terminate system...");
-		SystemText.Begin();
+		SystemText.Reset();
 	}
 };

@@ -1,6 +1,7 @@
 #include "GameObject.h"
 
 void GameObject::Begin(int RenderType) {
+	transform.Identity(ResultMatrix);
 	transform.Identity(MoveMatrix);
 	transform.Identity(RotateMatrix);
 	transform.Identity(ScaleMatrix);

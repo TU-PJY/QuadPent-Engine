@@ -16,7 +16,7 @@ void TextUtil::Init(const wchar_t* FontName, int Type, int Italic) {
 	LineLengthBuffer.reserve(20);
 }
 
-void TextUtil::Begin(int RenderTypeFlag) {
+void TextUtil::Reset(int RenderTypeFlag) {
 	RenderType = RenderTypeFlag;
 	TextAlign = ALIGN_DEFAULT;
 	HeightAlign = HEIGHT_ALIGN_DEFAULT;
@@ -107,11 +107,6 @@ void TextUtil::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...
 		break;
 	}
 
-	transform.Identity(RotateMatrix);
-	transform.Identity(ScaleMatrix);
-	transform.Rotate(RotateMatrix, Rotation);
-	transform.Scale(ScaleMatrix, TextRenderSize, TextRenderSize);
-
 	for (int i = 0; i < TextWordCount; ++i) {
 		if (Text[i] == L'\n') {
 			NextLine();
@@ -168,11 +163,6 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ..
 		RenderPosition.y -= TextRenderSize;
 		break;
 	}
-
-	transform.Identity(RotateMatrix);
-	transform.Identity(ScaleMatrix);
-	transform.Rotate(RotateMatrix, Rotation);
-	transform.Scale(ScaleMatrix, TextRenderSize, TextRenderSize);
 
 	for (int i = 0; i < TextWordCount; ++i) {
 		if (Text[i] == L'\n') {
@@ -250,6 +240,8 @@ void TextUtil::NextLine() {
 void TextUtil::TransformText() {
 	transform.Identity(MoveMatrix);
 
+	transform.Rotate(MoveMatrix, Rotation);
+
 	switch (TextAlign) {
 	case ALIGN_DEFAULT:
 		transform.Move(MoveMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
@@ -263,20 +255,17 @@ void TextUtil::TransformText() {
 		transform.Move(MoveMatrix, RenderPosition.x - TextLength, RenderPosition.y + MiddleHeight);
 		break;
 	}
+
+	transform.Scale(MoveMatrix, TextRenderSize, TextRenderSize);
 }
 
 void TextUtil::PrepareRender() {
-	if (USE_COMPUTE_SHADER)
-		computeUtil.ComputeMatrix(ResultMatrix, RotateMatrix, MoveMatrix, ScaleMatrix);
-	else
-		ResultMatrix = RotateMatrix * MoveMatrix * ScaleMatrix;
-
 	glUseProgram(TEXT_SHADER);
 	camera.PrepareRender(SHADER_TYPE_TEXT);
 
 	glUniform1f(TEXT_OPACITY_LOCATION, Opacity);
 	glUniform3f(TEXT_COLOR_LOCATION, TextColor.r, TextColor.g, TextColor.b);
-	glUniformMatrix4fv(TEXT_MODEL_LOCATION, 1, GL_FALSE, value_ptr(ResultMatrix));
+	glUniformMatrix4fv(TEXT_MODEL_LOCATION, 1, GL_FALSE, value_ptr(MoveMatrix));
 }
 
 void TextUtil::ProcessGlyphCache(wchar_t* Text) {

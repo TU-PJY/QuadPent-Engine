@@ -42,12 +42,11 @@ void LineRectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLf
 
 void LineRectBrush::DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat OffsetY, GLfloat Width, GLfloat Height, GLfloat RotationValue) {
 	transform.Identity(MoveMatrix);
-	transform.Identity(ScaleMatrix);
 
 	transform.Move(MoveMatrix, X, Y);
 	transform.Rotate(MoveMatrix, RotationValue);
 	transform.Move(MoveMatrix, OffsetX, OffsetY);
-	transform.Scale(ScaleMatrix, Width, Height);
+	transform.Scale(MoveMatrix, Width, Height);
 	Render();
 }
 
@@ -55,14 +54,12 @@ void LineRectBrush::Render() {
 	if (!CamInheritanceCommand)
 		camera.SetCamera(RenderType);
 
-	computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, ScaleMatrix);
-
 	glUseProgram(SHAPE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_SHAPE);
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(MoveMatrix));
 
 	imageUtil.RenderRaw();
 }
@@ -97,12 +94,11 @@ void RectBrush::SetColorRGB(int R, int G, int B) {
 
 void RectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat RotationValue, GLfloat OpacityValue) {
 	transform.Identity(MoveMatrix);
-	transform.Identity(ScaleMatrix);
 	Opacity = OpacityValue;
 
 	transform.Move(MoveMatrix, X, Y);
 	transform.Rotate(MoveMatrix, RotationValue);
-	transform.Scale(ScaleMatrix, SizeX, SizeY);
+	transform.Scale(MoveMatrix, SizeX, SizeY);
 
 	Render();
 }
@@ -111,14 +107,12 @@ void RectBrush::Render() {
 	if(!CamInheritanceCommand)
 		camera.SetCamera(RenderType);
 
-	computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, ScaleMatrix);
-
 	glUseProgram(SHAPE_SHADER);
 	camera.PrepareRender(SHADER_TYPE_SHAPE);
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(MoveMatrix));
 
 	imageUtil.RenderRaw();
 }
