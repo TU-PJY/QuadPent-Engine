@@ -30,5 +30,6 @@ public:
 private:
 	void PrepareRender(Image& ImageStruct);
 	void PrepareRender(SpriteSheet& SpriteSheetStruct);
+	void ProcessTransform(GLfloat Width, GLfloat Height, GLfloat OpacityValue, bool DisableAdjustAspect, bool ApplyUnitTransform);
 };
 extern ImageUtil imageUtil;
