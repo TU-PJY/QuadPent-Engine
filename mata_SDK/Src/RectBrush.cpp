@@ -41,12 +41,12 @@ void LineRectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLf
 }
 
 void LineRectBrush::DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat OffsetY, GLfloat Width, GLfloat Height, GLfloat RotationValue) {
-	transform.Identity(MoveMatrix);
+	transform.Identity(ShapeMatrix);
 
-	transform.Move(MoveMatrix, X, Y);
-	transform.Rotate(MoveMatrix, RotationValue);
-	transform.Move(MoveMatrix, OffsetX, OffsetY);
-	transform.Scale(MoveMatrix, Width, Height);
+	transform.Move(ShapeMatrix, X, Y);
+	transform.Rotate(ShapeMatrix, RotationValue);
+	transform.Move(ShapeMatrix, OffsetX, OffsetY);
+	transform.Scale(ShapeMatrix, Width, Height);
 	Render();
 }
 
@@ -59,7 +59,7 @@ void LineRectBrush::Render() {
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(MoveMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ShapeMatrix));
 
 	imageUtil.RenderRaw();
 }
@@ -93,12 +93,12 @@ void RectBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void RectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat RotationValue, GLfloat OpacityValue) {
-	transform.Identity(MoveMatrix);
+	transform.Identity(ShapeMatrix);
 	Opacity = OpacityValue;
 
-	transform.Move(MoveMatrix, X, Y);
-	transform.Rotate(MoveMatrix, RotationValue);
-	transform.Scale(MoveMatrix, SizeX, SizeY);
+	transform.Move(ShapeMatrix, X, Y);
+	transform.Rotate(ShapeMatrix, RotationValue);
+	transform.Scale(ShapeMatrix, SizeX, SizeY);
 
 	Render();
 }
@@ -112,7 +112,7 @@ void RectBrush::Render() {
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(MoveMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ShapeMatrix));
 
 	imageUtil.RenderRaw();
 }

@@ -84,6 +84,34 @@ void TextUtil::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...
 	if (Fmt == NULL)
 		return;
 
+	ProcessText(Text, Position, Size);
+}
+
+void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...) {
+	wchar_t Text[MAX_TEXT_LENGTH]{};
+	va_list Args{};
+
+	va_start(Args, Fmt);
+	vswprintf(Text, sizeof(Text) / sizeof(wchar_t), Fmt, Args);
+	va_end(Args);
+	CurrentText = std::wstring(Text);
+
+	if (Fmt == NULL)
+		return;
+
+	ProcessText(Text, glm::vec2(X, Y), Size);
+}
+
+void TextUtil::RenderStr(glm::vec2& Position, GLfloat Size, std::string Str) {
+	Render(Position.x, Position.y, Size, stringUtil.Wstring(Str).c_str());
+}
+
+void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string Str) {
+	Render(X, Y, Size, stringUtil.Wstring(Str).c_str());
+}
+
+////////////////// private
+void TextUtil::ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size) {
 	CurrentLine = 0;
 	TextRenderSize = Size;
 	RenderPosition = Position;
@@ -128,72 +156,6 @@ void TextUtil::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...
 	}
 }
 
-
-void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...) {
-	wchar_t Text[MAX_TEXT_LENGTH]{};
-	va_list Args{};
-
-	va_start(Args, Fmt);
-	vswprintf(Text, sizeof(Text) / sizeof(wchar_t), Fmt, Args);
-	va_end(Args);
-	CurrentText = std::wstring(Text);
-
-	if (Fmt == NULL)
-		return;
-
-	CurrentLine = 0;
-	TextRenderSize = Size;
-	RenderPosition = glm::vec2(X, Y);
-	RenderStartPosition = RenderPosition.x;
-
-	if (CurrentText != PrevText) {
-		TextWordCount = wcslen(Text);
-		ProcessGlyphCache(Text);
-		PrevText = CurrentText;
-	}
-
-	CalculateTextLength(Text);
-
-	switch (HeightAlign) {
-	case HEIGHT_ALIGN_MIDDLE:
-		RenderPosition.y -= TextRenderSize * 0.5;
-		break;
-
-	case HEIGHT_ALIGN_UNDER:
-		RenderPosition.y -= TextRenderSize;
-		break;
-	}
-
-	for (int i = 0; i < TextWordCount; ++i) {
-		if (Text[i] == L'\n') {
-			NextLine();
-			continue;
-		}
-
-		TransformText();
-		camera.SetCamera(RenderType);
-		PrepareRender();
-
-		glPushAttrib(GL_LIST_BIT);
-		glListBase(FontBase);
-		glCallLists(1, GL_UNSIGNED_SHORT, &Text[i]);
-		glPopAttrib();
-
-		unsigned int CharIndex = Text[i];
-		if (CharIndex < 65536)
-			RenderPosition.x += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
-	}
-}
-
-void TextUtil::RenderStr(glm::vec2& Position, GLfloat Size, std::string Str) {
-	Render(Position.x, Position.y, Size, stringUtil.Wstring(Str).c_str());
-}
-
-void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string Str) {
-	Render(X, Y, Size, stringUtil.Wstring(Str).c_str());
-}
-
-////////////////// private
 void TextUtil::GetLineLength(const wchar_t* Text) {
 	LineLengthBuffer.clear();
 	GLfloat CurrentLineLength{};
@@ -238,34 +200,24 @@ void TextUtil::NextLine() {
 }
 
 void TextUtil::TransformText() {
-	transform.Identity(MoveMatrix);
-
-	transform.Rotate(MoveMatrix, Rotation);
+	transform.Identity(TextMatrix);
+	transform.Rotate(TextMatrix, Rotation);
 
 	switch (TextAlign) {
 	case ALIGN_DEFAULT:
-		transform.Move(MoveMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
+		transform.Move(TextMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
 		break;
 
 	case ALIGN_MIDDLE:
-		transform.Move(MoveMatrix, RenderPosition.x - (TextLength / 2.0), RenderPosition.y + MiddleHeight);
+		transform.Move(TextMatrix, RenderPosition.x - (TextLength / 2.0), RenderPosition.y + MiddleHeight);
 		break;
 
 	case ALIGN_LEFT:
-		transform.Move(MoveMatrix, RenderPosition.x - TextLength, RenderPosition.y + MiddleHeight);
+		transform.Move(TextMatrix, RenderPosition.x - TextLength, RenderPosition.y + MiddleHeight);
 		break;
 	}
 
-	transform.Scale(MoveMatrix, TextRenderSize, TextRenderSize);
-}
-
-void TextUtil::PrepareRender() {
-	glUseProgram(TEXT_SHADER);
-	camera.PrepareRender(SHADER_TYPE_TEXT);
-
-	glUniform1f(TEXT_OPACITY_LOCATION, Opacity);
-	glUniform3f(TEXT_COLOR_LOCATION, TextColor.r, TextColor.g, TextColor.b);
-	glUniformMatrix4fv(TEXT_MODEL_LOCATION, 1, GL_FALSE, value_ptr(MoveMatrix));
+	transform.Scale(TextMatrix, TextRenderSize, TextRenderSize);
 }
 
 void TextUtil::ProcessGlyphCache(wchar_t* Text) {
@@ -287,6 +239,15 @@ void TextUtil::LoadGlyph(wchar_t& Char) {
 	wglUseFontOutlinesW(hDC, Char, 1, FontBase + Char, 0.0f, 0.0f, WGL_FONT_POLYGONS, &TextGlyph[Char]);
 	SelectObject(hDC, OldFont);
 	GlyphCache[Char] = true;
+}
+
+void TextUtil::PrepareRender() {
+	glUseProgram(TEXT_SHADER);
+	camera.PrepareRender(SHADER_TYPE_TEXT);
+
+	glUniform1f(TEXT_OPACITY_LOCATION, Opacity);
+	glUniform3f(TEXT_COLOR_LOCATION, TextColor.r, TextColor.g, TextColor.b);
+	glUniformMatrix4fv(TEXT_MODEL_LOCATION, 1, GL_FALSE, value_ptr(TextMatrix));
 }
 
 TextUtil::~TextUtil() {

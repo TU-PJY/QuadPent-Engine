@@ -55,6 +55,7 @@ public:
 	void SetRenderType(int Type);
 
 private:
+	void ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size);
 	void GetLineLength(const wchar_t* Text);
 	void CalculateTextLength(const wchar_t* Text);
 	void NextLine();

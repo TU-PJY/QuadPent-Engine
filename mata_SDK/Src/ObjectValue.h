@@ -16,3 +16,9 @@ extern GLfloat ObjectBlurValue;
 
 extern GLfloat ObjectOpacityValue;
 extern GLfloat UnitOpacityValue;
+
+
+extern glm::mat4 TextMatrix;
+
+
+extern glm::mat4 ShapeMatrix;
