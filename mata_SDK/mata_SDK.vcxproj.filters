@@ -43,17 +43,11 @@
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Clipping Util ]">
       <UniqueIdentifier>{9bceb82f-2ade-4d6d-9360-521458e8d522}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ UI Util ]">
-      <UniqueIdentifier>{4bc61999-6038-4873-89f1-097ff59edac5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Move Util ]">
       <UniqueIdentifier>{a3986c5c-3d03-4f63-ba7d-4f37ac97802a}</UniqueIdentifier>
     </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]\[ EX Util ]">
       <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Transform Util ]">
-      <UniqueIdentifier>{97cfbf89-8ee3-4d67-b4fb-aed1f7833e3b}</UniqueIdentifier>
     </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Font Util ]">
       <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
@@ -142,11 +136,17 @@
     <Filter Include="[5]___________[ System ]\[ GameObject ]\[ Object Value ]">
       <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ UI Util ]\[0] [ Pack ]">
+    <Filter Include="[5]___________[ System ]\[ Util ]\[0] [ Pack ]">
       <UniqueIdentifier>{38262568-5f1a-4ff0-9a03-cc13df33dcd9}</UniqueIdentifier>
     </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Text Util ]">
       <UniqueIdentifier>{ebbafb29-e74d-4f67-ae00-7ab61d0dd40e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ UI Util ]">
+      <UniqueIdentifier>{4bc61999-6038-4873-89f1-097ff59edac5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Transform Util ]">
+      <UniqueIdentifier>{97cfbf89-8ee3-4d67-b4fb-aed1f7833e3b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -396,7 +396,7 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\UtilPack.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]\[0] [ Pack ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[0] [ Pack ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\LoadingScreen.h">
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>

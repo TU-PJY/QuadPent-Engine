@@ -17,6 +17,9 @@ public:
 	GLfloat ComputeNextZoom(int ZoomType, GLfloat ZoomValue);
 
 private:
+	glm::vec2 Position{};
+	GLfloat Rotation{};
+
 	void ComputeCameraMatrix();
 };
 

@@ -1,5 +1,7 @@
 #pragma once
 #include "SDKHeader.h"
+#include "ImageUtil.h"
+#include "SoundUtil.h"
 #include "ScriptUtil.h"
 #include "FileUtil.h"
 
@@ -34,9 +36,11 @@ class GlobalResource {
 public:
 
 };
+
 // Declare the global text object here.
 class TextResource {
 public:
+
 };
 
 extern ImageResource Img;

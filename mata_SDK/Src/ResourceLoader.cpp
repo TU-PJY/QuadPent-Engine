@@ -1,5 +1,4 @@
 #include "GameResource.h"
-#include "Config.h"
 
 // Use LoadT(), LoadClipT(), and LoadSpriteSheetT() to load image files and sprite sheets in this thread.
 DWORD WINAPI ImageResourceLoader(LPVOID lpParam) {

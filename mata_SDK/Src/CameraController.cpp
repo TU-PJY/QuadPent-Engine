@@ -16,15 +16,19 @@ void CameraController::UpdateFunc(float FrameTime){
 }
 
 void CameraController::MoveCamera(GLfloat X, GLfloat Y){
+	Position.x = -X;
+	Position.y = -Y;
 	CameraPosition.x = X;
 	CameraPosition.y = Y;
 }
 
 void CameraController::MoveCamera(glm::vec2& PositionValue){
+	Position = -PositionValue;
 	CameraPosition = PositionValue;
 }
 
 void CameraController::RotateCamera(GLfloat Degree){
+	Rotation = -Degree;
 	CameraRotation = Degree;
 }
 
@@ -58,6 +62,6 @@ GLfloat CameraController::ComputeNextZoom(int ZoomType, GLfloat ZoomValue) {
 void CameraController::ComputeCameraMatrix(){
 	transform.Identity(camera.MoveMatrix);
 	transform.Identity(camera.RotateMatrix);
-	transform.Move(camera.MoveMatrix, CameraPosition.x, CameraPosition.y);
-	transform.Rotate(camera.RotateMatrix, CameraRotation);
+	transform.Move(camera.MoveMatrix, Position.x, Position.y);
+	transform.Rotate(camera.RotateMatrix, Rotation);
 }
