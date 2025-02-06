@@ -1,8 +1,12 @@
 #pragma once
 #include "CollisionUtil.h"
+
 class FrustumUtil {
 private:
-	OOBB FrustumBox{};
+	OOBB FrustumOOBB{};
+	AABB FrustumAABB{};
+
+	bool Rotated{};
 
 public:
 	void Update();
