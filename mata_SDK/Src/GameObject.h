@@ -74,14 +74,6 @@ public:
 	// Obtains an BoundingCircle object from a specific object class.
 	virtual BoundingCircle GetBoundingCircle() { return {}; }
 
-	// camera functions
-	virtual void MoveCamera(GLfloat X, GLfloat Y) {}
-	virtual void MoveCamera(glm::vec2& PositionValue) {}
-	virtual void RotateCamera(GLfloat Degree) {}
-	virtual void CameraZoom(int ZoomType, GLfloat ZoomValue) {}
-	virtual void ChangeCameraZoom(GLfloat ZoomValue) {}
-	virtual GLfloat ComputeNextZoom(int ZoomType, GLfloat ZoomValue) { return {}; }
-
 	// FPS indicator function
 	virtual void RenderIndicator() {}
 
