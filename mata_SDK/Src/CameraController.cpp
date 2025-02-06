@@ -6,12 +6,11 @@ glm::vec2 CameraPosition;
 GLfloat CameraRotation;
 GLfloat CameraZoom;
 
-void CameraController::InputKey(KeyEvent& Event) {
+CameraController cameraControl;
 
-}
-
-void CameraController::UpdateFunc(float FrameTime){
+void CameraController::Update(float FrameTime){
 	// add logic here
+
 	ComputeCameraMatrix();
 }
 
@@ -60,8 +59,7 @@ GLfloat CameraController::ComputeNextZoom(int ZoomType, GLfloat ZoomValue) {
 ///////////////////////////////////////// private
 
 void CameraController::ComputeCameraMatrix(){
-	transform.Identity(camera.MoveMatrix);
-	transform.Identity(camera.RotateMatrix);
-	transform.Move(camera.MoveMatrix, Position.x, Position.y);
-	transform.Rotate(camera.RotateMatrix, Rotation);
+	transform.Identity(camera.CameraMatrix);
+	transform.Rotate(camera.CameraMatrix, Rotation);
+	transform.Move(camera.CameraMatrix, Position);
 }

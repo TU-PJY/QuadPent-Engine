@@ -16,7 +16,7 @@ constexpr bool FULL_SCREEN_OPTION = false;
 
 //////////////////////////////////// SDK options
 // intro screen option
-constexpr bool ENABLE_INTRO_SCREEN = true;
+constexpr bool ENABLE_INTRO_SCREEN = false;
 
 // frame limits option
 // If this option is set to 0, the system will run at maximum framerate.
@@ -36,6 +36,9 @@ constexpr bool SHOW_FPS = true;
 
 // show boundbox option
 #define SHOW_BOUND_BOX
+
+// show frustumbox option
+//#define SHOW_FRUSTUM_BOX
 
 // Program termination options when developing a program
 // When this option is activated, pressing ESC will immediately terminate the program.

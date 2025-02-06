@@ -106,9 +106,6 @@
     <Filter Include="[5]___________[ System ]\[ Util ]\[ AnimationUtil ]">
       <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Camera Util ]">
-      <UniqueIdentifier>{f246ec1e-8aa5-4a4c-86c6-75a511ec4ed6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ System ]\[ GameObject ]">
       <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
     </Filter>
@@ -147,6 +144,12 @@
     </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Transform Util ]">
       <UniqueIdentifier>{97cfbf89-8ee3-4d67-b4fb-aed1f7833e3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Camera Util ]">
+      <UniqueIdentifier>{f246ec1e-8aa5-4a4c-86c6-75a511ec4ed6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Frustum Util ]">
+      <UniqueIdentifier>{c0d402a3-6a02-46a7-9a5d-b38ba1216622}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +273,9 @@
     <ClCompile Include="Modes.cpp">
       <Filter>[1]___________[ GameMode ]\[0]_Mode Source</Filter>
     </ClCompile>
+    <ClCompile Include="Src\FrustumUtil.cpp">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Frustum Util ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\AnimationUtil.h">
@@ -319,9 +325,6 @@
     </ClInclude>
     <ClInclude Include="Src\ImageUtil.h">
       <Filter>[5]___________[ System ]\[ Util ]\[ Image Util ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\IntroMode.h">
-      <Filter>[5]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\IntroScreen.h">
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>
@@ -409,6 +412,12 @@
     </ClInclude>
     <ClInclude Include="Src\ModeHeader.h">
       <Filter>[1]___________[ GameMode ]\[0]_Mode Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\FrustumUtil.h">
+      <Filter>[5]___________[ System ]\[ Util ]\[ Frustum Util ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\IntroMode.h">
+      <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
