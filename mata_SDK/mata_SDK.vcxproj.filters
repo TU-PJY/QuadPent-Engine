@@ -94,9 +94,6 @@
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Font Util ]">
       <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Image Util ]">
-      <UniqueIdentifier>{fa74e18f-898f-4b61-addd-ca55a9892895}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Sound Util ]">
       <UniqueIdentifier>{22512964-c0e1-42b6-8ae0-9c32d227bc22}</UniqueIdentifier>
     </Filter>
@@ -150,6 +147,9 @@
     </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Frustum Util ]">
       <UniqueIdentifier>{c0d402a3-6a02-46a7-9a5d-b38ba1216622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Image Util ]">
+      <UniqueIdentifier>{fa74e18f-898f-4b61-addd-ca55a9892895}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

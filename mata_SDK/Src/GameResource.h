@@ -4,6 +4,8 @@
 #include "SoundUtil.h"
 #include "ScriptUtil.h"
 #include "FileUtil.h"
+#include "FontUtil.h"
+#include "TextUtil.h"
 
 // Declare the sprite resource here. 
 class ImageResource {

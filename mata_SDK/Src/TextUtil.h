@@ -7,7 +7,7 @@
 class TextUtil {
 private:
 	glm::vec2                RenderPosition{};
-	GLfloat                  RenderStartPosition{};
+	GLfloat                  CurrentRenderPosition{};
 	GLfloat                  Rotation{};
 
 	size_t                   TextWordCount{};
@@ -52,6 +52,8 @@ public:
 	void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...);
 	void RenderStr(glm::vec2& Position, GLfloat Size, std::string Str);
 	void RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string Str);
+	void RenderWStr(glm::vec2& Position, GLfloat Size, std::wstring Str);
+	void RenderWStr(GLfloat X, GLfloat Y, GLfloat Size, std::wstring Str);
 	void SetRenderType(int Type);
 
 private:

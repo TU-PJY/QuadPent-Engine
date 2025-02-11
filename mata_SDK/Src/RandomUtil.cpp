@@ -15,3 +15,11 @@ GLfloat RandomUtil::Gen(int DistType, GLfloat Min, GLfloat Max) {
 
 	return 0.0;
 }
+
+bool RandomUtil::Probability(int Percent) {
+	int RandNum = Gen(RANDOM_TYPE_INT, 1, 100);
+	if (1 <= RandNum && RandNum <= Percent)
+		return true;
+
+	return false;
+}

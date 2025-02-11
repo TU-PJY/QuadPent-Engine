@@ -40,7 +40,7 @@ void ImageUtil::Init() {
 	stbi_set_flip_vertically_on_load(true);
 }
 
-void ImageUtil::Load(Image& ImageStruct, std::string FilePath, int Type) {
+void ImageUtil::LoadImage(Image& ImageStruct, std::string FilePath, int Type) {
 	int Width{}, Height{}, Channel{};
 
 	glGenTextures(1, &ImageStruct.Texture);
@@ -253,7 +253,7 @@ void ImageUtil::LoadSpriteSheetT(SpriteSheet& SpriteSheetStruct, std::string Fil
 	stbi_image_free(TextureData);
 }
 
-void ImageUtil::LoadT(Image& ImageStruct, std::string FilePath, int Type) {
+void ImageUtil::LoadImageT(Image& ImageStruct, std::string FilePath, int Type) {
 	PreLoadInfo PLI{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
@@ -385,11 +385,11 @@ void ImageUtil::RenderSpriteSheet(SpriteSheet& SpriteSheetStruct, GLfloat& Frame
 	PrepareRender(SpriteSheetStruct);
 
 	glBindVertexArray(VAO);
-	glBindTexture(GL_TEXTURE_2D, SpriteSheetStruct.Texture[Frame]);
+	glBindTexture(GL_TEXTURE_2D, SpriteSheetStruct.Texture[(int)Frame]);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void ImageUtil::RenderStaticSpriteSheet(SpriteSheet& SpriteSheetStruct, GLfloat Frame, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void ImageUtil::RenderStaticSpriteSheet(SpriteSheet& SpriteSheetStruct, int Frame, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	GLfloat Width = (GLfloat)SpriteSheetStruct.Width;
 	GLfloat Height = (GLfloat)SpriteSheetStruct.Height;
 

@@ -110,12 +110,20 @@ void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string Str) {
 	Render(X, Y, Size, stringUtil.Wstring(Str).c_str());
 }
 
+void TextUtil::RenderWStr(glm::vec2& Position, GLfloat Size, std::wstring WStr) {
+	Render(Position.x, Position.y, Size, WStr.c_str());
+}
+
+void TextUtil::RenderWStr(GLfloat X, GLfloat Y, GLfloat Size, std::wstring WStr) {
+	Render(X, Y, Size, WStr.c_str());
+}
+
 ////////////////// private
 void TextUtil::ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size) {
 	CurrentLine = 0;
 	TextRenderSize = Size;
 	RenderPosition = Position;
-	RenderStartPosition = RenderPosition.x;
+	CurrentRenderPosition = 0.0;
 
 	if (CurrentText != PrevText) {
 		TextWordCount = wcslen(Text);
@@ -152,7 +160,7 @@ void TextUtil::ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size) {
 
 		unsigned int CharIndex = Text[i];
 		if (CharIndex < 65536)
-			RenderPosition.x += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
+			CurrentRenderPosition += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
 	}
 }
 
@@ -191,7 +199,7 @@ void TextUtil::CalculateTextLength(const wchar_t* Text) {
 
 void TextUtil::NextLine() {
 	RenderPosition.y -= (TextLineGap + TextRenderSize);
-	RenderPosition.x = RenderStartPosition;
+	CurrentRenderPosition = 0.0;
 
 	if (TextAlign != ALIGN_DEFAULT) {
 		++CurrentLine;
@@ -201,19 +209,24 @@ void TextUtil::NextLine() {
 
 void TextUtil::TransformText() {
 	transform.Identity(TextMatrix);
-	transform.Rotate(TextMatrix, Rotation);
+	transform.Move(TextMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
 
 	switch (TextAlign) {
 	case ALIGN_DEFAULT:
-		transform.Move(TextMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
+		transform.Rotate(TextMatrix, Rotation);
+		transform.Move(TextMatrix, CurrentRenderPosition, 0.0);
 		break;
 
 	case ALIGN_MIDDLE:
-		transform.Move(TextMatrix, RenderPosition.x - (TextLength / 2.0), RenderPosition.y + MiddleHeight);
+		transform.Move(TextMatrix, -TextLength / 2.0, 0.0);
+		transform.Rotate(TextMatrix, Rotation);
+		transform.Move(TextMatrix, CurrentRenderPosition, 0.0);
 		break;
 
 	case ALIGN_LEFT:
-		transform.Move(TextMatrix, RenderPosition.x - TextLength, RenderPosition.y + MiddleHeight);
+		transform.Move(TextMatrix, -TextLength, 0.0);
+		transform.Rotate(TextMatrix, Rotation);
+		transform.Move(TextMatrix, CurrentRenderPosition, 0.0);
 		break;
 	}
 

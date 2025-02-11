@@ -29,6 +29,7 @@ private:
 	Function						  DestructorBuffer{};
 
 	bool                              UpdateActivateCommand{ true };
+	bool                              LoopEscapeCommand{};
 
 	bool                              ErrorOccured{};
 	bool                              ErrorScreenState{};
@@ -111,6 +112,9 @@ public:
 
 	// Gets a pointer to a specific object that exists in the Scene. Returns nullptr for objects that do not exist.
 	GameObject* Find(std::string Tag);
+
+	// Gets a pointer to a specific object that exists in the Scene. Returns nullptr for objects that do not exist.
+	GameObject* ReverseFind(std::string Tag);
 
 	// Gets a pointer to multiple objects with a specific tag that exist in the scene. Returns nullptr for objects that do not exist.
 	// You need to find the number of objects that exist in a specific layer and then access it using the for statement.

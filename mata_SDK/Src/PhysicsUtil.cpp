@@ -96,14 +96,17 @@ void PhysicsUtil::UpdateBouncing(GLfloat& HeightPosition, float FrameTime) {
 	if (FallingState) {
 		GravityAcc -= Gravity * FrameTime;
 		HeightPosition += GravityAcc * FrameTime;
+
 		if (CheckFloorCollision(HeightPosition)) {
-			if (fabs(GravityAcc) <= MinRebounceValue)
+			HeightPosition = FloorHeight + HeightOffset;
+			GravityAcc -= RebounceReduce;
+
+			if (fabs(GravityAcc) <= MinRebounceValue) {
+				GravityAcc = 0.0;
 				LandOnFloor(HeightPosition);
-			else {
-				HeightPosition = FloorHeight + HeightOffset;
-				GravityAcc *= -1;
-				GravityAcc -= RebounceReduce;
 			}
+			else
+				GravityAcc *= -1;
 		}
 	}
 }
@@ -112,14 +115,17 @@ void PhysicsUtil::UpdateBouncing(glm::vec2& DestPosition, float FrameTime) {
 	if (FallingState) {
 		GravityAcc -= Gravity * FrameTime;
 		DestPosition.y += GravityAcc * FrameTime;
+
 		if (CheckFloorCollision(DestPosition.y)) {
-			if (fabs(GravityAcc) <= MinRebounceValue)
+			DestPosition.y = FloorHeight + HeightOffset;
+			GravityAcc -= RebounceReduce;
+
+			if (fabs(GravityAcc) <= MinRebounceValue) {
+				GravityAcc = 0.0;
 				LandOnFloor(DestPosition.y);
-			else {
-				DestPosition.y = FloorHeight + HeightOffset;
-				GravityAcc *= -1;
-				GravityAcc -= RebounceReduce;
 			}
+			else 
+				GravityAcc *= -1;
 		}
 	}
 }

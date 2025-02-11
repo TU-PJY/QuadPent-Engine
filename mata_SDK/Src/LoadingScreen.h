@@ -44,7 +44,7 @@ public:
 			imageUtil.Init();
 			soundUtil.Init();
 
-			imageUtil.Load(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
+			imageUtil.LoadImage(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 
 			fontUtil.LoadT(SysRes.SYSTEM_FONT_DIRECTORY);
 			SystemText.Init(L"Roboto", FW_NORMAL);
@@ -146,10 +146,10 @@ public:
 
 	static DWORD WINAPI SystemResourceLoader(LPVOID Param) {
 		soundUtil.Load(SysRes.INTRO_SOUND, SysRes.SDK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
-		imageUtil.LoadT(SysRes.SDK_LOGO, SysRes.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.LoadT(SysRes.FMOD_LOGO, SysRes.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.LoadT(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.LoadT(SysRes.COLOR_TEXTURE, SysRes.COLOR_TEXTURE_DIRECTORY);
+		imageUtil.LoadImageT(SysRes.SDK_LOGO, SysRes.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+		imageUtil.LoadImageT(SysRes.FMOD_LOGO, SysRes.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
+		imageUtil.LoadImageT(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+		imageUtil.LoadImageT(SysRes.COLOR_TEXTURE, SysRes.COLOR_TEXTURE_DIRECTORY);
 
 		SysRes.GLU_CIRCLE = gluNewQuadric();
 		SysRes.GLU_LINE_CIRCLE = gluNewQuadric();

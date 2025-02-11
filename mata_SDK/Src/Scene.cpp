@@ -32,10 +32,17 @@ void Scene::Update() {
 	for (int i = 0; i < Layers; ++i) {
 		for (auto& Object : ObjectList[i]) {
 			if (UpdateActivateCommand) {
-				if (FloatingFocusCommand && Object->FloatingCommand)
-					Object->UpdateFunc(FrameTime);
-				else
-					Object->UpdateFunc(FrameTime);
+				if (!Object->DeleteCommand) {
+					if (FloatingFocusCommand && Object->FloatingCommand)
+						Object->UpdateFunc(FrameTime);
+					else
+						Object->UpdateFunc(FrameTime);
+				}
+			}
+
+			if (LoopEscapeCommand) {
+				LoopEscapeCommand = false;
+				return;
 			}
 
 			if (Object->DeleteCommand)
@@ -53,7 +60,8 @@ void Scene::Update() {
 void Scene::Render() {
 	for (int i = 0; i < Layers; ++i) {
 		for (auto& Object : ObjectList[i]) {
-			Object->RenderFunc();
+			if (!Object->DeleteCommand) 
+				Object->RenderFunc();
 		}
 	}
 }
@@ -76,6 +84,8 @@ void Scene::SwitchMode(Function ModeFunction) {
 		FloatingActivateCommand = false;
 		FloatingFocusCommand = false;
 	}
+
+	LoopEscapeCommand = true;
 }
 
 void Scene::RegisterDestructor(Function DestructorFunction) {
@@ -211,6 +221,17 @@ GameObject* Scene::Find(std::string Tag) {
 		for (auto const& Object : ObjectList[Layer]) {
 			if (Object->ObjectTag == Tag)
 				return Object;
+		}
+	}
+
+	return nullptr;
+}
+
+GameObject* Scene::ReverseFind(std::string Tag) {
+	for (int Layer = Layers - 1; Layer > 0; --Layer) {
+		for (auto Object = ObjectList[Layer].rbegin(); Object != ObjectList[Layer].rend(); ++Object) {
+			if ((*Object)->ObjectTag == Tag)
+				return *Object;
 		}
 	}
 
