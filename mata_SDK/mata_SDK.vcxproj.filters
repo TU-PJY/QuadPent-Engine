@@ -49,14 +49,8 @@
     <Filter Include="[4]___________[ Resources ]">
       <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ System ]\[ GameObject ]">
-      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ System ]\[ Main ]">
       <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ GameObject ]\[ Object Value ]">
-      <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
     </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]">
       <UniqueIdentifier>{019278b2-60d4-4cad-b935-d813a31f2c87}</UniqueIdentifier>
@@ -154,6 +148,12 @@
     <Filter Include="[1]___________[ GameMode ]\[0]_[ Mode  Atributes ]">
       <UniqueIdentifier>{e5570cb2-8557-4f05-9d45-ce94e1bf6e24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ System ]\[ Object ]">
+      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Object ]\[ Object Value ]">
+      <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\AnimationUtil.cpp">
@@ -190,7 +190,7 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ Font Util ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\Object.cpp">
-      <Filter>[5]___________[ System ]\[ GameObject ]</Filter>
+      <Filter>[5]___________[ System ]\[ Object ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ImageUtil.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ Image Util ]</Filter>
@@ -205,7 +205,7 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ Math Util ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ObjectValue.cpp">
-      <Filter>[5]___________[ System ]\[ GameObject ]\[ Object Value ]</Filter>
+      <Filter>[5]___________[ System ]\[ Object ]\[ Object Value ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\MouseUtil.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ Mouse Util ]</Filter>
@@ -321,7 +321,7 @@
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\Object.h">
-      <Filter>[5]___________[ System ]\[ GameObject ]</Filter>
+      <Filter>[5]___________[ System ]\[ Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameResource.h">
       <Filter>[4]___________[ Resources ]</Filter>
@@ -342,7 +342,7 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ Math Util ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ObjectValue.h">
-      <Filter>[5]___________[ System ]\[ GameObject ]\[ Object Value ]</Filter>
+      <Filter>[5]___________[ System ]\[ Object ]\[ Object Value ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\MouseUtil.h">
       <Filter>[5]___________[ System ]\[ Util ]\[ Mouse Util ]</Filter>
