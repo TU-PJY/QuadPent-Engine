@@ -55,9 +55,6 @@
     <Filter Include="[5]___________[ System ]\[ Main ]">
       <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[1]___________[ GameMode ]\[0]_Mode Source">
-      <UniqueIdentifier>{e5570cb2-8557-4f05-9d45-ce94e1bf6e24}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ System ]\[ GameObject ]\[ Object Value ]">
       <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
     </Filter>
@@ -150,6 +147,12 @@
     </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]\[ Image Util ]">
       <UniqueIdentifier>{fa74e18f-898f-4b61-addd-ca55a9892895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ GameMode ]\[1]_[ Modes ]">
+      <UniqueIdentifier>{8f517fc9-5b73-4fde-859b-a7d4c4bad5e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ GameMode ]\[0]_[ Mode  Atributes ]">
+      <UniqueIdentifier>{e5570cb2-8557-4f05-9d45-ce94e1bf6e24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -271,7 +274,7 @@
       <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
     </ClCompile>
     <ClCompile Include="Modes.cpp">
-      <Filter>[1]___________[ GameMode ]\[0]_Mode Source</Filter>
+      <Filter>[1]___________[ GameMode ]\[0]_[ Mode  Atributes ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\FrustumUtil.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ Frustum Util ]</Filter>
@@ -404,20 +407,17 @@
     <ClInclude Include="Src\LoadingScreen.h">
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
-    <ClInclude Include="GameMode1.h">
-      <Filter>[1]___________[ GameMode ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\SystemText.h">
-      <Filter>[5]___________[ System ]\[ System Resource ]</Filter>
-    </ClInclude>
     <ClInclude Include="Src\ModeHeader.h">
-      <Filter>[1]___________[ GameMode ]\[0]_Mode Source</Filter>
+      <Filter>[1]___________[ GameMode ]\[0]_[ Mode  Atributes ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\FrustumUtil.h">
       <Filter>[5]___________[ System ]\[ Util ]\[ Frustum Util ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\IntroMode.h">
       <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode1.h">
+      <Filter>[1]___________[ GameMode ]\[1]_[ Modes ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

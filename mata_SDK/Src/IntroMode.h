@@ -54,10 +54,9 @@ public:
 
 	}
 	static void KeyDown(unsigned char KEY, int X, int Y) {
-#ifdef ENABLE_DEV_EXIT
-		if (KEY == NK_ESCAPE)
+		if (ENABLE_DEV_EXIT && KEY == NK_ESCAPE)
 			System.Exit();
-#endif
+
 		KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
 		ProcessKeyEvent(Event);
 	}

@@ -1,9 +1,9 @@
 #pragma once
-// mata_SDK Version 5
+// mata_SDK Version 6
 
 //////////////////////////////////// Window options
 // window name
-constexpr const char* WINDOW_NAME = "mata_SDK";
+constexpr const char* WINDOW_NAME = "mata_SDK 6";
 
 // window size
 constexpr int WINDOW_WIDTH = 1200;
@@ -35,14 +35,14 @@ constexpr bool SHOW_CONSOLE = true;
 constexpr bool SHOW_FPS = true;
 
 // show boundbox option
-#define SHOW_BOUND_BOX
+constexpr bool SHOW_BOUND_BOX = true;
 
-// show frustumbox option
-//#define SHOW_FRUSTUM_BOX
+// show frustum bound option
+constexpr bool SHOW_FRUSTUM_BOUND = false;
 
 // Program termination options when developing a program
 // When this option is activated, pressing ESC will immediately terminate the program.
-#define ENABLE_DEV_EXIT
+constexpr bool ENABLE_DEV_EXIT = true;
 
 
 

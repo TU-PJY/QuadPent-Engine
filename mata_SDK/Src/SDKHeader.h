@@ -28,7 +28,10 @@ extern bool FullscreenState;
 
 extern const glm::mat4 IdentityMatrix;
 
+extern std::wstring SDK_LOCALE;
+
 typedef void(*START_MODE_PTR)(void);
+typedef void(*MODE_PTR)(void);
 using ShaderLocation = unsigned int;
 
 using Sound          = FMOD::Sound*;
@@ -37,6 +40,8 @@ using SoundChannelGroup = std::vector <FMOD::Channel*>;
 
 using StringDataVec  = std::vector<std::string>;
 using DigitDataVec   = std::vector<float>;
+
+constexpr wchar_t* SDK_FONT = L"Roboto";
 
 
 enum KeyState {
@@ -332,6 +337,8 @@ extern SDKSystem System;
 
 // Multiply the value by the window aspect ratio.
 GLfloat ASP(GLfloat Value);
+
+void ModeAttribute();
 
 enum SystemErrorTypeEnum {
 	ERROR_TYPE_IMAGE_LOAD,

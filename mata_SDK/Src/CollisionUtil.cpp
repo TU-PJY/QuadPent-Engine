@@ -17,14 +17,14 @@ void AABB::Update(glm::vec2& Position, GLfloat xScale, GLfloat yScale) {
 }
 
 void AABB::Render() {
-#ifdef SHOW_BOUND_BOX
-	LineRect.SetColor(1.0, 0.0, 0.0);
-	Rect.SetColor(1.0, 0.0, 0.0);
+	if (SHOW_BOUND_BOX) {
+		LineRect.SetColor(1.0, 0.0, 0.0);
+		Rect.SetColor(1.0, 0.0, 0.0);
 
-	LineRect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, 0.01, 0.0);
-	if (Collide)
-		Rect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, 0.0, 0.3);
-#endif
+		LineRect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, 0.01, 0.0);
+		if (Collide)
+			Rect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, 0.0, 0.3);
+	}
 }
 
 bool AABB::CheckCollision(const AABB& Other) {
@@ -113,29 +113,29 @@ BoundingBox AABB::Get() const{
 
 void OOBB::Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue) {
 	oobb.Center = XMFLOAT3(X, Y, 0.0);
-	oobb.Extents = XMFLOAT3(BoxWidth / 2.0, BoxHeight / 2.0, 0.0);
-	XMVECTOR Quaternion = XMQuaternionRotationRollPitchYaw(0.0, 0.0, XMConvertToRadians(RotationValue));
+	oobb.Extents = XMFLOAT3(BoxWidth * 0.5, BoxHeight * 0.5, 0.0);
+	XMVECTOR Quaternion = XMQuaternionRotationRollPitchYaw(0.0, 0.0, XMConvertToRadians(-RotationValue));
 	XMStoreFloat4(&oobb.Orientation, Quaternion);
 	Rotation = RotationValue;
 }
 
 void OOBB::Update(glm::vec2& Position, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue) {
 	oobb.Center = XMFLOAT3(Position.x, Position.y, 0.0);
-	oobb.Extents = XMFLOAT3(BoxWidth / 2.0, BoxHeight / 2.0, 0.0);
-	XMVECTOR Quaternion = XMQuaternionRotationRollPitchYaw(0.0, 0.0, XMConvertToRadians(RotationValue));
+	oobb.Extents = XMFLOAT3(BoxWidth * 0.5, BoxHeight * 0.5, 0.0);
+	XMVECTOR Quaternion = XMQuaternionRotationRollPitchYaw(0.0, 0.0, XMConvertToRadians(-RotationValue));
 	XMStoreFloat4(&oobb.Orientation, Quaternion);
 	Rotation = RotationValue;
 }
 
 void OOBB::Render() {
-#ifdef SHOW_BOUND_BOX
-	LineRect.SetColor(1.0, 0.0, 0.0);
-	Rect.SetColor(1.0, 0.0, 0.0);
+	if (SHOW_BOUND_BOX) {
+		LineRect.SetColor(1.0, 0.0, 0.0);
+		Rect.SetColor(1.0, 0.0, 0.0);
 
-	LineRect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, 0.01, Rotation);
-	if (Collide)
-		Rect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, Rotation, 0.3);
-#endif
+		LineRect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, 0.01, Rotation);
+		if (Collide)
+			Rect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, Rotation, 0.3);
+	}
 }
 
 bool OOBB::CheckCollision(const OOBB& Other) {
@@ -234,14 +234,14 @@ void BoundingCircle::Update(glm::vec2& Position, GLfloat SizeValue) {
 }
 
 void BoundingCircle::Render() {
-#ifdef SHOW_BOUND_BOX
-	Circle.SetColor(1.0, 0.0, 0.0);
-	LineCircle.SetColor(1.0, 0.0, 0.0);
+	if (SHOW_BOUND_BOX) {
+		Circle.SetColor(1.0, 0.0, 0.0);
+		LineCircle.SetColor(1.0, 0.0, 0.0);
 
-	LineCircle.Draw(sphere.Center.x, sphere.Center.y, sphere.Radius * 2.0 - 0.01, 0.01);
-	if (Collide)
-		Circle.Draw(sphere.Center.x, sphere.Center.y, sphere.Radius * 2.0, 0.3);
-#endif
+		LineCircle.Draw(sphere.Center.x, sphere.Center.y, sphere.Radius * 2.0 - 0.01, 0.01);
+		if (Collide)
+			Circle.Draw(sphere.Center.x, sphere.Center.y, sphere.Radius * 2.0, 0.3);
+	}
 }
 
 bool BoundingCircle::CheckCollision(const BoundingCircle& Other) {

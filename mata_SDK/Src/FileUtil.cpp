@@ -254,6 +254,7 @@ std::string FileUtil::FindData(std::string CategoryName, std::string DataName) {
 			scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategoryName);
 			return "";
 		}
+		return "";
 	}
 	else {
 		const char* DataValue = FindCategory(CategoryName)->Attribute(DataName.c_str());

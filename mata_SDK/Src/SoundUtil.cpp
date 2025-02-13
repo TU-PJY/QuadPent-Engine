@@ -64,30 +64,16 @@ void SoundUtil::PauseGroup(SoundChannelGroup& Group, bool Flag) {
 		G->setPaused(Flag);
 }
 
-void SoundUtil::Play(Sound& Sound, SoundChannel& ChannelVar, unsigned int Ms) {
+void SoundUtil::Play(Sound& Sound, SoundChannel& ChannelVar, float Time) {
 	SoundSystem->playSound(Sound, 0, false, &ChannelVar);
-	if (Ms > 0)
-		ChannelVar->setPosition(Ms, FMOD_TIMEUNIT_MS);
+	ChannelVar->setPosition(Time * 1000, FMOD_TIMEUNIT_MS);
 }
 
-void SoundUtil::Play(Sound& Sound, SoundChannel& ChannelVar, unsigned int Minutes, unsigned int Seconds) {
-	SoundSystem->playSound(Sound, 0, false, &ChannelVar);
-		ChannelVar->setPosition((Minutes * 60 + Seconds) * 1000, FMOD_TIMEUNIT_MS);
-}
-
-void SoundUtil::PlayOnce(Sound& Sound, SoundChannel&ChannelVar, bool& FlagValue, unsigned int Ms) {
-	if (FlagValue) {
+void SoundUtil::PlayOnce(Sound& Sound, SoundChannel& ChannelVar, bool& BoolValue, float Time) {
+	if (!BoolValue) {
 		SoundSystem->playSound(Sound, 0, false, &ChannelVar);
-		if(Ms > 0)
-			ChannelVar->setPosition(Ms, FMOD_TIMEUNIT_MS);
-		FlagValue = false;
-	}
-}
-
-void SoundUtil::PlayOnce(Sound& Sound, SoundChannel& ChannelVar, bool& FlagValue, unsigned int Minutes, unsigned int Seconds) {
-	if (FlagValue) {
-		SoundSystem->playSound(Sound, 0, false, &ChannelVar);
-		ChannelVar->setPosition((Minutes * 60 + Seconds) * 1000, FMOD_TIMEUNIT_MS);
+		ChannelVar->setPosition(Time * 1000, FMOD_TIMEUNIT_MS);
+		BoolValue = true;
 	}
 }
 
@@ -109,6 +95,14 @@ unsigned int SoundUtil::GetPlayTime(SoundChannel& ChannelVar) {
 	unsigned int Position{};
 	ChannelVar->getPosition(&Position, FMOD_TIMEUNIT_MS);
 	return Position;
+}
+
+void SoundUtil::SetVolume(SoundChannel& ChannelVar, float Volume) {
+	ChannelVar->setVolume(Volume);
+}
+
+void SoundUtil::SetPlayTime(SoundChannel& ChannelVar, unsigned int Ms) {
+	ChannelVar->setPosition(Ms, FMOD_TIMEUNIT_MS);
 }
 
 void SoundUtil::SetPlaySpeed(SoundChannel& ChannelVar, float Speed) {

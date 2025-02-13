@@ -4,11 +4,10 @@
 class FrustumUtil {
 private:
 	OOBB FrustumOOBB{};
-	AABB FrustumAABB{};
-
-	bool Rotated{};
+	LineRectBrush LineRect{};
 
 public:
+	FrustumUtil();
 	void Update();
 	bool Check(AABB& aabb);
 	bool Check(OOBB& oobb);

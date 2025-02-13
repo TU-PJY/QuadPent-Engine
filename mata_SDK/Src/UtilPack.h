@@ -25,4 +25,3 @@
 #include "FrustumUtil.h"
 #include "GameResource.h"
 #include "SystemResource.h"
-#include "SystemText.h"

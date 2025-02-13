@@ -24,10 +24,14 @@ public:
 	// Fold here
 #pragma region FoldRegion 
 	std::vector<GameObject*> InputObject{};
-	static GameMode1* M_Inst;
+	static Template* M_Inst;
 
-	GameMode1() {
+	Template() {
 		M_Inst = this;
+	}
+
+	static void Map(MODE_PTR& ModePtr) {
+		ModePtr = Start;
 	}
 
 	static void SetUp() {
@@ -50,10 +54,9 @@ public:
 
 	}
 	static void KeyDown(unsigned char KEY, int X, int Y) {
-#ifdef ENABLE_DEV_EXIT
-		if (KEY == NK_ESCAPE)
+		if (ENABLE_DEV_EXIT && KEY == NK_ESCAPE)
 			System.Exit();
-#endif
+
 		KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
 		ProcessKeyEvent(Event);
 	}

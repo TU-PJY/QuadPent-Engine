@@ -21,9 +21,10 @@ void TextUtil::Reset(int RenderTypeFlag) {
 	TextAlign = ALIGN_DEFAULT;
 	HeightAlign = HEIGHT_ALIGN_DEFAULT;
 	FixMiddleCommand = false;
+	ShadowRenderCommand = false;
 	TextLineGap = 0.0;
 	Rotation = 0.0;
-	Opacity = 1.0;
+	TextOpacity = 1.0;
 }
 
 void TextUtil::SetRenderType(int Type) {
@@ -38,12 +39,31 @@ void TextUtil::SetLineGap(GLfloat Value) {
 	TextLineGap = Value;
 }
 
-void TextUtil::SetFixMiddle(bool Flag) {
-	FixMiddleCommand = Flag;
+void TextUtil::EnableFixMiddle() {
+	FixMiddleCommand = true;
+}
+
+void TextUtil::DisableFixMiddle() {
+	FixMiddleCommand = false;
 }
 
 void TextUtil::SetHeightAlign(int Type) {
 	HeightAlign = Type;
+}
+
+void TextUtil::EnableShadow() {
+	ShadowRenderCommand = true;
+}
+
+void TextUtil::DisableShadow() {
+	ShadowRenderCommand = false;
+}
+
+void TextUtil::SetShadow(GLfloat OffsetX, GLfloat OffsetY, GLfloat Opacity, glm::vec3 Color) {
+	ShadowOffset.x = OffsetX;
+	ShadowOffset.y = OffsetY;
+	ShadowOpacity = Opacity;
+	ShadowColor = Color;
 }
 
 void TextUtil::SetColor(GLfloat R, GLfloat G, GLfloat B) {
@@ -69,37 +89,66 @@ void TextUtil::Rotate(GLfloat RotationValue) {
 }
 
 void TextUtil::SetOpacity(GLfloat Value) {
-	Opacity = Value;
+	TextOpacity = Value;
 }
 
 void TextUtil::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...) {
-	wchar_t Text[MAX_TEXT_LENGTH]{};
-	va_list Args{};
+	if (Fmt == NULL)
+		return;
 
+	va_list Args{};
 	va_start(Args, Fmt);
-	vswprintf(Text, sizeof(Text) / sizeof(wchar_t), Fmt, Args);
+	int Length = vswprintf(nullptr, 0, Fmt, Args) + 1;
 	va_end(Args);
-	CurrentText = std::wstring(Text);
 
 	if (Fmt == NULL)
 		return;
 
-	ProcessText(Text, Position, Size);
+	std::vector<wchar_t> Text(Length);
+
+	va_start(Args, Fmt);
+	vswprintf(Text.data(), Text.size(), Fmt, Args);
+	va_end(Args);
+
+	CurrentText = std::wstring(Text.data());
+
+	if (ShadowRenderCommand) {
+		RenderColor = ShadowColor;
+		RenderOpacity = TextOpacity * ShadowOpacity;
+		ProcessText(Text.data(), glm::vec2(Position.x + ShadowOffset.x * Size, Position.y + ShadowOffset.y * Size), Size);
+	}
+
+	RenderColor = TextColor;
+	RenderOpacity = TextOpacity;
+	ProcessText(Text.data(), Position, Size);
 }
 
 void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...) {
-	wchar_t Text[MAX_TEXT_LENGTH]{};
-	va_list Args{};
-
-	va_start(Args, Fmt);
-	vswprintf(Text, sizeof(Text) / sizeof(wchar_t), Fmt, Args);
-	va_end(Args);
-	CurrentText = std::wstring(Text);
-
 	if (Fmt == NULL)
 		return;
 
-	ProcessText(Text, glm::vec2(X, Y), Size);
+	va_list Args{};
+	va_start(Args, Fmt);
+	int Length = vswprintf(nullptr, 0, Fmt, Args) + 1;
+	va_end(Args);
+
+	std::vector<wchar_t> Text(Length);
+
+	va_start(Args, Fmt);
+	vswprintf(Text.data(), Text.size(), Fmt, Args);
+	va_end(Args);
+
+	CurrentText = std::wstring(Text.data());
+
+	if (ShadowRenderCommand) {
+		RenderColor = ShadowColor;
+		RenderOpacity = TextOpacity * ShadowOpacity;
+		ProcessText(Text.data(), glm::vec2(X + ShadowOffset.x * Size, Y + ShadowOffset.y * Size), Size);
+	}
+
+	RenderColor = TextColor;
+	RenderOpacity = TextOpacity;
+	ProcessText(Text.data(), glm::vec2(X, Y), Size);
 }
 
 void TextUtil::RenderStr(glm::vec2& Position, GLfloat Size, std::string Str) {
@@ -249,7 +298,9 @@ void TextUtil::LoadGlyph(wchar_t& Char) {
 		return;
 
 	HFONT OldFont = (HFONT)SelectObject(hDC, Font);
-	wglUseFontOutlinesW(hDC, Char, 1, FontBase + Char, 0.0f, 0.0f, WGL_FONT_POLYGONS, &TextGlyph[Char]);
+	GLYPHMETRICSFLOAT Glyph;
+	wglUseFontOutlinesW(hDC, Char, 1, FontBase + Char, 0.0f, 0.0f, WGL_FONT_POLYGONS, &Glyph);
+	TextGlyph[Char] = Glyph;
 	SelectObject(hDC, OldFont);
 	GlyphCache[Char] = true;
 }
@@ -258,8 +309,8 @@ void TextUtil::PrepareRender() {
 	glUseProgram(TEXT_SHADER);
 	camera.PrepareRender(SHADER_TYPE_TEXT);
 
-	glUniform1f(TEXT_OPACITY_LOCATION, Opacity);
-	glUniform3f(TEXT_COLOR_LOCATION, TextColor.r, TextColor.g, TextColor.b);
+	glUniform1f(TEXT_OPACITY_LOCATION, RenderOpacity);
+	glUniform3f(TEXT_COLOR_LOCATION, RenderColor.r, RenderColor.g, RenderColor.b);
 	glUniformMatrix4fv(TEXT_MODEL_LOCATION, 1, GL_FALSE, value_ptr(TextMatrix));
 }
 

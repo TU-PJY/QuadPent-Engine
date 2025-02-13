@@ -1,6 +1,6 @@
 #include "GameResource.h"
 
-// Use LoadT(), LoadClipT(), and LoadSpriteSheetT() to load image files and sprite sheets in this thread.
+// Use LoadImageT(), LoadClipT(), and LoadSpriteSheetT() to load image files and sprite sheets in this thread.
 DWORD WINAPI ImageResourceLoader(LPVOID lpParam) {
 	// load image resources here
 
@@ -23,9 +23,4 @@ DWORD WINAPI FontResourceLoader(LPVOID lpParam) {
 	// Load font resources here
 
 	return 0;
-}
-
-void InitText() {
-	// Init Text objects here
-
 }

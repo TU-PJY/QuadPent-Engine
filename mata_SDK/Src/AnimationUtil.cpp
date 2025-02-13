@@ -2,9 +2,9 @@
 #include "MathUtil.h"
 #include "ExUtil.h"
 
-GLfloat SinLoop::Update(GLfloat MoveScale, GLfloat Speed, float FrameTime) {
+void SinLoop::Update(GLfloat& Value, GLfloat MoveScale, GLfloat Speed, float FrameTime) {
 	Num += Speed * FrameTime;
-	return sin(Num) * MoveScale;
+	Value = sin(Num) * MoveScale;
 }
 
 void SinLoop::SetValue(GLfloat Value) {
@@ -16,20 +16,20 @@ void SinLoop::Reset() {
 }
 
 
-GLfloat SinLerp::Update(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
-	Num += FrameTime * Speed;
-	EX.ClampValue(Num, Preset::MaxPositive, CLAMP_GREATER);
-	GLfloat Progress = (sin(Num) - sin(Preset::MaxNegative)) / (sin(Preset::MaxPositive) - sin(Preset::MaxNegative));
+//GLfloat SinLerp::Update(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime) {
+//	Num += FrameTime * Speed;
+//	EX.ClampValue(Num, Preset::MaxPositive, CLAMP_GREATER);
+//	GLfloat Progress = (sin(Num) - sin(Preset::MaxNegative)) / (sin(Preset::MaxPositive) - sin(Preset::MaxNegative));
+//
+//	return Value + (Dest - Value) * Progress;
+//}
+//
+//void SinLerp::Reset() {
+//	Num = Preset::MaxNegative;
+//}
 
-	return Value + (Dest - Value) * Progress;
-}
 
-void SinLerp::Reset() {
-	Num = Preset::MaxNegative;
-}
-
-
-GLfloat PopBounce::Update(GLfloat SizeDest, GLfloat ShakeScale, GLfloat SizeIncreaseSpeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime) {
+void PopBounce::Update(GLfloat& Value, GLfloat SizeDest, GLfloat ShakeScale, GLfloat SizeIncreaseSpeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime) {
 	Num3 += FrameTime * SizeIncreaseSpeed;
 
 	if (Num3 >= SizeDest) {
@@ -38,7 +38,7 @@ GLfloat PopBounce::Update(GLfloat SizeDest, GLfloat ShakeScale, GLfloat SizeIncr
 		mathUtil.Lerp(Num2, ShakeScale, ShakeReduceSpeed, FrameTime);
 	}
 
-	return Num3 + sin(Num1) * (ShakeScale - Num2);
+	Value = Num3 + sin(Num1) * (ShakeScale - Num2);
 }
 
 void PopBounce::Reset(){
@@ -48,7 +48,7 @@ void PopBounce::Reset(){
 }
 
 
-GLfloat ReverseLerp::Update(GLfloat Value, GLfloat Dest, GLfloat Speed, GLfloat IncreaseSpeed, float FrameTime) {
+void ReverseLerp::Update(GLfloat& Value, GLfloat Dest, GLfloat Speed, GLfloat IncreaseSpeed, float FrameTime) {
 	GLfloat ReturnValue = Value;
 	GLfloat Diff = Dest - Value;
 
@@ -66,7 +66,7 @@ GLfloat ReverseLerp::Update(GLfloat Value, GLfloat Dest, GLfloat Speed, GLfloat 
 		}
 	}
 
-	return ReturnValue;
+	Value = ReturnValue;
 }
 
 void ReverseLerp::Reset() {

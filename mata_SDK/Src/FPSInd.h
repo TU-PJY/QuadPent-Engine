@@ -8,8 +8,14 @@ private:
 	glm::vec2 RectPosition{};
 	float CurrentDeltaTime = 1.0;
 
+	TextUtil Text{};
+
 public:
 	FPS_Indicator() {
+		Text.Init(SDK_FONT, FW_DONTCARE);
+		Text.SetColor(1.0, 1.0, 1.0);
+		Text.SetHeightAlign(HEIGHT_ALIGN_UNDER);
+
 		Rect.SetRenderType(RENDER_TYPE_STATIC);
 	}
 
@@ -22,12 +28,7 @@ public:
 	void RenderIndicator() {
 		UI.ClampPositionToCorner(EDGE_LEFT_UP, RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.0);
 		Rect.Draw(RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.3);
-
-		SystemText.Reset();
-		SystemText.SetColor(1.0, 1.0, 1.0);
-		SystemText.SetHeightAlign(HEIGHT_ALIGN_UNDER);
-		SystemText.Render(WindowRect.lx + 0.01, WindowRect.ry, 0.06, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
-		SystemText.Reset();
+		Text.Render(WindowRect.lx + 0.01, WindowRect.ry, 0.06, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
 	}
 };
 extern GameObject* Indicator;

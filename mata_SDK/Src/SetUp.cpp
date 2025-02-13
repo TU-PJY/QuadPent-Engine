@@ -5,7 +5,6 @@
 #include "ShaderUtil.h"
 #include "Config.h"
 #include "GameResource.h"
-#include "SystemText.h"
 #include <windows.h>
 
 #include "LoadingMode.h"
@@ -16,6 +15,8 @@ int HEIGHT = WINDOW_HEIGHT;
 int PREV_WIDTH, PREV_HEIGHT;
 
 const glm::mat4 IdentityMatrix = glm::mat4(1.0f);
+
+std::wstring SDK_LOCALE;
 
 Camera camera;
 GameObject* Indicator;
@@ -32,7 +33,7 @@ SoundResource Snd;
 DataFormatResource Fmt;
 DataResource Dat;
 GlobalResource Glb; 
-TextResource Txt;
+MODE ModePtr;
 
 void SDKSystem::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);

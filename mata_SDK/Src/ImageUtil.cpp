@@ -460,7 +460,7 @@ void ImageUtil::ProcessTransform(GLfloat Width, GLfloat Height, GLfloat OpacityV
 	if (USE_COMPUTE_SHADER)
 		computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 	else {
-		ResultMatrix = MoveMatrix;
+		if (!transform.CheckIdentity(MoveMatrix)) { ResultMatrix *= MoveMatrix; }
 		if (!transform.CheckIdentity(RotateMatrix)) { ResultMatrix *= RotateMatrix; }
 		if (!transform.CheckIdentity(ScaleMatrix)) { ResultMatrix *= ScaleMatrix; }
 		if (!transform.CheckIdentity(ImageAspectMatrix)) { ResultMatrix *= ImageAspectMatrix; }
@@ -478,8 +478,8 @@ void ImageUtil::ProcessTransform(GLfloat Width, GLfloat Height, GLfloat OpacityV
 			if (!transform.CheckIdentity(UnitScaleMatrix)) { ResultMatrix = UnitScaleMatrix * ResultMatrix; }
 			if (!transform.CheckIdentity(UnitFlipMatrix)) { ResultMatrix *= UnitFlipMatrix; }
 		}
-		ObjectOpacityValue += UnitOpacityValue;
+		ObjectOpacityValue = ObjectOpacityValue * UnitOpacityValue;
 		EX.ClampValue(ObjectOpacityValue, 0.0, CLAMP_LESS);
-		ObjectBlurValue += UnitBlurValue;
+		ObjectBlurValue = ObjectBlurValue * UnitBlurValue;
 	}
 }

@@ -12,10 +12,8 @@ private:
 	BoundingBox   aabb;
 	bool          Collide{};
 
-#ifdef SHOW_BOUND_BOX
 	LineRectBrush LineRect{true};
 	RectBrush     Rect{true};
-#endif
 
 public:
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
@@ -38,10 +36,8 @@ private:
 	GLfloat             Rotation{};
 	bool                Collide{};
 
-#ifdef SHOW_BOUND_BOX
 	LineRectBrush       LineRect{ true };
 	RectBrush           Rect{ true };
-#endif
 
 public:
 	void Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
@@ -67,10 +63,8 @@ private:
 
 	bool            Collide{};
 
-#ifdef SHOW_BOUND_BOX
 	LineCircleBrush LineCircle { true };
 	CircleBrush     Circle{ true };
-#endif
 
 public:
 	void Update(GLfloat X, GLfloat Y, GLfloat Diameter);

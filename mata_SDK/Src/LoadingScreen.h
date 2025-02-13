@@ -44,11 +44,8 @@ public:
 			imageUtil.Init();
 			soundUtil.Init();
 
-			imageUtil.LoadImage(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
-
 			fontUtil.LoadT(SysRes.SYSTEM_FONT_DIRECTORY);
-			SystemText.Init(L"Roboto", FW_NORMAL);
-			std::cout << "SystemText initialized." << std::endl;
+			imageUtil.LoadImage(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 
 			threadUtil.Create(SystemResourceLoadHandle, SystemResourceLoader);
 
@@ -63,8 +60,8 @@ public:
 					imageUtil.Map();
 					std::cout << "All of Image resources mapped." << std::endl;
 
-					InitText();
-					std::cout << "All of TextUtil objects initialized." << std::endl;
+					ModeAttribute();
+					std::cout << "All of Mode pointers mapped." << std::endl;
 
 					InitializationEnd = true;
 				}
@@ -145,11 +142,11 @@ public:
 	}
 
 	static DWORD WINAPI SystemResourceLoader(LPVOID Param) {
-		soundUtil.Load(SysRes.INTRO_SOUND, SysRes.SDK_LOGO_SOUND_DIRECTORY, FMOD_DEFAULT);
+		imageUtil.LoadImageT(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.LoadImageT(SysRes.SDK_LOGO, SysRes.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.LoadImageT(SysRes.FMOD_LOGO, SysRes.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.LoadImageT(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.LoadImageT(SysRes.COLOR_TEXTURE, SysRes.COLOR_TEXTURE_DIRECTORY);
+		soundUtil.Load(SysRes.INTRO_SOUND, SysRes.SDK_LOGO_SOUND_DIRECTORY);
 
 		SysRes.GLU_CIRCLE = gluNewQuadric();
 		SysRes.GLU_LINE_CIRCLE = gluNewQuadric();

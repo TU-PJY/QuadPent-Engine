@@ -3,7 +3,6 @@
 
 extern glm::vec2 CameraPosition;
 extern GLfloat CameraRotation;
-extern GLfloat CameraZoom;
 
 class CameraController {
 public:

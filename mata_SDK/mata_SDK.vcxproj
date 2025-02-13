@@ -224,7 +224,6 @@
     <ClInclude Include="Src\Config.h" />
     <ClInclude Include="Src\StringUtil.h" />
     <ClInclude Include="Src\SystemResource.h" />
-    <ClInclude Include="Src\SystemText.h" />
     <ClInclude Include="Src\TextUtil.h" />
     <ClInclude Include="Src\ThreadUtil.h" />
     <ClInclude Include="Src\TimerUtil.h" />

@@ -3,6 +3,7 @@
 #include "SDKHeader.h"
 #include <windows.h>
 #include <map>
+#include <unordered_map>
 
 class TextUtil {
 private:
@@ -21,14 +22,23 @@ private:
 	std::wstring             PrevText{};
 	int                      CurrentLine{};
 
-	GLfloat                  Opacity{ 1.0f };
+	GLfloat                  TextOpacity{ 1.0f };
 	glm::vec3                TextColor{ glm::vec3(1.0, 1.0, 1.0) };
+
+	bool                     ShadowRenderCommand{};
+	GLfloat					 ShadowOpacity{};
+	glm::vec2                ShadowOffset{};
+	glm::vec3                ShadowColor{};
+
+	glm::vec3                RenderColor{};
+	GLfloat                  RenderOpacity{};
 
 	HDC                      hDC{};
 	HFONT                    Font{};
 	GLuint                   FontBase{};
-	GLYPHMETRICSFLOAT        TextGlyph[65536]{};
-	std::map <wchar_t, bool> GlyphCache;
+	std::unordered_map <wchar_t, GLYPHMETRICSFLOAT> TextGlyph{};
+	std::map <wchar_t, bool> GlyphCache{};
+	std::vector<wchar_t>     TextVec{};
 
 	int                      TextAlign{ ALIGN_DEFAULT };
 	int                      RenderType{ RENDER_TYPE_STATIC };
@@ -44,8 +54,12 @@ public:
 	void SetColorRGB(int R, int G, int B);
 	void SetAlign(int AlignOpt);
 	void SetLineGap(GLfloat Value);
-	void SetFixMiddle(bool Flag);
+	void EnableFixMiddle();
+	void DisableFixMiddle();
 	void SetHeightAlign(int Type);
+	void EnableShadow();
+	void DisableShadow();
+	void SetShadow(GLfloat OffsetX, GLfloat OffsetY, GLfloat Opacity, glm::vec3 Color=glm::vec3(0.0, 0.0, 0.0));
 	void Rotate(GLfloat RotationValue);
 	void SetOpacity(GLfloat Value);
 	void Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...);

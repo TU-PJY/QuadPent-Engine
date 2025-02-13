@@ -1,16 +1,18 @@
 #include "CameraController.h"
 #include "CameraUtil.h"
 #include "TransformUtil.h"
+#include "AnimationUtil.h"
 
 glm::vec2 CameraPosition;
 GLfloat CameraRotation;
-GLfloat CameraZoom;
 
 CameraController cameraControl;
 
+GLfloat Value;
+SinLoop Loop;
+
 void CameraController::Update(float FrameTime){
 	// add logic here
-
 	ComputeCameraMatrix();
 }
 

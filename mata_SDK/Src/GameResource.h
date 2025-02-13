@@ -7,6 +7,14 @@
 #include "FontUtil.h"
 #include "TextUtil.h"
 
+// Declare the ptr of mode class's Start() function here.
+// Map the mode start function pointer in Modes.cpp after declaration.
+class MODE {
+public:
+	MODE_PTR Mode1;
+
+};
+
 // Declare the sprite resource here. 
 class ImageResource {
 public:
@@ -39,21 +47,14 @@ public:
 
 };
 
-// Declare the global text object here.
-class TextResource {
-public:
-
-};
-
 extern ImageResource Img;
 extern SoundResource Snd;
 extern DataFormatResource Fmt;
 extern DataResource Dat;
 extern GlobalResource Glb;
-extern TextResource Txt;
+extern MODE ModePtr;
 
 DWORD WINAPI ImageResourceLoader(LPVOID lpParam);
 DWORD WINAPI SoundResourceLoader(LPVOID lpParam);
 DWORD WINAPI DataResourceLoader(LPVOID lpParam);
 DWORD WINAPI FontResourceLoader(LPVOID lpParam);
-void InitText();

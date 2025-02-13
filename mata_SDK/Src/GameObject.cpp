@@ -11,6 +11,7 @@ void GameObject::Begin(int RenderType) {
 
 	ObjectOpacityValue = 1.0f;
 	ObjectBlurValue = 0.0;
+	ObjectColor = glm::vec3(0.0, 0.0, 0.0);
 
 	camera.SetCamera(RenderType);
 }

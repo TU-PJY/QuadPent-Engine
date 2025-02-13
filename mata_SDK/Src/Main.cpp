@@ -59,6 +59,12 @@ void main(int argc, char** argv) {
 		}
 	}
 
+	wchar_t LocaleName[LOCALE_NAME_MAX_LENGTH];
+	if (GetUserDefaultLocaleName(LocaleName, LOCALE_NAME_MAX_LENGTH)) {
+		SDK_LOCALE = LocaleName;
+		std::wcout << L"Windows System Locale: " << SDK_LOCALE << std::endl;
+	}
+		
 	System.SetupSystem(argc, argv);
 	glutDisplayFunc(System.Main);
 	glutReshapeFunc(System.DisplayReshape);
