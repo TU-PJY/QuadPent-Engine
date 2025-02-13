@@ -1,5 +1,6 @@
 #include "ObjectValue.h"
 
+// Object Value
 glm::mat4 MoveMatrix, RotateMatrix, ScaleMatrix, ResultMatrix;
 glm::mat4 ImageAspectMatrix, FlipMatrix;
 
@@ -16,6 +17,8 @@ GLfloat ObjectBlurValue;
 GLfloat ObjectOpacityValue;
 GLfloat UnitOpacityValue;
 
+// Text Value
 glm::mat4 TextMatrix;
 
+// ShapeValue
 glm::mat4 ShapeMatrix;

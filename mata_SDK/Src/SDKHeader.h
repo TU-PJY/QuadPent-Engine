@@ -32,6 +32,7 @@ extern std::wstring SDK_LOCALE;
 
 typedef void(*START_MODE_PTR)(void);
 typedef void(*MODE_PTR)(void);
+typedef void(*CONTROLLER_PTR)(void);
 using ShaderLocation = unsigned int;
 
 using Sound          = FMOD::Sound*;
@@ -132,9 +133,9 @@ enum DataTypeEnum {
 
 enum ImageFlipEnum {
 	FLIP_TYPE_NONE,
-	FLIP_TYPE_X,
-	FLIP_TYPE_Y,
-	FLIP_TYPE_XY
+	FLIP_TYPE_H,
+	FLIP_TYPE_V,
+	FLIP_TYPE_HV
 };
 
 enum TextAlignEnum {

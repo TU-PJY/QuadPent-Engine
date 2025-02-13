@@ -11,9 +11,11 @@ public:
 	void RotateRadians(glm::mat4& Matrix, GLfloat Radians);
 	void Scale(glm::mat4& Matrix, GLfloat X, GLfloat Y);
 	void Scale(glm::mat4& Matrix, glm::vec2& Size);
-	void Shear(glm::mat4& Matrix, GLfloat X, GLfloat Y);
-	void Shear(glm::mat4& Matrix, glm::vec2& Value);
+	void Tilt(glm::mat4& Matrix, GLfloat X, GLfloat Y);
+	void Tilt(glm::mat4& Matrix, glm::vec2& Value);
 	void ImageScale(glm::mat4& Matrix, GLfloat Width, GLfloat Height);
+	void Flip(int FlipFlag);
+	void UnitFlip(int FlipFlag);
 	bool CheckIdentity(glm::mat4& Matrix);
 	void RotateV(glm::mat4& Matrix, GLfloat Degree);
 	void RotateH(glm::mat4& Matrix, GLfloat Degree);

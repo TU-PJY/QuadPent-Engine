@@ -5,6 +5,7 @@
 #include "ShaderUtil.h"
 #include "Config.h"
 #include "GameResource.h"
+#include "ModePtr.h"
 #include <windows.h>
 
 #include "LoadingMode.h"
@@ -18,8 +19,10 @@ const glm::mat4 IdentityMatrix = glm::mat4(1.0f);
 
 std::wstring SDK_LOCALE;
 
+START_MODE_PTR START_MODE;
+
 Camera camera;
-GameObject* Indicator;
+Object* Indicator;
 
 GLfloat ASPECT;
 ViewportRect WindowRect;
@@ -33,7 +36,7 @@ SoundResource Snd;
 DataFormatResource Fmt;
 DataResource Dat;
 GlobalResource Glb; 
-MODE ModePtr;
+MODE Mode;
 
 void SDKSystem::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);

@@ -14,7 +14,7 @@ public:
 		"intro_screen"
 	};
 
-	std::vector<GameObject*> InputObject{};
+	std::vector<Object*> InputObject{};
 
 	/////////////////////////////////////////////////////////////
 

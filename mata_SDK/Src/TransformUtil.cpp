@@ -1,4 +1,5 @@
 #include "TransformUtil.h"
+#include "ObjectValue.h"
 
 Transform transform;
 
@@ -38,12 +39,12 @@ void Transform::Scale(glm::mat4& Matrix, glm::vec2& Size) {
 	Matrix = scale(Matrix, glm::vec3(Size.x, Size.y, 1.0));
 }
 
-void Transform::Shear(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
+void Transform::Tilt(glm::mat4& Matrix, GLfloat X, GLfloat Y) {
 	Matrix[1][0] += X;
 	Matrix[0][1] += Y;
 }
 
-void Transform::Shear(glm::mat4& Matrix, glm::vec2& Value) {
+void Transform::Tilt(glm::mat4& Matrix, glm::vec2& Value) {
 	Matrix[1][0] += Value.x;
 	Matrix[0][1] += Value.y;
 }
@@ -53,6 +54,48 @@ void Transform::ImageScale(glm::mat4& Matrix, GLfloat Width, GLfloat Height) {
 		Matrix = glm::scale(Matrix, glm::vec3(1.0, Height / Width, 1.0));
 	else if (Width < Height)
 		Matrix = glm::scale(Matrix, glm::vec3(Width / Height, 1.0, 1.0));
+}
+
+void Transform::Flip(int FlipFlag) {
+	switch (FlipFlag) {
+	case FLIP_TYPE_NONE:
+		transform.Identity(FlipMatrix);
+		break;
+
+	case FLIP_TYPE_H:
+		transform.RotateH(FlipMatrix, 180.0f);
+		break;
+
+	case FLIP_TYPE_V:
+		transform.RotateV(FlipMatrix, 180.0f);
+		break;
+
+	case FLIP_TYPE_HV:
+		transform.RotateH(FlipMatrix, 180.0f);
+		transform.RotateV(FlipMatrix, 180.0f);
+		break;
+	}
+}
+
+void Transform::UnitFlip(int FlipFlag) {
+	switch (FlipFlag) {
+	case FLIP_TYPE_NONE:
+		transform.Identity(UnitFlipMatrix);
+		break;
+
+	case FLIP_TYPE_H:
+		transform.RotateH(UnitFlipMatrix, 180.0f);
+		break;
+
+	case FLIP_TYPE_V:
+		transform.RotateV(UnitFlipMatrix, 180.0f);
+		break;
+
+	case FLIP_TYPE_HV:
+		transform.RotateH(UnitFlipMatrix, 180.0f);
+		transform.RotateV(UnitFlipMatrix, 180.0f);
+		break;
+	}
 }
 
 bool Transform::CheckIdentity(glm::mat4& Matrix) {

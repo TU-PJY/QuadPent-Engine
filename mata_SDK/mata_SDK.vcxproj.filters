@@ -189,7 +189,7 @@
     <ClCompile Include="Src\FontUtil.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ Font Util ]</Filter>
     </ClCompile>
-    <ClCompile Include="Src\GameObject.cpp">
+    <ClCompile Include="Src\Object.cpp">
       <Filter>[5]___________[ System ]\[ GameObject ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ImageUtil.cpp">
@@ -273,7 +273,7 @@
     <ClCompile Include="Src\UiUtil.cpp">
       <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
     </ClCompile>
-    <ClCompile Include="Modes.cpp">
+    <ClCompile Include="ModeAttribute.cpp">
       <Filter>[1]___________[ GameMode ]\[0]_[ Mode  Atributes ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\FrustumUtil.cpp">
@@ -320,7 +320,7 @@
     <ClInclude Include="Src\FPSInd.h">
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GameObject.h">
+    <ClInclude Include="Src\Object.h">
       <Filter>[5]___________[ System ]\[ GameObject ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\GameResource.h">
@@ -407,9 +407,6 @@
     <ClInclude Include="Src\LoadingScreen.h">
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
-    <ClInclude Include="Src\ModeHeader.h">
-      <Filter>[1]___________[ GameMode ]\[0]_[ Mode  Atributes ]</Filter>
-    </ClInclude>
     <ClInclude Include="Src\FrustumUtil.h">
       <Filter>[5]___________[ System ]\[ Util ]\[ Frustum Util ]</Filter>
     </ClInclude>
@@ -418,6 +415,12 @@
     </ClInclude>
     <ClInclude Include="GameMode1.h">
       <Filter>[1]___________[ GameMode ]\[1]_[ Modes ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ModeHeader.h">
+      <Filter>[5]___________[ System ]\[ Header ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ModePtr.h">
+      <Filter>[1]___________[ GameMode ]\[0]_[ Mode  Atributes ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

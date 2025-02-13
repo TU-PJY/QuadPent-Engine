@@ -1,7 +1,7 @@
 #pragma once
-#include "GameObject.h"
+#include "Object.h"
 
-class FPS_Indicator : public GameObject {
+class FPS_Indicator : public Object {
 private:
 	RectBrush Rect{};
 	TimerUtil FPS_IND_REFRESH_TIMER{};
@@ -31,4 +31,4 @@ public:
 		Text.Render(WindowRect.lx + 0.01, WindowRect.ry, 0.06, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
 	}
 };
-extern GameObject* Indicator;
+extern Object* Indicator;

@@ -71,13 +71,13 @@ void Scene::Render() {
 	}
 }
 
-void Scene::Init(Function ModeFunction) {
+void Scene::Init(MODE_PTR ModeFunction) {
 	ModeFunction();
 	for (int Layer = 0; Layer < Layers; ++Layer)
 		DeleteLocation[Layer].reserve(DELETE_LOCATION_BUFFER_SIZE);
 }
 
-void Scene::SwitchMode(Function ModeFunction) {
+void Scene::SwitchMode(MODE_PTR ModeFunction) {
 	ClearAll();
 
 	if (DestructorBuffer)
@@ -93,7 +93,7 @@ void Scene::SwitchMode(Function ModeFunction) {
 	LoopEscapeCommand = true;
 }
 
-void Scene::RegisterDestructor(Function DestructorFunction) {
+void Scene::RegisterDestructor(MODE_PTR DestructorFunction) {
 	DestructorBuffer = DestructorFunction;
 }
 
@@ -101,7 +101,7 @@ void Scene::RegisterModeName(std::string ModeName) {
 	CurrentRunningMode = ModeName;
 }
 
-void Scene::RegisterController(ControllerFunction Controller, int Type) {
+void Scene::RegisterController(CONTROLLER_PTR Controller, int Type) {
 	Controller();
 	if (Type == MODE_TYPE_DEFAULT)
 		ControllerBuffer = Controller;
@@ -111,7 +111,7 @@ void Scene::ReleaseDestructor() {
 	DestructorBuffer = nullptr;
 }
 
-void Scene::StartFloatingMode(Function ModeFunction, bool FloatingFocusFlag) {
+void Scene::StartFloatingMode(MODE_PTR ModeFunction, bool FloatingFocusFlag) {
 	if (FloatingActivateCommand)
 		return;
 
@@ -136,7 +136,7 @@ void Scene::EndFloatingMode() {
 	FloatingFocusCommand = false;
 }
 
-void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
+void Scene::AddObject(Object* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
 	if (AddLayer > Layers)
 		return;
 
@@ -169,7 +169,7 @@ void Scene::AddObject(GameObject* Object, std::string Tag, int AddLayer, int Typ
 	}
 }
 
-void Scene::DeleteObject(GameObject* Object) {
+void Scene::DeleteObject(Object* Object) {
 	Object->DeleteCommand = true;
 	Object->ObjectTag = "";
 }
@@ -199,16 +199,16 @@ void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	}
 }
 
-void Scene::RegisterInputObjectList(std::vector<GameObject*>& Vec) {
+void Scene::RegisterInputObjectList(std::vector<Object*>& Vec) {
 	InputObjectListPtr = &Vec;
 }
 
-void Scene::AddInputObject(GameObject* Object) {
+void Scene::AddInputObject(Object* Object) {
 	if (InputObjectListPtr)
 		InputObjectListPtr->emplace_back(Object);
 }
 
-void Scene::DeleteInputObject(GameObject* Object) {
+void Scene::DeleteInputObject(Object* Object) {
 	if (InputObjectListPtr) {
 		auto Found = std::find(begin(*InputObjectListPtr), end(*InputObjectListPtr), Object);
 		if (Found != end(*InputObjectListPtr))
@@ -216,12 +216,12 @@ void Scene::DeleteInputObject(GameObject* Object) {
 	}
 }
 
-void Scene::SwapLayer(GameObject* Object, int TargetLayer) {
+void Scene::SwapLayer(Object* Object, int TargetLayer) {
 	Object->SwapCommand = true;
 	Object->ObjectLayer = TargetLayer;
 }
 
-GameObject* Scene::Find(std::string Tag) {
+Object* Scene::Find(std::string Tag) {
 	for (int Layer = 0; Layer < Layers; ++Layer) {
 		for (auto const& Object : ObjectList[Layer]) {
 			if (Object->ObjectTag == Tag)
@@ -232,7 +232,7 @@ GameObject* Scene::Find(std::string Tag) {
 	return nullptr;
 }
 
-GameObject* Scene::ReverseFind(std::string Tag) {
+Object* Scene::ReverseFind(std::string Tag) {
 	for (int Layer = Layers - 1; Layer > 0; --Layer) {
 		for (auto Object = ObjectList[Layer].rbegin(); Object != ObjectList[Layer].rend(); ++Object) {
 			if ((*Object)->ObjectTag == Tag)
@@ -243,7 +243,7 @@ GameObject* Scene::ReverseFind(std::string Tag) {
 	return nullptr;
 }
 
-GameObject* Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
+Object* Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
 	auto Object = ObjectList[SearchLayer][Index];
 	if(Object->ObjectTag == Tag)
 		return ObjectList[SearchLayer][Index];

@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "Object.h"
 #include <algorithm>
 #include <array>
 #include <deque>
@@ -11,7 +11,7 @@ constexpr int Layers = EOL;
 
 class Scene {
 private:
-	std::array<std::deque<GameObject*>, Layers> ObjectList{};
+	std::array<std::deque<Object*>, Layers> ObjectList{};
 	std::array<std::vector<int>, Layers>        DeleteLocation{};
 
 	int                               CurrentReferLocation{};
@@ -25,8 +25,8 @@ private:
 
 	float							  FrameTime{};
 
-	ControllerFunction				  ControllerBuffer{};
-	Function						  DestructorBuffer{};
+	CONTROLLER_PTR				      ControllerBuffer{};
+	MODE_PTR						  DestructorBuffer{};
 
 	bool                              UpdateActivateCommand{ true };
 	bool                              LoopEscapeCommand{};
@@ -37,7 +37,7 @@ private:
 	std::string						  Value1Buffer{};
 	std::string						  Value2Buffer{};
 
-	std::vector<GameObject*>* InputObjectListPtr{};
+	std::vector<Object*>* InputObjectListPtr{};
 
 public:
 	// Returns the name of the currently running mode.
@@ -51,23 +51,23 @@ public:
 	void Resume();
 
 	// Initialize the scene and enter start mode.
-	void Init(Function ModeFunction);
+	void Init(MODE_PTR ModeFunction);
 
 	// Register the mode name to run.
 	void RegisterModeName(std::string ModeName);
 
 	// Register a mode destructor with the Scene.
-	void RegisterDestructor(Function DestructorFunction);
+	void RegisterDestructor(MODE_PTR DestructorFunction);
 
 	// Removes the mode destructor registered with the Scene.
 	void ReleaseDestructor();
 
 	// Register the controller in the scene.
 	// When MODE_TYPE_FLOATING is specified, the controller is not stored in the controller buffer.
-	void RegisterController(ControllerFunction Controller, int Type);
+	void RegisterController(CONTROLLER_PTR Controller, int Type);
 
 	// Register the mode controller input object list in Scene.
-	void RegisterInputObjectList(std::vector<GameObject*>& Vec);
+	void RegisterInputObjectList(std::vector<Object*>& Vec);
 
 	// Enter the frame time in Scene.
 	void InputFrameTime(float ElapsedTime);
@@ -79,11 +79,11 @@ public:
 	void Render();
 
 	// Switch to a specific mode.
-	void SwitchMode(Function ModeFunction);
+	void SwitchMode(MODE_PTR ModeFunction);
 
 	// Start floating mode.Existing objects are not deleted.
 	// When true is specified for FloatingFocus, only floating objects are updated. This state is cleared when floating mode ends.
-	void StartFloatingMode(Function ModeFunction, bool FloatingFocusFlag=false);
+	void StartFloatingMode(MODE_PTR ModeFunction, bool FloatingFocusFlag=false);
 
 	// Exit floating mode.Floating objects are deleted, and regular objects are not deleted.
 	void EndFloatingMode();
@@ -91,34 +91,34 @@ public:
 	// Add an object to the scene. You can give two options to an object.
 	// OBJECT_TYPE_STATIC: It will not be deleted even if the mode is changed.
 	// OBJECT_TYPE_FLOATING: Specify it as a floating mode object.
-	void AddObject(GameObject* Object, std::string Tag, int AddLayer, int Type1= OBJECT_TYPE_NONE, int Type2=OBJECT_TYPE_NONE);
+	void AddObject(Object* Object, std::string Tag, int AddLayer, int Type1= OBJECT_TYPE_NONE, int Type2=OBJECT_TYPE_NONE);
 
 	// Deletes an object from the Scene.
 	// If the object is located on a layer that is not currently being referenced, activates DeleteReserveCommand.
-	void DeleteObject(GameObject* Object);
+	void DeleteObject(Object* Object);
 
 	// Deletes an object from the Scene.
 	// The DELETE_RANGE_SINGLE option is recommended when the target object is guaranteed to exist as a single object.
 	void DeleteObject(std::string Tag, int deleteRange);
 	
 	// Adds an object to the mode controller input object list.
-	void AddInputObject(GameObject* Object);
+	void AddInputObject(Object* Object);
 
 	// Deletes an object from the mode controller input object list.
-	void DeleteInputObject(GameObject* Object);
+	void DeleteInputObject(Object* Object);
 
 	//  Change the layer where the object is located.
-	void SwapLayer(GameObject* Object, int TargetLayer);
+	void SwapLayer(Object* Object, int TargetLayer);
 
 	// Gets a pointer to a specific object that exists in the Scene. Returns nullptr for objects that do not exist.
-	GameObject* Find(std::string Tag);
+	Object* Find(std::string Tag);
 
 	// Gets a pointer to a specific object that exists in the Scene. Returns nullptr for objects that do not exist.
-	GameObject* ReverseFind(std::string Tag);
+	Object* ReverseFind(std::string Tag);
 
 	// Gets a pointer to multiple objects with a specific tag that exist in the scene. Returns nullptr for objects that do not exist.
 	// You need to find the number of objects that exist in a specific layer and then access it using the for statement.
-	GameObject* FindMulti(std::string Tag, int SearchLayer, int Index);
+	Object* FindMulti(std::string Tag, int SearchLayer, int Index);
 
 	// 	Returns the number of objects present in a specific Scene layer.
 	size_t LayerSize(int TargetLayer);

@@ -71,6 +71,7 @@ public:
 	void SetRenderType(int Type);
 
 private:
+	void InputText(std::vector<wchar_t>& Input, glm::vec2& Position, GLfloat Size);
 	void ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size);
 	void GetLineLength(const wchar_t* Text);
 	void CalculateTextLength(const wchar_t* Text);

@@ -1,7 +1,7 @@
 #pragma once
-#include "GameObject.h"
+#include "Object.h"
 
-class ErrorMessage : public GameObject {
+class ErrorMessage : public Object {
 private:
 	TextUtil Text{};
 	std::string Result{};
@@ -96,7 +96,7 @@ public:
 	void RenderFunc() {
 		if (SysRes.SDK_LOGO_ERROR.Texture != 0) {
 			Begin(RENDER_TYPE_STATIC);
-			imageUtil.Render(SysRes.SDK_LOGO_ERROR, 0.3);
+			imageUtil.RenderImage(SysRes.SDK_LOGO_ERROR, 0.3);
 		}
 
 		Text.RenderStr(ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);

@@ -362,7 +362,37 @@ void ImageUtil::Map() {
 	}
 }
 
-void ImageUtil::Render(Image& ImageStruct, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void ImageUtil::Blur(GLfloat BlurStrength) {
+	ObjectBlurValue = BlurStrength;
+}
+
+void ImageUtil::UnitBlur(GLfloat BlurStrength) {
+	UnitBlurValue = BlurStrength;
+}
+
+void ImageUtil::UnitOpacity(GLfloat Value) {
+	UnitOpacityValue = Value;
+}
+
+void ImageUtil::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+	ObjectColor.r = R;
+	ObjectColor.g = G;
+	ObjectColor.b = B;
+}
+
+void ImageUtil::SetColor(glm::vec3& Color) {
+	ObjectColor.r = Color.r;
+	ObjectColor.g = Color.g;
+	ObjectColor.b = Color.b;
+}
+
+void ImageUtil::SetColorRGB(int R, int G, int B) {
+	ObjectColor.r = (1.0f / 255.0f) * (GLfloat)R;
+	ObjectColor.g = (1.0f / 255.0f) * (GLfloat)G;
+	ObjectColor.b = (1.0f / 255.0f) * (GLfloat)B;
+}
+
+void ImageUtil::RenderImage(Image& ImageStruct, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	GLfloat Width = (GLfloat)ImageStruct.Width;
 	GLfloat Height = (GLfloat)ImageStruct.Height;
 
@@ -407,11 +437,11 @@ void ImageUtil::RenderRaw() {
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void ImageUtil::Release(Image& ImageStruct) {
+void ImageUtil::UnmapImage(Image& ImageStruct) {
 	glDeleteTextures(1, &ImageStruct.Texture);
 }
 
-void ImageUtil::ReleaseSpriteSheet(SpriteSheet& SpriteSheetStruct) {
+void ImageUtil::UnmapSpriteSheet(SpriteSheet& SpriteSheetStruct) {
 	size_t SheetSize = SpriteSheetStruct.Texture.size();
 	for(int i = 0; i < SheetSize; ++i)
 		glDeleteTextures(1, &SpriteSheetStruct.Texture[i]);
@@ -479,7 +509,6 @@ void ImageUtil::ProcessTransform(GLfloat Width, GLfloat Height, GLfloat OpacityV
 			if (!transform.CheckIdentity(UnitFlipMatrix)) { ResultMatrix *= UnitFlipMatrix; }
 		}
 		ObjectOpacityValue = ObjectOpacityValue * UnitOpacityValue;
-		EX.ClampValue(ObjectOpacityValue, 0.0, CLAMP_LESS);
 		ObjectBlurValue = ObjectBlurValue * UnitBlurValue;
 	}
 }

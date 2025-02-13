@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "UtilPack.h"
 
-class GameObject {
+class Object {
 public:
 	std::string ObjectTag{};
 	int         ObjectLayer{};
@@ -15,14 +15,8 @@ public:
 	// Initialize matrix. Select a rendering type.
 	void Begin(int RenderType=RENDER_TYPE_DEFAULT);
 
-	// Overlays color over the image.
-	void SetColor(GLfloat R, GLfloat G, GLfloat B);
-
-	// Overlays color over the image.
-	void SetColor(glm::vec3& Color);
-
-	// Overlays color over the image.
-	void SetColorRGB(int R, int G, int B);
+	// Initialize unit matrix.
+	void IdentityUnitMatrix();
 
 	// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
 	void ComputeViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect = true);
@@ -35,17 +29,9 @@ public:
 
 	// Updates the object's position relative to the local coordinate system.
 	void ComputeLocalPosition(glm::vec2& DestPosition);
-
-	void SetUnitFlip(int FlipOpt);
-	void SetUnitOpacity(GLfloat Value);
-	void SetUnitBlur(GLfloat Strength);
-	void ResetUnitTransform();
-
-	void SetFlip(int FlipOpt);
-	void SetBlur(GLfloat Strength);
 	
 	// class destructor
-	virtual ~GameObject() {}
+	virtual ~Object() {}
 
 	// Updates a value inside an object class.
 	virtual void UpdateFunc(float FrameTime) {}

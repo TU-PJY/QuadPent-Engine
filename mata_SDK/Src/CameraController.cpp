@@ -8,9 +8,6 @@ GLfloat CameraRotation;
 
 CameraController cameraControl;
 
-GLfloat Value;
-SinLoop Loop;
-
 void CameraController::Update(float FrameTime){
 	// add logic here
 	ComputeCameraMatrix();

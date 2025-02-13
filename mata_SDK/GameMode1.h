@@ -31,7 +31,7 @@ public:
 #pragma region FoldRegion 
 	// this is a container that stores object pointers for accessing object controllers.
 	// a pointer to the object corresponding to the tag entered in InputObjectTag is added when the mode starts.
-	std::vector<GameObject*> InputObject{};
+	std::vector<Object*> InputObject{};
 	static GameMode1* M_Inst;
 
 	GameMode1() {
@@ -147,4 +147,3 @@ public:
 	}
 #pragma endregion
 };
-extern GameMode1 Mode1;

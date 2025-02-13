@@ -1,7 +1,7 @@
 #pragma once
-#include "GameObject.h"
+#include "Object.h"
 
-class IntroScreen : public GameObject {
+class IntroScreen : public Object {
 private:
 	TimerUtil    timer;
 	SoundChannel IntroChannel{};
@@ -84,11 +84,11 @@ public:
 
 		switch (SceneNumber) {
 		case 1:
-			imageUtil.Render(SysRes.SDK_LOGO, LogoOpacity);
+			imageUtil.RenderImage(SysRes.SDK_LOGO, LogoOpacity);
 			break;
 
 		case 2: case 3:
-			imageUtil.Render(SysRes.FMOD_LOGO, LogoOpacity);
+			imageUtil.RenderImage(SysRes.FMOD_LOGO, LogoOpacity);
 			break;
 		}
 	}

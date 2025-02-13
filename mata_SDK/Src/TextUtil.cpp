@@ -98,29 +98,14 @@ void TextUtil::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...
 
 	va_list Args{};
 	va_start(Args, Fmt);
-	int Length = vswprintf(nullptr, 0, Fmt, Args) + 1;
+	std::vector<wchar_t> Text(vswprintf(nullptr, 0, Fmt, Args) + 1);
 	va_end(Args);
-
-	if (Fmt == NULL)
-		return;
-
-	std::vector<wchar_t> Text(Length);
 
 	va_start(Args, Fmt);
 	vswprintf(Text.data(), Text.size(), Fmt, Args);
 	va_end(Args);
 
-	CurrentText = std::wstring(Text.data());
-
-	if (ShadowRenderCommand) {
-		RenderColor = ShadowColor;
-		RenderOpacity = TextOpacity * ShadowOpacity;
-		ProcessText(Text.data(), glm::vec2(Position.x + ShadowOffset.x * Size, Position.y + ShadowOffset.y * Size), Size);
-	}
-
-	RenderColor = TextColor;
-	RenderOpacity = TextOpacity;
-	ProcessText(Text.data(), Position, Size);
+	InputText(Text, Position, Size);
 }
 
 void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...) {
@@ -129,26 +114,14 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ..
 
 	va_list Args{};
 	va_start(Args, Fmt);
-	int Length = vswprintf(nullptr, 0, Fmt, Args) + 1;
+	std::vector<wchar_t> Text(vswprintf(nullptr, 0, Fmt, Args) + 1);
 	va_end(Args);
-
-	std::vector<wchar_t> Text(Length);
 
 	va_start(Args, Fmt);
 	vswprintf(Text.data(), Text.size(), Fmt, Args);
 	va_end(Args);
 
-	CurrentText = std::wstring(Text.data());
-
-	if (ShadowRenderCommand) {
-		RenderColor = ShadowColor;
-		RenderOpacity = TextOpacity * ShadowOpacity;
-		ProcessText(Text.data(), glm::vec2(X + ShadowOffset.x * Size, Y + ShadowOffset.y * Size), Size);
-	}
-
-	RenderColor = TextColor;
-	RenderOpacity = TextOpacity;
-	ProcessText(Text.data(), glm::vec2(X, Y), Size);
+	InputText(Text, glm::vec2(X, Y), Size);
 }
 
 void TextUtil::RenderStr(glm::vec2& Position, GLfloat Size, std::string Str) {
@@ -168,6 +141,20 @@ void TextUtil::RenderWStr(GLfloat X, GLfloat Y, GLfloat Size, std::wstring WStr)
 }
 
 ////////////////// private
+void TextUtil::InputText(std::vector<wchar_t>& Input, glm::vec2& Position, GLfloat Size) {
+	CurrentText = std::wstring(Input.data());
+
+	if (ShadowRenderCommand) {
+		RenderColor = ShadowColor;
+		RenderOpacity = TextOpacity * ShadowOpacity;
+		ProcessText(Input.data(), Position + ShadowOffset, Size);
+	}
+
+	RenderColor = TextColor;
+	RenderOpacity = TextOpacity;
+	ProcessText(Input.data(), Position, Size);
+}
+
 void TextUtil::ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size) {
 	CurrentLine = 0;
 	TextRenderSize = Size;

@@ -139,4 +139,3 @@ public:
 	}
 #pragma endregion
 };
-extern Template TemplateMode;

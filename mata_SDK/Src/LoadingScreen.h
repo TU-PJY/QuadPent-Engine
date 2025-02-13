@@ -7,7 +7,7 @@
 #include "FontUtil.h"
 #include "FPSInd.h"
 
-class LoadingScreen : public GameObject {
+class LoadingScreen : public Object {
 private:
 	HANDLE  SystemResourceLoadHandle{};
 	bool    LoadStart{};
@@ -91,7 +91,7 @@ public:
 		transform.Move(MoveMatrix, WindowRect.rx - 0.15, -0.85);
 		transform.Scale(ScaleMatrix, 0.25, 0.25);
 		transform.Rotate(RotateMatrix, Rotation);
-		imageUtil.Render(SysRes.LOADING_SPINNER, SpinnerOpacity);
+		imageUtil.RenderImage(SysRes.LOADING_SPINNER, SpinnerOpacity);
 	}
 
 	void AddFPSIndicator() {
