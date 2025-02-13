@@ -1,7 +1,7 @@
 #include "Scene.h"
 #include "SoundUtil.h"
 #include "Config.h"
-#include <vector>
+#include "EXUtil.h"
 
 SoundUtil soundUtil;
 
@@ -85,6 +85,18 @@ void SoundUtil::Stop(SoundChannel& ChannelVar) {
 	ChannelVar->stop();
 }
 
+void SoundUtil::FadeOut(SoundChannel& ChannelVar, float& Volume, float Speed, float FrameTime) {
+	Volume -= Speed * FrameTime;
+	EX.ClampValue(Volume, 0.0, CLAMP_LESS);
+	ChannelVar->setVolume(Volume);
+}
+
+void SoundUtil::FadeIn(SoundChannel& ChannelVar, float& Volume, float Speed, float FrameTime, float DestVolume) {
+	Volume += Speed * FrameTime;
+	EX.ClampValue(Volume, DestVolume, CLAMP_GREATER);
+	ChannelVar->setVolume(Volume);
+}
+
 unsigned int SoundUtil::GetLength(Sound& Sound) {
 	unsigned int Length{};
 	Sound->getLength(&Length, FMOD_TIMEUNIT_MS);
@@ -101,8 +113,8 @@ void SoundUtil::SetVolume(SoundChannel& ChannelVar, float Volume) {
 	ChannelVar->setVolume(Volume);
 }
 
-void SoundUtil::SetPlayTime(SoundChannel& ChannelVar, unsigned int Ms) {
-	ChannelVar->setPosition(Ms, FMOD_TIMEUNIT_MS);
+void SoundUtil::SetPlayTime(SoundChannel& ChannelVar, float Time) {
+	ChannelVar->setPosition(Time * 1000, FMOD_TIMEUNIT_MS);
 }
 
 void SoundUtil::SetPlaySpeed(SoundChannel& ChannelVar, float Speed) {

@@ -29,11 +29,13 @@ public:
 	void PlayOnce(Sound& Sound, SoundChannel& ChannelVar, bool& BoolValue, float Time=0.0);
 	void Pause(SoundChannel& ChannelVar, bool Flag);
 	void Stop(SoundChannel& ChannelVar);
+	void FadeOut(SoundChannel& ChannelVar, float& Volume, float Speed, float FrameTime);
+	void FadeIn(SoundChannel& ChannelVar, float& Volume, float Speed, float FrameTime, float DestVolume=1.0);
 	unsigned int GetLength(Sound& Sound);
 	unsigned int GetPlayTime(SoundChannel& ChannelVar);
 	void SetPlaySpeed(SoundChannel& ChannelVar, float Speed);
 	void SetVolume(SoundChannel& ChannelVar, float Volume);
-	void SetPlayTime(SoundChannel& ChannelVar, unsigned int Ms);
+	void SetPlayTime(SoundChannel& ChannelVar, float Time);
 	void ResetPlaySpeed(SoundChannel& ChannelVar);
 	void SetFreqCutOff(SoundChannel& ChannelVar, float Frequency);
 	void SetBeatDetect(SoundChannel& ChannelVar);
