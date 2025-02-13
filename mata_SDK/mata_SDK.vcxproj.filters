@@ -323,7 +323,7 @@
     <ClInclude Include="Src\Object.h">
       <Filter>[5]___________[ System ]\[ Object ]</Filter>
     </ClInclude>
-    <ClInclude Include="Src\GameResource.h">
+    <ClInclude Include="Src\Resource.h">
       <Filter>[4]___________[ Resources ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ImageUtil.h">

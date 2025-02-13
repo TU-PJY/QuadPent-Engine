@@ -325,6 +325,7 @@ public:
 	void SetFrameLimit(int FrameLimit);
 	void HideCursor();
 	void ShowCursor();
+	void MoveCursor(int X, int Y);
 	void SetBackColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetBackColorRGB(int R, int G, int B);
 	void SetupSystem(int argc, char** argv);

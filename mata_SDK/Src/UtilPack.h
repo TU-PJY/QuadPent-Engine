@@ -23,6 +23,6 @@
 #include "ScriptUtil.h"
 #include "FileUtil.h"
 #include "FrustumUtil.h"
-#include "GameResource.h"
+#include "Resource.h"
 #include "SystemResource.h"
 #include "ModePtr.h"

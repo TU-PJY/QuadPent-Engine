@@ -31,6 +31,10 @@ void SDKSystem::ShowCursor() {
 	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 }
 
+void SDKSystem::MoveCursor(int X, int Y) {
+	glutWarpPointer(X, Y);
+}
+
 void SDKSystem::SwitchScreenState() {
 	if (!FullscreenState) {
 		glutFullScreen();

@@ -4,7 +4,7 @@
 #include "CameraController.h"
 #include "ShaderUtil.h"
 #include "Config.h"
-#include "GameResource.h"
+#include "Resource.h"
 #include "ModePtr.h"
 #include <windows.h>
 
