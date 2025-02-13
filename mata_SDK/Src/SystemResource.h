@@ -8,7 +8,7 @@ public:
 	const char* SDK_LOGO_ERROR_IMAGE_DIRECTORY = "SDKResource//Image//Common//error.png";
 	const char* SDK_LOADING_SPINNER_DIRECTORY = "SDKResource//Image//Common//spinner.png";
 	const char* FMOD_LOGO_DIRECTORY = "SDKResource//Image//Common//logo-FMOD.png";
-	const char* COLOR_TEXTURE_DIRECTORY = "SDKResource//Image//Sh apeUtil//ColorTexture.png";
+	const char* COLOR_TEXTURE_DIRECTORY = "SDKResource//Image//ShapeUtil//ColorTexture.png";
 	const char* SYSTEM_FONT_DIRECTORY = "SDKResource//Font//Roboto-Regular.ttf";
 
 	Image SDK_LOGO{};
