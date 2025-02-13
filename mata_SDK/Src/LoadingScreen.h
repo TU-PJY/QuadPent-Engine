@@ -45,6 +45,7 @@ public:
 			soundUtil.Init();
 
 			fontUtil.LoadT(SysRes.SYSTEM_FONT_DIRECTORY);
+			imageUtil.LoadImage(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 			imageUtil.LoadImage(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 
 			threadUtil.Create(SystemResourceLoadHandle, SystemResourceLoader);
@@ -142,7 +143,6 @@ public:
 	}
 
 	static DWORD WINAPI SystemResourceLoader(LPVOID Param) {
-		imageUtil.LoadImageT(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.LoadImageT(SysRes.SDK_LOGO, SysRes.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.LoadImageT(SysRes.FMOD_LOGO, SysRes.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
 		imageUtil.LoadImageT(SysRes.COLOR_TEXTURE, SysRes.COLOR_TEXTURE_DIRECTORY);

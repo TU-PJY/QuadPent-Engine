@@ -14,7 +14,7 @@ public:
 		Text.SetColor(1.0, 1.0, 1.0);
 		Text.SetLineGap(0.01);
 
-		PlaySoundW(TEXT("SDKResource\\Sound\\SDK_Error_Sound.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		PlaySoundW(TEXT("SDKResource\\Sound\\sound-error.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
 		Result = "An error occurred in the mata_SDK system.\n\n";
 
