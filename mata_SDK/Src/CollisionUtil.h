@@ -12,7 +12,7 @@ private:
 	BoundingBox   aabb;
 	bool          Collide{};
 
-	LineRectBrush LineRect{true};
+	LineRectBrush LineRect{true, true};
 	RectBrush     Rect{true};
 
 public:
@@ -36,7 +36,7 @@ private:
 	GLfloat             Rotation{};
 	bool                Collide{};
 
-	LineRectBrush       LineRect{ true };
+	LineRectBrush       LineRect{ true, true };
 	RectBrush           Rect{ true };
 
 public:
@@ -63,7 +63,7 @@ private:
 
 	bool            Collide{};
 
-	LineCircleBrush LineCircle { true };
+	LineCircleBrush LineCircle { true, true };
 	CircleBrush     Circle{ true };
 
 public:

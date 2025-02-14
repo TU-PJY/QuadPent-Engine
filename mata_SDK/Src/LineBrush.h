@@ -11,7 +11,10 @@ private:
 	int       RenderType { RENDER_TYPE_DEFAULT };
 	int       LineType{ LINE_TYPE_RECT };
 
+	bool      StaticWidthCommand{};
+
 public:
+	LineBrush(bool StaticWidthFlag = false);
 	void SetRenderType(int Opt);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColor(glm::vec3& ColorValue);

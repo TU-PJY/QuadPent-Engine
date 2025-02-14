@@ -40,6 +40,9 @@ constexpr bool SHOW_BOUND_BOX = true;
 // show frustum bound option
 constexpr bool SHOW_FRUSTUM_BOUND = false;
 
+// bound box thickness option
+constexpr float BOUND_BOX_THICKNESS = 0.01;
+
 // Program termination options when developing a program
 // When this option is activated, pressing ESC will immediately terminate the program.
 constexpr bool ENABLE_DEV_EXIT = true;

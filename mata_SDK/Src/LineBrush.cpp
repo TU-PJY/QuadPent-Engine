@@ -7,6 +7,10 @@
 #include "SystemResource.h"
 #include "ComputeUtil.h"
 
+LineBrush::LineBrush(bool StaticWidthFlag) {
+	StaticWidthCommand = StaticWidthFlag;
+}
+
 void LineBrush::SetRenderType(int Opt) {
 	RenderType = Opt;
 }
@@ -47,47 +51,65 @@ void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Wid
 	transform.RotateRadians(ShapeMatrix, Rotation);
 	transform.Move(ShapeMatrix, Length / 2.0, 0.0);
 
+	GLfloat DrawWidth{};
+	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
+		DrawWidth = Width / camera.ZoomValue;
+	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
+		DrawWidth = Width;
+
 	if (LineType == LINE_TYPE_RECT)
-		transform.Scale(ShapeMatrix, Length + Width, Width);
+		transform.Scale(ShapeMatrix, Length + DrawWidth, DrawWidth);
 	else if (LineType == LINE_TYPE_ROUND) 
-		transform.Scale(ShapeMatrix, Length, Width);
+		transform.Scale(ShapeMatrix, Length, DrawWidth);
 
 	Render();
 
 	if (LineType == LINE_TYPE_ROUND)
-		DrawCircle(X1, Y1, X2, Y2, Width);
+		DrawCircle(X1, Y1, X2, Y2, DrawWidth);
 }
 
 void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfloat OpacityValue) {
 	transform.Identity(ShapeMatrix);
 	Opacity = OpacityValue;
 
+	GLfloat DrawWidth{};
+	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
+		DrawWidth = Width / camera.ZoomValue;
+	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
+		DrawWidth = Width;
+
 	transform.Move(ShapeMatrix, (X1 + X2) / 2.0, Y);
 	if (LineType == LINE_TYPE_RECT)
-		transform.Scale(ShapeMatrix, fabs(X1 - X2) + Width, Width);
+		transform.Scale(ShapeMatrix, fabs(X1 - X2) + DrawWidth, DrawWidth);
 	else if (LineType == LINE_TYPE_ROUND) 
-		transform.Scale(ShapeMatrix, fabs(X1 - X2), Width);
+		transform.Scale(ShapeMatrix, fabs(X1 - X2), DrawWidth);
 
 	Render();
 
 	if (LineType == LINE_TYPE_ROUND)
-		DrawCircle(X1, Y, X2, Y, Width);
+		DrawCircle(X1, Y, X2, Y, DrawWidth);
 }
 
 void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfloat OpacityValue) {
 	transform.Identity(ShapeMatrix);
 	Opacity = OpacityValue;
 
+	GLfloat DrawWidth{};
+	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
+		DrawWidth = Width / camera.ZoomValue;
+	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
+		DrawWidth = Width;
+
 	transform.Move(ShapeMatrix, X, (Y1 + Y2) / 2.0);
 	if (LineType == LINE_TYPE_RECT)
-		transform.Scale(ShapeMatrix, Width, fabs(Y1 - Y2) + Width);
+		transform.Scale(ShapeMatrix, DrawWidth, fabs(Y1 - Y2) + DrawWidth);
 	else if (LineType == LINE_TYPE_ROUND)
-		transform.Scale(ShapeMatrix, fabs(Y1 - Y2), Width);
+		transform.Scale(ShapeMatrix, fabs(Y1 - Y2), DrawWidth);
 
 	Render();
 
 	if (LineType == LINE_TYPE_ROUND)
-		DrawCircle(X, Y1, X, Y2, Width);
+		DrawCircle(X, Y1, X, Y2, DrawWidth);
 }
 
 void LineBrush::Render() {

@@ -6,8 +6,9 @@
 #include "ComputeUtil.h"
 #include <cmath>
 
-LineRectBrush::LineRectBrush(bool Flag) {
-	CamInheritanceCommand = Flag;
+LineRectBrush::LineRectBrush(bool CameraInheritanceFlag, bool StaticWidthFlag) {
+	CamInheritanceCommand = CameraInheritanceFlag;
+	StaticWidthCommand = StaticWidthFlag;
 }
 
 void LineRectBrush::SetRenderType(int Opt) {
@@ -34,10 +35,16 @@ void LineRectBrush::SetColorRGB(int R, int G, int B) {
 
 void LineRectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat Width, GLfloat RotationValue, GLfloat OpacityValue) {
 	Opacity = OpacityValue;
-	DrawLine(X, Y, 0.0, SizeY / 2.0, SizeX + Width, Width, RotationValue);
-	DrawLine(X, Y, 0.0, -SizeY / 2.0, SizeX + Width, Width, RotationValue);
-	DrawLine(X, Y, -SizeX / 2.0, 0.0, Width, SizeY + Width, RotationValue);
-	DrawLine(X, Y, SizeX / 2.0, 0.0, Width, SizeY + Width, RotationValue);
+	GLfloat DrawWidth{};
+	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
+		DrawWidth = Width / camera.ZoomValue;
+	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
+		DrawWidth = Width;
+
+	DrawLine(X, Y, 0.0, SizeY / 2.0, SizeX + DrawWidth, DrawWidth, RotationValue);
+	DrawLine(X, Y, 0.0, -SizeY / 2.0, SizeX + DrawWidth, DrawWidth, RotationValue);
+	DrawLine(X, Y, -SizeX / 2.0, 0.0, DrawWidth, SizeY + DrawWidth, RotationValue);
+	DrawLine(X, Y, SizeX / 2.0, 0.0, DrawWidth, SizeY + DrawWidth, RotationValue);
 }
 
 void LineRectBrush::DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat OffsetY, GLfloat Width, GLfloat Height, GLfloat RotationValue) {

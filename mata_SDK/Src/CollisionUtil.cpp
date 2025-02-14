@@ -21,7 +21,7 @@ void AABB::Render() {
 		LineRect.SetColor(1.0, 0.0, 0.0);
 		Rect.SetColor(1.0, 0.0, 0.0);
 
-		LineRect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, 0.01, 0.0);
+		LineRect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, BOUND_BOX_THICKNESS, 0.0);
 		if (Collide)
 			Rect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, 0.0, 0.3);
 	}
@@ -132,7 +132,7 @@ void OOBB::Render() {
 		LineRect.SetColor(1.0, 0.0, 0.0);
 		Rect.SetColor(1.0, 0.0, 0.0);
 
-		LineRect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, 0.01, Rotation);
+		LineRect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, BOUND_BOX_THICKNESS, Rotation);
 		if (Collide)
 			Rect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, Rotation, 0.3);
 	}
@@ -238,7 +238,7 @@ void BoundingCircle::Render() {
 		Circle.SetColor(1.0, 0.0, 0.0);
 		LineCircle.SetColor(1.0, 0.0, 0.0);
 
-		LineCircle.Draw(sphere.Center.x, sphere.Center.y, sphere.Radius * 2.0 - 0.01, 0.01);
+		LineCircle.Draw(sphere.Center.x, sphere.Center.y, sphere.Radius * 2.0 - BOUND_BOX_THICKNESS, 0.01);
 		if (Collide)
 			Circle.Draw(sphere.Center.x, sphere.Center.y, sphere.Radius * 2.0, 0.3);
 	}

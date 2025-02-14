@@ -9,7 +9,7 @@ void FrustumUtil::Update() {
 	FrustumOOBB.Update(CameraPosition, ASP(2.0) / camera.ZoomValue, 2.0 / camera.ZoomValue, CameraRotation);
 
 if(SHOW_FRUSTUM_BOUND)
-	LineRect.Draw(0.0, 0.0, ASP(2.0), 2.0, 0.01, 0.0);
+	LineRect.Draw(0.0, 0.0, ASP(2.0), 2.0, BOUND_BOX_THICKNESS, 0.0);
 }
 
 bool FrustumUtil::Check(AABB& aabb) {

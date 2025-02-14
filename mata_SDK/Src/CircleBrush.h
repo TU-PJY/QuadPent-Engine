@@ -11,7 +11,7 @@ private:
 	bool      CamInheritanceCommand{};
 
 public:
-	CircleBrush(bool Flag = false);
+	CircleBrush(bool CamInheritanceFlag = false);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColor(glm::vec3& ColorValue);
 	void SetColorRGB(int R, int G, int B);
@@ -30,9 +30,10 @@ private:
 	int       RenderType{ RENDER_TYPE_DEFAULT };
 
 	bool      CamInheritanceCommand{};
+	bool      StaticWidthCommand{};
 
 public:
-	LineCircleBrush(bool Flag = false);
+	LineCircleBrush(bool CamInheritanceFlag = false, bool StaticWidthFlag = false);
 	void SetColor(GLfloat R, GLfloat G, GLfloat B);
 	void SetColor(glm::vec3& ColorValue);
 	void SetColorRGB(int R, int G, int B);

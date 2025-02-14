@@ -3,8 +3,8 @@
 #include "TransformUtil.h"
 #include "SystemResource.h"
 
-CircleBrush::CircleBrush(bool Flag) {
-	CamInheritanceCommand = Flag;
+CircleBrush::CircleBrush(bool CamInheritanceFlag) {
+	CamInheritanceCommand = CamInheritanceFlag;
 }
 
 void CircleBrush::SetRenderType(int Opt) {
@@ -56,8 +56,9 @@ void CircleBrush::Render() {
 
 
 
-LineCircleBrush::LineCircleBrush(bool Flag) {
-	CamInheritanceCommand = Flag;
+LineCircleBrush::LineCircleBrush(bool CamInheritanceFlag, bool StaticWidthFlag) {
+	CamInheritanceCommand = CamInheritanceFlag;
+	StaticWidthCommand = StaticWidthFlag;
 }
 
 void LineCircleBrush::SetRenderType(int Opt) {
@@ -89,7 +90,11 @@ void LineCircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Width
 	transform.Move(ShapeMatrix, X, Y);
 	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
-	WidthValue = Width;
+
+	if(RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
+		WidthValue = Width / camera.ZoomValue;
+	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
+		WidthValue = Width;
 
 	Render();
 }
@@ -105,5 +110,5 @@ void LineCircleBrush::Render() {
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ShapeMatrix));
 
-	gluDisk(SysRes.GLU_LINE_CIRCLE, Radius, Radius + WidthValue, 80, 1);
+	gluDisk(SysRes.GLU_LINE_CIRCLE, Radius - WidthValue * 0.5, Radius + WidthValue * 0.5, 80, 1);
 }
