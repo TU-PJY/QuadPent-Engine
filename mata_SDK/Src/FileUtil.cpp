@@ -116,10 +116,10 @@ void FileUtil::SetupData() {
 	Root = FindRoot();
 
 	for (auto const& D : DataFormatInfo) {
-		if(!FindCategory(D.CategoryName))
+		if(!CheckCategoryExist(D.CategoryName))
 			AddCategory(D.CategoryName);
 
-		if (FindData(D.CategoryName, D.DataName).empty()) {
+		if (!CheckDataExist(D.CategoryName, D.DataName)) {
 			switch (D.DataType) {
 			case DATA_TYPE_DIGIT:
 				AddDigitData(D.CategoryName, D.DataName, D.DigitValue);
@@ -265,18 +265,19 @@ TiXmlElement* FileUtil::FindCategory(std::string CategoryName) {
 	return Root->FirstChildElement(CategoryName.c_str());
 }
 
-std::string FileUtil::FindData(std::string CategoryName, std::string DataName) {
+bool FileUtil::CheckCategoryExist(std::string CategoryName) {
+	if (!Root->FirstChildElement(CategoryName.c_str()))
+		return false;
+
+	return true;
+}
+
+bool FileUtil::CheckDataExist(std::string CategoryName, std::string DataName) {
 	TiXmlElement* FoundCategory = FindCategory(CategoryName);
-	if (!FoundCategory) 
-		return "";
-	
-	else {
-		const char* DataValue = FindCategory(CategoryName)->Attribute(DataName.c_str());
-		if (!DataValue) 
-			return "";
+	if (!FindCategory(CategoryName)->Attribute(DataName.c_str()))
+		return false;
 		
-		return (std::string)DataValue;
-	}
+	return true;
 }
 
 bool FileUtil::LoadDataFile(std::string FileName) {

@@ -8,8 +8,8 @@ GameMode1* GameMode1::M_Inst;
 
 // Map modes' Start() function pointer here
 void ModeAttribute() {
-	Mode1.Map(Mode.Mode1);
+	Mode1.Map(SDK::MODE.Mode1);
 
 	// Set start mode
-	START_MODE = Mode.Mode1;
+	START_MODE = SDK::MODE.Mode1;
 }

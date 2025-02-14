@@ -30,13 +30,13 @@ glm::vec3 BackColor;
 
 TextUtil SystemText;
 
-SystemResource SysRes;
-ImageResource Img;
-SoundResource Snd;
-DataFormatResource Fmt;
-DataResource Dat;
-GlobalResource Glb; 
-MODE Mode;
+___SYSTEM_RES SYSRES;
+___IMAGE IMG;
+___SOUND SND;
+___GLOBAL GLOBAL; 
+___FORMAT SDK::FORMAT;
+___FILE SDK::FILE;
+___MODE SDK::MODE;
 
 void SDKSystem::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);

@@ -63,7 +63,8 @@ private:
 	std::string GetStringData(TiXmlElement* CategoryVar, std::string DataName);
 	TiXmlElement* FindRoot();
 	TiXmlElement* FindCategory(std::string CategoryName);
-	std::string FileUtil::FindData(std::string CategoryName, std::string DataName);
+	bool CheckCategoryExist(std::string CategoryName);
+	bool FileUtil::CheckDataExist(std::string CategoryName, std::string DataName);
 	bool LoadDataFile(std::string FileName);
 	void UpdateDataFile();
 	std::string Encrypt(const std::string& PlainText, const byte Key[], const byte IV[]);

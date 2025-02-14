@@ -44,9 +44,9 @@ public:
 			imageUtil.Init();
 			soundUtil.Init();
 
-			fontUtil.LoadT(SysRes.SYSTEM_FONT_DIRECTORY);
-			imageUtil.LoadImage(SysRes.SDK_LOGO_ERROR, SysRes.SDK_LOGO_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-			imageUtil.LoadImage(SysRes.LOADING_SPINNER, SysRes.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
+			fontUtil.LoadT(SYSRES.SDK_FONT_DIRECTORY);
+			imageUtil.LoadImage(SYSRES.SDK_IMAGE_ERROR, SYSRES.SDK_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+			imageUtil.LoadImage(SYSRES.LOADING_SPINNER, SYSRES.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 
 			threadUtil.Create(SystemResourceLoadHandle, SystemResourceLoader);
 
@@ -92,7 +92,7 @@ public:
 		transform.Move(MoveMatrix, WindowRect.rx - 0.15, -0.85);
 		transform.Scale(ScaleMatrix, 0.25, 0.25);
 		transform.Rotate(RotateMatrix, Rotation);
-		imageUtil.RenderImage(SysRes.LOADING_SPINNER, SpinnerOpacity);
+		imageUtil.RenderImage(SYSRES.LOADING_SPINNER, SpinnerOpacity);
 	}
 
 	void AddFPSIndicator() {
@@ -105,7 +105,7 @@ public:
 			threadUtil.Close(SystemResourceLoadHandle);
 			threadUtil.Create(ImageResourceLoadHandle, ImageResourceLoader);
 			threadUtil.Create(SoundResourceLoadHandle, SoundResourceLoader);
-			threadUtil.Create(DataResourceLoadHandle, DataResourceLoader);
+			threadUtil.Create(DataResourceLoadHandle, FileResourceLoader);
 			threadUtil.Create(FontResourceLoadHandle, FontResourceLoader);
 			std::cout << "System resource load completed." << std::endl;
 
@@ -143,15 +143,15 @@ public:
 	}
 
 	static DWORD WINAPI SystemResourceLoader(LPVOID Param) {
-		imageUtil.LoadImageT(SysRes.SDK_LOGO, SysRes.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.LoadImageT(SysRes.FMOD_LOGO, SysRes.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.LoadImageT(SysRes.COLOR_TEXTURE, SysRes.COLOR_TEXTURE_DIRECTORY);
-		soundUtil.Load(SysRes.INTRO_SOUND, SysRes.SDK_LOGO_SOUND_DIRECTORY);
+		imageUtil.LoadImageT(SYSRES.SDK_LOGO, SYSRES.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+		imageUtil.LoadImageT(SYSRES.FMOD_LOGO, SYSRES.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
+		imageUtil.LoadImageT(SYSRES.COLOR_TEXTURE, SYSRES.COLOR_TEXTURE_DIRECTORY);
+		soundUtil.Load(SYSRES.INTRO_SOUND, SYSRES.SDK_LOGO_SOUND_DIRECTORY);
 
-		SysRes.GLU_CIRCLE = gluNewQuadric();
-		SysRes.GLU_LINE_CIRCLE = gluNewQuadric();
-		gluQuadricDrawStyle(SysRes.GLU_CIRCLE, GLU_FILL);
-		gluQuadricDrawStyle(SysRes.GLU_LINE_CIRCLE, GLU_FILL);
+		SYSRES.GLU_CIRCLE = gluNewQuadric();
+		SYSRES.GLU_LINE_CIRCLE = gluNewQuadric();
+		gluQuadricDrawStyle(SYSRES.GLU_CIRCLE, GLU_FILL);
+		gluQuadricDrawStyle(SYSRES.GLU_LINE_CIRCLE, GLU_FILL);
 
 		return 0;
 	}

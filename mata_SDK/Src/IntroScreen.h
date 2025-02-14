@@ -36,7 +36,7 @@ public:
 		switch (SceneNumber) {
 		case 0:
 			if (timer.CheckMiliSec(1.0, 1, CHECK_AND_INTERPOLATE)) {
-				soundUtil.Play(SysRes.INTRO_SOUND, IntroChannel);
+				soundUtil.Play(SYSRES.INTRO_SOUND, IntroChannel);
 				++SceneNumber;
 			}
 			break;
@@ -84,11 +84,11 @@ public:
 
 		switch (SceneNumber) {
 		case 1:
-			imageUtil.RenderImage(SysRes.SDK_LOGO, LogoOpacity);
+			imageUtil.RenderImage(SYSRES.SDK_LOGO, LogoOpacity);
 			break;
 
 		case 2: case 3:
-			imageUtil.RenderImage(SysRes.FMOD_LOGO, LogoOpacity);
+			imageUtil.RenderImage(SYSRES.FMOD_LOGO, LogoOpacity);
 			break;
 		}
 	}

@@ -13,7 +13,7 @@ DWORD WINAPI SoundResourceLoader(LPVOID lpParam) {
 	return 0;
 }
 
-DWORD WINAPI DataResourceLoader(LPVOID lpParam) {
+DWORD WINAPI FileResourceLoader(LPVOID lpParam) {
 	// load data resources here
 
 	return 0;
@@ -21,6 +21,5 @@ DWORD WINAPI DataResourceLoader(LPVOID lpParam) {
 
 DWORD WINAPI FontResourceLoader(LPVOID lpParam) {
 	// Load font resources here
-
 	return 0;
 }
