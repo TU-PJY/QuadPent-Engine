@@ -76,12 +76,6 @@ constexpr double LERP_THRESHOLD = 0.0001;
 
 
 
-//////////////////////////////////// Text Options
-// Specifies the maximum length of string that TextUtil can process.
-constexpr int MAX_TEXT_LENGTH = 1024;
-
-
-
 //////////////////////////////////// File security Options
 // Application version
 constexpr float APPLICATION_VERSION = 1.0;
