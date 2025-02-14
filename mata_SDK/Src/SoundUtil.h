@@ -19,8 +19,8 @@ public:
 	void Load(Sound& Sound, std::string FileName, FMOD_MODE Option=FMOD_DEFAULT);
 	void Release(Sound& Sound);
 	void Update();
-	void AddChannelToGroup(SoundChannelGroup& Group, Sound& Sound, SoundChannel& Channel);
-	void DeleteChannelFromGroup(SoundChannelGroup& Group, SoundChannel& Channel);
+	void AddChannelToGroup(SoundChannelGroup& Group, Sound& Sound, SoundChannel& ChannelVar);
+	void DeleteChannelFromGroup(SoundChannelGroup& Group, SoundChannel& ChannelVar);
 	void ClearGroup(SoundChannelGroup& Group);
 	void PlayGroup(SoundChannelGroup& Group);
 	void StopGroup(SoundChannelGroup& Group);
@@ -29,8 +29,8 @@ public:
 	void PlayOnce(Sound& Sound, SoundChannel& ChannelVar, bool& BoolValue, float Time=0.0);
 	void Pause(SoundChannel& ChannelVar, bool Flag);
 	void Stop(SoundChannel& ChannelVar);
-	void FadeOut(SoundChannel& ChannelVar, float& Volume, float Speed, float FrameTime);
-	void FadeIn(SoundChannel& ChannelVar, float& Volume, float Speed, float FrameTime, float DestVolume=1.0);
+	void FadeOut(SoundChannel& ChannelVar, float Speed, float FrameTime);
+	void FadeIn(SoundChannel& ChannelVar, float Speed, float FrameTime, float DestVolume=1.0);
 	unsigned int GetLength(Sound& Sound);
 	unsigned int GetPlayTime(SoundChannel& ChannelVar);
 	void SetPlaySpeed(SoundChannel& ChannelVar, float Speed);

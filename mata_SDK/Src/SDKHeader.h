@@ -36,14 +36,20 @@ typedef void(*CONTROLLER_PTR)(void);
 using ShaderLocation = unsigned int;
 
 using Sound          = FMOD::Sound*;
-using SoundChannel   = FMOD::Channel*;
-using SoundChannelGroup = std::vector <FMOD::Channel*>;
+
+struct SoundChannel {
+	float Volume = 1.0;
+	float PlaySpeed = 1.0;
+	FMOD::Channel* Channel{};
+};
+
+using SoundChannelGroup = std::vector <SoundChannel>;
+
 
 using StringDataVec  = std::vector<std::string>;
 using DigitDataVec   = std::vector<float>;
 
 constexpr wchar_t* SDK_FONT = L"Roboto";
-
 
 enum KeyState {
 	NORMAL_KEY_DOWN,
