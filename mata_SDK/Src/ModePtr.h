@@ -3,11 +3,11 @@
 
 // Declare the ptr of mode class's Start() function here.
 // Map the mode start function pointer in ModeAttribute.cpp after declaration.
-class ___MODE {
+class SDK_MODE {
 public:
 	MODE_PTR Mode1;
 };
 
 namespace SDK {
-	extern ___MODE MODE;
+	extern SDK_MODE MODE;
 }

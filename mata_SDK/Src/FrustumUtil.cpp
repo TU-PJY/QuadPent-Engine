@@ -9,7 +9,7 @@ void FrustumUtil::Update() {
 	FrustumOOBB.Update(CameraPosition, ASP(2.0) / camera.ZoomValue, 2.0 / camera.ZoomValue, CameraRotation);
 
 if(SHOW_FRUSTUM_BOUND)
-	LineRect.Draw(0.0, 0.0, ASP(2.0), 2.0, BOUND_BOX_THICKNESS, 0.0);
+	LineRect.Draw(CameraPosition.x, CameraPosition.y, ASP(2.0) / camera.ZoomValue, 2.0 / camera.ZoomValue, BOUND_BOX_THICKNESS, CameraRotation);
 }
 
 bool FrustumUtil::Check(AABB& aabb) {
@@ -34,6 +34,6 @@ bool FrustumUtil::Check(BoundingCircle& circle) {
 }
 
 FrustumUtil::FrustumUtil() {
-	LineRect.SetRenderType(RENDER_TYPE_STATIC);
+	LineRect.SetRenderType(RENDER_TYPE_DEFAULT);
 	LineRect.SetColor(1.0, 0.0, 0.0);
 }

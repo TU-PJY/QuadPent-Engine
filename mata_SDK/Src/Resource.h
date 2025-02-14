@@ -8,13 +8,13 @@
 #include "TextUtil.h"
 
 // Declare the sprite resource here. 
-class ___IMAGE {
+class SDK_IMAGE {
 public:
 
 };
 
 // Declare the sound resource here. 
-class ___SOUND {
+class SDK_SOUND {
 public:
 
 };
@@ -22,30 +22,30 @@ public:
 // Data Format list
 // Write your data format here.
 // {  Data Type, Category Name, Data Name, Digit Value, String Value }
-class ___FORMAT {
+class SDK_FORMAT {
 public:
 
 };
 
 // Decalre the file resource here.
-class ___FILE {
+class SDK_FILE {
 public:
 
 };
 
 // Declare the global value here.
-class ___GLOBAL {
+class SDK_GLOBAL {
 public:
 
 };
 
-extern ___IMAGE IMG;
-extern ___SOUND SND;
-extern ___GLOBAL GLB;
+extern SDK_IMAGE IMG;
+extern SDK_SOUND SND;
+extern SDK_GLOBAL GLB;
 
 namespace SDK {
-	extern ___FORMAT FORMAT;
-	extern ___FILE FILE;
+	extern SDK_FORMAT FORMAT;
+	extern SDK_FILE FILE;
 }
 
 DWORD WINAPI ImageResourceLoader(LPVOID lpParam);

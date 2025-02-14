@@ -4,7 +4,7 @@
 class FrustumUtil {
 private:
 	OOBB FrustumOOBB{};
-	LineRectBrush LineRect{};
+	LineRectBrush LineRect{false, true};
 
 public:
 	FrustumUtil();
