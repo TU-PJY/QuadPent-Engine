@@ -7,12 +7,12 @@
 
 typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
-constexpr int Layers = EOL;
+constexpr int SceneLayer = EOL;
 
 class Scene {
 private:
-	std::array<std::deque<Object*>, Layers> ObjectList{};
-	std::array<std::vector<int>, Layers>        DeleteLocation{};
+	std::array<std::deque<Object*>, SceneLayer> ObjectList{};
+	std::array<std::vector<int>, SceneLayer>        DeleteLocation{};
 
 	int                               CurrentReferLocation{};
 	bool                              CommandExist{};
@@ -119,6 +119,12 @@ public:
 	// Gets a pointer to multiple objects with a specific tag that exist in the scene. Returns nullptr for objects that do not exist.
 	// You need to find the number of objects that exist in a specific layer and then access it using the for statement.
 	Object* FindMulti(std::string Tag, int SearchLayer, int Index);
+
+
+	// Removes the object tag for a specific object.
+	void DeleteTag(Object* Object);
+
+	void DeleteTag(std::string Tag);
 
 	// 	Returns the number of objects present in a specific Scene layer.
 	size_t LayerSize(int TargetLayer);

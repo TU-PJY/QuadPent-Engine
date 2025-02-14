@@ -29,8 +29,8 @@ void Scene::Update() {
 		ErrorScreenState = true;
 	}
 
-	for (int i = 0; i < Layers; ++i) {
-		for (auto& Object : ObjectList[i]) {
+	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
+		for (auto& Object : ObjectList[Layer]) {
 			if (UpdateActivateCommand) {
 				if (!Object->DeleteCommand) {
 					if (FloatingFocusCommand) {
@@ -46,10 +46,10 @@ void Scene::Update() {
 				return;
 
 			if (Object->DeleteCommand)
-				AddLocation(i, CurrentReferLocation);
+				AddLocation(Layer, CurrentReferLocation);
 
 			else if (Object->SwapCommand)
-				AddLocation(i, CurrentReferLocation);
+				AddLocation(Layer, CurrentReferLocation);
 
 			++CurrentReferLocation;
 		}
@@ -63,7 +63,7 @@ void Scene::Render() {
 		return;
 	}
 
-	for (int i = 0; i < Layers; ++i) {
+	for (int i = 0; i < SceneLayer; ++i) {
 		for (auto& Object : ObjectList[i]) {
 			if (!Object->DeleteCommand) 
 				Object->RenderFunc();
@@ -73,7 +73,7 @@ void Scene::Render() {
 
 void Scene::Init(MODE_PTR ModeFunction) {
 	ModeFunction();
-	for (int Layer = 0; Layer < Layers; ++Layer)
+	for (int Layer = 0; Layer < SceneLayer; ++Layer)
 		DeleteLocation[Layer].reserve(DELETE_LOCATION_BUFFER_SIZE);
 }
 
@@ -137,7 +137,7 @@ void Scene::EndFloatingMode() {
 }
 
 void Scene::AddObject(Object* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
-	if (AddLayer > Layers)
+	if (AddLayer > SceneLayer)
 		return;
 
 	if (Type1 == OBJECT_TYPE_STATIC_SINGLE || Type2 == OBJECT_TYPE_STATIC_SINGLE) {
@@ -176,7 +176,7 @@ void Scene::DeleteObject(Object* Object) {
 
 void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
-		for (int Layer = 0; Layer < Layers; ++Layer) {
+		for (int Layer = 0; Layer < SceneLayer; ++Layer) {
 			for (auto const& Object : ObjectList[Layer]) {
 				if (Object->ObjectTag == Tag) {
 					Object->DeleteCommand = true;
@@ -188,7 +188,7 @@ void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	}
 
 	else if (DeleteRange == DELETE_RANGE_ALL) {
-		for (int Layer = 0; Layer < Layers; ++Layer) {
+		for (int Layer = 0; Layer < SceneLayer; ++Layer) {
 			for (auto const& Object : ObjectList[Layer]) {
 				if (Object->ObjectTag == Tag) {
 					Object->DeleteCommand = true;
@@ -222,7 +222,7 @@ void Scene::SwapLayer(Object* Object, int TargetLayer) {
 }
 
 Object* Scene::Find(std::string Tag) {
-	for (int Layer = 0; Layer < Layers; ++Layer) {
+	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
 		for (auto const& Object : ObjectList[Layer]) {
 			if (Object->ObjectTag == Tag)
 				return Object;
@@ -233,7 +233,7 @@ Object* Scene::Find(std::string Tag) {
 }
 
 Object* Scene::ReverseFind(std::string Tag) {
-	for (int Layer = Layers - 1; Layer > 0; --Layer) {
+	for (int Layer = SceneLayer - 1; Layer > 0; --Layer) {
 		for (auto Object = ObjectList[Layer].rbegin(); Object != ObjectList[Layer].rend(); ++Object) {
 			if ((*Object)->ObjectTag == Tag)
 				return *Object;
@@ -253,6 +253,16 @@ Object* Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
 
 size_t Scene::LayerSize(int TargetLayer) {
 	return ObjectList[TargetLayer].size();
+}
+
+void Scene::DeleteTag(Object* Object) {
+	Object->ObjectTag = "";
+}
+
+void Scene::DeleteTag(std::string Tag) {
+	auto Object = Find(Tag);
+	if (Object)
+		Object->ObjectTag = "";
 }
 
 void Scene::CompleteCommand() {
@@ -279,7 +289,7 @@ void Scene::AddLocation(int Layer, int Position) {
 void Scene::UpdateObjectList() {
 	int Offset{};
 
-	for (int Layer = 0; Layer < Layers; ++Layer) {
+	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
 		size_t Size = DeleteLocation[Layer].size();
 		if (Size == 0)
 			continue;
@@ -309,22 +319,26 @@ void Scene::UpdateObjectList() {
 }
 
 void Scene::ClearFloatingObject() {
-	for (int Layer = 0; Layer < Layers; ++Layer) {
-		for (auto const& Object : ObjectList[Layer]) {
-			if (Object->FloatingCommand && !Object->StaticCommand) {
-				Object->DeleteCommand = true;
-				Object->ObjectTag = "";
+	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
+		size_t Size = LayerSize(Layer);
+		for (int i = 0; i < Size; ++i) {
+			if (!ObjectList[Layer][i]->StaticCommand && ObjectList[Layer][i]->FloatingCommand) {
+				ObjectList[Layer][i]->DeleteCommand = true;
+				ObjectList[Layer][i]->ObjectTag = "";
+				AddLocation(Layer, i);
 			}
 		}
 	}
 }
 
 void Scene::ClearAll() {
-	for (int Layer = 0; Layer < Layers; ++Layer) {
-		for (auto const& Object : ObjectList[Layer]) {
-			if (!Object->StaticCommand) {
-				Object->DeleteCommand = true;
-				Object->ObjectTag = "";
+	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
+		size_t Size = LayerSize(Layer);
+		for (int i = 0; i < Size; ++i) {
+			if (!ObjectList[Layer][i]->StaticCommand) {
+				ObjectList[Layer][i]->DeleteCommand = true;
+				ObjectList[Layer][i]->ObjectTag = "";
+				AddLocation(Layer, i);
 			}
 		}
 	}
