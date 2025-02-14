@@ -30,7 +30,6 @@ private:
 	DataFormat    DataFormatInfo{};
 
 	bool          FileExist{};
-	bool          OnUpdate{};
 
 	std::string   CategorySearch{};
 	std::string   DataSearch{};

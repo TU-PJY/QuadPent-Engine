@@ -26,7 +26,6 @@ void FileUtil::Load(std::string FileDirectory, DataFormat Fmt) {
 	CheckDataVersion();
 	std::cout << "File util opened file: " << FilePath << std::endl;
 	FileExist = true;
-	OnUpdate = false;
 }
 
 void FileUtil::UpdateDigitData(std::string CategoryName, std::string DataName, float Value) {
@@ -63,6 +62,11 @@ DigitDataVec FileUtil::LoadCategoryDigitData(std::string CategoryName) {
 	DigitDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 
+	if (!Category) {
+		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
+		return LoadedData;
+	}
+
 	const TiXmlAttribute* Attribute = Category->FirstAttribute();
 	while (Attribute) {
 		LoadedData.emplace_back(std::stof(Attribute->Value()));
@@ -75,6 +79,11 @@ DigitDataVec FileUtil::LoadCategoryDigitData(std::string CategoryName) {
 StringDataVec FileUtil::LoadCategoryStringData(std::string CategoryName) {
 	StringDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
+
+	if (!Category) {
+		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
+		return LoadedData;
+	}
 
 	const TiXmlAttribute* Attribute = Category->FirstAttribute();
 	while (Attribute) {
@@ -163,7 +172,6 @@ void FileUtil::UpdateDataVersion(float VersionValue) {
 
 		Doc.ReplaceChild(DeclNode, NewDecl);
 
-		OnUpdate = true;
 		SetupData();
 	}
 }
@@ -220,6 +228,11 @@ void FileUtil::WriteStringData(TiXmlElement* CategoryVar, std::string DataName, 
 }
 
 float FileUtil::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
+	if (!CategoryVar) {
+		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
+		return 0.0;
+	}
+
 	const char* DataValue = CategoryVar->Attribute(DataName.c_str());
 	if (DataValue)
 		return std::stof(DataValue);
@@ -230,6 +243,11 @@ float FileUtil::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
 }
 
 std::string FileUtil::GetStringData(TiXmlElement* CategoryVar, std::string DataName) {
+	if (!CategoryVar) {
+		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
+		return "";
+	}
+
 	const char* DataValue = CategoryVar->Attribute(DataName.c_str());
 	if (DataValue)
 		return (std::string)DataValue;
@@ -249,16 +267,12 @@ TiXmlElement* FileUtil::FindCategory(std::string CategoryName) {
 
 std::string FileUtil::FindData(std::string CategoryName, std::string DataName) {
 	TiXmlElement* FoundCategory = FindCategory(CategoryName);
-	if (!FoundCategory) {
-		if (!OnUpdate) {
-			scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategoryName);
-			return "";
-		}
+	if (!FoundCategory) 
 		return "";
-	}
+	
 	else {
 		const char* DataValue = FindCategory(CategoryName)->Attribute(DataName.c_str());
-		if(!DataValue)
+		if (!DataValue) 
 			return "";
 		
 		return (std::string)DataValue;
