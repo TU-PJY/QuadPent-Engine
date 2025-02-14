@@ -41,7 +41,7 @@ public:
 
 extern ___IMAGE IMG;
 extern ___SOUND SND;
-extern ___GLOBAL GLOBAL;
+extern ___GLOBAL GLB;
 
 namespace SDK {
 	extern ___FORMAT FORMAT;
