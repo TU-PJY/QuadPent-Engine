@@ -42,7 +42,7 @@ void SDK_Camera::PrepareRender(int ShaderType) {
 	if (!StaticRenderCommand) {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
 		ViewMatrix = ViewMatrix * CameraMatrix;
-		Projection = glm::ortho((SDK::ASPECT * -1.0f) / ZoomValue, (SDK::ASPECT * 1.0f) / ZoomValue, -1.0f / ZoomValue, 1.0f / ZoomValue, -10.0f, 10.0f);
+		Projection = glm::ortho((SDK::ASPECT * -1.0f) / Zoom, (SDK::ASPECT * 1.0f) / Zoom, -1.0f / Zoom, 1.0f / Zoom, -10.0f, 10.0f);
 	}
 	else {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);

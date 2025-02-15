@@ -33,7 +33,7 @@ public:
 		M_Inst = this;
 	}
 
-	static void Map(MODE_PTR& Mode) {
+	static void Map(SDK::MODE_PTR& Mode) {
 		Mode = Start;
 	}
 

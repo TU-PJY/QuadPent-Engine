@@ -26,8 +26,8 @@ namespace SDK {
 		bool CheckCollision(const BoundingCircle& Other);
 		bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 		bool CheckCollisionPoint(glm::vec2& Position);
-		bool CheckCollisionRay(RayVector& Ray);
-		bool CheckCollisionLine(RayVector& Ray);
+		bool CheckCollisionRay(SDK::RayVector& Ray);
+		bool CheckCollisionLine(SDK::RayVector& Ray);
 		BoundingBox Get() const;
 	};
 
@@ -50,8 +50,8 @@ namespace SDK {
 		bool CheckCollision(const BoundingCircle& Other);
 		bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 		bool CheckCollisionPoint(glm::vec2& Position);
-		bool CheckCollisionRay(RayVector& Ray);
-		bool CheckCollisionLine(RayVector& Ray);
+		bool CheckCollisionRay(SDK::RayVector& Ray);
+		bool CheckCollisionLine(SDK::RayVector& Ray);
 		BoundingOrientedBox Get() const;
 	};
 
@@ -77,8 +77,8 @@ namespace SDK {
 		bool CheckCollision(const OOBB& Other);
 		bool CheckCollisionPoint(GLfloat X, GLfloat Y);
 		bool CheckCollisionPoint(glm::vec2& Position);
-		bool CheckCollisionRay(RayVector& Ray);
-		bool CheckCollisionLine(RayVector& Ray);
+		bool CheckCollisionRay(SDK::RayVector& Ray);
+		bool CheckCollisionLine(SDK::RayVector& Ray);
 		BoundingSphere Get() const;
 	};
 }

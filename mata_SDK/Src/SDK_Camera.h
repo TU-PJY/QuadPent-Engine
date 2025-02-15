@@ -8,7 +8,10 @@ private:
 	
 public:
 	glm::mat4 ViewMatrix{ 1.0 }, Projection{ 1.0 }, CameraMatrix{ 1.0 };
-	GLfloat   ZoomValue{ 1.0f };
+
+	glm::vec2 Position{};
+	GLfloat   Rotation{};
+	GLfloat   Zoom{ 1.0f };
 
 	void CalculateASPECT();
 	void Init();

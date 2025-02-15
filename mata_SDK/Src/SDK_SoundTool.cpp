@@ -17,13 +17,13 @@ void SDK_SoundTool::Init() {
 	FFTdata.reserve(FFT_SIZE);
 }
 
-void SDK_SoundTool::Load(Sound& Sound, std::string FileName, FMOD_MODE Option) {
+void SDK_SoundTool::Load(SDK::Sound& Sound, std::string FileName, FMOD_MODE Option) {
 	HRESULT Result = SoundSystem->createSound(FileName.c_str(), Option, 0, &Sound);
 	if (Result != FMOD_OK)
 		SDK::Scene.SetErrorScreen(ERROR_TYPE_AUDIO_LOAD, FileName);
 }
 
-void SDK_SoundTool::Release(Sound& Sound) {
+void SDK_SoundTool::Release(SDK::Sound& Sound) {
 	Sound->release();
 }
 
@@ -31,12 +31,12 @@ void SDK_SoundTool::Update() {
 	SoundSystem->update();
 }
 
-void SDK_SoundTool::AddChannelToGroup(SoundChannelGroup& Group, Sound& Sound, SoundChannel& ChannelVar) {
+void SDK_SoundTool::AddChannelToGroup(SDK::SoundChannelGroup& Group, SDK::Sound& Sound, SDK::SoundChannel& ChannelVar) {
 	SoundSystem->playSound(Sound, 0, true, &ChannelVar.Channel);
 	Group.emplace_back(ChannelVar);
 }
 
-void SDK_SoundTool::DeleteChannelFromGroup(SoundChannelGroup& Group, SoundChannel& ChannelVar) {
+void SDK_SoundTool::DeleteChannelFromGroup(SDK::SoundChannelGroup& Group, SDK::SoundChannel& ChannelVar) {
 	for (auto It = begin(Group); It != end(Group);) {
 		if (It->Channel == ChannelVar.Channel)
 			It = Group.erase(It);
@@ -45,11 +45,11 @@ void SDK_SoundTool::DeleteChannelFromGroup(SoundChannelGroup& Group, SoundChanne
 	}
 }
 
-void SDK_SoundTool::ClearGroup(SoundChannelGroup& Group) {
+void SDK_SoundTool::ClearGroup(SDK::SoundChannelGroup& Group) {
 	Group.clear();
 }
 
-void SDK_SoundTool::PlayGroup(SoundChannelGroup& Group) {
+void SDK_SoundTool::PlayGroup(SDK::SoundChannelGroup& Group) {
 	for (auto& G : Group) {
 		G.Channel->setPaused(false);
 		G.Channel->setVolume(G.Volume);
@@ -57,26 +57,26 @@ void SDK_SoundTool::PlayGroup(SoundChannelGroup& Group) {
 	}
 }
 
-void SDK_SoundTool::StopGroup(SoundChannelGroup& Group) {
+void SDK_SoundTool::StopGroup(SDK::SoundChannelGroup& Group) {
 	for (auto& G : Group) {
 		G.Channel->setPaused(true);
 		G.Channel->setPosition(0, FMOD_TIMEUNIT_MS);
 	}
 }
 
-void SDK_SoundTool::PauseGroup(SoundChannelGroup& Group, bool Flag) {
+void SDK_SoundTool::PauseGroup(SDK::SoundChannelGroup& Group, bool Flag) {
 	for (auto& G : Group)
 		G.Channel->setPaused(Flag);
 }
 
-void SDK_SoundTool::Play(Sound& Sound, SoundChannel& ChannelVar, float Time) {
+void SDK_SoundTool::Play(SDK::Sound& Sound, SDK::SoundChannel& ChannelVar, float Time) {
 	SoundSystem->playSound(Sound, 0, false, &ChannelVar.Channel);
 	ChannelVar.Channel->setPosition(Time * 1000, FMOD_TIMEUNIT_MS);
 	ChannelVar.Channel->setVolume(ChannelVar.Volume);
 	ChannelVar.Channel->setPitch(ChannelVar.PlaySpeed);
 }
 
-void SDK_SoundTool::PlayOnce(Sound& Sound, SoundChannel& ChannelVar, bool& BoolValue, float Time) {
+void SDK_SoundTool::PlayOnce(SDK::Sound& Sound, SDK::SoundChannel& ChannelVar, bool& BoolValue, float Time) {
 	if (!BoolValue) {
 		SoundSystem->playSound(Sound, 0, false, &ChannelVar.Channel);
 		ChannelVar.Channel->setPosition(Time * 1000, FMOD_TIMEUNIT_MS);
@@ -85,63 +85,63 @@ void SDK_SoundTool::PlayOnce(Sound& Sound, SoundChannel& ChannelVar, bool& BoolV
 	}
 }
 
-void SDK_SoundTool::Pause(SoundChannel& ChannelVar, bool Flag) {
+void SDK_SoundTool::Pause(SDK::SoundChannel& ChannelVar, bool Flag) {
 	ChannelVar.Channel->setPaused(Flag);
 }
 
-void SDK_SoundTool::Stop(SoundChannel& ChannelVar) {
+void SDK_SoundTool::Stop(SDK::SoundChannel& ChannelVar) {
 	ChannelVar.Channel->stop();
 }
 
-void SDK_SoundTool::FadeOut(SoundChannel& ChannelVar, float Speed, float FrameTime) {
+void SDK_SoundTool::FadeOut(SDK::SoundChannel& ChannelVar, float Speed, float FrameTime) {
 	ChannelVar.Volume -= Speed * FrameTime;
 	SDK::EXTool.ClampValue(ChannelVar.Volume, 0.0, CLAMP_LESS);
 	ChannelVar.Channel->setVolume(ChannelVar.Volume);
 }
 
-void SDK_SoundTool::FadeIn(SoundChannel& ChannelVar, float Speed, float FrameTime, float DestVolume) {
+void SDK_SoundTool::FadeIn(SDK::SoundChannel& ChannelVar, float Speed, float FrameTime, float DestVolume) {
 	ChannelVar.Volume += Speed * FrameTime;
 	SDK::EXTool.ClampValue(ChannelVar.Volume, DestVolume, CLAMP_GREATER);
 	ChannelVar.Channel->setVolume(ChannelVar.Volume);
 }
 
-unsigned int SDK_SoundTool::GetLength(Sound& Sound) {
+unsigned int SDK_SoundTool::GetLength(SDK::Sound& Sound) {
 	unsigned int Length{};
 	Sound->getLength(&Length, FMOD_TIMEUNIT_MS);
 	return Length;
 }
 
-unsigned int SDK_SoundTool::GetPlayTime(SoundChannel& ChannelVar) {
+unsigned int SDK_SoundTool::GetPlayTime(SDK::SoundChannel& ChannelVar) {
 	unsigned int Position{};
 	ChannelVar.Channel->getPosition(&Position, FMOD_TIMEUNIT_MS);
 	return Position;
 }
 
-void SDK_SoundTool::SetVolume(SoundChannel& ChannelVar, float Volume) {
+void SDK_SoundTool::SetVolume(SDK::SoundChannel& ChannelVar, float Volume) {
 	ChannelVar.Volume = Volume;
 	ChannelVar.Channel->setVolume(Volume);
 }
 
-void SDK_SoundTool::SetPlayTime(SoundChannel& ChannelVar, float Time) {
+void SDK_SoundTool::SetPlayTime(SDK::SoundChannel& ChannelVar, float Time) {
 	ChannelVar.Channel->setPosition(Time * 1000, FMOD_TIMEUNIT_MS);
 }
 
-void SDK_SoundTool::SetPlaySpeed(SoundChannel& ChannelVar, float Speed) {
+void SDK_SoundTool::SetPlaySpeed(SDK::SoundChannel& ChannelVar, float Speed) {
 	ChannelVar.PlaySpeed = Speed;
 	ChannelVar.Channel->setPitch(Speed);
 }
 
-void SDK_SoundTool::ResetPlaySpeed(SoundChannel& ChannelVar) {
+void SDK_SoundTool::ResetPlaySpeed(SDK::SoundChannel& ChannelVar) {
 	ChannelVar.PlaySpeed = 1.0;
 	ChannelVar.Channel->setPitch(1.0);
 }
 
-void SDK_SoundTool::SetFreqCutOff(SoundChannel& ChannelVar, float Frequency) {
+void SDK_SoundTool::SetFreqCutOff(SDK::SoundChannel& ChannelVar, float Frequency) {
 	LowPass->setParameterFloat(FMOD_DSP_LOWPASS_CUTOFF, Frequency);
 	ChannelVar.Channel->addDSP(0, LowPass);
 }
 
-void SDK_SoundTool::SetBeatDetect(SoundChannel& ChannelVar) {
+void SDK_SoundTool::SetBeatDetect(SDK::SoundChannel& ChannelVar) {
 	SoundSystem->createDSPByType(FMOD_DSP_TYPE_FFT, &BeatDetector);
 	ChannelVar.Channel->addDSP(0, BeatDetector);
 }
@@ -215,11 +215,11 @@ bool SDK_SoundTool::IsBeat(float Threshold, int SamplingRate) {
 	return false;
 }
 
-void SDK_SoundTool::DisableBeatDetect(SoundChannel& ChannelVar) {
+void SDK_SoundTool::DisableBeatDetect(SDK::SoundChannel& ChannelVar) {
 	ChannelVar.Channel->removeDSP(BeatDetector);
 }
 
-void SDK_SoundTool::DisableFreqCutOff(SoundChannel& ChannelVar) {
+void SDK_SoundTool::DisableFreqCutOff(SDK::SoundChannel& ChannelVar) {
 	ChannelVar.Channel->removeDSP(LowPass);
 }
 
@@ -230,7 +230,7 @@ void SDK_SoundTool::StopAllSounds() {
 	Result = MasterChannelGroup->stop();
 }
 
-void SDK_SoundTool::SetDistance(SoundChannel& ChannelVar, float MinDist, float MaxDist) {
+void SDK_SoundTool::SetDistance(SDK::SoundChannel& ChannelVar, float MinDist, float MaxDist) {
 	ChannelVar.Channel->set3DMinMaxDistance(MinDist, MaxDist);
 }
 
@@ -250,7 +250,7 @@ void SDK_SoundTool::SetListnerPosition(glm::vec2 Position) {
 	SoundSystem->set3DListenerAttributes(0, &ListenerPosition, 0, 0, 0);
 }
 
-void SDK_SoundTool::SetSoundPosition(SoundChannel& ChannelVar, float X, float Y, float Diff) {
+void SDK_SoundTool::SetSoundPosition(SDK::SoundChannel& ChannelVar, float X, float Y, float Diff) {
 	SoundPosition.x = X;
 	SoundPosition.y = Y;
 	SoundPosition.z = Diff;
@@ -258,7 +258,7 @@ void SDK_SoundTool::SetSoundPosition(SoundChannel& ChannelVar, float X, float Y,
 	ChannelVar.Channel->set3DAttributes(&SoundPosition, 0);
 }
 
-void SDK_SoundTool::SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff) {
+void SDK_SoundTool::SetSoundPosition(SDK::SoundChannel& ChannelVar, glm::vec2 Position, float Diff) {
 	SoundPosition.x = Position.x;
 	SoundPosition.y = Position.y;
 	SoundPosition.z = Diff;

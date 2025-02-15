@@ -22,40 +22,21 @@ using namespace DirectX;
 #include "fmod.hpp"
 #include "fmod_errors.h"
 
-typedef void(*START_MODE_PTR)(void);
-typedef void(*MODE_PTR)(void);
-typedef void(*CONTROLLER_PTR)(void);
-
 using ShaderLocation = unsigned int;
 
-using Sound = FMOD::Sound*;
-
-struct SoundChannel {
-	float Volume = 1.0;
-	float PlaySpeed = 1.0;
-	FMOD::Channel* Channel{};
-};
-
-using SoundChannelGroup = std::vector <SoundChannel>;
-
-using StringDataVec  = std::vector<std::string>;
-using DigitDataVec   = std::vector<float>;
-
-extern const glm::mat4 IdentityMatrix;
-
-enum KeyState {
+enum SDK_KeyState {
 	NORMAL_KEY_DOWN,
 	NORMAL_KEY_UP,
 	SPECIAL_KEY_DOWN,
 	SPECIAL_KEY_UP
 };
 
-enum WheelState {
+enum SDK_WheelState {
 	WHEEL_DOWN,
 	WHEEL_UP
 };
 
-enum ButtonState {
+enum SDK_ButtonState {
 	LEFT_BUTTON_DOWN,
 	LEFT_BUTTON_UP,
 	RIGHT_BUTTON_DOWN,
@@ -64,7 +45,7 @@ enum ButtonState {
 	MIDDLE_BUTTON_UP
 };
 
-enum SpecialKeySet {
+enum SDK_SpecialKeySet {
 	SK_ARROW_UP    = GLUT_KEY_UP,
 	SK_ARROW_DOWN  = GLUT_KEY_DOWN,
 	SK_ARROW_RIGHT = GLUT_KEY_RIGHT,
@@ -95,7 +76,7 @@ enum SpecialKeySet {
 	SK_ALT_LEFT    = GLUT_KEY_ALT_L
 };
 
-enum NormalKeySet {
+enum SDK_NormalKeySet {
 	NK_SPACE     = 32,
 	NK_ENTER     = 13,
 	NK_ESCAPE    = 27,
@@ -103,89 +84,89 @@ enum NormalKeySet {
 	NK_BACKSPACE = 8
 };
 
-enum ZoomType{
+enum SDK_ZoomType{
 	ZOOM_IN, 
 	ZOOM_OUT
 };
 
-enum RenderTypeEnum {
+enum SDK_RenderType {
 	RENDER_TYPE_DEFAULT,
 	RENDER_TYPE_STATIC
 };
 
-enum ShaderTypeEnum {
+enum SDK_ShaderType {
 	SHADER_TYPE_IMAGE,
 	SHADER_TYPE_TEXT,
 	SHADER_TYPE_SHAPE
 };
 
-enum ImageTypeEnum {
+enum SDK_ImageType {
 	IMAGE_TYPE_LINEAR,
 	IMAGE_TYPE_NEAREST
 };
 
-enum DataTypeEnum {
+enum SDK_DataType {
 	DATA_TYPE_DIGIT,
 	DATA_TYPE_STRING
 };
 
-enum ImageFlipEnum {
+enum SDK_ImageFlip {
 	FLIP_TYPE_NONE,
 	FLIP_TYPE_H,
 	FLIP_TYPE_V,
 	FLIP_TYPE_HV
 };
 
-enum TextAlignEnum {
+enum SDK_TextAlign {
 	ALIGN_DEFAULT,
 	ALIGN_MIDDLE,
 	ALIGN_LEFT
 };
 
-enum TextHeightClampEnum {
+enum SDK_TextHeightClamp {
 	HEIGHT_ALIGN_DEFAULT,
 	HEIGHT_ALIGN_MIDDLE,
 	HEIGHT_ALIGN_UNDER
 };
 
-enum CheckTimeOptionEnum {
+enum SDK_CheckTimeOption {
 	CHECK_AND_RESUME,
 	CHECK_AND_RESET,
 	CHECK_AND_INTERPOLATE,
 	CHECK_AND_STOP
 };
 
-enum UIClampEdgeEnum {
+enum SDK_UIClampEdge {
 	EDGE_LEFT_DOWN,
 	EDGE_LEFT_UP,
 	EDGE_RIGHT_UP,
 	EDGE_RIGHT_DOWN
 };
 
-enum LineSTypeEnum {
+enum SDK_LineType {
 	LINE_TYPE_RECT,
 	LINE_TYPE_ROUND
 };
 
-enum EXClampTypeEnum {
+enum SDK_EXClampType {
 	CLAMP_GREATER,
 	CLAMP_LESS,
 	CLAMP_FIXED,
 	CLAMP_RETURN
 };
 
-enum DeleteRangeEnum {
+enum SDK_DeleteRange {
 	DELETE_RANGE_SINGLE,
 	DELETE_RANGE_ALL
 };
 
-enum ModeTypeEnum {
+enum SDK_ModeType {
 	MODE_TYPE_NONE,
 	MODE_TYPE_DEFAULT,
 	MODE_TYPE_FLOATING
 };
 
-enum ObjectTypeEnum {
+enum SDK_ObjectType {
 	OBJECT_TYPE_NONE,
 	OBJECT_TYPE_STATIC,
 	OBJECT_TYPE_STATIC_SINGLE,
@@ -197,12 +178,12 @@ enum DistTypeEnum {
 	RANDOM_TYPE_INT
 };
 
-enum SwitchTypeEnum {
+enum SDK_SwitchType {
 	TRUE_KEY_DOWN,
 	FALSE_KEY_DOWN
 };
 
-enum SystemErrorTypeEnum {
+enum SDK_SystemErrorType {
 	ERROR_TYPE_IMAGE_LOAD,
 	ERROR_TYPE_AUDIO_LOAD,
 	ERROR_TYPE_FONT_LOAD,
@@ -215,56 +196,6 @@ enum SystemErrorTypeEnum {
 	ERROR_TYPE_DATA_FILE_DATA_WRITE,
 	ERROR_TYPE_DATA_FILE_CATEGORY,
 };
-
-// ray vector struct
-typedef struct {
-	XMVECTOR Origin;
-	XMVECTOR Direction;
-	GLfloat Distance;
-	GLfloat Length;
-}RayVector;
-
-// data set struct
-typedef struct {
-	int         DataType;
-	std::string CategoryName;
-	std::string DataName;
-	float       DigitValue;
-	std::string StringValue;
-}FileData;
-using DataFormat = std::vector<FileData>;
-
-// image struct
-typedef struct {
-	unsigned int Texture;
-	int          Width, Height;
-}Image;
-
-// sprite sheet struct
-typedef struct {
-	std::vector<unsigned int> Texture;
-	int                Width, Height;
-	int                Frame;
-}SpriteSheet;
-
-// pre load image struct
-typedef struct {
-	Image*         ImagePtr;
-	unsigned char* TextureData;
-	int            ImageType;
-}PreLoadInfo;
-
-// pre load sprite sheet struct
-typedef struct {
-	SpriteSheet*   SpriteSheetPtr;
-	std::vector<unsigned char*> TextureData;
-	int            ImageType;
-}PreLoadSpriteSheetInfo;
-
-// corner position of display
-typedef struct {
-	GLfloat lx, ly, rx, ry;
-}ViewportRect;
 
 // key event
 typedef struct {
@@ -292,9 +223,6 @@ extern ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VIEW_PO
 
 extern ShaderLocation SHAPE_OPACITY_LOCATION, SHAPE_COLOR_LOCATION, SHAPE_MODEL_LOCATION;
 extern ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW_POSITION_LOCATION;
-
-// Multiply the value by the window aspect ratio.
-GLfloat ASP(GLfloat Value);
 
 void ModeAttribute();
 
@@ -334,15 +262,82 @@ public:
 };
 
 namespace SDK {
-	extern std::wstring LOCALE;
+	typedef void(*START_MODE_PTR)(void);
+	typedef void(*MODE_PTR)(void);
+	typedef void(*CONTROLLER_PTR)(void);
 	extern START_MODE_PTR START_MODE;
+
 	extern SDKSystem System;
 	extern glm::vec3 ViewportColor;
+	extern std::wstring LOCALE;
+	extern GLfloat ASPECT;
 	extern int WIDTH, HEIGHT;
 	extern int PREV_WIDTH, PREV_HEIGHT;
-	extern ViewportRect RECT;
-	extern GLfloat ASPECT;
 	constexpr wchar_t* FONT = L"Roboto";
+
+	// corner position of display
+	typedef struct {
+		GLfloat lx, ly, rx, ry;
+	}ViewportRect;
+	extern ViewportRect RECT;
+
+	// ray vector struct
+	typedef struct {
+		XMVECTOR Origin;
+		XMVECTOR Direction;
+		GLfloat Distance;
+		GLfloat Length;
+	}RayVector;
+
+	// data set struct
+	typedef struct {
+		int         DataType;
+		std::string CategoryName;
+		std::string DataName;
+		float       DigitValue;
+		std::string StringValue;
+	}FileData;
+
+	// image struct
+	typedef struct {
+		unsigned int Texture;
+		int          Width, Height;
+	}Image;
+
+	// sprite sheet struct
+	typedef struct {
+		std::vector<unsigned int> Texture;
+		int                Width, Height;
+		int                Frame;
+	}SpriteSheet;
+
+	// pre load image struct
+	typedef struct {
+		Image* ImagePtr;
+		unsigned char* TextureData;
+		int            ImageType;
+	}PreLoadInfo;
+
+	// pre load sprite sheet struct
+	typedef struct {
+		SpriteSheet* SpriteSheetPtr;
+		std::vector<unsigned char*> TextureData;
+		int            ImageType;
+	}PreLoadSpriteSheetInfo;
+
+	using StringDataVec = std::vector<std::string>;
+	using DigitDataVec = std::vector<float>;
+	using DataFormat = std::vector<FileData>;
+
+	struct SoundChannel {
+		float Volume = 1.0;
+		float PlaySpeed = 1.0;
+		FMOD::Channel* Channel{};
+	};
+	using SoundChannelGroup = std::vector <SoundChannel>;
+	using Sound = FMOD::Sound*;
+
+	extern const glm::mat4 IdentityMatrix;
 
 	namespace Preset {
 		constexpr float MaxPositive = XM_PI / 2.0;
@@ -350,4 +345,7 @@ namespace SDK {
 		constexpr float HalfPositive = XM_PI / 6.0;
 		constexpr float HalfNegative = -XM_PI / 6.0;
 	}
+
+	// Multiply the value by the window aspect ratio.
+	GLfloat ASP(GLfloat Value);
 }

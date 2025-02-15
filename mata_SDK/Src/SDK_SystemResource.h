@@ -11,16 +11,16 @@ public:
 	const char* COLOR_TEXTURE_DIRECTORY = "SDKResource//Image//ShapeUtil//ColorTexture.png";
 	const char* SDK_FONT_DIRECTORY = "SDKResource//Font//Roboto-Regular.ttf";
 
-	Image SDK_LOGO{};
-	Image SDK_IMAGE_ERROR{};
-	Image FMOD_LOGO{};
-	Image COLOR_TEXTURE{};
-	Image LOADING_SPINNER{};
+	SDK::Image SDK_LOGO{};
+	SDK::Image SDK_IMAGE_ERROR{};
+	SDK::Image FMOD_LOGO{};
+	SDK::Image COLOR_TEXTURE{};
+	SDK::Image LOADING_SPINNER{};
 
 	GLUquadric* GLU_CIRCLE{};
 	GLUquadric* GLU_LINE_CIRCLE{};
 
-	Sound INTRO_SOUND{};
+	SDK::Sound INTRO_SOUND{};
 };
 
 namespace SDK{

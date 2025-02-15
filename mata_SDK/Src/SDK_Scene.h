@@ -25,8 +25,8 @@ private:
 
 	float							  FrameTime{};
 
-	CONTROLLER_PTR				      ControllerBuffer{};
-	MODE_PTR						  DestructorBuffer{};
+	SDK::CONTROLLER_PTR				      ControllerBuffer{};
+	SDK::MODE_PTR						  DestructorBuffer{};
 
 	bool                              UpdateActivateCommand{ true };
 	bool                              LoopEscapeCommand{};
@@ -51,20 +51,20 @@ public:
 	void Resume();
 
 	// Initialize the scene and enter start mode.
-	void Init(MODE_PTR ModeFunction);
+	void Init(SDK::MODE_PTR ModeFunction);
 
 	// Register the mode name to run.
 	void RegisterModeName(std::string ModeName);
 
 	// Register a mode destructor with the Scene.
-	void RegisterDestructor(MODE_PTR DestructorFunction);
+	void RegisterDestructor(SDK::MODE_PTR DestructorFunction);
 
 	// Removes the mode destructor registered with the Scene.
 	void ReleaseDestructor();
 
 	// Register the controller in the scene.
 	// When MODE_TYPE_FLOATING is specified, the controller is not stored in the controller buffer.
-	void RegisterController(CONTROLLER_PTR Controller, int Type);
+	void RegisterController(SDK::CONTROLLER_PTR Controller, int Type);
 
 	// Register the mode controller input object list in Scene.
 	void RegisterInputObjectList(std::vector<SDK::Object*>& Vec);
@@ -79,11 +79,11 @@ public:
 	void Render();
 
 	// Switch to a specific mode.
-	void SwitchMode(MODE_PTR ModeFunction);
+	void SwitchMode(SDK::MODE_PTR ModeFunction);
 
 	// Start floating mode.Existing objects are not deleted.
 	// When true is specified for FloatingFocus, only floating objects are updated. This state is cleared when floating mode ends.
-	void StartFloatingMode(MODE_PTR ModeFunction, bool FloatingFocusFlag=false);
+	void StartFloatingMode(SDK::MODE_PTR ModeFunction, bool FloatingFocusFlag=false);
 
 	// Exit floating mode.Floating objects are deleted, and regular objects are not deleted.
 	void EndFloatingMode();
@@ -91,7 +91,7 @@ public:
 	// Add an object to the scene. You can give two options to an object.
 	// OBJECT_TYPE_STATIC: It will not be deleted even if the mode is changed.
 	// OBJECT_TYPE_FLOATING: Specify it as a floating mode object.
-	void AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Type1= OBJECT_TYPE_NONE, int Type2=OBJECT_TYPE_NONE);
+	SDK::Object* AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Type1= OBJECT_TYPE_NONE, int Type2=OBJECT_TYPE_NONE);
 
 	// Deletes an object from the Scene.
 	// If the object is located on a layer that is not currently being referenced, activates DeleteReserveCommand.

@@ -15,33 +15,35 @@ using namespace CryptoPP;
 
 // read only
 
-class SDK_Script {
-private:
-	TiXmlDocument Doc{};
-	TiXmlElement* Root{};
-	bool          FileExist{};
+namespace SDK {
+	class Script {
+	private:
+		TiXmlDocument Doc{};
+		TiXmlElement* Root{};
+		bool          FileExist{};
 
-	std::string   CategorySearch{};
-	std::string   DataSearch{};
+		std::string   CategorySearch{};
+		std::string   DataSearch{};
 
-public:
-	SDK_Script() {}
+	public:
+		Script() {}
 
-	void Load(std::string FileName);
-	void LoadSecure(std::string FileName);
-	float LoadDigitData(std::string CategoryName, std::string DataName);
-	std::string LoadStringData(std::string CategoryName, std::string DataName);
-	std::wstring LoadWstringData(std::string CategoryName, std::string DataName);
-	DigitDataVec LoadCategoryDigitData(std::string CategoryName);
-	StringDataVec LoadCategoryStringData(std::string CategoryName);
-	void Release();
+		void Load(std::string FileName);
+		void LoadSecure(std::string FileName);
+		float LoadDigitData(std::string CategoryName, std::string DataName);
+		std::string LoadStringData(std::string CategoryName, std::string DataName);
+		std::wstring LoadWstringData(std::string CategoryName, std::string DataName);
+		SDK::DigitDataVec LoadCategoryDigitData(std::string CategoryName);
+		SDK::StringDataVec LoadCategoryStringData(std::string CategoryName);
+		void Release();
 
-	int CountCategory();
+		int CountCategory();
 
-private:
-	TiXmlElement* FindCategory(std::string CategoryName);
-	std::string FindData(std::string CategoryName, std::string DataName);
-	std::string Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]);
-	float GetDigitData(TiXmlElement* CategoryVar, std::string DataName);
-	std::string GetStringData(TiXmlElement* CategoryVar, std::string DataName);
-};
+	private:
+		TiXmlElement* FindCategory(std::string CategoryName);
+		std::string FindData(std::string CategoryName, std::string DataName);
+		std::string Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]);
+		float GetDigitData(TiXmlElement* CategoryVar, std::string DataName);
+		std::string GetStringData(TiXmlElement* CategoryVar, std::string DataName);
+	};
+}

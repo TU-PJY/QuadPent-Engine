@@ -100,14 +100,11 @@ void SDK::Text::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ..
 
 	va_list Args{};
 	va_start(Args, Fmt);
-	std::vector<wchar_t> Text(vswprintf(nullptr, 0, Fmt, Args) + 1);
+	TextVec.assign(vswprintf(nullptr, 0, Fmt, Args) + 1, {});
+	vswprintf(TextVec.data(), TextVec.size(), Fmt, Args);
 	va_end(Args);
 
-	va_start(Args, Fmt);
-	vswprintf(Text.data(), Text.size(), Fmt, Args);
-	va_end(Args);
-
-	InputText(Text, Position, Size);
+	InputText(TextVec, Position, Size);
 }
 
 void SDK::Text::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...) {
@@ -116,14 +113,11 @@ void SDK::Text::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, .
 
 	va_list Args{};
 	va_start(Args, Fmt);
-	std::vector<wchar_t> Text(vswprintf(nullptr, 0, Fmt, Args) + 1);
+	TextVec.assign(vswprintf(nullptr, 0, Fmt, Args) + 1, {});
+	vswprintf(TextVec.data(), TextVec.size(), Fmt, Args);
 	va_end(Args);
 
-	va_start(Args, Fmt);
-	vswprintf(Text.data(), Text.size(), Fmt, Args);
-	va_end(Args);
-
-	InputText(Text, glm::vec2(X, Y), Size);
+	InputText(TextVec, glm::vec2(X, Y), Size);
 }
 
 void SDK::Text::RenderStr(glm::vec2& Position, GLfloat Size, std::string Str) {

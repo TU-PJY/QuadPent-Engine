@@ -20,7 +20,4 @@ private:
 
 namespace SDK {
 	extern SDK_CameraController CameraControl;
-	extern glm::vec2 CameraPosition;
-	extern GLfloat CameraRotation;
-	extern GLfloat CameraZoom;
 }

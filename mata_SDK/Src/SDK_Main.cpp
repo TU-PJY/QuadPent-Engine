@@ -75,6 +75,6 @@ void SDKSystem::Exit() {
 	glutDestroyWindow(1);
 }
 
-GLfloat ASP(GLfloat Value) {
+GLfloat SDK::ASP(GLfloat Value) {
 	return Value * SDK::ASPECT;
 }

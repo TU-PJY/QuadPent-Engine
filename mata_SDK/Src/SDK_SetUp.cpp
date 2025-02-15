@@ -14,15 +14,14 @@ int SDK::WIDTH = WINDOW_WIDTH;
 int SDK::HEIGHT = WINDOW_HEIGHT;
 int SDK::PREV_WIDTH, SDK::PREV_HEIGHT;
 
-const glm::mat4 IdentityMatrix = glm::mat4(1.0f);
-
 SDK::Object* Indicator;
 
 SDK_Camera SDK::Camera;
 
 GLfloat SDK::ASPECT;
-ViewportRect SDK:: RECT;
+SDK::ViewportRect SDK::RECT;
 glm::vec3 SDK::ViewportColor;
+const glm::mat4 SDK::IdentityMatrix = glm::mat4(1.0f);
 
 SDK_SYSTEM_RESOURCE SDK::SYSRES;
 SDK_IMAGE SDK::IMAGE;
@@ -33,7 +32,7 @@ SDK_FILE SDK::FILE;
 SDK_MODE_RESOURCE SDK::MODE;
 
 std::wstring SDK::LOCALE;
-START_MODE_PTR SDK::START_MODE;
+SDK::START_MODE_PTR SDK::START_MODE;
 
 void SDKSystem::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);

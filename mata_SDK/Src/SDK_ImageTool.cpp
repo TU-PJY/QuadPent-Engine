@@ -39,7 +39,7 @@ void SDK_ImageTool::Init() {
 	stbi_set_flip_vertically_on_load(true);
 }
 
-void SDK_ImageTool::LoadImage(Image& ImageStruct, std::string FilePath, int Type) {
+void SDK_ImageTool::LoadImage(SDK::Image& ImageStruct, std::string FilePath, int Type) {
 	int Width{}, Height{}, Channel{};
 
 	glGenTextures(1, &ImageStruct.Texture);
@@ -72,7 +72,7 @@ void SDK_ImageTool::LoadImage(Image& ImageStruct, std::string FilePath, int Type
 	ImageStruct.Height = Height;
 }
 
-void SDK_ImageTool::LoadClip(Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
+void SDK_ImageTool::LoadClip(SDK::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
 	int Width{}, Height{}, Channel{};
 
 	glGenTextures(1, &ImageStruct.Texture);
@@ -129,7 +129,7 @@ void SDK_ImageTool::SetSpriteSheetSize(int ValueClipWidth, int ValueClipHeight, 
 	BlankLocation = ValueNumBlank;
 }
 
-void SDK_ImageTool::LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
+void SDK_ImageTool::LoadSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
@@ -198,8 +198,8 @@ void SDK_ImageTool::LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string 
 	SpriteSheetStruct.Height = ClipHeight;
 }
 
-void SDK_ImageTool::LoadSpriteSheetT(SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
-	PreLoadSpriteSheetInfo PLSS{};
+void SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
+	SDK::PreLoadSpriteSheetInfo PLSS{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
@@ -252,8 +252,8 @@ void SDK_ImageTool::LoadSpriteSheetT(SpriteSheet& SpriteSheetStruct, std::string
 	stbi_image_free(TextureData);
 }
 
-void SDK_ImageTool::LoadImageT(Image& ImageStruct, std::string FilePath, int Type) {
-	PreLoadInfo PLI{};
+void SDK_ImageTool::LoadImageT(SDK::Image& ImageStruct, std::string FilePath, int Type) {
+	SDK::PreLoadInfo PLI{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
@@ -270,8 +270,8 @@ void SDK_ImageTool::LoadImageT(Image& ImageStruct, std::string FilePath, int Typ
 	LoadBuffer.emplace_back(PLI);
 }
 
-void SDK_ImageTool::LoadClipT(Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
-	PreLoadInfo PLI{};
+void SDK_ImageTool::LoadClipT(SDK::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
+	SDK::PreLoadInfo PLI{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
@@ -391,7 +391,7 @@ void SDK_ImageTool::SetColorRGB(int R, int G, int B) {
 	ObjectColor.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void SDK_ImageTool::RenderImage(Image& ImageStruct, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void SDK_ImageTool::RenderImage(SDK::Image& ImageStruct, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	GLfloat Width = (GLfloat)ImageStruct.Width;
 	GLfloat Height = (GLfloat)ImageStruct.Height;
 
@@ -403,7 +403,7 @@ void SDK_ImageTool::RenderImage(Image& ImageStruct, GLfloat OpacityValue, bool A
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void SDK_ImageTool::RenderSpriteSheet(SpriteSheet& SpriteSheetStruct, GLfloat& Frame, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void SDK_ImageTool::RenderSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, GLfloat& Frame, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	if ((int)Frame >= SpriteSheetStruct.Frame)
 		Frame = 0.0;
 
@@ -418,7 +418,7 @@ void SDK_ImageTool::RenderSpriteSheet(SpriteSheet& SpriteSheetStruct, GLfloat& F
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void SDK_ImageTool::RenderStaticSpriteSheet(SpriteSheet& SpriteSheetStruct, int Frame, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void SDK_ImageTool::RenderStaticSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, int Frame, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	GLfloat Width = (GLfloat)SpriteSheetStruct.Width;
 	GLfloat Height = (GLfloat)SpriteSheetStruct.Height;
 
@@ -436,17 +436,17 @@ void SDK_ImageTool::RenderRaw() {
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void SDK_ImageTool::UnmapImage(Image& ImageStruct) {
+void SDK_ImageTool::UnmapImage(SDK::Image& ImageStruct) {
 	glDeleteTextures(1, &ImageStruct.Texture);
 }
 
-void SDK_ImageTool::UnmapSpriteSheet(SpriteSheet& SpriteSheetStruct) {
+void SDK_ImageTool::UnmapSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct) {
 	size_t SheetSize = SpriteSheetStruct.Texture.size();
 	for(int i = 0; i < SheetSize; ++i)
 		glDeleteTextures(1, &SpriteSheetStruct.Texture[i]);
 }
 
-void SDK_ImageTool::PrepareRender(Image& ImageStruct) {
+void SDK_ImageTool::PrepareRender(SDK::Image& ImageStruct) {
 	glUseProgram(IMAGE_SHADER);
 	SDK::Camera.PrepareRender(SHADER_TYPE_IMAGE);
 
@@ -464,7 +464,7 @@ void SDK_ImageTool::PrepareRender(Image& ImageStruct) {
 	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 }
 
-void SDK_ImageTool::PrepareRender(SpriteSheet& SpriteSheetStruct) {
+void SDK_ImageTool::PrepareRender(SDK::SpriteSheet& SpriteSheetStruct) {
 	glUseProgram(IMAGE_SHADER);
 	SDK::Camera.PrepareRender(SHADER_TYPE_IMAGE);
 

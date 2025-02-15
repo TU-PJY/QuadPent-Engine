@@ -4,9 +4,6 @@
 #include "SDK_AnimationTool.h"
 
 SDK_CameraController SDK::CameraControl;
-glm::vec2 SDK::CameraPosition;
-GLfloat SDK::CameraRotation;
-GLfloat SDK::CameraZoom = 1.0;
 
 void SDK_CameraController::Update(float FrameTime){
 	// add logic here
@@ -17,46 +14,43 @@ void SDK_CameraController::Update(float FrameTime){
 void SDK_CameraController::Move(GLfloat X, GLfloat Y){
 	Position.x = -X;
 	Position.y = -Y;
-	SDK::CameraPosition.x = X;
-	SDK::CameraPosition.y = Y;
+	SDK::Camera.Position.x = X;
+	SDK::Camera.Position.y = Y;
 }
 
 void SDK_CameraController::Move(glm::vec2& PositionValue){
 	Position = -PositionValue;
-	SDK::CameraPosition = PositionValue;
+	SDK::Camera.Position = PositionValue;
 }
 
 void SDK_CameraController::Rotate(GLfloat Degree){
 	Rotation = -Degree;
-	SDK::CameraRotation = Degree;
+	SDK::Camera.Rotation = Degree;
 }
 
 void SDK_CameraController::Zoom(int ZoomType, GLfloat ZoomValue){
 	switch (ZoomType) {
 	case ZOOM_IN:
-		SDK::Camera.ZoomValue = SDK::Camera.ZoomValue / (1.0f - ZoomValue);
+		SDK::Camera.Zoom = SDK::Camera.Zoom / (1.0f - ZoomValue);
 		break;
 
 	case ZOOM_OUT:
-		SDK::Camera.ZoomValue = SDK::Camera.ZoomValue * (1.0f - ZoomValue);
+		SDK::Camera.Zoom = SDK::Camera.Zoom * (1.0f - ZoomValue);
 		break;
 	}
-
-	SDK::CameraZoom = SDK::Camera.ZoomValue;
 }
 
 void SDK_CameraController::SetZoom(GLfloat ZoomValue){
-	SDK::Camera.ZoomValue = ZoomValue;
-	SDK::CameraZoom = SDK::Camera.ZoomValue;
+	SDK::Camera.Zoom = ZoomValue;
 }
 
 GLfloat SDK_CameraController::ComputeNextZoom(int ZoomType, GLfloat ZoomValue) {
 	if (ZoomType == ZOOM_IN)
-		return 	SDK::Camera.ZoomValue / (1.0f - ZoomValue);
+		return 	SDK::Camera.Zoom / (1.0f - ZoomValue);
 	else if (ZoomType == ZOOM_OUT)
-		return 	SDK::Camera.ZoomValue * (1.0f - ZoomValue);
+		return 	SDK::Camera.Zoom * (1.0f - ZoomValue);
 	else
-		return 	SDK::Camera.ZoomValue;
+		return 	SDK::Camera.Zoom;
 }
 
 ///////////////////////////////////////// private

@@ -4,7 +4,7 @@
 class SDK_IntroScreen : public SDK::Object {
 private:
 	SDK::Timer    timer;
-	SoundChannel IntroChannel{};
+	SDK::SoundChannel IntroChannel{};
 
 	GLfloat      LogoSize        = 1.0;
 	GLfloat      LogoOpacity     = 0.0;

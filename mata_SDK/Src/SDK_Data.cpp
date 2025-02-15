@@ -57,7 +57,7 @@ std::wstring SDK::Data::LoadWStringData(std::string Categoryname, std::string Da
 	return StringTool.Wstring(LoadStringData(Categoryname, DataName));
 }
 
-DigitDataVec SDK::Data::LoadCategoryDigitData(std::string CategoryName) {
+SDK::DigitDataVec SDK::Data::LoadCategoryDigitData(std::string CategoryName) {
 	DigitDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 
@@ -75,7 +75,7 @@ DigitDataVec SDK::Data::LoadCategoryDigitData(std::string CategoryName) {
 	return LoadedData;
 }
 
-StringDataVec SDK::Data::LoadCategoryStringData(std::string CategoryName) {
+SDK::StringDataVec SDK::Data::LoadCategoryStringData(std::string CategoryName) {
 	StringDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 

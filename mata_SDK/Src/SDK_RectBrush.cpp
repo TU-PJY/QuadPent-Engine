@@ -39,7 +39,7 @@ void SDK::LineRectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY
 	Opacity = OpacityValue;
 	GLfloat DrawWidth{};
 	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		DrawWidth = Width / Camera.ZoomValue;
+		DrawWidth = Width / Camera.Zoom;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
 		DrawWidth = Width;
 

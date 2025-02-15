@@ -32,7 +32,7 @@ constexpr bool USE_COMPUTE_SHADER = false;
 constexpr bool SHOW_CONSOLE = true;
 
 // FPS indicator option
-constexpr bool SHOW_FPS = true;
+constexpr bool SHOW_FPS = false;
 
 // show boundbox option
 constexpr bool SHOW_BOUND_BOX = true;
@@ -52,7 +52,7 @@ constexpr bool ENABLE_DEV_EXIT = true;
 //////////////////////////////////// Scene Options
 // scene layer option
 // 'EOL' should be typed at last
-enum Layer
+enum SDK_LAYER
 { LAYER1, LAYER2, LAYER3, EOL };
 
 // Specifies the size of the deletion location buffer

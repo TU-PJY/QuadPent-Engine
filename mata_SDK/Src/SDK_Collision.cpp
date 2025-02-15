@@ -73,7 +73,7 @@ bool SDK::AABB::CheckCollisionPoint(glm::vec2& Position) {
 	return false;
 }
 
-bool SDK::AABB::CheckCollisionRay(RayVector& Ray) {
+bool SDK::AABB::CheckCollisionRay(SDK::RayVector& Ray) {
 	if (aabb.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
 		Collide = true;
 		return true;
@@ -83,7 +83,7 @@ bool SDK::AABB::CheckCollisionRay(RayVector& Ray) {
 	return false;
 }
 
-bool SDK::AABB::CheckCollisionLine(RayVector& Ray) {
+bool SDK::AABB::CheckCollisionLine(SDK::RayVector& Ray) {
 	if (aabb.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
 		if (Ray.Distance <= Ray.Length) {
 			Collide = true;
@@ -184,7 +184,7 @@ bool SDK::OOBB::CheckCollisionPoint(glm::vec2& Position) {
 	return false;
 }
 
-bool SDK::OOBB::CheckCollisionRay(RayVector& Ray) {
+bool SDK::OOBB::CheckCollisionRay(SDK::RayVector& Ray) {
 	if (oobb.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
 		Collide = true;
 		return true;
@@ -195,7 +195,7 @@ bool SDK::OOBB::CheckCollisionRay(RayVector& Ray) {
 }
 
 
-bool SDK::OOBB::CheckCollisionLine(RayVector& Ray) {
+bool SDK::OOBB::CheckCollisionLine(SDK::RayVector& Ray) {
 	if (oobb.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
 		if (Ray.Distance <= Ray.Length) {
 			Collide = true;
@@ -290,7 +290,7 @@ bool SDK::BoundingCircle::CheckCollisionPoint(glm::vec2& Position) {
 	return false;
 }
 
-bool SDK::BoundingCircle::CheckCollisionRay(RayVector& Ray) {
+bool SDK::BoundingCircle::CheckCollisionRay(SDK::RayVector& Ray) {
 	if (sphere.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
 		Collide = true;
 		return true;
@@ -300,7 +300,7 @@ bool SDK::BoundingCircle::CheckCollisionRay(RayVector& Ray) {
 	return false;
 }
 
-bool SDK::BoundingCircle::CheckCollisionLine(RayVector& Ray) {
+bool SDK::BoundingCircle::CheckCollisionLine(SDK::RayVector& Ray) {
 	if (sphere.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
 		if (Ray.Distance <= Ray.Length) {
 			Collide = true;

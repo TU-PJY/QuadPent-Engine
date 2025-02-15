@@ -40,6 +40,7 @@ namespace SDK {
 		std::unordered_map <wchar_t, GLYPHMETRICSFLOAT> TextGlyph{};
 		std::map <wchar_t, bool> GlyphCache{};
 		std::vector<wchar_t>     TextVec{};
+		int                      PrevSize{};
 
 		int                      TextAlign{ ALIGN_DEFAULT };
 		int                      RenderType{ RENDER_TYPE_STATIC };

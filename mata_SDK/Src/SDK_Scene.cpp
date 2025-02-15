@@ -71,13 +71,13 @@ void SDK_Scene::Render() {
 	}
 }
 
-void SDK_Scene::Init(MODE_PTR ModeFunction) {
+void SDK_Scene::Init(SDK::MODE_PTR ModeFunction) {
 	ModeFunction();
 	for (int Layer = 0; Layer < SceneLayer; ++Layer)
 		DeleteLocation[Layer].reserve(DELETE_LOCATION_BUFFER_SIZE);
 }
 
-void SDK_Scene::SwitchMode(MODE_PTR ModeFunction) {
+void SDK_Scene::SwitchMode(SDK::MODE_PTR ModeFunction) {
 	ClearAll();
 
 	if (DestructorBuffer)
@@ -93,7 +93,7 @@ void SDK_Scene::SwitchMode(MODE_PTR ModeFunction) {
 	LoopEscapeCommand = true;
 }
 
-void SDK_Scene::RegisterDestructor(MODE_PTR DestructorFunction) {
+void SDK_Scene::RegisterDestructor(SDK::MODE_PTR DestructorFunction) {
 	DestructorBuffer = DestructorFunction;
 }
 
@@ -101,17 +101,21 @@ void SDK_Scene::RegisterModeName(std::string ModeName) {
 	CurrentRunningMode = ModeName;
 }
 
-void SDK_Scene::RegisterController(CONTROLLER_PTR Controller, int Type) {
+void SDK_Scene::RegisterController(SDK::CONTROLLER_PTR Controller, int Type) {
 	Controller();
 	if (Type == MODE_TYPE_DEFAULT)
 		ControllerBuffer = Controller;
+}
+
+void SDK_Scene::RegisterInputObjectList(std::vector<SDK::Object*>& Vec) {
+	InputObjectListPtr = &Vec;
 }
 
 void SDK_Scene::ReleaseDestructor() {
 	DestructorBuffer = nullptr;
 }
 
-void SDK_Scene::StartFloatingMode(MODE_PTR ModeFunction, bool FloatingFocusFlag) {
+void SDK_Scene::StartFloatingMode(SDK::MODE_PTR ModeFunction, bool FloatingFocusFlag) {
 	if (FloatingActivateCommand)
 		return;
 
@@ -136,13 +140,13 @@ void SDK_Scene::EndFloatingMode() {
 	FloatingFocusCommand = false;
 }
 
-void SDK_Scene::AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
+SDK::Object* SDK_Scene::AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
 	if (AddLayer > SceneLayer)
-		return;
+		return nullptr;
 
 	if (Type1 == OBJECT_TYPE_STATIC_SINGLE || Type2 == OBJECT_TYPE_STATIC_SINGLE) {
 		if (auto Object = Find(Tag); Object)
-			return;
+			return nullptr;
 	}
 
 	ObjectList[AddLayer].emplace_back(Object);
@@ -156,8 +160,6 @@ void SDK_Scene::AddObject(SDK::Object* Object, std::string Tag, int AddLayer, in
 
 		else if(Type1 == OBJECT_TYPE_FLOATING)
 			Object->FloatingCommand = true;
-
-		return;
 	}
 
 	else {
@@ -167,6 +169,8 @@ void SDK_Scene::AddObject(SDK::Object* Object, std::string Tag, int AddLayer, in
 		if(Type1 == OBJECT_TYPE_FLOATING || Type2 == OBJECT_TYPE_FLOATING)
 			Object->FloatingCommand = true;
 	}
+
+	return Object;
 }
 
 void SDK_Scene::DeleteObject(SDK::Object* Object) {
@@ -197,10 +201,6 @@ void SDK_Scene::DeleteObject(std::string Tag, int DeleteRange) {
 			}
 		}
 	}
-}
-
-void SDK_Scene::RegisterInputObjectList(std::vector<SDK::Object*>& Vec) {
-	InputObjectListPtr = &Vec;
 }
 
 void SDK_Scene::AddInputObject(SDK::Object* Object) {

@@ -99,7 +99,7 @@ public:
 			SDK::ImageTool.RenderImage(SDK::SYSRES.SDK_IMAGE_ERROR, 0.3);
 		}
 
-		Message.RenderStr(ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);
-		Message.Render(ASP(-1.0) + 0.01, -1.0 + 0.02, 0.06, L"Press Alt + F4 or close window to terminate system...");
+		Message.RenderStr(SDK::ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);
+		Message.Render(SDK::ASP(-1.0) + 0.01, -1.0 + 0.02, 0.06, L"Press Alt + F4 or close window to terminate system...");
 	}
 };

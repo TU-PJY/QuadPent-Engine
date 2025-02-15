@@ -55,7 +55,7 @@ void SDK::LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloa
 
 	GLfloat DrawWidth{};
 	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		DrawWidth = Width / Camera.ZoomValue;
+		DrawWidth = Width / Camera.Zoom;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
 		DrawWidth = Width;
 
@@ -76,7 +76,7 @@ void SDK::LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width,
 
 	GLfloat DrawWidth{};
 	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		DrawWidth = Width / Camera.ZoomValue;
+		DrawWidth = Width / Camera.Zoom;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
 		DrawWidth = Width;
 
@@ -98,7 +98,7 @@ void SDK::LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width,
 
 	GLfloat DrawWidth{};
 	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		DrawWidth = Width / Camera.ZoomValue;
+		DrawWidth = Width / Camera.Zoom;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
 		DrawWidth = Width;
 

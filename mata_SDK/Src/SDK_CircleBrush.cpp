@@ -94,7 +94,7 @@ void SDK::LineCircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat 
 	Radius = Diameter * 0.5;
 
 	if(RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		WidthValue = Width / Camera.ZoomValue;
+		WidthValue = Width / Camera.Zoom;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
 		WidthValue = Width;
 

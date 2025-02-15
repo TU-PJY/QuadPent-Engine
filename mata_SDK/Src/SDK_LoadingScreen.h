@@ -87,8 +87,7 @@ public:
 	}
 
 	void AddFPSIndicator() {
-		SDK::Scene.AddObject(new SDK_FPS_Indicator, "SDK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
-		Indicator = SDK::Scene.Find("SDK_OBJECT_FPS_INDICATOR");
+		Indicator = SDK::Scene.AddObject(new SDK_FPS_Indicator, "SDK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
 	}
 
 	bool LoadResources() {

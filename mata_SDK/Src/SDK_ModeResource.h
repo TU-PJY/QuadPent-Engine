@@ -5,7 +5,7 @@
 // Map the mode start function pointer in ModeAttribute.cpp after declaration.
 class SDK_MODE_RESOURCE {
 public:
-	MODE_PTR Mode1;
+	SDK::MODE_PTR Mode1;
 };
 
 namespace SDK {
