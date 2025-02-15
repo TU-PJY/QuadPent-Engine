@@ -1,12 +1,12 @@
 #pragma once
 #include "SDKHeader.h"
 
-class FontUtil {
+class SDK_FontLoader {
 public:
 	bool Load(const std::string& FontFilePath);
 	bool LoadT(const std::string& FontFilePath);
 };
 
 namespace SDK {
-	extern FontUtil FontLoader;
+	extern SDK_FontLoader FontLoader;
 }

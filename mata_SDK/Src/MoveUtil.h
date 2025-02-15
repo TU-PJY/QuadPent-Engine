@@ -1,7 +1,7 @@
 #pragma once
 #include "SDKHeader.h"
 
-class MoveUtil {
+class SDK_MoveTool {
 public:
 	void MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT);
 	void MoveStraight(GLfloat& Position, GLfloat Speed, float FT);
@@ -12,5 +12,5 @@ public:
 };
 
 namespace SDK {
-	extern MoveUtil MoveTool;
+	extern SDK_MoveTool MoveTool;
 }

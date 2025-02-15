@@ -18,7 +18,7 @@ const glm::mat4 IdentityMatrix = glm::mat4(1.0f);
 
 SDK::Object* Indicator;
 
-CameraUtil SDK::Camera;
+SDK_Caemra SDK::Camera;
 
 GLfloat SDK::ASPECT;
 ViewportRect SDK:: RECT;

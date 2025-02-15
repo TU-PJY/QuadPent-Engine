@@ -1,7 +1,7 @@
 #pragma once
 #include "SDKHeader.h"
 
-class ThreadUtil {
+class SDK_ThreadTool {
 public:
 	void Create(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param = NULL);
 	bool CheckAlive(HANDLE& HandleValue);
@@ -15,5 +15,5 @@ public:
 };
 
 namespace SDK {
-	extern ThreadUtil ThreadTool;
+	extern SDK_ThreadTool ThreadTool;
 }

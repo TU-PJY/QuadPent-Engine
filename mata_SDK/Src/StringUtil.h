@@ -1,7 +1,7 @@
 #pragma once
 #include "SDKHeader.h"
  
-class StringUtil {
+class SDK_StringTool {
 public:
 	void InputChar(std::string& Str, unsigned char AddChar, bool UseNewLine = false);
 	void AddString(std::string& Str, std::string AddStr);
@@ -11,5 +11,5 @@ public:
 };
 
 namespace SDK {
-	extern StringUtil StringTool;
+	extern SDK_StringTool StringTool;
 }

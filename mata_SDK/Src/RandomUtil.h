@@ -2,7 +2,7 @@
 #include "SDKHeader.h"
 #include <random>
 
-class RandomUtil {
+class SDK_Random {
 private:
 	std::random_device RD{};
 
@@ -12,5 +12,5 @@ public:
 };
 
 namespace SDK {
-	extern RandomUtil Random;
+	extern SDK_Random Random;
 }

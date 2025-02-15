@@ -1,7 +1,7 @@
 #pragma once
 #include "SDKHeader.h"
 
-class CameraUtil {
+class SDK_Caemra {
 private:
 	glm::vec3 CamPos{}, CamDirection{}, CamUp{};
 	bool      StaticRenderCommand{};
@@ -17,5 +17,5 @@ public:
 };
 
 namespace SDK {
-	extern CameraUtil Camera;
+	extern SDK_Caemra Camera;
 }

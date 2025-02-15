@@ -1,13 +1,13 @@
 #pragma once
 #include "CollisionUtil.h"
 
-class FrustumUtil {
+class SDK_Frustum {
 private:
 	SDK::OOBB FrustumOOBB{};
 	SDK::LineRectBrush LineRect{false, true};
 
 public:
-	FrustumUtil();
+	SDK_Frustum();
 	void Update();
 	bool Check(SDK::AABB& aabb);
 	bool Check(SDK::OOBB& oobb);
@@ -15,5 +15,5 @@ public:
 };
 
 namespace SDK {
-	extern FrustumUtil Frustum;
+	extern SDK_Frustum Frustum;
 }

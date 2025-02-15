@@ -55,7 +55,7 @@ void SDK::Object::ComputeLocalPosition(glm::vec2& DestPosition) {
 ////////////////////////// private
 
 glm::vec4 SDK::Object::ViewportPosition() {
-	SDK::Compute.ComputeMatrix(ViewportPositionMatrix, SDK::Camera.Projection, SDK::Camera.ViewMatrix, ResultMatrix);
+	SDK::ComputeTool.ComputeMatrix(ViewportPositionMatrix, SDK::Camera.Projection, SDK::Camera.ViewMatrix, ResultMatrix);
 	return ViewportPositionMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }
 

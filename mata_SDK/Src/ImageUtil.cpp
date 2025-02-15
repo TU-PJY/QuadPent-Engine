@@ -488,7 +488,7 @@ void ImageUtil::ProcessTransform(GLfloat Width, GLfloat Height, GLfloat OpacityV
 		SDK::Transform.ImageScale(ImageAspectMatrix, Width, Height);
 
 	if (USE_COMPUTE_SHADER)
-		SDK::Compute.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+		SDK::ComputeTool.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 	else {
 		if (!SDK::Transform.CheckIdentity(MoveMatrix)) { ResultMatrix *= MoveMatrix; }
 		if (!SDK::Transform.CheckIdentity(RotateMatrix)) { ResultMatrix *= RotateMatrix; }
@@ -501,7 +501,7 @@ void ImageUtil::ProcessTransform(GLfloat Width, GLfloat Height, GLfloat OpacityV
 
 	if (ApplyUnitTransform) {
 		if (USE_COMPUTE_SHADER)
-			SDK::Compute.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+			SDK::ComputeTool.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
 		else {
 			if (!SDK::Transform.CheckIdentity(UnitMoveMatrix)) { ResultMatrix = UnitMoveMatrix * ResultMatrix; }
 			if (!SDK::Transform.CheckIdentity(UnitRotateMatrix)) { ResultMatrix = UnitRotateMatrix * ResultMatrix; }

@@ -4,7 +4,7 @@
 #include <stdarg.h>
 #include <fstream>
 
-ShaderUtil SDK::Shader;
+SDK_Shader SDK::Shader;
 
 GLuint IMAGE_SHADER;
 GLuint TEXT_SHADER;
@@ -23,7 +23,7 @@ ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VIEW_POSITION_
 ShaderLocation SHAPE_OPACITY_LOCATION, SHAPE_COLOR_LOCATION, SHAPE_MODEL_LOCATION;
 ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW_POSITION_LOCATION;
 
-char* ShaderUtil::LoadShaderFile(std::string FileName) {
+char* SDK_Shader::LoadShaderFile(std::string FileName) {
 	std::ifstream ShaderFile(FileName, std::ios::in | std::ios::binary | std::ios::ate);
 	if (!ShaderFile.is_open()) {
 		std::cout << "Can not open shader file: " << FileName << std::endl;
@@ -49,7 +49,7 @@ char* ShaderUtil::LoadShaderFile(std::string FileName) {
 	return Buffer;
 }
 
-void ShaderUtil::LoadVertexShader(std::string VertexShader) {
+void SDK_Shader::LoadVertexShader(std::string VertexShader) {
 	VertexShaderSource = LoadShaderFile(VertexShader);
 	VertexShaderBuffer = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(VertexShaderBuffer, 1, (const GLchar**)&VertexShaderSource, 0);
@@ -68,7 +68,7 @@ void ShaderUtil::LoadVertexShader(std::string VertexShader) {
 	}
 }
 
-void ShaderUtil::LoadFragmentShader(std::string FragmentShader) {
+void SDK_Shader::LoadFragmentShader(std::string FragmentShader) {
 	FragmentShaderSource = LoadShaderFile(FragmentShader);
 	FragmentShaderBuffer = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(FragmentShaderBuffer, 1, (const GLchar**)&FragmentShaderSource, 0);
@@ -87,7 +87,7 @@ void ShaderUtil::LoadFragmentShader(std::string FragmentShader) {
 	}
 }
 
-void ShaderUtil::LoadComputeShader(std::string ComputeShader) {
+void SDK_Shader::LoadComputeShader(std::string ComputeShader) {
 	ComputeShaderSource = LoadShaderFile(ComputeShader);
 	CommputeShaderBuffer = glCreateShader(GL_COMPUTE_SHADER);
 	glShaderSource(CommputeShaderBuffer, 1, (const GLchar**)&ComputeShaderSource, 0);
@@ -106,7 +106,7 @@ void ShaderUtil::LoadComputeShader(std::string ComputeShader) {
 	}
 }
 
-void ShaderUtil::CreateShader(GLuint& Shader) {
+void SDK_Shader::CreateShader(GLuint& Shader) {
 	Shader = glCreateProgram();
 	glAttachShader(Shader, VertexShaderBuffer);
 	glAttachShader(Shader, FragmentShaderBuffer);
@@ -115,14 +115,14 @@ void ShaderUtil::CreateShader(GLuint& Shader) {
 	glDeleteShader(FragmentShaderBuffer);
 }
 
-void ShaderUtil::CreateComputeShader(GLuint& Shader) {
+void SDK_Shader::CreateComputeShader(GLuint& Shader) {
 	Shader = glCreateProgram();
 	glAttachShader(Shader, CommputeShaderBuffer);
 	glLinkProgram(Shader);
 	glDeleteShader(CommputeShaderBuffer);
 }
 
-void ShaderUtil::CreateShaderLocation() {
+void SDK_Shader::CreateShaderLocation() {
 	// Image Shader
 	IMAGE_OPACITY_LOCATION       = glGetUniformLocation(IMAGE_SHADER, "Opacity");
 	IMAGE_COLOR_LOCATION         = glGetUniformLocation(IMAGE_SHADER, "Color");
@@ -157,7 +157,7 @@ void ShaderUtil::CreateShaderLocation() {
 	SHAPE_VIEW_POSITION_LOCATION = glGetUniformLocation(SHAPE_SHADER, "ViewPosition");
 }
 
-void ShaderUtil::CreateSSBO() {
+void SDK_Shader::CreateSSBO() {
 	glGenBuffers(1, &SSBO_MATRIX_INPUT);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO_MATRIX_INPUT);
 	glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(glm::mat4) * 5, nullptr, GL_STATIC_DRAW);

@@ -1,29 +1,29 @@
 #include "ExUtil.h"
 
-EX_Util SDK::EXTool;
+SDK_EXTool SDK::EXTool;
 
-void EX_Util::SwitchBool(bool& Value) {
+void SDK_EXTool::SwitchBool(bool& Value) {
 	if (!Value)
 		Value = true;
 	else
 		Value = false;
 }
 
-void EX_Util::SwitchValue(float& TargetValue, float Value1, float Value2) {
+void SDK_EXTool::SwitchValue(float& TargetValue, float Value1, float Value2) {
 	if (TargetValue == Value1)
 		TargetValue = Value2;
 	else
 		TargetValue = Value1;
 }
 
-void EX_Util::SwitchValue(int& TargetValue, int Value1, int Value2) {
+void SDK_EXTool::SwitchValue(int& TargetValue, int Value1, int Value2) {
 	if (TargetValue == Value1)
 		TargetValue = Value2;
 	else
 		TargetValue = Value1;
 }
 
-void EX_Util::ClampValue(float& Value, float Dest, int Type) {
+void SDK_EXTool::ClampValue(float& Value, float Dest, int Type) {
 	switch (Type) {
 	case CLAMP_GREATER:
 		if (Value > Dest) Value = Dest;
@@ -35,7 +35,7 @@ void EX_Util::ClampValue(float& Value, float Dest, int Type) {
 	}
 }
 
-void EX_Util::ClampValue(int& Value, int Dest, int Type) {
+void SDK_EXTool::ClampValue(int& Value, int Dest, int Type) {
 	switch (Type) {
 	case CLAMP_GREATER:
 		if (Value > Dest) Value = Dest;
@@ -47,7 +47,7 @@ void EX_Util::ClampValue(int& Value, int Dest, int Type) {
 	}
 }
 
-void EX_Util::ClampValue(int& Value, int Min, int Max, int Type) {
+void SDK_EXTool::ClampValue(int& Value, int Min, int Max, int Type) {
 	switch (Type) {
 	case CLAMP_FIXED:
 		if (Value < Min)
@@ -64,7 +64,7 @@ void EX_Util::ClampValue(int& Value, int Min, int Max, int Type) {
 	}
 }
 
-void EX_Util::ClampValue(float& Value, float Min, float Max, int Type) {
+void SDK_EXTool::ClampValue(float& Value, float Min, float Max, int Type) {
 	switch (Type) {
 	case CLAMP_FIXED:
 		if (Value < Min)
@@ -81,23 +81,23 @@ void EX_Util::ClampValue(float& Value, float Min, float Max, int Type) {
 	}
 }
 
-bool EX_Util::CheckClampValue(float& Value, float Dest, int Type) {
-	EX_Util::ClampValue(Value, Dest, Type);
+bool SDK_EXTool::CheckClampValue(float& Value, float Dest, int Type) {
+	SDK_EXTool::ClampValue(Value, Dest, Type);
 	if (Value == Dest)
 		return true;
 
 	return false;
 }
 
-bool EX_Util::CheckClampValue(int& Value, int Dest, int Type) {
-	EX_Util::ClampValue(Value, Dest, Type);
+bool SDK_EXTool::CheckClampValue(int& Value, int Dest, int Type) {
+	SDK_EXTool::ClampValue(Value, Dest, Type);
 	if (Value == Dest)
 		return true;
 
 	return false;
 }
 
-void EX_Util::InputBoolSwitch(int SwitchingOption, int EventType, bool& DestBoolValue) {
+void SDK_EXTool::InputBoolSwitch(int SwitchingOption, int EventType, bool& DestBoolValue) {
 	if (SwitchingOption == TRUE_KEY_DOWN) {
 		if (EventType == NORMAL_KEY_DOWN || EventType == SPECIAL_KEY_DOWN)
 			DestBoolValue = true;

@@ -1,8 +1,8 @@
 #include "RandomUtil.h"
 
-RandomUtil SDK::Random;
+SDK_Random SDK::Random;
 
-GLfloat RandomUtil::Gen(int DistType, GLfloat Min, GLfloat Max) {
+GLfloat SDK_Random::Gen(int DistType, GLfloat Min, GLfloat Max) {
 	if (DistType == RANDOM_TYPE_REAL) {
 		std::uniform_real_distribution URD{ Min, Max };
 		return URD(RD);
@@ -16,7 +16,7 @@ GLfloat RandomUtil::Gen(int DistType, GLfloat Min, GLfloat Max) {
 	return 0.0;
 }
 
-bool RandomUtil::Probability(int Percent) {
+bool SDK_Random::Probability(int Percent) {
 	int RandNum = Gen(RANDOM_TYPE_INT, 1, 100);
 	if (1 <= RandNum && RandNum <= Percent)
 		return true;

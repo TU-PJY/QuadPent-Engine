@@ -1,7 +1,7 @@
 #pragma once
 #include "SDKHeader.h"
 
-class EX_Util {
+class SDK_EXTool {
 public:
 	void SwitchBool(bool& Value);
 	void SwitchValue(float& TargetValue, float Value1, float Value2);
@@ -16,5 +16,5 @@ public:
 };
 
 namespace SDK {
-	extern EX_Util EXTool;
+	extern SDK_EXTool EXTool;
 }

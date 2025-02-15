@@ -3,7 +3,7 @@
 #include "Config.h"
 #include <string>
 
-class SoundUtil {
+class SDK_SoundTool {
 private:
 	FMOD::System* SoundSystem{};
 	FMOD::DSP*    BeatDetector{};
@@ -55,5 +55,5 @@ public:
 	void StopAllSounds();
 };
 namespace SDK {
-	extern SoundUtil SoundTool;
+	extern SDK_SoundTool SoundTool;
 }

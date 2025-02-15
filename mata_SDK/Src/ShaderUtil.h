@@ -2,7 +2,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "SDKHeader.h"
 
-class ShaderUtil {
+class SDK_Shader {
 private:
 	GLchar* VertexShaderSource{}, *FragmentShaderSource{}, *ComputeShaderSource{};
 	GLuint  VertexShaderBuffer{}, FragmentShaderBuffer{}, CommputeShaderBuffer{};
@@ -19,5 +19,5 @@ public:
 };
 
 namespace SDK {
-	extern ShaderUtil Shader;
+	extern SDK_Shader Shader;
 }

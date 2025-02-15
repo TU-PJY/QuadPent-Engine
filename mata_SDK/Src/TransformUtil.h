@@ -2,7 +2,7 @@
 #include "SDKHeader.h"
 #include "ObjectValue.h"
 
-class TransformUtil {
+class SDK_Transform {
 public:
 	void Identity(glm::mat4& Matrix);
 	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
@@ -22,5 +22,5 @@ public:
 };
 
 namespace SDK {
-	extern TransformUtil Transform;
+	extern SDK_Transform Transform;
 }

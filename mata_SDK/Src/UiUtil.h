@@ -1,7 +1,7 @@
 #pragma once
 #include "SDKHeader.h"
 
-class UI_Util {
+class SDK_UITool {
 public:
 	void ClampMatrixToCorner(int EdgePosition, glm::mat4& Matrix, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY);
 	void ClampMatrixToPosition(glm::mat4& Matrix, GLfloat PositionX, GLfloat PositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY);
@@ -10,5 +10,5 @@ public:
 };
 
 namespace SDK {
-	extern UI_Util UITool;
+	extern SDK_UITool UITool;
 }

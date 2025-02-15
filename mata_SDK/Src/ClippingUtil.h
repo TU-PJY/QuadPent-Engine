@@ -1,14 +1,14 @@
 #pragma once
 #include "SDKHeader.h"
 
-class ColorClipping {
+class SDK_ColorClipping {
 public:
 	void First();
 	void Second();
 	void End();
 };
 
-class AlphaClipping {
+class SDK_AlphaClipping {
 public:
 	void First();
 	void Second();
@@ -16,6 +16,6 @@ public:
 };
 
 namespace SDK {
-	extern ColorClipping ColorClip;
-	extern AlphaClipping AlphaClip;
+	extern SDK_ColorClipping ColorClip;
+	extern SDK_AlphaClipping AlphaClip;
 }

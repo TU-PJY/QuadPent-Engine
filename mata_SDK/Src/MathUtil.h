@@ -1,7 +1,7 @@
 #pragma once
 #include "SDKHeader.h"
 
-class MathUtil {
+class SDK_Math {
 public:
 	void LookAt(GLfloat& DestRotation, GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat RotationSpeed = 0.0, float FrameTime = 0.0);
 	void LookAt(GLfloat& DestRotation, glm::vec2& Position1, glm::vec2& Position2, GLfloat Rotationpeed = 0.0, float FrameTime = 0.0);
@@ -26,5 +26,5 @@ private:
 };
 
 namespace SDK {
-	extern MathUtil Math;
+	extern SDK_Math Math;
 }

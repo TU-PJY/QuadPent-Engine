@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "CameraUtil.h"
 
-class CameraController {
+class SDK_CameraController {
 public:
 	void Update(float FrameTime);
 	void Move(GLfloat X, GLfloat Y);
@@ -19,7 +19,7 @@ private:
 };
 
 namespace SDK {
-	extern CameraController CameraControl;
+	extern SDK_CameraController CameraControl;
 	extern glm::vec2 CameraPosition;
 	extern GLfloat CameraRotation;
 	extern GLfloat CameraZoom;
