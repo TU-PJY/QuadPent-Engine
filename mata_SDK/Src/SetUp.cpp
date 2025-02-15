@@ -100,5 +100,5 @@ void SDKSystem::InitSystem() {
 	if (FPSLimit > 0)
 		DestFPS = 1000.0 / (float)FPSLimit;
 
-	scene.Init(LoadingMode.Start);
+	SDK::Scene.Init(LoadingMode.Start);
 }

@@ -7,7 +7,7 @@ void ScriptUtil::Load(std::string FileName) {
 		return;
 
 	if (!Doc.LoadFile(FileName.c_str(), TIXML_ENCODING_UTF8)) {
-		scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
 		return;
 	}
 
@@ -19,7 +19,7 @@ void ScriptUtil::Load(std::string FileName) {
 void ScriptUtil::LoadSecure(std::string FileName) {
 	std::ifstream EncryptedFile(FileName, std::ios::binary);
 	if (!EncryptedFile) {
-		scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
 		return;
 	}
 
@@ -30,7 +30,7 @@ void ScriptUtil::LoadSecure(std::string FileName) {
 	Doc.Parse(DecryptedXML.c_str(), nullptr, TIXML_ENCODING_UTF8);
 
 	if (Doc.Error()) {
-		scene.SetErrorScreen(ERROR_TYPE_SCRIPT_PARSE, FileName);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_PARSE, FileName);
 		return;
 	}
 
@@ -72,7 +72,7 @@ DigitDataVec ScriptUtil::LoadCategoryDigitData(std::string CategoryName) {
 	TiXmlElement* Category = FindCategory(CategoryName);
 
 	if (!Category) {
-		scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
 		return {};
 	}
 
@@ -90,7 +90,7 @@ StringDataVec ScriptUtil::LoadCategoryStringData(std::string CategoryName) {
 	TiXmlElement* Category = FindCategory(CategoryName);
 
 	if (!Category) {
-		scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
 		return {};
 	}
 
@@ -109,7 +109,7 @@ float ScriptUtil::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) 
 	if (DataValue)
 		return std::stof(DataValue);
 	else {
-		scene.SetErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
 		return 0.0;
 	}
 }
@@ -119,7 +119,7 @@ std::string ScriptUtil::GetStringData(TiXmlElement* CategoryVar, std::string Dat
 	if (DataValue)
 		return (std::string)DataValue;
 	else {
-		scene.SetErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
 		return "";
 	}
 }
@@ -131,7 +131,7 @@ TiXmlElement* ScriptUtil::FindCategory(std::string CategoryName) {
 std::string ScriptUtil::FindData(std::string CategoryName, std::string DataName) {
 	TiXmlElement* FoundCategory = FindCategory(CategoryName);
 	if (!FoundCategory) {
-		scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
 		return "";
 	}
 	else {

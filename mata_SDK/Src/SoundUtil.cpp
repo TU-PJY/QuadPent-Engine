@@ -21,7 +21,7 @@ void SoundUtil::Init() {
 void SoundUtil::Load(Sound& Sound, std::string FileName, FMOD_MODE Option) {
 	HRESULT Result = SoundSystem->createSound(FileName.c_str(), Option, 0, &Sound);
 	if (Result != FMOD_OK)
-		scene.SetErrorScreen(ERROR_TYPE_AUDIO_LOAD, FileName);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_AUDIO_LOAD, FileName);
 }
 
 void SoundUtil::Release(Sound& Sound) {

@@ -2,26 +2,26 @@
 #include "ErrorMessage.h"
 #include "SoundUtil.h"
 
-Scene scene;
+SDK_Scene SDK::Scene;
 
-void Scene::InputFrameTime(float ElapsedTime) {
+void SDK_Scene::InputFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
 }
 
-std::string Scene::Mode() {
+std::string SDK_Scene::Mode() {
 	return CurrentRunningMode;
 }
 
-void Scene::Stop() {
+void SDK_Scene::Stop() {
 	UpdateActivateCommand = false;
 }
 
-void Scene::Resume() {
+void SDK_Scene::Resume() {
 	if (!ErrorOccured)
 		UpdateActivateCommand = true;
 }
 
-void Scene::Update() {
+void SDK_Scene::Update() {
 	if (!ErrorScreenState && ErrorOccured) {
 		SDK::SoundTool.StopAllSounds();
 		SwitchToErrorScreen();
@@ -57,7 +57,7 @@ void Scene::Update() {
 	}
 }
 
-void Scene::Render() {
+void SDK_Scene::Render() {
 	if (LoopEscapeCommand) {
 		LoopEscapeCommand = false;
 		return;
@@ -71,13 +71,13 @@ void Scene::Render() {
 	}
 }
 
-void Scene::Init(MODE_PTR ModeFunction) {
+void SDK_Scene::Init(MODE_PTR ModeFunction) {
 	ModeFunction();
 	for (int Layer = 0; Layer < SceneLayer; ++Layer)
 		DeleteLocation[Layer].reserve(DELETE_LOCATION_BUFFER_SIZE);
 }
 
-void Scene::SwitchMode(MODE_PTR ModeFunction) {
+void SDK_Scene::SwitchMode(MODE_PTR ModeFunction) {
 	ClearAll();
 
 	if (DestructorBuffer)
@@ -93,25 +93,25 @@ void Scene::SwitchMode(MODE_PTR ModeFunction) {
 	LoopEscapeCommand = true;
 }
 
-void Scene::RegisterDestructor(MODE_PTR DestructorFunction) {
+void SDK_Scene::RegisterDestructor(MODE_PTR DestructorFunction) {
 	DestructorBuffer = DestructorFunction;
 }
 
-void Scene::RegisterModeName(std::string ModeName) {
+void SDK_Scene::RegisterModeName(std::string ModeName) {
 	CurrentRunningMode = ModeName;
 }
 
-void Scene::RegisterController(CONTROLLER_PTR Controller, int Type) {
+void SDK_Scene::RegisterController(CONTROLLER_PTR Controller, int Type) {
 	Controller();
 	if (Type == MODE_TYPE_DEFAULT)
 		ControllerBuffer = Controller;
 }
 
-void Scene::ReleaseDestructor() {
+void SDK_Scene::ReleaseDestructor() {
 	DestructorBuffer = nullptr;
 }
 
-void Scene::StartFloatingMode(MODE_PTR ModeFunction, bool FloatingFocusFlag) {
+void SDK_Scene::StartFloatingMode(MODE_PTR ModeFunction, bool FloatingFocusFlag) {
 	if (FloatingActivateCommand)
 		return;
 
@@ -122,7 +122,7 @@ void Scene::StartFloatingMode(MODE_PTR ModeFunction, bool FloatingFocusFlag) {
 	FloatingActivateCommand = true;
 }
 
-void Scene::EndFloatingMode() {
+void SDK_Scene::EndFloatingMode() {
 	if (!FloatingActivateCommand)  
 		return;
 
@@ -136,7 +136,7 @@ void Scene::EndFloatingMode() {
 	FloatingFocusCommand = false;
 }
 
-void Scene::AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
+void SDK_Scene::AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
 	if (AddLayer > SceneLayer)
 		return;
 
@@ -169,12 +169,12 @@ void Scene::AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Ty
 	}
 }
 
-void Scene::DeleteObject(SDK::Object* Object) {
+void SDK_Scene::DeleteObject(SDK::Object* Object) {
 	Object->DeleteCommand = true;
 	Object->ObjectTag = "";
 }
 
-void Scene::DeleteObject(std::string Tag, int DeleteRange) {
+void SDK_Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
 		for (int Layer = 0; Layer < SceneLayer; ++Layer) {
 			for (auto const& Object : ObjectList[Layer]) {
@@ -199,16 +199,16 @@ void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	}
 }
 
-void Scene::RegisterInputObjectList(std::vector<SDK::Object*>& Vec) {
+void SDK_Scene::RegisterInputObjectList(std::vector<SDK::Object*>& Vec) {
 	InputObjectListPtr = &Vec;
 }
 
-void Scene::AddInputObject(SDK::Object* Object) {
+void SDK_Scene::AddInputObject(SDK::Object* Object) {
 	if (InputObjectListPtr)
 		InputObjectListPtr->emplace_back(Object);
 }
 
-void Scene::DeleteInputObject(SDK::Object* Object) {
+void SDK_Scene::DeleteInputObject(SDK::Object* Object) {
 	if (InputObjectListPtr) {
 		auto Found = std::find(begin(*InputObjectListPtr), end(*InputObjectListPtr), Object);
 		if (Found != end(*InputObjectListPtr))
@@ -216,12 +216,12 @@ void Scene::DeleteInputObject(SDK::Object* Object) {
 	}
 }
 
-void Scene::SwapLayer(SDK::Object* Object, int TargetLayer) {
+void SDK_Scene::SwapLayer(SDK::Object* Object, int TargetLayer) {
 	Object->SwapCommand = true;
 	Object->ObjectLayer = TargetLayer;
 }
 
-SDK::Object* Scene::Find(std::string Tag) {
+SDK::Object* SDK_Scene::Find(std::string Tag) {
 	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
 		for (auto const& Object : ObjectList[Layer]) {
 			if (Object->ObjectTag == Tag)
@@ -232,7 +232,7 @@ SDK::Object* Scene::Find(std::string Tag) {
 	return nullptr;
 }
 
-SDK::Object* Scene::ReverseFind(std::string Tag) {
+SDK::Object* SDK_Scene::ReverseFind(std::string Tag) {
 	for (int Layer = SceneLayer - 1; Layer > 0; --Layer) {
 		for (auto Object = ObjectList[Layer].rbegin(); Object != ObjectList[Layer].rend(); ++Object) {
 			if ((*Object)->ObjectTag == Tag)
@@ -243,7 +243,7 @@ SDK::Object* Scene::ReverseFind(std::string Tag) {
 	return nullptr;
 }
 
-SDK::Object* Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
+SDK::Object* SDK_Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
 	auto Object = ObjectList[SearchLayer][Index];
 	if(Object->ObjectTag == Tag)
 		return ObjectList[SearchLayer][Index];
@@ -251,21 +251,21 @@ SDK::Object* Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
 	return nullptr;
 }
 
-size_t Scene::LayerSize(int TargetLayer) {
+size_t SDK_Scene::LayerSize(int TargetLayer) {
 	return ObjectList[TargetLayer].size();
 }
 
-void Scene::DeleteTag(SDK::Object* Object) {
+void SDK_Scene::DeleteTag(SDK::Object* Object) {
 	Object->ObjectTag = "";
 }
 
-void Scene::DeleteTag(std::string Tag) {
+void SDK_Scene::DeleteTag(std::string Tag) {
 	auto Object = Find(Tag);
 	if (Object)
 		Object->ObjectTag = "";
 }
 
-void Scene::CompleteCommand() {
+void SDK_Scene::CompleteCommand() {
 	if(!CommandExist)
 		return;
 
@@ -273,7 +273,7 @@ void Scene::CompleteCommand() {
 	CommandExist = false;
 }
 
-void Scene::SetErrorScreen(int ErrorType, std::string Value1, std::string Value2) {
+void SDK_Scene::SetErrorScreen(int ErrorType, std::string Value1, std::string Value2) {
 	Value1Buffer = Value1;
 	Value2Buffer = Value2;
 	ErrorTypeBuffer = ErrorType;
@@ -281,12 +281,12 @@ void Scene::SetErrorScreen(int ErrorType, std::string Value1, std::string Value2
 }
 
 //////// private ///////////////
-void Scene::AddLocation(int Layer, int Position) {
+void SDK_Scene::AddLocation(int Layer, int Position) {
 	DeleteLocation[Layer].emplace_back(Position);
 	CommandExist = true;
 }
 
-void Scene::UpdateObjectList() {
+void SDK_Scene::UpdateObjectList() {
 	int Offset{};
 
 	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
@@ -318,7 +318,7 @@ void Scene::UpdateObjectList() {
 	}
 }
 
-void Scene::ClearFloatingObject() {
+void SDK_Scene::ClearFloatingObject() {
 	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
 		size_t Size = LayerSize(Layer);
 		for (int i = 0; i < Size; ++i) {
@@ -331,7 +331,7 @@ void Scene::ClearFloatingObject() {
 	}
 }
 
-void Scene::ClearAll() {
+void SDK_Scene::ClearAll() {
 	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
 		size_t Size = LayerSize(Layer);
 		for (int i = 0; i < Size; ++i) {
@@ -344,7 +344,7 @@ void Scene::ClearAll() {
 	}
 }
 
-void Scene::SwitchToErrorScreen() {
+void SDK_Scene::SwitchToErrorScreen() {
 	ClearAll();
 
 	if (Value2Buffer.empty())

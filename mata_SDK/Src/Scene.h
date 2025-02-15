@@ -9,7 +9,7 @@ typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
 constexpr int SceneLayer = EOL;
 
-class Scene {
+class SDK_Scene {
 private:
 	std::array<std::deque<SDK::Object*>, SceneLayer> ObjectList{};
 	std::array<std::vector<int>, SceneLayer>        DeleteLocation{};
@@ -142,4 +142,7 @@ private:
 	void ClearAll();
 	void SwitchToErrorScreen();
 };
-extern Scene scene;
+
+namespace SDK {
+	extern SDK_Scene Scene;
+}

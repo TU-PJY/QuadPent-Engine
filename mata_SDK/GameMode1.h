@@ -46,14 +46,14 @@ public:
 		M_Inst->InputObject.clear();
 
 		for (auto const& Tag : M_Inst->InputObjectTag) {
-			if (auto Object = scene.Find(Tag); Object)
+			if (auto Object = SDK::Scene.Find(Tag); Object)
 				M_Inst->InputObject.emplace_back(Object);
 		}
 
-		scene.RegisterModeName(M_Inst->ModeName);
-		scene.RegisterDestructor(Destructor);
-		scene.RegisterInputObjectList(M_Inst->InputObject);
-		scene.RegisterController(Controller, M_Inst->ModeType);
+		SDK::Scene.RegisterModeName(M_Inst->ModeName);
+		SDK::Scene.RegisterDestructor(Destructor);
+		SDK::Scene.RegisterInputObjectList(M_Inst->InputObject);
+		SDK::Scene.RegisterController(Controller, M_Inst->ModeType);
 	}
 
 	static void ProcessKeyEvent(KeyEvent& Event) {

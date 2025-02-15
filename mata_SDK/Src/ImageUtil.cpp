@@ -62,7 +62,7 @@ void ImageUtil::LoadImage(Image& ImageStruct, std::string FilePath, int Type) {
 
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -95,7 +95,7 @@ void ImageUtil::LoadClip(Image& ImageStruct, std::string FilePath, int X, int Y,
 
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -134,7 +134,7 @@ void ImageUtil::LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string File
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -204,7 +204,7 @@ void ImageUtil::LoadSpriteSheetT(SpriteSheet& SpriteSheetStruct, std::string Fil
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -258,7 +258,7 @@ void ImageUtil::LoadImageT(Image& ImageStruct, std::string FilePath, int Type) {
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -276,7 +276,7 @@ void ImageUtil::LoadClipT(Image& ImageStruct, std::string FilePath, int X, int Y
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 

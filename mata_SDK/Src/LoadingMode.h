@@ -20,7 +20,7 @@ public:
 
 	static void Start() {
 		SDK::System.SetBackColorRGB(31, 31, 31);
-		scene.AddObject(new LoadingScreen, "loading_screen", LAYER1);
+		SDK::Scene.AddObject(new LoadingScreen, "loading_screen", LAYER1);
 		SetUp();
 	}
 
@@ -40,13 +40,13 @@ public:
 		M_Inst->InputObject.clear();
 
 		for (auto const& Tag : M_Inst->InputObjectTag) {
-			if (auto Object = scene.Find(Tag); Object)
+			if (auto Object = SDK::Scene.Find(Tag); Object)
 				M_Inst->InputObject.emplace_back(Object);
 		}
 
-		scene.RegisterModeName(M_Inst->ModeName);
-		scene.RegisterDestructor(Destructor);
-		scene.RegisterController(Controller, M_Inst->ModeType);
+		SDK::Scene.RegisterModeName(M_Inst->ModeName);
+		SDK::Scene.RegisterDestructor(Destructor);
+		SDK::Scene.RegisterController(Controller, M_Inst->ModeType);
 	}
 
 	static void ProcessKeyEvent(KeyEvent& Event) {

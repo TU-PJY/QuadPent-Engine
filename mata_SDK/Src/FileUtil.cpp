@@ -63,7 +63,7 @@ DigitDataVec SDK::Data::LoadCategoryDigitData(std::string CategoryName) {
 	TiXmlElement* Category = FindCategory(CategoryName);
 
 	if (!Category) {
-		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
+		Scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
 		return LoadedData;
 	}
 
@@ -81,7 +81,7 @@ StringDataVec SDK::Data::LoadCategoryStringData(std::string CategoryName) {
 	TiXmlElement* Category = FindCategory(CategoryName);
 
 	if (!Category) {
-		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
+		Scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
 		return LoadedData;
 	}
 
@@ -200,35 +200,35 @@ void SDK::Data::AddStringData(std::string CategoryName, std::string DataName, st
 
 void SDK::Data::WriteDigitData(TiXmlElement* CategoryVar, std::string DataName, float Value) {
 	if (!CategoryVar) {
-		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
+		Scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
 		return;
 	}
 
 	if (CategoryVar->Attribute(DataName.c_str()))
 		CategoryVar->SetDoubleAttribute(DataName.c_str(), Value);
 	else {
-		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_DATA_WRITE, CategorySearch, DataSearch);
+		Scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_DATA_WRITE, CategorySearch, DataSearch);
 		return;
 	}
 }
 
 void SDK::Data::WriteStringData(TiXmlElement* CategoryVar, std::string DataName, std::string Value) {
 	if (!CategoryVar) {
-		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
+		Scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
 		return;
 	}
 
 	if (CategoryVar->Attribute(DataName.c_str()))
 		CategoryVar->SetAttribute(DataName.c_str(), Value.c_str());
 	else {
-		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_DATA_WRITE, CategorySearch, DataSearch);
+		Scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_DATA_WRITE, CategorySearch, DataSearch);
 		return;
 	}
 }
 
 float SDK::Data::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
 	if (!CategoryVar) {
-		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
+		Scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
 		return 0.0;
 	}
 
@@ -236,14 +236,14 @@ float SDK::Data::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
 	if (DataValue)
 		return std::stof(DataValue);
 	else {
-		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_DATA_LOAD, CategorySearch, DataSearch);
+		Scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_DATA_LOAD, CategorySearch, DataSearch);
 		return 0.0;
 	}
 }
 
 std::string SDK::Data::GetStringData(TiXmlElement* CategoryVar, std::string DataName) {
 	if (!CategoryVar) {
-		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
+		Scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
 		return "";
 	}
 
@@ -251,7 +251,7 @@ std::string SDK::Data::GetStringData(TiXmlElement* CategoryVar, std::string Data
 	if (DataValue)
 		return (std::string)DataValue;
 	else {
-		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_DATA_LOAD, CategorySearch, DataSearch);
+		Scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_DATA_LOAD, CategorySearch, DataSearch);
 		return "";
 	}
 }
@@ -292,7 +292,7 @@ bool SDK::Data::LoadDataFile(std::string FileName) {
 		Doc.Parse(DecryptedXML.c_str(), nullptr, TIXML_ENCODING_UTF8);
 
 		if (Doc.Error()) {
-			scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_PARSE, FileName);
+			Scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_PARSE, FileName);
 			return false;
 		}
 

@@ -70,7 +70,7 @@ public:
 				if (!ENABLE_INTRO_SCREEN) {
 					if (InitializationEnd) {
 						if (SHOW_FPS)  AddFPSIndicator();
-						scene.SwitchMode(SDK::START_MODE);
+						SDK::Scene.SwitchMode(SDK::START_MODE);
 					}
 				}
 
@@ -79,7 +79,7 @@ public:
 						SpinnerOpacity -= FrameTime * 2.0;
 						if (SDK::EXTool.CheckClampValue(SpinnerOpacity, 0.0, CLAMP_LESS)) {
 							if (SHOW_FPS)  AddFPSIndicator();
-							scene.SwitchMode(IntroMode.Start);
+							SDK::Scene.SwitchMode(IntroMode.Start);
 						}
 					}
 				}
@@ -96,8 +96,8 @@ public:
 	}
 
 	void AddFPSIndicator() {
-		scene.AddObject(new FPS_Indicator, "SDK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
-		Indicator = scene.Find("SDK_OBJECT_FPS_INDICATOR");
+		SDK::Scene.AddObject(new FPS_Indicator, "SDK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
+		Indicator = SDK::Scene.Find("SDK_OBJECT_FPS_INDICATOR");
 	}
 
 	bool LoadResources() {

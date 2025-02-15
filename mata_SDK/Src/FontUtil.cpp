@@ -11,7 +11,7 @@ bool FontUtil::Load(const std::string& FontFilePath) {
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);
 
     if (NumFonts == 0) {
-        scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
+        SDK::Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
         return false;
     }
     else
@@ -29,7 +29,7 @@ bool FontUtil::LoadT(const std::string& FontFilePath) {
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);
 
     if (NumFonts == 0) {
-        scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
+        SDK::Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
         return false;
     }
     else

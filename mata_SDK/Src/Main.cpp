@@ -14,11 +14,11 @@ GLvoid SDKSystem::Main() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	if (S_Inst->UpdateActivateCommand) {
-		scene.Update();
+		SDK::Scene.Update();
 		SDK::CameraControl.Update(S_Inst->DeltaTime);
 		SDK::Frustum.Update();
-		scene.Render();
-		scene.CompleteCommand();
+		SDK::Scene.Render();
+		SDK::Scene.CompleteCommand();
 		SDK::SoundTool.Update();
 	}
 
@@ -32,7 +32,7 @@ GLvoid SDKSystem::Main() {
 
 	S_Inst->CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
 	S_Inst->DeltaTime = (S_Inst->CurrentTime - S_Inst->PrevTime) / 1000.0;
-	scene.InputFrameTime(S_Inst->DeltaTime);
+	SDK::Scene.InputFrameTime(S_Inst->DeltaTime);
 
 	S_Inst->PrevTime = S_Inst->CurrentTime;
 

@@ -19,7 +19,7 @@ public:
 			switch (Event.NormalKey) {
 			case NK_ENTER:
 				SDK::SoundTool.Stop(IntroChannel);
-				scene.SwitchMode(SDK::START_MODE);
+				SDK::Scene.SwitchMode(SDK::START_MODE);
 				break;
 
 #ifdef ENABLE_DEV_EXIT
@@ -72,7 +72,7 @@ public:
 			}
 
 			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_RESUME))
-				scene.SwitchMode(SDK::START_MODE);
+				SDK::Scene.SwitchMode(SDK::START_MODE);
 			
 			break;
 		}
