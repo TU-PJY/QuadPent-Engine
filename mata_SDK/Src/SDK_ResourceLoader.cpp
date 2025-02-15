@@ -22,4 +22,4 @@ DWORD WINAPI FileResourceLoader(LPVOID lpParam) {
 DWORD WINAPI FontResourceLoader(LPVOID lpParam) {
 	// Load font resources here
 	return 0;
-}
+} 

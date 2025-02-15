@@ -1,5 +1,5 @@
 #pragma once
-// mata_SDK Version 7
+// mata_SDK 7
 
 //////////////////////////////////// Window options
 // window name
