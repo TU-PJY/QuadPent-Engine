@@ -1,5 +1,5 @@
 #pragma once
-#include "CollisionUtil.h"
+#include "SDK_Collision.h"
 
 class SDK_Frustum {
 private:

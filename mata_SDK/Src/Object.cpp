@@ -1,5 +1,5 @@
 #include "Object.h"
-#include "CameraUtil.h"
+#include "SDK_Camera.h"
 
 void SDK::Object::Begin(int RenderType) {
 	SDK::Transform.Identity(ResultMatrix);

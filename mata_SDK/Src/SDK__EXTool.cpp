@@ -1,4 +1,4 @@
-#include "ExUtil.h"
+#include "SDK_EXTool.h"
 
 SDK_EXTool SDK::EXTool;
 

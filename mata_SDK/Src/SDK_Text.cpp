@@ -1,8 +1,8 @@
-#include "TextUtil.h"
-#include "CameraUtil.h"
-#include "TransformUtil.h"
-#include "ComputeUtil.h"
-#include "StringUtil.h"
+#include "SDK_Text.h"
+#include "SDK_Camera.h"
+#include "SDK_Transform.h"
+#include "SDK_ComputeTool.h"
+#include "SDK_StringTool.h"
 
 void SDK::Text::Init(const wchar_t* FontName, int Type, int Italic) {
 	hDC = wglGetCurrentDC();

@@ -15,7 +15,7 @@ using namespace CryptoPP;
 
 // read only
 
-class ScriptUtil {
+class SDK_Script {
 private:
 	TiXmlDocument Doc{};
 	TiXmlElement* Root{};
@@ -25,7 +25,7 @@ private:
 	std::string   DataSearch{};
 
 public:
-	ScriptUtil() {}
+	SDK_Script() {}
 
 	void Load(std::string FileName);
 	void LoadSecure(std::string FileName);

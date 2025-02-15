@@ -4,7 +4,7 @@
 
 #undef LoadImage
 
-class ImageUtil {
+class SDK_ImageTool {
 private:
 	GLuint                   VAO{};
 	std::vector<PreLoadInfo> LoadBuffer{};
@@ -45,5 +45,5 @@ private:
 };
 
 namespace SDK {
-	extern ImageUtil ImageTool;
+	extern SDK_ImageTool ImageTool;
 }

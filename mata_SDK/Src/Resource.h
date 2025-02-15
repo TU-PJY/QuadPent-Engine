@@ -1,11 +1,11 @@
 #pragma once
 #include "SDKHeader.h"
-#include "ImageUtil.h"
-#include "SoundUtil.h"
-#include "ScriptUtil.h"
-#include "FileUtil.h"
-#include "FontUtil.h"
-#include "TextUtil.h"
+#include "SDK_ImageTool.h"
+#include "SDK_SoundTool.h"
+#include "SDK_Script.h"
+#include "SDK_Data.h"
+#include "SDK_FontLoader.h"
+#include "SDK_Text.h"
 
 // Declare the sprite resource here. 
 class SDK_IMAGE {

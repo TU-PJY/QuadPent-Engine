@@ -1,8 +1,8 @@
-#include "ScriptUtil.h"
+#include "SDK_Script.h"
 #include "Scene.h"
-#include "StringUtil.h"
+#include "SDK_StringTool.h"
 
-void ScriptUtil::Load(std::string FileName) {
+void SDK_Script::Load(std::string FileName) {
 	if (FileExist)
 		return;
 
@@ -16,7 +16,7 @@ void ScriptUtil::Load(std::string FileName) {
 	FileExist = true;
 }
 
-void ScriptUtil::LoadSecure(std::string FileName) {
+void SDK_Script::LoadSecure(std::string FileName) {
 	std::ifstream EncryptedFile(FileName, std::ios::binary);
 	if (!EncryptedFile) {
 		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
@@ -38,12 +38,12 @@ void ScriptUtil::LoadSecure(std::string FileName) {
 	FileExist = true;
 }
 
-void ScriptUtil::Release() {
+void SDK_Script::Release() {
 	Doc.Clear();
 	FileExist = false;
 }
 
-int ScriptUtil::CountCategory() {
+int SDK_Script::CountCategory() {
 	int CatCount{};
 	for (TiXmlElement* Element = Root->FirstChildElement(); Element != nullptr; Element = Element->NextSiblingElement())
 		CatCount++;
@@ -51,23 +51,23 @@ int ScriptUtil::CountCategory() {
 	return CatCount;
 }
 
-float ScriptUtil::LoadDigitData(std::string CategoryName, std::string DataName) {
+float SDK_Script::LoadDigitData(std::string CategoryName, std::string DataName) {
 	CategorySearch = CategoryName;
 	DataSearch = DataName;
 	return GetDigitData(FindCategory(CategoryName), DataName);
 }
 
-std::string ScriptUtil::LoadStringData(std::string CategoryName, std::string DataName) {
+std::string SDK_Script::LoadStringData(std::string CategoryName, std::string DataName) {
 	CategorySearch = CategoryName;
 	DataSearch = DataName;
 	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
-std::wstring ScriptUtil::LoadWstringData(std::string CategoryName, std::string DataName) {
+std::wstring SDK_Script::LoadWstringData(std::string CategoryName, std::string DataName) {
 	return SDK::StringTool.Wstring(LoadStringData(CategoryName, DataName));
 }
 
-DigitDataVec ScriptUtil::LoadCategoryDigitData(std::string CategoryName) {
+DigitDataVec SDK_Script::LoadCategoryDigitData(std::string CategoryName) {
 	DigitDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 
@@ -85,7 +85,7 @@ DigitDataVec ScriptUtil::LoadCategoryDigitData(std::string CategoryName) {
 	return LoadedData;
 }
 
-StringDataVec ScriptUtil::LoadCategoryStringData(std::string CategoryName) {
+StringDataVec SDK_Script::LoadCategoryStringData(std::string CategoryName) {
 	StringDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 
@@ -104,7 +104,7 @@ StringDataVec ScriptUtil::LoadCategoryStringData(std::string CategoryName) {
 }
 
 //////////////////////////////// private
-float ScriptUtil::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
+float SDK_Script::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
 	const char* DataValue = CategoryVar->Attribute(DataName.c_str());
 	if (DataValue)
 		return std::stof(DataValue);
@@ -114,7 +114,7 @@ float ScriptUtil::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) 
 	}
 }
 
-std::string ScriptUtil::GetStringData(TiXmlElement* CategoryVar, std::string DataName) {
+std::string SDK_Script::GetStringData(TiXmlElement* CategoryVar, std::string DataName) {
 	const char* DataValue = CategoryVar->Attribute(DataName.c_str());
 	if (DataValue)
 		return (std::string)DataValue;
@@ -124,11 +124,11 @@ std::string ScriptUtil::GetStringData(TiXmlElement* CategoryVar, std::string Dat
 	}
 }
 
-TiXmlElement* ScriptUtil::FindCategory(std::string CategoryName) {
+TiXmlElement* SDK_Script::FindCategory(std::string CategoryName) {
 	return Root->FirstChildElement(CategoryName.c_str());
 }
 
-std::string ScriptUtil::FindData(std::string CategoryName, std::string DataName) {
+std::string SDK_Script::FindData(std::string CategoryName, std::string DataName) {
 	TiXmlElement* FoundCategory = FindCategory(CategoryName);
 	if (!FoundCategory) {
 		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
@@ -140,7 +140,7 @@ std::string ScriptUtil::FindData(std::string CategoryName, std::string DataName)
 	}
 }
 
-std::string ScriptUtil::Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]) {
+std::string SDK_Script::Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]) {
 	std::string PlainText;
 
 	try {

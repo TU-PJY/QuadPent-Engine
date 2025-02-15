@@ -1,7 +1,7 @@
-#include "CameraUtil.h"
-#include "TransformUtil.h"
+#include "SDK_Camera.h"
+#include "SDK_Transform.h"
 
-void SDK_Caemra::CalculateASPECT() {
+void SDK_Camera::CalculateASPECT() {
 	SDK::ASPECT = (float)SDK::WIDTH / (float)SDK::HEIGHT;
 	SDK::RECT.lx = -1.0 * SDK::ASPECT;
 	SDK::RECT.ly = -1.0;
@@ -12,7 +12,7 @@ void SDK_Caemra::CalculateASPECT() {
 	SDK::PREV_HEIGHT = SDK::HEIGHT;
 }
 
-void SDK_Caemra::Init() {
+void SDK_Camera::Init() {
 	CalculateASPECT();
 
 	SDK::Transform.Identity(ViewMatrix);
@@ -22,7 +22,7 @@ void SDK_Caemra::Init() {
 	SetCamera(RENDER_TYPE_DEFAULT);
 }
 
-void SDK_Caemra::SetCamera(int RenderType) {
+void SDK_Camera::SetCamera(int RenderType) {
 	using namespace glm;
 
 	if(SDK::PREV_WIDTH != SDK::WIDTH || SDK::PREV_HEIGHT != SDK::HEIGHT)
@@ -35,7 +35,7 @@ void SDK_Caemra::SetCamera(int RenderType) {
 	StaticRenderCommand = RenderType;
 }
 
-void SDK_Caemra::PrepareRender(int ShaderType) {
+void SDK_Camera::PrepareRender(int ShaderType) {
 	SDK::Transform.Identity(ViewMatrix);
 	SDK::Transform.Identity(Projection);
 

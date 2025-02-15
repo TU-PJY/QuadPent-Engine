@@ -1,9 +1,9 @@
-#include "CollisionUtil.h"
-#include "TransformUtil.h"
-#include "ImageUtil.h"
-#include "CameraUtil.h"
+#include "SDK_Collision.h"
+#include "SDK_Transform.h"
+#include "SDK_ImageTool.h"
+#include "SDK_Camera.h"
 #include "SystemResource.h"
-#include "MathUtil.h"
+#include "SDK_Math.h"
 
 
 void SDK::AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {

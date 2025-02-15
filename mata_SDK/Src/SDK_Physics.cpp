@@ -1,6 +1,6 @@
-#include "PhysicsUtil.h"
-#include "MathUtil.h"
-#include "EXUtil.h"
+#include "SDK_Physics.h"
+#include "SDK_Math.h"
+#include "SDK_EXTool.h"
 
 void SDK::Physics::SetGravity(GLfloat Value) {
 	if (Value < 0.0) return;

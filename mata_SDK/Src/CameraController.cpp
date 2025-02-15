@@ -1,7 +1,7 @@
 #include "CameraController.h"
-#include "CameraUtil.h"
-#include "TransformUtil.h"
-#include "AnimationUtil.h"
+#include "SDK_Camera.h"
+#include "SDK_Transform.h"
+#include "SDK_AnimationTool.h"
 
 SDK_CameraController SDK::CameraControl;
 glm::vec2 SDK::CameraPosition;

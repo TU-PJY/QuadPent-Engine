@@ -1,4 +1,4 @@
-#include "StringUtil.h"
+#include "SDK_StringTool.h"
 
 SDK_StringTool SDK::StringTool;
 

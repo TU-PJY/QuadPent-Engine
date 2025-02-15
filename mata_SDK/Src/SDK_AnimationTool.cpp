@@ -1,6 +1,6 @@
-#include "AnimationUtil.h"
-#include "MathUtil.h"
-#include "ExUtil.h"
+#include "SDK_AnimationTool.h"
+#include "SDK_Math.h"
+#include "SDK_EXTool.h"
 
 void SDK::SinLoop::Update(GLfloat& Value, GLfloat MoveScale, GLfloat Speed, float FrameTime) {
 	Num += Speed * FrameTime;

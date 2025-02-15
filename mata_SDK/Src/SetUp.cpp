@@ -1,8 +1,8 @@
 #include "SDKHeader.h"
 #include "Scene.h"
-#include "CameraUtil.h"
+#include "SDK_Camera.h"
 #include "CameraController.h"
-#include "ShaderUtil.h"
+#include "SDK_Shader.h"
 #include "Config.h"
 #include "Resource.h"
 #include "ModeResource.h"
@@ -18,7 +18,7 @@ const glm::mat4 IdentityMatrix = glm::mat4(1.0f);
 
 SDK::Object* Indicator;
 
-SDK_Caemra SDK::Camera;
+SDK_Camera SDK::Camera;
 
 GLfloat SDK::ASPECT;
 ViewportRect SDK:: RECT;

@@ -1,11 +1,11 @@
 #include "LineBrush.h"
-#include "TransformUtil.h"
-#include "MathUtil.h"
-#include "ImageUtil.h"
-#include "ShaderUtil.h"
-#include "CameraUtil.h"
+#include "SDK_Transform.h"
+#include "SDK_Math.h"
+#include "SDK_ImageTool.h"
+#include "SDK_Shader.h"
+#include "SDK_Camera.h"
 #include "SystemResource.h"
-#include "ComputeUtil.h"
+#include "SDK_ComputeTool.h"
 
 SDK::LineBrush::LineBrush(bool StaticWidthFlag) {
 	StaticWidthCommand = StaticWidthFlag;

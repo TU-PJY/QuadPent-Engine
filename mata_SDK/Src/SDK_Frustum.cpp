@@ -1,6 +1,6 @@
-#include "FrustumUtil.h"
+#include "SDK_Frustum.h"
 #include "Config.h"
-#include "CameraUtil.h"
+#include "SDK_Camera.h"
 #include "CameraController.h"
 
 SDK_Frustum SDK::Frustum;

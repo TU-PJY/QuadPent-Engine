@@ -1,9 +1,9 @@
 #include "RectBrush.h"
-#include "ImageUtil.h"
-#include "CameraUtil.h"
-#include "TransformUtil.h"
+#include "SDK_ImageTool.h"
+#include "SDK_Camera.h"
+#include "SDK_Transform.h"
 #include "SystemResource.h"
-#include "ComputeUtil.h"
+#include "SDK_ComputeTool.h"
 #include <cmath>
 
 SDK::LineRectBrush::LineRectBrush(bool CameraInheritanceFlag, bool StaticWidthFlag) {

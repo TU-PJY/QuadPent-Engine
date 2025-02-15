@@ -1,5 +1,5 @@
-#include "FontUtil.h"
-#include "StringUtil.h"
+#include "SDK_FontLoader.h"
+#include "SDK_StringTool.h"
 #include "Scene.h"
 
 SDK_FontLoader SDK::FontLoader;

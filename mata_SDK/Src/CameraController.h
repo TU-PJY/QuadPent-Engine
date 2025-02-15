@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "CameraUtil.h"
+#include "SDK_Camera.h"
 
 class SDK_CameraController {
 public:

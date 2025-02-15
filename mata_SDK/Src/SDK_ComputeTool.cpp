@@ -1,4 +1,4 @@
-#include "ComputeUtil.h"
+#include "SDK_ComputeTool.h"
 
 SDK_ComputeTool SDK::ComputeTool;
 

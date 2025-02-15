@@ -1,4 +1,4 @@
-#include "RandomUtil.h"
+#include "SDK_Random.h"
 
 SDK_Random SDK::Random;
 

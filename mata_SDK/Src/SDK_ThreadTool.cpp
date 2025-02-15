@@ -1,4 +1,4 @@
-#include "ThreadUtil.h"
+#include "SDK_ThreadTool.h"
 
 SDK_ThreadTool SDK::ThreadTool;
 

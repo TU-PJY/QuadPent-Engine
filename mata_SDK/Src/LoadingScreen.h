@@ -1,10 +1,10 @@
 #pragma once
 #include "Scene.h"
-#include "ImageUtil.h"
-#include "SoundUtil.h"
+#include "SDK_ImageTool.h"
+#include "SDK_SoundTool.h"
 #include "IntroMode.h"
-#include "CameraUtil.h"
-#include "FontUtil.h"
+#include "SDK_Camera.h"
+#include "SDK_FontLoader.h"
 #include "FPSInd.h"
 
 class LoadingScreen : public SDK::Object {

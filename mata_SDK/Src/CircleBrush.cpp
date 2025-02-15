@@ -1,6 +1,6 @@
 #include "CircleBrush.h"
-#include "CameraUtil.h"
-#include "TransformUtil.h"
+#include "SDK_Camera.h"
+#include "SDK_Transform.h"
 #include "SystemResource.h"
 
 SDK::CircleBrush::CircleBrush(bool CamInheritanceFlag) {

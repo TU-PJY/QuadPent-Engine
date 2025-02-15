@@ -1,7 +1,7 @@
-#include "FileUtil.h"
+#include "SDK_Data.h"
 #include "Scene.h"
 #include "Config.h"
-#include "StringUtil.h"
+#include "SDK_StringTool.h"
 
 void SDK::Data::Load(std::string FileDirectory, DataFormat Fmt) {
 	if (FileExist)

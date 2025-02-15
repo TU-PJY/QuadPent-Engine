@@ -1,4 +1,4 @@
-#include "ClippingUtil.h"
+#include "SDK_ClippingTool.h"
 
 SDK_ColorClipping SDK::ColorClip;
 SDK_AlphaClipping SDK::AlphaClip;
