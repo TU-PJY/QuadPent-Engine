@@ -5,7 +5,7 @@
 #include "ShaderUtil.h"
 #include "Config.h"
 #include "Resource.h"
-#include "ModePtr.h"
+#include "ModeResource.h"
 #include <windows.h>
 
 #include "LoadingMode.h"
@@ -30,7 +30,7 @@ SDK_SOUND SDK::SOUND;
 SDK_GLOBAL SDK::GLOBAL;
 SDK_FORMAT SDK::FORMAT;
 SDK_FILE SDK::FILE;
-SDK_MODE SDK::MODE;
+SDK_MODE_RESOURCE SDK::MODE;
 
 std::wstring SDK::LOCALE;
 START_MODE_PTR SDK::START_MODE;

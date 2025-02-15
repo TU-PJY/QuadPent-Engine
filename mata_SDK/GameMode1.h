@@ -38,8 +38,8 @@ public:
 		M_Inst = this;
 	}
 
-	static void Map(MODE_PTR& ModePtr) {
-		ModePtr = Start;
+	static void Map(MODE_PTR& Mode) {
+		Mode = Start;
 	}
 
 	static void SetUp() {

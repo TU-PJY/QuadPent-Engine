@@ -25,4 +25,4 @@
 #include "FrustumUtil.h"
 #include "Resource.h"
 #include "SystemResource.h"
-#include "ModePtr.h"
+#include "ModeResource.h"
