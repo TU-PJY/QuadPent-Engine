@@ -1,5 +1,5 @@
-#include "SDKHeader.h"
-#include "Scene.h"
+#include "SDK_Header.h"
+#include "SDK_Scene.h"
 #include "SDK_Camera.h"
 #include "CameraController.h"
 #include "SDK_Shader.h"

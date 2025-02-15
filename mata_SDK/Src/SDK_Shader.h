@@ -1,6 +1,6 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
-#include "SDKHeader.h"
+#include "SDK_Header.h"
 
 class SDK_Shader {
 private:

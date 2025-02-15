@@ -7,7 +7,7 @@
 #include "Library/cryptopp/osrng.h"
 #include "Library/cryptopp/hex.h"
 #include "Config.h"
-#include "SDKHeader.h"
+#include "SDK_Header.h"
 #include <iostream>
 #include <string>
 #include <fstream>

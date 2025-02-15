@@ -1,4 +1,4 @@
-#include "Scene.h"
+#include "SDK_Scene.h"
 #include "SDK_SoundTool.h"
 #include "Config.h"
 #include "SDK_EXTool.h"

@@ -1,5 +1,5 @@
 #pragma once
-#include "Object.h"
+#include "SDK_Object.h"
 #include <algorithm>
 #include <array>
 #include <deque>

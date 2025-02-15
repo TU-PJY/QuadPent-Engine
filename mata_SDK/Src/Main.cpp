@@ -1,7 +1,7 @@
-#include "SDKHeader.h"
+#include "SDK_Header.h"
 #include "CameraController.h"
 #include "FPSInd.h"
-#include "Scene.h"
+#include "SDK_Scene.h"
 #include "SDK_Frustum.h"
 #include <thread>
 #include <chrono>

@@ -1,5 +1,5 @@
 #pragma once
-#include "Object.h"
+#include "SDK_Object.h"
 
 class FPS_Indicator : public SDK::Object {
 private:

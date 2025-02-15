@@ -1,5 +1,5 @@
 #include "SDK_Script.h"
-#include "Scene.h"
+#include "SDK_Scene.h"
 #include "SDK_StringTool.h"
 
 void SDK_Script::Load(std::string FileName) {

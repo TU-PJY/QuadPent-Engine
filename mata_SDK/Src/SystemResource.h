@@ -1,5 +1,5 @@
 #pragma once
-#include "SDKHeader.h"
+#include "SDK_Header.h"
 
 class ___SYSTEM_RES {
 public:

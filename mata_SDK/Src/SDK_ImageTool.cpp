@@ -3,9 +3,9 @@
 #include "stb_image.h"
 #include "SystemResource.h"
 #include "SDK_EXTool.h"
-#include "Scene.h"
+#include "SDK_Scene.h"
 
-#include "ObjectValue.h"
+#include "SDK_ObjectValue.h"
 #include "SDK_Transform.h"
 #include "SDK_ComputeTool.h"
 

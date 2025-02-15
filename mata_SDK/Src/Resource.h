@@ -1,5 +1,5 @@
 #pragma once
-#include "SDKHeader.h"
+#include "SDK_Header.h"
 #include "SDK_ImageTool.h"
 #include "SDK_SoundTool.h"
 #include "SDK_Script.h"

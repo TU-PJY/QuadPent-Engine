@@ -1,4 +1,4 @@
-#include "SDKHeader.h"
+#include "SDK_Header.h"
 
 GLvoid SDKSystem::DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);

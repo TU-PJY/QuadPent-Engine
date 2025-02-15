@@ -1,6 +1,6 @@
 #pragma once
-#include "SDKHeader.h"
-#include "ObjectValue.h"
+#include "SDK_Header.h"
+#include "SDK_ObjectValue.h"
 
 class SDK_Transform {
 public:

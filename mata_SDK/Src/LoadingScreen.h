@@ -1,5 +1,5 @@
 #pragma once
-#include "Scene.h"
+#include "SDK_Scene.h"
 #include "SDK_ImageTool.h"
 #include "SDK_SoundTool.h"
 #include "IntroMode.h"

@@ -1,5 +1,5 @@
 #pragma once
-#include "SDKHeader.h"
+#include "SDK_Header.h"
 #include <vector>
 
 #undef LoadImage

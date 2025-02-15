@@ -1,5 +1,5 @@
 #pragma once
-#include "Object.h"
+#include "SDK_Object.h"
 
 class ErrorMessage : public SDK::Object {
 private:
