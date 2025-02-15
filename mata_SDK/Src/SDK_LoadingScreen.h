@@ -2,12 +2,12 @@
 #include "SDK_Scene.h"
 #include "SDK_ImageTool.h"
 #include "SDK_SoundTool.h"
-#include "IntroMode.h"
 #include "SDK_Camera.h"
 #include "SDK_FontLoader.h"
-#include "FPSInd.h"
+#include "SDK_IntroMode.h"
+#include "SDK_FPSIndicator.h"
 
-class LoadingScreen : public SDK::Object {
+class SDK_LoadingScreen : public SDK::Object {
 private:
 	HANDLE  SystemResourceLoadHandle{};
 	bool    LoadStart{};
@@ -29,15 +29,6 @@ private:
 
 
 public:
-	void InputKey(KeyEvent& Event) {
-#ifdef ENABLE_DEV_EXIT
-		if (Event.Type == NORMAL_KEY_DOWN) {
-			if (Event.NormalKey == NK_ESCAPE)
-				System.Exit();
-		}
-#endif
-	}
-
 	void UpdateFunc(float FrameTime) {
 		if (!LoadStart) {
 			SDK::Camera.Init();
@@ -96,7 +87,7 @@ public:
 	}
 
 	void AddFPSIndicator() {
-		SDK::Scene.AddObject(new FPS_Indicator, "SDK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
+		SDK::Scene.AddObject(new SDK_FPS_Indicator, "SDK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
 		Indicator = SDK::Scene.Find("SDK_OBJECT_FPS_INDICATOR");
 	}
 

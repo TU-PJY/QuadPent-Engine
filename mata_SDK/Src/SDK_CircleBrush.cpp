@@ -1,7 +1,9 @@
-#include "CircleBrush.h"
+#include "SDK_CircleBrush.h"
 #include "SDK_Camera.h"
 #include "SDK_Transform.h"
-#include "SystemResource.h"
+#include "SDK_SystemResource.h"
+
+glm::mat4 CircleMatrix;
 
 SDK::CircleBrush::CircleBrush(bool CamInheritanceFlag) {
 	CamInheritanceCommand = CamInheritanceFlag;
@@ -30,10 +32,10 @@ void SDK::CircleBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void SDK::CircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat OpacityValue) {
-	Transform.Identity(ShapeMatrix);
+	Transform.Identity(CircleMatrix);
 	Opacity = 1.0f;
 
-	Transform.Move(ShapeMatrix, X, Y);
+	Transform.Move(CircleMatrix, X, Y);
 	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 
@@ -49,7 +51,7 @@ void SDK::CircleBrush::Render() {
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ShapeMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(CircleMatrix));
 
 	gluDisk(SDK::SYSRES.GLU_CIRCLE, 0.0, Radius, 80, 1);
 }
@@ -84,10 +86,10 @@ void SDK::LineCircleBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void SDK::LineCircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Width, GLfloat OpacityValue) {
-	Transform.Identity(ShapeMatrix);
+	Transform.Identity(CircleMatrix);
 	Opacity = 1.0f;
 
-	Transform.Move(ShapeMatrix, X, Y);
+	Transform.Move(CircleMatrix, X, Y);
 	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 
@@ -108,7 +110,7 @@ void SDK::LineCircleBrush::Render() {
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ShapeMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(CircleMatrix));
 
 	gluDisk(SDK::SYSRES.GLU_LINE_CIRCLE, Radius - WidthValue * 0.5, Radius + WidthValue * 0.5, 80, 1);
 }

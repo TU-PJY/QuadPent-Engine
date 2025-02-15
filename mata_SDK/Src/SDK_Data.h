@@ -1,7 +1,7 @@
 #pragma once
 
 #define _CRT_SECURE_NO_WARNINGS
-#include "Config.h"
+#include "SDK_Config.h"
 #include "Library/tinyxml/tinyxml.h"
 #include "Library/cryptopp/aes.h"
 #include "Library/cryptopp/filters.h"

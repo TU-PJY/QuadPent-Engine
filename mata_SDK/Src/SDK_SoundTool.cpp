@@ -1,6 +1,5 @@
 #include "SDK_Scene.h"
 #include "SDK_SoundTool.h"
-#include "Config.h"
 #include "SDK_EXTool.h"
 
 SDK_SoundTool SDK::SoundTool;

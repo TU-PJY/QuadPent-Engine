@@ -1,6 +1,5 @@
 #include "SDK_Data.h"
 #include "SDK_Scene.h"
-#include "Config.h"
 #include "SDK_StringTool.h"
 
 void SDK::Data::Load(std::string FileDirectory, DataFormat Fmt) {

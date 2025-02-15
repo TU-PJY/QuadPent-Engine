@@ -1,5 +1,5 @@
 #include "SDK_Scene.h"
-#include "ErrorMessage.h"
+#include "SDK_ErrorMessage.h"
 #include "SDK_SoundTool.h"
 
 SDK_Scene SDK::Scene;
@@ -348,7 +348,7 @@ void SDK_Scene::SwitchToErrorScreen() {
 	ClearAll();
 
 	if (Value2Buffer.empty())
-		AddObject(new ErrorMessage(ErrorTypeBuffer, Value1Buffer), "error_message", LAYER1);
+		AddObject(new SDK_ErrorMessage(ErrorTypeBuffer, Value1Buffer), "error_message", LAYER1);
 	else
-		AddObject(new ErrorMessage(ErrorTypeBuffer, Value1Buffer, Value2Buffer), "error_message", LAYER1);
+		AddObject(new SDK_ErrorMessage(ErrorTypeBuffer, Value1Buffer, Value2Buffer), "error_message", LAYER1);
 }

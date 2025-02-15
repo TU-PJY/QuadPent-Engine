@@ -1,13 +1,13 @@
 #pragma once
 #include "SDK_Object.h"
 
-class ErrorMessage : public SDK::Object {
+class SDK_ErrorMessage : public SDK::Object {
 private:
 	SDK::Text Text{};
 	std::string Result{};
 
 public:
-	ErrorMessage(int Type, std::string Value) {
+	SDK_ErrorMessage(int Type, std::string Value) {
 		SDK::System.SetBackColorRGB(31, 31, 31);
 
 		Text.Init(SDK::FONT, FW_DONTCARE);
@@ -69,7 +69,7 @@ public:
 		}
 	}
 
-	ErrorMessage(int Type, std::string Value1, std::string Value2) {
+	SDK_ErrorMessage(int Type, std::string Value1, std::string Value2) {
 		Result = "An error occurred in the mata_SDK system.\n\n";
 
 		switch (Type) {

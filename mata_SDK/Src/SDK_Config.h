@@ -1,9 +1,9 @@
 #pragma once
-// mata_SDK Version 6
+// mata_SDK Version 7
 
 //////////////////////////////////// Window options
 // window name
-constexpr const char* WINDOW_NAME = "mata_SDK 6";
+constexpr const char* WINDOW_NAME = "mata_SDK 7";
 
 // window size
 constexpr int WINDOW_WIDTH = 1200;
@@ -72,7 +72,7 @@ constexpr int FFT_SIZE = 1024;
 //////////////////////////////////// SDK_Math Options
 //When the relevant threshold is reached in SDK_Math::Lerp(), the calculation is stopped immediately to optimize the amount of calculation.
 //When set to 0.0, calculation amount optimization is not performed.
-constexpr double LERP_THRESHOLD = 0.0001;
+constexpr double LERP_THRESHOLD = 0.001;
 
 
 

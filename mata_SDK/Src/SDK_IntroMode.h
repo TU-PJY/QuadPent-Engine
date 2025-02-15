@@ -2,16 +2,16 @@
 #include "SDK_Scene.h"
 #include "SDK_Mouse.h"
 
-#include "LoadingScreen.h"
+#include "SDK_IntroScreen.h"
 
-class Loading_Mode {
+class SDK_IntroMode {
 public:
-	std::string ModeName{ "LoadingMode" };
+	std::string ModeName{ "IntroMode" };
 	int         ModeType{ MODE_TYPE_DEFAULT };
 
 	std::vector<std::string> InputObjectTag
 	{
-		"loading_screen"
+		"intro_screen"
 	};
 
 	std::vector<SDK::Object*> InputObject{};
@@ -19,8 +19,7 @@ public:
 	/////////////////////////////////////////////////////////////
 
 	static void Start() {
-		SDK::System.SetBackColorRGB(31, 31, 31);
-		SDK::Scene.AddObject(new LoadingScreen, "loading_screen", LAYER1);
+		SDK::Scene.AddObject(new SDK_IntroScreen, "intro_screen", LAYER1);
 		SetUp();
 	}
 
@@ -30,9 +29,9 @@ public:
 
 	/////////////////////////////////////////////////////////////
 #pragma region FoldRegion 
-	static Loading_Mode* M_Inst;
+	static SDK_IntroMode* M_Inst;
 
-	Loading_Mode() {
+	SDK_IntroMode() {
 		M_Inst = this;
 	}
 
@@ -140,4 +139,4 @@ public:
 	}
 #pragma endregion
 };
-extern Loading_Mode LoadingMode;
+extern SDK_IntroMode IntroMode;

@@ -4,6 +4,8 @@
 #include "SDK_ComputeTool.h"
 #include "SDK_StringTool.h"
 
+glm::mat4 TextMatrix;
+
 void SDK::Text::Init(const wchar_t* FontName, int Type, int Italic) {
 	hDC = wglGetCurrentDC();
 	FontBase = glGenLists(65536);

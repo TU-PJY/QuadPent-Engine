@@ -1,7 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
-#include "RectBrush.h"
-#include "CircleBrush.h"
+#include "SDK_RectBrush.h"
+#include "SDK_CircleBrush.h"
 using namespace DirectX;
 
 

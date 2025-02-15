@@ -1,6 +1,6 @@
 #pragma once
 #include "SDK_Header.h"
-#include "Config.h"
+#include "SDK_Config.h"
 #include <string>
 
 class SDK_SoundTool {

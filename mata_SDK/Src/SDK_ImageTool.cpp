@@ -1,7 +1,6 @@
 #include "SDK_ImageTool.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-#include "SystemResource.h"
 #include "SDK_EXTool.h"
 #include "SDK_Scene.h"
 

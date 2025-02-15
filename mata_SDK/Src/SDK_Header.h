@@ -3,7 +3,7 @@
 #pragma warning(disable: 4305)
 #pragma warning(disable: 26444)
 #pragma comment(lib, "winmm.lib")
-#include "Config.h"
+#include "SDK_Config.h"
 #include "glew.h"
 #include "freeglut.h"
 #include "freeglut_ext.h"

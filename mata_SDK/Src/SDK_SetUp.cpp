@@ -1,14 +1,14 @@
 #include "SDK_Header.h"
 #include "SDK_Scene.h"
 #include "SDK_Camera.h"
-#include "CameraController.h"
+#include "SDK_CameraController.h"
 #include "SDK_Shader.h"
-#include "Config.h"
-#include "Resource.h"
-#include "ModeResource.h"
+#include "SDK_Config.h"
+#include "SDK_Resource.h"
+#include "SDK_ModeResource.h"
 #include <windows.h>
 
-#include "LoadingMode.h"
+#include "SDK_LoadingMode.h"
 
 int SDK::WIDTH = WINDOW_WIDTH;
 int SDK::HEIGHT = WINDOW_HEIGHT;
@@ -24,7 +24,7 @@ GLfloat SDK::ASPECT;
 ViewportRect SDK:: RECT;
 glm::vec3 SDK::ViewportColor;
 
-___SYSTEM_RES SDK::SYSRES;
+SDK_SYSTEM_RESOURCE SDK::SYSRES;
 SDK_IMAGE SDK::IMAGE;
 SDK_SOUND SDK::SOUND;
 SDK_GLOBAL SDK::GLOBAL;

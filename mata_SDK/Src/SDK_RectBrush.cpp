@@ -1,10 +1,12 @@
-#include "RectBrush.h"
+#include "SDK_RectBrush.h"
 #include "SDK_ImageTool.h"
 #include "SDK_Camera.h"
 #include "SDK_Transform.h"
-#include "SystemResource.h"
+#include "SDK_SystemResource.h"
 #include "SDK_ComputeTool.h"
 #include <cmath>
+
+glm::mat4 RectMatrix;
 
 SDK::LineRectBrush::LineRectBrush(bool CameraInheritanceFlag, bool StaticWidthFlag) {
 	CamInheritanceCommand = CameraInheritanceFlag;
@@ -48,12 +50,12 @@ void SDK::LineRectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY
 }
 
 void SDK::LineRectBrush::DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat OffsetY, GLfloat Width, GLfloat Height, GLfloat RotationValue) {
-	Transform.Identity(ShapeMatrix);
+	Transform.Identity(RectMatrix);
 
-	Transform.Move(ShapeMatrix, X, Y);
-	Transform.Rotate(ShapeMatrix, RotationValue);
-	Transform.Move(ShapeMatrix, OffsetX, OffsetY);
-	Transform.Scale(ShapeMatrix, Width, Height);
+	Transform.Move(RectMatrix, X, Y);
+	Transform.Rotate(RectMatrix, RotationValue);
+	Transform.Move(RectMatrix, OffsetX, OffsetY);
+	Transform.Scale(RectMatrix, Width, Height);
 	Render();
 }
 
@@ -66,7 +68,7 @@ void SDK::LineRectBrush::Render() {
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ShapeMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(RectMatrix));
 
 	SDK::ImageTool.RenderRaw();
 }
@@ -100,12 +102,12 @@ void SDK::RectBrush::SetColorRGB(int R, int G, int B) {
 }
 
 void SDK::RectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat RotationValue, GLfloat OpacityValue) {
-	Transform.Identity(ShapeMatrix);
+	Transform.Identity(RectMatrix);
 	Opacity = OpacityValue;
 
-	Transform.Move(ShapeMatrix, X, Y);
-	Transform.Rotate(ShapeMatrix, RotationValue);
-	Transform.Scale(ShapeMatrix, SizeX, SizeY);
+	Transform.Move(RectMatrix, X, Y);
+	Transform.Rotate(RectMatrix, RotationValue);
+	Transform.Scale(RectMatrix, SizeX, SizeY);
 
 	Render();
 }
@@ -119,7 +121,7 @@ void SDK::RectBrush::Render() {
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
-	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ShapeMatrix));
+	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(RectMatrix));
 
 	SDK::ImageTool.RenderRaw();
 }

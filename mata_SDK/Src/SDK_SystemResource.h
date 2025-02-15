@@ -1,7 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
 
-class ___SYSTEM_RES {
+class SDK_SYSTEM_RESOURCE {
 public:
 	const char* SDK_LOGO_SOUND_DIRECTORY = "SDKResource//Sound//sound-logo.wav";
 	const char* SDK_LOGO_IMAGE_DIRECTORY = "SDKResource//Image//Common//logo-SDK.png";
@@ -24,5 +24,5 @@ public:
 };
 
 namespace SDK{
-	extern ___SYSTEM_RES SYSRES;
+	extern SDK_SYSTEM_RESOURCE SYSRES;
 }

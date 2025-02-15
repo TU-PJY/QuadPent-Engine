@@ -1,10 +1,4 @@
 #include "SDK_Collision.h"
-#include "SDK_Transform.h"
-#include "SDK_ImageTool.h"
-#include "SDK_Camera.h"
-#include "SystemResource.h"
-#include "SDK_Math.h"
-
 
 void SDK::AABB::Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale) {
 	aabb.Center = XMFLOAT3(X, Y, 0.0);

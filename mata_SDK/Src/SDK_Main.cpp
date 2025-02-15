@@ -1,6 +1,6 @@
 #include "SDK_Header.h"
-#include "CameraController.h"
-#include "FPSInd.h"
+#include "SDK_CameraController.h"
+#include "SDK_FPSIndicator.h"
 #include "SDK_Scene.h"
 #include "SDK_Frustum.h"
 #include <thread>

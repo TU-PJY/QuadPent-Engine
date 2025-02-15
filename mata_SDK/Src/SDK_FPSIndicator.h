@@ -1,7 +1,7 @@
 #pragma once
 #include "SDK_Object.h"
 
-class FPS_Indicator : public SDK::Object {
+class SDK_FPS_Indicator : public SDK::Object {
 private:
 	SDK::RectBrush Rect{};
 	SDK::Timer FPS_IND_REFRESH_TIMER{};
@@ -11,7 +11,7 @@ private:
 	SDK::Text Text{};
 
 public:
-	FPS_Indicator() {
+	SDK_FPS_Indicator() {
 		Text.Init(SDK::FONT, FW_DONTCARE);
 		Text.SetColor(1.0, 1.0, 1.0);
 		Text.SetHeightAlign(HEIGHT_ALIGN_UNDER);
