@@ -3,16 +3,16 @@
 
 class SDK_ErrorMessage : public SDK::Object {
 private:
-	SDK::Text Text{};
+	SDK::Text Message{};
 	std::string Result{};
 
 public:
 	SDK_ErrorMessage(int Type, std::string Value) {
 		SDK::System.SetBackColorRGB(31, 31, 31);
 
-		Text.Init(SDK::FONT, FW_DONTCARE);
-		Text.SetColor(1.0, 1.0, 1.0);
-		Text.SetLineGap(0.01);
+		Message.Init(SDK::FONT, FW_DONTCARE);
+		Message.SetColor(1.0, 1.0, 1.0);
+		Message.SetLineGap(0.01);
 
 		PlaySoundW(TEXT("SDKResource\\Sound\\sound-error.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
@@ -99,7 +99,7 @@ public:
 			SDK::ImageTool.RenderImage(SDK::SYSRES.SDK_IMAGE_ERROR, 0.3);
 		}
 
-		Text.RenderStr(ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);
-		Text.Render(ASP(-1.0) + 0.01, -1.0 + 0.02, 0.06, L"Press Alt + F4 or close window to terminate system...");
+		Message.RenderStr(ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);
+		Message.Render(ASP(-1.0) + 0.01, -1.0 + 0.02, 0.06, L"Press Alt + F4 or close window to terminate system...");
 	}
 };
