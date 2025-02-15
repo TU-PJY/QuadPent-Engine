@@ -277,7 +277,7 @@ namespace SDK {
 
 	// corner position of display
 	typedef struct {
-		GLfloat lx, ly, rx, ry;
+		GLfloat LeftX, LeftY, RightX, RightY;
 	}ViewportRect;
 	extern ViewportRect RECT;
 

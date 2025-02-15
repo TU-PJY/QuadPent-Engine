@@ -3,7 +3,6 @@
 
 class SDK_FPS_Indicator : public SDK::Object {
 private:
-	SDK::RectBrush Rect{};
 	SDK::Timer FPS_IND_REFRESH_TIMER{};
 	glm::vec2 RectPosition{};
 	float CurrentDeltaTime = 1.0;
@@ -12,11 +11,11 @@ private:
 
 public:
 	SDK_FPS_Indicator() {
-		IndicatorText.Init(SDK::FONT, FW_DONTCARE);
-		IndicatorText.SetColor(1.0, 1.0, 1.0);
+		IndicatorText.Init(SDK::FONT, FW_BOLD);
+		IndicatorText.SetColor(0.0, 1.0, 0.0);
 		IndicatorText.SetHeightAlign(HEIGHT_ALIGN_UNDER);
-
-		Rect.SetRenderType(RENDER_TYPE_STATIC);
+		IndicatorText.EnableShadow();
+		IndicatorText.SetShadow(0.07, -0.07, 1.0);
 	}
 
 	void UpdateFunc(float FrameTime) {
@@ -26,9 +25,7 @@ public:
 	}
 
 	void RenderIndicator() {
-		SDK::UITool.ClampPositionToCorner(EDGE_LEFT_UP, RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.0);
-		Rect.Draw(RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.3);
-		IndicatorText.Render(SDK::RECT.lx + 0.01, SDK::RECT.ry, 0.06, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
+		IndicatorText.Render(SDK::RECT.LeftX + 0.01, SDK::RECT.RightY, 0.1, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
 	}
 };
 extern SDK::Object* Indicator;

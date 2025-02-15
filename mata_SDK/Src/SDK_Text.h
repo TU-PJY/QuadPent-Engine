@@ -9,7 +9,7 @@ namespace SDK {
 	class Text {
 	private:
 		glm::vec2                RenderPosition{};
-		GLfloat                  CurrentRenderPosition{};
+		glm::vec2                CurrentRenderOffset{};
 		GLfloat                  Rotation{};
 
 		size_t                   TextWordCount{};

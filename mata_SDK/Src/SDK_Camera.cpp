@@ -3,10 +3,10 @@
 
 void SDK_Camera::CalculateASPECT() {
 	SDK::ASPECT = (float)SDK::WIDTH / (float)SDK::HEIGHT;
-	SDK::RECT.lx = -1.0 * SDK::ASPECT;
-	SDK::RECT.ly = -1.0;
-	SDK::RECT.rx = 1.0 * SDK::ASPECT;
-	SDK::RECT.ry = 1.0;
+	SDK::RECT.LeftX = -1.0 * SDK::ASPECT;
+	SDK::RECT.LeftY = -1.0;
+	SDK::RECT.RightX = 1.0 * SDK::ASPECT;
+	SDK::RECT.RightY = 1.0;
 
 	SDK::PREV_WIDTH = SDK::WIDTH;
 	SDK::PREV_HEIGHT = SDK::HEIGHT;

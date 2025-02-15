@@ -80,7 +80,7 @@ public:
 
 	void RenderFunc() {
 		Begin(RENDER_TYPE_STATIC);
-		SDK::Transform.Move(MoveMatrix, SDK::RECT.rx - 0.15, -0.85);
+		SDK::Transform.Move(MoveMatrix, SDK::RECT.RightX - 0.15, -0.85);
 		SDK::Transform.Scale(ScaleMatrix, 0.25, 0.25);
 		SDK::Transform.Rotate(RotateMatrix, Rotation);
 		SDK::ImageTool.RenderImage(SDK::SYSRES.LOADING_SPINNER, SpinnerOpacity);

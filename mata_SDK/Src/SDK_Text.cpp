@@ -100,8 +100,17 @@ void SDK::Text::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ..
 
 	va_list Args{};
 	va_start(Args, Fmt);
-	TextVec.assign(vswprintf(nullptr, 0, Fmt, Args) + 1, {});
-	vswprintf(TextVec.data(), TextVec.size(), Fmt, Args);
+
+	TextVec.clear();
+
+	int CurrentSize = vswprintf(nullptr, 0, Fmt, Args) + 1;
+	if (PrevSize < CurrentSize) {
+		TextVec.resize(CurrentSize);
+		PrevSize = CurrentSize;
+	}
+
+	vswprintf(TextVec.data(), CurrentSize, Fmt, Args);
+
 	va_end(Args);
 
 	InputText(TextVec, Position, Size);
@@ -113,8 +122,17 @@ void SDK::Text::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, .
 
 	va_list Args{};
 	va_start(Args, Fmt);
-	TextVec.assign(vswprintf(nullptr, 0, Fmt, Args) + 1, {});
-	vswprintf(TextVec.data(), TextVec.size(), Fmt, Args);
+
+	TextVec.clear();
+
+	int CurrentSize = vswprintf(nullptr, 0, Fmt, Args) + 1;
+	if (PrevSize < CurrentSize) {
+		TextVec.resize(CurrentSize);
+		PrevSize = CurrentSize;
+	}
+
+	vswprintf(TextVec.data(), CurrentSize, Fmt, Args);
+
 	va_end(Args);
 
 	InputText(TextVec, glm::vec2(X, Y), Size);
@@ -143,19 +161,19 @@ void SDK::Text::InputText(std::vector<wchar_t>& Input, glm::vec2& Position, GLfl
 	if (ShadowRenderCommand) {
 		RenderColor = ShadowColor;
 		RenderOpacity = TextOpacity * ShadowOpacity;
-		ProcessText(Input.data(), Position + ShadowOffset, Size);
+		ProcessText((wchar_t*)CurrentText.c_str(), glm::vec2(Position.x + ShadowOffset.x * Size, Position.y + ShadowOffset.y * Size), Size);
 	}
 
 	RenderColor = TextColor;
 	RenderOpacity = TextOpacity;
-	ProcessText(Input.data(), Position, Size);
+	ProcessText((wchar_t*)CurrentText.c_str(), Position, Size);
 }
 
 void SDK::Text::ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size) {
 	CurrentLine = 0;
 	TextRenderSize = Size;
 	RenderPosition = Position;
-	CurrentRenderPosition = 0.0;
+	CurrentRenderOffset = glm::vec2(0.0, 0.0);
 
 	if (CurrentText != PrevText) {
 		TextWordCount = wcslen(Text);
@@ -192,7 +210,7 @@ void SDK::Text::ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size) {
 
 		unsigned int CharIndex = Text[i];
 		if (CharIndex < 65536)
-			CurrentRenderPosition += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
+			CurrentRenderOffset.x += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
 	}
 }
 
@@ -230,8 +248,8 @@ void SDK::Text::CalculateTextLength(const wchar_t* Text) {
 }
 
 void SDK::Text::NextLine() {
-	RenderPosition.y -= (TextLineGap + TextRenderSize);
-	CurrentRenderPosition = 0.0;
+	CurrentRenderOffset.x = 0.0;
+	CurrentRenderOffset.y -= (TextLineGap + TextRenderSize);
 
 	if (TextAlign != ALIGN_DEFAULT) {
 		++CurrentLine;
@@ -246,19 +264,19 @@ void SDK::Text::TransformText() {
 	switch (TextAlign) {
 	case ALIGN_DEFAULT:
 		SDK::Transform.Rotate(TextMatrix, Rotation);
-		SDK::Transform.Move(TextMatrix, CurrentRenderPosition, 0.0);
+		SDK::Transform.Move(TextMatrix, CurrentRenderOffset);
 		break;
 
 	case ALIGN_MIDDLE:
-		SDK::Transform.Move(TextMatrix, -TextLength / 2.0, 0.0);
 		SDK::Transform.Rotate(TextMatrix, Rotation);
-		SDK::Transform.Move(TextMatrix, CurrentRenderPosition, 0.0);
+		SDK::Transform.Move(TextMatrix, -TextLength * 0.5, 0.0);
+		SDK::Transform.Move(TextMatrix, CurrentRenderOffset);
 		break;
 
 	case ALIGN_LEFT:
-		SDK::Transform.Move(TextMatrix, -TextLength, 0.0);
 		SDK::Transform.Rotate(TextMatrix, Rotation);
-		SDK::Transform.Move(TextMatrix, CurrentRenderPosition, 0.0);
+		SDK::Transform.Move(TextMatrix, -TextLength, 0.0);
+		SDK::Transform.Move(TextMatrix, CurrentRenderOffset);
 		break;
 	}
 
