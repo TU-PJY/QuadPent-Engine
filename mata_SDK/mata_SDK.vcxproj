@@ -234,7 +234,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ModeTemplate.txt" />
-    <Text Include="ModeTemplate_Manual.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SDKResource\GLSL\ComputeMatrix.glsl" />

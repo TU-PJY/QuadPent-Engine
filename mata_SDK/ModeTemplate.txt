@@ -1,11 +1,14 @@
 #pragma once
 #include <ModeHeader.h>
 
-class Template {
-public:
-	std::string ModeName { "Template" };
-	int         ModeType { MODE_TYPE_DEFAULT };
 
+class TemplateMode {
+public:
+	// define mode name and mode type here
+	std::string ModeName{ "TemplateMode" };
+	int         ModeType{ MODE_TYPE_DEFAULT };
+
+	// type object tag to input device event
 	std::vector<std::string> InputObjectTag
 	{
 
@@ -23,10 +26,10 @@ public:
 	/////////////////////////////////////////////////////////////
 	// Fold here
 #pragma region FoldRegion 
-	std::vector<GameObject*> InputObject{};
-	static Template* M_Inst;
+	std::vector<SDK::Object*> InputObject{};
+	static TemplateMode* M_Inst;
 
-	Template() {
+	TemplateMode() {
 		M_Inst = this;
 	}
 
@@ -38,14 +41,14 @@ public:
 		M_Inst->InputObject.clear();
 
 		for (auto const& Tag : M_Inst->InputObjectTag) {
-			if (auto Object = scene.Find(Tag); Object)
+			if (auto Object = SDK::Scene.Find(Tag); Object)
 				M_Inst->InputObject.emplace_back(Object);
 		}
-		
-		scene.RegisterModeName(M_Inst->ModeName);
-		scene.RegisterDestructor(Destructor);
-		scene.RegisterInputObjectList(M_Inst->InputObject);
-		scene.RegisterController(Controller, M_Inst->ModeType);
+
+		SDK::Scene.RegisterModeName(M_Inst->ModeName);
+		SDK::Scene.RegisterDestructor(Destructor);
+		SDK::Scene.RegisterInputObjectList(M_Inst->InputObject);
+		SDK::Scene.RegisterController(Controller, M_Inst->ModeType);
 	}
 
 	static void ProcessKeyEvent(KeyEvent& Event) {
@@ -122,7 +125,7 @@ public:
 			}
 			break;
 		}
-	
+
 		for (auto const& Object : M_Inst->InputObject)
 			if (Object)  Object->InputMouse(ButtonEvent);
 	}
