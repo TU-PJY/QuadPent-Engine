@@ -14,7 +14,7 @@ public:
 		"loading_screen"
 	};
 
-	std::vector<Object*> InputObject{};
+	std::vector<SDK::Object*> InputObject{};
 
 	/////////////////////////////////////////////////////////////
 

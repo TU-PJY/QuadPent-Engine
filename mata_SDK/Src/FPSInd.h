@@ -1,7 +1,7 @@
 #pragma once
 #include "Object.h"
 
-class FPS_Indicator : public Object {
+class FPS_Indicator : public SDK::Object {
 private:
 	SDK::RectBrush Rect{};
 	SDK::Timer FPS_IND_REFRESH_TIMER{};
@@ -31,4 +31,4 @@ public:
 		Text.Render(SDK::RECT.lx + 0.01, SDK::RECT.ry, 0.06, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
 	}
 };
-extern Object* Indicator;
+extern SDK::Object* Indicator;

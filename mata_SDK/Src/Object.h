@@ -1,69 +1,71 @@
 ﻿#pragma once
 #include "UtilPack.h"
 
-class Object {
-public:
-	std::string ObjectTag{};
-	int         ObjectLayer{};
+namespace SDK {
+	class Object {
+	public:
+		std::string ObjectTag{};
+		int         ObjectLayer{};
 
-	bool        FloatingCommand{};
-	bool        StaticCommand{};
-	
-	bool        DeleteCommand{};
-	bool        SwapCommand{};
+		bool        FloatingCommand{};
+		bool        StaticCommand{};
 
-	// Initialize matrix. Select a rendering type.
-	void Begin(int RenderType=RENDER_TYPE_DEFAULT);
+		bool        DeleteCommand{};
+		bool        SwapCommand{};
 
-	// Initialize unit matrix.
-	void IdentityUnitMatrix();
+		// Initialize matrix. Select a rendering type.
+		void Begin(int RenderType = RENDER_TYPE_DEFAULT);
 
-	// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
-	void ComputeViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect = true);
+		// Initialize unit matrix.
+		void IdentityUnitMatrix();
 
-	// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
-	void ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspect);
+		// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
+		void ComputeViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect = true);
 
-	// Updates the object's position relative to the local coordinate system.
-	void ComputeLocalPosition(GLfloat& DestX, GLfloat& DestY);
+		// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
+		void ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspect);
 
-	// Updates the object's position relative to the local coordinate system.
-	void ComputeLocalPosition(glm::vec2& DestPosition);
-	
-	// class destructor
-	virtual ~Object() {}
+		// Updates the object's position relative to the local coordinate system.
+		void ComputeLocalPosition(GLfloat& DestX, GLfloat& DestY);
 
-	// Updates a value inside an object class.
-	virtual void UpdateFunc(float FrameTime) {}
+		// Updates the object's position relative to the local coordinate system.
+		void ComputeLocalPosition(glm::vec2& DestPosition);
 
-	// Renders image resources used by object classes.
-	virtual void RenderFunc() {}
+		// class destructor
+		virtual ~Object() {}
 
-	// Sends keyboard events to a specific object class.
-	virtual void InputKey(KeyEvent& Event) {}
+		// Updates a value inside an object class.
+		virtual void UpdateFunc(float FrameTime) {}
 
-	// Sends mouse events to a specific object class.
-	virtual void InputMouse(int Type) {}
+		// Renders image resources used by object classes.
+		virtual void RenderFunc() {}
 
-	// Sends mouse scroll events to a specific object class.
-	virtual void InputScroll(int Type) {}
+		// Sends keyboard events to a specific object class.
+		virtual void InputKey(KeyEvent& Event) {}
 
-	// Initializes the control state for a specific object class.
-	virtual void ResetControlState() {}
+		// Sends mouse events to a specific object class.
+		virtual void InputMouse(int Type) {}
 
-	// Obtains an AABB object from a specific object class.
-	virtual SDK::AABB GetAABB() { return {}; }
+		// Sends mouse scroll events to a specific object class.
+		virtual void InputScroll(int Type) {}
 
-	// Obtains an OOBB object from a specific object class.
-	virtual SDK::OOBB GetOOBB() { return{}; }
+		// Initializes the control state for a specific object class.
+		virtual void ResetControlState() {}
 
-	// Obtains an BoundingCircle object from a specific object class.
-	virtual SDK::BoundingCircle GetBoundingCircle() { return {}; }
+		// Obtains an AABB object from a specific object class.
+		virtual SDK::AABB GetAABB() { return {}; }
 
-	// FPS indicator function
-	virtual void RenderIndicator() {}
+		// Obtains an OOBB object from a specific object class.
+		virtual SDK::OOBB GetOOBB() { return{}; }
 
-private:
-	glm::vec4 ViewportPosition();
-	glm::vec4 LocalPosition();
-};
+		// Obtains an BoundingCircle object from a specific object class.
+		virtual SDK::BoundingCircle GetBoundingCircle() { return {}; }
+
+		// FPS indicator function
+		virtual void RenderIndicator() {}
+
+	private:
+		glm::vec4 ViewportPosition();
+		glm::vec4 LocalPosition();
+	};
+}

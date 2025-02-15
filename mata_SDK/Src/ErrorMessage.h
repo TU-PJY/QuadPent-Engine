@@ -1,7 +1,7 @@
 #pragma once
 #include "Object.h"
 
-class ErrorMessage : public Object {
+class ErrorMessage : public SDK::Object {
 private:
 	SDK::Text Text{};
 	std::string Result{};

@@ -136,7 +136,7 @@ void Scene::EndFloatingMode() {
 	FloatingFocusCommand = false;
 }
 
-void Scene::AddObject(Object* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
+void Scene::AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
 	if (AddLayer > SceneLayer)
 		return;
 
@@ -169,7 +169,7 @@ void Scene::AddObject(Object* Object, std::string Tag, int AddLayer, int Type1, 
 	}
 }
 
-void Scene::DeleteObject(Object* Object) {
+void Scene::DeleteObject(SDK::Object* Object) {
 	Object->DeleteCommand = true;
 	Object->ObjectTag = "";
 }
@@ -199,16 +199,16 @@ void Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	}
 }
 
-void Scene::RegisterInputObjectList(std::vector<Object*>& Vec) {
+void Scene::RegisterInputObjectList(std::vector<SDK::Object*>& Vec) {
 	InputObjectListPtr = &Vec;
 }
 
-void Scene::AddInputObject(Object* Object) {
+void Scene::AddInputObject(SDK::Object* Object) {
 	if (InputObjectListPtr)
 		InputObjectListPtr->emplace_back(Object);
 }
 
-void Scene::DeleteInputObject(Object* Object) {
+void Scene::DeleteInputObject(SDK::Object* Object) {
 	if (InputObjectListPtr) {
 		auto Found = std::find(begin(*InputObjectListPtr), end(*InputObjectListPtr), Object);
 		if (Found != end(*InputObjectListPtr))
@@ -216,12 +216,12 @@ void Scene::DeleteInputObject(Object* Object) {
 	}
 }
 
-void Scene::SwapLayer(Object* Object, int TargetLayer) {
+void Scene::SwapLayer(SDK::Object* Object, int TargetLayer) {
 	Object->SwapCommand = true;
 	Object->ObjectLayer = TargetLayer;
 }
 
-Object* Scene::Find(std::string Tag) {
+SDK::Object* Scene::Find(std::string Tag) {
 	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
 		for (auto const& Object : ObjectList[Layer]) {
 			if (Object->ObjectTag == Tag)
@@ -232,7 +232,7 @@ Object* Scene::Find(std::string Tag) {
 	return nullptr;
 }
 
-Object* Scene::ReverseFind(std::string Tag) {
+SDK::Object* Scene::ReverseFind(std::string Tag) {
 	for (int Layer = SceneLayer - 1; Layer > 0; --Layer) {
 		for (auto Object = ObjectList[Layer].rbegin(); Object != ObjectList[Layer].rend(); ++Object) {
 			if ((*Object)->ObjectTag == Tag)
@@ -243,7 +243,7 @@ Object* Scene::ReverseFind(std::string Tag) {
 	return nullptr;
 }
 
-Object* Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
+SDK::Object* Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
 	auto Object = ObjectList[SearchLayer][Index];
 	if(Object->ObjectTag == Tag)
 		return ObjectList[SearchLayer][Index];
@@ -255,7 +255,7 @@ size_t Scene::LayerSize(int TargetLayer) {
 	return ObjectList[TargetLayer].size();
 }
 
-void Scene::DeleteTag(Object* Object) {
+void Scene::DeleteTag(SDK::Object* Object) {
 	Object->ObjectTag = "";
 }
 

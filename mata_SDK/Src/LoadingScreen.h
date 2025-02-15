@@ -7,7 +7,7 @@
 #include "FontUtil.h"
 #include "FPSInd.h"
 
-class LoadingScreen : public Object {
+class LoadingScreen : public SDK::Object {
 private:
 	HANDLE  SystemResourceLoadHandle{};
 	bool    LoadStart{};

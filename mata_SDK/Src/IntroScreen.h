@@ -1,7 +1,7 @@
 #pragma once
 #include "Object.h"
 
-class IntroScreen : public Object {
+class IntroScreen : public SDK::Object {
 private:
 	SDK::Timer    timer;
 	SoundChannel IntroChannel{};

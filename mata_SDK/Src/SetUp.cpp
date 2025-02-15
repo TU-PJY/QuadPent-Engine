@@ -16,7 +16,7 @@ int SDK::PREV_WIDTH, SDK::PREV_HEIGHT;
 
 const glm::mat4 IdentityMatrix = glm::mat4(1.0f);
 
-Object* Indicator;
+SDK::Object* Indicator;
 
 CameraUtil SDK::Camera;
 

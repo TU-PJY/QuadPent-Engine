@@ -1,7 +1,7 @@
 #include "Object.h"
 #include "CameraUtil.h"
 
-void Object::Begin(int RenderType) {
+void SDK::Object::Begin(int RenderType) {
 	SDK::Transform.Identity(ResultMatrix);
 	SDK::Transform.Identity(MoveMatrix);
 	SDK::Transform.Identity(RotateMatrix);
@@ -16,7 +16,7 @@ void Object::Begin(int RenderType) {
 	SDK::Camera.SetCamera(RenderType);
 }
 
-void Object::IdentityUnitMatrix() {
+void SDK::Object::IdentityUnitMatrix() {
 	SDK::Transform.Identity(UnitMoveMatrix);
 	SDK::Transform.Identity(UnitRotateMatrix);
 	SDK::Transform.Identity(UnitScaleMatrix);
@@ -26,7 +26,7 @@ void Object::IdentityUnitMatrix() {
 	UnitBlurValue = 0.0f;
 }
 
-void Object::ComputeViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect) {
+void SDK::Object::ComputeViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect) {
 	if (ApplyAspect)
 		DestX = ASP(ViewportPosition().x);
 	else
@@ -34,7 +34,7 @@ void Object::ComputeViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyA
 	DestY = ViewportPosition().y;
 }
 
-void Object::ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspect) {
+void SDK::Object::ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspect) {
 	if (ApplyAspect) {
 		DestValue.x = ASP(ViewportPosition().x);
 		DestValue.y = ViewportPosition().y;
@@ -43,22 +43,22 @@ void Object::ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspect) {
 		DestValue = ViewportPosition();
 }
 
-void Object::ComputeLocalPosition(GLfloat& DestX, GLfloat& DestY) {
+void SDK::Object::ComputeLocalPosition(GLfloat& DestX, GLfloat& DestY) {
 	DestX = LocalPosition().x;
 	DestY = LocalPosition().y;
 }
 
-void Object::ComputeLocalPosition(glm::vec2& DestPosition) {
+void SDK::Object::ComputeLocalPosition(glm::vec2& DestPosition) {
 	DestPosition = LocalPosition();
 }
 
 ////////////////////////// private
 
-glm::vec4 Object::ViewportPosition() {
+glm::vec4 SDK::Object::ViewportPosition() {
 	SDK::Compute.ComputeMatrix(ViewportPositionMatrix, SDK::Camera.Projection, SDK::Camera.ViewMatrix, ResultMatrix);
 	return ViewportPositionMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-glm::vec4 Object::LocalPosition() {
+glm::vec4 SDK::Object::LocalPosition() {
 	return ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }

@@ -11,7 +11,7 @@ constexpr int SceneLayer = EOL;
 
 class Scene {
 private:
-	std::array<std::deque<Object*>, SceneLayer> ObjectList{};
+	std::array<std::deque<SDK::Object*>, SceneLayer> ObjectList{};
 	std::array<std::vector<int>, SceneLayer>        DeleteLocation{};
 
 	int                               CurrentReferLocation{};
@@ -37,7 +37,7 @@ private:
 	std::string						  Value1Buffer{};
 	std::string						  Value2Buffer{};
 
-	std::vector<Object*>* InputObjectListPtr{};
+	std::vector<SDK::Object*>* InputObjectListPtr{};
 
 public:
 	// Returns the name of the currently running mode.
@@ -67,7 +67,7 @@ public:
 	void RegisterController(CONTROLLER_PTR Controller, int Type);
 
 	// Register the mode controller input object list in Scene.
-	void RegisterInputObjectList(std::vector<Object*>& Vec);
+	void RegisterInputObjectList(std::vector<SDK::Object*>& Vec);
 
 	// Enter the frame time in Scene.
 	void InputFrameTime(float ElapsedTime);
@@ -91,38 +91,38 @@ public:
 	// Add an object to the scene. You can give two options to an object.
 	// OBJECT_TYPE_STATIC: It will not be deleted even if the mode is changed.
 	// OBJECT_TYPE_FLOATING: Specify it as a floating mode object.
-	void AddObject(Object* Object, std::string Tag, int AddLayer, int Type1= OBJECT_TYPE_NONE, int Type2=OBJECT_TYPE_NONE);
+	void AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Type1= OBJECT_TYPE_NONE, int Type2=OBJECT_TYPE_NONE);
 
 	// Deletes an object from the Scene.
 	// If the object is located on a layer that is not currently being referenced, activates DeleteReserveCommand.
-	void DeleteObject(Object* Object);
+	void DeleteObject(SDK::Object* Object);
 
 	// Deletes an object from the Scene.
 	// The DELETE_RANGE_SINGLE option is recommended when the target object is guaranteed to exist as a single object.
 	void DeleteObject(std::string Tag, int deleteRange);
 	
 	// Adds an object to the mode controller input object list.
-	void AddInputObject(Object* Object);
+	void AddInputObject(SDK::Object* Object);
 
 	// Deletes an object from the mode controller input object list.
-	void DeleteInputObject(Object* Object);
+	void DeleteInputObject(SDK::Object* Object);
 
 	//  Change the layer where the object is located.
-	void SwapLayer(Object* Object, int TargetLayer);
+	void SwapLayer(SDK::Object* Object, int TargetLayer);
 
 	// Gets a pointer to a specific object that exists in the Scene. Returns nullptr for objects that do not exist.
-	Object* Find(std::string Tag);
+	SDK::Object* Find(std::string Tag);
 
 	// Gets a pointer to a specific object that exists in the Scene. Returns nullptr for objects that do not exist.
-	Object* ReverseFind(std::string Tag);
+	SDK::Object* ReverseFind(std::string Tag);
 
 	// Gets a pointer to multiple objects with a specific tag that exist in the scene. Returns nullptr for objects that do not exist.
 	// You need to find the number of objects that exist in a specific layer and then access it using the for statement.
-	Object* FindMulti(std::string Tag, int SearchLayer, int Index);
+	SDK::Object* FindMulti(std::string Tag, int SearchLayer, int Index);
 
 
 	// Removes the object tag for a specific object.
-	void DeleteTag(Object* Object);
+	void DeleteTag(SDK::Object* Object);
 
 	void DeleteTag(std::string Tag);
 
