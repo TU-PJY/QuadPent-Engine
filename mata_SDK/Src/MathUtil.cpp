@@ -2,7 +2,7 @@
 #include "EXUtil.h"
 #include <cmath>
 
-MathUtil mathUtil;
+MathUtil SDK::Math;
 
 void MathUtil::LookAt(GLfloat& DestRotation, GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat RotationSpeed, float FrameTime) {
 	GLfloat TargetAngle{}, ShortestAngle{};
@@ -49,13 +49,13 @@ void MathUtil::Lerp(GLfloat& DestValue, GLfloat Dest, GLfloat Speed, float Frame
 	}
 
 	GLfloat t = Speed * FrameTime;
-	EX.ClampValue(t, 1.0, CLAMP_GREATER);
+	SDK::EXTool.ClampValue(t, 1.0, CLAMP_GREATER);
 	DestValue = std::lerp(DestValue, Dest, t);
 }
 
 void MathUtil::Lerp(glm::vec2& DestValue, glm::vec2& Dest, GLfloat Speed, float FrameTime) {
 	GLfloat t = Speed * FrameTime;
-	EX.ClampValue(t, 1.0, CLAMP_GREATER);
+	SDK::EXTool.ClampValue(t, 1.0, CLAMP_GREATER);
 
 	if (LERP_THRESHOLD > 0.0 && abs(DestValue.x - Dest.x) <= LERP_THRESHOLD) 
 		DestValue.x = Dest.x;
@@ -70,7 +70,7 @@ void MathUtil::Lerp(glm::vec2& DestValue, glm::vec2& Dest, GLfloat Speed, float 
 
 void MathUtil::Lerp(glm::vec3& DestValue, glm::vec3& Dest, GLfloat Speed, float FrameTime) {
 	GLfloat t = Speed * FrameTime;
-	EX.ClampValue(t, 1.0, CLAMP_GREATER);
+	SDK::EXTool.ClampValue(t, 1.0, CLAMP_GREATER);
 
 	if (LERP_THRESHOLD > 0.0 && abs(DestValue.x - Dest.x) <= LERP_THRESHOLD)
 		DestValue.x = Dest.x;
@@ -130,7 +130,7 @@ RayVector MathUtil::ComputeRay(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloa
 	return { RayOrigin, RayDirection, Distance, RayLength };
 }
 
-RayVector MathUtil::ComputeRay(glm::vec2 From, glm::vec2 To) {
+RayVector MathUtil::ComputeRay(glm::vec2& From, glm::vec2& To) {
 	XMVECTOR RayOrigin = XMVectorSet(From.x, From.y, 0.0, 0.0);
 	float Angle = ComputeRadians(From.x, From.y, To.x, To.y);
 	float DirectionX = cos(Angle);
@@ -158,7 +158,7 @@ RayVector MathUtil::ComputeRayWithDegree(GLfloat OriginX, GLfloat OriginY, GLflo
 	return { RayOrigin, RayDirection, Distance, RayLength };
 }
 
-RayVector MathUtil::ComputeRayWithDegree(glm::vec2 Origin, GLfloat Degree, GLfloat LengthValue) {
+RayVector MathUtil::ComputeRayWithDegree(glm::vec2& Origin, GLfloat Degree, GLfloat LengthValue) {
 	XMVECTOR RayOrigin = XMVectorSet(Origin.x, Origin.y, 0.0, 0.0);
 	float Angle = glm::radians(Degree);
 	float DirectionX = cos(Angle);

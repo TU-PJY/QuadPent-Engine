@@ -17,11 +17,14 @@ public:
 	GLfloat ComputeRadians(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
 	GLfloat ComputeRadians(glm::vec2& Position1, glm::vec2& Position2);
 	RayVector ComputeRay(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
-	RayVector ComputeRay(glm::vec2 From, glm::vec2 To);
+	RayVector ComputeRay(glm::vec2& From, glm::vec2& To);
 	RayVector ComputeRayWithDegree(GLfloat OriginX, GLfloat OriginY, GLfloat Degree, GLfloat LengthValue = 0.0);
-	RayVector ComputeRayWithDegree(glm::vec2 Origin, GLfloat Degree, GLfloat LengthValue = 0.0);
+	RayVector ComputeRayWithDegree(glm::vec2& Origin, GLfloat Degree, GLfloat LengthValue = 0.0);
 private:
 	GLfloat NormalizeDegree(GLfloat Degree);
 	GLfloat ComputeShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest);
 };
-extern MathUtil mathUtil;
+
+namespace SDK {
+	extern MathUtil Math;
+}

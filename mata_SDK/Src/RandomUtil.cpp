@@ -1,6 +1,6 @@
 #include "RandomUtil.h"
 
-RandomUtil randomUtil;
+RandomUtil SDK::Random;
 
 GLfloat RandomUtil::Gen(int DistType, GLfloat Min, GLfloat Max) {
 	if (DistType == RANDOM_TYPE_REAL) {

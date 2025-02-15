@@ -3,49 +3,49 @@
 #include "TransformUtil.h"
 #include "SystemResource.h"
 
-CircleBrush::CircleBrush(bool CamInheritanceFlag) {
+SDK::CircleBrush::CircleBrush(bool CamInheritanceFlag) {
 	CamInheritanceCommand = CamInheritanceFlag;
 }
 
-void CircleBrush::SetRenderType(int Opt) {
+void SDK::CircleBrush::SetRenderType(int Opt) {
 	RenderType = Opt;
 }
 
-void CircleBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+void SDK::CircleBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	Color.r = R;
 	Color.g = G;
 	Color.b = B;
 }
 
-void CircleBrush::SetColor(glm::vec3& ColorValue) {
+void SDK::CircleBrush::SetColor(glm::vec3& ColorValue) {
 	Color.r = ColorValue.r;
 	Color.g = ColorValue.g;
 	Color.b = ColorValue.b;
 }
 
-void CircleBrush::SetColorRGB(int R, int G, int B) {
+void SDK::CircleBrush::SetColorRGB(int R, int G, int B) {
 	Color.r = (1.0f / 255.0f) * (GLfloat)R;
 	Color.g = (1.0f / 255.0f) * (GLfloat)G;
 	Color.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void CircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat OpacityValue) {
-	transform.Identity(ShapeMatrix);
+void SDK::CircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat OpacityValue) {
+	Transform.Identity(ShapeMatrix);
 	Opacity = 1.0f;
 
-	transform.Move(ShapeMatrix, X, Y);
+	Transform.Move(ShapeMatrix, X, Y);
 	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 
 	Render();
 }
 
-void CircleBrush::Render() {
+void SDK::CircleBrush::Render() {
 	if (!CamInheritanceCommand)
-		camera.SetCamera(RenderType);
+		Camera.SetCamera(RenderType);
 
 	glUseProgram(SHAPE_SHADER);
-	camera.PrepareRender(SHADER_TYPE_SHAPE);
+	Camera.PrepareRender(SHADER_TYPE_SHAPE);
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
@@ -56,55 +56,55 @@ void CircleBrush::Render() {
 
 
 
-LineCircleBrush::LineCircleBrush(bool CamInheritanceFlag, bool StaticWidthFlag) {
+SDK::LineCircleBrush::LineCircleBrush(bool CamInheritanceFlag, bool StaticWidthFlag) {
 	CamInheritanceCommand = CamInheritanceFlag;
 	StaticWidthCommand = StaticWidthFlag;
 }
 
-void LineCircleBrush::SetRenderType(int Opt) {
+void SDK::LineCircleBrush::SetRenderType(int Opt) {
 	RenderType = Opt;
 }
 
-void LineCircleBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+void SDK::LineCircleBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	Color.r = R;
 	Color.g = G;
 	Color.b = B;
 }
 
-void LineCircleBrush::SetColor(glm::vec3& ColorValue) {
+void SDK::LineCircleBrush::SetColor(glm::vec3& ColorValue) {
 	Color.r = ColorValue.r;
 	Color.g = ColorValue.g;
 	Color.b = ColorValue.b;
 }
 
-void LineCircleBrush::SetColorRGB(int R, int G, int B) {
+void SDK::LineCircleBrush::SetColorRGB(int R, int G, int B) {
 	Color.r = (1.0f / 255.0f) * (GLfloat)R;
 	Color.g = (1.0f / 255.0f) * (GLfloat)G;
 	Color.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void LineCircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Width, GLfloat OpacityValue) {
-	transform.Identity(ShapeMatrix);
+void SDK::LineCircleBrush::Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Width, GLfloat OpacityValue) {
+	Transform.Identity(ShapeMatrix);
 	Opacity = 1.0f;
 
-	transform.Move(ShapeMatrix, X, Y);
+	Transform.Move(ShapeMatrix, X, Y);
 	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 
 	if(RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		WidthValue = Width / camera.ZoomValue;
+		WidthValue = Width / Camera.ZoomValue;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
 		WidthValue = Width;
 
 	Render();
 }
 
-void LineCircleBrush::Render() {
+void SDK::LineCircleBrush::Render() {
 	if (!CamInheritanceCommand)
-		camera.SetCamera(RenderType);
+		Camera.SetCamera(RenderType);
 
 	glUseProgram(SHAPE_SHADER);
-	camera.PrepareRender(SHADER_TYPE_SHAPE);
+	Camera.PrepareRender(SHADER_TYPE_SHAPE);
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);

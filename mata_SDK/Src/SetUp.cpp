@@ -16,8 +16,9 @@ int SDK::PREV_WIDTH, SDK::PREV_HEIGHT;
 
 const glm::mat4 IdentityMatrix = glm::mat4(1.0f);
 
-Camera camera;
 Object* Indicator;
+
+CameraUtil SDK::Camera;
 
 GLfloat SDK::ASPECT;
 ViewportRect SDK:: RECT;
@@ -67,23 +68,23 @@ void SDKSystem::SetupWindow() {
 }
 
 void SDKSystem::LoadShader() {
-	shaderUtil.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
-	shaderUtil.LoadFragmentShader("SDKResource//GLSL//Fragment_Image.glsl");
-	shaderUtil.CreateShader(IMAGE_SHADER);
+	SDK::Shader.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
+	SDK::Shader.LoadFragmentShader("SDKResource//GLSL//Fragment_Image.glsl");
+	SDK::Shader.CreateShader(IMAGE_SHADER);
 
-	shaderUtil.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
-	shaderUtil.LoadFragmentShader("SDKResource//GLSL//Fragment_Text.glsl");
-	shaderUtil.CreateShader(TEXT_SHADER);
+	SDK::Shader.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
+	SDK::Shader.LoadFragmentShader("SDKResource//GLSL//Fragment_Text.glsl");
+	SDK::Shader.CreateShader(TEXT_SHADER);
 
-	shaderUtil.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
-	shaderUtil.LoadFragmentShader("SDKResource//GLSL//Fragment_Shape.glsl");
-	shaderUtil.CreateShader(SHAPE_SHADER);
+	SDK::Shader.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
+	SDK::Shader.LoadFragmentShader("SDKResource//GLSL//Fragment_Shape.glsl");
+	SDK::Shader.CreateShader(SHAPE_SHADER);
 
-	shaderUtil.LoadComputeShader("SDKResource//GLSL//ComputeMatrix.glsl");
-	shaderUtil.CreateComputeShader(MATRIX_COMPT_SHADER);
+	SDK::Shader.LoadComputeShader("SDKResource//GLSL//ComputeMatrix.glsl");
+	SDK::Shader.CreateComputeShader(MATRIX_COMPT_SHADER);
 
-	shaderUtil.CreateShaderLocation();
-	shaderUtil.CreateSSBO();
+	SDK::Shader.CreateShaderLocation();
+	SDK::Shader.CreateSSBO();
 }
 
 void SDKSystem::SetGlOption() {

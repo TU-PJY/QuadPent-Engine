@@ -3,9 +3,7 @@
 #include "Config.h"
 #include "EXUtil.h"
 
-SoundUtil soundUtil;
-
-std::vector<float> FFTdata(FFT_SIZE);
+SoundUtil SDK::SoundTool;
 
 void SoundUtil::Init() {
 	Result = FMOD::System_Create(&SoundSystem);
@@ -16,6 +14,8 @@ void SoundUtil::Init() {
 	SoundSystem->init(MAX_CHANNEL_SIZE, FMOD_INIT_NORMAL, ExtDvData);
 	SoundSystem->createDSPByType(FMOD_DSP_TYPE_LOWPASS, &LowPass);
 	SoundSystem->set3DSettings(1.0, 1.0, 2.0); 
+
+	FFTdata.reserve(FFT_SIZE);
 }
 
 void SoundUtil::Load(Sound& Sound, std::string FileName, FMOD_MODE Option) {
@@ -96,13 +96,13 @@ void SoundUtil::Stop(SoundChannel& ChannelVar) {
 
 void SoundUtil::FadeOut(SoundChannel& ChannelVar, float Speed, float FrameTime) {
 	ChannelVar.Volume -= Speed * FrameTime;
-	EX.ClampValue(ChannelVar.Volume, 0.0, CLAMP_LESS);
+	SDK::EXTool.ClampValue(ChannelVar.Volume, 0.0, CLAMP_LESS);
 	ChannelVar.Channel->setVolume(ChannelVar.Volume);
 }
 
 void SoundUtil::FadeIn(SoundChannel& ChannelVar, float Speed, float FrameTime, float DestVolume) {
 	ChannelVar.Volume += Speed * FrameTime;
-	EX.ClampValue(ChannelVar.Volume, DestVolume, CLAMP_GREATER);
+	SDK::EXTool.ClampValue(ChannelVar.Volume, DestVolume, CLAMP_GREATER);
 	ChannelVar.Channel->setVolume(ChannelVar.Volume);
 }
 

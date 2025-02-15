@@ -85,7 +85,7 @@ constexpr float APPLICATION_VERSION = 1.0;
 // When this option is disabled, the data file is saved as an xml file.
 constexpr bool USE_FILE_SECURITY = false;
 
-// AES, IV for FileUtil
+// AES, IV for Data
 // Recommend that you make this part private or 
 // modify it with the default password before distributing
 constexpr unsigned char AES_KEY[16]

@@ -2,10 +2,10 @@
 #include "StringUtil.h"
 #include "Scene.h"
 
-FontUtil fontUtil;
+FontUtil SDK::FontLoader;
 
 bool FontUtil::Load(const std::string& FontFilePath) {
-    std::wstring Path = stringUtil.Wstring(FontFilePath);
+    std::wstring Path = SDK::StringTool.Wstring(FontFilePath);
     DWORD NumFonts{};
 
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);
@@ -23,7 +23,7 @@ bool FontUtil::Load(const std::string& FontFilePath) {
 }
 
 bool FontUtil::LoadT(const std::string& FontFilePath) {
-    std::wstring Path = stringUtil.Wstring(FontFilePath);
+    std::wstring Path = SDK::StringTool.Wstring(FontFilePath);
     DWORD NumFonts{};
 
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);

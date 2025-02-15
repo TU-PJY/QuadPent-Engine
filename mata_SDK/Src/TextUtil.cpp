@@ -4,7 +4,7 @@
 #include "ComputeUtil.h"
 #include "StringUtil.h"
 
-void TextUtil::Init(const wchar_t* FontName, int Type, int Italic) {
+void SDK::Text::Init(const wchar_t* FontName, int Type, int Italic) {
 	hDC = wglGetCurrentDC();
 	FontBase = glGenLists(65536);
 
@@ -16,7 +16,7 @@ void TextUtil::Init(const wchar_t* FontName, int Type, int Italic) {
 	LineLengthBuffer.reserve(20);
 }
 
-void TextUtil::Reset(int RenderTypeFlag) {
+void SDK::Text::Reset(int RenderTypeFlag) {
 	RenderType = RenderTypeFlag;
 	TextAlign = ALIGN_DEFAULT;
 	HeightAlign = HEIGHT_ALIGN_DEFAULT;
@@ -27,72 +27,72 @@ void TextUtil::Reset(int RenderTypeFlag) {
 	TextOpacity = 1.0;
 }
 
-void TextUtil::SetRenderType(int Type) {
+void SDK::Text::SetRenderType(int Type) {
 	RenderType = Type;
 }
 
-void TextUtil::SetAlign(int AlignOpt) {
+void SDK::Text::SetAlign(int AlignOpt) {
 	TextAlign = AlignOpt;
 }
 
-void TextUtil::SetLineGap(GLfloat Value) {
+void SDK::Text::SetLineGap(GLfloat Value) {
 	TextLineGap = Value;
 }
 
-void TextUtil::EnableFixMiddle() {
+void SDK::Text::EnableFixMiddle() {
 	FixMiddleCommand = true;
 }
 
-void TextUtil::DisableFixMiddle() {
+void SDK::Text::DisableFixMiddle() {
 	FixMiddleCommand = false;
 }
 
-void TextUtil::SetHeightAlign(int Type) {
+void SDK::Text::SetHeightAlign(int Type) {
 	HeightAlign = Type;
 }
 
-void TextUtil::EnableShadow() {
+void SDK::Text::EnableShadow() {
 	ShadowRenderCommand = true;
 }
 
-void TextUtil::DisableShadow() {
+void SDK::Text::DisableShadow() {
 	ShadowRenderCommand = false;
 }
 
-void TextUtil::SetShadow(GLfloat OffsetX, GLfloat OffsetY, GLfloat Opacity, glm::vec3 Color) {
+void SDK::Text::SetShadow(GLfloat OffsetX, GLfloat OffsetY, GLfloat Opacity, glm::vec3 Color) {
 	ShadowOffset.x = OffsetX;
 	ShadowOffset.y = OffsetY;
 	ShadowOpacity = Opacity;
 	ShadowColor = Color;
 }
 
-void TextUtil::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+void SDK::Text::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	TextColor.r = R;
 	TextColor.g = G;
 	TextColor.b = B;
 }
 
-void TextUtil::SetColor(glm::vec3& Color) {
+void SDK::Text::SetColor(glm::vec3& Color) {
 	TextColor.r = Color.r;
 	TextColor.g = Color.g;
 	TextColor.b = Color.b;
 }
 
-void TextUtil::SetColorRGB(int R, int G, int B) {
+void SDK::Text::SetColorRGB(int R, int G, int B) {
 	TextColor.r = (1.0f / 255.0f) * (GLfloat)R;
 	TextColor.g = (1.0f / 255.0f) * (GLfloat)G;
 	TextColor.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void TextUtil::Rotate(GLfloat RotationValue) {
+void SDK::Text::Rotate(GLfloat RotationValue) {
 	Rotation = RotationValue;
 }
 
-void TextUtil::SetOpacity(GLfloat Value) {
+void SDK::Text::SetOpacity(GLfloat Value) {
 	TextOpacity = Value;
 }
 
-void TextUtil::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...) {
+void SDK::Text::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...) {
 	if (Fmt == NULL)
 		return;
 
@@ -108,7 +108,7 @@ void TextUtil::Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...
 	InputText(Text, Position, Size);
 }
 
-void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...) {
+void SDK::Text::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...) {
 	if (Fmt == NULL)
 		return;
 
@@ -124,24 +124,24 @@ void TextUtil::Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ..
 	InputText(Text, glm::vec2(X, Y), Size);
 }
 
-void TextUtil::RenderStr(glm::vec2& Position, GLfloat Size, std::string Str) {
-	Render(Position.x, Position.y, Size, stringUtil.Wstring(Str).c_str());
+void SDK::Text::RenderStr(glm::vec2& Position, GLfloat Size, std::string Str) {
+	Render(Position.x, Position.y, Size, SDK::StringTool.Wstring(Str).c_str());
 }
 
-void TextUtil::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string Str) {
-	Render(X, Y, Size, stringUtil.Wstring(Str).c_str());
+void SDK::Text::RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string Str) {
+	Render(X, Y, Size, SDK::StringTool.Wstring(Str).c_str());
 }
 
-void TextUtil::RenderWStr(glm::vec2& Position, GLfloat Size, std::wstring WStr) {
+void SDK::Text::RenderWStr(glm::vec2& Position, GLfloat Size, std::wstring WStr) {
 	Render(Position.x, Position.y, Size, WStr.c_str());
 }
 
-void TextUtil::RenderWStr(GLfloat X, GLfloat Y, GLfloat Size, std::wstring WStr) {
+void SDK::Text::RenderWStr(GLfloat X, GLfloat Y, GLfloat Size, std::wstring WStr) {
 	Render(X, Y, Size, WStr.c_str());
 }
 
 ////////////////// private
-void TextUtil::InputText(std::vector<wchar_t>& Input, glm::vec2& Position, GLfloat Size) {
+void SDK::Text::InputText(std::vector<wchar_t>& Input, glm::vec2& Position, GLfloat Size) {
 	CurrentText = std::wstring(Input.data());
 
 	if (ShadowRenderCommand) {
@@ -155,7 +155,7 @@ void TextUtil::InputText(std::vector<wchar_t>& Input, glm::vec2& Position, GLflo
 	ProcessText(Input.data(), Position, Size);
 }
 
-void TextUtil::ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size) {
+void SDK::Text::ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size) {
 	CurrentLine = 0;
 	TextRenderSize = Size;
 	RenderPosition = Position;
@@ -186,7 +186,7 @@ void TextUtil::ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size) {
 		}
 
 		TransformText();
-		camera.SetCamera(RenderType);
+		Camera.SetCamera(RenderType);
 		PrepareRender();
 
 		glPushAttrib(GL_LIST_BIT);
@@ -200,7 +200,7 @@ void TextUtil::ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size) {
 	}
 }
 
-void TextUtil::GetLineLength(const wchar_t* Text) {
+void SDK::Text::GetLineLength(const wchar_t* Text) {
 	LineLengthBuffer.clear();
 	GLfloat CurrentLineLength{};
 
@@ -220,7 +220,7 @@ void TextUtil::GetLineLength(const wchar_t* Text) {
 		LineLengthBuffer.emplace_back(CurrentLineLength);
 }
 
-void TextUtil::CalculateTextLength(const wchar_t* Text) {
+void SDK::Text::CalculateTextLength(const wchar_t* Text) {
 	GetLineLength(Text);
 	TextLength = LineLengthBuffer[0];
 
@@ -233,7 +233,7 @@ void TextUtil::CalculateTextLength(const wchar_t* Text) {
 	}
 }
 
-void TextUtil::NextLine() {
+void SDK::Text::NextLine() {
 	RenderPosition.y -= (TextLineGap + TextRenderSize);
 	CurrentRenderPosition = 0.0;
 
@@ -243,44 +243,44 @@ void TextUtil::NextLine() {
 	}
 }
 
-void TextUtil::TransformText() {
-	transform.Identity(TextMatrix);
-	transform.Move(TextMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
+void SDK::Text::TransformText() {
+	SDK::Transform.Identity(TextMatrix);
+	SDK::Transform.Move(TextMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
 
 	switch (TextAlign) {
 	case ALIGN_DEFAULT:
-		transform.Rotate(TextMatrix, Rotation);
-		transform.Move(TextMatrix, CurrentRenderPosition, 0.0);
+		SDK::Transform.Rotate(TextMatrix, Rotation);
+		SDK::Transform.Move(TextMatrix, CurrentRenderPosition, 0.0);
 		break;
 
 	case ALIGN_MIDDLE:
-		transform.Move(TextMatrix, -TextLength / 2.0, 0.0);
-		transform.Rotate(TextMatrix, Rotation);
-		transform.Move(TextMatrix, CurrentRenderPosition, 0.0);
+		SDK::Transform.Move(TextMatrix, -TextLength / 2.0, 0.0);
+		SDK::Transform.Rotate(TextMatrix, Rotation);
+		SDK::Transform.Move(TextMatrix, CurrentRenderPosition, 0.0);
 		break;
 
 	case ALIGN_LEFT:
-		transform.Move(TextMatrix, -TextLength, 0.0);
-		transform.Rotate(TextMatrix, Rotation);
-		transform.Move(TextMatrix, CurrentRenderPosition, 0.0);
+		SDK::Transform.Move(TextMatrix, -TextLength, 0.0);
+		SDK::Transform.Rotate(TextMatrix, Rotation);
+		SDK::Transform.Move(TextMatrix, CurrentRenderPosition, 0.0);
 		break;
 	}
 
-	transform.Scale(TextMatrix, TextRenderSize, TextRenderSize);
+	SDK::Transform.Scale(TextMatrix, TextRenderSize, TextRenderSize);
 }
 
-void TextUtil::ProcessGlyphCache(wchar_t* Text) {
+void SDK::Text::ProcessGlyphCache(wchar_t* Text) {
 	for (int i = 0; i < TextWordCount; ++i) {
 		if (!CheckGlyphCache(Text[i]))
 			LoadGlyph(Text[i]);
 	}
 }
 
-bool TextUtil::CheckGlyphCache(wchar_t& Char) {
+bool SDK::Text::CheckGlyphCache(wchar_t& Char) {
 	return GlyphCache.find(Char) != GlyphCache.end() && GlyphCache[Char];
 }
 
-void TextUtil::LoadGlyph(wchar_t& Char) {
+void SDK::Text::LoadGlyph(wchar_t& Char) {
 	if (Char >= 65536)
 		return;
 
@@ -292,16 +292,16 @@ void TextUtil::LoadGlyph(wchar_t& Char) {
 	GlyphCache[Char] = true;
 }
 
-void TextUtil::PrepareRender() {
+void SDK::Text::PrepareRender() {
 	glUseProgram(TEXT_SHADER);
-	camera.PrepareRender(SHADER_TYPE_TEXT);
+	Camera.PrepareRender(SHADER_TYPE_TEXT);
 
 	glUniform1f(TEXT_OPACITY_LOCATION, RenderOpacity);
 	glUniform3f(TEXT_COLOR_LOCATION, RenderColor.r, RenderColor.g, RenderColor.b);
 	glUniformMatrix4fv(TEXT_MODEL_LOCATION, 1, GL_FALSE, value_ptr(TextMatrix));
 }
 
-TextUtil::~TextUtil() {
+SDK::Text::~Text() {
 	HFONT OldFont = (HFONT)SelectObject(hDC, Font);
 	SelectObject(hDC, OldFont);
 	DeleteObject(Font);

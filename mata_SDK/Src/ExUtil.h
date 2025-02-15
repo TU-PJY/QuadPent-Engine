@@ -14,4 +14,7 @@ public:
 	bool CheckClampValue(int& Value, int Dest, int Type);
 	void InputBoolSwitch(int SwitchingOption, int EventType, bool& DestBoolValue);
 };
-extern EX_Util EX;
+
+namespace SDK {
+	extern EX_Util EXTool;
+}

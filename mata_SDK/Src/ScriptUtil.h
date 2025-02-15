@@ -14,6 +14,7 @@
 using namespace CryptoPP;
 
 // read only
+
 class ScriptUtil {
 private:
 	TiXmlDocument Doc{};
@@ -27,7 +28,7 @@ public:
 	ScriptUtil() {}
 
 	void Load(std::string FileName);
-	void ImportSecure(std::string FileName);
+	void LoadSecure(std::string FileName);
 	float LoadDigitData(std::string CategoryName, std::string DataName);
 	std::string LoadStringData(std::string CategoryName, std::string DataName);
 	std::wstring LoadWstringData(std::string CategoryName, std::string DataName);

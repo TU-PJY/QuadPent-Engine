@@ -1,6 +1,6 @@
 #include "ComputeUtil.h"
 
-ComputeUtil computeUtil;
+ComputeUtil SDK::Compute;
 
 void ComputeUtil::ComputeMatrix(glm::mat4& Dest, glm::mat4& Matrix1, glm::mat4& Matrix2, glm::mat4& Matrix3, glm::mat4& Matrix4, glm::mat4& Matrix5) {
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO_MATRIX_INPUT);

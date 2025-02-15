@@ -85,11 +85,11 @@ public:
 	}
 
 	static void MouseMotion(int X, int Y) {
-		mouse.ConvertPosition(X, Y);
+		SDK::Mouse.ConvertPosition(X, Y);
 	}
 
 	static void MousePassiveMotion(int X, int Y) {
-		mouse.ConvertPosition(X, Y);
+		SDK::Mouse.ConvertPosition(X, Y);
 	}
 
 	static void MouseWheel(int Button, int Wheel, int X, int Y) {

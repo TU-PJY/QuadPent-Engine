@@ -3,30 +3,30 @@
 #include "CameraUtil.h"
 #include "CameraController.h"
 
-FrustumUtil frustum;
+FrustumUtil SDK::Frustum;
 
 void FrustumUtil::Update() {
-	FrustumOOBB.Update(SDK::CameraPosition, ASP(2.0) / camera.ZoomValue, 2.0 / camera.ZoomValue, SDK::CameraRotation);
+	FrustumOOBB.Update(SDK::CameraPosition, ASP(2.0) / SDK::Camera.ZoomValue, 2.0 / SDK::Camera.ZoomValue, SDK::CameraRotation);
 
 if(SHOW_FRUSTUM_BOUND)
-	LineRect.Draw(SDK::CameraPosition.x, SDK::CameraPosition.y, ASP(2.0) / camera.ZoomValue, 2.0 / camera.ZoomValue, BOUND_BOX_THICKNESS, SDK::CameraRotation);
+	LineRect.Draw(SDK::CameraPosition.x, SDK::CameraPosition.y, ASP(2.0) / SDK::Camera.ZoomValue, 2.0 / SDK::Camera.ZoomValue, BOUND_BOX_THICKNESS, SDK::CameraRotation);
 }
 
-bool FrustumUtil::Check(AABB& aabb) {
+bool FrustumUtil::Check(SDK::AABB& aabb) {
 	if (FrustumOOBB.CheckCollision(aabb))
 		return true;
 
 	return false;
 }
 
-bool FrustumUtil::Check(OOBB& oobb) {
+bool FrustumUtil::Check(SDK::OOBB& oobb) {
 	if (FrustumOOBB.CheckCollision(oobb))
 		return true;
 
 	return false;
 }
 
-bool FrustumUtil::Check(BoundingCircle& circle) {
+bool FrustumUtil::Check(SDK::BoundingCircle& circle) {
 	if (FrustumOOBB.CheckCollision(circle))
 		return true;
 

@@ -55,92 +55,8 @@
     <Filter Include="[5]___________[ System ]\[ Util ]">
       <UniqueIdentifier>{019278b2-60d4-4cad-b935-d813a31f2c87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Collision Util ]">
-      <UniqueIdentifier>{4048cd52-6e69-47f1-ad3d-07de4f88f83e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Mouse Util ]">
-      <UniqueIdentifier>{3fbba05c-17d5-4a1e-9a94-8c237067a9a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shader Util ]">
-      <UniqueIdentifier>{b56d104c-471b-4b68-914e-a701e7902ee0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Random Util ]">
-      <UniqueIdentifier>{a260c5f1-65f3-4ff6-afa8-97676fbd2054}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Timer Util ]">
-      <UniqueIdentifier>{6c809ee9-0b72-4df6-a180-049726371c03}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Physics Util ]">
-      <UniqueIdentifier>{63469aed-9fc3-41f7-bbf0-32d2050b40a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Clipping Util ]">
-      <UniqueIdentifier>{9bceb82f-2ade-4d6d-9360-521458e8d522}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Move Util ]">
-      <UniqueIdentifier>{a3986c5c-3d03-4f63-ba7d-4f37ac97802a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ EX Util ]">
-      <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Font Util ]">
-      <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Sound Util ]">
-      <UniqueIdentifier>{22512964-c0e1-42b6-8ae0-9c32d227bc22}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Thread Util ]">
-      <UniqueIdentifier>{7fd964a6-1f53-4574-8c6f-a2bbbea7a889}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ File Util ]">
-      <UniqueIdentifier>{d2e93683-5de8-4639-98b5-ff99bff6c54f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Math Util ]">
-      <UniqueIdentifier>{4a85a4fd-aaad-4cd4-9601-add0201898fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Compute Util ]">
-      <UniqueIdentifier>{f7456d94-6103-44fc-b1c5-33fe9e736f54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ String Util ]">
-      <UniqueIdentifier>{0d426163-3f7a-4344-9513-1c4da459934c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ AnimationUtil ]">
-      <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Script Util ]">
-      <UniqueIdentifier>{81f53a74-031c-406e-82e2-a9d6a7f85d59}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shape Util ]">
-      <UniqueIdentifier>{74b0aa9a-a87c-4a17-bdd5-d4f93ac8a450}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]">
-      <UniqueIdentifier>{186e77d4-d667-4ca8-a7db-0c4ff78a4275}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]">
-      <UniqueIdentifier>{1717a6b1-c315-40dc-a9e1-71209e40100b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]">
-      <UniqueIdentifier>{8ca8864d-f116-4649-ac79-d0c373874068}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ System ]\[ Util ]\[0] [ Pack ]">
       <UniqueIdentifier>{38262568-5f1a-4ff0-9a03-cc13df33dcd9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Text Util ]">
-      <UniqueIdentifier>{ebbafb29-e74d-4f67-ae00-7ab61d0dd40e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ UI Util ]">
-      <UniqueIdentifier>{4bc61999-6038-4873-89f1-097ff59edac5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Transform Util ]">
-      <UniqueIdentifier>{97cfbf89-8ee3-4d67-b4fb-aed1f7833e3b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Camera Util ]">
-      <UniqueIdentifier>{f246ec1e-8aa5-4a4c-86c6-75a511ec4ed6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Frustum Util ]">
-      <UniqueIdentifier>{c0d402a3-6a02-46a7-9a5d-b38ba1216622}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ System ]\[ Util ]\[ Image Util ]">
-      <UniqueIdentifier>{fa74e18f-898f-4b61-addd-ca55a9892895}</UniqueIdentifier>
     </Filter>
     <Filter Include="[1]___________[ GameMode ]\[1]_[ Modes ]">
       <UniqueIdentifier>{8f517fc9-5b73-4fde-859b-a7d4c4bad5e1}</UniqueIdentifier>
@@ -154,73 +70,157 @@
     <Filter Include="[1]___________[ GameMode ]\[0]_[ Mode  Attributes ]">
       <UniqueIdentifier>{e5570cb2-8557-4f05-9d45-ce94e1bf6e24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Animation ]">
+      <UniqueIdentifier>{4850e16c-dcfa-4087-ac33-4dcbebf53e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Camera ]">
+      <UniqueIdentifier>{f246ec1e-8aa5-4a4c-86c6-75a511ec4ed6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Clipping ]">
+      <UniqueIdentifier>{9bceb82f-2ade-4d6d-9360-521458e8d522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Collision ]">
+      <UniqueIdentifier>{4048cd52-6e69-47f1-ad3d-07de4f88f83e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Compute ]">
+      <UniqueIdentifier>{f7456d94-6103-44fc-b1c5-33fe9e736f54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ EX  ]">
+      <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Data ]">
+      <UniqueIdentifier>{d2e93683-5de8-4639-98b5-ff99bff6c54f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Font ]">
+      <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Frustum ]">
+      <UniqueIdentifier>{c0d402a3-6a02-46a7-9a5d-b38ba1216622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Image ]">
+      <UniqueIdentifier>{fa74e18f-898f-4b61-addd-ca55a9892895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Math ]">
+      <UniqueIdentifier>{4a85a4fd-aaad-4cd4-9601-add0201898fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Mouse ]">
+      <UniqueIdentifier>{3fbba05c-17d5-4a1e-9a94-8c237067a9a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Move ]">
+      <UniqueIdentifier>{a3986c5c-3d03-4f63-ba7d-4f37ac97802a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Physics ]">
+      <UniqueIdentifier>{63469aed-9fc3-41f7-bbf0-32d2050b40a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Random ]">
+      <UniqueIdentifier>{a260c5f1-65f3-4ff6-afa8-97676fbd2054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Script ]">
+      <UniqueIdentifier>{81f53a74-031c-406e-82e2-a9d6a7f85d59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shader ]">
+      <UniqueIdentifier>{b56d104c-471b-4b68-914e-a701e7902ee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shape ]">
+      <UniqueIdentifier>{74b0aa9a-a87c-4a17-bdd5-d4f93ac8a450}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shape ]\[ Line ]">
+      <UniqueIdentifier>{186e77d4-d667-4ca8-a7db-0c4ff78a4275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shape ]\[ Rect ]">
+      <UniqueIdentifier>{1717a6b1-c315-40dc-a9e1-71209e40100b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Shape ]\[ Circle ]">
+      <UniqueIdentifier>{8ca8864d-f116-4649-ac79-d0c373874068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Sound ]">
+      <UniqueIdentifier>{22512964-c0e1-42b6-8ae0-9c32d227bc22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ String ]">
+      <UniqueIdentifier>{0d426163-3f7a-4344-9513-1c4da459934c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Text ]">
+      <UniqueIdentifier>{ebbafb29-e74d-4f67-ae00-7ab61d0dd40e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Thread ]">
+      <UniqueIdentifier>{7fd964a6-1f53-4574-8c6f-a2bbbea7a889}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Timer ]">
+      <UniqueIdentifier>{6c809ee9-0b72-4df6-a180-049726371c03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ Transform ]">
+      <UniqueIdentifier>{97cfbf89-8ee3-4d67-b4fb-aed1f7833e3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ System ]\[ Util ]\[ UI ]">
+      <UniqueIdentifier>{4bc61999-6038-4873-89f1-097ff59edac5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\AnimationUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ AnimationUtil ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Animation ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\CameraController.cpp">
       <Filter>[3]___________[ Camera ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\CameraUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Camera Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Camera ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\CircleBrush.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shape ]\[ Circle ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ClippingUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Clipping Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Clipping ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\CollisionUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Collision Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Collision ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ComputeUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Compute Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Compute ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\Display.cpp">
       <Filter>[5]___________[ System ]\[ Main ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ExUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ EX Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ EX  ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\FileUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ File Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Data ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\FontUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Font Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Font ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\Object.cpp">
       <Filter>[5]___________[ System ]\[ Object ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ImageUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Image Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Image ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\LineBrush.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shape ]\[ Line ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\Main.cpp">
       <Filter>[5]___________[ System ]\[ Main ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\MathUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Math Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Math ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ObjectValue.cpp">
       <Filter>[5]___________[ System ]\[ Object ]\[ Object Value ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\MouseUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Mouse Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Mouse ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\MoveUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Move Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Move ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\PhysicsUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Physics Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Physics ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\RandomUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Random Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Random ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\RectBrush.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shape ]\[ Rect ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ResourceLoader.cpp">
       <Filter>[4]___________[ Resources ]</Filter>
@@ -229,31 +229,31 @@
       <Filter>[5]___________[ System ]\[ Scene ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ScriptUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Script ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SetUp.cpp">
       <Filter>[5]___________[ System ]\[ Main ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ShaderUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shader Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shader ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SoundUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Sound Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Sound ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\StringUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ String Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ String ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SysMode.cpp">
       <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\TextUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Text Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Text ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\ThreadUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Thread Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Thread ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\TimerUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Timer Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Timer ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\Library\tinyxml\tinystr.cpp">
       <Filter>[5]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
@@ -268,39 +268,39 @@
       <Filter>[5]___________[ System ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\TransformUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Transform Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Transform ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\UiUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ UI ]</Filter>
     </ClCompile>
     <ClCompile Include="ModeAttribute.cpp">
       <Filter>[1]___________[ GameMode ]\[0]_[ Mode  Attributes ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\FrustumUtil.cpp">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Frustum Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Frustum ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\AnimationUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ AnimationUtil ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Animation ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\CameraController.h">
       <Filter>[3]___________[ Camera ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\CameraUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Camera Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Camera ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\CircleBrush.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Circle ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shape ]\[ Circle ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ClippingUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Clipping Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Clipping ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\CollisionUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Collision Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Collision ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ComputeUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Compute Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Compute ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\Config.h">
       <Filter>[0]___________[ Config ]</Filter>
@@ -309,13 +309,13 @@
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ExUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ EX Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ EX  ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\FileUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ File Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Data ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\FontUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Font Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Font ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\FPSInd.h">
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>
@@ -327,67 +327,67 @@
       <Filter>[4]___________[ Resources ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ImageUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Image Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Image ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\IntroScreen.h">
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\LineBrush.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Line ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shape ]\[ Line ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\LoadingMode.h">
       <Filter>[5]___________[ System ]\[ System Mode ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\MathUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Math Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Math ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ObjectValue.h">
       <Filter>[5]___________[ System ]\[ Object ]\[ Object Value ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\MouseUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Mouse Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Mouse ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\MoveUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Move Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Move ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\PhysicsUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Physics Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Physics ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\RandomUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Random Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Random ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\RectBrush.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shape Util ]\[ Rect ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shape ]\[ Rect ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\Scene.h">
       <Filter>[5]___________[ System ]\[ Scene ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ScriptUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Script Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Script ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDKHeader.h">
       <Filter>[5]___________[ System ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ShaderUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Shader Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Shader ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SoundUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Sound Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Sound ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\StringUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ String Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ String ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SystemResource.h">
       <Filter>[5]___________[ System ]\[ System Resource ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\TextUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Text Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Text ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\ThreadUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Thread Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Thread ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\TimerUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Timer Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Timer ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\Library\tinyxml\tinystr.h">
       <Filter>[5]___________[ System ]\[ TinyXML ]\[ Header ]</Filter>
@@ -396,10 +396,10 @@
       <Filter>[5]___________[ System ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\TransformUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Transform Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Transform ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\UiUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ UI Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ UI ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\UtilPack.h">
       <Filter>[5]___________[ System ]\[ Util ]\[0] [ Pack ]</Filter>
@@ -408,7 +408,7 @@
       <Filter>[5]___________[ System ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\FrustumUtil.h">
-      <Filter>[5]___________[ System ]\[ Util ]\[ Frustum Util ]</Filter>
+      <Filter>[5]___________[ System ]\[ Util ]\[ Frustum ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\IntroMode.h">
       <Filter>[5]___________[ System ]\[ System Mode ]</Filter>

@@ -3,7 +3,7 @@
 #include "Config.h"
 #include "StringUtil.h"
 
-void FileUtil::Load(std::string FileDirectory, DataFormat Fmt) {
+void SDK::Data::Load(std::string FileDirectory, DataFormat Fmt) {
 	if (FileExist)
 		return;
 
@@ -28,37 +28,37 @@ void FileUtil::Load(std::string FileDirectory, DataFormat Fmt) {
 	FileExist = true;
 }
 
-void FileUtil::UpdateDigitData(std::string CategoryName, std::string DataName, float Value) {
+void SDK::Data::UpdateDigitData(std::string CategoryName, std::string DataName, float Value) {
 	CategorySearch = CategoryName;
 	DataSearch = DataName;
 	WriteDigitData(FindCategory(CategoryName), DataName, Value);
 	UpdateDataFile();
 }
 
-void FileUtil::UpdateStringData(std::string CategoryName, std::string DataName, std::string Value) {
+void SDK::Data::UpdateStringData(std::string CategoryName, std::string DataName, std::string Value) {
 	CategorySearch = CategoryName;
 	DataSearch = DataName;
 	WriteStringData(FindCategory(CategoryName), DataName, Value);
 	UpdateDataFile();
 }
 
-float FileUtil::LoadDigitData(std::string CategoryName, std::string DataName) {
+float SDK::Data::LoadDigitData(std::string CategoryName, std::string DataName) {
 	CategorySearch = CategoryName;
 	DataSearch = DataName;
 	return GetDigitData(FindCategory(CategoryName), DataName);
 }
 
-std::string FileUtil::LoadStringData(std::string CategoryName, std::string DataName) {
+std::string SDK::Data::LoadStringData(std::string CategoryName, std::string DataName) {
 	CategorySearch = CategoryName;
 	DataSearch = DataName;
 	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
-std::wstring FileUtil::LoadWStringData(std::string Categoryname, std::string DataName) {
-	return stringUtil.Wstring(LoadStringData(Categoryname, DataName));
+std::wstring SDK::Data::LoadWStringData(std::string Categoryname, std::string DataName) {
+	return StringTool.Wstring(LoadStringData(Categoryname, DataName));
 }
 
-DigitDataVec FileUtil::LoadCategoryDigitData(std::string CategoryName) {
+DigitDataVec SDK::Data::LoadCategoryDigitData(std::string CategoryName) {
 	DigitDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 
@@ -76,7 +76,7 @@ DigitDataVec FileUtil::LoadCategoryDigitData(std::string CategoryName) {
 	return LoadedData;
 }
 
-StringDataVec FileUtil::LoadCategoryStringData(std::string CategoryName) {
+StringDataVec SDK::Data::LoadCategoryStringData(std::string CategoryName) {
 	StringDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 
@@ -94,20 +94,19 @@ StringDataVec FileUtil::LoadCategoryStringData(std::string CategoryName) {
 	return LoadedData;
 }
 
-void FileUtil::ResetData() {
+void SDK::Data::ResetData() {
 	Doc.Clear();
 	FileExist = false;
 	SetupData();
 }
 
-void FileUtil::Release() {
+void SDK::Data::Release() {
 	Doc.Clear();
 	FileExist = false;
 }
 
-
 //////////////////////////////// private
-void FileUtil::SetupData() {
+void SDK::Data::SetupData() {
 	if (!FileExist) {
 		CreateDec(APPLICATION_VERSION);
 		AddRoot("Data");
@@ -116,7 +115,7 @@ void FileUtil::SetupData() {
 	Root = FindRoot();
 
 	for (auto const& D : DataFormatInfo) {
-		if(!CheckCategoryExist(D.CategoryName))
+		if (!CheckCategoryExist(D.CategoryName))
 			AddCategory(D.CategoryName);
 
 		if (!CheckDataExist(D.CategoryName, D.DataName)) {
@@ -140,7 +139,7 @@ void FileUtil::SetupData() {
 	}
 }
 
-void FileUtil::CheckDataVersion() {
+void SDK::Data::CheckDataVersion() {
 	TiXmlNode* DeclNode = Doc.FirstChild();
 	TiXmlDeclaration* Decl = DeclNode->ToDeclaration();
 
@@ -155,7 +154,7 @@ void FileUtil::CheckDataVersion() {
 	}
 }
 
-void FileUtil::UpdateDataVersion(float VersionValue) {
+void SDK::Data::UpdateDataVersion(float VersionValue) {
 	TiXmlNode* DeclNode = Doc.FirstChild();
 	TiXmlDeclaration* Decl = DeclNode->ToDeclaration();
 
@@ -176,30 +175,30 @@ void FileUtil::UpdateDataVersion(float VersionValue) {
 	}
 }
 
-void FileUtil::CreateDec(float VersionValue) {
+void SDK::Data::CreateDec(float VersionValue) {
 	std::ostringstream OSS;
 	OSS << std::fixed << std::setprecision(1) << VersionValue;
 	std::string NewVersionStr = OSS.str();
 	Doc.LinkEndChild(new TiXmlDeclaration(NewVersionStr.c_str(), "", ""));
 }
 
-void FileUtil::AddRoot(std::string RootName) {
+void SDK::Data::AddRoot(std::string RootName) {
 	Doc.LinkEndChild(new TiXmlElement(RootName.c_str()));
 }
 
-void FileUtil::AddCategory(std::string CategoryName) {
+void SDK::Data::AddCategory(std::string CategoryName) {
 	Root->LinkEndChild(new TiXmlElement(CategoryName.c_str()));
 }
 
-void FileUtil::AddDigitData(std::string CategoryName, std::string DataName, float Value) {
+void SDK::Data::AddDigitData(std::string CategoryName, std::string DataName, float Value) {
 	FindCategory(CategoryName)->SetDoubleAttribute(DataName.c_str(), Value);
 }
 
-void FileUtil::AddStringData(std::string CategoryName, std::string DataName, std::string Value) {
+void SDK::Data::AddStringData(std::string CategoryName, std::string DataName, std::string Value) {
 	FindCategory(CategoryName)->SetAttribute(DataName.c_str(), Value.c_str());
 }
 
-void FileUtil::WriteDigitData(TiXmlElement* CategoryVar, std::string DataName, float Value) {
+void SDK::Data::WriteDigitData(TiXmlElement* CategoryVar, std::string DataName, float Value) {
 	if (!CategoryVar) {
 		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
 		return;
@@ -213,7 +212,7 @@ void FileUtil::WriteDigitData(TiXmlElement* CategoryVar, std::string DataName, f
 	}
 }
 
-void FileUtil::WriteStringData(TiXmlElement* CategoryVar, std::string DataName, std::string Value) {
+void SDK::Data::WriteStringData(TiXmlElement* CategoryVar, std::string DataName, std::string Value) {
 	if (!CategoryVar) {
 		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
 		return;
@@ -227,7 +226,7 @@ void FileUtil::WriteStringData(TiXmlElement* CategoryVar, std::string DataName, 
 	}
 }
 
-float FileUtil::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
+float SDK::Data::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
 	if (!CategoryVar) {
 		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
 		return 0.0;
@@ -242,7 +241,7 @@ float FileUtil::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
 	}
 }
 
-std::string FileUtil::GetStringData(TiXmlElement* CategoryVar, std::string DataName) {
+std::string SDK::Data::GetStringData(TiXmlElement* CategoryVar, std::string DataName) {
 	if (!CategoryVar) {
 		scene.SetErrorScreen(ERROR_TYPE_DATA_FILE_CATEGORY, CategorySearch);
 		return "";
@@ -257,30 +256,30 @@ std::string FileUtil::GetStringData(TiXmlElement* CategoryVar, std::string DataN
 	}
 }
 
-TiXmlElement* FileUtil::FindRoot() {
+TiXmlElement* SDK::Data::FindRoot() {
 	return Doc.RootElement();
 }
 
-TiXmlElement* FileUtil::FindCategory(std::string CategoryName) {
+TiXmlElement* SDK::Data::FindCategory(std::string CategoryName) {
 	return Root->FirstChildElement(CategoryName.c_str());
 }
 
-bool FileUtil::CheckCategoryExist(std::string CategoryName) {
+bool SDK::Data::CheckCategoryExist(std::string CategoryName) {
 	if (!Root->FirstChildElement(CategoryName.c_str()))
 		return false;
 
 	return true;
 }
 
-bool FileUtil::CheckDataExist(std::string CategoryName, std::string DataName) {
+bool SDK::Data::CheckDataExist(std::string CategoryName, std::string DataName) {
 	TiXmlElement* FoundCategory = FindCategory(CategoryName);
 	if (!FindCategory(CategoryName)->Attribute(DataName.c_str()))
 		return false;
-		
+
 	return true;
 }
 
-bool FileUtil::LoadDataFile(std::string FileName) {
+bool SDK::Data::LoadDataFile(std::string FileName) {
 	if (USE_FILE_SECURITY) {
 		std::ifstream EncryptedFile(FileName, std::ios::binary);
 		if (!EncryptedFile)
@@ -304,7 +303,7 @@ bool FileUtil::LoadDataFile(std::string FileName) {
 		return Doc.LoadFile(FileName.c_str(), TIXML_ENCODING_UTF8);
 }
 
-void FileUtil::UpdateDataFile() {
+void SDK::Data::UpdateDataFile() {
 	if (USE_FILE_SECURITY) {
 		TiXmlPrinter Printer;
 		Doc.Accept(&Printer);
@@ -321,7 +320,7 @@ void FileUtil::UpdateDataFile() {
 		Doc.SaveFile(FilePath.c_str());
 }
 
-std::string FileUtil::Encrypt(const std::string& PlainText, const byte Key[], const byte IV[]) {
+std::string SDK::Data::Encrypt(const std::string& PlainText, const byte Key[], const byte IV[]) {
 	std::string CipherText;
 
 	try {
@@ -337,7 +336,7 @@ std::string FileUtil::Encrypt(const std::string& PlainText, const byte Key[], co
 	return CipherText;
 }
 
-std::string FileUtil::Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]) {
+std::string SDK::Data::Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]) {
 	std::string PlainText;
 
 	try {
@@ -353,18 +352,18 @@ std::string FileUtil::Decrypt(const std::string& CipherText, const byte Key[], c
 	return PlainText;
 }
 
-std::string FileUtil::GetFileName(const std::string& FileDirectory) {
+std::string SDK::Data::GetFileName(const std::string& FileDirectory) {
 	std::string MainString = FileDirectory;
 	size_t Pos = MainString.rfind("//");
 
 	return (Pos != std::string::npos) ? MainString.substr(Pos + 2) : MainString;
 }
 
-std::string FileUtil::GetFolderPath(const std::string& FileDirectory, const std::string& RemoveString) {
+std::string SDK::Data::GetFolderPath(const std::string& FileDirectory, const std::string& RemoveString) {
 	std::string MainString = FileDirectory;
 	size_t Pos = MainString.rfind("//");
 	if (Pos != std::string::npos)
 		MainString = MainString.substr(0, Pos);
-	
+
 	return MainString;
 }

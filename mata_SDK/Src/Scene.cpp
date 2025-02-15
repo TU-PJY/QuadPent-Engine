@@ -23,7 +23,7 @@ void Scene::Resume() {
 
 void Scene::Update() {
 	if (!ErrorScreenState && ErrorOccured) {
-		soundUtil.StopAllSounds();
+		SDK::SoundTool.StopAllSounds();
 		SwitchToErrorScreen();
 		UpdateActivateCommand = false;
 		ErrorScreenState = true;

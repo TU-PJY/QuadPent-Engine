@@ -10,4 +10,7 @@ public:
 	GLfloat Gen(int DistType, GLfloat Min, GLfloat Max);
 	bool Probability(int Percent);
 };
-extern RandomUtil randomUtil;
+
+namespace SDK {
+	extern RandomUtil Random;
+}

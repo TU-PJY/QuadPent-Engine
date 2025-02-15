@@ -1,7 +1,7 @@
 #pragma once
 #include "SDKHeader.h"
 
-class Camera {
+class CameraUtil {
 private:
 	glm::vec3 CamPos{}, CamDirection{}, CamUp{};
 	bool      StaticRenderCommand{};
@@ -15,4 +15,7 @@ public:
 	void SetCamera(int RenderType);
 	void PrepareRender(int ShaderType);
 };
-extern Camera camera;
+
+namespace SDK {
+	extern CameraUtil Camera;
+}

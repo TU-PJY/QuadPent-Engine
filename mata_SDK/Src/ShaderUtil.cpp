@@ -4,7 +4,7 @@
 #include <stdarg.h>
 #include <fstream>
 
-ShaderUtil shaderUtil;
+ShaderUtil SDK::Shader;
 
 GLuint IMAGE_SHADER;
 GLuint TEXT_SHADER;

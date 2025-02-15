@@ -10,7 +10,7 @@
 #include "ComputeUtil.h"
 
 
-ImageUtil imageUtil;
+ImageUtil SDK::ImageTool;
 
 GLfloat ImagePannel[][48] = {  // default size 1.0 * 1.0
 	-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,
@@ -148,7 +148,7 @@ void ImageUtil::LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string File
 	int CurrentIndex{};
 	int CurrentXPosition = 0;
 	int CurrentYPosition = Height - ClipHeight * StartLocation;
-	EX.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+	SDK::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 	for (int C = 0; C < NumCol; ++C) {
 		for (int R = 0; R < NumRow; ++R) {
@@ -182,13 +182,13 @@ void ImageUtil::LoadSpriteSheet(SpriteSheet& SpriteSheetStruct, std::string File
 			stbi_image_free(ClippedTextureData);
 
 			CurrentXPosition += ClipWidth;
-			EX.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
+			SDK::EXTool.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
 
 			++CurrentIndex;
 		}
 
 		CurrentYPosition -= ClipHeight;
-		EX.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+		SDK::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 		CurrentXPosition = 0;
 	}
@@ -217,7 +217,7 @@ void ImageUtil::LoadSpriteSheetT(SpriteSheet& SpriteSheetStruct, std::string Fil
 
 	int CurrentXPosition = 0;
 	int CurrentYPosition = Height - ClipHeight * StartLocation;
-	EX.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+	SDK::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 	for (int C = 0; C < NumCol; ++C) {
 		for (int R = 0; R < NumRow; ++R) {
@@ -233,11 +233,11 @@ void ImageUtil::LoadSpriteSheetT(SpriteSheet& SpriteSheetStruct, std::string Fil
 			PLSS.TextureData.emplace_back(ClippedTextureData);
 
 			CurrentXPosition += ClipWidth;
-			EX.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
+			SDK::EXTool.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
 		}
 
 		CurrentYPosition -= ClipHeight;
-		EX.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+		SDK::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 		CurrentXPosition = 0;
 	}
@@ -449,7 +449,7 @@ void ImageUtil::UnmapSpriteSheet(SpriteSheet& SpriteSheetStruct) {
 
 void ImageUtil::PrepareRender(Image& ImageStruct) {
 	glUseProgram(IMAGE_SHADER);
-	camera.PrepareRender(SHADER_TYPE_IMAGE);
+	SDK::Camera.PrepareRender(SHADER_TYPE_IMAGE);
 
 	glUniform1f(IMAGE_OPACITY_LOCATION, ObjectOpacityValue);
 	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
@@ -467,7 +467,7 @@ void ImageUtil::PrepareRender(Image& ImageStruct) {
 
 void ImageUtil::PrepareRender(SpriteSheet& SpriteSheetStruct) {
 	glUseProgram(IMAGE_SHADER);
-	camera.PrepareRender(SHADER_TYPE_IMAGE);
+	SDK::Camera.PrepareRender(SHADER_TYPE_IMAGE);
 
 	glUniform1f(IMAGE_OPACITY_LOCATION, ObjectOpacityValue);
 	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
@@ -485,28 +485,28 @@ void ImageUtil::PrepareRender(SpriteSheet& SpriteSheetStruct) {
 
 void ImageUtil::ProcessTransform(GLfloat Width, GLfloat Height, GLfloat OpacityValue, bool DisableAdjustAspect, bool ApplyUnitTransform) {
 	if (!DisableAdjustAspect)
-		transform.ImageScale(ImageAspectMatrix, Width, Height);
+		SDK::Transform.ImageScale(ImageAspectMatrix, Width, Height);
 
 	if (USE_COMPUTE_SHADER)
-		computeUtil.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+		SDK::Compute.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 	else {
-		if (!transform.CheckIdentity(MoveMatrix)) { ResultMatrix *= MoveMatrix; }
-		if (!transform.CheckIdentity(RotateMatrix)) { ResultMatrix *= RotateMatrix; }
-		if (!transform.CheckIdentity(ScaleMatrix)) { ResultMatrix *= ScaleMatrix; }
-		if (!transform.CheckIdentity(ImageAspectMatrix)) { ResultMatrix *= ImageAspectMatrix; }
-		if (!transform.CheckIdentity(FlipMatrix)) { ResultMatrix *= FlipMatrix; }
+		if (!SDK::Transform.CheckIdentity(MoveMatrix)) { ResultMatrix *= MoveMatrix; }
+		if (!SDK::Transform.CheckIdentity(RotateMatrix)) { ResultMatrix *= RotateMatrix; }
+		if (!SDK::Transform.CheckIdentity(ScaleMatrix)) { ResultMatrix *= ScaleMatrix; }
+		if (!SDK::Transform.CheckIdentity(ImageAspectMatrix)) { ResultMatrix *= ImageAspectMatrix; }
+		if (!SDK::Transform.CheckIdentity(FlipMatrix)) { ResultMatrix *= FlipMatrix; }
 	}
 
 	ObjectOpacityValue = OpacityValue;
 
 	if (ApplyUnitTransform) {
 		if (USE_COMPUTE_SHADER)
-			computeUtil.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+			SDK::Compute.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
 		else {
-			if (!transform.CheckIdentity(UnitMoveMatrix)) { ResultMatrix = UnitMoveMatrix * ResultMatrix; }
-			if (!transform.CheckIdentity(UnitRotateMatrix)) { ResultMatrix = UnitRotateMatrix * ResultMatrix; }
-			if (!transform.CheckIdentity(UnitScaleMatrix)) { ResultMatrix = UnitScaleMatrix * ResultMatrix; }
-			if (!transform.CheckIdentity(UnitFlipMatrix)) { ResultMatrix *= UnitFlipMatrix; }
+			if (!SDK::Transform.CheckIdentity(UnitMoveMatrix)) { ResultMatrix = UnitMoveMatrix * ResultMatrix; }
+			if (!SDK::Transform.CheckIdentity(UnitRotateMatrix)) { ResultMatrix = UnitRotateMatrix * ResultMatrix; }
+			if (!SDK::Transform.CheckIdentity(UnitScaleMatrix)) { ResultMatrix = UnitScaleMatrix * ResultMatrix; }
+			if (!SDK::Transform.CheckIdentity(UnitFlipMatrix)) { ResultMatrix *= UnitFlipMatrix; }
 		}
 		ObjectOpacityValue = ObjectOpacityValue * UnitOpacityValue;
 		ObjectBlurValue = ObjectBlurValue * UnitBlurValue;

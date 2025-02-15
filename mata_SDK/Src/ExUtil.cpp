@@ -1,6 +1,6 @@
 #include "ExUtil.h"
 
-EX_Util EX;
+EX_Util SDK::EXTool;
 
 void EX_Util::SwitchBool(bool& Value) {
 	if (!Value)

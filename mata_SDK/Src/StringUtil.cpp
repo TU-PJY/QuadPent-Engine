@@ -1,6 +1,6 @@
 #include "StringUtil.h"
 
-StringUtil stringUtil;
+StringUtil SDK::StringTool;
 
 void StringUtil::InputChar(std::string& Str, unsigned char AddChar, bool UseNewLine) {
 	switch (AddChar) {

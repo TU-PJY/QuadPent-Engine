@@ -40,15 +40,15 @@ public:
 
 	void UpdateFunc(float FrameTime) {
 		if (!LoadStart) {
-			camera.Init();
-			imageUtil.Init();
-			soundUtil.Init();
+			SDK::Camera.Init();
+			SDK::ImageTool.Init();
+			SDK::SoundTool.Init();
 
-			fontUtil.LoadT(SDK::SYSRES.SDK_FONT_DIRECTORY);
-			imageUtil.LoadImage(SDK::SYSRES.SDK_IMAGE_ERROR, SDK::SYSRES.SDK_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-			imageUtil.LoadImage(SDK::SYSRES.LOADING_SPINNER, SDK::SYSRES.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
+			SDK::FontLoader.LoadT(SDK::SYSRES.SDK_FONT_DIRECTORY);
+			SDK::ImageTool.LoadImage(SDK::SYSRES.SDK_IMAGE_ERROR, SDK::SYSRES.SDK_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+			SDK::ImageTool.LoadImage(SDK::SYSRES.LOADING_SPINNER, SDK::SYSRES.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 
-			threadUtil.Create(SystemResourceLoadHandle, SystemResourceLoader);
+			SDK::ThreadTool.Create(SystemResourceLoadHandle, SystemResourceLoader);
 
 			LoadStart = true;
 		}
@@ -58,7 +58,7 @@ public:
 
 			if (LoadResources()) {
 				if (!InitializationEnd) {
-					imageUtil.Map();
+					SDK::ImageTool.Map();
 					std::cout << "All of Image resources mapped." << std::endl;
 
 					ModeAttribute();
@@ -77,7 +77,7 @@ public:
 				else {
 					if (InitializationEnd) {
 						SpinnerOpacity -= FrameTime * 2.0;
-						if (EX.CheckClampValue(SpinnerOpacity, 0.0, CLAMP_LESS)) {
+						if (SDK::EXTool.CheckClampValue(SpinnerOpacity, 0.0, CLAMP_LESS)) {
 							if (SHOW_FPS)  AddFPSIndicator();
 							scene.SwitchMode(IntroMode.Start);
 						}
@@ -89,10 +89,10 @@ public:
 
 	void RenderFunc() {
 		Begin(RENDER_TYPE_STATIC);
-		transform.Move(MoveMatrix, SDK::RECT.rx - 0.15, -0.85);
-		transform.Scale(ScaleMatrix, 0.25, 0.25);
-		transform.Rotate(RotateMatrix, Rotation);
-		imageUtil.RenderImage(SDK::SYSRES.LOADING_SPINNER, SpinnerOpacity);
+		SDK::Transform.Move(MoveMatrix, SDK::RECT.rx - 0.15, -0.85);
+		SDK::Transform.Scale(ScaleMatrix, 0.25, 0.25);
+		SDK::Transform.Rotate(RotateMatrix, Rotation);
+		SDK::ImageTool.RenderImage(SDK::SYSRES.LOADING_SPINNER, SpinnerOpacity);
 	}
 
 	void AddFPSIndicator() {
@@ -101,37 +101,37 @@ public:
 	}
 
 	bool LoadResources() {
-		if (!threadUtil.CheckAlive(SystemResourceLoadHandle) && !SystemResourceLoadEnd) {
-			threadUtil.Close(SystemResourceLoadHandle);
-			threadUtil.Create(ImageResourceLoadHandle, ImageResourceLoader);
-			threadUtil.Create(SoundResourceLoadHandle, SoundResourceLoader);
-			threadUtil.Create(DataResourceLoadHandle, FileResourceLoader);
-			threadUtil.Create(FontResourceLoadHandle, FontResourceLoader);
+		if (!SDK::ThreadTool.CheckAlive(SystemResourceLoadHandle) && !SystemResourceLoadEnd) {
+			SDK::ThreadTool.Close(SystemResourceLoadHandle);
+			SDK::ThreadTool.Create(ImageResourceLoadHandle, ImageResourceLoader);
+			SDK::ThreadTool.Create(SoundResourceLoadHandle, SoundResourceLoader);
+			SDK::ThreadTool.Create(DataResourceLoadHandle, FileResourceLoader);
+			SDK::ThreadTool.Create(FontResourceLoadHandle, FontResourceLoader);
 			std::cout << "System resource load completed." << std::endl;
 
 			SystemResourceLoadEnd = true;
 		}
 
-		if (!ImageResourceLoadEnd && !threadUtil.CheckAlive(ImageResourceLoadHandle)) {
-			threadUtil.Close(ImageResourceLoadHandle);
+		if (!ImageResourceLoadEnd && !SDK::ThreadTool.CheckAlive(ImageResourceLoadHandle)) {
+			SDK::ThreadTool.Close(ImageResourceLoadHandle);
 			std::cout << "Image resource load completed." << std::endl;
 			ImageResourceLoadEnd = true;
 		}
 
-		if (!SoundResourceLoadEnd && !threadUtil.CheckAlive(SoundResourceLoadHandle)) {
-			threadUtil.Close(SoundResourceLoadHandle);
+		if (!SoundResourceLoadEnd && !SDK::ThreadTool.CheckAlive(SoundResourceLoadHandle)) {
+			SDK::ThreadTool.Close(SoundResourceLoadHandle);
 			std::cout << "Sound resource load completed." << std::endl;
 			SoundResourceLoadEnd = true;
 		}
 
-		if (!DataResourceLoadEnd && !threadUtil.CheckAlive(DataResourceLoadHandle)) {
-			threadUtil.Close(DataResourceLoadHandle);
+		if (!DataResourceLoadEnd && !SDK::ThreadTool.CheckAlive(DataResourceLoadHandle)) {
+			SDK::ThreadTool.Close(DataResourceLoadHandle);
 			std::cout << "Data resource load completed." << std::endl;
 			DataResourceLoadEnd = true;
 		}
 
-		if (!FontResourceLoadEnd && !threadUtil.CheckAlive(FontResourceLoadHandle)) {
-			threadUtil.Close(FontResourceLoadHandle);
+		if (!FontResourceLoadEnd && !SDK::ThreadTool.CheckAlive(FontResourceLoadHandle)) {
+			SDK::ThreadTool.Close(FontResourceLoadHandle);
 			std::cout << "Font resource load completed." << std::endl;
 			FontResourceLoadEnd = true;
 		}
@@ -143,10 +143,10 @@ public:
 	}
 
 	static DWORD WINAPI SystemResourceLoader(LPVOID Param) {
-		imageUtil.LoadImageT(SDK::SYSRES.SDK_LOGO, SDK::SYSRES.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.LoadImageT(SDK::SYSRES.FMOD_LOGO, SDK::SYSRES.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
-		imageUtil.LoadImageT(SDK::SYSRES.COLOR_TEXTURE, SDK::SYSRES.COLOR_TEXTURE_DIRECTORY);
-		soundUtil.Load(SDK::SYSRES.INTRO_SOUND, SDK::SYSRES.SDK_LOGO_SOUND_DIRECTORY);
+		SDK::ImageTool.LoadImageT(SDK::SYSRES.SDK_LOGO, SDK::SYSRES.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+		SDK::ImageTool.LoadImageT(SDK::SYSRES.FMOD_LOGO, SDK::SYSRES.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
+		SDK::ImageTool.LoadImageT(SDK::SYSRES.COLOR_TEXTURE, SDK::SYSRES.COLOR_TEXTURE_DIRECTORY);
+		SDK::SoundTool.Load(SDK::SYSRES.INTRO_SOUND, SDK::SYSRES.SDK_LOGO_SOUND_DIRECTORY);
 
 		SDK::SYSRES.GLU_CIRCLE = gluNewQuadric();
 		SDK::SYSRES.GLU_LINE_CIRCLE = gluNewQuadric();

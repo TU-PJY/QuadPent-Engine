@@ -2,25 +2,25 @@
 #include "CameraUtil.h"
 
 void Object::Begin(int RenderType) {
-	transform.Identity(ResultMatrix);
-	transform.Identity(MoveMatrix);
-	transform.Identity(RotateMatrix);
-	transform.Identity(ScaleMatrix);
-	transform.Identity(ImageAspectMatrix);
-	transform.Identity(FlipMatrix);
+	SDK::Transform.Identity(ResultMatrix);
+	SDK::Transform.Identity(MoveMatrix);
+	SDK::Transform.Identity(RotateMatrix);
+	SDK::Transform.Identity(ScaleMatrix);
+	SDK::Transform.Identity(ImageAspectMatrix);
+	SDK::Transform.Identity(FlipMatrix);
 
 	ObjectOpacityValue = 1.0f;
 	ObjectBlurValue = 0.0;
 	ObjectColor = glm::vec3(0.0, 0.0, 0.0);
 
-	camera.SetCamera(RenderType);
+	SDK::Camera.SetCamera(RenderType);
 }
 
 void Object::IdentityUnitMatrix() {
-	transform.Identity(UnitMoveMatrix);
-	transform.Identity(UnitRotateMatrix);
-	transform.Identity(UnitScaleMatrix);
-	transform.Identity(UnitFlipMatrix);
+	SDK::Transform.Identity(UnitMoveMatrix);
+	SDK::Transform.Identity(UnitRotateMatrix);
+	SDK::Transform.Identity(UnitScaleMatrix);
+	SDK::Transform.Identity(UnitFlipMatrix);
 
 	UnitOpacityValue = 1.0f;
 	UnitBlurValue = 0.0f;
@@ -55,7 +55,7 @@ void Object::ComputeLocalPosition(glm::vec2& DestPosition) {
 ////////////////////////// private
 
 glm::vec4 Object::ViewportPosition() {
-	computeUtil.ComputeMatrix(ViewportPositionMatrix, camera.Projection, camera.ViewMatrix, ResultMatrix);
+	SDK::Compute.ComputeMatrix(ViewportPositionMatrix, SDK::Camera.Projection, SDK::Camera.ViewMatrix, ResultMatrix);
 	return ViewportPositionMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }
 

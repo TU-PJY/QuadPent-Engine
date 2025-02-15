@@ -6,4 +6,7 @@ public:
 	bool Load(const std::string& FontFilePath);
 	bool LoadT(const std::string& FontFilePath);
 };
-extern FontUtil fontUtil;
+
+namespace SDK {
+	extern FontUtil FontLoader;
+}

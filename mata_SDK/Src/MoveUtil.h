@@ -11,4 +11,6 @@ public:
 	void MoveForward(glm::vec2& Position, GLfloat Speed, GLfloat RotationValue, float FrameTime, bool Plus90Option);
 };
 
-extern MoveUtil moveUtil;
+namespace SDK {
+	extern MoveUtil MoveTool;
+}

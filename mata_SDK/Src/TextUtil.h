@@ -5,81 +5,82 @@
 #include <map>
 #include <unordered_map>
 
-class TextUtil {
-private:
-	glm::vec2                RenderPosition{};
-	GLfloat                  CurrentRenderPosition{};
-	GLfloat                  Rotation{};
+namespace SDK {
+	class Text {
+	private:
+		glm::vec2                RenderPosition{};
+		GLfloat                  CurrentRenderPosition{};
+		GLfloat                  Rotation{};
 
-	size_t                   TextWordCount{};
-	GLfloat                  TextLength{};
-	GLfloat                  TextRenderSize{};
-	GLfloat                  TextLineGap{};
-	GLfloat                  MiddleHeight{};
+		size_t                   TextWordCount{};
+		GLfloat                  TextLength{};
+		GLfloat                  TextRenderSize{};
+		GLfloat                  TextLineGap{};
+		GLfloat                  MiddleHeight{};
 
-	std::vector<GLfloat>     LineLengthBuffer{};
-	std::wstring             CurrentText{};
-	std::wstring             PrevText{};
-	int                      CurrentLine{};
+		std::vector<GLfloat>     LineLengthBuffer{};
+		std::wstring             CurrentText{};
+		std::wstring             PrevText{};
+		int                      CurrentLine{};
 
-	GLfloat                  TextOpacity{ 1.0f };
-	glm::vec3                TextColor{ glm::vec3(1.0, 1.0, 1.0) };
+		GLfloat                  TextOpacity{ 1.0f };
+		glm::vec3                TextColor{ glm::vec3(1.0, 1.0, 1.0) };
 
-	bool                     ShadowRenderCommand{};
-	GLfloat					 ShadowOpacity{};
-	glm::vec2                ShadowOffset{};
-	glm::vec3                ShadowColor{};
+		bool                     ShadowRenderCommand{};
+		GLfloat					 ShadowOpacity{};
+		glm::vec2                ShadowOffset{};
+		glm::vec3                ShadowColor{};
 
-	glm::vec3                RenderColor{};
-	GLfloat                  RenderOpacity{};
+		glm::vec3                RenderColor{};
+		GLfloat                  RenderOpacity{};
 
-	HDC                      hDC{};
-	HFONT                    Font{};
-	GLuint                   FontBase{};
-	std::unordered_map <wchar_t, GLYPHMETRICSFLOAT> TextGlyph{};
-	std::map <wchar_t, bool> GlyphCache{};
-	std::vector<wchar_t>     TextVec{};
+		HDC                      hDC{};
+		HFONT                    Font{};
+		GLuint                   FontBase{};
+		std::unordered_map <wchar_t, GLYPHMETRICSFLOAT> TextGlyph{};
+		std::map <wchar_t, bool> GlyphCache{};
+		std::vector<wchar_t>     TextVec{};
 
-	int                      TextAlign{ ALIGN_DEFAULT };
-	int                      RenderType{ RENDER_TYPE_STATIC };
-	int                      HeightAlign{ HEIGHT_ALIGN_DEFAULT };
-	bool                     FixMiddleCommand{};
+		int                      TextAlign{ ALIGN_DEFAULT };
+		int                      RenderType{ RENDER_TYPE_STATIC };
+		int                      HeightAlign{ HEIGHT_ALIGN_DEFAULT };
+		bool                     FixMiddleCommand{};
 
-public:
-	~TextUtil();
-	void Init(const wchar_t* FontName, int Type, int Italic=FALSE);
-	void Reset(int RenderTypeFlag=RENDER_TYPE_STATIC);
-	void SetColor(GLfloat R, GLfloat G, GLfloat B);
-	void SetColor(glm::vec3& Color);
-	void SetColorRGB(int R, int G, int B);
-	void SetAlign(int AlignOpt);
-	void SetLineGap(GLfloat Value);
-	void EnableFixMiddle();
-	void DisableFixMiddle();
-	void SetHeightAlign(int Type);
-	void EnableShadow();
-	void DisableShadow();
-	void SetShadow(GLfloat OffsetX, GLfloat OffsetY, GLfloat Opacity, glm::vec3 Color=glm::vec3(0.0, 0.0, 0.0));
-	void Rotate(GLfloat RotationValue);
-	void SetOpacity(GLfloat Value);
-	void Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...);
-	void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...);
-	void RenderStr(glm::vec2& Position, GLfloat Size, std::string Str);
-	void RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string Str);
-	void RenderWStr(glm::vec2& Position, GLfloat Size, std::wstring Str);
-	void RenderWStr(GLfloat X, GLfloat Y, GLfloat Size, std::wstring Str);
-	void SetRenderType(int Type);
+	public:
+		~Text();
+		void Init(const wchar_t* FontName, int Type, int Italic = FALSE);
+		void Reset(int RenderTypeFlag = RENDER_TYPE_STATIC);
+		void SetColor(GLfloat R, GLfloat G, GLfloat B);
+		void SetColor(glm::vec3& Color);
+		void SetColorRGB(int R, int G, int B);
+		void SetAlign(int AlignOpt);
+		void SetLineGap(GLfloat Value);
+		void EnableFixMiddle();
+		void DisableFixMiddle();
+		void SetHeightAlign(int Type);
+		void EnableShadow();
+		void DisableShadow();
+		void SetShadow(GLfloat OffsetX, GLfloat OffsetY, GLfloat Opacity, glm::vec3 Color = glm::vec3(0.0, 0.0, 0.0));
+		void Rotate(GLfloat RotationValue);
+		void SetOpacity(GLfloat Value);
+		void Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...);
+		void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...);
+		void RenderStr(glm::vec2& Position, GLfloat Size, std::string Str);
+		void RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string Str);
+		void RenderWStr(glm::vec2& Position, GLfloat Size, std::wstring Str);
+		void RenderWStr(GLfloat X, GLfloat Y, GLfloat Size, std::wstring Str);
+		void SetRenderType(int Type);
 
-private:
-	void InputText(std::vector<wchar_t>& Input, glm::vec2& Position, GLfloat Size);
-	void ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size);
-	void GetLineLength(const wchar_t* Text);
-	void CalculateTextLength(const wchar_t* Text);
-	void NextLine();
-	void TransformText();
-	void PrepareRender();
-	void ProcessGlyphCache(wchar_t* Text);
-	bool CheckGlyphCache(wchar_t& Char);
-	void LoadGlyph(wchar_t& Char);
-};
-extern TextUtil textUtil;
+	private:
+		void InputText(std::vector<wchar_t>& Input, glm::vec2& Position, GLfloat Size);
+		void ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size);
+		void GetLineLength(const wchar_t* Text);
+		void CalculateTextLength(const wchar_t* Text);
+		void NextLine();
+		void TransformText();
+		void PrepareRender();
+		void ProcessGlyphCache(wchar_t* Text);
+		bool CheckGlyphCache(wchar_t& Char);
+		void LoadGlyph(wchar_t& Char);
+	};
+}

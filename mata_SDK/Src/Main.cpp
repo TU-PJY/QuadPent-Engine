@@ -16,10 +16,10 @@ GLvoid SDKSystem::Main() {
 	if (S_Inst->UpdateActivateCommand) {
 		scene.Update();
 		SDK::CameraControl.Update(S_Inst->DeltaTime);
-		frustum.Update();
+		SDK::Frustum.Update();
 		scene.Render();
 		scene.CompleteCommand();
-		soundUtil.Update();
+		SDK::SoundTool.Update();
 	}
 
 	if (SHOW_FPS && Indicator)

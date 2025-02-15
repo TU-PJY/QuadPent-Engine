@@ -6,4 +6,7 @@ public:
 	GLfloat x{}, y{};
 	void ConvertPosition(int X, int Y);
 };
-extern MouseUtil mouse;
+
+namespace SDK {
+	extern MouseUtil Mouse;
+}

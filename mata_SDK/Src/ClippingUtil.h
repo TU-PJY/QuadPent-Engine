@@ -15,5 +15,7 @@ public:
 	void End();
 };
 
-extern ColorClipping ColorClip;
-extern AlphaClipping AlphaClip;
+namespace SDK {
+	extern ColorClipping ColorClip;
+	extern AlphaClipping AlphaClip;
+}

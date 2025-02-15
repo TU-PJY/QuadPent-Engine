@@ -1,7 +1,7 @@
 #include "ClippingUtil.h"
 
-ColorClipping ColorClip;
-AlphaClipping AlphaClip;
+ColorClipping SDK::ColorClip;
+AlphaClipping SDK::AlphaClip;
 
 void ColorClipping::First() {
 	glEnable(GL_STENCIL_TEST);

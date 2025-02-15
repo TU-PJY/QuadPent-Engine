@@ -52,13 +52,13 @@ public:
 	virtual void ResetControlState() {}
 
 	// Obtains an AABB object from a specific object class.
-	virtual AABB GetAABB() { return {}; }
+	virtual SDK::AABB GetAABB() { return {}; }
 
 	// Obtains an OOBB object from a specific object class.
-	virtual OOBB GetOOBB() { return{}; }
+	virtual SDK::OOBB GetOOBB() { return{}; }
 
 	// Obtains an BoundingCircle object from a specific object class.
-	virtual BoundingCircle GetBoundingCircle() { return {}; }
+	virtual SDK::BoundingCircle GetBoundingCircle() { return {}; }
 
 	// FPS indicator function
 	virtual void RenderIndicator() {}

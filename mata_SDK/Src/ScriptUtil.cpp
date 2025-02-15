@@ -16,7 +16,7 @@ void ScriptUtil::Load(std::string FileName) {
 	FileExist = true;
 }
 
-void ScriptUtil::ImportSecure(std::string FileName) {
+void ScriptUtil::LoadSecure(std::string FileName) {
 	std::ifstream EncryptedFile(FileName, std::ios::binary);
 	if (!EncryptedFile) {
 		scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
@@ -64,7 +64,7 @@ std::string ScriptUtil::LoadStringData(std::string CategoryName, std::string Dat
 }
 
 std::wstring ScriptUtil::LoadWstringData(std::string CategoryName, std::string DataName) {
-	return stringUtil.Wstring(LoadStringData(CategoryName, DataName));
+	return SDK::StringTool.Wstring(LoadStringData(CategoryName, DataName));
 }
 
 DigitDataVec ScriptUtil::LoadCategoryDigitData(std::string CategoryName) {

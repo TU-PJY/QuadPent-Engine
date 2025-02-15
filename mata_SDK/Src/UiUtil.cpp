@@ -1,6 +1,6 @@
 #include "UiUtil.h"
 
-UI_Util UI;
+UI_Util SDK::UITool;
 
 void UI_Util::ClampMatrixToCorner(int EdgePosition, glm::mat4& Matrix, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
 	switch (EdgePosition) {

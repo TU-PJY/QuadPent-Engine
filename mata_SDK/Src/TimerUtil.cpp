@@ -1,39 +1,39 @@
 #include "TimerUtil.h"
 #include <cmath>
 
-void TimerUtil::Update(float FT) {
+void SDK::Timer::Update(float FT) {
 	if(!StopState)
 		Time += FT;
 }
 
-void TimerUtil::Stop() {
+void SDK::Timer::Stop() {
 	StopState = true;
 }
 
-void TimerUtil::Resume() {
+void SDK::Timer::Resume() {
 	StopState = false;
 }
 
-void TimerUtil::Reset() {
+void SDK::Timer::Reset() {
 	Time = 0.0;
 }
 
-int TimerUtil::Sec() {
+int SDK::Timer::Sec() {
 	return (int)Time;
 }
 
-GLfloat TimerUtil::MiliSec(int DemicalPlace) {
+GLfloat SDK::Timer::MiliSec(int DemicalPlace) {
 	float TruncateValue = pow(10, DemicalPlace);
 	float TruncatedNum = std::floor(Time * TruncateValue) / TruncateValue;
 	return TruncatedNum;
 }
 
-void TimerUtil::Interpolate(GLfloat Value) {
+void SDK::Timer::Interpolate(GLfloat Value) {
 	GLfloat OverTime = Time - Value;
 	Time = OverTime;
 }
 
-bool TimerUtil::CheckSec(int DestTime, int CheckOption) {
+bool SDK::Timer::CheckSec(int DestTime, int CheckOption) {
 	if (Sec() >= DestTime) {
 		switch (CheckOption) {
 		case CHECK_AND_RESUME:
@@ -56,7 +56,7 @@ bool TimerUtil::CheckSec(int DestTime, int CheckOption) {
 	return false;
 }
 
-bool TimerUtil::CheckMiliSec(GLfloat DestTime, int DemicalPlace, int CheckOption) {
+bool SDK::Timer::CheckMiliSec(GLfloat DestTime, int DemicalPlace, int CheckOption) {
 	if (MiliSec(DemicalPlace) >= DestTime) {
 		switch (CheckOption) {
 		case CHECK_AND_RESUME:
@@ -79,11 +79,11 @@ bool TimerUtil::CheckMiliSec(GLfloat DestTime, int DemicalPlace, int CheckOption
 }
 
 
-void Metronome::SetBPM(int BPM) {
+void SDK::Metronome::SetBPM(int BPM) {
 	BeatInterval = 60.0 / (GLdouble)BPM;
 }
 
-void Metronome::Update(float FT) {
+void SDK::Metronome::Update(float FT) {
 	if (!StopState) {
 		Time += FT;
 
@@ -98,19 +98,19 @@ void Metronome::Update(float FT) {
 	}
 }
 
-void Metronome::Stop() {
+void SDK::Metronome::Stop() {
 	StopState = true;
 	BeatState = false;
 }
 
-void Metronome::Resume() {
+void SDK::Metronome::Resume() {
 	StopState = false;
 }
 
-void Metronome::Reset() {
+void SDK::Metronome::Reset() {
 	Time = 0.0;
 }
 
-bool Metronome::IsBeat() {
+bool SDK::Metronome::IsBeat() {
 	return BeatState;
 }

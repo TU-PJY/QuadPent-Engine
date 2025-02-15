@@ -13,4 +13,7 @@ public:
 	void TryLock(CRITICAL_SECTION& Section);
 	void Unlock(CRITICAL_SECTION& Section);
 };
-extern ThreadUtil threadUtil;
+
+namespace SDK {
+	extern ThreadUtil ThreadTool;
+}

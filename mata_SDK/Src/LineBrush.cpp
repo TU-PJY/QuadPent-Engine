@@ -7,60 +7,60 @@
 #include "SystemResource.h"
 #include "ComputeUtil.h"
 
-LineBrush::LineBrush(bool StaticWidthFlag) {
+SDK::LineBrush::LineBrush(bool StaticWidthFlag) {
 	StaticWidthCommand = StaticWidthFlag;
 }
 
-void LineBrush::SetRenderType(int Opt) {
+void SDK::LineBrush::SetRenderType(int Opt) {
 	RenderType = Opt;
 }
 
-void LineBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+void SDK::LineBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	Color.r = R;
 	Color.g = G;
 	Color.b = B;
 }
 
-void LineBrush::SetColor(glm::vec3& ColorValue) {
+void SDK::LineBrush::SetColor(glm::vec3& ColorValue) {
 	Color.r = ColorValue.r;
 	Color.g = ColorValue.g;
 	Color.b = ColorValue.b;
 }
 
-void LineBrush::SetColorRGB(int R, int G, int B) {
+void SDK::LineBrush::SetColorRGB(int R, int G, int B) {
 	Color.r = (1.0f / 255.0f) * (GLfloat)R;
 	Color.g = (1.0f / 255.0f) * (GLfloat)G;
 	Color.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void LineBrush::SetLineType(int LineTypeOpt) {
+void SDK::LineBrush::SetLineType(int LineTypeOpt) {
 	if (LineTypeOpt > LINE_TYPE_ROUND)
 		return;
 
 	LineType = LineTypeOpt;
 }
 
-void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width, GLfloat OpacityValue) {
-	transform.Identity(ShapeMatrix);
+void SDK::LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width, GLfloat OpacityValue) {
+	Transform.Identity(ShapeMatrix);
 	Opacity = OpacityValue;
 
-	Length = mathUtil.ComputeDistance(X1, Y1, X2, Y2);
-	Rotation = mathUtil.ComputeRadians(X1, Y1, X2, Y2);
+	Length = Math.ComputeDistance(X1, Y1, X2, Y2);
+	Rotation = Math.ComputeRadians(X1, Y1, X2, Y2);
 
-	transform.Move(ShapeMatrix, X1, Y1);
-	transform.RotateRadians(ShapeMatrix, Rotation);
-	transform.Move(ShapeMatrix, Length / 2.0, 0.0);
+	Transform.Move(ShapeMatrix, X1, Y1);
+	Transform.RotateRadians(ShapeMatrix, Rotation);
+	Transform.Move(ShapeMatrix, Length / 2.0, 0.0);
 
 	GLfloat DrawWidth{};
 	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		DrawWidth = Width / camera.ZoomValue;
+		DrawWidth = Width / Camera.ZoomValue;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
 		DrawWidth = Width;
 
 	if (LineType == LINE_TYPE_RECT)
-		transform.Scale(ShapeMatrix, Length + DrawWidth, DrawWidth);
+		Transform.Scale(ShapeMatrix, Length + DrawWidth, DrawWidth);
 	else if (LineType == LINE_TYPE_ROUND) 
-		transform.Scale(ShapeMatrix, Length, DrawWidth);
+		Transform.Scale(ShapeMatrix, Length, DrawWidth);
 
 	Render();
 
@@ -68,21 +68,21 @@ void LineBrush::Draw(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Wid
 		DrawCircle(X1, Y1, X2, Y2, DrawWidth);
 }
 
-void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfloat OpacityValue) {
-	transform.Identity(ShapeMatrix);
+void SDK::LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfloat OpacityValue) {
+	Transform.Identity(ShapeMatrix);
 	Opacity = OpacityValue;
 
 	GLfloat DrawWidth{};
 	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		DrawWidth = Width / camera.ZoomValue;
+		DrawWidth = Width / Camera.ZoomValue;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
 		DrawWidth = Width;
 
-	transform.Move(ShapeMatrix, (X1 + X2) / 2.0, Y);
+	Transform.Move(ShapeMatrix, (X1 + X2) / 2.0, Y);
 	if (LineType == LINE_TYPE_RECT)
-		transform.Scale(ShapeMatrix, fabs(X1 - X2) + DrawWidth, DrawWidth);
+		Transform.Scale(ShapeMatrix, fabs(X1 - X2) + DrawWidth, DrawWidth);
 	else if (LineType == LINE_TYPE_ROUND) 
-		transform.Scale(ShapeMatrix, fabs(X1 - X2), DrawWidth);
+		Transform.Scale(ShapeMatrix, fabs(X1 - X2), DrawWidth);
 
 	Render();
 
@@ -90,21 +90,21 @@ void LineBrush::DrawLineX(GLfloat X1, GLfloat X2, GLfloat Y, GLfloat Width, GLfl
 		DrawCircle(X1, Y, X2, Y, DrawWidth);
 }
 
-void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfloat OpacityValue) {
-	transform.Identity(ShapeMatrix);
+void SDK::LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfloat OpacityValue) {
+	Transform.Identity(ShapeMatrix);
 	Opacity = OpacityValue;
 
 	GLfloat DrawWidth{};
 	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		DrawWidth = Width / camera.ZoomValue;
+		DrawWidth = Width / Camera.ZoomValue;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
 		DrawWidth = Width;
 
-	transform.Move(ShapeMatrix, X, (Y1 + Y2) / 2.0);
+	Transform.Move(ShapeMatrix, X, (Y1 + Y2) / 2.0);
 	if (LineType == LINE_TYPE_RECT)
-		transform.Scale(ShapeMatrix, DrawWidth, fabs(Y1 - Y2) + DrawWidth);
+		Transform.Scale(ShapeMatrix, DrawWidth, fabs(Y1 - Y2) + DrawWidth);
 	else if (LineType == LINE_TYPE_ROUND)
-		transform.Scale(ShapeMatrix, fabs(Y1 - Y2), DrawWidth);
+		Transform.Scale(ShapeMatrix, fabs(Y1 - Y2), DrawWidth);
 
 	Render();
 
@@ -112,34 +112,34 @@ void LineBrush::DrawLineY(GLfloat Y1, GLfloat Y2, GLfloat X, GLfloat Width, GLfl
 		DrawCircle(X, Y1, X, Y2, DrawWidth);
 }
 
-void LineBrush::Render() {
-	camera.SetCamera(RenderType);
+void SDK::LineBrush::Render() {
+	Camera.SetCamera(RenderType);
 
 	glUseProgram(SHAPE_SHADER);
-	camera.PrepareRender(SHADER_TYPE_SHAPE);
+	Camera.PrepareRender(SHADER_TYPE_SHAPE);
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ShapeMatrix));
 
-	imageUtil.RenderRaw();
+	SDK::ImageTool.RenderRaw();
 }
 
-void LineBrush::DrawCircle(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width) {
-	transform.Identity(ShapeMatrix);
-	transform.Move(ShapeMatrix, X1, Y1);
+void SDK::LineBrush::DrawCircle(GLfloat X1, GLfloat Y1, GLfloat X2, GLfloat Y2, GLfloat Width) {
+	Transform.Identity(ShapeMatrix);
+	Transform.Move(ShapeMatrix, X1, Y1);
 	RenderCircle(Width);
 
-	transform.Identity(ShapeMatrix);
-	transform.Move(ShapeMatrix, X2, Y2);
+	Transform.Identity(ShapeMatrix);
+	Transform.Move(ShapeMatrix, X2, Y2);
 	RenderCircle(Width);
 }
 
-void LineBrush::RenderCircle(GLfloat Width) {
-	camera.SetCamera(RenderType);
+void SDK::LineBrush::RenderCircle(GLfloat Width) {
+	Camera.SetCamera(RenderType);
 
 	glUseProgram(SHAPE_SHADER);
-	camera.PrepareRender(SHADER_TYPE_SHAPE);
+	Camera.PrepareRender(SHADER_TYPE_SHAPE);
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);

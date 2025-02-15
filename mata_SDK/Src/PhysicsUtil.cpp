@@ -2,79 +2,79 @@
 #include "MathUtil.h"
 #include "EXUtil.h"
 
-void PhysicsUtil::SetGravity(GLfloat Value) {
+void SDK::Physics::SetGravity(GLfloat Value) {
 	if (Value < 0.0) return;
 	Gravity = Value;
 }
 
-void PhysicsUtil::SetFriction(GLfloat Value) {
+void SDK::Physics::SetFriction(GLfloat Value) {
 	if (Value < 0.0) return;
 	Friction = Value;
 }
 
-void PhysicsUtil::SetRebounceReduce(GLfloat Value) {
+void SDK::Physics::SetRebounceReduce(GLfloat Value) {
 	if (Value < 0.0) return;
 	RebounceReduce = Value;
 }
 
-void PhysicsUtil::SetMinimumRebounce(GLfloat Value) {
+void SDK::Physics::SetMinimumRebounce(GLfloat Value) {
 	if (Value < 0.0) return;
 	MinRebounceValue = Value;
 }
 
-void PhysicsUtil::SetFloorHeight(GLfloat Value) {
+void SDK::Physics::SetFloorHeight(GLfloat Value) {
 	FloorHeight = Value;
 }
 
-void PhysicsUtil::SetHeightOffset(GLfloat Value) {
+void SDK::Physics::SetHeightOffset(GLfloat Value) {
 	HeightOffset = Value;
 }
 
-bool PhysicsUtil::GetFallingState() {
+bool SDK::Physics::GetFallingState() {
 	return FallingState;
 }
 
-void PhysicsUtil::AddGravityAcc(GLfloat Value) {
+void SDK::Physics::AddGravityAcc(GLfloat Value) {
 	GravityAcc += Value;
 	FallingState = true;
 }
 
-void PhysicsUtil::SetGravityAcc(GLfloat Value) {
+void SDK::Physics::SetGravityAcc(GLfloat Value) {
 	GravityAcc = Value;
 	FallingState = true;
 }
 
-void PhysicsUtil::EnableFalling() {
+void SDK::Physics::EnableFalling() {
 	FallingState = true;
 }
 
-void PhysicsUtil::DisableFalling() {
+void SDK::Physics::DisableFalling() {
 	FallingState = false;
 }
 
-bool PhysicsUtil::CheckFloorCollision(GLfloat& HeightPosition) {
+bool SDK::Physics::CheckFloorCollision(GLfloat& HeightPosition) {
 	if (HeightPosition <= FloorHeight + HeightOffset)
 		return true;
 	return false;
 }
 
-bool PhysicsUtil::CheckFloorCollision(glm::vec2& DestPosition) {
+bool SDK::Physics::CheckFloorCollision(glm::vec2& DestPosition) {
 	if (DestPosition.y <= FloorHeight + HeightOffset)
 		return true;
 	return false;
 }
 
-void PhysicsUtil::LandOnFloor(GLfloat& HeightPosition) {
+void SDK::Physics::LandOnFloor(GLfloat& HeightPosition) {
 	HeightPosition = FloorHeight + HeightOffset;
 	FallingState = false;
 }
 
-void PhysicsUtil::LandOnFloor(glm::vec2& DestPosition) {
+void SDK::Physics::LandOnFloor(glm::vec2& DestPosition) {
 	DestPosition.y = FloorHeight + HeightOffset;
 	FallingState = false;
 }
 
-void PhysicsUtil::UpdateFalling(GLfloat& HeightPosition, float FrameTime) {
+void SDK::Physics::UpdateFalling(GLfloat& HeightPosition, float FrameTime) {
 	if (FallingState) {
 		GravityAcc -= Gravity * FrameTime;
 		HeightPosition += GravityAcc * FrameTime;
@@ -83,7 +83,7 @@ void PhysicsUtil::UpdateFalling(GLfloat& HeightPosition, float FrameTime) {
 	}
 }
 
-void PhysicsUtil::UpdateFalling(glm::vec2& DestPosition, float FrameTime) {
+void SDK::Physics::UpdateFalling(glm::vec2& DestPosition, float FrameTime) {
 	if (FallingState) {
 		GravityAcc -= Gravity * FrameTime;
 		DestPosition.y += GravityAcc * FrameTime;
@@ -92,7 +92,7 @@ void PhysicsUtil::UpdateFalling(glm::vec2& DestPosition, float FrameTime) {
 	}
 }
 
-void PhysicsUtil::UpdateBouncing(GLfloat& HeightPosition, float FrameTime) {
+void SDK::Physics::UpdateBouncing(GLfloat& HeightPosition, float FrameTime) {
 	if (FallingState) {
 		GravityAcc -= Gravity * FrameTime;
 		HeightPosition += GravityAcc * FrameTime;
@@ -111,7 +111,7 @@ void PhysicsUtil::UpdateBouncing(GLfloat& HeightPosition, float FrameTime) {
 	}
 }
 
-void PhysicsUtil::UpdateBouncing(glm::vec2& DestPosition, float FrameTime) {
+void SDK::Physics::UpdateBouncing(glm::vec2& DestPosition, float FrameTime) {
 	if (FallingState) {
 		GravityAcc -= Gravity * FrameTime;
 		DestPosition.y += GravityAcc * FrameTime;
@@ -131,37 +131,37 @@ void PhysicsUtil::UpdateBouncing(glm::vec2& DestPosition, float FrameTime) {
 }
 
 
-void PhysicsUtil::LerpAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT) {
-	mathUtil.Lerp(Speed, DestSpeed, AccValue * (1.0 - Friction), FT);
+void SDK::Physics::LerpAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT) {
+	SDK::Math.Lerp(Speed, DestSpeed, AccValue * (1.0 - Friction), FT);
 }
 
-void PhysicsUtil::LerpDeceleration(GLfloat& Speed, float FT) {
-	mathUtil.Lerp(Speed, 0.0, Friction, FT);
+void SDK::Physics::LerpDeceleration(GLfloat& Speed, float FT) {
+	SDK::Math.Lerp(Speed, 0.0, Friction, FT);
 }
 
-void PhysicsUtil::LinearAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT) {
+void SDK::Physics::LinearAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT) {
 	if (DestSpeed > 0.0) {
 		Speed += AccValue * (1.0 - Friction) * FT;
-		EX.ClampValue(Speed, DestSpeed, CLAMP_GREATER);
+		EXTool.ClampValue(Speed, DestSpeed, CLAMP_GREATER);
 	}
 	else {
 		Speed -= AccValue * (1.0 - Friction) * FT;
-		EX.ClampValue(Speed, DestSpeed, CLAMP_LESS);
+		EXTool.ClampValue(Speed, DestSpeed, CLAMP_LESS);
 	}
 }
 
-void PhysicsUtil::LinearDeceleration(GLfloat& Speed, float FT) {
+void SDK::Physics::LinearDeceleration(GLfloat& Speed, float FT) {
 	if (Speed > 0) {
 		Speed -= Friction * FT;
-		EX.ClampValue(Speed, 0.0, CLAMP_LESS);
+		EXTool.ClampValue(Speed, 0.0, CLAMP_LESS);
 	}
 	else if (Speed < 0) {
 		Speed += Friction * FT;
-		EX.ClampValue(Speed, 0.0, CLAMP_GREATER);
+		EXTool.ClampValue(Speed, 0.0, CLAMP_GREATER);
 	}
 }
 
-void PhysicsUtil::AdjustSpeedEqual(GLfloat& SpeedX, GLfloat& SpeedY) {
+void SDK::Physics::AdjustSpeedEqual(GLfloat& SpeedX, GLfloat& SpeedY) {
 	GLfloat Length = std::sqrt(SpeedX * SpeedX + SpeedY * SpeedY);
 	if (Length > 1.0) {
 		SpeedX /= Length;

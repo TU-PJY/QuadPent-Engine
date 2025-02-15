@@ -1,5 +1,6 @@
 #pragma once
 #include "SDKHeader.h"
+#include "Config.h"
 #include <string>
 
 class SoundUtil {
@@ -13,6 +14,8 @@ private:
 
 	FMOD_RESULT   Result{};
 	void*         ExtDvData{};
+
+	std::vector<float> FFTdata{};
 
 public:
 	void Init();
@@ -51,4 +54,6 @@ public:
 	void SetSoundPosition(SoundChannel& ChannelVar, glm::vec2 Position, float Diff);
 	void StopAllSounds();
 };
-extern SoundUtil soundUtil;
+namespace SDK {
+	extern SoundUtil SoundTool;
+}

@@ -3,12 +3,12 @@
 
 class FPS_Indicator : public Object {
 private:
-	RectBrush RECT{};
-	TimerUtil FPS_IND_REFRESH_TIMER{};
+	SDK::RectBrush Rect{};
+	SDK::Timer FPS_IND_REFRESH_TIMER{};
 	glm::vec2 RectPosition{};
 	float CurrentDeltaTime = 1.0;
 
-	TextUtil Text{};
+	SDK::Text Text{};
 
 public:
 	FPS_Indicator() {
@@ -16,7 +16,7 @@ public:
 		Text.SetColor(1.0, 1.0, 1.0);
 		Text.SetHeightAlign(HEIGHT_ALIGN_UNDER);
 
-		RECT.SetRenderType(RENDER_TYPE_STATIC);
+		Rect.SetRenderType(RENDER_TYPE_STATIC);
 	}
 
 	void UpdateFunc(float FrameTime) {
@@ -26,8 +26,8 @@ public:
 	}
 
 	void RenderIndicator() {
-		UI.ClampPositionToCorner(EDGE_LEFT_UP, RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.0);
-		RECT.Draw(RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.3);
+		SDK::UITool.ClampPositionToCorner(EDGE_LEFT_UP, RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.0);
+		Rect.Draw(RectPosition.x, RectPosition.y, 0.25, 0.08, 0.0, 0.3);
 		Text.Render(SDK::RECT.lx + 0.01, SDK::RECT.ry, 0.06, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
 	}
 };

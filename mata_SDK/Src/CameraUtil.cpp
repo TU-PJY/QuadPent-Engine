@@ -1,7 +1,7 @@
 #include "CameraUtil.h"
 #include "TransformUtil.h"
 
-void Camera::CalculateASPECT() {
+void CameraUtil::CalculateASPECT() {
 	SDK::ASPECT = (float)SDK::WIDTH / (float)SDK::HEIGHT;
 	SDK::RECT.lx = -1.0 * SDK::ASPECT;
 	SDK::RECT.ly = -1.0;
@@ -12,17 +12,17 @@ void Camera::CalculateASPECT() {
 	SDK::PREV_HEIGHT = SDK::HEIGHT;
 }
 
-void Camera::Init() {
+void CameraUtil::Init() {
 	CalculateASPECT();
 
-	transform.Identity(ViewMatrix);
-	transform.Identity(Projection);
-	transform.Identity(CameraMatrix);
+	SDK::Transform.Identity(ViewMatrix);
+	SDK::Transform.Identity(Projection);
+	SDK::Transform.Identity(CameraMatrix);
 
 	SetCamera(RENDER_TYPE_DEFAULT);
 }
 
-void Camera::SetCamera(int RenderType) {
+void CameraUtil::SetCamera(int RenderType) {
 	using namespace glm;
 
 	if(SDK::PREV_WIDTH != SDK::WIDTH || SDK::PREV_HEIGHT != SDK::HEIGHT)
@@ -35,9 +35,9 @@ void Camera::SetCamera(int RenderType) {
 	StaticRenderCommand = RenderType;
 }
 
-void Camera::PrepareRender(int ShaderType) {
-	transform.Identity(ViewMatrix);
-	transform.Identity(Projection);
+void CameraUtil::PrepareRender(int ShaderType) {
+	SDK::Transform.Identity(ViewMatrix);
+	SDK::Transform.Identity(Projection);
 
 	if (!StaticRenderCommand) {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);

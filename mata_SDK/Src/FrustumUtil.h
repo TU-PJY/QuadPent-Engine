@@ -3,14 +3,17 @@
 
 class FrustumUtil {
 private:
-	OOBB FrustumOOBB{};
-	LineRectBrush LineRect{false, true};
+	SDK::OOBB FrustumOOBB{};
+	SDK::LineRectBrush LineRect{false, true};
 
 public:
 	FrustumUtil();
 	void Update();
-	bool Check(AABB& aabb);
-	bool Check(OOBB& oobb);
-	bool Check(BoundingCircle& circle);
+	bool Check(SDK::AABB& aabb);
+	bool Check(SDK::OOBB& oobb);
+	bool Check(SDK::BoundingCircle& circle);
 };
-extern FrustumUtil frustum;
+
+namespace SDK {
+	extern FrustumUtil Frustum;
+}

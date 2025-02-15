@@ -6,38 +6,38 @@
 #include "ComputeUtil.h"
 #include <cmath>
 
-LineRectBrush::LineRectBrush(bool CameraInheritanceFlag, bool StaticWidthFlag) {
+SDK::LineRectBrush::LineRectBrush(bool CameraInheritanceFlag, bool StaticWidthFlag) {
 	CamInheritanceCommand = CameraInheritanceFlag;
 	StaticWidthCommand = StaticWidthFlag;
 }
 
-void LineRectBrush::SetRenderType(int Opt) {
+void SDK::LineRectBrush::SetRenderType(int Opt) {
 	RenderType = Opt;
 }
 
-void LineRectBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+void SDK::LineRectBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	Color.r = R;
 	Color.g = G;
 	Color.b = B;
 }
 
-void LineRectBrush::SetColor(glm::vec3& ColorValue) {
+void SDK::LineRectBrush::SetColor(glm::vec3& ColorValue) {
 	Color.r = ColorValue.r;
 	Color.g = ColorValue.g;
 	Color.b = ColorValue.b;
 }
 
-void LineRectBrush::SetColorRGB(int R, int G, int B) {
+void SDK::LineRectBrush::SetColorRGB(int R, int G, int B) {
 	Color.r = (1.0f / 255.0f) * (GLfloat)R;
 	Color.g = (1.0f / 255.0f) * (GLfloat)G;
 	Color.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void LineRectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat Width, GLfloat RotationValue, GLfloat OpacityValue) {
+void SDK::LineRectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat Width, GLfloat RotationValue, GLfloat OpacityValue) {
 	Opacity = OpacityValue;
 	GLfloat DrawWidth{};
 	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		DrawWidth = Width / camera.ZoomValue;
+		DrawWidth = Width / Camera.ZoomValue;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
 		DrawWidth = Width;
 
@@ -47,79 +47,79 @@ void LineRectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLf
 	DrawLine(X, Y, SizeX / 2.0, 0.0, DrawWidth, SizeY + DrawWidth, RotationValue);
 }
 
-void LineRectBrush::DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat OffsetY, GLfloat Width, GLfloat Height, GLfloat RotationValue) {
-	transform.Identity(ShapeMatrix);
+void SDK::LineRectBrush::DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat OffsetY, GLfloat Width, GLfloat Height, GLfloat RotationValue) {
+	Transform.Identity(ShapeMatrix);
 
-	transform.Move(ShapeMatrix, X, Y);
-	transform.Rotate(ShapeMatrix, RotationValue);
-	transform.Move(ShapeMatrix, OffsetX, OffsetY);
-	transform.Scale(ShapeMatrix, Width, Height);
+	Transform.Move(ShapeMatrix, X, Y);
+	Transform.Rotate(ShapeMatrix, RotationValue);
+	Transform.Move(ShapeMatrix, OffsetX, OffsetY);
+	Transform.Scale(ShapeMatrix, Width, Height);
 	Render();
 }
 
-void LineRectBrush::Render() {
+void SDK::LineRectBrush::Render() {
 	if (!CamInheritanceCommand)
-		camera.SetCamera(RenderType);
+		Camera.SetCamera(RenderType);
 
 	glUseProgram(SHAPE_SHADER);
-	camera.PrepareRender(SHADER_TYPE_SHAPE);
+	Camera.PrepareRender(SHADER_TYPE_SHAPE);
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ShapeMatrix));
 
-	imageUtil.RenderRaw();
+	SDK::ImageTool.RenderRaw();
 }
 
 
 
-RectBrush::RectBrush(bool Flag) {
+SDK::RectBrush::RectBrush(bool Flag) {
 	CamInheritanceCommand = Flag;
 }
 
-void RectBrush::SetRenderType(int Opt) {
+void SDK::RectBrush::SetRenderType(int Opt) {
 	RenderType = Opt;
 }
 
-void RectBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+void SDK::RectBrush::SetColor(GLfloat R, GLfloat G, GLfloat B) {
 	Color.r = R;
 	Color.g = G;
 	Color.b = B;
 }
 
-void RectBrush::SetColor(glm::vec3& ColorValue) {
+void SDK::RectBrush::SetColor(glm::vec3& ColorValue) {
 	Color.r = ColorValue.r;
 	Color.g = ColorValue.g;
 	Color.b = ColorValue.b;
 }
 
-void RectBrush::SetColorRGB(int R, int G, int B) {
+void SDK::RectBrush::SetColorRGB(int R, int G, int B) {
 	Color.r = (1.0f / 255.0f) * (GLfloat)R;
 	Color.g = (1.0f / 255.0f) * (GLfloat)G;
 	Color.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
-void RectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat RotationValue, GLfloat OpacityValue) {
-	transform.Identity(ShapeMatrix);
+void SDK::RectBrush::Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat RotationValue, GLfloat OpacityValue) {
+	Transform.Identity(ShapeMatrix);
 	Opacity = OpacityValue;
 
-	transform.Move(ShapeMatrix, X, Y);
-	transform.Rotate(ShapeMatrix, RotationValue);
-	transform.Scale(ShapeMatrix, SizeX, SizeY);
+	Transform.Move(ShapeMatrix, X, Y);
+	Transform.Rotate(ShapeMatrix, RotationValue);
+	Transform.Scale(ShapeMatrix, SizeX, SizeY);
 
 	Render();
 }
 
-void RectBrush::Render() {
+void SDK::RectBrush::Render() {
 	if(!CamInheritanceCommand)
-		camera.SetCamera(RenderType);
+		Camera.SetCamera(RenderType);
 
 	glUseProgram(SHAPE_SHADER);
-	camera.PrepareRender(SHADER_TYPE_SHAPE);
+	Camera.PrepareRender(SHADER_TYPE_SHAPE);
 
 	glUniform1f(SHAPE_OPACITY_LOCATION, Opacity);
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ShapeMatrix));
 
-	imageUtil.RenderRaw();
+	SDK::ImageTool.RenderRaw();
 }

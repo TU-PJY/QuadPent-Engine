@@ -17,4 +17,7 @@ public:
 	void CreateShaderLocation();
 	void CreateSSBO();
 };
-extern ShaderUtil shaderUtil;
+
+namespace SDK {
+	extern ShaderUtil Shader;
+}

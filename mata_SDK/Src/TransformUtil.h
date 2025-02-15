@@ -2,7 +2,7 @@
 #include "SDKHeader.h"
 #include "ObjectValue.h"
 
-class Transform {
+class TransformUtil {
 public:
 	void Identity(glm::mat4& Matrix);
 	void Move(glm::mat4& Matrix, GLfloat X, GLfloat Y);
@@ -20,4 +20,7 @@ public:
 	void RotateV(glm::mat4& Matrix, GLfloat Degree);
 	void RotateH(glm::mat4& Matrix, GLfloat Degree);
 };
-extern Transform transform;
+
+namespace SDK {
+	extern TransformUtil Transform;
+}
