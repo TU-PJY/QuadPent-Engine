@@ -6,16 +6,16 @@
 #include <thread>
 #include <chrono>
 
-SDKSystem System;
+SDKSystem SDK::System;
 SDKSystem* SDKSystem::S_Inst;
 
 GLvoid SDKSystem::Main() {
-	glClearColor(BackColor.r, BackColor.g, BackColor.b, 1.0f);
+	glClearColor(SDK::ViewportColor.r, SDK::ViewportColor.g, SDK::ViewportColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	if (S_Inst->UpdateActivateCommand) {
 		scene.Update();
-		cameraControl.Update(S_Inst->DeltaTime);
+		SDK::CameraControl.Update(S_Inst->DeltaTime);
 		frustum.Update();
 		scene.Render();
 		scene.CompleteCommand();
@@ -61,13 +61,13 @@ void main(int argc, char** argv) {
 
 	wchar_t LocaleName[LOCALE_NAME_MAX_LENGTH];
 	if (GetUserDefaultLocaleName(LocaleName, LOCALE_NAME_MAX_LENGTH)) {
-		SDK_LOCALE = LocaleName;
-		std::wcout << L"Windows System Locale: " << SDK_LOCALE << std::endl;
+		SDK::LOCALE = LocaleName;
+		std::wcout << L"Windows System Locale: " << SDK::LOCALE << std::endl;
 	}
 		
-	System.SetupSystem(argc, argv);
-	glutDisplayFunc(System.Main);
-	glutReshapeFunc(System.DisplayReshape);
+	SDK::System.SetupSystem(argc, argv);
+	glutDisplayFunc(SDK::System.Main);
+	glutReshapeFunc(SDK::System.DisplayReshape);
 	glutMainLoop();
 }
 
@@ -76,5 +76,5 @@ void SDKSystem::Exit() {
 }
 
 GLfloat ASP(GLfloat Value) {
-	return Value * ASPECT;
+	return Value * SDK::ASPECT;
 }

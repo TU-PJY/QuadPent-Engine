@@ -2,14 +2,14 @@
 #include "TransformUtil.h"
 
 void Camera::CalculateASPECT() {
-	ASPECT = (float)WIDTH / (float)HEIGHT;
-	WindowRect.lx = -1.0 * ASPECT;
-	WindowRect.ly = -1.0;
-	WindowRect.rx = 1.0 * ASPECT;
-	WindowRect.ry = 1.0;
+	SDK::ASPECT = (float)SDK::WIDTH / (float)SDK::HEIGHT;
+	SDK::RECT.lx = -1.0 * SDK::ASPECT;
+	SDK::RECT.ly = -1.0;
+	SDK::RECT.rx = 1.0 * SDK::ASPECT;
+	SDK::RECT.ry = 1.0;
 
-	PREV_WIDTH = WIDTH;
-	PREV_HEIGHT = HEIGHT;
+	SDK::PREV_WIDTH = SDK::WIDTH;
+	SDK::PREV_HEIGHT = SDK::HEIGHT;
 }
 
 void Camera::Init() {
@@ -25,7 +25,7 @@ void Camera::Init() {
 void Camera::SetCamera(int RenderType) {
 	using namespace glm;
 
-	if(PREV_WIDTH != WIDTH || PREV_HEIGHT != HEIGHT)
+	if(SDK::PREV_WIDTH != SDK::WIDTH || SDK::PREV_HEIGHT != SDK::HEIGHT)
 		CalculateASPECT();
 
 	CamPos = vec3(0.0f, 0.0f, 1.0f);
@@ -42,11 +42,11 @@ void Camera::PrepareRender(int ShaderType) {
 	if (!StaticRenderCommand) {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
 		ViewMatrix = ViewMatrix * CameraMatrix;
-		Projection = glm::ortho((ASPECT * -1.0f) / ZoomValue, (ASPECT * 1.0f) / ZoomValue, -1.0f / ZoomValue, 1.0f / ZoomValue, -10.0f, 10.0f);
+		Projection = glm::ortho((SDK::ASPECT * -1.0f) / ZoomValue, (SDK::ASPECT * 1.0f) / ZoomValue, -1.0f / ZoomValue, 1.0f / ZoomValue, -10.0f, 10.0f);
 	}
 	else {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
-		Projection = glm::ortho((ASPECT * -1.0f), (ASPECT * 1.0f), -1.0f, 1.0f, -10.0f, 10.0f);
+		Projection = glm::ortho((SDK::ASPECT * -1.0f), (SDK::ASPECT * 1.0f), -1.0f, 1.0f, -10.0f, 10.0f);
 	}
 
 	switch (ShaderType) {

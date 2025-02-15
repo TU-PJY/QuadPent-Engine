@@ -4,7 +4,7 @@
 
 class SinLoop {
 private:
-	GLfloat Num{ Preset::MaxNegative };
+	GLfloat Num{ SDK::Preset::MaxNegative };
 
 public:
 	void Update(GLfloat& Value, GLfloat MoveScale, GLfloat Speed, float FrameTime);

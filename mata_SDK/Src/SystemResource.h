@@ -22,4 +22,7 @@ public:
 
 	Sound INTRO_SOUND{};
 };
-extern ___SYSTEM_RES SYSRES;
+
+namespace SDK{
+	extern ___SYSTEM_RES SYSRES;
+}

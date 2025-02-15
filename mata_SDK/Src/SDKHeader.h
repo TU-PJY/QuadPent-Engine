@@ -22,20 +22,13 @@ using namespace DirectX;
 #include "fmod.hpp"
 #include "fmod_errors.h"
 
-extern float DestFPS;
-extern int FPSLimit;
-extern bool FullscreenState;
-
-extern const glm::mat4 IdentityMatrix;
-
-extern std::wstring SDK_LOCALE;
-
 typedef void(*START_MODE_PTR)(void);
 typedef void(*MODE_PTR)(void);
 typedef void(*CONTROLLER_PTR)(void);
+
 using ShaderLocation = unsigned int;
 
-using Sound          = FMOD::Sound*;
+using Sound = FMOD::Sound*;
 
 struct SoundChannel {
 	float Volume = 1.0;
@@ -45,11 +38,10 @@ struct SoundChannel {
 
 using SoundChannelGroup = std::vector <SoundChannel>;
 
-
 using StringDataVec  = std::vector<std::string>;
 using DigitDataVec   = std::vector<float>;
 
-constexpr wchar_t* SDK_FONT = L"Roboto";
+extern const glm::mat4 IdentityMatrix;
 
 enum KeyState {
 	NORMAL_KEY_DOWN,
@@ -210,12 +202,19 @@ enum SwitchTypeEnum {
 	FALSE_KEY_DOWN
 };
 
-namespace Preset {
-	constexpr float MaxPositive  = XM_PI / 2.0;
-	constexpr float MaxNegative  = -XM_PI / 2.0;
-	constexpr float HalfPositive = XM_PI / 6.0;
-	constexpr float HalfNegative = -XM_PI / 6.0;
-}
+enum SystemErrorTypeEnum {
+	ERROR_TYPE_IMAGE_LOAD,
+	ERROR_TYPE_AUDIO_LOAD,
+	ERROR_TYPE_FONT_LOAD,
+	ERROR_TYPE_SCRIPT_LOAD,
+	ERROR_TYPE_SCRIPT_PARSE,
+	ERROR_TYPE_SCRIPT_DATA,
+	ERROR_TYPE_SCRIPT_CATEGORY,
+	ERROR_TYPE_DATA_FILE_PARSE,
+	ERROR_TYPE_DATA_FILE_DATA_LOAD,
+	ERROR_TYPE_DATA_FILE_DATA_WRITE,
+	ERROR_TYPE_DATA_FILE_CATEGORY,
+};
 
 // ray vector struct
 typedef struct {
@@ -226,13 +225,13 @@ typedef struct {
 }RayVector;
 
 // data set struct
-struct FileData {
+typedef struct {
 	int         DataType;
 	std::string CategoryName;
 	std::string DataName;
 	float       DigitValue;
 	std::string StringValue;
-};
+}FileData;
 using DataFormat = std::vector<FileData>;
 
 // image struct
@@ -263,10 +262,9 @@ typedef struct {
 }PreLoadSpriteSheetInfo;
 
 // corner position of display
-struct ViewportRect {
+typedef struct {
 	GLfloat lx, ly, rx, ry;
-};
-extern ViewportRect WindowRect;
+}ViewportRect;
 
 // key event
 typedef struct {
@@ -274,18 +272,6 @@ typedef struct {
 	unsigned char NormalKey;
 	int SpecialKey;
 }KeyEvent;
-
-
-// display width, height and apsect ratio
-extern int WIDTH, HEIGHT;
-extern int PREV_WIDTH, PREV_HEIGHT;
-extern GLfloat ASPECT;
-
-// viewport background color
-extern glm::vec3 BackColor;
-
-// start mode function ptr
-extern START_MODE_PTR START_MODE;
 
 // global scope shader
 extern GLuint IMAGE_SHADER;
@@ -306,6 +292,11 @@ extern ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VIEW_PO
 
 extern ShaderLocation SHAPE_OPACITY_LOCATION, SHAPE_COLOR_LOCATION, SHAPE_MODEL_LOCATION;
 extern ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW_POSITION_LOCATION;
+
+// Multiply the value by the window aspect ratio.
+GLfloat ASP(GLfloat Value);
+
+void ModeAttribute();
 
 class SDKSystem {
 private:
@@ -341,23 +332,22 @@ public:
 	void LoadShader();
 	void Exit();
 };
-extern SDKSystem System;
 
-// Multiply the value by the window aspect ratio.
-GLfloat ASP(GLfloat Value);
+namespace SDK {
+	extern std::wstring LOCALE;
+	extern START_MODE_PTR START_MODE;
+	extern SDKSystem System;
+	extern glm::vec3 ViewportColor;
+	extern int WIDTH, HEIGHT;
+	extern int PREV_WIDTH, PREV_HEIGHT;
+	extern ViewportRect RECT;
+	extern GLfloat ASPECT;
+	constexpr wchar_t* FONT = L"Roboto";
 
-void ModeAttribute();
-
-enum SystemErrorTypeEnum {
-	ERROR_TYPE_IMAGE_LOAD,
-	ERROR_TYPE_AUDIO_LOAD,
-	ERROR_TYPE_FONT_LOAD,
-	ERROR_TYPE_SCRIPT_LOAD,
-	ERROR_TYPE_SCRIPT_PARSE,
-	ERROR_TYPE_SCRIPT_DATA,
-	ERROR_TYPE_SCRIPT_CATEGORY,
-	ERROR_TYPE_DATA_FILE_PARSE,
-	ERROR_TYPE_DATA_FILE_DATA_LOAD,
-	ERROR_TYPE_DATA_FILE_DATA_WRITE,
-	ERROR_TYPE_DATA_FILE_CATEGORY,
-};
+	namespace Preset {
+		constexpr float MaxPositive = XM_PI / 2.0;
+		constexpr float MaxNegative = -XM_PI / 2.0;
+		constexpr float HalfPositive = XM_PI / 6.0;
+		constexpr float HalfNegative = -XM_PI / 6.0;
+	}
+}

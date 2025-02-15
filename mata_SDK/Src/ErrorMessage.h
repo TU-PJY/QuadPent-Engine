@@ -8,9 +8,9 @@ private:
 
 public:
 	ErrorMessage(int Type, std::string Value) {
-		System.SetBackColorRGB(31, 31, 31);
+		SDK::System.SetBackColorRGB(31, 31, 31);
 
-		Text.Init(SDK_FONT, FW_DONTCARE);
+		Text.Init(SDK::FONT, FW_DONTCARE);
 		Text.SetColor(1.0, 1.0, 1.0);
 		Text.SetLineGap(0.01);
 
@@ -94,9 +94,9 @@ public:
 	}
 
 	void RenderFunc() {
-		if (SYSRES.SDK_IMAGE_ERROR.Texture != 0) {
+		if (SDK::SYSRES.SDK_IMAGE_ERROR.Texture != 0) {
 			Begin(RENDER_TYPE_STATIC);
-			imageUtil.RenderImage(SYSRES.SDK_IMAGE_ERROR, 0.3);
+			imageUtil.RenderImage(SDK::SYSRES.SDK_IMAGE_ERROR, 0.3);
 		}
 
 		Text.RenderStr(ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);

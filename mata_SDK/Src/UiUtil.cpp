@@ -5,19 +5,19 @@ UI_Util UI;
 void UI_Util::ClampMatrixToCorner(int EdgePosition, glm::mat4& Matrix, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
 	switch (EdgePosition) {
 	case EDGE_LEFT_DOWN:
-		Matrix = translate(Matrix, glm::vec3(WindowRect.lx + Width / 2.0 + GapX, WindowRect.ly + Height / 2.0 + GapY, 0.0));
+		Matrix = translate(Matrix, glm::vec3(SDK::RECT.lx + Width / 2.0 + GapX, SDK::RECT.ly + Height / 2.0 + GapY, 0.0));
 		break;
 
 	case EDGE_LEFT_UP:
-		Matrix = translate(Matrix, glm::vec3(WindowRect.lx + Width / 2.0 + GapX, WindowRect.ry - Height / 2.0 - GapY, 0.0));
+		Matrix = translate(Matrix, glm::vec3(SDK::RECT.lx + Width / 2.0 + GapX, SDK::RECT.ry - Height / 2.0 - GapY, 0.0));
 		break;
 
 	case EDGE_RIGHT_DOWN:
-		Matrix = translate(Matrix, glm::vec3(WindowRect.rx - Width / 2.0 - GapX, WindowRect.ly + Height / 2.0 + GapY, 0.0));
+		Matrix = translate(Matrix, glm::vec3(SDK::RECT.rx - Width / 2.0 - GapX, SDK::RECT.ly + Height / 2.0 + GapY, 0.0));
 		break;
 
 	case EDGE_RIGHT_UP:
-		Matrix = translate(Matrix, glm::vec3(WindowRect.rx - Width / 2.0 - GapX, WindowRect.ry - Height / 2.0 - GapY, 0.0));
+		Matrix = translate(Matrix, glm::vec3(SDK::RECT.rx - Width / 2.0 - GapX, SDK::RECT.ry - Height / 2.0 - GapY, 0.0));
 		break;
 	}
 }
@@ -29,23 +29,23 @@ void UI_Util::ClampMatrixToPosition(glm::mat4& Matrix, GLfloat PositionX, GLfloa
 void UI_Util::ClampPositionToCorner(int EdgePosition, GLfloat& PositionX, GLfloat& PositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
 	switch (EdgePosition) {
 	case EDGE_LEFT_DOWN:
-		PositionX = WindowRect.lx + Width / 2.0 + GapX;
-		PositionY = WindowRect.ly + Height / 2.0 + GapY;
+		PositionX = SDK::RECT.lx + Width / 2.0 + GapX;
+		PositionY = SDK::RECT.ly + Height / 2.0 + GapY;
 		break;
 
 	case EDGE_LEFT_UP:
-		PositionX = WindowRect.lx + Width / 2.0 + GapX;
-		PositionY = WindowRect.ry - Height / 2.0 - GapY;
+		PositionX = SDK::RECT.lx + Width / 2.0 + GapX;
+		PositionY = SDK::RECT.ry - Height / 2.0 - GapY;
 		break;
 
 	case EDGE_RIGHT_DOWN:
-		PositionX = WindowRect.rx - Width / 2.0 - GapX;
-		PositionY = WindowRect.ly + Height / 2.0 + GapY;
+		PositionX = SDK::RECT.rx - Width / 2.0 - GapX;
+		PositionY = SDK::RECT.ly + Height / 2.0 + GapY;
 		break;
 
 	case EDGE_RIGHT_UP:
-		PositionX = WindowRect.rx - Width / 2.0 - GapX;
-		PositionY = WindowRect.ry - Height / 2.0 - GapY;
+		PositionX = SDK::RECT.rx - Width / 2.0 - GapX;
+		PositionY = SDK::RECT.ry - Height / 2.0 - GapY;
 		break;
 	}
 }

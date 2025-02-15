@@ -19,7 +19,7 @@ public:
 			switch (Event.NormalKey) {
 			case NK_ENTER:
 				soundUtil.Stop(IntroChannel);
-				scene.SwitchMode(START_MODE);
+				scene.SwitchMode(SDK::START_MODE);
 				break;
 
 #ifdef ENABLE_DEV_EXIT
@@ -36,7 +36,7 @@ public:
 		switch (SceneNumber) {
 		case 0:
 			if (timer.CheckMiliSec(1.0, 1, CHECK_AND_INTERPOLATE)) {
-				soundUtil.Play(SYSRES.INTRO_SOUND, IntroChannel);
+				soundUtil.Play(SDK::SYSRES.INTRO_SOUND, IntroChannel);
 				++SceneNumber;
 			}
 			break;
@@ -72,7 +72,7 @@ public:
 			}
 
 			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_RESUME))
-				scene.SwitchMode(START_MODE);
+				scene.SwitchMode(SDK::START_MODE);
 			
 			break;
 		}
@@ -84,11 +84,11 @@ public:
 
 		switch (SceneNumber) {
 		case 1:
-			imageUtil.RenderImage(SYSRES.SDK_LOGO, LogoOpacity);
+			imageUtil.RenderImage(SDK::SYSRES.SDK_LOGO, LogoOpacity);
 			break;
 
 		case 2: case 3:
-			imageUtil.RenderImage(SYSRES.FMOD_LOGO, LogoOpacity);
+			imageUtil.RenderImage(SDK::SYSRES.FMOD_LOGO, LogoOpacity);
 			break;
 		}
 	}

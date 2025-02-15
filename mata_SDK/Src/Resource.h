@@ -39,11 +39,11 @@ public:
 
 };
 
-extern SDK_IMAGE IMG;
-extern SDK_SOUND SND;
-extern SDK_GLOBAL GLB;
 
 namespace SDK {
+	extern SDK_IMAGE IMAGE;
+	extern SDK_SOUND SOUND;
+	extern SDK_GLOBAL GLOBAL;
 	extern SDK_FORMAT FORMAT;
 	extern SDK_FILE FILE;
 }

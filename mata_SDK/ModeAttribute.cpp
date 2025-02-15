@@ -11,5 +11,5 @@ void ModeAttribute() {
 	Mode1.Map(SDK::MODE.Mode1);
 
 	// Set start mode
-	START_MODE = SDK::MODE.Mode1;
+	SDK::START_MODE = SDK::MODE.Mode1;
 }

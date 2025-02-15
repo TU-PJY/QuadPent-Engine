@@ -19,11 +19,11 @@ void AABB::Update(glm::vec2& Position, GLfloat xScale, GLfloat yScale) {
 void AABB::Render() {
 	if (SHOW_BOUND_BOX) {
 		LineRect.SetColor(1.0, 0.0, 0.0);
-		Rect.SetColor(1.0, 0.0, 0.0);
+		RECT.SetColor(1.0, 0.0, 0.0);
 
 		LineRect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, BOUND_BOX_THICKNESS, 0.0);
 		if (Collide)
-			Rect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, 0.0, 0.3);
+			RECT.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, 0.0, 0.3);
 	}
 }
 
@@ -130,11 +130,11 @@ void OOBB::Update(glm::vec2& Position, GLfloat BoxWidth, GLfloat BoxHeight, GLfl
 void OOBB::Render() {
 	if (SHOW_BOUND_BOX) {
 		LineRect.SetColor(1.0, 0.0, 0.0);
-		Rect.SetColor(1.0, 0.0, 0.0);
+		RECT.SetColor(1.0, 0.0, 0.0);
 
 		LineRect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, BOUND_BOX_THICKNESS, Rotation);
 		if (Collide)
-			Rect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, Rotation, 0.3);
+			RECT.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, Rotation, 0.3);
 	}
 }
 

@@ -13,7 +13,7 @@ private:
 	bool          Collide{};
 
 	LineRectBrush LineRect{true, true};
-	RectBrush     Rect{true};
+	RectBrush     RECT{true};
 
 public:
 	void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
@@ -37,7 +37,7 @@ private:
 	bool                Collide{};
 
 	LineRectBrush       LineRect{ true, true };
-	RectBrush           Rect{ true };
+	RectBrush           RECT{ true };
 
 public:
 	void Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);

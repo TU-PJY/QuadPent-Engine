@@ -10,33 +10,29 @@
 
 #include "LoadingMode.h"
 
-
-int WIDTH = WINDOW_WIDTH;
-int HEIGHT = WINDOW_HEIGHT;
-int PREV_WIDTH, PREV_HEIGHT;
+int SDK::WIDTH = WINDOW_WIDTH;
+int SDK::HEIGHT = WINDOW_HEIGHT;
+int SDK::PREV_WIDTH, SDK::PREV_HEIGHT;
 
 const glm::mat4 IdentityMatrix = glm::mat4(1.0f);
-
-std::wstring SDK_LOCALE;
-
-START_MODE_PTR START_MODE;
 
 Camera camera;
 Object* Indicator;
 
-GLfloat ASPECT;
-ViewportRect WindowRect;
-glm::vec3 BackColor;
+GLfloat SDK::ASPECT;
+ViewportRect SDK:: RECT;
+glm::vec3 SDK::ViewportColor;
 
-TextUtil SystemText;
-
-___SYSTEM_RES SYSRES;
-SDK_IMAGE IMG;
-SDK_SOUND SND;
-SDK_GLOBAL GLB; 
+___SYSTEM_RES SDK::SYSRES;
+SDK_IMAGE SDK::IMAGE;
+SDK_SOUND SDK::SOUND;
+SDK_GLOBAL SDK::GLOBAL;
 SDK_FORMAT SDK::FORMAT;
 SDK_FILE SDK::FILE;
 SDK_MODE SDK::MODE;
+
+std::wstring SDK::LOCALE;
+START_MODE_PTR SDK::START_MODE;
 
 void SDKSystem::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);
@@ -50,14 +46,14 @@ void SDKSystem::SetupSystem(int argc, char** argv) {
 void SDKSystem::SetupWindow() {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
 
-	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - HEIGHT / 2);
-	glutInitWindowSize(WIDTH, HEIGHT);
+	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - SDK::WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - SDK::HEIGHT / 2);
+	glutInitWindowSize(SDK::WIDTH, SDK::HEIGHT);
 	glutCreateWindow(WINDOW_NAME);
 
 	if (FULL_SCREEN_OPTION) {
 		glutFullScreen();
-		WIDTH = GetSystemMetrics(SM_CXSCREEN);
-		HEIGHT = GetSystemMetrics(SM_CYSCREEN);
+		SDK::WIDTH = GetSystemMetrics(SM_CXSCREEN);
+		SDK::HEIGHT = GetSystemMetrics(SM_CYSCREEN);
 	}
 
 	glewExperimental = GL_TRUE;

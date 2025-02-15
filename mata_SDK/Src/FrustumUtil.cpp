@@ -6,10 +6,10 @@
 FrustumUtil frustum;
 
 void FrustumUtil::Update() {
-	FrustumOOBB.Update(CameraPosition, ASP(2.0) / camera.ZoomValue, 2.0 / camera.ZoomValue, CameraRotation);
+	FrustumOOBB.Update(SDK::CameraPosition, ASP(2.0) / camera.ZoomValue, 2.0 / camera.ZoomValue, SDK::CameraRotation);
 
 if(SHOW_FRUSTUM_BOUND)
-	LineRect.Draw(CameraPosition.x, CameraPosition.y, ASP(2.0) / camera.ZoomValue, 2.0 / camera.ZoomValue, BOUND_BOX_THICKNESS, CameraRotation);
+	LineRect.Draw(SDK::CameraPosition.x, SDK::CameraPosition.y, ASP(2.0) / camera.ZoomValue, 2.0 / camera.ZoomValue, BOUND_BOX_THICKNESS, SDK::CameraRotation);
 }
 
 bool FrustumUtil::Check(AABB& aabb) {

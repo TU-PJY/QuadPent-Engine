@@ -1,17 +1,14 @@
 ﻿#pragma once
 #include "CameraUtil.h"
 
-extern glm::vec2 CameraPosition;
-extern GLfloat CameraRotation;
-
 class CameraController {
 public:
 	void Update(float FrameTime);
-	void MoveCamera(GLfloat X, GLfloat Y);
-	void MoveCamera(glm::vec2& PositionValue);
-	void RotateCamera(GLfloat Degree);
-	void CameraZoom(int ZoomType, GLfloat ZoomValue);
-	void ChangeCameraZoom(GLfloat ZoomValue);
+	void Move(GLfloat X, GLfloat Y);
+	void Move(glm::vec2& PositionValue);
+	void Rotate(GLfloat Degree);
+	void Zoom(int ZoomType, GLfloat ZoomValue);
+	void SetZoom(GLfloat ZoomValue);
 	GLfloat ComputeNextZoom(int ZoomType, GLfloat ZoomValue);
 
 private:
@@ -21,4 +18,9 @@ private:
 	void ComputeCameraMatrix();
 };
 
-extern CameraController cameraControl;
+namespace SDK {
+	extern CameraController CameraControl;
+	extern glm::vec2 CameraPosition;
+	extern GLfloat CameraRotation;
+	extern GLfloat CameraZoom;
+}

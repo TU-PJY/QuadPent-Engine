@@ -15,5 +15,5 @@ public:
 	void End();
 };
 
-extern ColorClipping colorClip;
-extern AlphaClipping alphaClip;
+extern ColorClipping ColorClip;
+extern AlphaClipping AlphaClip;

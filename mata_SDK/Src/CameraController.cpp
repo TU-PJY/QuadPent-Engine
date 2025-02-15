@@ -3,11 +3,10 @@
 #include "TransformUtil.h"
 #include "AnimationUtil.h"
 
-glm::vec2 CameraPosition;
-GLfloat CameraRotation;
-
-CameraController cameraControl;
-
+CameraController SDK::CameraControl;
+glm::vec2 SDK::CameraPosition;
+GLfloat SDK::CameraRotation;
+GLfloat SDK::CameraZoom = 1.0;
 
 void CameraController::Update(float FrameTime){
 	// add logic here
@@ -15,24 +14,24 @@ void CameraController::Update(float FrameTime){
 	ComputeCameraMatrix();
 }
 
-void CameraController::MoveCamera(GLfloat X, GLfloat Y){
+void CameraController::Move(GLfloat X, GLfloat Y){
 	Position.x = -X;
 	Position.y = -Y;
-	CameraPosition.x = X;
-	CameraPosition.y = Y;
+	SDK::CameraPosition.x = X;
+	SDK::CameraPosition.y = Y;
 }
 
-void CameraController::MoveCamera(glm::vec2& PositionValue){
+void CameraController::Move(glm::vec2& PositionValue){
 	Position = -PositionValue;
-	CameraPosition = PositionValue;
+	SDK::CameraPosition = PositionValue;
 }
 
-void CameraController::RotateCamera(GLfloat Degree){
+void CameraController::Rotate(GLfloat Degree){
 	Rotation = -Degree;
-	CameraRotation = Degree;
+	SDK::CameraRotation = Degree;
 }
 
-void CameraController::CameraZoom(int ZoomType, GLfloat ZoomValue){
+void CameraController::Zoom(int ZoomType, GLfloat ZoomValue){
 	switch (ZoomType) {
 	case ZOOM_IN:
 		camera.ZoomValue = camera.ZoomValue / (1.0f - ZoomValue);
@@ -42,10 +41,13 @@ void CameraController::CameraZoom(int ZoomType, GLfloat ZoomValue){
 		camera.ZoomValue = camera.ZoomValue * (1.0f - ZoomValue);
 		break;
 	}
+
+	SDK::CameraZoom = camera.ZoomValue;
 }
 
-void CameraController::ChangeCameraZoom(GLfloat ZoomValue){
+void CameraController::SetZoom(GLfloat ZoomValue){
 	camera.ZoomValue = ZoomValue;
+	SDK::CameraZoom = camera.ZoomValue;
 }
 
 GLfloat CameraController::ComputeNextZoom(int ZoomType, GLfloat ZoomValue) {

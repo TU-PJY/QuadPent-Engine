@@ -55,7 +55,7 @@ public:
 	}
 	static void KeyDown(unsigned char KEY, int X, int Y) {
 		if (ENABLE_DEV_EXIT && KEY == NK_ESCAPE)
-			System.Exit();
+			SDK::System.Exit();
 
 		KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
 		ProcessKeyEvent(Event);
