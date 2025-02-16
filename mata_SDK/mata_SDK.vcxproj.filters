@@ -136,9 +136,6 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Tool ]\[ Global Tool ]\[ Font ]">
       <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Tool ]\[ Global Tool ]\[ EX  ]">
-      <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Tool ]\[ Global Tool ]\[ Compute ]">
       <UniqueIdentifier>{f7456d94-6103-44fc-b1c5-33fe9e736f54}</UniqueIdentifier>
     </Filter>
@@ -159,6 +156,9 @@
     </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Pack ]">
       <UniqueIdentifier>{4ac8fdab-c6e0-4a90-83ec-beeca66a9ba4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Tool ]\[ Global Tool ]\[ EX ]">
+      <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -283,7 +283,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Tool ]\[ Global Tool ]\[ UI ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SDK_EXTool.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ Tool ]\[ Global Tool ]\[ EX  ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Tool ]\[ Global Tool ]\[ EX ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -333,7 +333,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Tool ]\[ Object Tool ]\[ Data ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_EXTool.h">
-      <Filter>[5]___________[ SDK_System ]\[ Tool ]\[ Global Tool ]\[ EX  ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Tool ]\[ Global Tool ]\[ EX ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_ErrorMessage.h">
       <Filter>[5]___________[ SDK_System ]\[ System Object ]</Filter>

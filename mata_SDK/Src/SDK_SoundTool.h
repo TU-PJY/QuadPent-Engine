@@ -22,6 +22,7 @@ public:
 	void Load(SDK::Sound& Sound, std::string FileName, FMOD_MODE Option=FMOD_DEFAULT);
 	void Release(SDK::Sound& Sound);
 	void Update();
+	void SetMultiSoundChannel(SDK::MultiSoundChannel& ChannelVar, int NumChannel);
 	void AddChannelToGroup(SDK::SoundChannelGroup& Group, SDK::Sound& Sound, SDK::SoundChannel& ChannelVar);
 	void DeleteChannelFromGroup(SDK::SoundChannelGroup& Group, SDK::SoundChannel& ChannelVar);
 	void ClearGroup(SDK::SoundChannelGroup& Group);
@@ -29,8 +30,11 @@ public:
 	void StopGroup(SDK::SoundChannelGroup& Group);
 	void PauseGroup(SDK::SoundChannelGroup& Group, bool Flag);
 	void Play(SDK::Sound& Sound, SDK::SoundChannel& ChannelVar, float Time=0.0);
+	void Play(SDK::Sound& Sound, SDK::MultiSoundChannel& ChannelVar, float Time);
 	void PlayOnce(SDK::Sound& Sound, SDK::SoundChannel& ChannelVar, bool& BoolValue, float Time=0.0);
+	void PlayOnce(SDK::Sound& Sound, SDK::MultiSoundChannel& ChannelVar, bool& BoolValue, float Time);
 	void Pause(SDK::SoundChannel& ChannelVar, bool Flag);
+	void Pause(SDK::MultiSoundChannel& ChannelVar, bool Flag);
 	void Stop(SDK::SoundChannel& ChannelVar);
 	void FadeOut(SDK::SoundChannel& ChannelVar, float Speed, float FrameTime);
 	void FadeIn(SDK::SoundChannel& ChannelVar, float Speed, float FrameTime, float DestVolume=1.0);

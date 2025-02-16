@@ -334,6 +334,16 @@ namespace SDK {
 		float PlaySpeed = 1.0;
 		FMOD::Channel* Channel{};
 	};
+
+	struct MultiSoundChannel {
+		float Volume = 1.0;
+		float PlaySpeed = 1.0;
+		int NumChannel{};
+		int PlayChannel = 0;
+		int StopChannel = 1;
+		std::vector<FMOD::Channel*> Channel{};
+	};
+
 	using SoundChannelGroup = std::vector <SoundChannel>;
 	using Sound = FMOD::Sound*;
 

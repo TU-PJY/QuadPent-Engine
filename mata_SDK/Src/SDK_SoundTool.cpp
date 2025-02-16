@@ -31,6 +31,13 @@ void SDK_SoundTool::Update() {
 	SoundSystem->update();
 }
 
+void SDK_SoundTool::SetMultiSoundChannel(SDK::MultiSoundChannel& ChannelVar, int NumChannel) {
+	ChannelVar.NumChannel = NumChannel;
+	ChannelVar.Channel.assign(NumChannel, {});
+	ChannelVar.PlayChannel = 0;
+	ChannelVar.StopChannel = 1;
+}
+
 void SDK_SoundTool::AddChannelToGroup(SDK::SoundChannelGroup& Group, SDK::Sound& Sound, SDK::SoundChannel& ChannelVar) {
 	SoundSystem->playSound(Sound, 0, true, &ChannelVar.Channel);
 	Group.emplace_back(ChannelVar);
@@ -76,12 +83,38 @@ void SDK_SoundTool::Play(SDK::Sound& Sound, SDK::SoundChannel& ChannelVar, float
 	ChannelVar.Channel->setPitch(ChannelVar.PlaySpeed);
 }
 
+void SDK_SoundTool::Play(SDK::Sound& Sound, SDK::MultiSoundChannel& ChannelVar, float Time) {
+	SoundSystem->playSound(Sound, 0, false, &ChannelVar.Channel[ChannelVar.PlayChannel]);
+	ChannelVar.Channel[ChannelVar.PlayChannel]->setPosition(Time * 1000, FMOD_TIMEUNIT_MS);
+	ChannelVar.Channel[ChannelVar.PlayChannel]->setVolume(ChannelVar.Volume);
+	ChannelVar.Channel[ChannelVar.PlayChannel++]->setPitch(ChannelVar.PlaySpeed);
+	ChannelVar.Channel[ChannelVar.StopChannel++]->stop();
+
+	SDK::EXTool.ClampValue(ChannelVar.PlayChannel, 0, ChannelVar.NumChannel, CLAMP_RETURN);
+	SDK::EXTool.ClampValue(ChannelVar.StopChannel, 0, ChannelVar.NumChannel, CLAMP_RETURN);
+}
+
 void SDK_SoundTool::PlayOnce(SDK::Sound& Sound, SDK::SoundChannel& ChannelVar, bool& BoolValue, float Time) {
 	if (!BoolValue) {
 		SoundSystem->playSound(Sound, 0, false, &ChannelVar.Channel);
 		ChannelVar.Channel->setPosition(Time * 1000, FMOD_TIMEUNIT_MS);
 		ChannelVar.Channel->setVolume(ChannelVar.Volume);
 		ChannelVar.Channel->setPitch(ChannelVar.PlaySpeed);
+	}
+}
+
+void SDK_SoundTool::PlayOnce(SDK::Sound& Sound, SDK::MultiSoundChannel& ChannelVar, bool& BoolValue, float Time) {
+	if (!BoolValue) {
+		SoundSystem->playSound(Sound, 0, false, &ChannelVar.Channel[ChannelVar.PlayChannel]);
+		ChannelVar.Channel[ChannelVar.PlayChannel]->setPosition(Time * 1000, FMOD_TIMEUNIT_MS);
+		ChannelVar.Channel[ChannelVar.PlayChannel]->setVolume(ChannelVar.Volume);
+		ChannelVar.Channel[ChannelVar.PlayChannel++]->setPitch(ChannelVar.PlaySpeed);
+		ChannelVar.Channel[ChannelVar.StopChannel++]->stop();
+
+		SDK::EXTool.ClampValue(ChannelVar.PlayChannel, 0, ChannelVar.NumChannel, CLAMP_RETURN);
+		SDK::EXTool.ClampValue(ChannelVar.StopChannel, 0, ChannelVar.NumChannel, CLAMP_RETURN);
+
+		BoolValue = true;
 	}
 }
 
