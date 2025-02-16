@@ -21,12 +21,6 @@ public:
 				SDK::SoundTool.Stop(IntroChannel);
 				SDK::Scene.SwitchMode(SDK::START_MODE);
 				break;
-
-#ifdef ENABLE_DEV_EXIT
-			case NK_ESCAPE:
-				System.Exit();
-				break;
-#endif
 			}
 		}
 	}
