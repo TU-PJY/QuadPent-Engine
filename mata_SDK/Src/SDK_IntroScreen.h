@@ -14,7 +14,7 @@ private:
 	int          SceneNumber{}; 
 
 public:
-	void InputKey(KeyEvent& Event) {
+	void InputKey(SDK::KeyEvent& Event) {
 		if (Event.Type == NORMAL_KEY_DOWN) {
 			switch (Event.NormalKey) {
 			case NK_ENTER:
