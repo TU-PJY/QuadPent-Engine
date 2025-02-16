@@ -22,8 +22,6 @@ using namespace DirectX;
 #include "fmod.hpp"
 #include "fmod_errors.h"
 
-using ShaderLocation = unsigned int;
-
 enum SDK_KeyState {
 	NORMAL_KEY_DOWN,
 	NORMAL_KEY_UP,
@@ -197,13 +195,6 @@ enum SDK_SystemErrorType {
 	ERROR_TYPE_DATA_FILE_CATEGORY,
 };
 
-// key event
-typedef struct {
-	int Type;
-	unsigned char NormalKey;
-	int SpecialKey;
-}KeyEvent;
-
 // global scope shader
 extern GLuint IMAGE_SHADER;
 extern GLuint TEXT_SHADER;
@@ -214,6 +205,7 @@ extern GLuint MATRIX_COMPT_SHADER;
 extern GLuint SSBO_MATRIX_INPUT, SSBO_MATRIX_OUTPUT;
 
 // global shader location
+using ShaderLocation = unsigned int;
 extern ShaderLocation IMAGE_OPACITY_LOCATION, IMAGE_COLOR_LOCATION, IMAGE_MODEL_LOCATION;
 extern ShaderLocation IMAGE_PROJECTION_LOCARION, IMAGE_VIEW_LOCATION, IMAGE_VIEW_POSITION_LOCATION;
 extern ShaderLocation BLUR_STRENGTH_LOCATION, BLUR_STATE_LOCATION, TEXTURE_SIZE_LOCATION;
@@ -280,6 +272,13 @@ namespace SDK {
 		GLfloat LeftX, LeftY, RightX, RightY;
 	}ViewportRect;
 	extern ViewportRect RECT;
+
+	// key event
+	typedef struct {
+		int Type;
+		unsigned char NormalKey;
+		int SpecialKey;
+	}KeyEvent;
 
 	// ray vector struct
 	typedef struct {

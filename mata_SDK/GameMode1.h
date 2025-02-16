@@ -56,7 +56,7 @@ public:
 		SDK::Scene.RegisterController(Controller, M_Inst->ModeType);
 	}
 
-	static void ProcessKeyEvent(KeyEvent& Event) {
+	static void ProcessKeyEvent(SDK::KeyEvent& Event) {
 		for (auto const& Object : M_Inst->InputObject)
 			if (Object)  Object->InputKey(Event);
 
@@ -65,22 +65,22 @@ public:
 		if (ENABLE_DEV_EXIT && KEY == NK_ESCAPE)
 			SDK::System.Exit();
 
-		KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
+		SDK::KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
 		ProcessKeyEvent(Event);
 	}
 
 	static void KeyUp(unsigned char KEY, int X, int Y) {
-		KeyEvent Event{ NORMAL_KEY_UP, KEY, NULL };
+		SDK::KeyEvent Event{ NORMAL_KEY_UP, KEY, NULL };
 		ProcessKeyEvent(Event);
 	}
 
 	static void SpecialKeyDown(int KEY, int X, int Y) {
-		KeyEvent Event{ SPECIAL_KEY_DOWN, NULL, KEY };
+		SDK::KeyEvent Event{ SPECIAL_KEY_DOWN, NULL, KEY };
 		ProcessKeyEvent(Event);
 	}
 
 	static void SpecialKeyUp(int KEY, int X, int Y) {
-		KeyEvent Event{ SPECIAL_KEY_UP, NULL, KEY };
+		SDK::KeyEvent Event{ SPECIAL_KEY_UP, NULL, KEY };
 		ProcessKeyEvent(Event);
 	}
 

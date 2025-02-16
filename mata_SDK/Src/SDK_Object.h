@@ -48,7 +48,7 @@ namespace SDK {
 		virtual void RenderFunc() {}
 
 		// Sends keyboard events to a specific object class.
-		virtual void InputKey(KeyEvent& Event) {}
+		virtual void InputKey(SDK::KeyEvent& Event) {}
 
 		// Sends mouse events to a specific object class.
 		virtual void InputMouse(int Type) {}
