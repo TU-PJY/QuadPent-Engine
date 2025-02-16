@@ -150,6 +150,7 @@
     <ClCompile Include="Src\SDK_Collision.cpp" />
     <ClCompile Include="Src\SDK_ComputeTool.cpp" />
     <ClCompile Include="Src\SDK_Data.cpp" />
+    <ClCompile Include="Src\SDK_EXTool.cpp" />
     <ClCompile Include="Src\SDK_FontLoader.cpp" />
     <ClCompile Include="Src\SDK_Frustum.cpp" />
     <ClCompile Include="Src\Library\tinyxml\tinystr.cpp" />
@@ -174,7 +175,6 @@
     <ClCompile Include="Src\SDK_Shader.cpp" />
     <ClCompile Include="Src\SDK_SoundTool.cpp" />
     <ClCompile Include="Src\SDK_Display.cpp" />
-    <ClCompile Include="Src\SDK__EXTool.cpp" />
     <ClCompile Include="Src\SDK_StringTool.cpp" />
     <ClCompile Include="Src\SDK_SystemMode.cpp" />
     <ClCompile Include="Src\SDK_Text.cpp" />
