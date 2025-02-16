@@ -34,7 +34,6 @@ public:
 	void PlayOnce(SDK::Sound& Sound, SDK::SoundChannel& ChannelVar, bool& BoolValue, float Time=0.0);
 	void PlayOnce(SDK::Sound& Sound, SDK::MultiSoundChannel& ChannelVar, bool& BoolValue, float Time);
 	void Pause(SDK::SoundChannel& ChannelVar, bool Flag);
-	void Pause(SDK::MultiSoundChannel& ChannelVar, bool Flag);
 	void Stop(SDK::SoundChannel& ChannelVar);
 	void FadeOut(SDK::SoundChannel& ChannelVar, float Speed, float FrameTime);
 	void FadeIn(SDK::SoundChannel& ChannelVar, float Speed, float FrameTime, float DestVolume=1.0);
