@@ -2,7 +2,6 @@
 #include "SDK_Camera.h"
 
 void SDK::Object::Begin(int RenderType) {
-	SDK::Transform.Identity(ResultMatrix);
 	SDK::Transform.Identity(MoveMatrix);
 	SDK::Transform.Identity(RotateMatrix);
 	SDK::Transform.Identity(ScaleMatrix);
@@ -23,6 +22,22 @@ void SDK::Object::IdentityUnitMatrix() {
 
 	UnitOpacityValue = 1.0f;
 	UnitBlurValue = 0.0f;
+}
+
+void SDK::Object::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+	ObjectColor.r = R;
+	ObjectColor.g = G;
+	ObjectColor.b = B;
+}
+
+void SDK::Object::SetColor(glm::vec3 Color) {
+	ObjectColor = Color;
+}
+
+void SDK::Object::SetColorRGB(int R, int G, int B) {
+	ObjectColor.r = (1.0f / 255.0f) * (GLfloat)R;
+	ObjectColor.g = (1.0f / 255.0f) * (GLfloat)G;
+	ObjectColor.b = (1.0f / 255.0f) * (GLfloat)B;
 }
 
 void SDK::Object::ComputeViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect) {
@@ -54,10 +69,10 @@ void SDK::Object::ComputeLocalPosition(glm::vec2& DestPosition) {
 ////////////////////////// private
 
 glm::vec4 SDK::Object::ViewportPosition() {
-	SDK::ComputeTool.ComputeMatrix(ViewportPositionMatrix, SDK::Camera.Projection, SDK::Camera.ViewMatrix, ResultMatrix);
-	return ViewportPositionMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	SDK::ComputeTool.ComputeMatrix(SDK::ViewportPositionMatrix, SDK::Camera.Projection, SDK::Camera.ViewMatrix, ResultMatrix);
+	return SDK::ViewportPositionMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 glm::vec4 SDK::Object::LocalPosition() {
-	return ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	return SDK::ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }

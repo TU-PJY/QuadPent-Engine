@@ -38,6 +38,7 @@ public:
 			SDK::FontLoader.LoadT(SDK::SYSRES.SDK_FONT_DIRECTORY);
 			SDK::ImageTool.LoadImage(SDK::SYSRES.SDK_IMAGE_ERROR, SDK::SYSRES.SDK_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 			SDK::ImageTool.LoadImage(SDK::SYSRES.LOADING_SPINNER, SDK::SYSRES.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
+			SDK::ImageTool.LoadImage(SDK::SYSRES.MATA_LOGO, SDK::SYSRES.MATA_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 
 			SDK::ThreadTool.Create(SystemResourceLoadHandle, SystemResourceLoader);
 
@@ -80,9 +81,12 @@ public:
 
 	void RenderFunc() {
 		Begin(RENDER_TYPE_STATIC);
-		SDK::Transform.Move(MoveMatrix, SDK::RECT.RightX - 0.15, -0.85);
-		SDK::Transform.Scale(ScaleMatrix, 0.25, 0.25);
-		SDK::Transform.Rotate(RotateMatrix, Rotation);
+		SDK::Transform.Scale(SDK::MoveMatrix, 0.6, 0.6);
+		SDK::ImageTool.RenderImage(SDK::SYSRES.MATA_LOGO, SpinnerOpacity);
+
+		Begin(RENDER_TYPE_STATIC);
+		SDK::Transform.Scale(SDK::MoveMatrix, 1.0, 1.0);
+		SDK::Transform.Rotate(SDK::MoveMatrix, Rotation);
 		SDK::ImageTool.RenderImage(SDK::SYSRES.LOADING_SPINNER, SpinnerOpacity);
 	}
 

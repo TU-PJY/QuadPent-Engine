@@ -11,6 +11,8 @@ namespace SDK {
 		std::vector<SDK::PreLoadInfo> LoadBuffer{};
 		std::vector<SDK::PreLoadSpriteSheetInfo> LoadSpriteSheetBuffer{};
 
+		glm::mat4 ImageAspectMatrix{ glm::mat4(1.0) };
+
 		int ClipWidth{}, ClipHeight{};
 		int NumRow{}, NumCol{}, BlankLocation{}, StartLocation{};
 

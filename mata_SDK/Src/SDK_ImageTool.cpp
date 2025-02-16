@@ -486,6 +486,8 @@ void SDK::SDK_ImageTool::ProcessTransform(GLfloat Width, GLfloat Height, GLfloat
 	if (!DisableAdjustAspect)
 		SDK::Transform.ImageScale(ImageAspectMatrix, Width, Height);
 
+	SDK::Transform.Identity(ResultMatrix);
+
 	if (USE_COMPUTE_SHADER)
 		SDK::ComputeTool.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 	else {

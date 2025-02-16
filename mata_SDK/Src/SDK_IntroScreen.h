@@ -80,7 +80,7 @@ public:
 
 	void RenderFunc() {
 		Begin(RENDER_TYPE_STATIC);
-		SDK::Transform.Move(MoveMatrix, 0.0, LogoPosition);
+		SDK::Transform.Move(SDK::MoveMatrix, 0.0, LogoPosition);
 
 		switch (SceneNumber) {
 		case 1:

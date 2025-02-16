@@ -19,6 +19,13 @@ namespace SDK {
 		// Initialize unit matrix.
 		void IdentityUnitMatrix();
 
+		// Add color over image
+		void SetColor(GLfloat R, GLfloat G, GLfloat B);
+
+		void SetColor(glm::vec3 Color);
+
+		void SetColorRGB(int R, int G, int B);
+
 		// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
 		void ComputeViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect = true);
 
