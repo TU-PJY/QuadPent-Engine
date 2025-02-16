@@ -510,4 +510,6 @@ void SDK_ImageTool::ProcessTransform(GLfloat Width, GLfloat Height, GLfloat Opac
 		ObjectOpacityValue = ObjectOpacityValue * UnitOpacityValue;
 		ObjectBlurValue = ObjectBlurValue * UnitBlurValue;
 	}
+
+	SDK::Transform.Identity(ImageAspectMatrix);
 }

@@ -169,7 +169,7 @@ void SDK::Text::InputText(std::vector<wchar_t>& Input, glm::vec2& Position, GLfl
 	ProcessText((wchar_t*)CurrentText.c_str(), Position, Size);
 }
 
-void SDK::Text::ProcessText(wchar_t* Text, glm::vec2 Position, GLfloat Size) {
+void SDK::Text::ProcessText(wchar_t* Text, glm::vec2& Position, GLfloat Size) {
 	CurrentLine = 0;
 	TextRenderSize = Size;
 	RenderPosition = Position;

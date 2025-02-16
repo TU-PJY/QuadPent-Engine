@@ -6,7 +6,6 @@ void SDK::Object::Begin(int RenderType) {
 	SDK::Transform.Identity(MoveMatrix);
 	SDK::Transform.Identity(RotateMatrix);
 	SDK::Transform.Identity(ScaleMatrix);
-	SDK::Transform.Identity(ImageAspectMatrix);
 	SDK::Transform.Identity(FlipMatrix);
 
 	ObjectOpacityValue = 1.0f;
