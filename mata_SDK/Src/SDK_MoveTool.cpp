@@ -1,16 +1,16 @@
 #include "SDK_MoveTool.h"
 
-SDK_MoveTool SDK::MoveTool;
+SDK::SDK_MoveTool SDK::MoveTool;
 
-void SDK_MoveTool::MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT) {
+void SDK::SDK_MoveTool::MoveStraight(GLfloat& Position, int MoveDirection, GLfloat Speed, float FT) {
 	Position += Speed * MoveDirection * FT;
 }
 
-void SDK_MoveTool::MoveStraight(GLfloat& Position, GLfloat Speed, float FT) {
+void SDK::SDK_MoveTool::MoveStraight(GLfloat& Position, GLfloat Speed, float FT) {
 	Position += Speed * FT;
 }
 
-void SDK_MoveTool::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FT, bool Plus90Option) {
+void SDK::SDK_MoveTool::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FT, bool Plus90Option) {
 	if (Plus90Option) {
 		X += Speed * cos(glm::radians(RotationValue + 90)) * MoveDirection * FT;
 		Y += Speed * sin(glm::radians(RotationValue + 90)) * MoveDirection * FT;
@@ -21,7 +21,7 @@ void SDK_MoveTool::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, int MoveDi
 	}
 }
 
-void SDK_MoveTool::MoveForward(glm::vec2& Position, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FrameTime, bool Plus90Option) {
+void SDK::SDK_MoveTool::MoveForward(glm::vec2& Position, GLfloat Speed, int MoveDirection, GLfloat RotationValue, float FrameTime, bool Plus90Option) {
 	if (Plus90Option) {
 		Position.x += Speed * cos(glm::radians(RotationValue + 90)) * MoveDirection * FrameTime;
 		Position.y += Speed * sin(glm::radians(RotationValue + 90)) * MoveDirection * FrameTime;
@@ -32,7 +32,7 @@ void SDK_MoveTool::MoveForward(glm::vec2& Position, GLfloat Speed, int MoveDirec
 	}
 }
 
-void SDK_MoveTool::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationValue, float FT, bool Plus90Option) {
+void SDK::SDK_MoveTool::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationValue, float FT, bool Plus90Option) {
 	if (Plus90Option) {
 		X += Speed * cos(glm::radians(RotationValue + 90)) * FT;
 		Y += Speed * sin(glm::radians(RotationValue + 90)) * FT;
@@ -43,7 +43,7 @@ void SDK_MoveTool::MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat Ro
 	}
 }
 
-void SDK_MoveTool::MoveForward(glm::vec2& Position, GLfloat Speed, GLfloat RotationValue, float FrameTime, bool Plus90Option) {
+void SDK::SDK_MoveTool::MoveForward(glm::vec2& Position, GLfloat Speed, GLfloat RotationValue, float FrameTime, bool Plus90Option) {
 	if (Plus90Option) {
 		Position.x += Speed * cos(glm::radians(RotationValue + 90)) * FrameTime;
 		Position.y += Speed * sin(glm::radians(RotationValue + 90)) * FrameTime;

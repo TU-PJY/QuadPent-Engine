@@ -1,15 +1,17 @@
 #pragma once
 #include "SDK_Header.h"
  
-class SDK_StringTool {
-public:
-	void InputChar(std::string& Str, unsigned char AddChar, bool UseNewLine = false);
-	void AddString(std::string& Str, std::string AddStr);
-	void EraseString(std::string& Str);
-	void RemoveString(std::string& Str, std::string RemoveStr);
-	std::wstring Wstring(const std::string& Str);
-};
+namespace SDK {
+	class SDK_StringTool {
+	public:
+		void InputChar(std::string& Str, unsigned char AddChar, bool UseNewLine = false);
+		void AddString(std::string& Str, std::string AddStr);
+		void EraseString(std::string& Str);
+		void RemoveString(std::string& Str, std::string RemoveStr);
+		std::wstring Wstring(const std::string& Str);
+	};
+}
 
 namespace SDK {
-	extern SDK_StringTool StringTool;
+	extern SDK::SDK_StringTool StringTool;
 }
