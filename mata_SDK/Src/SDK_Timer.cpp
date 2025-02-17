@@ -1,9 +1,9 @@
 #include "SDK_Timer.h"
 #include <cmath>
 
-void SDK::Timer::Update(float FT) {
+void SDK::Timer::Update(float FrameTime) {
 	if(!StopState)
-		Time += FT;
+		Time += FrameTime;
 }
 
 void SDK::Timer::Stop() {
@@ -31,6 +31,56 @@ GLfloat SDK::Timer::MiliSec(int DemicalPlace) {
 void SDK::Timer::Interpolate(GLfloat Value) {
 	GLfloat OverTime = Time - Value;
 	Time = OverTime;
+}
+
+bool SDK::Timer::UpdateAndCheckSec(int DestTime, int CheckOption, GLfloat FrameTime) {
+	Time += FrameTime;
+
+	if (Sec() >= DestTime) {
+		switch (CheckOption) {
+		case CHECK_AND_RESUME:
+			return true;
+
+		case CHECK_AND_RESET:
+			Reset();
+			return true;
+
+		case CHECK_AND_INTERPOLATE:
+			Interpolate((GLfloat)DestTime);
+			return true;
+
+		case CHECK_AND_STOP:
+			Stop();
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool SDK::Timer::UpdateAndCheckMiliSec(int DestTime, int DemicalPlace, int CheckOption, GLfloat FrameTime) {
+	Time += FrameTime;
+
+	if (MiliSec(DemicalPlace) >= DestTime) {
+		switch (CheckOption) {
+		case CHECK_AND_RESUME:
+			return true;
+
+		case CHECK_AND_RESET:
+			Reset();
+			return true;
+
+		case CHECK_AND_INTERPOLATE:
+			Interpolate(DestTime);
+			return true;
+
+		case CHECK_AND_STOP:
+			Stop();
+			return true;
+		}
+	}
+
+	return false;
 }
 
 bool SDK::Timer::CheckSec(int DestTime, int CheckOption) {
@@ -83,9 +133,9 @@ void SDK::Metronome::SetBPM(int BPM) {
 	BeatInterval = 60.0 / (GLdouble)BPM;
 }
 
-void SDK::Metronome::Update(float FT) {
+void SDK::Metronome::Update(float FrameTime) {
 	if (!StopState) {
-		Time += FT;
+		Time += FrameTime;
 
 		if (Time >= BeatInterval) {
 			GLdouble OverTime = Time - BeatInterval;

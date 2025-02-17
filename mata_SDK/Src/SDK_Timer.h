@@ -8,13 +8,15 @@ namespace SDK {
 		bool    StopState{};
 
 	public:
-		void Update(float FT);
+		void Update(float FrameTime);
 		void Stop();
 		void Resume();
 		void Reset();
 		int Sec();
 		GLfloat MiliSec(int DemicalPlace = 1);
 		void Interpolate(GLfloat Value);
+		bool UpdateAndCheckSec(int DestSec, int CheckOption, GLfloat FrameTime);
+		bool UpdateAndCheckMiliSec(int DestTime, int DemicalPlace, int CheckOption, GLfloat FrameTime);
 		bool CheckSec(int DestTime, int CheckOption);
 		bool CheckMiliSec(GLfloat DestTime, int DemicalPlace, int CheckOption);
 	};
@@ -30,7 +32,7 @@ namespace SDK {
 
 	public:
 		void SetBPM(int Value);
-		void Update(float FT);
+		void Update(float FrameTime);
 		void Stop();
 		void Resume();
 		void Reset();
