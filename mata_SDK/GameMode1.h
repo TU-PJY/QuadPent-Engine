@@ -54,6 +54,7 @@ public:
 		SDK::Scene.RegisterDestructor(Destructor);
 		SDK::Scene.RegisterInputObjectList(M_Inst->InputObject);
 		SDK::Scene.RegisterController(Controller, M_Inst->ModeType);
+		SDK::Scene.RegisterModePtr(M_Inst->Start);
 	}
 
 	static void ProcessKeyEvent(SDK::KeyEvent& Event) {

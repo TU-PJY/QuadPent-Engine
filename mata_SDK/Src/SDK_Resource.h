@@ -7,45 +7,44 @@
 #include "SDK_FontLoader.h"
 #include "SDK_Text.h"
 
-// Declare the sprite resource here. 
-class SDK_IMAGE {
-public:
-
-};
-
-// Declare the sound resource here. 
-class SDK_SOUND {
-public:
-
-};
-
-// Data Format list
-// Write your data format here.
-// {  Data Type, Category Name, Data Name, Digit Value, String Value }
-class SDK_FORMAT {
-public:
-
-};
-
-// Decalre the file resource here.
-class SDK_FILE {
-public:
-
-};
-
-// Declare the global value here.
-class SDK_GLOBAL {
-public:
-
-};
-
-
 namespace SDK {
-	extern SDK_IMAGE IMAGE;
-	extern SDK_SOUND SOUND;
-	extern SDK_GLOBAL GLOBAL;
-	extern SDK_FORMAT FORMAT;
-	extern SDK_FILE FILE;
+	// Declare the sprite resource here. 
+	class SDK_IMAGE_RESOURCE {
+	public:
+
+	};
+
+	// Declare the sound resource here. 
+	class SDK_SOUND_RESOURCE {
+	public:
+
+	};
+
+	// Data Format list
+	// Write your data format here.
+	// {  Data Type, Category Name, Data Name, Digit Value, String Value }
+	class SDK_FORMAT_RESOURCE {
+	public:
+
+	};
+
+	// Decalre the file resource here.
+	class SDK_FILE_RESOURCE {
+	public:
+
+	};
+
+	// Declare the global value here.
+	class SDK_GLOBAL_RESOURCE {
+	public:
+
+	};
+
+	extern SDK_IMAGE_RESOURCE IMAGE;
+	extern SDK_SOUND_RESOURCE SOUND;
+	extern SDK_GLOBAL_RESOURCE GLOBAL;
+	extern SDK_FORMAT_RESOURCE FORMAT;
+	extern SDK_FILE_RESOURCE FILE;
 }
 
 DWORD WINAPI ImageResourceLoader(LPVOID lpParam);
