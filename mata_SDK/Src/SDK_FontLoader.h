@@ -6,8 +6,6 @@ namespace SDK {
 		bool Load(const std::string& FontFilePath);
 		bool LoadT(const std::string& FontFilePath);
 	};
-}
 
-namespace SDK {
 	extern SDK::SDK_FontLoader FontLoader;
 }

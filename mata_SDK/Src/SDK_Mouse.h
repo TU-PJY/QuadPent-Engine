@@ -7,8 +7,6 @@ namespace SDK {
 		GLfloat x{}, y{};
 		void ConvertPosition(int X, int Y);
 	};
-}
 
-namespace SDK {
 	extern SDK::SDK_Mouse Mouse;
 }

@@ -11,8 +11,6 @@ namespace SDK {
 		GLfloat Gen(int DistType, GLfloat Min, GLfloat Max);
 		bool Probability(int Percent);
 	};
-}
 
-namespace SDK {
 	extern SDK::SDK_Random Random;
 }

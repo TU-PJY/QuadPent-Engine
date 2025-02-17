@@ -14,8 +14,6 @@ namespace SDK {
 		bool Check(SDK::OOBB& oobb);
 		bool Check(SDK::BoundingCircle& circle);
 	};
-}
 
-namespace SDK {
 	extern SDK::SDK_Frustum Frustum;
 }

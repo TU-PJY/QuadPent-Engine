@@ -10,8 +10,6 @@ namespace SDK {
 		void RemoveString(std::string& Str, std::string RemoveStr);
 		std::wstring Wstring(const std::string& Str);
 	};
-}
 
-namespace SDK {
 	extern SDK::SDK_StringTool StringTool;
 }

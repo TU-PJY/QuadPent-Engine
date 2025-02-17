@@ -42,7 +42,6 @@ void SDKSystem::SetupSystem(int argc, char** argv) {
 	InitSystem();
 }
 
-
 void SDKSystem::SetupWindow() {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
 
@@ -64,6 +63,11 @@ void SDKSystem::SetupWindow() {
 
 	const GLubyte* Version = glGetString(GL_VERSION);
 	std::cout << Version << std::endl;
+
+	if (DISABLE_ALT_EVENT) {
+		RegisterHotKey(NULL, 1, MOD_ALT, VK_MENU);
+		RegisterHotKey(NULL, 2, MOD_ALT | MOD_NOREPEAT, VK_MENU);
+	}
 }
 
 void SDKSystem::LoadShader() {

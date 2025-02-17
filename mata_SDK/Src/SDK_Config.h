@@ -12,6 +12,9 @@ constexpr int WINDOW_HEIGHT = 800;
 // fullscreen option
 constexpr bool FULL_SCREEN_OPTION = false;
 
+// When enabled, the window do not react to ALT key press event.
+constexpr bool DISABLE_ALT_EVENT = true;
+
 
 
 //////////////////////////////////// SDK options

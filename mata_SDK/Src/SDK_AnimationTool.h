@@ -13,15 +13,6 @@ namespace SDK {
 		void Reset();
 	};
 
-	//class SinLerp{
-	//private:
-	//	GLfloat Num{ Preset::MaxNegative };
-	//
-	//public:
-	//	GLfloat Update(GLfloat Value, GLfloat Dest, GLfloat Speed, float FrameTime);
-	//	void Reset();
-	//};
-
 	class PopBounce {
 	private:
 		GLfloat Num1{}, Num2{}, Num3{};

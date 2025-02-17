@@ -14,8 +14,6 @@ namespace SDK {
 		void TryLock(CRITICAL_SECTION& Section);
 		void Unlock(CRITICAL_SECTION& Section);
 	};
-}
 
-namespace SDK {
 	extern SDK::SDK_ThreadTool ThreadTool;
 }

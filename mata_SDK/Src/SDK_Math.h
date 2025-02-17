@@ -25,8 +25,6 @@ namespace SDK {
 		GLfloat NormalizeDegree(GLfloat Degree);
 		GLfloat ComputeShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest);
 	};
-}
 
-namespace SDK {
 	extern SDK::SDK_Math Math;
 }

@@ -15,8 +15,6 @@ namespace SDK {
 		bool CheckClampValue(int& Value, int Dest, int Type);
 		void InputBoolSwitch(int SwitchingOption, int EventType, bool& DestBoolValue);
 	};
-}
 
-namespace SDK {
 	extern SDK::SDK_EXTool EXTool;
 }

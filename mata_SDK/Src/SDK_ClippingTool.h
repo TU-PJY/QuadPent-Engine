@@ -1,6 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
 
+namespace SDK {
 class SDK_ColorClipping {
 public:
 	void First();
@@ -15,7 +16,6 @@ public:
 	void End();
 };
 
-namespace SDK {
 	extern SDK_ColorClipping ColorClip;
 	extern SDK_AlphaClipping AlphaClip;
 }

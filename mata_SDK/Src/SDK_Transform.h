@@ -21,8 +21,6 @@ namespace SDK {
 		void RotateV(glm::mat4& Matrix, GLfloat Degree);
 		void RotateH(glm::mat4& Matrix, GLfloat Degree);
 	};
-}
 
-namespace SDK {
 	extern SDK::SDK_Transform Transform;
 }

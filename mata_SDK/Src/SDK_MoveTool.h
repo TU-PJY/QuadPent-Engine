@@ -11,8 +11,6 @@ namespace SDK {
 		void MoveForward(GLfloat& X, GLfloat& Y, GLfloat Speed, GLfloat RotationValue, float FT, bool Plus90Option);
 		void MoveForward(glm::vec2& Position, GLfloat Speed, GLfloat RotationValue, float FrameTime, bool Plus90Option);
 	};
-}
 
-namespace SDK {
 	extern SDK::SDK_MoveTool MoveTool;
 }

@@ -61,8 +61,6 @@ namespace SDK {
 		void SetSoundPosition(SDK::SoundChannel& ChannelVar, glm::vec2 Position, float Diff);
 		void StopAllSounds();
 	};
-}
 
-namespace SDK {
 	extern SDK::SDK_SoundTool SoundTool;
 }

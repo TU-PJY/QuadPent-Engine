@@ -46,8 +46,6 @@ namespace SDK {
 		void PrepareRender(SDK::SpriteSheet& SpriteSheetStruct);
 		void ProcessTransform(GLfloat Width, GLfloat Height, GLfloat OpacityValue, bool DisableAdjustAspect, bool ApplyUnitTransform);
 	};
-}
 
-namespace SDK {
 	extern SDK::SDK_ImageTool ImageTool;
 }

@@ -1,21 +1,21 @@
 #include "SDK_ClippingTool.h"
 
-SDK_ColorClipping SDK::ColorClip;
-SDK_AlphaClipping SDK::AlphaClip;
+SDK::SDK_ColorClipping SDK::ColorClip;
+SDK::SDK_AlphaClipping SDK::AlphaClip;
 
-void SDK_ColorClipping::First() {
+void SDK::SDK_ColorClipping::First() {
 	glEnable(GL_STENCIL_TEST);
 	glClear(GL_STENCIL_BUFFER_BIT);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 }
 
-void SDK_ColorClipping::Second() {
+void SDK::SDK_ColorClipping::Second() {
 	glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 }
 
-void SDK_ColorClipping::End() {
+void SDK::SDK_ColorClipping::End() {
 	glStencilFunc(GL_EQUAL, 1, 0xFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
@@ -24,7 +24,7 @@ void SDK_ColorClipping::End() {
 	glDisable(GL_STENCIL_TEST);
 }
 
-void SDK_AlphaClipping::First() {
+void SDK::SDK_AlphaClipping::First() {
 	glEnable(GL_STENCIL_TEST);
 	glClear(GL_STENCIL_BUFFER_BIT);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -32,12 +32,12 @@ void SDK_AlphaClipping::First() {
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 }
 
-void SDK_AlphaClipping::Second() {
+void SDK::SDK_AlphaClipping::Second() {
 	glStencilFunc(GL_EQUAL, 0, 0xFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 }
 
-void SDK_AlphaClipping::End() {
+void SDK::SDK_AlphaClipping::End() {
 	glDisable(GL_STENCIL_TEST);
 }
