@@ -35,9 +35,11 @@ void SDK::SDK_Scene::Update() {
 	if (!ErrorScreenState && ErrorOccured) {
 		SDK::SoundTool.StopAllSounds();
 		SwitchToErrorScreen();
-		UpdateActivateCommand = false;
 		ErrorScreenState = true;
 	}
+
+	if (ErrorOccured)
+		return;
 
 	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
 		for (auto& Object : ObjectList[Layer]) {
@@ -52,7 +54,7 @@ void SDK::SDK_Scene::Update() {
 				}
 			}
 
-			if (LoopEscapeCommand) 
+			if (LoopEscapeCommand || ErrorOccured)
 				return;
 
 			if (Object->DeleteCommand)
@@ -366,6 +368,15 @@ void SDK::SDK_Scene::ClearAll() {
 
 void SDK::SDK_Scene::SwitchToErrorScreen() {
 	ClearAll();
+
+	glutMotionFunc(nullptr);
+	glutPassiveMotionFunc(nullptr);
+	glutKeyboardFunc(nullptr);
+	glutKeyboardUpFunc(nullptr);
+	glutMouseWheelFunc(nullptr);
+	glutMouseFunc(nullptr);
+	glutSpecialFunc(nullptr);
+	glutSpecialUpFunc(nullptr);
 
 	if (Value2Buffer.empty())
 		AddObject(new SDK_ErrorMessage(ErrorTypeBuffer, Value1Buffer), "error_message", LAYER1);
