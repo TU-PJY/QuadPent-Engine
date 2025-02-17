@@ -334,7 +334,7 @@ namespace SDK {
 		FMOD::Channel* Channel{};
 	};
 
-	struct MultiSoundChannel {
+	struct FastSoundChannel {
 		float Volume = 1.0;
 		float PlaySpeed = 1.0;
 		int NumChannel{};

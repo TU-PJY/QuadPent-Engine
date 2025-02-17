@@ -31,7 +31,7 @@ void SDK::SDK_SoundTool::Update() {
 	SoundSystem->update();
 }
 
-void SDK::SDK_SoundTool::SetMultiSoundChannel(SDK::MultiSoundChannel& ChannelVar, int NumChannel) {
+void SDK::SDK_SoundTool::SetFastSoundChannel(SDK::FastSoundChannel& ChannelVar, int NumChannel) {
 	ChannelVar.NumChannel = NumChannel;
 	ChannelVar.Channel.assign(NumChannel, {});
 	ChannelVar.PlayChannel = 0;
@@ -71,6 +71,16 @@ void SDK::SDK_SoundTool::StopGroup(SDK::SoundChannelGroup& Group) {
 	}
 }
 
+void SDK::SDK_SoundTool::SetGroupVolume(SDK::SoundChannelGroup& Group, float Volume) {
+	for (auto& G : Group) 
+		G.Channel->setVolume(Volume);
+}
+
+void SDK::SDK_SoundTool::SetGroupPlaySpeed(SDK::SoundChannelGroup& Group, float Speed) {
+	for (auto& G : Group)
+		G.Channel->setPitch(Speed);
+}
+
 void SDK::SDK_SoundTool::PauseGroup(SDK::SoundChannelGroup& Group, bool Flag) {
 	for (auto& G : Group)
 		G.Channel->setPaused(Flag);
@@ -83,7 +93,7 @@ void SDK::SDK_SoundTool::Play(SDK::Sound& Sound, SDK::SoundChannel& ChannelVar, 
 	ChannelVar.Channel->setPitch(ChannelVar.PlaySpeed);
 }
 
-void SDK::SDK_SoundTool::Play(SDK::Sound& Sound, SDK::MultiSoundChannel& ChannelVar, float Time) {
+void SDK::SDK_SoundTool::Play(SDK::Sound& Sound, SDK::FastSoundChannel& ChannelVar, float Time) {
 	SoundSystem->playSound(Sound, 0, false, &ChannelVar.Channel[ChannelVar.PlayChannel]);
 	ChannelVar.Channel[ChannelVar.PlayChannel]->setPosition(Time * 1000, FMOD_TIMEUNIT_MS);
 	ChannelVar.Channel[ChannelVar.PlayChannel]->setVolume(ChannelVar.Volume);
@@ -100,21 +110,6 @@ void SDK::SDK_SoundTool::PlayOnce(SDK::Sound& Sound, SDK::SoundChannel& ChannelV
 		ChannelVar.Channel->setPosition(Time * 1000, FMOD_TIMEUNIT_MS);
 		ChannelVar.Channel->setVolume(ChannelVar.Volume);
 		ChannelVar.Channel->setPitch(ChannelVar.PlaySpeed);
-	}
-}
-
-void SDK::SDK_SoundTool::PlayOnce(SDK::Sound& Sound, SDK::MultiSoundChannel& ChannelVar, bool& BoolValue, float Time) {
-	if (!BoolValue) {
-		SoundSystem->playSound(Sound, 0, false, &ChannelVar.Channel[ChannelVar.PlayChannel]);
-		ChannelVar.Channel[ChannelVar.PlayChannel]->setPosition(Time * 1000, FMOD_TIMEUNIT_MS);
-		ChannelVar.Channel[ChannelVar.PlayChannel]->setVolume(ChannelVar.Volume);
-		ChannelVar.Channel[ChannelVar.PlayChannel++]->setPitch(ChannelVar.PlaySpeed);
-		ChannelVar.Channel[ChannelVar.StopChannel++]->stop();
-
-		SDK::EXTool.ClampValue(ChannelVar.PlayChannel, 0, ChannelVar.NumChannel, CLAMP_RETURN);
-		SDK::EXTool.ClampValue(ChannelVar.StopChannel, 0, ChannelVar.NumChannel, CLAMP_RETURN);
-
-		BoolValue = true;
 	}
 }
 
@@ -155,7 +150,7 @@ void SDK::SDK_SoundTool::SetVolume(SDK::SoundChannel& ChannelVar, float Volume) 
 	ChannelVar.Channel->setVolume(Volume);
 }
 
-void SDK::SDK_SoundTool::SetVolume(SDK::MultiSoundChannel& ChannelVar, float Volume) {
+void SDK::SDK_SoundTool::SetVolume(SDK::FastSoundChannel& ChannelVar, float Volume) {
 	ChannelVar.Volume = Volume;
 	for(int i = 0; i < ChannelVar.NumChannel; i++)
 		ChannelVar.Channel[i]->setVolume(Volume);
@@ -170,7 +165,7 @@ void SDK::SDK_SoundTool::SetPlaySpeed(SDK::SoundChannel& ChannelVar, float Speed
 	ChannelVar.Channel->setPitch(Speed);
 }
 
-void SDK::SDK_SoundTool::SetPlaySpeed(SDK::MultiSoundChannel& ChannelVar, float Speed) {
+void SDK::SDK_SoundTool::SetPlaySpeed(SDK::FastSoundChannel& ChannelVar, float Speed) {
 	ChannelVar.PlaySpeed = Speed;
 	for (int i = 0; i < ChannelVar.NumChannel; i++)
 		ChannelVar.Channel[i]->setPitch(Speed);
@@ -181,7 +176,7 @@ void SDK::SDK_SoundTool::ResetPlaySpeed(SDK::SoundChannel& ChannelVar) {
 	ChannelVar.Channel->setPitch(1.0);
 }
 
-void SDK::SDK_SoundTool::ResetPlaySpeed(SDK::MultiSoundChannel& ChannelVar) {
+void SDK::SDK_SoundTool::ResetPlaySpeed(SDK::FastSoundChannel& ChannelVar) {
 	ChannelVar.PlaySpeed = 1.0;
 	for (int i = 0; i < ChannelVar.NumChannel; i++)
 		ChannelVar.Channel[i]->setPitch(1.0);
