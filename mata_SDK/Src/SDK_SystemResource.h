@@ -1,8 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
 namespace SDK {
-	class SDK_SYSTEM_RESOURCE {
-	public:
+	struct SDK_SYSTEM_RESOURCE {
 		const char* SDK_LOGO_SOUND_DIRECTORY = "SDKResource//Sound//sound-logo.wav";
 		const char* SDK_LOGO_IMAGE_DIRECTORY = "SDKResource//Image//Common//logo-SDK.png";
 		const char* MATA_LOGO_IMAGE_DIRECTORY = "SDKResource//Image//Common//logo-mata.png";

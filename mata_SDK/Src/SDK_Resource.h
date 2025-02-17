@@ -9,34 +9,34 @@
 
 namespace SDK {
 	// Declare the sprite resource here. 
-	class SDK_IMAGE_RESOURCE {
-	public:
+	struct SDK_IMAGE_RESOURCE {
 
 	};
 
 	// Declare the sound resource here. 
-	class SDK_SOUND_RESOURCE {
-	public:
+	struct SDK_SOUND_RESOURCE {
 
 	};
 
 	// Data Format list
 	// Write your data format here.
 	// {  Data Type, Category Name, Data Name, Digit Value, String Value }
-	class SDK_FORMAT_RESOURCE {
-	public:
+	struct SDK_FORMAT_RESOURCE {
 
 	};
 
 	// Decalre the file resource here.
-	class SDK_FILE_RESOURCE {
-	public:
+	struct SDK_FILE_RESOURCE {
 
 	};
 
 	// Declare the global value here.
-	class SDK_GLOBAL_RESOURCE {
-	public:
+	struct SDK_GLOBAL_RESOURCE {
+
+	};
+
+	// Declare the global font name here.
+	struct SDK_FONT_NAME_RESOURCE {
 
 	};
 
@@ -45,6 +45,7 @@ namespace SDK {
 	extern SDK_GLOBAL_RESOURCE GLOBAL;
 	extern SDK_FORMAT_RESOURCE FORMAT;
 	extern SDK_FILE_RESOURCE FILE;
+	extern SDK_FONT_NAME_RESOURCE FONTNAME;
 }
 
 DWORD WINAPI ImageResourceLoader(LPVOID lpParam);
