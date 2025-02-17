@@ -105,6 +105,11 @@ SDK::StringDataVec SDK::Script::LoadCategoryStringData(std::string CategoryName)
 
 //////////////////////////////// private
 float SDK::Script::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
+	if (!CategoryVar) {
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
+		return 0.0;
+	}
+
 	const char* DataValue = CategoryVar->Attribute(DataName.c_str());
 	if (DataValue)
 		return std::stof(DataValue);
@@ -115,6 +120,11 @@ float SDK::Script::GetDigitData(TiXmlElement* CategoryVar, std::string DataName)
 }
 
 std::string SDK::Script::GetStringData(TiXmlElement* CategoryVar, std::string DataName) {
+	if (!CategoryVar) {
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
+		return "";
+	}
+
 	const char* DataValue = CategoryVar->Attribute(DataName.c_str());
 	if (DataValue)
 		return (std::string)DataValue;
@@ -125,19 +135,7 @@ std::string SDK::Script::GetStringData(TiXmlElement* CategoryVar, std::string Da
 }
 
 TiXmlElement* SDK::Script::FindCategory(std::string CategoryName) {
-	return Root->FirstChildElement(CategoryName.c_str());
-}
-
-std::string SDK::Script::FindData(std::string CategoryName, std::string DataName) {
-	TiXmlElement* FoundCategory = FindCategory(CategoryName);
-	if (!FoundCategory) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
-		return "";
-	}
-	else {
-		const char* DataValue = FoundCategory->Attribute(DataName.c_str());
-		return (std::string)DataValue;
-	}
+	return  Root->FirstChildElement(CategoryName.c_str());
 }
 
 std::string SDK::Script::Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]) {
