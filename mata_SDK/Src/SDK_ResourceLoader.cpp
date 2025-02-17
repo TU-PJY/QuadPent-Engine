@@ -1,5 +1,6 @@
 #include "SDK_Resource.h"
 
+
 // Use LoadImageT(), LoadClipT(), and LoadSpriteSheetT() to load image files and sprite sheets in this thread.
 DWORD WINAPI ImageResourceLoader(LPVOID lpParam) {
 	// load image resources here
@@ -21,5 +22,6 @@ DWORD WINAPI FileResourceLoader(LPVOID lpParam) {
 
 DWORD WINAPI FontResourceLoader(LPVOID lpParam) {
 	// Load font resources here
+
 	return 0;
 } 

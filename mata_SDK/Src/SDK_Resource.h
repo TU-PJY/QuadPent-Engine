@@ -1,5 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
+#include "SDK_EnumValue.h"
+#include "SDK_EnumValue.h"
 #include "SDK_ImageTool.h"
 #include "SDK_SoundTool.h"
 #include "SDK_Script.h"
@@ -15,6 +17,11 @@ namespace SDK {
 
 	// Declare the sound resource here. 
 	struct SDK_SOUND_RESOURCE {
+
+	};
+
+	// Declare the sound channel resource here.
+	struct SDK_SOUND_CHANNEL_RESOURCE {
 
 	};
 
@@ -42,6 +49,7 @@ namespace SDK {
 
 	extern SDK_IMAGE_RESOURCE IMAGE;
 	extern SDK_SOUND_RESOURCE SOUND;
+	extern SDK_SOUND_CHANNEL_RESOURCE CHANNEL;
 	extern SDK_GLOBAL_RESOURCE GLOBAL;
 	extern SDK_FORMAT_RESOURCE FORMAT;
 	extern SDK_FILE_RESOURCE FILE;

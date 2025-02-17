@@ -3,32 +3,32 @@
 #include "SDK_Transform.h"
 #include "SDK_AnimationTool.h"
 
-SDK_CameraController SDK::CameraControl;
+SDK::SDK_CameraController SDK::CameraControl;
 
-void SDK_CameraController::Update(float FrameTime){
+void SDK::SDK_CameraController::Update(float FrameTime){
 	// add logic here
 
 	ComputeCameraMatrix();
 }
 
-void SDK_CameraController::Move(GLfloat X, GLfloat Y){
+void SDK::SDK_CameraController::Move(GLfloat X, GLfloat Y){
 	Position.x = -X;
 	Position.y = -Y;
 	SDK::Camera.Position.x = X;
 	SDK::Camera.Position.y = Y;
 }
 
-void SDK_CameraController::Move(glm::vec2& PositionValue){
+void SDK::SDK_CameraController::Move(glm::vec2& PositionValue){
 	Position = -PositionValue;
 	SDK::Camera.Position = PositionValue;
 }
 
-void SDK_CameraController::Rotate(GLfloat Degree){
+void SDK::SDK_CameraController::Rotate(GLfloat Degree){
 	Rotation = -Degree;
 	SDK::Camera.Rotation = Degree;
 }
 
-void SDK_CameraController::Zoom(int ZoomType, GLfloat ZoomValue){
+void SDK::SDK_CameraController::Zoom(int ZoomType, GLfloat ZoomValue){
 	switch (ZoomType) {
 	case ZOOM_IN:
 		SDK::Camera.Zoom = SDK::Camera.Zoom / (1.0f - ZoomValue);
@@ -40,11 +40,11 @@ void SDK_CameraController::Zoom(int ZoomType, GLfloat ZoomValue){
 	}
 }
 
-void SDK_CameraController::SetZoom(GLfloat ZoomValue){
+void SDK::SDK_CameraController::SetZoom(GLfloat ZoomValue){
 	SDK::Camera.Zoom = ZoomValue;
 }
 
-GLfloat SDK_CameraController::ComputeNextZoom(int ZoomType, GLfloat ZoomValue) {
+GLfloat SDK::SDK_CameraController::ComputeNextZoom(int ZoomType, GLfloat ZoomValue) {
 	if (ZoomType == ZOOM_IN)
 		return 	SDK::Camera.Zoom / (1.0f - ZoomValue);
 	else if (ZoomType == ZOOM_OUT)
@@ -55,7 +55,7 @@ GLfloat SDK_CameraController::ComputeNextZoom(int ZoomType, GLfloat ZoomValue) {
 
 ///////////////////////////////////////// private
 
-void SDK_CameraController::ComputeCameraMatrix(){
+void SDK::SDK_CameraController::ComputeCameraMatrix(){
 	SDK::Transform.Identity(SDK::Camera.CameraMatrix);
 	SDK::Transform.Rotate(SDK::Camera.CameraMatrix, Rotation);
 	SDK::Transform.Move(SDK::Camera.CameraMatrix, Position);

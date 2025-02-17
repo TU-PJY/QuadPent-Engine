@@ -192,6 +192,7 @@
     <ClInclude Include="Src\SDK_ClippingTool.h" />
     <ClInclude Include="Src\SDK_Collision.h" />
     <ClInclude Include="Src\SDK_ComputeTool.h" />
+    <ClInclude Include="Src\SDK_EnumValue.h" />
     <ClInclude Include="Src\SDK_ErrorMessage.h" />
     <ClInclude Include="Src\SDK_FPSIndicator.h" />
     <ClInclude Include="Src\SDK_Data.h" />
