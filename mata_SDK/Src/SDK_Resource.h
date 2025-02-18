@@ -9,7 +9,7 @@
 #include "SDK_FontLoader.h"
 #include "SDK_Text.h"
 
-namespace MSDK {
+namespace SDK {
 	// Declare the sprite resource here. 
 	struct SDK_IMAGE_RESOURCE {
 

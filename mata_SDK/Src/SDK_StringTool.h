@@ -1,7 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
  
-namespace MSDK {
+namespace SDK {
 	class SDK_StringTool {
 	public:
 		void InputChar(std::string& Str, unsigned char AddChar, bool UseNewLine = false);
@@ -11,5 +11,5 @@ namespace MSDK {
 		std::wstring Wstring(const std::string& Str);
 	};
 
-	extern MSDK::SDK_StringTool StringTool;
+	extern SDK::SDK_StringTool StringTool;
 }

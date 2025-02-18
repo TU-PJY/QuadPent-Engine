@@ -1,19 +1,19 @@
 #pragma once
 #include "SDK_Collision.h"
 
-namespace MSDK {
+namespace SDK {
 	class SDK_Frustum {
 	private:
-		MSDK::OOBB FrustumOOBB{};
-		MSDK::LineRectBrush LineRect{ false, true };
+		SDK::OOBB FrustumOOBB{};
+		SDK::LineRectBrush LineRect{ false, true };
 
 	public:
 		SDK_Frustum();
 		void Update();
-		bool Check(MSDK::AABB& aabb);
-		bool Check(MSDK::OOBB& oobb);
-		bool Check(MSDK::BoundingCircle& circle);
+		bool Check(SDK::AABB& aabb);
+		bool Check(SDK::OOBB& oobb);
+		bool Check(SDK::BoundingCircle& circle);
 	};
 
-	extern MSDK::SDK_Frustum Frustum;
+	extern SDK::SDK_Frustum Frustum;
 }

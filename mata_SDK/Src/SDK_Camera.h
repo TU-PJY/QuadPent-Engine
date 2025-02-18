@@ -19,6 +19,6 @@ public:
 	void PrepareRender(int ShaderType);
 };
 
-namespace MSDK {
+namespace SDK {
 	extern SDK_Camera Camera;
 }

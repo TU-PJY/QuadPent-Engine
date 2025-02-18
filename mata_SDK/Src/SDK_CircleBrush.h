@@ -1,7 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
 
-namespace MSDK {
+namespace SDK {
 	class CircleBrush {
 	private:
 		glm::vec3 Color{};

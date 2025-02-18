@@ -218,7 +218,7 @@ extern ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW
 
 void ModeAttribute();
 
-namespace MSDK {
+namespace SDK {
 	class SDKSystem {
 	private:
 		bool  UpdateActivateCommand{};

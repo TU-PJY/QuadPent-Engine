@@ -5,7 +5,7 @@
 #include <map>
 #include <unordered_map>
 
-namespace MSDK {
+namespace SDK {
 	class Text {
 	private:
 		glm::vec2                RenderPosition{};

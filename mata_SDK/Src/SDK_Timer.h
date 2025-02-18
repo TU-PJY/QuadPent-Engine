@@ -2,7 +2,7 @@
 #include "SDK_Header.h"
 #undef GetCurrentTime
 
-namespace MSDK {
+namespace SDK {
 	class Timer {
 	private:
 		float Time{};

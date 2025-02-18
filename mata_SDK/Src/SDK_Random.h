@@ -2,7 +2,7 @@
 #include "SDK_Header.h"
 #include <random>
 
-namespace MSDK {
+namespace SDK {
 	class SDK_Random {
 	private:
 		std::random_device RD{};
@@ -12,5 +12,5 @@ namespace MSDK {
 		bool Probability(int Percent);
 	};
 
-	extern MSDK::SDK_Random Random;
+	extern SDK::SDK_Random Random;
 }

@@ -1,10 +1,10 @@
 #pragma once
 #include "SDK_Object.h"
 
-class SDK_IntroScreen : public MSDK::Object {
+class SDK_IntroScreen : public SDK::Object {
 private:
-	MSDK::Timer    timer;
-	MSDK::SoundChannel IntroChannel{};
+	SDK::Timer    timer;
+	SDK::SoundChannel IntroChannel{};
 
 	float      LogoSize        = 1.0;
 	float      LogoOpacity     = 0.0;
@@ -14,12 +14,12 @@ private:
 	int          SceneNumber{}; 
 
 public:
-	void InputKey(MSDK::KeyEvent& Event) {
+	void InputKey(SDK::KeyEvent& Event) {
 		if (Event.Type == NORMAL_KEY_DOWN) {
 			switch (Event.NormalKey) {
 			case NK_ENTER:
-				MSDK::SoundTool.Stop(IntroChannel);
-				MSDK::Scene.SwitchMode(MSDK::START_MODE);
+				SDK::SoundTool.Stop(IntroChannel);
+				SDK::Scene.SwitchMode(SDK::START_MODE);
 				break;
 			}
 		}
@@ -30,7 +30,7 @@ public:
 		switch (SceneNumber) {
 		case 0:
 			if (timer.CheckMiliSec(1.0, 1, CHECK_AND_INTERPOLATE)) {
-				MSDK::SoundTool.Play(MSDK::SYSRES.INTRO_SOUND, IntroChannel);
+				SDK::SoundTool.Play(SDK::SYSRES.INTRO_SOUND, IntroChannel);
 				++SceneNumber;
 			}
 			break;
@@ -38,13 +38,13 @@ public:
 
 		case 1:
 			if (timer.MiliSec() < 2.5) {
-				MSDK::Math.Lerp(LogoPosition, 0.0, AnimationSpeed, FrameTime);
-				MSDK::Math.Lerp(LogoOpacity, 1.0, AnimationSpeed, FrameTime);
+				SDK::Math.Lerp(LogoPosition, 0.0, AnimationSpeed, FrameTime);
+				SDK::Math.Lerp(LogoOpacity, 1.0, AnimationSpeed, FrameTime);
 			}
 
 			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
 				LogoOpacity -= FrameTime * 2;
-				MSDK::EXTool.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
+				SDK::EXTool.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
 			}
 
 			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_INTERPOLATE)) {
@@ -56,17 +56,17 @@ public:
 
 		case 2:
 			if (timer.MiliSec() < 2.5) {
-				MSDK::Math.Lerp(LogoPosition, 0.0, AnimationSpeed, FrameTime);
-				MSDK::Math.Lerp(LogoOpacity, 1.0, AnimationSpeed, FrameTime);
+				SDK::Math.Lerp(LogoPosition, 0.0, AnimationSpeed, FrameTime);
+				SDK::Math.Lerp(LogoOpacity, 1.0, AnimationSpeed, FrameTime);
 			}
 
 			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
 				LogoOpacity -= FrameTime * 2;
-				MSDK::EXTool.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
+				SDK::EXTool.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
 			}
 
 			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_RESUME))
-				MSDK::Scene.SwitchMode(MSDK::START_MODE);
+				SDK::Scene.SwitchMode(SDK::START_MODE);
 			
 			break;
 		}
@@ -74,15 +74,15 @@ public:
 
 	void RenderFunc() {
 		Begin(RENDER_TYPE_STATIC);
-		MSDK::Transform.Move(MSDK::MoveMatrix, 0.0, LogoPosition);
+		SDK::Transform.Move(SDK::MoveMatrix, 0.0, LogoPosition);
 
 		switch (SceneNumber) {
 		case 1:
-			MSDK::ImageTool.RenderImage(MSDK::SYSRES.SDK_LOGO, LogoOpacity);
+			SDK::ImageTool.RenderImage(SDK::SYSRES.SDK_LOGO, LogoOpacity);
 			break;
 
 		case 2: case 3:
-			MSDK::ImageTool.RenderImage(MSDK::SYSRES.FMOD_LOGO, LogoOpacity);
+			SDK::ImageTool.RenderImage(SDK::SYSRES.FMOD_LOGO, LogoOpacity);
 			break;
 		}
 	}

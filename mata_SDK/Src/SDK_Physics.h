@@ -2,7 +2,7 @@
 #include "SDK_Header.h"
 #include <cmath>
 
-namespace MSDK {
+namespace SDK {
 	class Physics {
 	private:
 		float Gravity{};

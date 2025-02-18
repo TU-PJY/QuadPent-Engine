@@ -2,10 +2,10 @@
 #include "SDK_Header.h"
 #include <cmath>
 
-namespace MSDK {
+namespace SDK {
 	class SinLoop {
 	private:
-		float Num{ MSDK::Preset::MaxNegative };
+		float Num{ SDK::Preset::MaxNegative };
 
 	public:
 		void Update(float& Value, float MoveScale, float Speed, float FrameTime);

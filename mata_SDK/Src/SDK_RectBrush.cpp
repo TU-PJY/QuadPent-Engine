@@ -8,34 +8,34 @@
 
 glm::mat4 RectMatrix;
 
-MSDK::LineRectBrush::LineRectBrush(bool CameraInheritanceFlag, bool StaticWidthFlag) {
+SDK::LineRectBrush::LineRectBrush(bool CameraInheritanceFlag, bool StaticWidthFlag) {
 	CamInheritanceCommand = CameraInheritanceFlag;
 	StaticWidthCommand = StaticWidthFlag;
 }
 
-void MSDK::LineRectBrush::SetRenderType(int Opt) {
+void SDK::LineRectBrush::SetRenderType(int Opt) {
 	RenderType = Opt;
 }
 
-void MSDK::LineRectBrush::SetColor(float R, float G, float B) {
+void SDK::LineRectBrush::SetColor(float R, float G, float B) {
 	Color.r = R;
 	Color.g = G;
 	Color.b = B;
 }
 
-void MSDK::LineRectBrush::SetColor(glm::vec3& ColorValue) {
+void SDK::LineRectBrush::SetColor(glm::vec3& ColorValue) {
 	Color.r = ColorValue.r;
 	Color.g = ColorValue.g;
 	Color.b = ColorValue.b;
 }
 
-void MSDK::LineRectBrush::SetColorRGB(int R, int G, int B) {
+void SDK::LineRectBrush::SetColorRGB(int R, int G, int B) {
 	Color.r = (1.0f / 255.0f) * (float)R;
 	Color.g = (1.0f / 255.0f) * (float)G;
 	Color.b = (1.0f / 255.0f) * (float)B;
 }
 
-void MSDK::LineRectBrush::Draw(float X, float Y, float SizeX, float SizeY, float Width, float RotationValue, float OpacityValue) {
+void SDK::LineRectBrush::Draw(float X, float Y, float SizeX, float SizeY, float Width, float RotationValue, float OpacityValue) {
 	Opacity = OpacityValue;
 	float DrawWidth{};
 	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
@@ -49,7 +49,7 @@ void MSDK::LineRectBrush::Draw(float X, float Y, float SizeX, float SizeY, float
 	DrawLine(X, Y, SizeX / 2.0, 0.0, DrawWidth, SizeY + DrawWidth, RotationValue);
 }
 
-void MSDK::LineRectBrush::DrawLine(float X, float Y, float OffsetX, float OffsetY, float Width, float Height, float RotationValue) {
+void SDK::LineRectBrush::DrawLine(float X, float Y, float OffsetX, float OffsetY, float Width, float Height, float RotationValue) {
 	Transform.Identity(RectMatrix);
 
 	Transform.Move(RectMatrix, X, Y);
@@ -59,7 +59,7 @@ void MSDK::LineRectBrush::DrawLine(float X, float Y, float OffsetX, float Offset
 	Render();
 }
 
-void MSDK::LineRectBrush::Render() {
+void SDK::LineRectBrush::Render() {
 	if (!CamInheritanceCommand)
 		Camera.SetCamera(RenderType);
 
@@ -70,38 +70,38 @@ void MSDK::LineRectBrush::Render() {
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(RectMatrix));
 
-	MSDK::ImageTool.RenderRaw();
+	SDK::ImageTool.RenderRaw();
 }
 
 
 
-MSDK::RectBrush::RectBrush(bool Flag) {
+SDK::RectBrush::RectBrush(bool Flag) {
 	CamInheritanceCommand = Flag;
 }
 
-void MSDK::RectBrush::SetRenderType(int Opt) {
+void SDK::RectBrush::SetRenderType(int Opt) {
 	RenderType = Opt;
 }
 
-void MSDK::RectBrush::SetColor(float R, float G, float B) {
+void SDK::RectBrush::SetColor(float R, float G, float B) {
 	Color.r = R;
 	Color.g = G;
 	Color.b = B;
 }
 
-void MSDK::RectBrush::SetColor(glm::vec3& ColorValue) {
+void SDK::RectBrush::SetColor(glm::vec3& ColorValue) {
 	Color.r = ColorValue.r;
 	Color.g = ColorValue.g;
 	Color.b = ColorValue.b;
 }
 
-void MSDK::RectBrush::SetColorRGB(int R, int G, int B) {
+void SDK::RectBrush::SetColorRGB(int R, int G, int B) {
 	Color.r = (1.0f / 255.0f) * (float)R;
 	Color.g = (1.0f / 255.0f) * (float)G;
 	Color.b = (1.0f / 255.0f) * (float)B;
 }
 
-void MSDK::RectBrush::Draw(float X, float Y, float SizeX, float SizeY, float RotationValue, float OpacityValue) {
+void SDK::RectBrush::Draw(float X, float Y, float SizeX, float SizeY, float RotationValue, float OpacityValue) {
 	Transform.Identity(RectMatrix);
 	Opacity = OpacityValue;
 
@@ -112,7 +112,7 @@ void MSDK::RectBrush::Draw(float X, float Y, float SizeX, float SizeY, float Rot
 	Render();
 }
 
-void MSDK::RectBrush::Render() {
+void SDK::RectBrush::Render() {
 	if(!CamInheritanceCommand)
 		Camera.SetCamera(RenderType);
 
@@ -123,5 +123,5 @@ void MSDK::RectBrush::Render() {
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(RectMatrix));
 
-	MSDK::ImageTool.RenderRaw();
+	SDK::ImageTool.RenderRaw();
 }

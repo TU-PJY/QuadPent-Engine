@@ -14,13 +14,13 @@ public:
 		
 	};
 
-	std::vector<MSDK::Object*> InputObject{};
+	std::vector<SDK::Object*> InputObject{};
 
 	/////////////////////////////////////////////////////////////
 
 	static void Start() {
-		MSDK::System.SetBackColorRGB(31, 31, 31);
-		MSDK::Scene.AddObject(new SDK_LoadingScreen, "loading_screen", LAYER1);
+		SDK::System.SetBackColorRGB(31, 31, 31);
+		SDK::Scene.AddObject(new SDK_LoadingScreen, "loading_screen", LAYER1);
 		SetUp();
 	}
 
@@ -40,49 +40,49 @@ public:
 		M_Inst->InputObject.clear();
 
 		for (auto const& Tag : M_Inst->InputObjectTag) {
-			if (auto Object = MSDK::Scene.Find(Tag); Object)
+			if (auto Object = SDK::Scene.Find(Tag); Object)
 				M_Inst->InputObject.emplace_back(Object);
 		}
 
-		MSDK::Scene.RegisterModeName(M_Inst->ModeName);
-		MSDK::Scene.RegisterDestructor(Destructor);
-		MSDK::Scene.RegisterController(Controller, M_Inst->ModeType);
+		SDK::Scene.RegisterModeName(M_Inst->ModeName);
+		SDK::Scene.RegisterDestructor(Destructor);
+		SDK::Scene.RegisterController(Controller, M_Inst->ModeType);
 	}
 
-	static void ProcessKeyEvent(MSDK::KeyEvent& Event) {
+	static void ProcessKeyEvent(SDK::KeyEvent& Event) {
 		for (auto const& Object : M_Inst->InputObject)
 			if (Object)  Object->InputKey(Event);
 
 	}
 	static void KeyDown(unsigned char KEY, int X, int Y) {
 		if (ENABLE_DEV_EXIT && KEY == NK_ESCAPE)
-			MSDK::System.Exit();
+			SDK::System.Exit();
 
-		MSDK::KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
+		SDK::KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
 		ProcessKeyEvent(Event);
 	}
 
 	static void KeyUp(unsigned char KEY, int X, int Y) {
-		MSDK::KeyEvent Event{ NORMAL_KEY_UP, KEY, NULL };
+		SDK::KeyEvent Event{ NORMAL_KEY_UP, KEY, NULL };
 		ProcessKeyEvent(Event);
 	}
 
 	static void SpecialKeyDown(int KEY, int X, int Y) {
-		MSDK::KeyEvent Event{ SPECIAL_KEY_DOWN, NULL, KEY };
+		SDK::KeyEvent Event{ SPECIAL_KEY_DOWN, NULL, KEY };
 		ProcessKeyEvent(Event);
 	}
 
 	static void SpecialKeyUp(int KEY, int X, int Y) {
-		MSDK::KeyEvent Event{ SPECIAL_KEY_UP, NULL, KEY };
+		SDK::KeyEvent Event{ SPECIAL_KEY_UP, NULL, KEY };
 		ProcessKeyEvent(Event);
 	}
 
 	static void MouseMotion(int X, int Y) {
-		MSDK::Mouse.ConvertPosition(X, Y);
+		SDK::Mouse.ConvertPosition(X, Y);
 	}
 
 	static void MousePassiveMotion(int X, int Y) {
-		MSDK::Mouse.ConvertPosition(X, Y);
+		SDK::Mouse.ConvertPosition(X, Y);
 	}
 
 	static void MouseWheel(int Button, int Wheel, int X, int Y) {

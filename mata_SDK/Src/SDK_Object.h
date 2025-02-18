@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "SDK_UtilPack.h"
 
-namespace MSDK {
+namespace SDK {
 	class Object {
 	public:
 		std::string ObjectTag{};
@@ -48,7 +48,7 @@ namespace MSDK {
 		virtual void RenderFunc() {}
 
 		// Sends keyboard events to a specific object class.
-		virtual void InputKey(MSDK::KeyEvent& Event) {}
+		virtual void InputKey(SDK::KeyEvent& Event) {}
 
 		// Sends mouse events to a specific object class.
 		virtual void InputMouse(int Type) {}
@@ -60,13 +60,13 @@ namespace MSDK {
 		virtual void ResetControlState() {}
 
 		// Obtains an AABB object from a specific object class.
-		virtual MSDK::AABB GetAABB() { return {}; }
+		virtual SDK::AABB GetAABB() { return {}; }
 
 		// Obtains an OOBB object from a specific object class.
-		virtual MSDK::OOBB GetOOBB() { return{}; }
+		virtual SDK::OOBB GetOOBB() { return{}; }
 
 		// Obtains an BoundingCircle object from a specific object class.
-		virtual MSDK::BoundingCircle GetBoundingCircle() { return {}; }
+		virtual SDK::BoundingCircle GetBoundingCircle() { return {}; }
 
 		// FPS indicator function
 		virtual void RenderIndicator() {}

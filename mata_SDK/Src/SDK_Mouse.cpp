@@ -1,9 +1,9 @@
 #include "SDK_Mouse.h"
 #include "SDK_Camera.h"
 
-MSDK::SDK_Mouse MSDK::Mouse;
+SDK::SDK_Mouse SDK::Mouse;
 
-void MSDK::SDK_Mouse::ConvertPosition(int X, int Y) {
-	x = (float)((X - (float)MSDK::WIDTH / 2.0) * (float)(1.0 / (float)(MSDK::WIDTH / 2.0))) * MSDK::ASPECT;
-	y = -(float)(Y - (float)MSDK::HEIGHT / 2.0) * (float)(1.0 / (float)(MSDK::HEIGHT / 2.0));
+void SDK::SDK_Mouse::ConvertPosition(int X, int Y) {
+	x = (float)((X - (float)SDK::WIDTH / 2.0) * (float)(1.0 / (float)(SDK::WIDTH / 2.0))) * SDK::ASPECT;
+	y = -(float)(Y - (float)SDK::HEIGHT / 2.0) * (float)(1.0 / (float)(SDK::HEIGHT / 2.0));
 }

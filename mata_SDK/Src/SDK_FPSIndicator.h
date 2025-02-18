@@ -1,16 +1,16 @@
 #pragma once
 #include "SDK_Object.h"
 
-class SDK_FPS_Indicator : public MSDK::Object {
+class SDK_FPS_Indicator : public SDK::Object {
 private:
-	MSDK::Timer FPS_IND_REFRESH_TIMER{};
+	SDK::Timer FPS_IND_REFRESH_TIMER{};
 	float CurrentDeltaTime = 1.0;
 
-	MSDK::Text IndicatorText{};
+	SDK::Text IndicatorText{};
 
 public:
 	SDK_FPS_Indicator() {
-		IndicatorText.Init(MSDK::FONT, FW_BOLD);
+		IndicatorText.Init(SDK::FONT, FW_BOLD);
 		IndicatorText.SetColor(0.0, 1.0, 0.0);
 		IndicatorText.SetHeightAlign(HEIGHT_ALIGN_UNDER);
 		IndicatorText.EnableShadow();
@@ -24,7 +24,7 @@ public:
 	}
 
 	void RenderIndicator() {
-		IndicatorText.Render(MSDK::WindowRect.LeftX + 0.01, MSDK::WindowRect.RightY, 0.1, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
+		IndicatorText.Render(SDK::WindowRect.LeftX + 0.01, SDK::WindowRect.RightY, 0.1, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
 	}
 };
-extern MSDK::Object* Indicator;
+extern SDK::Object* Indicator;

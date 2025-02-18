@@ -1,46 +1,46 @@
 #include "SDK_Object.h"
 #include "SDK_Camera.h"
 
-void MSDK::Object::Begin(int RenderType) {
-	MSDK::Transform.Identity(MoveMatrix);
-	MSDK::Transform.Identity(RotateMatrix);
-	MSDK::Transform.Identity(ScaleMatrix);
-	MSDK::Transform.Identity(FlipMatrix);
+void SDK::Object::Begin(int RenderType) {
+	SDK::Transform.Identity(MoveMatrix);
+	SDK::Transform.Identity(RotateMatrix);
+	SDK::Transform.Identity(ScaleMatrix);
+	SDK::Transform.Identity(FlipMatrix);
 
 	ObjectOpacityValue = 1.0f;
 	ObjectBlurValue = 0.0;
 	ObjectColor = glm::vec3(0.0, 0.0, 0.0);
 
-	MSDK::Camera.SetCamera(RenderType);
+	SDK::Camera.SetCamera(RenderType);
 }
 
-void MSDK::Object::IdentityUnitMatrix() {
-	MSDK::Transform.Identity(UnitMoveMatrix);
-	MSDK::Transform.Identity(UnitRotateMatrix);
-	MSDK::Transform.Identity(UnitScaleMatrix);
-	MSDK::Transform.Identity(UnitFlipMatrix);
+void SDK::Object::IdentityUnitMatrix() {
+	SDK::Transform.Identity(UnitMoveMatrix);
+	SDK::Transform.Identity(UnitRotateMatrix);
+	SDK::Transform.Identity(UnitScaleMatrix);
+	SDK::Transform.Identity(UnitFlipMatrix);
 
 	UnitOpacityValue = 1.0f;
 	UnitBlurValue = 0.0f;
 }
 
-void MSDK::Object::SetColor(float R, float G, float B) {
+void SDK::Object::SetColor(float R, float G, float B) {
 	ObjectColor.r = R;
 	ObjectColor.g = G;
 	ObjectColor.b = B;
 }
 
-void MSDK::Object::SetColor(glm::vec3 Color) {
+void SDK::Object::SetColor(glm::vec3 Color) {
 	ObjectColor = Color;
 }
 
-void MSDK::Object::SetColorRGB(int R, int G, int B) {
+void SDK::Object::SetColorRGB(int R, int G, int B) {
 	ObjectColor.r = (1.0f / 255.0f) * (float)R;
 	ObjectColor.g = (1.0f / 255.0f) * (float)G;
 	ObjectColor.b = (1.0f / 255.0f) * (float)B;
 }
 
-void MSDK::Object::ComputeViewportPosition(float& DestX, float& DestY, bool ApplyAspect) {
+void SDK::Object::ComputeViewportPosition(float& DestX, float& DestY, bool ApplyAspect) {
 	if (ApplyAspect)
 		DestX = ASP(ViewportPosition().x);
 	else
@@ -48,7 +48,7 @@ void MSDK::Object::ComputeViewportPosition(float& DestX, float& DestY, bool Appl
 	DestY = ViewportPosition().y;
 }
 
-void MSDK::Object::ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspect) {
+void SDK::Object::ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspect) {
 	if (ApplyAspect) {
 		DestValue.x = ASP(ViewportPosition().x);
 		DestValue.y = ViewportPosition().y;
@@ -57,22 +57,22 @@ void MSDK::Object::ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspec
 		DestValue = ViewportPosition();
 }
 
-void MSDK::Object::ComputeLocalPosition(float& DestX, float& DestY) {
+void SDK::Object::ComputeLocalPosition(float& DestX, float& DestY) {
 	DestX = LocalPosition().x;
 	DestY = LocalPosition().y;
 }
 
-void MSDK::Object::ComputeLocalPosition(glm::vec2& DestPosition) {
+void SDK::Object::ComputeLocalPosition(glm::vec2& DestPosition) {
 	DestPosition = LocalPosition();
 }
 
 ////////////////////////// private
 
-glm::vec4 MSDK::Object::ViewportPosition() {
-	MSDK::ComputeTool.ComputeMatrix(MSDK::ViewportPositionMatrix, MSDK::Camera.Projection, MSDK::Camera.ViewMatrix, ResultMatrix);
-	return MSDK::ViewportPositionMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+glm::vec4 SDK::Object::ViewportPosition() {
+	SDK::ComputeTool.ComputeMatrix(SDK::ViewportPositionMatrix, SDK::Camera.Projection, SDK::Camera.ViewMatrix, ResultMatrix);
+	return SDK::ViewportPositionMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-glm::vec4 MSDK::Object::LocalPosition() {
-	return MSDK::ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+glm::vec4 SDK::Object::LocalPosition() {
+	return SDK::ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 }

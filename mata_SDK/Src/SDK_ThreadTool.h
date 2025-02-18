@@ -1,7 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
 
-namespace MSDK {
+namespace SDK {
 	class SDK_ThreadTool {
 	public:
 		void Create(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param = NULL);
@@ -15,5 +15,5 @@ namespace MSDK {
 		void Unlock(CRITICAL_SECTION& Section);
 	};
 
-	extern MSDK::SDK_ThreadTool ThreadTool;
+	extern SDK::SDK_ThreadTool ThreadTool;
 }

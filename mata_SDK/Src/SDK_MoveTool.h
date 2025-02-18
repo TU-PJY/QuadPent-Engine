@@ -1,7 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
 
-namespace MSDK {
+namespace SDK {
 	class SDK_MoveTool {
 	public:
 		void MoveStraight(float& Position, int MoveDirection, float Speed, float FT);
@@ -12,5 +12,5 @@ namespace MSDK {
 		void MoveForward(glm::vec2& Position, float Speed, float RotationValue, float FrameTime, bool Plus90Option);
 	};
 
-	extern MSDK::SDK_MoveTool MoveTool;
+	extern SDK::SDK_MoveTool MoveTool;
 }

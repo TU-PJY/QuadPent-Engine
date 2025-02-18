@@ -9,10 +9,10 @@ typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
 constexpr int SceneLayer = EOL;
 
-namespace MSDK {
+namespace SDK {
 	class SDK_Scene {
 	private:
-		std::array<std::deque<MSDK::Object*>, SceneLayer> ObjectList{};
+		std::array<std::deque<SDK::Object*>, SceneLayer> ObjectList{};
 		std::array<std::vector<int>, SceneLayer>        DeleteLocation{};
 
 		int                               CurrentReferLocation{};
@@ -21,16 +21,16 @@ namespace MSDK {
 		std::string						  CurrentRunningModeName{};
 		std::string						  PrevRunningModeName{};
 
-		MSDK::MODE_PTR                    CurrentRunningModePtr{};
-		MSDK::MODE_PTR                    PrevRunningModePtr{};
+		SDK::MODE_PTR                    CurrentRunningModePtr{};
+		SDK::MODE_PTR                    PrevRunningModePtr{};
 
 		bool							  FloatingActivateCommand{};
 		bool                              FloatingFocusCommand{};
 
 		float							  FrameTime{};
 
-		MSDK::CONTROLLER_PTR				  ControllerBuffer{};
-		MSDK::MODE_PTR				      DestructorBuffer{};
+		SDK::CONTROLLER_PTR				  ControllerBuffer{};
+		SDK::MODE_PTR				      DestructorBuffer{};
 
 		bool                              UpdateActivateCommand{ true };
 		bool                              LoopEscapeCommand{};
@@ -41,17 +41,17 @@ namespace MSDK {
 		std::string						  Value1Buffer{};
 		std::string						  Value2Buffer{};
 
-		std::vector<MSDK::Object*>*       InputObjectListPtr{};
+		std::vector<SDK::Object*>*       InputObjectListPtr{};
 
 	public:
 		// Returns the name of the currently running mode.
 		std::string ModeName();
 
 		// Check whether the mode pointer is the current running mode. Returns true if there is a match.
-		bool CheckCurrentMode(MSDK::MODE_PTR ModePtr);
+		bool CheckCurrentMode(SDK::MODE_PTR ModePtr);
 
 		// Return current running mode's pointer.
-		MSDK::MODE_PTR Mode();
+		SDK::MODE_PTR Mode();
 
 		//  Stop updating the scene.
 		void Stop();
@@ -61,25 +61,25 @@ namespace MSDK {
 		void Resume();
 
 		// Initialize the scene and enter start mode.
-		void Init(MSDK::MODE_PTR ModeFunction);
+		void Init(SDK::MODE_PTR ModeFunction);
 
 		// Register the mode name to run.
 		void RegisterModeName(std::string ModeName);
 
-		void RegisterModePtr(MSDK::MODE_PTR ModePtr);
+		void RegisterModePtr(SDK::MODE_PTR ModePtr);
 
 		// Register a mode destructor with the Scene.
-		void RegisterDestructor(MSDK::MODE_PTR DestructorFunction);
+		void RegisterDestructor(SDK::MODE_PTR DestructorFunction);
 
 		// Removes the mode destructor registered with the Scene.
 		void ReleaseDestructor();
 
 		// Register the controller in the scene.
 		// When MODE_TYPE_FLOATING is specified, the controller is not stored in the controller buffer.
-		void RegisterController(MSDK::CONTROLLER_PTR Controller, int Type);
+		void RegisterController(SDK::CONTROLLER_PTR Controller, int Type);
 
 		// Register the mode controller input object list in Scene.
-		void RegisterInputObjectList(std::vector<MSDK::Object*>& Vec);
+		void RegisterInputObjectList(std::vector<SDK::Object*>& Vec);
 
 		// Enter the frame time in Scene.
 		void InputFrameTime(float ElapsedTime);
@@ -91,11 +91,11 @@ namespace MSDK {
 		void Render();
 
 		// Switch to a specific mode.
-		void SwitchMode(MSDK::MODE_PTR ModeFunction);
+		void SwitchMode(SDK::MODE_PTR ModeFunction);
 
 		// Start floating mode.Existing objects are not deleted.
 		// When true is specified for FloatingFocus, only floating objects are updated. This state is cleared when floating mode ends.
-		void StartFloatingMode(MSDK::MODE_PTR ModeFunction, bool FloatingFocusFlag = false);
+		void StartFloatingMode(SDK::MODE_PTR ModeFunction, bool FloatingFocusFlag = false);
 
 		// Exit floating mode.Floating objects are deleted, and regular objects are not deleted.
 		void EndFloatingMode();
@@ -103,38 +103,38 @@ namespace MSDK {
 		// Add an object to the scene. You can give two options to an object.
 		// OBJECT_TYPE_STATIC: It will not be deleted even if the mode is changed.
 		// OBJECT_TYPE_FLOATING: Specify it as a floating mode object.
-		MSDK::Object* AddObject(MSDK::Object* Object, std::string Tag, int AddLayer, int Type1 = OBJECT_TYPE_NONE, int Type2 = OBJECT_TYPE_NONE);
+		SDK::Object* AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Type1 = OBJECT_TYPE_NONE, int Type2 = OBJECT_TYPE_NONE);
 
 		// Deletes an object from the Scene.
 		// If the object is located on a layer that is not currently being referenced, activates DeleteReserveCommand.
-		void DeleteObject(MSDK::Object* Object);
+		void DeleteObject(SDK::Object* Object);
 
 		// Deletes an object from the Scene.
 		// The DELETE_RANGE_SINGLE option is recommended when the target object is guaranteed to exist as a single object.
 		void DeleteObject(std::string Tag, int deleteRange);
 
 		// Adds an object to the mode controller input object list.
-		void AddInputObject(MSDK::Object* Object);
+		void AddInputObject(SDK::Object* Object);
 
 		// Deletes an object from the mode controller input object list.
-		void DeleteInputObject(MSDK::Object* Object);
+		void DeleteInputObject(SDK::Object* Object);
 
 		//  Change the layer where the object is located.
-		void SwapLayer(MSDK::Object* Object, int TargetLayer);
+		void SwapLayer(SDK::Object* Object, int TargetLayer);
 
 		// Gets a pointer to a specific object that exists in the Scene. Returns nullptr for objects that do not exist.
-		MSDK::Object* Find(std::string Tag);
+		SDK::Object* Find(std::string Tag);
 
 		// Gets a pointer to a specific object that exists in the Scene. Returns nullptr for objects that do not exist.
-		MSDK::Object* ReverseFind(std::string Tag);
+		SDK::Object* ReverseFind(std::string Tag);
 
 		// Gets a pointer to multiple objects with a specific tag that exist in the scene. Returns nullptr for objects that do not exist.
 		// You need to find the number of objects that exist in a specific layer and then access it using the for statement.
-		MSDK::Object* FindMulti(std::string Tag, int SearchLayer, int Index);
+		SDK::Object* FindMulti(std::string Tag, int SearchLayer, int Index);
 
 
 		// Removes the object tag for a specific object.
-		void DeleteTag(MSDK::Object* Object);
+		void DeleteTag(SDK::Object* Object);
 
 		void DeleteTag(std::string Tag);
 

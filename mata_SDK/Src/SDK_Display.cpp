@@ -1,45 +1,45 @@
 #include "SDK_Header.h"
 
-void MSDK::SDKSystem::DisplayReshape(int w, int h) {
+void SDK::SDKSystem::DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
-	MSDK::WIDTH = w;
-	MSDK::HEIGHT = h;
+	SDK::WIDTH = w;
+	SDK::HEIGHT = h;
 }
 
-void MSDK::SDKSystem::SetBackColor(float R, float G, float B) {
-	MSDK::ViewportColor.r = R;
-	MSDK::ViewportColor.g = G;
-	MSDK::ViewportColor.b = B;
+void SDK::SDKSystem::SetBackColor(float R, float G, float B) {
+	SDK::ViewportColor.r = R;
+	SDK::ViewportColor.g = G;
+	SDK::ViewportColor.b = B;
 }
 
-void MSDK::SDKSystem::SetBackColorRGB(int R, int G, int B) {
-	MSDK::ViewportColor.r = (1.0f / 255.0f) * (float)R;
-	MSDK::ViewportColor.g = (1.0f / 255.0f) * (float)G;
-	MSDK::ViewportColor.b = (1.0f / 255.0f) * (float)B;
+void SDK::SDKSystem::SetBackColorRGB(int R, int G, int B) {
+	SDK::ViewportColor.r = (1.0f / 255.0f) * (float)R;
+	SDK::ViewportColor.g = (1.0f / 255.0f) * (float)G;
+	SDK::ViewportColor.b = (1.0f / 255.0f) * (float)B;
 }
 
-void MSDK::SDKSystem::SetFrameLimit(int FrameLimit) {
+void SDK::SDKSystem::SetFrameLimit(int FrameLimit) {
 	FPSLimit = FrameLimit;
 	DestFPS = 1000.0 / (float)FPSLimit;
 }
 
-void MSDK::SDKSystem::HideCursor() {
+void SDK::SDKSystem::HideCursor() {
 	glutSetCursor(GLUT_CURSOR_NONE);
 }
 
-void MSDK::SDKSystem::ShowCursor() {
+void SDK::SDKSystem::ShowCursor() {
 	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 }
 
-void MSDK::SDKSystem::MoveCursor(int X, int Y) {
+void SDK::SDKSystem::MoveCursor(int X, int Y) {
 	glutWarpPointer(X, Y);
 }
 
-void MSDK::SDKSystem::SwitchScreenState() {
+void SDK::SDKSystem::SwitchScreenState() {
 	if (!FullscreenState) {
 		glutFullScreen();
-		MSDK::WIDTH = GetSystemMetrics(SM_CXSCREEN);
-		MSDK::HEIGHT = GetSystemMetrics(SM_CYSCREEN);
+		SDK::WIDTH = GetSystemMetrics(SM_CXSCREEN);
+		SDK::HEIGHT = GetSystemMetrics(SM_CYSCREEN);
 		FullscreenState = true;
 	}
 	else {
@@ -48,19 +48,19 @@ void MSDK::SDKSystem::SwitchScreenState() {
 		if (SystemParametersInfo(SPI_GETWORKAREA, 0, &DisplayArea, 0)) {
 			int DisplayWidth = DisplayArea.right - DisplayArea.left;
 			int DisplayHeight = DisplayArea.bottom - DisplayArea.top;
-			MSDK::WIDTH = DisplayWidth;
-			MSDK::HEIGHT = DisplayHeight;
-			glutReshapeWindow(MSDK::WIDTH, MSDK::HEIGHT);
+			SDK::WIDTH = DisplayWidth;
+			SDK::HEIGHT = DisplayHeight;
+			glutReshapeWindow(SDK::WIDTH, SDK::HEIGHT);
 			glutPositionWindow(0, 0);
 			FullscreenState = false;
 		}
 	}
 }
 
-void MSDK::SDKSystem::ChangeScreenSize(int ScreenWidth, int ScreenHeight) {
-	MSDK::WIDTH = ScreenWidth;
-	MSDK::HEIGHT = ScreenHeight;
-	glutReshapeWindow(MSDK::WIDTH, MSDK::HEIGHT);
+void SDK::SDKSystem::ChangeScreenSize(int ScreenWidth, int ScreenHeight) {
+	SDK::WIDTH = ScreenWidth;
+	SDK::HEIGHT = ScreenHeight;
+	glutReshapeWindow(SDK::WIDTH, SDK::HEIGHT);
 	glutPositionWindow(0, 0);
 	FullscreenState = false;
 }

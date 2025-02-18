@@ -2,21 +2,21 @@
 #include "SDK_Math.h"
 #include "SDK_EXTool.h"
 
-void MSDK::SinLoop::Update(float& Value, float MoveScale, float Speed, float FrameTime) {
+void SDK::SinLoop::Update(float& Value, float MoveScale, float Speed, float FrameTime) {
 	Num += Speed * FrameTime;
 	Value = sin(Num) * MoveScale;
 }
 
-void MSDK::SinLoop::SetValue(float Value) {
+void SDK::SinLoop::SetValue(float Value) {
 	Num = Value;
 }
 
-void MSDK::SinLoop::Reset() {
+void SDK::SinLoop::Reset() {
 	Num = 0.0;
 }
 
 
-void MSDK::PopBounce::Update(float& Value, float SizeDest, float ShakeScale, float SizeIncreaseSpeed, float ShakeSpeed, float ShakeReduceSpeed, float FrameTime) {
+void SDK::PopBounce::Update(float& Value, float SizeDest, float ShakeScale, float SizeIncreaseSpeed, float ShakeSpeed, float ShakeReduceSpeed, float FrameTime) {
 	Num3 += FrameTime * SizeIncreaseSpeed;
 
 	if (Num3 >= SizeDest) {
@@ -28,14 +28,14 @@ void MSDK::PopBounce::Update(float& Value, float SizeDest, float ShakeScale, flo
 	Value = Num3 + sin(Num1) * (ShakeScale - Num2);
 }
 
-void MSDK::PopBounce::Reset(){
+void SDK::PopBounce::Reset(){
 	Num1 = 0.0;
 	Num2 = 0.0;
 	Num3 = 0.0;
 }
 
 
-void MSDK::ReverseLerp::Update(float& Value, float Dest, float Speed, float IncreaseSpeed, float FrameTime) {
+void SDK::ReverseLerp::Update(float& Value, float Dest, float Speed, float IncreaseSpeed, float FrameTime) {
 	float ReturnValue = Value;
 	float Diff = Dest - Value;
 
@@ -56,7 +56,7 @@ void MSDK::ReverseLerp::Update(float& Value, float Dest, float Speed, float Incr
 	Value = ReturnValue;
 }
 
-void MSDK::ReverseLerp::Reset() {
+void SDK::ReverseLerp::Reset() {
 	Velocity = 0.0;
 	Acc = 0.0;
 	MoveState = true;

@@ -6,20 +6,20 @@
 #include <thread>
 #include <chrono>
 
-MSDK::SDKSystem MSDK::System;
-MSDK::SDKSystem* MSDK::SDKSystem::S_Inst;
+SDK::SDKSystem SDK::System;
+SDK::SDKSystem* SDK::SDKSystem::S_Inst;
 
-void MSDK::SDKSystem::Main() {
-	glClearColor(MSDK::ViewportColor.r, MSDK::ViewportColor.g, MSDK::ViewportColor.b, 1.0f);
+void SDK::SDKSystem::Main() {
+	glClearColor(SDK::ViewportColor.r, SDK::ViewportColor.g, SDK::ViewportColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	if (S_Inst->UpdateActivateCommand) {
-		MSDK::Scene.Update();
-		MSDK::CameraControl.Update(S_Inst->DeltaTime);
-		MSDK::Frustum.Update();
-		MSDK::Scene.Render();
-		MSDK::Scene.CompleteCommand();
-		MSDK::SoundTool.Update();
+		SDK::Scene.Update();
+		SDK::CameraControl.Update(S_Inst->DeltaTime);
+		SDK::Frustum.Update();
+		SDK::Scene.Render();
+		SDK::Scene.CompleteCommand();
+		SDK::SoundTool.Update();
 	}
 
 	if (SHOW_FPS && Indicator)
@@ -32,7 +32,7 @@ void MSDK::SDKSystem::Main() {
 
 	S_Inst->CurrentTime = float(glutGet(GLUT_ELAPSED_TIME));
 	S_Inst->DeltaTime = (S_Inst->CurrentTime - S_Inst->PrevTime) / 1000.0;
-	MSDK::Scene.InputFrameTime(S_Inst->DeltaTime);
+	SDK::Scene.InputFrameTime(S_Inst->DeltaTime);
 
 	S_Inst->PrevTime = S_Inst->CurrentTime;
 
@@ -61,20 +61,20 @@ void main(int argc, char** argv) {
 
 	wchar_t LocaleName[LOCALE_NAME_MAX_LENGTH];
 	if (GetUserDefaultLocaleName(LocaleName, LOCALE_NAME_MAX_LENGTH)) {
-		MSDK::LOCALE = LocaleName;
-		std::wcout << L"Windows System Locale: " << MSDK::LOCALE << std::endl;
+		SDK::LOCALE = LocaleName;
+		std::wcout << L"Windows System Locale: " << SDK::LOCALE << std::endl;
 	}
 		
-	MSDK::System.SetupSystem(argc, argv);
-	glutDisplayFunc(MSDK::System.Main);
-	glutReshapeFunc(MSDK::System.DisplayReshape);
+	SDK::System.SetupSystem(argc, argv);
+	glutDisplayFunc(SDK::System.Main);
+	glutReshapeFunc(SDK::System.DisplayReshape);
 	glutMainLoop();
 }
 
-void MSDK::SDKSystem::Exit() {
+void SDK::SDKSystem::Exit() {
 	glutDestroyWindow(1);
 }
 
-float MSDK::ASP(float Value) {
-	return Value * MSDK::ASPECT;
+float SDK::ASP(float Value) {
+	return Value * SDK::ASPECT;
 }

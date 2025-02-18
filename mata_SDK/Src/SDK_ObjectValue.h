@@ -1,7 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
 
-namespace MSDK {
+namespace SDK {
 	extern glm::mat4 MoveMatrix, RotateMatrix, ScaleMatrix, FlipMatrix, ResultMatrix;
 
 	extern glm::mat4 UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix;

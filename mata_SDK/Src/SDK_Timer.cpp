@@ -1,43 +1,43 @@
 #include "SDK_Timer.h"
 #include <cmath>
 
-void MSDK::Timer::Update(float FrameTime) {
+void SDK::Timer::Update(float FrameTime) {
 	if(!StopState)
 		Time += FrameTime;
 }
 
-void MSDK::Timer::Stop() {
+void SDK::Timer::Stop() {
 	StopState = true;
 }
 
-void MSDK::Timer::Resume() {
+void SDK::Timer::Resume() {
 	StopState = false;
 }
 
-void MSDK::Timer::Reset() {
+void SDK::Timer::Reset() {
 	Time = 0.0;
 }
 
-float MSDK::Timer::GetCurrentTime() {
+float SDK::Timer::GetCurrentTime() {
 	return Time;
 }
 
-int MSDK::Timer::Sec() {
+int SDK::Timer::Sec() {
 	return (int)Time;
 }
 
-float MSDK::Timer::MiliSec(int DemicalPlace) {
+float SDK::Timer::MiliSec(int DemicalPlace) {
 	float TruncateValue = pow(10, DemicalPlace);
 	float TruncatedNum = std::floor(Time * TruncateValue) / TruncateValue;
 	return TruncatedNum;
 }
 
-void MSDK::Timer::Interpolate(float Value) {
+void SDK::Timer::Interpolate(float Value) {
 	float OverTime = Time - Value;
 	Time = OverTime;
 }
 
-bool MSDK::Timer::UpdateAndCheckSec(int DestTime, int CheckOption, float FrameTime) {
+bool SDK::Timer::UpdateAndCheckSec(int DestTime, int CheckOption, float FrameTime) {
 	Time += FrameTime;
 
 	if (Sec() >= DestTime) {
@@ -62,7 +62,7 @@ bool MSDK::Timer::UpdateAndCheckSec(int DestTime, int CheckOption, float FrameTi
 	return false;
 }
 
-bool MSDK::Timer::UpdateAndCheckMiliSec(int DestTime, int DemicalPlace, int CheckOption, float FrameTime) {
+bool SDK::Timer::UpdateAndCheckMiliSec(int DestTime, int DemicalPlace, int CheckOption, float FrameTime) {
 	Time += FrameTime;
 
 	if (MiliSec(DemicalPlace) >= DestTime) {
@@ -87,7 +87,7 @@ bool MSDK::Timer::UpdateAndCheckMiliSec(int DestTime, int DemicalPlace, int Chec
 	return false;
 }
 
-bool MSDK::Timer::CheckSec(int DestTime, int CheckOption) {
+bool SDK::Timer::CheckSec(int DestTime, int CheckOption) {
 	if (Sec() >= DestTime) {
 		switch (CheckOption) {
 		case CHECK_AND_RESUME:
@@ -110,7 +110,7 @@ bool MSDK::Timer::CheckSec(int DestTime, int CheckOption) {
 	return false;
 }
 
-bool MSDK::Timer::CheckMiliSec(float DestTime, int DemicalPlace, int CheckOption) {
+bool SDK::Timer::CheckMiliSec(float DestTime, int DemicalPlace, int CheckOption) {
 	if (MiliSec(DemicalPlace) >= DestTime) {
 		switch (CheckOption) {
 		case CHECK_AND_RESUME:
@@ -133,11 +133,11 @@ bool MSDK::Timer::CheckMiliSec(float DestTime, int DemicalPlace, int CheckOption
 }
 
 
-void MSDK::Metronome::SetBPM(int BPM) {
+void SDK::Metronome::SetBPM(int BPM) {
 	BeatInterval = 60.0 / (float)BPM;
 }
 
-void MSDK::Metronome::Update(float FrameTime) {
+void SDK::Metronome::Update(float FrameTime) {
 	if (!StopState) {
 		Time += FrameTime;
 
@@ -152,19 +152,19 @@ void MSDK::Metronome::Update(float FrameTime) {
 	}
 }
 
-void MSDK::Metronome::Stop() {
+void SDK::Metronome::Stop() {
 	StopState = true;
 	BeatState = false;
 }
 
-void MSDK::Metronome::Resume() {
+void SDK::Metronome::Resume() {
 	StopState = false;
 }
 
-void MSDK::Metronome::Reset() {
+void SDK::Metronome::Reset() {
 	Time = 0.0;
 }
 
-bool MSDK::Metronome::IsBeat() {
+bool SDK::Metronome::IsBeat() {
 	return BeatState;
 }

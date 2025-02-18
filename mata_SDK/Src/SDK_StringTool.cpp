@@ -1,8 +1,8 @@
 #include "SDK_StringTool.h"
 
-MSDK::SDK_StringTool MSDK::StringTool;
+SDK::SDK_StringTool SDK::StringTool;
 
-void MSDK::SDK_StringTool::InputChar(std::string& Str, unsigned char AddChar, bool UseNewLine) {
+void SDK::SDK_StringTool::InputChar(std::string& Str, unsigned char AddChar, bool UseNewLine) {
 	switch (AddChar) {
 	case NK_TAB: case NK_ESCAPE:
 		break;
@@ -26,11 +26,11 @@ void MSDK::SDK_StringTool::InputChar(std::string& Str, unsigned char AddChar, bo
 	}
 }
 
-void MSDK::SDK_StringTool::AddString(std::string& Str, std::string AddStr) {
+void SDK::SDK_StringTool::AddString(std::string& Str, std::string AddStr) {
 	Str += AddStr;
 }
 
-void MSDK::SDK_StringTool::EraseString(std::string& Str) {
+void SDK::SDK_StringTool::EraseString(std::string& Str) {
 	if (!Str.empty()) {
 		Str.pop_back();
 		if (Str.back() == '\n')
@@ -38,7 +38,7 @@ void MSDK::SDK_StringTool::EraseString(std::string& Str) {
 	}
 }
 
-void MSDK::SDK_StringTool::RemoveString(std::string& Str, std::string RemoveStr) {
+void SDK::SDK_StringTool::RemoveString(std::string& Str, std::string RemoveStr) {
 	if (Str.empty())
 		return;
 
@@ -49,7 +49,7 @@ void MSDK::SDK_StringTool::RemoveString(std::string& Str, std::string RemoveStr)
 	}
 }
 
-std::wstring MSDK::SDK_StringTool::Wstring(const std::string& Str) {
+std::wstring SDK::SDK_StringTool::Wstring(const std::string& Str) {
 	if (Str.empty())
 		return L"";
 

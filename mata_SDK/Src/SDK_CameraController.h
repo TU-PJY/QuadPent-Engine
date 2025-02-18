@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "SDK_Camera.h"
 
-namespace MSDK {
+namespace SDK {
 	class SDK_CameraController {
 	public:
 		void Update(float FrameTime);
@@ -19,5 +19,5 @@ namespace MSDK {
 		void ComputeCameraMatrix();
 	};
 
-	extern MSDK::SDK_CameraController CameraControl;
+	extern SDK::SDK_CameraController CameraControl;
 }

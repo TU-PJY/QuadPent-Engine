@@ -1,11 +1,11 @@
 #pragma once
 #include "SDK_Header.h"
-namespace MSDK {
+namespace SDK {
 	class SDK_FontLoader {
 	public:
 		bool Load(const std::string& FontFilePath);
 		bool LoadT(const std::string& FontFilePath);
 	};
 
-	extern MSDK::SDK_FontLoader FontLoader;
+	extern SDK::SDK_FontLoader FontLoader;
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
 
-namespace MSDK {
+namespace SDK {
 	class SDK_EXTool {
 	public:
 		void SwitchBool(bool& Value);
@@ -16,5 +16,5 @@ namespace MSDK {
 		void InputBoolSwitch(int SwitchingOption, int EventType, bool& DestBoolValue);
 	};
 
-	extern MSDK::SDK_EXTool EXTool;
+	extern SDK::SDK_EXTool EXTool;
 }

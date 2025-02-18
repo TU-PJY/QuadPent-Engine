@@ -2,7 +2,7 @@
 #include "SDK_Header.h"
 #include "SDK_ObjectValue.h"
 
-namespace MSDK {
+namespace SDK {
 	class SDK_Transform {
 	public:
 		void Identity(glm::mat4& Matrix);
@@ -22,5 +22,5 @@ namespace MSDK {
 		void RotateH(glm::mat4& Matrix, float Degree);
 	};
 
-	extern MSDK::SDK_Transform Transform;
+	extern SDK::SDK_Transform Transform;
 }

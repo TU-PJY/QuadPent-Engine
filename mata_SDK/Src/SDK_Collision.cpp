@@ -1,16 +1,16 @@
 #include "SDK_Collision.h"
 
-void MSDK::AABB::Update(float X, float Y, float xScale, float yScale) {
+void SDK::AABB::Update(float X, float Y, float xScale, float yScale) {
 	aabb.Center = XMFLOAT3(X, Y, 0.0);
 	aabb.Extents = XMFLOAT3(xScale / 2.0, yScale / 2.0, 0.0);
 }
 
-void MSDK::AABB::Update(glm::vec2& Position, float xScale, float yScale) {
+void SDK::AABB::Update(glm::vec2& Position, float xScale, float yScale) {
 	aabb.Center = XMFLOAT3(Position.x, Position.y, 0.0);
 	aabb.Extents = XMFLOAT3(xScale / 2.0, yScale / 2.0, 0.0);
 }
 
-void MSDK::AABB::Render() {
+void SDK::AABB::Render() {
 	if (SHOW_BOUND_BOX) {
 		LineRect.SetColor(1.0, 0.0, 0.0);
 		RECT.SetColor(1.0, 0.0, 0.0);
@@ -21,7 +21,7 @@ void MSDK::AABB::Render() {
 	}
 }
 
-bool MSDK::AABB::CheckCollision(const AABB& Other) {
+bool SDK::AABB::CheckCollision(const AABB& Other) {
 	if (aabb.Intersects(Other.aabb)) {
 		Collide = true;
 		return true;
@@ -31,7 +31,7 @@ bool MSDK::AABB::CheckCollision(const AABB& Other) {
 	return false;
 }
 
-bool MSDK::AABB::CheckCollision(const OOBB& Other) {
+bool SDK::AABB::CheckCollision(const OOBB& Other) {
 	if (aabb.Intersects(Other.Get())) {
 		Collide = true;
 		return true;
@@ -41,7 +41,7 @@ bool MSDK::AABB::CheckCollision(const OOBB& Other) {
 	return false;
 }
 
-bool MSDK::AABB::CheckCollision(const BoundingCircle& Other) {
+bool SDK::AABB::CheckCollision(const BoundingCircle& Other) {
 	if (aabb.Intersects(Other.Get())) {
 		Collide = true;
 		return true;
@@ -51,7 +51,7 @@ bool MSDK::AABB::CheckCollision(const BoundingCircle& Other) {
 	return false;
 }
 
-bool MSDK::AABB::CheckCollisionPoint(float X, float Y) {
+bool SDK::AABB::CheckCollisionPoint(float X, float Y) {
 	XMFLOAT3 Point(X, Y, 0.0);
 	if (aabb.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
 		Collide = true;
@@ -62,7 +62,7 @@ bool MSDK::AABB::CheckCollisionPoint(float X, float Y) {
 	return false;
 }
 
-bool MSDK::AABB::CheckCollisionPoint(glm::vec2& Position) {
+bool SDK::AABB::CheckCollisionPoint(glm::vec2& Position) {
 	XMFLOAT3 Point(Position.x, Position.y, 0.0);
 	if (aabb.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
 		Collide = true;
@@ -73,7 +73,7 @@ bool MSDK::AABB::CheckCollisionPoint(glm::vec2& Position) {
 	return false;
 }
 
-bool MSDK::AABB::CheckCollisionRay(MSDK::RayVector& Ray) {
+bool SDK::AABB::CheckCollisionRay(SDK::RayVector& Ray) {
 	if (aabb.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
 		Collide = true;
 		return true;
@@ -83,7 +83,7 @@ bool MSDK::AABB::CheckCollisionRay(MSDK::RayVector& Ray) {
 	return false;
 }
 
-bool MSDK::AABB::CheckCollisionLine(MSDK::RayVector& Ray) {
+bool SDK::AABB::CheckCollisionLine(SDK::RayVector& Ray) {
 	if (aabb.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
 		if (Ray.Distance <= Ray.Length) {
 			Collide = true;
@@ -99,13 +99,13 @@ bool MSDK::AABB::CheckCollisionLine(MSDK::RayVector& Ray) {
 	return false;
 }
 
-BoundingBox MSDK::AABB::Get() const{
+BoundingBox SDK::AABB::Get() const{
 	return aabb;
 }
 
 
 
-void MSDK::OOBB::Update(float X, float Y, float BoxWidth, float BoxHeight, float RotationValue) {
+void SDK::OOBB::Update(float X, float Y, float BoxWidth, float BoxHeight, float RotationValue) {
 	oobb.Center = XMFLOAT3(X, Y, 0.0);
 	oobb.Extents = XMFLOAT3(BoxWidth * 0.5, BoxHeight * 0.5, 0.0);
 	XMVECTOR Quaternion = XMQuaternionRotationRollPitchYaw(0.0, 0.0, XMConvertToRadians(-RotationValue));
@@ -113,7 +113,7 @@ void MSDK::OOBB::Update(float X, float Y, float BoxWidth, float BoxHeight, float
 	Rotation = RotationValue;
 }
 
-void MSDK::OOBB::Update(glm::vec2& Position, float BoxWidth, float BoxHeight, float RotationValue) {
+void SDK::OOBB::Update(glm::vec2& Position, float BoxWidth, float BoxHeight, float RotationValue) {
 	oobb.Center = XMFLOAT3(Position.x, Position.y, 0.0);
 	oobb.Extents = XMFLOAT3(BoxWidth * 0.5, BoxHeight * 0.5, 0.0);
 	XMVECTOR Quaternion = XMQuaternionRotationRollPitchYaw(0.0, 0.0, XMConvertToRadians(-RotationValue));
@@ -121,7 +121,7 @@ void MSDK::OOBB::Update(glm::vec2& Position, float BoxWidth, float BoxHeight, fl
 	Rotation = RotationValue;
 }
 
-void MSDK::OOBB::Render() {
+void SDK::OOBB::Render() {
 	if (SHOW_BOUND_BOX) {
 		LineRect.SetColor(1.0, 0.0, 0.0);
 		RECT.SetColor(1.0, 0.0, 0.0);
@@ -132,7 +132,7 @@ void MSDK::OOBB::Render() {
 	}
 }
 
-bool MSDK::OOBB::CheckCollision(const OOBB& Other) {
+bool SDK::OOBB::CheckCollision(const OOBB& Other) {
 	if (oobb.Intersects(Other.oobb)) {
 		Collide = true;
 		return true;
@@ -142,7 +142,7 @@ bool MSDK::OOBB::CheckCollision(const OOBB& Other) {
 	return false;
 }
 
-bool MSDK::OOBB::CheckCollision(const AABB& Other) {
+bool SDK::OOBB::CheckCollision(const AABB& Other) {
 	if (oobb.Intersects(Other.Get())) {
 		Collide = true;
 		return true;
@@ -152,7 +152,7 @@ bool MSDK::OOBB::CheckCollision(const AABB& Other) {
 	return false;
 }
 
-bool MSDK::OOBB::CheckCollision(const BoundingCircle& Other) {
+bool SDK::OOBB::CheckCollision(const BoundingCircle& Other) {
 	if (oobb.Intersects(Other.Get())) {
 		Collide = true;
 		return true;
@@ -162,7 +162,7 @@ bool MSDK::OOBB::CheckCollision(const BoundingCircle& Other) {
 	return false;
 }
 
-bool MSDK::OOBB::CheckCollisionPoint(float X, float Y) {
+bool SDK::OOBB::CheckCollisionPoint(float X, float Y) {
 	XMFLOAT3 Point(X, Y, 0.0);
 	if (oobb.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
 		Collide = true;
@@ -173,7 +173,7 @@ bool MSDK::OOBB::CheckCollisionPoint(float X, float Y) {
 	return false;
 }
 
-bool MSDK::OOBB::CheckCollisionPoint(glm::vec2& Position) {
+bool SDK::OOBB::CheckCollisionPoint(glm::vec2& Position) {
 	XMFLOAT3 Point(Position.x, Position.y, 0.0);
 	if (oobb.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
 		Collide = true;
@@ -184,7 +184,7 @@ bool MSDK::OOBB::CheckCollisionPoint(glm::vec2& Position) {
 	return false;
 }
 
-bool MSDK::OOBB::CheckCollisionRay(MSDK::RayVector& Ray) {
+bool SDK::OOBB::CheckCollisionRay(SDK::RayVector& Ray) {
 	if (oobb.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
 		Collide = true;
 		return true;
@@ -195,7 +195,7 @@ bool MSDK::OOBB::CheckCollisionRay(MSDK::RayVector& Ray) {
 }
 
 
-bool MSDK::OOBB::CheckCollisionLine(MSDK::RayVector& Ray) {
+bool SDK::OOBB::CheckCollisionLine(SDK::RayVector& Ray) {
 	if (oobb.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
 		if (Ray.Distance <= Ray.Length) {
 			Collide = true;
@@ -211,23 +211,23 @@ bool MSDK::OOBB::CheckCollisionLine(MSDK::RayVector& Ray) {
 	return false;
 }
 
-BoundingOrientedBox MSDK::OOBB::Get() const {
+BoundingOrientedBox SDK::OOBB::Get() const {
 	return oobb;
 }
 
 
 
-void MSDK::BoundingCircle::Update(float X, float Y, float SizeValue) {
+void SDK::BoundingCircle::Update(float X, float Y, float SizeValue) {
 	sphere.Center = XMFLOAT3(X, Y, 0.0);
 	sphere.Radius = SizeValue * 0.5;
 }
 
-void MSDK::BoundingCircle::Update(glm::vec2& Position, float SizeValue) {
+void SDK::BoundingCircle::Update(glm::vec2& Position, float SizeValue) {
 	sphere.Center = XMFLOAT3(Position.x, Position.y, 0.0);
 	sphere.Radius = SizeValue * 0.5;
 }
 
-void MSDK::BoundingCircle::Render() {
+void SDK::BoundingCircle::Render() {
 	if (SHOW_BOUND_BOX) {
 		Circle.SetColor(1.0, 0.0, 0.0);
 		LineCircle.SetColor(1.0, 0.0, 0.0);
@@ -238,7 +238,7 @@ void MSDK::BoundingCircle::Render() {
 	}
 }
 
-bool MSDK::BoundingCircle::CheckCollision(const BoundingCircle& Other) {
+bool SDK::BoundingCircle::CheckCollision(const BoundingCircle& Other) {
 	if (sphere.Intersects(Other.sphere)) {
 		Collide = true;
 		return true;
@@ -248,7 +248,7 @@ bool MSDK::BoundingCircle::CheckCollision(const BoundingCircle& Other) {
 	return false;
 }
 
-bool MSDK::BoundingCircle::CheckCollision(const AABB& Other) {
+bool SDK::BoundingCircle::CheckCollision(const AABB& Other) {
 	if (sphere.Intersects(Other.Get())) {
 		Collide = true;
 		return true;
@@ -258,7 +258,7 @@ bool MSDK::BoundingCircle::CheckCollision(const AABB& Other) {
 	return false;
 }
 
-bool MSDK::BoundingCircle::CheckCollision(const OOBB& Other) {
+bool SDK::BoundingCircle::CheckCollision(const OOBB& Other) {
 	if (sphere.Intersects(Other.Get())) {
 		Collide = true;
 		return true;
@@ -268,7 +268,7 @@ bool MSDK::BoundingCircle::CheckCollision(const OOBB& Other) {
 	return false;
 }
 
-bool MSDK::BoundingCircle::CheckCollisionPoint(float X, float Y) {
+bool SDK::BoundingCircle::CheckCollisionPoint(float X, float Y) {
 	XMFLOAT3 Point(X, Y, 0.0);
 	if (sphere.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
 		Collide = true;
@@ -279,7 +279,7 @@ bool MSDK::BoundingCircle::CheckCollisionPoint(float X, float Y) {
 	return false;
 }
 
-bool MSDK::BoundingCircle::CheckCollisionPoint(glm::vec2& Position) {
+bool SDK::BoundingCircle::CheckCollisionPoint(glm::vec2& Position) {
 	XMFLOAT3 Point(Position.x, Position.y, 0.0);
 	if (sphere.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
 		Collide = true;
@@ -290,7 +290,7 @@ bool MSDK::BoundingCircle::CheckCollisionPoint(glm::vec2& Position) {
 	return false;
 }
 
-bool MSDK::BoundingCircle::CheckCollisionRay(MSDK::RayVector& Ray) {
+bool SDK::BoundingCircle::CheckCollisionRay(SDK::RayVector& Ray) {
 	if (sphere.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
 		Collide = true;
 		return true;
@@ -300,7 +300,7 @@ bool MSDK::BoundingCircle::CheckCollisionRay(MSDK::RayVector& Ray) {
 	return false;
 }
 
-bool MSDK::BoundingCircle::CheckCollisionLine(MSDK::RayVector& Ray) {
+bool SDK::BoundingCircle::CheckCollisionLine(SDK::RayVector& Ray) {
 	if (sphere.Intersects(Ray.Origin, Ray.Direction, Ray.Distance)) {
 		if (Ray.Distance <= Ray.Length) {
 			Collide = true;
@@ -317,6 +317,6 @@ bool MSDK::BoundingCircle::CheckCollisionLine(MSDK::RayVector& Ray) {
 }
 
 
-BoundingSphere MSDK::BoundingCircle::Get() const {
+BoundingSphere SDK::BoundingCircle::Get() const {
 	return sphere;
 }

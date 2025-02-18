@@ -2,9 +2,9 @@
 #include "SDK_EXTool.h"
 #include <cmath>
 
-MSDK::SDK_Math MSDK::Math;
+SDK::SDK_Math SDK::Math;
 
-void MSDK::SDK_Math::LookAt(float& DestRotation, float FromX, float FromY, float ToX, float ToY, float RotationSpeed, float FrameTime) {
+void SDK::SDK_Math::LookAt(float& DestRotation, float FromX, float FromY, float ToX, float ToY, float RotationSpeed, float FrameTime) {
 	float TargetAngle{}, ShortestAngle{};
 	TargetAngle = Computedegree(FromX, FromY, ToX, ToY) - 90.0;
 	TargetAngle = NormalizeDegree(TargetAngle);
@@ -17,7 +17,7 @@ void MSDK::SDK_Math::LookAt(float& DestRotation, float FromX, float FromY, float
 	DestRotation = NormalizeDegree(DestRotation + ShortestAngle);
 }
 
-void MSDK::SDK_Math::LookAt(float& DestRotation, glm::vec2& Position1, glm::vec2& Position2, float RotationSpeed, float FrameTime) {
+void SDK::SDK_Math::LookAt(float& DestRotation, glm::vec2& Position1, glm::vec2& Position2, float RotationSpeed, float FrameTime) {
 	float TargetAngle{}, ShortestAngle{};
 	TargetAngle = Computedegree(Position1, Position2) - 90.0;
 	TargetAngle = NormalizeDegree(TargetAngle);
@@ -30,7 +30,7 @@ void MSDK::SDK_Math::LookAt(float& DestRotation, glm::vec2& Position1, glm::vec2
 	DestRotation = NormalizeDegree(DestRotation + ShortestAngle);
 }
 
-void MSDK::SDK_Math::LookAt(float& RotationDest, float Rotation, float RotationSpeed, float FrameTime) {
+void SDK::SDK_Math::LookAt(float& RotationDest, float Rotation, float RotationSpeed, float FrameTime) {
 	float TargetAngle{}, ShortestAngle{};
 	TargetAngle = NormalizeDegree(Rotation);
 
@@ -42,20 +42,20 @@ void MSDK::SDK_Math::LookAt(float& RotationDest, float Rotation, float RotationS
 	RotationDest = NormalizeDegree(RotationDest + ShortestAngle);
 }
 
-void MSDK::SDK_Math::Lerp(float& DestValue, float Dest, float Speed, float FrameTime) {
+void SDK::SDK_Math::Lerp(float& DestValue, float Dest, float Speed, float FrameTime) {
 	if (LERP_THRESHOLD > 0.0 && abs(DestValue - Dest) <= LERP_THRESHOLD) {
 		DestValue = Dest;
 		return;
 	}
 
 	float t = Speed * FrameTime;
-	MSDK::EXTool.ClampValue(t, 1.0, CLAMP_GREATER);
+	SDK::EXTool.ClampValue(t, 1.0, CLAMP_GREATER);
 	DestValue = std::lerp(DestValue, Dest, t);
 }
 
-void MSDK::SDK_Math::Lerp(glm::vec2& DestValue, glm::vec2& Dest, float Speed, float FrameTime) {
+void SDK::SDK_Math::Lerp(glm::vec2& DestValue, glm::vec2& Dest, float Speed, float FrameTime) {
 	float t = Speed * FrameTime;
-	MSDK::EXTool.ClampValue(t, 1.0, CLAMP_GREATER);
+	SDK::EXTool.ClampValue(t, 1.0, CLAMP_GREATER);
 
 	if (LERP_THRESHOLD > 0.0 && abs(DestValue.x - Dest.x) <= LERP_THRESHOLD) 
 		DestValue.x = Dest.x;
@@ -68,9 +68,9 @@ void MSDK::SDK_Math::Lerp(glm::vec2& DestValue, glm::vec2& Dest, float Speed, fl
 		DestValue.y = std::lerp(DestValue.y, Dest.y, t);
 }
 
-void MSDK::SDK_Math::Lerp(glm::vec3& DestValue, glm::vec3& Dest, float Speed, float FrameTime) {
+void SDK::SDK_Math::Lerp(glm::vec3& DestValue, glm::vec3& Dest, float Speed, float FrameTime) {
 	float t = Speed * FrameTime;
-	MSDK::EXTool.ClampValue(t, 1.0, CLAMP_GREATER);
+	SDK::EXTool.ClampValue(t, 1.0, CLAMP_GREATER);
 
 	if (LERP_THRESHOLD > 0.0 && abs(DestValue.x - Dest.x) <= LERP_THRESHOLD)
 		DestValue.x = Dest.x;
@@ -88,35 +88,35 @@ void MSDK::SDK_Math::Lerp(glm::vec3& DestValue, glm::vec3& Dest, float Speed, fl
 		DestValue.z = std::lerp(DestValue.z, Dest.z, t);
 }
 
-float MSDK::SDK_Math::ComputeDistance(float FromX, float FromY, float ToX, float ToY) {
+float SDK::SDK_Math::ComputeDistance(float FromX, float FromY, float ToX, float ToY) {
 	return  std::sqrt(std::pow(FromX - ToX, 2) + std::pow(FromY - ToY, 2));
 }
 
-float MSDK::SDK_Math::ComputeDistance(glm::vec2& Position1, glm::vec2& Position2) {
+float SDK::SDK_Math::ComputeDistance(glm::vec2& Position1, glm::vec2& Position2) {
 	return  std::sqrt(std::pow(Position1.x - Position2.x, 2) + std::pow(Position1.y - Position2.y, 2));
 }
 
-glm::vec2 MSDK::SDK_Math::ComputeMidPoint(glm::vec2& Position1, glm::vec2& Position2) {
+glm::vec2 SDK::SDK_Math::ComputeMidPoint(glm::vec2& Position1, glm::vec2& Position2) {
 	return glm::vec2((Position1.x + Position2.x) / 2.0, (Position1.y + Position2.y) / 2.0);
 }
 
-float MSDK::SDK_Math::Computedegree(float FromX, float FromY, float ToX, float ToY) {
+float SDK::SDK_Math::Computedegree(float FromX, float FromY, float ToX, float ToY) {
 	return atan2(ToY - FromY, ToX - FromX) * (180.0 / 3.1415);
 }
  
-float MSDK::SDK_Math::Computedegree(glm::vec2& Position1, glm::vec2& Position2) {
+float SDK::SDK_Math::Computedegree(glm::vec2& Position1, glm::vec2& Position2) {
 	return atan2(Position2.y - Position1.y, Position2.x - Position1.x) * (180.0 / 3.1415);
 }
 
-float MSDK::SDK_Math::ComputeRadians(float FromX, float FromY, float ToX, float ToY) {
+float SDK::SDK_Math::ComputeRadians(float FromX, float FromY, float ToX, float ToY) {
 	return atan2(ToY - FromY, ToX - FromX);
 }
 
-float MSDK::SDK_Math::ComputeRadians(glm::vec2& Position1, glm::vec2& Position2) {
+float SDK::SDK_Math::ComputeRadians(glm::vec2& Position1, glm::vec2& Position2) {
 	return atan2(Position2.y - Position1.y, Position2.x - Position1.x);
 }
 
-MSDK::RayVector MSDK::SDK_Math::ComputeRay(float FromX, float FromY, float ToX, float ToY) {
+SDK::RayVector SDK::SDK_Math::ComputeRay(float FromX, float FromY, float ToX, float ToY) {
 	XMVECTOR RayOrigin = XMVectorSet(FromX, FromY, 0.0, 0.0);
 	float Angle = ComputeRadians(FromX, FromY, ToX, ToY);
 	float DirectionX = cos(Angle);
@@ -130,7 +130,7 @@ MSDK::RayVector MSDK::SDK_Math::ComputeRay(float FromX, float FromY, float ToX, 
 	return { RayOrigin, RayDirection, Distance, RayLength };
 }
 
-MSDK::RayVector MSDK::SDK_Math::ComputeRay(glm::vec2& From, glm::vec2& To) {
+SDK::RayVector SDK::SDK_Math::ComputeRay(glm::vec2& From, glm::vec2& To) {
 	XMVECTOR RayOrigin = XMVectorSet(From.x, From.y, 0.0, 0.0);
 	float Angle = ComputeRadians(From.x, From.y, To.x, To.y);
 	float DirectionX = cos(Angle);
@@ -144,7 +144,7 @@ MSDK::RayVector MSDK::SDK_Math::ComputeRay(glm::vec2& From, glm::vec2& To) {
 	return { RayOrigin, RayDirection, Distance, RayLength };
 }
 
-MSDK::RayVector MSDK::SDK_Math::ComputeRayWithDegree(float OriginX, float OriginY, float Degree, float LengthValue) {
+SDK::RayVector SDK::SDK_Math::ComputeRayWithDegree(float OriginX, float OriginY, float Degree, float LengthValue) {
 	XMVECTOR RayOrigin = XMVectorSet(OriginX, OriginY, 0.0, 0.0);
 	float Angle = glm::radians(Degree);
 	float DirectionX = cos(Angle);
@@ -158,7 +158,7 @@ MSDK::RayVector MSDK::SDK_Math::ComputeRayWithDegree(float OriginX, float Origin
 	return { RayOrigin, RayDirection, Distance, RayLength };
 }
 
-MSDK::RayVector MSDK::SDK_Math::ComputeRayWithDegree(glm::vec2& Origin, float Degree, float LengthValue) {
+SDK::RayVector SDK::SDK_Math::ComputeRayWithDegree(glm::vec2& Origin, float Degree, float LengthValue) {
 	XMVECTOR RayOrigin = XMVectorSet(Origin.x, Origin.y, 0.0, 0.0);
 	float Angle = glm::radians(Degree);
 	float DirectionX = cos(Angle);
@@ -174,13 +174,13 @@ MSDK::RayVector MSDK::SDK_Math::ComputeRayWithDegree(glm::vec2& Origin, float De
 
 ////////////////////////////////// private
 
-float MSDK::SDK_Math::NormalizeDegree(float Degree) {
+float SDK::SDK_Math::NormalizeDegree(float Degree) {
 	while (Degree < 0) Degree += 360;
 	while (Degree >= 360) Degree -= 360;
 	return Degree;
 }
 
-float MSDK::SDK_Math::ComputeShortestRotation(float CurrentDegree, float DegreeDest) {
+float SDK::SDK_Math::ComputeShortestRotation(float CurrentDegree, float DegreeDest) {
 	float Diff = DegreeDest - CurrentDegree;
 
 	if (Diff > 180)
