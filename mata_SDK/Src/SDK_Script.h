@@ -15,7 +15,7 @@ using namespace CryptoPP;
 
 // read only
 
-namespace SDK {
+namespace MSDK {
 	class Script {
 	private:
 		TiXmlDocument Doc{};
@@ -34,8 +34,8 @@ namespace SDK {
 		std::string LoadStringData(std::string CategoryName, std::string DataName);
 		std::wstring LoadWstringData(std::string CategoryName, std::string DataName);
 		int CountCategory();
-		SDK::DigitDataVec LoadCategoryDigitData(std::string CategoryName);
-		SDK::StringDataVec LoadCategoryStringData(std::string CategoryName);
+		MSDK::DigitDataVec LoadCategoryDigitData(std::string CategoryName);
+		MSDK::StringDataVec LoadCategoryStringData(std::string CategoryName);
 		void Release();
 
 

@@ -10,8 +10,8 @@ public:
 	glm::mat4 ViewMatrix{ 1.0 }, Projection{ 1.0 }, CameraMatrix{ 1.0 };
 
 	glm::vec2 Position{};
-	GLfloat   Rotation{};
-	GLfloat   Zoom{ 1.0f };
+	float   Rotation{};
+	float   Zoom{ 1.0f };
 
 	void CalculateASPECT();
 	void Init();
@@ -19,6 +19,6 @@ public:
 	void PrepareRender(int ShaderType);
 };
 
-namespace SDK {
+namespace MSDK {
 	extern SDK_Camera Camera;
 }

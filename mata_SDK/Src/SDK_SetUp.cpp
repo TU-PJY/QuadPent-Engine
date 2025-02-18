@@ -10,33 +10,33 @@
 
 #include "SDK_LoadingMode.h"
 
-int SDK::WIDTH = WINDOW_WIDTH;
-int SDK::HEIGHT = WINDOW_HEIGHT;
-int SDK::PREV_WIDTH, SDK::PREV_HEIGHT;
+int MSDK::WIDTH = WINDOW_WIDTH;
+int MSDK::HEIGHT = WINDOW_HEIGHT;
+int MSDK::PREV_WIDTH, MSDK::PREV_HEIGHT;
 
-SDK::Object* Indicator;
+MSDK::Object* Indicator;
 
-SDK_Camera SDK::Camera;
+SDK_Camera MSDK::Camera;
 
-GLfloat SDK::ASPECT;
-SDK::ViewportRect SDK::RECT;
-glm::vec3 SDK::ViewportColor;
-const glm::mat4 SDK::IdentityMatrix = glm::mat4(1.0f);
+float MSDK::ASPECT;
+MSDK::ViewportRect MSDK::WindowRect;
+glm::vec3 MSDK::ViewportColor;
+const glm::mat4 MSDK::IdentityMatrix = glm::mat4(1.0f);
 
-SDK::SDK_SYSTEM_RESOURCE SDK::SYSRES;
-SDK::SDK_IMAGE_RESOURCE SDK::IMAGE;
-SDK::SDK_SOUND_RESOURCE SDK::SOUND;
-SDK::SDK_SOUND_CHANNEL_RESOURCE SDK::CHANNEL;
-SDK::SDK_GLOBAL_RESOURCE SDK::GLOBAL;
-SDK::SDK_FORMAT_RESOURCE SDK::FORMAT;
-SDK::SDK_FILE_RESOURCE SDK::FILE;
-SDK::SDK_FONT_NAME_RESOURCE SDK::FONTNAME;
-SDK::SDK_MODE_RESOURCE SDK::MODE;
+MSDK::SDK_SYSTEM_RESOURCE MSDK::SYSRES;
+MSDK::SDK_IMAGE_RESOURCE MSDK::IMAGE;
+MSDK::SDK_SOUND_RESOURCE MSDK::SOUND;
+MSDK::SDK_SOUND_CHANNEL_RESOURCE MSDK::CHANNEL;
+MSDK::SDK_GLOBAL_RESOURCE MSDK::GLOBAL;
+MSDK::SDK_FORMAT_RESOURCE MSDK::FORMAT;
+MSDK::SDK_FILE_RESOURCE MSDK::FILE;
+MSDK::SDK_FONT_NAME_RESOURCE MSDK::FONTNAME;
+MSDK::SDK_MODE_RESOURCE MSDK::MODE;
 
-std::wstring SDK::LOCALE;
-SDK::START_MODE_PTR SDK::START_MODE;
+std::wstring MSDK::LOCALE;
+MSDK::START_MODE_PTR MSDK::START_MODE;
 
-void SDKSystem::SetupSystem(int argc, char** argv) {
+void MSDK::SDKSystem::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);
 	SetupWindow();
 	LoadShader();
@@ -44,17 +44,17 @@ void SDKSystem::SetupSystem(int argc, char** argv) {
 	InitSystem();
 }
 
-void SDKSystem::SetupWindow() {
+void MSDK::SDKSystem::SetupWindow() {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
 
-	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - SDK::WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - SDK::HEIGHT / 2);
-	glutInitWindowSize(SDK::WIDTH, SDK::HEIGHT);
+	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - MSDK::WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - MSDK::HEIGHT / 2);
+	glutInitWindowSize(MSDK::WIDTH, MSDK::HEIGHT);
 	glutCreateWindow(WINDOW_NAME);
 
 	if (FULL_SCREEN_OPTION) {
 		glutFullScreen();
-		SDK::WIDTH = GetSystemMetrics(SM_CXSCREEN);
-		SDK::HEIGHT = GetSystemMetrics(SM_CYSCREEN);
+		MSDK::WIDTH = GetSystemMetrics(SM_CXSCREEN);
+		MSDK::HEIGHT = GetSystemMetrics(SM_CYSCREEN);
 	}
 
 	glewExperimental = GL_TRUE;
@@ -72,27 +72,27 @@ void SDKSystem::SetupWindow() {
 	}
 }
 
-void SDKSystem::LoadShader() {
-	SDK::Shader.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
-	SDK::Shader.LoadFragmentShader("SDKResource//GLSL//Fragment_Image.glsl");
-	SDK::Shader.CreateShader(IMAGE_SHADER);
+void MSDK::SDKSystem::LoadShader() {
+	MSDK::Shader.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
+	MSDK::Shader.LoadFragmentShader("SDKResource//GLSL//Fragment_Image.glsl");
+	MSDK::Shader.CreateShader(IMAGE_SHADER);
 
-	SDK::Shader.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
-	SDK::Shader.LoadFragmentShader("SDKResource//GLSL//Fragment_Text.glsl");
-	SDK::Shader.CreateShader(TEXT_SHADER);
+	MSDK::Shader.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
+	MSDK::Shader.LoadFragmentShader("SDKResource//GLSL//Fragment_Text.glsl");
+	MSDK::Shader.CreateShader(TEXT_SHADER);
 
-	SDK::Shader.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
-	SDK::Shader.LoadFragmentShader("SDKResource//GLSL//Fragment_Shape.glsl");
-	SDK::Shader.CreateShader(SHAPE_SHADER);
+	MSDK::Shader.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
+	MSDK::Shader.LoadFragmentShader("SDKResource//GLSL//Fragment_Shape.glsl");
+	MSDK::Shader.CreateShader(SHAPE_SHADER);
 
-	SDK::Shader.LoadComputeShader("SDKResource//GLSL//ComputeMatrix.glsl");
-	SDK::Shader.CreateComputeShader(MATRIX_COMPT_SHADER);
+	MSDK::Shader.LoadComputeShader("SDKResource//GLSL//ComputeMatrix.glsl");
+	MSDK::Shader.CreateComputeShader(MATRIX_COMPT_SHADER);
 
-	SDK::Shader.CreateShaderLocation();
-	SDK::Shader.CreateSSBO();
+	MSDK::Shader.CreateShaderLocation();
+	MSDK::Shader.CreateSSBO();
 }
 
-void SDKSystem::SetGlOption() {
+void MSDK::SDKSystem::SetGlOption() {
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_ALPHA_TEST);
 	glEnable(GL_BLEND);
@@ -100,10 +100,10 @@ void SDKSystem::SetGlOption() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void SDKSystem::InitSystem() {
+void MSDK::SDKSystem::InitSystem() {
 	FPSLimit = FRAME_LIMITS;
 	if (FPSLimit > 0)
 		DestFPS = 1000.0 / (float)FPSLimit;
 
-	SDK::Scene.Init(LoadingMode.Start);
+	MSDK::Scene.Init(LoadingMode.Start);
 }

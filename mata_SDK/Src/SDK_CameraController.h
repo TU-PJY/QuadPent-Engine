@@ -1,23 +1,23 @@
 ﻿#pragma once
 #include "SDK_Camera.h"
 
-namespace SDK {
+namespace MSDK {
 	class SDK_CameraController {
 	public:
 		void Update(float FrameTime);
-		void Move(GLfloat X, GLfloat Y);
+		void Move(float X, float Y);
 		void Move(glm::vec2& PositionValue);
-		void Rotate(GLfloat Degree);
-		void Zoom(int ZoomType, GLfloat ZoomValue);
-		void SetZoom(GLfloat ZoomValue);
-		GLfloat ComputeNextZoom(int ZoomType, GLfloat ZoomValue);
+		void Rotate(float Degree);
+		void Zoom(int ZoomType, float ZoomValue);
+		void SetZoom(float ZoomValue);
+		float ComputeNextZoom(int ZoomType, float ZoomValue);
 
 	private:
 		glm::vec2 Position{};
-		GLfloat Rotation{};
+		float Rotation{};
 
 		void ComputeCameraMatrix();
 	};
 
-	extern SDK::SDK_CameraController CameraControl;
+	extern MSDK::SDK_CameraController CameraControl;
 }

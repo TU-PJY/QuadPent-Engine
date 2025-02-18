@@ -21,7 +21,7 @@
 using namespace CryptoPP;
 
 // write and read
-namespace SDK {
+namespace MSDK {
 	class Data {
 	private:
 		std::string   FilePath{};
@@ -44,8 +44,8 @@ namespace SDK {
 		float LoadDigitData(std::string CategoryName, std::string DataName);
 		std::string LoadStringData(std::string CategoryName, std::string DataName);
 		std::wstring LoadWStringData(std::string Categoryname, std::string DataName);
-		SDK::DigitDataVec LoadCategoryDigitData(std::string CategoryName);
-		SDK::StringDataVec LoadCategoryStringData(std::string CategoryName);
+		MSDK::DigitDataVec LoadCategoryDigitData(std::string CategoryName);
+		MSDK::StringDataVec LoadCategoryStringData(std::string CategoryName);
 		void ResetData();
 		void Release();
 

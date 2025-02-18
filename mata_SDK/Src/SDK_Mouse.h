@@ -1,12 +1,12 @@
 #pragma once
 #include "SDK_Header.h"
 
-namespace SDK {
+namespace MSDK {
 	class SDK_Mouse {
 	public:
-		GLfloat x{}, y{};
+		float x{}, y{};
 		void ConvertPosition(int X, int Y);
 	};
 
-	extern SDK::SDK_Mouse Mouse;
+	extern MSDK::SDK_Mouse Mouse;
 }

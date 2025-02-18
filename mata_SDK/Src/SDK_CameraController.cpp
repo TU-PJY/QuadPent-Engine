@@ -3,60 +3,60 @@
 #include "SDK_Transform.h"
 #include "SDK_AnimationTool.h"
 
-SDK::SDK_CameraController SDK::CameraControl;
+MSDK::SDK_CameraController MSDK::CameraControl;
 
-void SDK::SDK_CameraController::Update(float FrameTime){
+void MSDK::SDK_CameraController::Update(float FrameTime){
 	// add logic here
 
 	ComputeCameraMatrix();
 }
 
-void SDK::SDK_CameraController::Move(GLfloat X, GLfloat Y){
+void MSDK::SDK_CameraController::Move(float X, float Y){
 	Position.x = -X;
 	Position.y = -Y;
-	SDK::Camera.Position.x = X;
-	SDK::Camera.Position.y = Y;
+	MSDK::Camera.Position.x = X;
+	MSDK::Camera.Position.y = Y;
 }
 
-void SDK::SDK_CameraController::Move(glm::vec2& PositionValue){
+void MSDK::SDK_CameraController::Move(glm::vec2& PositionValue){
 	Position = -PositionValue;
-	SDK::Camera.Position = PositionValue;
+	MSDK::Camera.Position = PositionValue;
 }
 
-void SDK::SDK_CameraController::Rotate(GLfloat Degree){
+void MSDK::SDK_CameraController::Rotate(float Degree){
 	Rotation = -Degree;
-	SDK::Camera.Rotation = Degree;
+	MSDK::Camera.Rotation = Degree;
 }
 
-void SDK::SDK_CameraController::Zoom(int ZoomType, GLfloat ZoomValue){
+void MSDK::SDK_CameraController::Zoom(int ZoomType, float ZoomValue){
 	switch (ZoomType) {
 	case ZOOM_IN:
-		SDK::Camera.Zoom = SDK::Camera.Zoom / (1.0f - ZoomValue);
+		MSDK::Camera.Zoom = MSDK::Camera.Zoom / (1.0f - ZoomValue);
 		break;
 
 	case ZOOM_OUT:
-		SDK::Camera.Zoom = SDK::Camera.Zoom * (1.0f - ZoomValue);
+		MSDK::Camera.Zoom = MSDK::Camera.Zoom * (1.0f - ZoomValue);
 		break;
 	}
 }
 
-void SDK::SDK_CameraController::SetZoom(GLfloat ZoomValue){
-	SDK::Camera.Zoom = ZoomValue;
+void MSDK::SDK_CameraController::SetZoom(float ZoomValue){
+	MSDK::Camera.Zoom = ZoomValue;
 }
 
-GLfloat SDK::SDK_CameraController::ComputeNextZoom(int ZoomType, GLfloat ZoomValue) {
+float MSDK::SDK_CameraController::ComputeNextZoom(int ZoomType, float ZoomValue) {
 	if (ZoomType == ZOOM_IN)
-		return 	SDK::Camera.Zoom / (1.0f - ZoomValue);
+		return 	MSDK::Camera.Zoom / (1.0f - ZoomValue);
 	else if (ZoomType == ZOOM_OUT)
-		return 	SDK::Camera.Zoom * (1.0f - ZoomValue);
+		return 	MSDK::Camera.Zoom * (1.0f - ZoomValue);
 	else
-		return 	SDK::Camera.Zoom;
+		return 	MSDK::Camera.Zoom;
 }
 
 ///////////////////////////////////////// private
 
-void SDK::SDK_CameraController::ComputeCameraMatrix(){
-	SDK::Transform.Identity(SDK::Camera.CameraMatrix);
-	SDK::Transform.Rotate(SDK::Camera.CameraMatrix, Rotation);
-	SDK::Transform.Move(SDK::Camera.CameraMatrix, Position);
+void MSDK::SDK_CameraController::ComputeCameraMatrix(){
+	MSDK::Transform.Identity(MSDK::Camera.CameraMatrix);
+	MSDK::Transform.Rotate(MSDK::Camera.CameraMatrix, Rotation);
+	MSDK::Transform.Move(MSDK::Camera.CameraMatrix, Position);
 }

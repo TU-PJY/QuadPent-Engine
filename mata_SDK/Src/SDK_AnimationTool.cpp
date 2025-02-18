@@ -2,21 +2,21 @@
 #include "SDK_Math.h"
 #include "SDK_EXTool.h"
 
-void SDK::SinLoop::Update(GLfloat& Value, GLfloat MoveScale, GLfloat Speed, float FrameTime) {
+void MSDK::SinLoop::Update(float& Value, float MoveScale, float Speed, float FrameTime) {
 	Num += Speed * FrameTime;
 	Value = sin(Num) * MoveScale;
 }
 
-void SDK::SinLoop::SetValue(GLfloat Value) {
+void MSDK::SinLoop::SetValue(float Value) {
 	Num = Value;
 }
 
-void SDK::SinLoop::Reset() {
+void MSDK::SinLoop::Reset() {
 	Num = 0.0;
 }
 
 
-void SDK::PopBounce::Update(GLfloat& Value, GLfloat SizeDest, GLfloat ShakeScale, GLfloat SizeIncreaseSpeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime) {
+void MSDK::PopBounce::Update(float& Value, float SizeDest, float ShakeScale, float SizeIncreaseSpeed, float ShakeSpeed, float ShakeReduceSpeed, float FrameTime) {
 	Num3 += FrameTime * SizeIncreaseSpeed;
 
 	if (Num3 >= SizeDest) {
@@ -28,16 +28,16 @@ void SDK::PopBounce::Update(GLfloat& Value, GLfloat SizeDest, GLfloat ShakeScale
 	Value = Num3 + sin(Num1) * (ShakeScale - Num2);
 }
 
-void SDK::PopBounce::Reset(){
+void MSDK::PopBounce::Reset(){
 	Num1 = 0.0;
 	Num2 = 0.0;
 	Num3 = 0.0;
 }
 
 
-void SDK::ReverseLerp::Update(GLfloat& Value, GLfloat Dest, GLfloat Speed, GLfloat IncreaseSpeed, float FrameTime) {
-	GLfloat ReturnValue = Value;
-	GLfloat Diff = Dest - Value;
+void MSDK::ReverseLerp::Update(float& Value, float Dest, float Speed, float IncreaseSpeed, float FrameTime) {
+	float ReturnValue = Value;
+	float Diff = Dest - Value;
 
 	if (MoveState) {
 		if (std::abs(Diff) < std::abs(Velocity)) {
@@ -56,7 +56,7 @@ void SDK::ReverseLerp::Update(GLfloat& Value, GLfloat Dest, GLfloat Speed, GLflo
 	Value = ReturnValue;
 }
 
-void SDK::ReverseLerp::Reset() {
+void MSDK::ReverseLerp::Reset() {
 	Velocity = 0.0;
 	Acc = 0.0;
 	MoveState = true;

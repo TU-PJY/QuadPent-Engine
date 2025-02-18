@@ -5,34 +5,34 @@
 #include <map>
 #include <unordered_map>
 
-namespace SDK {
+namespace MSDK {
 	class Text {
 	private:
 		glm::vec2                RenderPosition{};
 		glm::vec2                CurrentRenderOffset{};
-		GLfloat                  Rotation{};
+		float                  Rotation{};
 
 		size_t                   TextWordCount{};
-		GLfloat                  TextLength{};
-		GLfloat                  TextRenderSize{};
-		GLfloat                  TextLineGap{};
-		GLfloat                  MiddleHeight{};
+		float                  TextLength{};
+		float                  TextRenderSize{};
+		float                  TextLineGap{};
+		float                  MiddleHeight{};
 
-		std::vector<GLfloat>     LineLengthBuffer{};
+		std::vector<float>     LineLengthBuffer{};
 		std::wstring             CurrentText{};
 		std::wstring             PrevText{};
 		int                      CurrentLine{};
 
-		GLfloat                  TextOpacity{ 1.0f };
+		float                  TextOpacity{ 1.0f };
 		glm::vec3                TextColor{ glm::vec3(1.0, 1.0, 1.0) };
 
 		bool                     ShadowRenderCommand{};
-		GLfloat					 ShadowOpacity{};
+		float					 ShadowOpacity{};
 		glm::vec2                ShadowOffset{};
 		glm::vec3                ShadowColor{};
 
 		glm::vec3                RenderColor{};
-		GLfloat                  RenderOpacity{};
+		float                  RenderOpacity{};
 
 		HDC                      hDC{};
 		HFONT                    Font{};
@@ -51,30 +51,30 @@ namespace SDK {
 		~Text();
 		void Init(const wchar_t* FontName, int Type, int Italic = FALSE);
 		void Reset(int RenderTypeFlag = RENDER_TYPE_STATIC);
-		void SetColor(GLfloat R, GLfloat G, GLfloat B);
+		void SetColor(float R, float G, float B);
 		void SetColor(glm::vec3& Color);
 		void SetColorRGB(int R, int G, int B);
 		void SetAlign(int AlignOpt);
-		void SetLineGap(GLfloat Value);
+		void SetLineGap(float Value);
 		void EnableFixMiddle();
 		void DisableFixMiddle();
 		void SetHeightAlign(int Type);
 		void EnableShadow();
 		void DisableShadow();
-		void SetShadow(GLfloat OffsetX, GLfloat OffsetY, GLfloat Opacity, glm::vec3 Color = glm::vec3(0.0, 0.0, 0.0));
-		void Rotate(GLfloat RotationValue);
-		void SetOpacity(GLfloat Value);
-		void Render(glm::vec2& Position, GLfloat Size, const wchar_t* Fmt, ...);
-		void Render(GLfloat X, GLfloat Y, GLfloat Size, const wchar_t* Fmt, ...);
-		void RenderStr(glm::vec2& Position, GLfloat Size, std::string Str);
-		void RenderStr(GLfloat X, GLfloat Y, GLfloat Size, std::string Str);
-		void RenderWStr(glm::vec2& Position, GLfloat Size, std::wstring Str);
-		void RenderWStr(GLfloat X, GLfloat Y, GLfloat Size, std::wstring Str);
+		void SetShadow(float OffsetX, float OffsetY, float Opacity, glm::vec3 Color = glm::vec3(0.0, 0.0, 0.0));
+		void Rotate(float RotationValue);
+		void SetOpacity(float Value);
+		void Render(glm::vec2& Position, float Size, const wchar_t* Fmt, ...);
+		void Render(float X, float Y, float Size, const wchar_t* Fmt, ...);
+		void RenderStr(glm::vec2& Position, float Size, std::string Str);
+		void RenderStr(float X, float Y, float Size, std::string Str);
+		void RenderWStr(glm::vec2& Position, float Size, std::wstring Str);
+		void RenderWStr(float X, float Y, float Size, std::wstring Str);
 		void SetRenderType(int Type);
 
 	private:
-		void InputText(std::vector<wchar_t>& Input, glm::vec2& Position, GLfloat Size);
-		void ProcessText(wchar_t* Text, glm::vec2& Position, GLfloat Size);
+		void InputText(std::vector<wchar_t>& Input, glm::vec2& Position, float Size);
+		void ProcessText(wchar_t* Text, glm::vec2& Position, float Size);
 		void GetLineLength(const wchar_t* Text);
 		void CalculateTextLength(const wchar_t* Text);
 		void NextLine();

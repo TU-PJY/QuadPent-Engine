@@ -1,7 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
 
-namespace SDK {
+namespace MSDK {
 class SDK_ColorClipping {
 public:
 	void First();

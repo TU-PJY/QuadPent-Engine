@@ -3,37 +3,37 @@
 #include "SDK_Camera.h"
 #include "SDK_CameraController.h"
 
-SDK::SDK_Frustum SDK::Frustum;
+MSDK::SDK_Frustum MSDK::Frustum;
 
-void SDK::SDK_Frustum::Update() {
-	FrustumOOBB.Update(SDK::Camera.Position, (2.0 * SDK::ASPECT) / SDK::Camera.Zoom, 2.0 / SDK::Camera.Zoom, SDK::Camera.Rotation);
+void MSDK::SDK_Frustum::Update() {
+	FrustumOOBB.Update(MSDK::Camera.Position, (2.0 * MSDK::ASPECT) / MSDK::Camera.Zoom, 2.0 / MSDK::Camera.Zoom, MSDK::Camera.Rotation);
 
 if(SHOW_FRUSTUM_BOUND)
-	LineRect.Draw(SDK::Camera.Position.x, SDK::Camera.Position.y, (2.0 * SDK::ASPECT) / SDK::Camera.Zoom, 2.0 / SDK::Camera.Zoom, BOUND_BOX_THICKNESS, SDK::Camera.Rotation);
+	LineRect.Draw(MSDK::Camera.Position.x, MSDK::Camera.Position.y, (2.0 * MSDK::ASPECT) / MSDK::Camera.Zoom, 2.0 / MSDK::Camera.Zoom, BOUND_BOX_THICKNESS, MSDK::Camera.Rotation);
 }
 
-bool SDK::SDK_Frustum::Check(SDK::AABB& aabb) {
+bool MSDK::SDK_Frustum::Check(MSDK::AABB& aabb) {
 	if (FrustumOOBB.CheckCollision(aabb))
 		return true;
 
 	return false;
 }
 
-bool SDK::SDK_Frustum::Check(SDK::OOBB& oobb) {
+bool MSDK::SDK_Frustum::Check(MSDK::OOBB& oobb) {
 	if (FrustumOOBB.CheckCollision(oobb))
 		return true;
 
 	return false;
 }
 
-bool SDK::SDK_Frustum::Check(SDK::BoundingCircle& circle) {
+bool MSDK::SDK_Frustum::Check(MSDK::BoundingCircle& circle) {
 	if (FrustumOOBB.CheckCollision(circle))
 		return true;
 
 	return false;
 }
 
-SDK::SDK_Frustum::SDK_Frustum() {
+MSDK::SDK_Frustum::SDK_Frustum() {
 	LineRect.SetRenderType(RENDER_TYPE_DEFAULT);
 	LineRect.SetColor(1.0, 0.0, 0.0);
 }

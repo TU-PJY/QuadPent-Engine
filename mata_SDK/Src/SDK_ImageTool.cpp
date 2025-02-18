@@ -9,9 +9,9 @@
 #include "SDK_ComputeTool.h"
 
 
-SDK::SDK_ImageTool SDK::ImageTool;
+MSDK::SDK_ImageTool MSDK::ImageTool;
 
-GLfloat ImagePannel[][48] = {  // default size 1.0 * 1.0
+float ImagePannel[][48] = {  // default size 1.0 * 1.0
 	-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0,
 	 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0, 0.0,
 	 0.5f,  0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0, 1.0,
@@ -20,7 +20,7 @@ GLfloat ImagePannel[][48] = {  // default size 1.0 * 1.0
 	-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0, 0.0
 };
 
-void SDK::SDK_ImageTool::Init() {
+void MSDK::SDK_ImageTool::Init() {
 	GLuint VBO{};
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
@@ -30,16 +30,16 @@ void SDK::SDK_ImageTool::Init() {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(ImagePannel), ImagePannel, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
 	stbi_set_flip_vertically_on_load(true);
 }
 
-void SDK::SDK_ImageTool::LoadImage(SDK::Image& ImageStruct, std::string FilePath, int Type) {
+void MSDK::SDK_ImageTool::LoadImage(MSDK::Image& ImageStruct, std::string FilePath, int Type) {
 	int Width{}, Height{}, Channel{};
 
 	glGenTextures(1, &ImageStruct.Texture);
@@ -61,7 +61,7 @@ void SDK::SDK_ImageTool::LoadImage(SDK::Image& ImageStruct, std::string FilePath
 
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -72,7 +72,7 @@ void SDK::SDK_ImageTool::LoadImage(SDK::Image& ImageStruct, std::string FilePath
 	ImageStruct.Height = Height;
 }
 
-void SDK::SDK_ImageTool::LoadClip(SDK::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
+void MSDK::SDK_ImageTool::LoadClip(MSDK::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
 	int Width{}, Height{}, Channel{};
 
 	glGenTextures(1, &ImageStruct.Texture);
@@ -94,7 +94,7 @@ void SDK::SDK_ImageTool::LoadClip(SDK::Image& ImageStruct, std::string FilePath,
 
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -120,7 +120,7 @@ void SDK::SDK_ImageTool::LoadClip(SDK::Image& ImageStruct, std::string FilePath,
 	ImageStruct.Height = ClipHeight;
 }
 
-void SDK::SDK_ImageTool::SetSpriteSheetSize(int ValueClipWidth, int ValueClipHeight, int ValueNumRow, int ValueNumCol, int ValueStartCol, int ValueNumBlank) {
+void MSDK::SDK_ImageTool::SetSpriteSheetSize(int ValueClipWidth, int ValueClipHeight, int ValueNumRow, int ValueNumCol, int ValueStartCol, int ValueNumBlank) {
 	ClipWidth = ValueClipWidth;
 	ClipHeight = ValueClipHeight;
 	NumRow = ValueNumRow;
@@ -129,11 +129,11 @@ void SDK::SDK_ImageTool::SetSpriteSheetSize(int ValueClipWidth, int ValueClipHei
 	BlankLocation = ValueNumBlank;
 }
 
-void SDK::SDK_ImageTool::LoadSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
+void MSDK::SDK_ImageTool::LoadSpriteSheet(MSDK::SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -147,7 +147,7 @@ void SDK::SDK_ImageTool::LoadSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, st
 	int CurrentIndex{};
 	int CurrentXPosition = 0;
 	int CurrentYPosition = Height - ClipHeight * StartLocation;
-	SDK::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+	MSDK::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 	for (int C = 0; C < NumCol; ++C) {
 		for (int R = 0; R < NumRow; ++R) {
@@ -181,13 +181,13 @@ void SDK::SDK_ImageTool::LoadSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, st
 			stbi_image_free(ClippedTextureData);
 
 			CurrentXPosition += ClipWidth;
-			SDK::EXTool.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
+			MSDK::EXTool.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
 
 			++CurrentIndex;
 		}
 
 		CurrentYPosition -= ClipHeight;
-		SDK::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+		MSDK::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 		CurrentXPosition = 0;
 	}
@@ -198,12 +198,12 @@ void SDK::SDK_ImageTool::LoadSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, st
 	SpriteSheetStruct.Height = ClipHeight;
 }
 
-void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
-	SDK::PreLoadSpriteSheetInfo PLSS{};
+void MSDK::SDK_ImageTool::LoadSpriteSheetT(MSDK::SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
+	MSDK::PreLoadSpriteSheetInfo PLSS{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -216,7 +216,7 @@ void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, s
 
 	int CurrentXPosition = 0;
 	int CurrentYPosition = Height - ClipHeight * StartLocation;
-	SDK::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+	MSDK::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 	for (int C = 0; C < NumCol; ++C) {
 		for (int R = 0; R < NumRow; ++R) {
@@ -232,11 +232,11 @@ void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, s
 			PLSS.TextureData.emplace_back(ClippedTextureData);
 
 			CurrentXPosition += ClipWidth;
-			SDK::EXTool.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
+			MSDK::EXTool.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
 		}
 
 		CurrentYPosition -= ClipHeight;
-		SDK::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+		MSDK::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 		CurrentXPosition = 0;
 	}
@@ -252,12 +252,12 @@ void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, s
 	stbi_image_free(TextureData);
 }
 
-void SDK::SDK_ImageTool::LoadImageT(SDK::Image& ImageStruct, std::string FilePath, int Type) {
-	SDK::PreLoadInfo PLI{};
+void MSDK::SDK_ImageTool::LoadImageT(MSDK::Image& ImageStruct, std::string FilePath, int Type) {
+	MSDK::PreLoadInfo PLI{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -270,12 +270,12 @@ void SDK::SDK_ImageTool::LoadImageT(SDK::Image& ImageStruct, std::string FilePat
 	LoadBuffer.emplace_back(PLI);
 }
 
-void SDK::SDK_ImageTool::LoadClipT(SDK::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
-	SDK::PreLoadInfo PLI{};
+void MSDK::SDK_ImageTool::LoadClipT(MSDK::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
+	MSDK::PreLoadInfo PLI{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -304,7 +304,7 @@ void SDK::SDK_ImageTool::LoadClipT(SDK::Image& ImageStruct, std::string FilePath
 	LoadBuffer.emplace_back(PLI);
 }
 
-void SDK::SDK_ImageTool::Map() {
+void MSDK::SDK_ImageTool::Map() {
 	if (!LoadBuffer.empty()) {
 		for (auto& B : LoadBuffer) {
 			glGenTextures(1, &B.ImagePtr->Texture);
@@ -361,39 +361,39 @@ void SDK::SDK_ImageTool::Map() {
 	}
 }
 
-void SDK::SDK_ImageTool::Blur(GLfloat BlurStrength) {
+void MSDK::SDK_ImageTool::Blur(float BlurStrength) {
 	ObjectBlurValue = BlurStrength;
 }
 
-void SDK::SDK_ImageTool::UnitBlur(GLfloat BlurStrength) {
+void MSDK::SDK_ImageTool::UnitBlur(float BlurStrength) {
 	UnitBlurValue = BlurStrength;
 }
 
-void SDK::SDK_ImageTool::UnitOpacity(GLfloat Value) {
+void MSDK::SDK_ImageTool::UnitOpacity(float Value) {
 	UnitOpacityValue = Value;
 }
 
-void SDK::SDK_ImageTool::SetColor(GLfloat R, GLfloat G, GLfloat B) {
+void MSDK::SDK_ImageTool::SetColor(float R, float G, float B) {
 	ObjectColor.r = R;
 	ObjectColor.g = G;
 	ObjectColor.b = B;
 }
 
-void SDK::SDK_ImageTool::SetColor(glm::vec3& Color) {
+void MSDK::SDK_ImageTool::SetColor(glm::vec3& Color) {
 	ObjectColor.r = Color.r;
 	ObjectColor.g = Color.g;
 	ObjectColor.b = Color.b;
 }
 
-void SDK::SDK_ImageTool::SetColorRGB(int R, int G, int B) {
-	ObjectColor.r = (1.0f / 255.0f) * (GLfloat)R;
-	ObjectColor.g = (1.0f / 255.0f) * (GLfloat)G;
-	ObjectColor.b = (1.0f / 255.0f) * (GLfloat)B;
+void MSDK::SDK_ImageTool::SetColorRGB(int R, int G, int B) {
+	ObjectColor.r = (1.0f / 255.0f) * (float)R;
+	ObjectColor.g = (1.0f / 255.0f) * (float)G;
+	ObjectColor.b = (1.0f / 255.0f) * (float)B;
 }
 
-void SDK::SDK_ImageTool::RenderImage(SDK::Image& ImageStruct, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
-	GLfloat Width = (GLfloat)ImageStruct.Width;
-	GLfloat Height = (GLfloat)ImageStruct.Height;
+void MSDK::SDK_ImageTool::RenderImage(MSDK::Image& ImageStruct, float OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+	float Width = (float)ImageStruct.Width;
+	float Height = (float)ImageStruct.Height;
 
 	ProcessTransform(Width, Height, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
 	PrepareRender(ImageStruct);
@@ -403,12 +403,12 @@ void SDK::SDK_ImageTool::RenderImage(SDK::Image& ImageStruct, GLfloat OpacityVal
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void SDK::SDK_ImageTool::RenderSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, GLfloat& Frame, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void MSDK::SDK_ImageTool::RenderSpriteSheet(MSDK::SpriteSheet& SpriteSheetStruct, float& Frame, float OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	if ((int)Frame >= SpriteSheetStruct.Frame)
 		Frame = 0.0;
 
-	GLfloat Width = (GLfloat)SpriteSheetStruct.Width;
-	GLfloat Height = (GLfloat)SpriteSheetStruct.Height;
+	float Width = (float)SpriteSheetStruct.Width;
+	float Height = (float)SpriteSheetStruct.Height;
 
 	ProcessTransform(Width, Height, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
 	PrepareRender(SpriteSheetStruct);
@@ -418,9 +418,9 @@ void SDK::SDK_ImageTool::RenderSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, 
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void SDK::SDK_ImageTool::RenderStaticSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, int Frame, GLfloat OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
-	GLfloat Width = (GLfloat)SpriteSheetStruct.Width;
-	GLfloat Height = (GLfloat)SpriteSheetStruct.Height;
+void MSDK::SDK_ImageTool::RenderStaticSpriteSheet(MSDK::SpriteSheet& SpriteSheetStruct, int Frame, float OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+	float Width = (float)SpriteSheetStruct.Width;
+	float Height = (float)SpriteSheetStruct.Height;
 
 	ProcessTransform(Width, Height, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
 	PrepareRender(SpriteSheetStruct);
@@ -430,25 +430,25 @@ void SDK::SDK_ImageTool::RenderStaticSpriteSheet(SDK::SpriteSheet& SpriteSheetSt
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void SDK::SDK_ImageTool::RenderRaw() {
+void MSDK::SDK_ImageTool::RenderRaw() {
 	glBindVertexArray(VAO);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void SDK::SDK_ImageTool::UnmapImage(SDK::Image& ImageStruct) {
+void MSDK::SDK_ImageTool::UnmapImage(MSDK::Image& ImageStruct) {
 	glDeleteTextures(1, &ImageStruct.Texture);
 }
 
-void SDK::SDK_ImageTool::UnmapSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct) {
+void MSDK::SDK_ImageTool::UnmapSpriteSheet(MSDK::SpriteSheet& SpriteSheetStruct) {
 	size_t SheetSize = SpriteSheetStruct.Texture.size();
 	for(int i = 0; i < SheetSize; ++i)
 		glDeleteTextures(1, &SpriteSheetStruct.Texture[i]);
 }
 
-void SDK::SDK_ImageTool::PrepareRender(SDK::Image& ImageStruct) {
+void MSDK::SDK_ImageTool::PrepareRender(MSDK::Image& ImageStruct) {
 	glUseProgram(IMAGE_SHADER);
-	SDK::Camera.PrepareRender(SHADER_TYPE_IMAGE);
+	MSDK::Camera.PrepareRender(SHADER_TYPE_IMAGE);
 
 	glUniform1f(IMAGE_OPACITY_LOCATION, ObjectOpacityValue);
 	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
@@ -456,7 +456,7 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::Image& ImageStruct) {
 	if (ObjectBlurValue > 0.0) {
 		glUniform1i(BLUR_STATE_LOCATION, 1);
 		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlurValue);
-		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (GLfloat)ImageStruct.Width, 1.0 / (GLfloat)ImageStruct.Height);
+		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (float)ImageStruct.Width, 1.0 / (float)ImageStruct.Height);
 	}
 	else
 		glUniform1i(BLUR_STATE_LOCATION, 0);
@@ -464,9 +464,9 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::Image& ImageStruct) {
 	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 }
 
-void SDK::SDK_ImageTool::PrepareRender(SDK::SpriteSheet& SpriteSheetStruct) {
+void MSDK::SDK_ImageTool::PrepareRender(MSDK::SpriteSheet& SpriteSheetStruct) {
 	glUseProgram(IMAGE_SHADER);
-	SDK::Camera.PrepareRender(SHADER_TYPE_IMAGE);
+	MSDK::Camera.PrepareRender(SHADER_TYPE_IMAGE);
 
 	glUniform1f(IMAGE_OPACITY_LOCATION, ObjectOpacityValue);
 	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
@@ -474,7 +474,7 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::SpriteSheet& SpriteSheetStruct) {
 	if (ObjectBlurValue > 0.0) {
 		glUniform1i(BLUR_STATE_LOCATION, 1);
 		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlurValue);
-		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (GLfloat)SpriteSheetStruct.Width, 1.0 / (GLfloat)SpriteSheetStruct.Height);
+		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (float)SpriteSheetStruct.Width, 1.0 / (float)SpriteSheetStruct.Height);
 	}
 	else
 		glUniform1i(BLUR_STATE_LOCATION, 0);
@@ -482,36 +482,36 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::SpriteSheet& SpriteSheetStruct) {
 	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 }
 
-void SDK::SDK_ImageTool::ProcessTransform(GLfloat Width, GLfloat Height, GLfloat OpacityValue, bool DisableAdjustAspect, bool ApplyUnitTransform) {
+void MSDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float OpacityValue, bool DisableAdjustAspect, bool ApplyUnitTransform) {
 	if (!DisableAdjustAspect)
-		SDK::Transform.ImageScale(ImageAspectMatrix, Width, Height);
+		MSDK::Transform.ImageScale(ImageAspectMatrix, Width, Height);
 
-	SDK::Transform.Identity(ResultMatrix);
+	MSDK::Transform.Identity(ResultMatrix);
 
 	if (USE_COMPUTE_SHADER)
-		SDK::ComputeTool.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
+		MSDK::ComputeTool.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 	else {
-		if (!SDK::Transform.CheckIdentity(MoveMatrix)) { ResultMatrix *= MoveMatrix; }
-		if (!SDK::Transform.CheckIdentity(RotateMatrix)) { ResultMatrix *= RotateMatrix; }
-		if (!SDK::Transform.CheckIdentity(ScaleMatrix)) { ResultMatrix *= ScaleMatrix; }
-		if (!SDK::Transform.CheckIdentity(ImageAspectMatrix)) { ResultMatrix *= ImageAspectMatrix; }
-		if (!SDK::Transform.CheckIdentity(FlipMatrix)) { ResultMatrix *= FlipMatrix; }
+		if (!MSDK::Transform.CheckIdentity(MoveMatrix)) { ResultMatrix *= MoveMatrix; }
+		if (!MSDK::Transform.CheckIdentity(RotateMatrix)) { ResultMatrix *= RotateMatrix; }
+		if (!MSDK::Transform.CheckIdentity(ScaleMatrix)) { ResultMatrix *= ScaleMatrix; }
+		if (!MSDK::Transform.CheckIdentity(ImageAspectMatrix)) { ResultMatrix *= ImageAspectMatrix; }
+		if (!MSDK::Transform.CheckIdentity(FlipMatrix)) { ResultMatrix *= FlipMatrix; }
 	}
 
 	ObjectOpacityValue = OpacityValue;
 
 	if (ApplyUnitTransform) {
 		if (USE_COMPUTE_SHADER)
-			SDK::ComputeTool.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
+			MSDK::ComputeTool.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
 		else {
-			if (!SDK::Transform.CheckIdentity(UnitMoveMatrix)) { ResultMatrix = UnitMoveMatrix * ResultMatrix; }
-			if (!SDK::Transform.CheckIdentity(UnitRotateMatrix)) { ResultMatrix = UnitRotateMatrix * ResultMatrix; }
-			if (!SDK::Transform.CheckIdentity(UnitScaleMatrix)) { ResultMatrix = UnitScaleMatrix * ResultMatrix; }
-			if (!SDK::Transform.CheckIdentity(UnitFlipMatrix)) { ResultMatrix *= UnitFlipMatrix; }
+			if (!MSDK::Transform.CheckIdentity(UnitMoveMatrix)) { ResultMatrix = UnitMoveMatrix * ResultMatrix; }
+			if (!MSDK::Transform.CheckIdentity(UnitRotateMatrix)) { ResultMatrix = UnitRotateMatrix * ResultMatrix; }
+			if (!MSDK::Transform.CheckIdentity(UnitScaleMatrix)) { ResultMatrix = UnitScaleMatrix * ResultMatrix; }
+			if (!MSDK::Transform.CheckIdentity(UnitFlipMatrix)) { ResultMatrix *= UnitFlipMatrix; }
 		}
 		ObjectOpacityValue = ObjectOpacityValue * UnitOpacityValue;
 		ObjectBlurValue = ObjectBlurValue * UnitBlurValue;
 	}
 
-	SDK::Transform.Identity(ImageAspectMatrix);
+	MSDK::Transform.Identity(ImageAspectMatrix);
 }

@@ -2,19 +2,19 @@
 #include "SDK_Header.h"
 #include <cmath>
 
-namespace SDK {
+namespace MSDK {
 	class Physics {
 	private:
-		GLfloat Gravity{};
-		GLfloat Friction{};
-		GLfloat RebounceReduce{};
-		GLfloat MinRebounceValue{};
+		float Gravity{};
+		float Friction{};
+		float RebounceReduce{};
+		float MinRebounceValue{};
 
-		GLfloat FloorHeight{};
-		GLfloat HeightOffset{};
+		float FloorHeight{};
+		float HeightOffset{};
 
-		GLfloat GravityAcc{};
-		GLfloat MoveAcc{};
+		float GravityAcc{};
+		float MoveAcc{};
 
 		bool    FallingState{};
 
@@ -22,26 +22,26 @@ namespace SDK {
 		bool GetFallingState();
 		void EnableFalling();
 		void DisableFalling();
-		void AddGravityAcc(GLfloat AccValue);
-		void SetGravityAcc(GLfloat AccValue);
-		void SetGravity(GLfloat Value);
-		void SetFloorHeight(GLfloat Value);
-		void SetFriction(GLfloat Value);
-		void SetHeightOffset(GLfloat Value);
-		void SetRebounceReduce(GLfloat Value);
-		void SetMinimumRebounce(GLfloat Value);
-		bool CheckFloorCollision(GLfloat& Position);
+		void AddGravityAcc(float AccValue);
+		void SetGravityAcc(float AccValue);
+		void SetGravity(float Value);
+		void SetFloorHeight(float Value);
+		void SetFriction(float Value);
+		void SetHeightOffset(float Value);
+		void SetRebounceReduce(float Value);
+		void SetMinimumRebounce(float Value);
+		bool CheckFloorCollision(float& Position);
 		bool CheckFloorCollision(glm::vec2& DestPosition);
-		void LandOnFloor(GLfloat& Position);
+		void LandOnFloor(float& Position);
 		void LandOnFloor(glm::vec2& DestPosition);
-		void UpdateFalling(GLfloat& HeightPosition, float FrameTime);
+		void UpdateFalling(float& HeightPosition, float FrameTime);
 		void UpdateFalling(glm::vec2& DestPosition, float FrameTime);
-		void UpdateBouncing(GLfloat& HeightPosition, float FrameTime);
+		void UpdateBouncing(float& HeightPosition, float FrameTime);
 		void UpdateBouncing(glm::vec2& DestPosition, float FrameTime);
-		void LerpAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT);
-		void LerpDeceleration(GLfloat& Speed, float FT);
-		void LinearAcceleratation(GLfloat& Speed, GLfloat DestSpeed, GLfloat AccValue, float FT);
-		void LinearDeceleration(GLfloat& Speed, float FT);
-		void AdjustSpeedEqual(GLfloat& SpeedX, GLfloat& SpeedY);
+		void LerpAcceleratation(float& Speed, float DestSpeed, float AccValue, float FT);
+		void LerpDeceleration(float& Speed, float FT);
+		void LinearAcceleratation(float& Speed, float DestSpeed, float AccValue, float FT);
+		void LinearDeceleration(float& Speed, float FT);
+		void AdjustSpeedEqual(float& SpeedX, float& SpeedY);
 	};
 }

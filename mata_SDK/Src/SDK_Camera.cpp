@@ -2,22 +2,22 @@
 #include "SDK_Transform.h"
 
 void SDK_Camera::CalculateASPECT() {
-	SDK::ASPECT = (float)SDK::WIDTH / (float)SDK::HEIGHT;
-	SDK::RECT.LeftX = -1.0 * SDK::ASPECT;
-	SDK::RECT.LeftY = -1.0;
-	SDK::RECT.RightX = 1.0 * SDK::ASPECT;
-	SDK::RECT.RightY = 1.0;
+	MSDK::ASPECT = (float)MSDK::WIDTH / (float)MSDK::HEIGHT;
+	MSDK::WindowRect.LeftX = -1.0 * MSDK::ASPECT;
+	MSDK::WindowRect.LeftY = -1.0;
+	MSDK::WindowRect.RightX = 1.0 * MSDK::ASPECT;
+	MSDK::WindowRect.RightY = 1.0;
 
-	SDK::PREV_WIDTH = SDK::WIDTH;
-	SDK::PREV_HEIGHT = SDK::HEIGHT;
+	MSDK::PREV_WIDTH = MSDK::WIDTH;
+	MSDK::PREV_HEIGHT = MSDK::HEIGHT;
 }
 
 void SDK_Camera::Init() {
 	CalculateASPECT();
 
-	SDK::Transform.Identity(ViewMatrix);
-	SDK::Transform.Identity(Projection);
-	SDK::Transform.Identity(CameraMatrix);
+	MSDK::Transform.Identity(ViewMatrix);
+	MSDK::Transform.Identity(Projection);
+	MSDK::Transform.Identity(CameraMatrix);
 
 	SetCamera(RENDER_TYPE_DEFAULT);
 }
@@ -25,7 +25,7 @@ void SDK_Camera::Init() {
 void SDK_Camera::SetCamera(int RenderType) {
 	using namespace glm;
 
-	if(SDK::PREV_WIDTH != SDK::WIDTH || SDK::PREV_HEIGHT != SDK::HEIGHT)
+	if(MSDK::PREV_WIDTH != MSDK::WIDTH || MSDK::PREV_HEIGHT != MSDK::HEIGHT)
 		CalculateASPECT();
 
 	CamPos = vec3(0.0f, 0.0f, 1.0f);
@@ -36,17 +36,17 @@ void SDK_Camera::SetCamera(int RenderType) {
 }
 
 void SDK_Camera::PrepareRender(int ShaderType) {
-	SDK::Transform.Identity(ViewMatrix);
-	SDK::Transform.Identity(Projection);
+	MSDK::Transform.Identity(ViewMatrix);
+	MSDK::Transform.Identity(Projection);
 
 	if (!StaticRenderCommand) {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
 		ViewMatrix = ViewMatrix * CameraMatrix;
-		Projection = glm::ortho((SDK::ASPECT * -1.0f) / Zoom, (SDK::ASPECT * 1.0f) / Zoom, -1.0f / Zoom, 1.0f / Zoom, -10.0f, 10.0f);
+		Projection = glm::ortho((MSDK::ASPECT * -1.0f) / Zoom, (MSDK::ASPECT * 1.0f) / Zoom, -1.0f / Zoom, 1.0f / Zoom, -10.0f, 10.0f);
 	}
 	else {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
-		Projection = glm::ortho((SDK::ASPECT * -1.0f), (SDK::ASPECT * 1.0f), -1.0f, 1.0f, -10.0f, 10.0f);
+		Projection = glm::ortho((MSDK::ASPECT * -1.0f), (MSDK::ASPECT * 1.0f), -1.0f, 1.0f, -10.0f, 10.0f);
 	}
 
 	switch (ShaderType) {

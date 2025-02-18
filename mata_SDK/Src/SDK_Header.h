@@ -171,6 +171,11 @@ enum SDK_ObjectType {
 	OBJECT_TYPE_FLOATING
 };
 
+enum SDK_CurrenSceneRunningProcess {
+	SCENE_UPDATE_PROCESS,
+	SCENE_RENDER_PROCESS
+};
+
 enum DistTypeEnum {
 	RANDOM_TYPE_REAL,
 	RANDOM_TYPE_INT
@@ -218,42 +223,43 @@ extern ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW
 
 void ModeAttribute();
 
-class SDKSystem {
-private:
-	bool  UpdateActivateCommand{};
-	float PrevTime{}, CurrentTime{}, DeltaTime{};
+namespace MSDK {
+	class SDKSystem {
+	private:
+		bool  UpdateActivateCommand{};
+		float PrevTime{}, CurrentTime{}, DeltaTime{};
 
-	float DestFPS{};
-	int   FPSLimit{};
+		float DestFPS{};
+		int   FPSLimit{};
 
-	bool  FullscreenState{};
+		bool  FullscreenState{};
 
-public:
-	static SDKSystem* S_Inst;
 
-	SDKSystem() {
-		S_Inst = this;
-	}
+	public:
+		static SDKSystem* S_Inst;
 
-	static GLvoid Main();
-	static GLvoid DisplayReshape(int w, int h);
-	void SwitchScreenState();
-	void ChangeScreenSize(int ScreenWidth, int ScreenHeight);
-	void SetFrameLimit(int FrameLimit);
-	void HideCursor();
-	void ShowCursor();
-	void MoveCursor(int X, int Y);
-	void SetBackColor(GLfloat R, GLfloat G, GLfloat B);
-	void SetBackColorRGB(int R, int G, int B);
-	void SetupSystem(int argc, char** argv);
-	void InitSystem();
-	void SetGlOption();
-	void SetupWindow();
-	void LoadShader();
-	void Exit();
-};
+		SDKSystem() {
+			S_Inst = this;
+		}
 
-namespace SDK {
+		static void Main();
+		static void DisplayReshape(int w, int h);
+		void SwitchScreenState();
+		void ChangeScreenSize(int ScreenWidth, int ScreenHeight);
+		void SetFrameLimit(int FrameLimit);
+		void HideCursor();
+		void ShowCursor();
+		void MoveCursor(int X, int Y);
+		void SetBackColor(float R, float G, float B);
+		void SetBackColorRGB(int R, int G, int B);
+		void SetupSystem(int argc, char** argv);
+		void InitSystem();
+		void SetGlOption();
+		void SetupWindow();
+		void LoadShader();
+		void Exit();
+	};
+
 	typedef void(*START_MODE_PTR)(void);
 	typedef void(*MODE_PTR)(void);
 	typedef void(*CONTROLLER_PTR)(void);
@@ -262,16 +268,16 @@ namespace SDK {
 	extern SDKSystem System;
 	extern glm::vec3 ViewportColor;
 	extern std::wstring LOCALE;
-	extern GLfloat ASPECT;
+	extern float ASPECT;
 	extern int WIDTH, HEIGHT;
 	extern int PREV_WIDTH, PREV_HEIGHT;
 	constexpr wchar_t* FONT = L"Roboto";
 
 	// corner position of display
 	typedef struct {
-		GLfloat LeftX, LeftY, RightX, RightY;
+		float LeftX, LeftY, RightX, RightY;
 	}ViewportRect;
-	extern ViewportRect RECT;
+	extern ViewportRect WindowRect;
 
 	// key event
 	typedef struct {
@@ -284,8 +290,8 @@ namespace SDK {
 	typedef struct {
 		XMVECTOR Origin;
 		XMVECTOR Direction;
-		GLfloat Distance;
-		GLfloat Length;
+		float Distance;
+		float Length;
 	}RayVector;
 
 	// data set struct
@@ -349,6 +355,8 @@ namespace SDK {
 	extern const glm::mat4 IdentityMatrix;
 
 	namespace Preset {
+		constexpr float ZeroToPositive = 0.0;
+		constexpr float ZeroToNegative = XM_PI;
 		constexpr float MaxPositive = XM_PI / 2.0;
 		constexpr float MaxNegative = -XM_PI / 2.0;
 		constexpr float HalfPositive = XM_PI / 6.0;
@@ -356,5 +364,5 @@ namespace SDK {
 	}
 
 	// Multiply the value by the window aspect ratio.
-	GLfloat ASP(GLfloat Value);
+	float ASP(float Value);
 }

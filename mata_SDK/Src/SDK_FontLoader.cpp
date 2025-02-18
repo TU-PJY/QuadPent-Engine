@@ -2,16 +2,16 @@
 #include "SDK_StringTool.h"
 #include "SDK_Scene.h"
 
-SDK::SDK_FontLoader SDK::FontLoader;
+MSDK::SDK_FontLoader MSDK::FontLoader;
 
-bool SDK::SDK_FontLoader::Load(const std::string& FontFilePath) {
-    std::wstring Path = SDK::StringTool.Wstring(FontFilePath);
+bool MSDK::SDK_FontLoader::Load(const std::string& FontFilePath) {
+    std::wstring Path = MSDK::StringTool.Wstring(FontFilePath);
     DWORD NumFonts{};
 
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);
 
     if (NumFonts == 0) {
-        SDK::Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
+        MSDK::Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
         return false;
     }
     else
@@ -22,14 +22,14 @@ bool SDK::SDK_FontLoader::Load(const std::string& FontFilePath) {
     return true;
 }
 
-bool SDK::SDK_FontLoader::LoadT(const std::string& FontFilePath) {
+bool MSDK::SDK_FontLoader::LoadT(const std::string& FontFilePath) {
     std::wstring Path = StringTool.Wstring(FontFilePath);
     DWORD NumFonts{};
 
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);
 
     if (NumFonts == 0) {
-        SDK::Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
+        MSDK::Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
         return false;
     }
     else

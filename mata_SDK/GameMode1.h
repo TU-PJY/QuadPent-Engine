@@ -16,7 +16,7 @@ public:
 	/////////////////////////////////////////////////////////////
 
 	static void Start() {
-		SDK::System.SetBackColor(0.3, 0.3, 0.3);
+		MSDK::System.SetBackColor(0.3, 0.3, 0.3);
 		// Add task here
 
 		SetUp();
@@ -31,14 +31,14 @@ public:
 #pragma region FoldRegion 
 	// this is a container that stores object pointers for accessing object controllers.
 	// a pointer to the object corresponding to the tag entered in InputObjectTag is added when the mode starts.
-	std::vector<SDK::Object*> InputObject{};
+	std::vector<MSDK::Object*> InputObject{};
 	static GameMode1* M_Inst;
 
 	GameMode1() {
 		M_Inst = this;
 	}
 
-	static void Map(SDK::MODE_PTR& Mode) {
+	static void Map(MSDK::MODE_PTR& Mode) {
 		Mode = Start;
 	}
 
@@ -46,51 +46,51 @@ public:
 		M_Inst->InputObject.clear();
 
 		for (auto const& Tag : M_Inst->InputObjectTag) {
-			if (auto Object = SDK::Scene.Find(Tag); Object)
+			if (auto Object = MSDK::Scene.Find(Tag); Object)
 				M_Inst->InputObject.emplace_back(Object);
 		}
 
-		SDK::Scene.RegisterModeName(M_Inst->ModeName);
-		SDK::Scene.RegisterDestructor(Destructor);
-		SDK::Scene.RegisterInputObjectList(M_Inst->InputObject);
-		SDK::Scene.RegisterController(Controller, M_Inst->ModeType);
-		SDK::Scene.RegisterModePtr(M_Inst->Start);
+		MSDK::Scene.RegisterModeName(M_Inst->ModeName);
+		MSDK::Scene.RegisterDestructor(Destructor);
+		MSDK::Scene.RegisterInputObjectList(M_Inst->InputObject);
+		MSDK::Scene.RegisterController(Controller, M_Inst->ModeType);
+		MSDK::Scene.RegisterModePtr(M_Inst->Start);
 	}
 
-	static void ProcessKeyEvent(SDK::KeyEvent& Event) {
+	static void ProcessKeyEvent(MSDK::KeyEvent& Event) {
 		for (auto const& Object : M_Inst->InputObject)
 			if (Object)  Object->InputKey(Event);
 
 	}
 	static void KeyDown(unsigned char KEY, int X, int Y) {
 		if (ENABLE_DEV_EXIT && KEY == NK_ESCAPE)
-			SDK::System.Exit();
+			MSDK::System.Exit();
 
-		SDK::KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
+		MSDK::KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
 		ProcessKeyEvent(Event);
 	}
 
 	static void KeyUp(unsigned char KEY, int X, int Y) {
-		SDK::KeyEvent Event{ NORMAL_KEY_UP, KEY, NULL };
+		MSDK::KeyEvent Event{ NORMAL_KEY_UP, KEY, NULL };
 		ProcessKeyEvent(Event);
 	}
 
 	static void SpecialKeyDown(int KEY, int X, int Y) {
-		SDK::KeyEvent Event{ SPECIAL_KEY_DOWN, NULL, KEY };
+		MSDK::KeyEvent Event{ SPECIAL_KEY_DOWN, NULL, KEY };
 		ProcessKeyEvent(Event);
 	}
 
 	static void SpecialKeyUp(int KEY, int X, int Y) {
-		SDK::KeyEvent Event{ SPECIAL_KEY_UP, NULL, KEY };
+		MSDK::KeyEvent Event{ SPECIAL_KEY_UP, NULL, KEY };
 		ProcessKeyEvent(Event);
 	}
 
 	static void MouseMotion(int X, int Y) {
-		SDK::Mouse.ConvertPosition(X, Y);
+		MSDK::Mouse.ConvertPosition(X, Y);
 	}
 
 	static void MousePassiveMotion(int X, int Y) {
-		SDK::Mouse.ConvertPosition(X, Y);
+		MSDK::Mouse.ConvertPosition(X, Y);
 	}
 
 	static void MouseWheel(int Button, int Wheel, int X, int Y) {

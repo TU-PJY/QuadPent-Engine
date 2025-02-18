@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "SDK_UtilPack.h"
 
-namespace SDK {
+namespace MSDK {
 	class Object {
 	public:
 		std::string ObjectTag{};
@@ -20,20 +20,20 @@ namespace SDK {
 		void IdentityUnitMatrix();
 
 		// Add color over image
-		void SetColor(GLfloat R, GLfloat G, GLfloat B);
+		void SetColor(float R, float G, float B);
 
 		void SetColor(glm::vec3 Color);
 
 		void SetColorRGB(int R, int G, int B);
 
 		// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
-		void ComputeViewportPosition(GLfloat& DestX, GLfloat& DestY, bool ApplyAspect = true);
+		void ComputeViewportPosition(float& DestX, float& DestY, bool ApplyAspect = true);
 
 		// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
 		void ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspect);
 
 		// Updates the object's position relative to the local coordinate system.
-		void ComputeLocalPosition(GLfloat& DestX, GLfloat& DestY);
+		void ComputeLocalPosition(float& DestX, float& DestY);
 
 		// Updates the object's position relative to the local coordinate system.
 		void ComputeLocalPosition(glm::vec2& DestPosition);
@@ -48,7 +48,7 @@ namespace SDK {
 		virtual void RenderFunc() {}
 
 		// Sends keyboard events to a specific object class.
-		virtual void InputKey(SDK::KeyEvent& Event) {}
+		virtual void InputKey(MSDK::KeyEvent& Event) {}
 
 		// Sends mouse events to a specific object class.
 		virtual void InputMouse(int Type) {}
@@ -60,13 +60,13 @@ namespace SDK {
 		virtual void ResetControlState() {}
 
 		// Obtains an AABB object from a specific object class.
-		virtual SDK::AABB GetAABB() { return {}; }
+		virtual MSDK::AABB GetAABB() { return {}; }
 
 		// Obtains an OOBB object from a specific object class.
-		virtual SDK::OOBB GetOOBB() { return{}; }
+		virtual MSDK::OOBB GetOOBB() { return{}; }
 
 		// Obtains an BoundingCircle object from a specific object class.
-		virtual SDK::BoundingCircle GetBoundingCircle() { return {}; }
+		virtual MSDK::BoundingCircle GetBoundingCircle() { return {}; }
 
 		// FPS indicator function
 		virtual void RenderIndicator() {}

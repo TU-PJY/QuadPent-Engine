@@ -1,23 +1,23 @@
 #pragma once
 #include "SDK_Header.h"
 
-namespace SDK {
+namespace MSDK {
 	class CircleBrush {
 	private:
 		glm::vec3 Color{};
-		GLfloat   Radius{};
-		GLfloat   Opacity{};
+		float   Radius{};
+		float   Opacity{};
 		int       RenderType{ RENDER_TYPE_DEFAULT };
 
 		bool      CamInheritanceCommand{};
 
 	public:
 		CircleBrush(bool CamInheritanceFlag = false);
-		void SetColor(GLfloat R, GLfloat G, GLfloat B);
+		void SetColor(float R, float G, float B);
 		void SetColor(glm::vec3& ColorValue);
 		void SetColorRGB(int R, int G, int B);
 		void SetRenderType(int Opt);
-		void Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat OpacityValue = 1.0f);
+		void Draw(float X, float Y, float Diameter, float OpacityValue = 1.0f);
 
 	private:
 		void Render();
@@ -26,8 +26,8 @@ namespace SDK {
 	class LineCircleBrush {
 	private:
 		glm::vec3 Color{};
-		GLfloat   Radius{}, WidthValue{};
-		GLfloat   Opacity{};
+		float   Radius{}, WidthValue{};
+		float   Opacity{};
 		int       RenderType{ RENDER_TYPE_DEFAULT };
 
 		bool      CamInheritanceCommand{};
@@ -35,11 +35,11 @@ namespace SDK {
 
 	public:
 		LineCircleBrush(bool CamInheritanceFlag = false, bool StaticWidthFlag = false);
-		void SetColor(GLfloat R, GLfloat G, GLfloat B);
+		void SetColor(float R, float G, float B);
 		void SetColor(glm::vec3& ColorValue);
 		void SetColorRGB(int R, int G, int B);
 		void SetRenderType(int Opt);
-		void Draw(GLfloat X, GLfloat Y, GLfloat Diameter, GLfloat Width, GLfloat OpacityValue = 1.0f);
+		void Draw(float X, float Y, float Diameter, float Width, float OpacityValue = 1.0f);
 
 	private:
 		void Render();

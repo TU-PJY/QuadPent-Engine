@@ -1,12 +1,12 @@
 #pragma once
 #include "SDK_Header.h"
 
-namespace SDK {
+namespace MSDK {
 	class LineRectBrush {
 	private:
 		glm::vec3 Color{};
-		GLfloat   Length{};
-		GLfloat   Opacity{};
+		float   Length{};
+		float   Opacity{};
 		int       RenderType{ RENDER_TYPE_DEFAULT };
 
 		bool      CamInheritanceCommand{};
@@ -14,14 +14,14 @@ namespace SDK {
 
 	public:
 		LineRectBrush(bool CameraInheritanceFlag = false, bool StaticWidthFlag = false);
-		void SetColor(GLfloat R, GLfloat G, GLfloat B);
+		void SetColor(float R, float G, float B);
 		void SetColor(glm::vec3& ColorValue);
 		void SetColorRGB(int R, int G, int B);
 		void SetRenderType(int Opt);
-		void Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat Width, GLfloat RotationValue = 0.0f, GLfloat OpacityValue = 1.0f);
+		void Draw(float X, float Y, float SizeX, float SizeY, float Width, float RotationValue = 0.0f, float OpacityValue = 1.0f);
 
 	private:
-		void DrawLine(GLfloat X, GLfloat Y, GLfloat OffsetX, GLfloat OffsetY, GLfloat Width, GLfloat Height, GLfloat RotationValue);
+		void DrawLine(float X, float Y, float OffsetX, float OffsetY, float Width, float Height, float RotationValue);
 		void Render();
 	};
 
@@ -29,19 +29,19 @@ namespace SDK {
 	class RectBrush {
 	private:
 		glm::vec3 Color{};
-		GLfloat   Length{};
-		GLfloat   Opacity{};
+		float   Length{};
+		float   Opacity{};
 		int       RenderType{ RENDER_TYPE_DEFAULT };
 
 		bool      CamInheritanceCommand{};
 
 	public:
 		RectBrush(bool Flag = false);
-		void SetColor(GLfloat R, GLfloat G, GLfloat B);
+		void SetColor(float R, float G, float B);
 		void SetColor(glm::vec3& ColorValue);
 		void SetColorRGB(int R, int G, int B);
 		void SetRenderType(int Opt);
-		void Draw(GLfloat X, GLfloat Y, GLfloat SizeX, GLfloat SizeY, GLfloat RotationValue = 0.0f, GLfloat OpacityValue = 1.0f);
+		void Draw(float X, float Y, float SizeX, float SizeY, float RotationValue = 0.0f, float OpacityValue = 1.0f);
 
 	private:
 		void Render();

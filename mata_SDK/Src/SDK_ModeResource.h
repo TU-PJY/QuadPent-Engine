@@ -3,9 +3,9 @@
 
 // Declare the ptr of mode class's Start() function here.
 // Map the mode start function pointer in ModeAttribute.cpp after declaration.
-namespace SDK {
+namespace MSDK {
 	struct SDK_MODE_RESOURCE {
-		SDK::MODE_PTR Mode1;
+		MSDK::MODE_PTR Mode1;
 
 	};
 

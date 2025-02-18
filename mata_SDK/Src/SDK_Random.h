@@ -2,15 +2,15 @@
 #include "SDK_Header.h"
 #include <random>
 
-namespace SDK {
+namespace MSDK {
 	class SDK_Random {
 	private:
 		std::random_device RD{};
 
 	public:
-		GLfloat Gen(int DistType, GLfloat Min, GLfloat Max);
+		float Gen(int DistType, float Min, float Max);
 		bool Probability(int Percent);
 	};
 
-	extern SDK::SDK_Random Random;
+	extern MSDK::SDK_Random Random;
 }

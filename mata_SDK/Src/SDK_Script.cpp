@@ -2,12 +2,12 @@
 #include "SDK_Scene.h"
 #include "SDK_StringTool.h"
 
-void SDK::Script::Load(std::string FileName) {
+void MSDK::Script::Load(std::string FileName) {
 	if (FileExist)
 		return;
 
 	if (!Doc.LoadFile(FileName.c_str(), TIXML_ENCODING_UTF8)) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
 		return;
 	}
 
@@ -16,10 +16,10 @@ void SDK::Script::Load(std::string FileName) {
 	FileExist = true;
 }
 
-void SDK::Script::LoadSecure(std::string FileName) {
+void MSDK::Script::LoadSecure(std::string FileName) {
 	std::ifstream EncryptedFile(FileName, std::ios::binary);
 	if (!EncryptedFile) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
 		return;
 	}
 
@@ -30,7 +30,7 @@ void SDK::Script::LoadSecure(std::string FileName) {
 	Doc.Parse(DecryptedXML.c_str(), nullptr, TIXML_ENCODING_UTF8);
 
 	if (Doc.Error()) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_PARSE, FileName);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_PARSE, FileName);
 		return;
 	}
 
@@ -38,12 +38,12 @@ void SDK::Script::LoadSecure(std::string FileName) {
 	FileExist = true;
 }
 
-void SDK::Script::Release() {
+void MSDK::Script::Release() {
 	Doc.Clear();
 	FileExist = false;
 }
 
-int SDK::Script::CountCategory() {
+int MSDK::Script::CountCategory() {
 	int CatCount{};
 	for (TiXmlElement* Element = Root->FirstChildElement(); Element != nullptr; Element = Element->NextSiblingElement())
 		CatCount++;
@@ -51,28 +51,28 @@ int SDK::Script::CountCategory() {
 	return CatCount;
 }
 
-float SDK::Script::LoadDigitData(std::string CategoryName, std::string DataName) {
+float MSDK::Script::LoadDigitData(std::string CategoryName, std::string DataName) {
 	CategorySearch = CategoryName;
 	DataSearch = DataName;
 	return GetDigitData(FindCategory(CategoryName), DataName);
 }
 
-std::string SDK::Script::LoadStringData(std::string CategoryName, std::string DataName) {
+std::string MSDK::Script::LoadStringData(std::string CategoryName, std::string DataName) {
 	CategorySearch = CategoryName;
 	DataSearch = DataName;
 	return GetStringData(FindCategory(CategoryName), DataName);
 }
 
-std::wstring SDK::Script::LoadWstringData(std::string CategoryName, std::string DataName) {
-	return SDK::StringTool.Wstring(LoadStringData(CategoryName, DataName));
+std::wstring MSDK::Script::LoadWstringData(std::string CategoryName, std::string DataName) {
+	return MSDK::StringTool.Wstring(LoadStringData(CategoryName, DataName));
 }
 
-SDK::DigitDataVec SDK::Script::LoadCategoryDigitData(std::string CategoryName) {
+MSDK::DigitDataVec MSDK::Script::LoadCategoryDigitData(std::string CategoryName) {
 	DigitDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 
 	if (!Category) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
 		return {};
 	}
 
@@ -85,12 +85,12 @@ SDK::DigitDataVec SDK::Script::LoadCategoryDigitData(std::string CategoryName) {
 	return LoadedData;
 }
 
-SDK::StringDataVec SDK::Script::LoadCategoryStringData(std::string CategoryName) {
+MSDK::StringDataVec MSDK::Script::LoadCategoryStringData(std::string CategoryName) {
 	StringDataVec LoadedData{};
 	TiXmlElement* Category = FindCategory(CategoryName);
 
 	if (!Category) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
 		return {};
 	}
 
@@ -104,9 +104,9 @@ SDK::StringDataVec SDK::Script::LoadCategoryStringData(std::string CategoryName)
 }
 
 //////////////////////////////// private
-float SDK::Script::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
+float MSDK::Script::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
 	if (!CategoryVar) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
 		return 0.0;
 	}
 
@@ -114,14 +114,14 @@ float SDK::Script::GetDigitData(TiXmlElement* CategoryVar, std::string DataName)
 	if (DataValue)
 		return std::stof(DataValue);
 	else {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
 		return 0.0;
 	}
 }
 
-std::string SDK::Script::GetStringData(TiXmlElement* CategoryVar, std::string DataName) {
+std::string MSDK::Script::GetStringData(TiXmlElement* CategoryVar, std::string DataName) {
 	if (!CategoryVar) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
 		return "";
 	}
 
@@ -129,16 +129,16 @@ std::string SDK::Script::GetStringData(TiXmlElement* CategoryVar, std::string Da
 	if (DataValue)
 		return (std::string)DataValue;
 	else {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
+		MSDK::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
 		return "";
 	}
 }
 
-TiXmlElement* SDK::Script::FindCategory(std::string CategoryName) {
+TiXmlElement* MSDK::Script::FindCategory(std::string CategoryName) {
 	return  Root->FirstChildElement(CategoryName.c_str());
 }
 
-std::string SDK::Script::Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]) {
+std::string MSDK::Script::Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]) {
 	std::string PlainText;
 
 	try {

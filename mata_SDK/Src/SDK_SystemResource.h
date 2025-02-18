@@ -1,6 +1,6 @@
 #pragma once
 #include "SDK_Header.h"
-namespace SDK {
+namespace MSDK {
 	struct SDK_SYSTEM_RESOURCE {
 		const char* SDK_LOGO_SOUND_DIRECTORY = "SDKResource//Sound//sound-logo.wav";
 		const char* SDK_LOGO_IMAGE_DIRECTORY = "SDKResource//Image//Common//logo-SDK.png";
@@ -11,17 +11,17 @@ namespace SDK {
 		const char* COLOR_TEXTURE_DIRECTORY = "SDKResource//Image//ShapeUtil//ColorTexture.png";
 		const char* SDK_FONT_DIRECTORY = "SDKResource//Font//Roboto-Regular.ttf";
 
-		SDK::Image SDK_LOGO{};
-		SDK::Image MATA_LOGO{};
-		SDK::Image SDK_IMAGE_ERROR{};
-		SDK::Image FMOD_LOGO{};
-		SDK::Image COLOR_TEXTURE{};
-		SDK::Image LOADING_SPINNER{};
+		MSDK::Image SDK_LOGO{};
+		MSDK::Image MATA_LOGO{};
+		MSDK::Image SDK_IMAGE_ERROR{};
+		MSDK::Image FMOD_LOGO{};
+		MSDK::Image COLOR_TEXTURE{};
+		MSDK::Image LOADING_SPINNER{};
 
 		GLUquadric* GLU_CIRCLE{};
 		GLUquadric* GLU_LINE_CIRCLE{};
 
-		SDK::Sound INTRO_SOUND{};
+		MSDK::Sound INTRO_SOUND{};
 	};
 
 	extern SDK_SYSTEM_RESOURCE SYSRES;

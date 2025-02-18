@@ -2,34 +2,34 @@
 #include "SDK_Header.h"
 #include <cmath>
 
-namespace SDK {
+namespace MSDK {
 	class SinLoop {
 	private:
-		GLfloat Num{ SDK::Preset::MaxNegative };
+		float Num{ MSDK::Preset::MaxNegative };
 
 	public:
-		void Update(GLfloat& Value, GLfloat MoveScale, GLfloat Speed, float FrameTime);
-		void SetValue(GLfloat Value);
+		void Update(float& Value, float MoveScale, float Speed, float FrameTime);
+		void SetValue(float Value);
 		void Reset();
 	};
 
 	class PopBounce {
 	private:
-		GLfloat Num1{}, Num2{}, Num3{};
+		float Num1{}, Num2{}, Num3{};
 
 	public:
-		void Update(GLfloat& Value, GLfloat SizeDest, GLfloat ShakeValue, GLfloat SizeIncreaseSpeed, GLfloat ShakeSpeed, GLfloat ShakeReduceSpeed, float FrameTime);
+		void Update(float& Value, float SizeDest, float ShakeValue, float SizeIncreaseSpeed, float ShakeSpeed, float ShakeReduceSpeed, float FrameTime);
 		void Reset();
 	};
 
 	class ReverseLerp {
 	private:
 		bool    MoveState{ true };
-		GLfloat Velocity{};
-		GLfloat Acc{};
+		float Velocity{};
+		float Acc{};
 
 	public:
-		void Update(GLfloat& Value, GLfloat Dest, GLfloat Speed, GLfloat IncreaseSpeed, float FrameTime);
+		void Update(float& Value, float Dest, float Speed, float IncreaseSpeed, float FrameTime);
 		void Reset();
 	};
 }

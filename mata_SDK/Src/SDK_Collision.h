@@ -5,7 +5,7 @@
 using namespace DirectX;
 
 
-namespace SDK {
+namespace MSDK {
 	class OOBB;
 	class BoundingCircle;
 
@@ -14,20 +14,20 @@ namespace SDK {
 		BoundingBox   aabb;
 		bool          Collide{};
 
-		SDK::LineRectBrush LineRect{ true, true };
-		SDK::RectBrush     RECT{ true };
+		MSDK::LineRectBrush LineRect{ true, true };
+		MSDK::RectBrush     RECT{ true };
 
 	public:
-		void Update(GLfloat X, GLfloat Y, GLfloat xScale, GLfloat yScale);
-		void Update(glm::vec2& Position, GLfloat xScale, GLfloat yScale);
+		void Update(float X, float Y, float xScale, float yScale);
+		void Update(glm::vec2& Position, float xScale, float yScale);
 		void Render();
 		bool CheckCollision(const AABB& Other);
 		bool CheckCollision(const OOBB& Other);
 		bool CheckCollision(const BoundingCircle& Other);
-		bool CheckCollisionPoint(GLfloat X, GLfloat Y);
+		bool CheckCollisionPoint(float X, float Y);
 		bool CheckCollisionPoint(glm::vec2& Position);
-		bool CheckCollisionRay(SDK::RayVector& Ray);
-		bool CheckCollisionLine(SDK::RayVector& Ray);
+		bool CheckCollisionRay(MSDK::RayVector& Ray);
+		bool CheckCollisionLine(MSDK::RayVector& Ray);
 		BoundingBox Get() const;
 	};
 
@@ -35,23 +35,23 @@ namespace SDK {
 	class OOBB {
 	private:
 		BoundingOrientedBox oobb;
-		GLfloat             Rotation{};
+		float             Rotation{};
 		bool                Collide{};
 
-		SDK::LineRectBrush       LineRect{ true, true };
-		SDK::RectBrush           RECT{ true };
+		MSDK::LineRectBrush       LineRect{ true, true };
+		MSDK::RectBrush           RECT{ true };
 
 	public:
-		void Update(GLfloat X, GLfloat Y, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
-		void Update(glm::vec2& Position, GLfloat BoxWidth, GLfloat BoxHeight, GLfloat RotationValue);
+		void Update(float X, float Y, float BoxWidth, float BoxHeight, float RotationValue);
+		void Update(glm::vec2& Position, float BoxWidth, float BoxHeight, float RotationValue);
 		void Render();
 		bool CheckCollision(const OOBB& Other);
 		bool CheckCollision(const AABB& Other);
 		bool CheckCollision(const BoundingCircle& Other);
-		bool CheckCollisionPoint(GLfloat X, GLfloat Y);
+		bool CheckCollisionPoint(float X, float Y);
 		bool CheckCollisionPoint(glm::vec2& Position);
-		bool CheckCollisionRay(SDK::RayVector& Ray);
-		bool CheckCollisionLine(SDK::RayVector& Ray);
+		bool CheckCollisionRay(MSDK::RayVector& Ray);
+		bool CheckCollisionLine(MSDK::RayVector& Ray);
 		BoundingOrientedBox Get() const;
 	};
 
@@ -60,25 +60,25 @@ namespace SDK {
 	private:
 		BoundingSphere  sphere;
 		glm::vec2       Center{};
-		GLfloat         Radius{};
-		GLfloat         Size{};
+		float         Radius{};
+		float         Size{};
 
 		bool            Collide{};
 
-		SDK::LineCircleBrush LineCircle{ true, true };
-		SDK::CircleBrush     Circle{ true };
+		MSDK::LineCircleBrush LineCircle{ true, true };
+		MSDK::CircleBrush     Circle{ true };
 
 	public:
-		void Update(GLfloat X, GLfloat Y, GLfloat Diameter);
-		void Update(glm::vec2& Position, GLfloat SizeValue);
+		void Update(float X, float Y, float Diameter);
+		void Update(glm::vec2& Position, float SizeValue);
 		void Render();
 		bool CheckCollision(const BoundingCircle& Other);
 		bool CheckCollision(const AABB& Other);
 		bool CheckCollision(const OOBB& Other);
-		bool CheckCollisionPoint(GLfloat X, GLfloat Y);
+		bool CheckCollisionPoint(float X, float Y);
 		bool CheckCollisionPoint(glm::vec2& Position);
-		bool CheckCollisionRay(SDK::RayVector& Ray);
-		bool CheckCollisionLine(SDK::RayVector& Ray);
+		bool CheckCollisionRay(MSDK::RayVector& Ray);
+		bool CheckCollisionLine(MSDK::RayVector& Ray);
 		BoundingSphere Get() const;
 	};
 }

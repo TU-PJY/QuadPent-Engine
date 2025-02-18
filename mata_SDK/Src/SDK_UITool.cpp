@@ -1,56 +1,56 @@
 #include "SDK_UITool.h"
 
-SDK::SDK_UITool SDK::UITool;
+MSDK::SDK_UITool MSDK::UITool;
 
-void SDK::SDK_UITool::ClampMatrixToCorner(int EdgePosition, glm::mat4& Matrix, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
+void MSDK::SDK_UITool::ClampMatrixToCorner(int EdgePosition, glm::mat4& Matrix, float Width, float Height, float GapX, float GapY) {
 	switch (EdgePosition) {
 	case EDGE_LEFT_DOWN:
-		Matrix = translate(Matrix, glm::vec3(SDK::RECT.LeftX + Width / 2.0 + GapX, SDK::RECT.LeftY + Height / 2.0 + GapY, 0.0));
+		Matrix = translate(Matrix, glm::vec3(MSDK::WindowRect.LeftX + Width / 2.0 + GapX, MSDK::WindowRect.LeftY + Height / 2.0 + GapY, 0.0));
 		break;
 
 	case EDGE_LEFT_UP:
-		Matrix = translate(Matrix, glm::vec3(SDK::RECT.LeftX + Width / 2.0 + GapX, SDK::RECT.RightY - Height / 2.0 - GapY, 0.0));
+		Matrix = translate(Matrix, glm::vec3(MSDK::WindowRect.LeftX + Width / 2.0 + GapX, MSDK::WindowRect.RightY - Height / 2.0 - GapY, 0.0));
 		break;
 
 	case EDGE_RIGHT_DOWN:
-		Matrix = translate(Matrix, glm::vec3(SDK::RECT.RightX - Width / 2.0 - GapX, SDK::RECT.LeftY + Height / 2.0 + GapY, 0.0));
+		Matrix = translate(Matrix, glm::vec3(MSDK::WindowRect.RightX - Width / 2.0 - GapX, MSDK::WindowRect.LeftY + Height / 2.0 + GapY, 0.0));
 		break;
 
 	case EDGE_RIGHT_UP:
-		Matrix = translate(Matrix, glm::vec3(SDK::RECT.RightX - Width / 2.0 - GapX, SDK::RECT.RightY - Height / 2.0 - GapY, 0.0));
+		Matrix = translate(Matrix, glm::vec3(MSDK::WindowRect.RightX - Width / 2.0 - GapX, MSDK::WindowRect.RightY - Height / 2.0 - GapY, 0.0));
 		break;
 	}
 }
 
-void SDK::SDK_UITool::ClampMatrixToPosition(glm::mat4& Matrix, GLfloat PositionX, GLfloat PositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
+void MSDK::SDK_UITool::ClampMatrixToPosition(glm::mat4& Matrix, float PositionX, float PositionY, float Width, float Height, float GapX, float GapY) {
 	Matrix = translate(Matrix, glm::vec3(PositionX + Width / 2.0 + GapX, PositionY + Height / 2.0 + GapY, 0.0));
 }
 
-void SDK::SDK_UITool::ClampPositionToCorner(int EdgePosition, GLfloat& PositionX, GLfloat& PositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
+void MSDK::SDK_UITool::ClampPositionToCorner(int EdgePosition, float& PositionX, float& PositionY, float Width, float Height, float GapX, float GapY) {
 	switch (EdgePosition) {
 	case EDGE_LEFT_DOWN:
-		PositionX = SDK::RECT.LeftX + Width / 2.0 + GapX;
-		PositionY = SDK::RECT.LeftY + Height / 2.0 + GapY;
+		PositionX = MSDK::WindowRect.LeftX + Width / 2.0 + GapX;
+		PositionY = MSDK::WindowRect.LeftY + Height / 2.0 + GapY;
 		break;
 
 	case EDGE_LEFT_UP:
-		PositionX = SDK::RECT.LeftX + Width / 2.0 + GapX;
-		PositionY = SDK::RECT.RightY - Height / 2.0 - GapY;
+		PositionX = MSDK::WindowRect.LeftX + Width / 2.0 + GapX;
+		PositionY = MSDK::WindowRect.RightY - Height / 2.0 - GapY;
 		break;
 
 	case EDGE_RIGHT_DOWN:
-		PositionX = SDK::RECT.RightX - Width / 2.0 - GapX;
-		PositionY = SDK::RECT.LeftY + Height / 2.0 + GapY;
+		PositionX = MSDK::WindowRect.RightX - Width / 2.0 - GapX;
+		PositionY = MSDK::WindowRect.LeftY + Height / 2.0 + GapY;
 		break;
 
 	case EDGE_RIGHT_UP:
-		PositionX = SDK::RECT.RightX - Width / 2.0 - GapX;
-		PositionY = SDK::RECT.RightY - Height / 2.0 - GapY;
+		PositionX = MSDK::WindowRect.RightX - Width / 2.0 - GapX;
+		PositionY = MSDK::WindowRect.RightY - Height / 2.0 - GapY;
 		break;
 	}
 }
 
-void SDK::SDK_UITool::ClampPositionToCoord(GLfloat& ThisPositionX, GLfloat& ThisPositionY, GLfloat OtherPositionX, GLfloat OtherPositionY, GLfloat Width, GLfloat Height, GLfloat GapX, GLfloat GapY) {
+void MSDK::SDK_UITool::ClampPositionToCoord(float& ThisPositionX, float& ThisPositionY, float OtherPositionX, float OtherPositionY, float Width, float Height, float GapX, float GapY) {
 	ThisPositionX = OtherPositionX + Width / 2.0 + GapX;
 	ThisPositionY = OtherPositionY + Height / 2.0 + GapY;
 }

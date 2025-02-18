@@ -1,7 +1,7 @@
 #pragma once
 #include "SDK_Header.h"
 
-namespace SDK {
+namespace MSDK {
 	extern glm::mat4 MoveMatrix, RotateMatrix, ScaleMatrix, FlipMatrix, ResultMatrix;
 
 	extern glm::mat4 UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix;
@@ -11,9 +11,9 @@ namespace SDK {
 
 	extern glm::vec3 ObjectColor;
 
-	extern GLfloat UnitBlurValue;
-	extern GLfloat ObjectBlurValue;
+	extern float UnitBlurValue;
+	extern float ObjectBlurValue;
 
-	extern GLfloat ObjectOpacityValue;
-	extern GLfloat UnitOpacityValue;
+	extern float ObjectOpacityValue;
+	extern float UnitOpacityValue;
 }

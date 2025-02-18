@@ -1,30 +1,30 @@
 #pragma once
 #include "SDK_Header.h"
 
-namespace SDK {
+namespace MSDK {
 	class SDK_Math {
 	public:
-		void LookAt(GLfloat& DestRotation, GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY, GLfloat RotationSpeed = 0.0, float FrameTime = 0.0);
-		void LookAt(GLfloat& DestRotation, glm::vec2& Position1, glm::vec2& Position2, GLfloat Rotationpeed = 0.0, float FrameTime = 0.0);
-		void LookAt(GLfloat& DestRotation, GLfloat Rotation, GLfloat RotationSpeed = 0.0, float FrameTime = 0.0);
-		GLfloat ComputeDistance(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
-		GLfloat ComputeDistance(glm::vec2& Position1, glm::vec2& Position2);
+		void LookAt(float& DestRotation, float FromX, float FromY, float ToX, float ToY, float RotationSpeed = 0.0, float FrameTime = 0.0);
+		void LookAt(float& DestRotation, glm::vec2& Position1, glm::vec2& Position2, float Rotationpeed = 0.0, float FrameTime = 0.0);
+		void LookAt(float& DestRotation, float Rotation, float RotationSpeed = 0.0, float FrameTime = 0.0);
+		float ComputeDistance(float FromX, float FromY, float ToX, float ToY);
+		float ComputeDistance(glm::vec2& Position1, glm::vec2& Position2);
 		glm::vec2 ComputeMidPoint(glm::vec2& Position1, glm::vec2& Position2);
-		void Lerp(GLfloat& DestValue, GLfloat Dest, GLfloat Speed, float FrameTime);
-		void Lerp(glm::vec2& DestValue, glm::vec2& Dest, GLfloat Speed, float FrameTime);
-		void Lerp(glm::vec3& DestValue, glm::vec3& Dest, GLfloat Speed, float FrameTime);
-		GLfloat Computedegree(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
-		GLfloat Computedegree(glm::vec2& Position1, glm::vec2& Position2);
-		GLfloat ComputeRadians(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
-		GLfloat ComputeRadians(glm::vec2& Position1, glm::vec2& Position2);
-		SDK::RayVector ComputeRay(GLfloat FromX, GLfloat FromY, GLfloat ToX, GLfloat ToY);
-		SDK::RayVector ComputeRay(glm::vec2& From, glm::vec2& To);
-		SDK::RayVector ComputeRayWithDegree(GLfloat OriginX, GLfloat OriginY, GLfloat Degree, GLfloat LengthValue = 0.0);
-		SDK::RayVector ComputeRayWithDegree(glm::vec2& Origin, GLfloat Degree, GLfloat LengthValue = 0.0);
+		void Lerp(float& DestValue, float Dest, float Speed, float FrameTime);
+		void Lerp(glm::vec2& DestValue, glm::vec2& Dest, float Speed, float FrameTime);
+		void Lerp(glm::vec3& DestValue, glm::vec3& Dest, float Speed, float FrameTime);
+		float Computedegree(float FromX, float FromY, float ToX, float ToY);
+		float Computedegree(glm::vec2& Position1, glm::vec2& Position2);
+		float ComputeRadians(float FromX, float FromY, float ToX, float ToY);
+		float ComputeRadians(glm::vec2& Position1, glm::vec2& Position2);
+		MSDK::RayVector ComputeRay(float FromX, float FromY, float ToX, float ToY);
+		MSDK::RayVector ComputeRay(glm::vec2& From, glm::vec2& To);
+		MSDK::RayVector ComputeRayWithDegree(float OriginX, float OriginY, float Degree, float LengthValue = 0.0);
+		MSDK::RayVector ComputeRayWithDegree(glm::vec2& Origin, float Degree, float LengthValue = 0.0);
 	private:
-		GLfloat NormalizeDegree(GLfloat Degree);
-		GLfloat ComputeShortestRotation(GLfloat CurrentDegree, GLfloat DegreeDest);
+		float NormalizeDegree(float Degree);
+		float ComputeShortestRotation(float CurrentDegree, float DegreeDest);
 	};
 
-	extern SDK::SDK_Math Math;
+	extern MSDK::SDK_Math Math;
 }

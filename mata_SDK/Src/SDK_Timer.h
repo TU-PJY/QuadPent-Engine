@@ -1,10 +1,11 @@
 #pragma once
 #include "SDK_Header.h"
+#undef GetCurrentTime
 
-namespace SDK {
+namespace MSDK {
 	class Timer {
 	private:
-		GLfloat Time{};
+		float Time{};
 		bool    StopState{};
 
 	public:
@@ -13,20 +14,21 @@ namespace SDK {
 		void Resume();
 		void Reset();
 		int Sec();
-		GLfloat MiliSec(int DemicalPlace = 1);
-		void Interpolate(GLfloat Value);
-		bool UpdateAndCheckSec(int DestSec, int CheckOption, GLfloat FrameTime);
-		bool UpdateAndCheckMiliSec(int DestTime, int DemicalPlace, int CheckOption, GLfloat FrameTime);
+		float MiliSec(int DemicalPlace = 1);
+		void Interpolate(float Value);
+		bool UpdateAndCheckSec(int DestSec, int CheckOption, float FrameTime);
+		bool UpdateAndCheckMiliSec(int DestTime, int DemicalPlace, int CheckOption, float FrameTime);
 		bool CheckSec(int DestTime, int CheckOption);
-		bool CheckMiliSec(GLfloat DestTime, int DemicalPlace, int CheckOption);
+		bool CheckMiliSec(float DestTime, int DemicalPlace, int CheckOption);
+		float GetCurrentTime();
 	};
 
 
 
 	class Metronome {
 	private:
-		GLdouble BeatInterval{};
-		GLdouble Time{};
+		float BeatInterval{};
+		float Time{};
 		bool     StopState{};
 		bool     BeatState{};
 

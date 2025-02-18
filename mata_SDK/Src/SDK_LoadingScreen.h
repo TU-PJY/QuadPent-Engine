@@ -7,7 +7,7 @@
 #include "SDK_IntroMode.h"
 #include "SDK_FPSIndicator.h"
 
-class SDK_LoadingScreen : public SDK::Object {
+class SDK_LoadingScreen : public MSDK::Object {
 private:
 	HANDLE  SystemResourceLoadHandle{};
 	bool    LoadStart{};
@@ -24,23 +24,23 @@ private:
 	bool    FontResourceLoadEnd{};
 	bool    InitializationEnd{};
 
-	GLfloat Rotation{};
-	GLfloat SpinnerOpacity{ 1.0 };
+	float Rotation{};
+	float SpinnerOpacity{ 1.0 };
 
 
 public:
 	void UpdateFunc(float FrameTime) {
 		if (!LoadStart) {
-			SDK::Camera.Init();
-			SDK::ImageTool.Init();
-			SDK::SoundTool.Init();
+			MSDK::Camera.Init();
+			MSDK::ImageTool.Init();
+			MSDK::SoundTool.Init();
 
-			SDK::FontLoader.LoadT(SDK::SYSRES.SDK_FONT_DIRECTORY);
-			SDK::ImageTool.LoadImage(SDK::SYSRES.SDK_IMAGE_ERROR, SDK::SYSRES.SDK_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-			SDK::ImageTool.LoadImage(SDK::SYSRES.LOADING_SPINNER, SDK::SYSRES.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
-			SDK::ImageTool.LoadImage(SDK::SYSRES.MATA_LOGO, SDK::SYSRES.MATA_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+			MSDK::FontLoader.LoadT(MSDK::SYSRES.SDK_FONT_DIRECTORY);
+			MSDK::ImageTool.LoadImage(MSDK::SYSRES.SDK_IMAGE_ERROR, MSDK::SYSRES.SDK_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+			MSDK::ImageTool.LoadImage(MSDK::SYSRES.LOADING_SPINNER, MSDK::SYSRES.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
+			MSDK::ImageTool.LoadImage(MSDK::SYSRES.MATA_LOGO, MSDK::SYSRES.MATA_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 
-			SDK::ThreadTool.Create(SystemResourceLoadHandle, SystemResourceLoader);
+			MSDK::ThreadTool.Create(SystemResourceLoadHandle, SystemResourceLoader);
 
 			LoadStart = true;
 		}
@@ -50,7 +50,7 @@ public:
 
 			if (LoadResources()) {
 				if (!InitializationEnd) {
-					SDK::ImageTool.Map();
+					MSDK::ImageTool.Map();
 					std::cout << "All of Image resources mapped." << std::endl;
 
 					ModeAttribute();
@@ -62,16 +62,16 @@ public:
 				if (!ENABLE_INTRO_SCREEN) {
 					if (InitializationEnd) {
 						if (SHOW_FPS)  AddFPSIndicator();
-						SDK::Scene.SwitchMode(SDK::START_MODE);
+						MSDK::Scene.SwitchMode(MSDK::START_MODE);
 					}
 				}
 
 				else {
 					if (InitializationEnd) {
 						SpinnerOpacity -= FrameTime * 2.0;
-						if (SDK::EXTool.CheckClampValue(SpinnerOpacity, 0.0, CLAMP_LESS)) {
+						if (MSDK::EXTool.CheckClampValue(SpinnerOpacity, 0.0, CLAMP_LESS)) {
 							if (SHOW_FPS)  AddFPSIndicator();
-							SDK::Scene.SwitchMode(IntroMode.Start);
+							MSDK::Scene.SwitchMode(IntroMode.Start);
 						}
 					}
 				}
@@ -81,51 +81,51 @@ public:
 
 	void RenderFunc() {
 		Begin(RENDER_TYPE_STATIC);
-		SDK::Transform.Scale(SDK::MoveMatrix, 0.6, 0.6);
-		SDK::ImageTool.RenderImage(SDK::SYSRES.MATA_LOGO, SpinnerOpacity);
+		MSDK::Transform.Scale(MSDK::MoveMatrix, 0.6, 0.6);
+		MSDK::ImageTool.RenderImage(MSDK::SYSRES.MATA_LOGO, SpinnerOpacity);
 
 		Begin(RENDER_TYPE_STATIC);
-		SDK::Transform.Scale(SDK::MoveMatrix, 1.0, 1.0);
-		SDK::Transform.Rotate(SDK::MoveMatrix, Rotation);
-		SDK::ImageTool.RenderImage(SDK::SYSRES.LOADING_SPINNER, SpinnerOpacity);
+		MSDK::Transform.Scale(MSDK::MoveMatrix, 1.0, 1.0);
+		MSDK::Transform.Rotate(MSDK::MoveMatrix, Rotation);
+		MSDK::ImageTool.RenderImage(MSDK::SYSRES.LOADING_SPINNER, SpinnerOpacity);
 	}
 
 	void AddFPSIndicator() {
-		Indicator = SDK::Scene.AddObject(new SDK_FPS_Indicator, "SDK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
+		Indicator = MSDK::Scene.AddObject(new SDK_FPS_Indicator, "SDK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
 	}
 
 	bool LoadResources() {
-		if (!SDK::ThreadTool.CheckAlive(SystemResourceLoadHandle) && !SystemResourceLoadEnd) {
-			SDK::ThreadTool.Close(SystemResourceLoadHandle);
-			SDK::ThreadTool.Create(ImageResourceLoadHandle, ImageResourceLoader);
-			SDK::ThreadTool.Create(SoundResourceLoadHandle, SoundResourceLoader);
-			SDK::ThreadTool.Create(DataResourceLoadHandle, FileResourceLoader);
-			SDK::ThreadTool.Create(FontResourceLoadHandle, FontResourceLoader);
+		if (!MSDK::ThreadTool.CheckAlive(SystemResourceLoadHandle) && !SystemResourceLoadEnd) {
+			MSDK::ThreadTool.Close(SystemResourceLoadHandle);
+			MSDK::ThreadTool.Create(ImageResourceLoadHandle, ImageResourceLoader);
+			MSDK::ThreadTool.Create(SoundResourceLoadHandle, SoundResourceLoader);
+			MSDK::ThreadTool.Create(DataResourceLoadHandle, FileResourceLoader);
+			MSDK::ThreadTool.Create(FontResourceLoadHandle, FontResourceLoader);
 			std::cout << "System resource load completed." << std::endl;
 
 			SystemResourceLoadEnd = true;
 		}
 
-		if (!ImageResourceLoadEnd && !SDK::ThreadTool.CheckAlive(ImageResourceLoadHandle)) {
-			SDK::ThreadTool.Close(ImageResourceLoadHandle);
+		if (!ImageResourceLoadEnd && !MSDK::ThreadTool.CheckAlive(ImageResourceLoadHandle)) {
+			MSDK::ThreadTool.Close(ImageResourceLoadHandle);
 			std::cout << "Image resource load completed." << std::endl;
 			ImageResourceLoadEnd = true;
 		}
 
-		if (!SoundResourceLoadEnd && !SDK::ThreadTool.CheckAlive(SoundResourceLoadHandle)) {
-			SDK::ThreadTool.Close(SoundResourceLoadHandle);
+		if (!SoundResourceLoadEnd && !MSDK::ThreadTool.CheckAlive(SoundResourceLoadHandle)) {
+			MSDK::ThreadTool.Close(SoundResourceLoadHandle);
 			std::cout << "Sound resource load completed." << std::endl;
 			SoundResourceLoadEnd = true;
 		}
 
-		if (!DataResourceLoadEnd && !SDK::ThreadTool.CheckAlive(DataResourceLoadHandle)) {
-			SDK::ThreadTool.Close(DataResourceLoadHandle);
+		if (!DataResourceLoadEnd && !MSDK::ThreadTool.CheckAlive(DataResourceLoadHandle)) {
+			MSDK::ThreadTool.Close(DataResourceLoadHandle);
 			std::cout << "Data resource load completed." << std::endl;
 			DataResourceLoadEnd = true;
 		}
 
-		if (!FontResourceLoadEnd && !SDK::ThreadTool.CheckAlive(FontResourceLoadHandle)) {
-			SDK::ThreadTool.Close(FontResourceLoadHandle);
+		if (!FontResourceLoadEnd && !MSDK::ThreadTool.CheckAlive(FontResourceLoadHandle)) {
+			MSDK::ThreadTool.Close(FontResourceLoadHandle);
 			std::cout << "Font resource load completed." << std::endl;
 			FontResourceLoadEnd = true;
 		}
@@ -137,15 +137,15 @@ public:
 	}
 
 	static DWORD WINAPI SystemResourceLoader(LPVOID Param) {
-		SDK::ImageTool.LoadImageT(SDK::SYSRES.SDK_LOGO, SDK::SYSRES.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-		SDK::ImageTool.LoadImageT(SDK::SYSRES.FMOD_LOGO, SDK::SYSRES.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
-		SDK::ImageTool.LoadImageT(SDK::SYSRES.COLOR_TEXTURE, SDK::SYSRES.COLOR_TEXTURE_DIRECTORY);
-		SDK::SoundTool.Load(SDK::SYSRES.INTRO_SOUND, SDK::SYSRES.SDK_LOGO_SOUND_DIRECTORY);
+		MSDK::ImageTool.LoadImageT(MSDK::SYSRES.SDK_LOGO, MSDK::SYSRES.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+		MSDK::ImageTool.LoadImageT(MSDK::SYSRES.FMOD_LOGO, MSDK::SYSRES.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
+		MSDK::ImageTool.LoadImageT(MSDK::SYSRES.COLOR_TEXTURE, MSDK::SYSRES.COLOR_TEXTURE_DIRECTORY);
+		MSDK::SoundTool.Load(MSDK::SYSRES.INTRO_SOUND, MSDK::SYSRES.SDK_LOGO_SOUND_DIRECTORY);
 
-		SDK::SYSRES.GLU_CIRCLE = gluNewQuadric();
-		SDK::SYSRES.GLU_LINE_CIRCLE = gluNewQuadric();
-		gluQuadricDrawStyle(SDK::SYSRES.GLU_CIRCLE, GLU_FILL);
-		gluQuadricDrawStyle(SDK::SYSRES.GLU_LINE_CIRCLE, GLU_FILL);
+		MSDK::SYSRES.GLU_CIRCLE = gluNewQuadric();
+		MSDK::SYSRES.GLU_LINE_CIRCLE = gluNewQuadric();
+		gluQuadricDrawStyle(MSDK::SYSRES.GLU_CIRCLE, GLU_FILL);
+		gluQuadricDrawStyle(MSDK::SYSRES.GLU_LINE_CIRCLE, GLU_FILL);
 
 		return 0;
 	}
