@@ -106,7 +106,7 @@ namespace SDK {
 		// Add an object to the scene. You can give two options to an object.
 		// OBJECT_TYPE_STATIC: It will not be deleted even if the mode is changed.
 		// OBJECT_TYPE_FLOATING: Specify it as a floating mode object.
-		SDK::Object* AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Type1 = OBJECT_TYPE_NONE, int Type2 = OBJECT_TYPE_NONE);
+		SDK::Object* AddObject(SDK::Object* Object, std::string Tag, unsigned int AddLayer, int Type1 = OBJECT_TYPE_NONE, int Type2 = OBJECT_TYPE_NONE);
 
 		// Deletes an object from the Scene.
 		// If the object is located on a layer that is not currently being referenced, activates DeleteReserveCommand.
@@ -123,7 +123,7 @@ namespace SDK {
 		void DeleteInputObject(SDK::Object* Object);
 
 		//  Change the layer where the object is located.
-		void SwapLayer(SDK::Object* Object, int TargetLayer);
+		void SwapLayer(SDK::Object* Object, unsigned int TargetLayer);
 
 		// Gets a pointer to a specific object that exists in the Scene. Returns nullptr for objects that do not exist.
 		SDK::Object* Find(std::string Tag);
@@ -133,7 +133,7 @@ namespace SDK {
 
 		// Gets a pointer to multiple objects with a specific tag that exist in the scene. Returns nullptr for objects that do not exist.
 		// You need to find the number of objects that exist in a specific layer and then access it using the for statement.
-		SDK::Object* FindMulti(std::string Tag, int SearchLayer, int Index);
+		SDK::Object* FindMulti(std::string Tag, unsigned int SearchLayer, int Index);
 
 
 		// Removes the object tag for a specific object.
@@ -142,7 +142,7 @@ namespace SDK {
 		void DeleteTag(std::string Tag);
 
 		// 	Returns the number of objects present in a specific Scene layer.
-		size_t LayerSize(int TargetLayer);
+		size_t LayerSize(unsigned int TargetLayer);
 
 		// Checks the state of an object and takes action appropriate to the state.
 		void CompleteCommand();

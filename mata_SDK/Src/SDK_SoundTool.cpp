@@ -20,7 +20,7 @@ void SDK::SDK_SoundTool::Init() {
 void SDK::SDK_SoundTool::Load(SDK::Sound& Sound, std::string FileName, FMOD_MODE Option) {
 	HRESULT Result = SoundSystem->createSound(FileName.c_str(), Option, 0, &Sound);
 	if (Result != FMOD_OK)
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_AUDIO_LOAD, FileName);
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_SOUND_LOAD, FileName);
 }
 
 void SDK::SDK_SoundTool::Release(SDK::Sound& Sound) {

@@ -66,51 +66,93 @@ public:
 		if (ErrorValue2.empty()) {
 			switch (ErrorType) {
 			case ERROR_TYPE_IMAGE_LOAD:
-				SDK::StringTool.AddString(Result, "Error Type : Image file load failure\nFile with problem: ");
+				SDK::StringTool.AddString(Result, "Error Type : ERROR_TYPE_IMAGE_LOAD\nFile with problem: ");
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
-				SDK::StringTool.AddString(Result, "The file may be missing or damaged.\nMake sure the image file is correct.\n\n");
+				SDK::StringTool.AddString(Result, "The file may be missing or damaged.\nMake sure the image file is correct.");
 				break;
 
-			case ERROR_TYPE_AUDIO_LOAD:
-				SDK::StringTool.AddString(Result, "Error Type : Audio file load failure\nFile with problem: ");
+			case ERROR_TYPE_SOUND_LOAD:
+				SDK::StringTool.AddString(Result, "Error Type : ERROR_TYPE_SOUND_LOAD\nFile with problem: ");
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
-				SDK::StringTool.AddString(Result, "The file may be missing or damaged.\nMake sure the audio file is correct.\n\n");
+				SDK::StringTool.AddString(Result, "The file may be missing or damaged.\nMake sure the audio file is correct.");
 				break;
 
 			case ERROR_TYPE_FONT_LOAD:
-				SDK::StringTool.AddString(Result, "Error Type : Font file load failure\nFile with problem: ");
+				SDK::StringTool.AddString(Result, "Error Type : ERROR_TYPE_FONT_LOAD\nFile with problem: ");
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
-				SDK::StringTool.AddString(Result, "The file may be missing or damaged.\nMake sure the font file is correct.\n\n");
+				SDK::StringTool.AddString(Result, "The file may be missing or damaged.\nMake sure the font file is correct.");
 				break;
 
 			case ERROR_TYPE_SCRIPT_LOAD:
-				SDK::StringTool.AddString(Result, "Error Type : Script file load failure\nFile with problem: ");
+				SDK::StringTool.AddString(Result, "Error Type : ERROR_TYPE_SCRIPT_LOAD\nFile with problem: ");
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
-				SDK::StringTool.AddString(Result, "The file may be missing or damaged.\nMake sure the script file is correct.\n\n");
+				SDK::StringTool.AddString(Result, "The file may be missing or damaged.\nMake sure the script file is correct.");
 				break;
 
 			case ERROR_TYPE_SCRIPT_PARSE:
-				SDK::StringTool.AddString(Result, "Error Type : Script file parsing failure\nFile with problem: ");
+				SDK::StringTool.AddString(Result, "Error Type : ERROR_TYPE_SCRIPT_PARSE\nFile with problem: ");
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
-				SDK::StringTool.AddString(Result, "The file may be damaged or have an incorrect structure.\nMake sure the script file is correct.\n\n");
+				SDK::StringTool.AddString(Result, "The file may be damaged or have an incorrect structure.\nMake sure the script file is correct.");
 				break;
 
 			case ERROR_TYPE_SCRIPT_CATEGORY:
-				SDK::StringTool.AddString(Result, "Error Type : Script file category data load failure\nCategory with problem: ");
+				SDK::StringTool.AddString(Result, "Error Type : ERROR_TYPE_SCRIPT_CATEGORY\nCategory with problem: ");
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
-				SDK::StringTool.AddString(Result, "The category may be missed.\nMake sure the script file's category is correct.\n\n");
+				SDK::StringTool.AddString(Result, "The category may be missed.\nMake sure the script file's category is correct.");
 				break;
 
 			case ERROR_TYPE_DATA_FILE_PARSE:
-				SDK::StringTool.AddString(Result, "Error Type : Data file parsing failure\nFile with problem: ");
+				SDK::StringTool.AddString(Result, "Error Type : ERROR_TYPE_DATA_FILE_PARSE\nFile with problem: ");
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
-				SDK::StringTool.AddString(Result, "The file may be damaged or have an incorrect structure.\nMake sure the data file is correct.\n\n");
+				SDK::StringTool.AddString(Result, "The file may be damaged or have an incorrect structure.\nMake sure the data file is correct.");
 				break;
 
 			case ERROR_TYPE_DATA_FILE_CATEGORY:
-				SDK::StringTool.AddString(Result, "Error Type : Data file category data load failure\nCategory with problem: ");
+				SDK::StringTool.AddString(Result, "Error Type : ERROR_TYPE_DATA_FILE_CATEGORY\nCategory with problem: ");
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
-				SDK::StringTool.AddString(Result, "The category may be missed.\nMake sure the data file's category is correct.\n\n");
+				SDK::StringTool.AddString(Result, "The category may be missed.\nMake sure the data file's category is correct.");
+				break;
+
+			case ERROR_TYPE_EXECUTED_MODE_EXECUTION:
+				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_EXECUTED_MODE_EXECUTION\nWhile running mode: ");
+				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
+				SDK::StringTool.AddString(Result, "You have attempted to execute a mode that has already been executed.\nCheck which part overlaps with the currently running mode.");
+				break;
+
+			case ERROR_TYPE_EXECUTED_FLOATING_MODE_EXECUTUION:
+				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_EXECUTED_FLOATING_MODE_EXECUTUION\nWhile running floating mode: ");
+				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
+				SDK::StringTool.AddString(Result, "You have attempted to execute a floating mode that has already been executed.\nCheck which part overlaps with the currently running floating mode.");
+				break;
+
+			case ERROR_TYPE_TERMINATED_FLOATING_MODE_TERMINATION:
+				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_TERMINATED_FLOATING_MODE_TERMINATION\nWhile running mode: ");
+				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
+				SDK::StringTool.AddString(Result, "You have attempted to terminate a floating mode that has already been terminated.\nCheck which part overlaps with the currently running floating mode.");
+				break;
+
+			case ERROR_TYPE_OBJECT_ADD_OUT_OF_SCENE_LAYER:
+				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_OBJECT_ADD_OUT_OF_SCENE_LAYER\nWhile running mode: ");
+				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
+				SDK::StringTool.AddString(Result, "You attempted to add an object at a location that exceeds the maximum layers.\nCheck which part adds the object in the wrong location.");
+				break;
+
+			case ERROR_TYPE_OBJECT_SWAP_OUT_OF_SCENE_LAYER:
+				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_OBJECT_SWAP_OUT_OF_SCENE_LAYER\nWhile running mode: ");
+				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
+				SDK::StringTool.AddString(Result, "You attempted to swap an object's layer to a location that exceeds the maximum layers.\nCheck which part swaps the object's layer to the wrong location.");
+				break;
+
+			case ERROR_TYPE_OBJECT_FIND_OUT_OF_SCENE_LAYER:
+				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_OBJECT_FIND_OUT_OF_SCENE_LAYER\nWhile running mode: ");
+				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
+				SDK::StringTool.AddString(Result, "You attempted to find an object at a location that exceeds the maximum layers.\nCheck which part finds the object in the wrong location.");
+				break;
+
+			case ERROR_TYPE_RETRIEVE_LAYER_SIZE_OUT_OF_SCENE_LAYER:
+				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_RETRIEVE_LAYER_SIZE_OUT_OF_SCENE_LAYER\nWhile running mode: ");
+				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
+				SDK::StringTool.AddString(Result, "You attempted to retrieve the number of objects at a location that exceeds the maximum layers.\nCheck which part retrieves the number of objects in a location that exceeds the maximum layer.");
 				break;
 			}
 		}
@@ -118,21 +160,21 @@ public:
 		else {
 			switch (ErrorType) {
 			case ERROR_TYPE_SCRIPT_DATA:
-				SDK::StringTool.AddString(Result, "Error Type : Script file data load failure\nData with problem: ");
+				SDK::StringTool.AddString(Result, "Error Type : ERROR_TYPE_SCRIPT_DATA\nData with problem: ");
 				SDK::StringTool.AddString(Result, "Category: " + ErrorValue1 + " | Data Name: " + ErrorValue2 + "\n\n");
-				SDK::StringTool.AddString(Result, "Data may be missing.\nMake sure the category's data is correct.\n\n");
+				SDK::StringTool.AddString(Result, "Data may be missing.\nMake sure the category's data is correct.");
 				break;
 
 			case ERROR_TYPE_DATA_FILE_DATA_LOAD:
-				SDK::StringTool.AddString(Result, "Error Type : Data file data load failure\nData with problem: ");
+				SDK::StringTool.AddString(Result, "Error Type : ERROR_TYPE_DATA_FILE_DATA_LOAD\nData with problem: ");
 				SDK::StringTool.AddString(Result, "Category: " + ErrorValue1 + " | Data Name: " + ErrorValue2 + "\n\n");
-				SDK::StringTool.AddString(Result, "Data may be missing.\nMake sure the category's data is correct.\n\n");
+				SDK::StringTool.AddString(Result, "Data may be missing.\nMake sure the category's data is correct.");
 				break;
 
 			case ERROR_TYPE_DATA_FILE_DATA_WRITE:
-				SDK::StringTool.AddString(Result, "Error Type : Data file data write failure\nData with problem: ");
+				SDK::StringTool.AddString(Result, "Error Type : ERROR_TYPE_DATA_FILE_DATA_WRITE\nData with problem: ");
 				SDK::StringTool.AddString(Result, "Category: " + ErrorValue1 + " | Data Name: " + ErrorValue2 + "\n\n");
-				SDK::StringTool.AddString(Result, "Data may be missing.\nMake sure the category's data is correct.\n\n");
+				SDK::StringTool.AddString(Result, "Data may be missing.\nMake sure the category's data is correct.");
 				break;
 			}
 		}

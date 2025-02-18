@@ -91,6 +91,11 @@ void SDK::SDK_Scene::Init(SDK::MODE_PTR ModeFunction) {
 }
 
 void SDK::SDK_Scene::SwitchMode(SDK::MODE_PTR ModeFunction) {
+	if (CurrentRunningModePtr == ModeFunction) {
+		SetErrorScreen(ERROR_TYPE_EXECUTED_MODE_EXECUTION, CurrentRunningModeName);
+		return;
+	}
+
 	ClearAll();
 
 	if (DestructorBuffer)
@@ -133,8 +138,10 @@ void SDK::SDK_Scene::ReleaseDestructor() {
 }
 
 void SDK::SDK_Scene::StartFloatingMode(SDK::MODE_PTR ModeFunction, bool FloatingFocusFlag) {
-	if (FloatingActivateCommand)
+	if (FloatingActivateCommand) {
+		SetErrorScreen(ERROR_TYPE_EXECUTED_FLOATING_MODE_EXECUTUION, CurrentRunningModeName);
 		return;
+	}
 
 	PrevRunningModeName = CurrentRunningModeName;
 	PrevRunningModePtr = CurrentRunningModePtr;
@@ -145,8 +152,10 @@ void SDK::SDK_Scene::StartFloatingMode(SDK::MODE_PTR ModeFunction, bool Floating
 }
 
 void SDK::SDK_Scene::EndFloatingMode() {
-	if (!FloatingActivateCommand)  
+	if (!FloatingActivateCommand) {
+		SetErrorScreen(ERROR_TYPE_TERMINATED_FLOATING_MODE_TERMINATION, CurrentRunningModeName);
 		return;
+	}
 
 	ClearFloatingObject();
 	CurrentRunningModeName = PrevRunningModeName;
@@ -159,9 +168,11 @@ void SDK::SDK_Scene::EndFloatingMode() {
 	FloatingFocusCommand = false;
 }
 
-SDK::Object* SDK::SDK_Scene::AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
-	if (AddLayer > SceneLayer - 2)
+SDK::Object* SDK::SDK_Scene::AddObject(SDK::Object* Object, std::string Tag, unsigned int AddLayer, int Type1, int Type2) {
+	if (AddLayer > SceneLayer - 2) {
+		SetErrorScreen(ERROR_TYPE_OBJECT_ADD_OUT_OF_SCENE_LAYER, CurrentRunningModeName);
 		return nullptr;
+	}
 
 	if (Type1 == OBJECT_TYPE_STATIC_SINGLE || Type2 == OBJECT_TYPE_STATIC_SINGLE) {
 		if (auto Object = Find(Tag); Object)
@@ -235,7 +246,11 @@ void SDK::SDK_Scene::DeleteInputObject(SDK::Object* Object) {
 	}
 }
 
-void SDK::SDK_Scene::SwapLayer(SDK::Object* Object, int TargetLayer) {
+void SDK::SDK_Scene::SwapLayer(SDK::Object* Object, unsigned int TargetLayer) {
+	if (TargetLayer > SceneLayer - 2) {
+		SetErrorScreen(ERROR_TYPE_OBJECT_SWAP_OUT_OF_SCENE_LAYER, CurrentRunningModeName);
+		return;
+	}
 	Object->SwapCommand = true;
 	Object->ObjectLayer = TargetLayer;
 }
@@ -262,9 +277,11 @@ SDK::Object* SDK::SDK_Scene::ReverseFind(std::string Tag) {
 	return nullptr;
 }
 
-SDK::Object* SDK::SDK_Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
-	if (SearchLayer > SceneLayer - 2)
+SDK::Object* SDK::SDK_Scene::FindMulti(std::string Tag, unsigned int SearchLayer, int Index) {
+	if (SearchLayer > SceneLayer - 2) {
+		SetErrorScreen(ERROR_TYPE_OBJECT_FIND_OUT_OF_SCENE_LAYER, CurrentRunningModeName);
 		return nullptr;
+	}
 
 	auto Object = ObjectList[SearchLayer][Index];
 	if(Object->ObjectTag == Tag)
@@ -273,7 +290,12 @@ SDK::Object* SDK::SDK_Scene::FindMulti(std::string Tag, int SearchLayer, int Ind
 	return nullptr;
 }
 
-size_t SDK::SDK_Scene::LayerSize(int TargetLayer) {
+size_t SDK::SDK_Scene::LayerSize(unsigned int TargetLayer) {
+	if (TargetLayer > SceneLayer - 2) {
+		SetErrorScreen(ERROR_TYPE_RETRIEVE_LAYER_SIZE_OUT_OF_SCENE_LAYER, CurrentRunningModeName);
+		return 0;
+	}
+
 	return ObjectList[TargetLayer].size();
 }
 
