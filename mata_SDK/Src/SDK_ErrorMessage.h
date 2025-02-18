@@ -128,7 +128,7 @@ public:
 			case ERROR_TYPE_TERMINATED_FLOATING_MODE_TERMINATION:
 				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_TERMINATED_FLOATING_MODE_TERMINATION\nWhile running mode: ");
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
-				SDK::StringTool.AddString(Result, "You have attempted to terminate a floating mode that has already been terminated.\nCheck which part overlaps with the currently running floating mode.");
+				SDK::StringTool.AddString(Result, "You have attempted to terminate a floating mode that has already been terminated.\nCheck which part attempts to terminate the floating mode that terminated.");
 				break;
 
 			case ERROR_TYPE_OBJECT_ADD_OUT_OF_SCENE_LAYER:

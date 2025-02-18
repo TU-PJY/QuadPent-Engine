@@ -318,6 +318,9 @@ void SDK::SDK_Scene::CompleteCommand() {
 }
 
 void SDK::SDK_Scene::SetErrorScreen(int ErrorType, std::string Value1, std::string Value2) {
+	if (ErrorOccured)
+		return;
+
 	Value1Buffer = Value1;
 	Value2Buffer = Value2;
 	ErrorTypeBuffer = ErrorType;
