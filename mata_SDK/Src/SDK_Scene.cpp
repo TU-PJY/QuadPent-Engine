@@ -160,7 +160,7 @@ void SDK::SDK_Scene::EndFloatingMode() {
 }
 
 SDK::Object* SDK::SDK_Scene::AddObject(SDK::Object* Object, std::string Tag, int AddLayer, int Type1, int Type2) {
-	if (AddLayer > SceneLayer)
+	if (AddLayer > SceneLayer - 2)
 		return nullptr;
 
 	if (Type1 == OBJECT_TYPE_STATIC_SINGLE || Type2 == OBJECT_TYPE_STATIC_SINGLE) {
@@ -199,7 +199,7 @@ void SDK::SDK_Scene::DeleteObject(SDK::Object* Object) {
 
 void SDK::SDK_Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
-		for (int Layer = 0; Layer < SceneLayer; ++Layer) {
+		for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 			for (auto const& Object : ObjectList[Layer]) {
 				if (Object->ObjectTag == Tag) {
 					Object->DeleteCommand = true;
@@ -211,7 +211,7 @@ void SDK::SDK_Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	}
 
 	else if (DeleteRange == DELETE_RANGE_ALL) {
-		for (int Layer = 0; Layer < SceneLayer; ++Layer) {
+		for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 			for (auto const& Object : ObjectList[Layer]) {
 				if (Object->ObjectTag == Tag) {
 					Object->DeleteCommand = true;
@@ -241,7 +241,7 @@ void SDK::SDK_Scene::SwapLayer(SDK::Object* Object, int TargetLayer) {
 }
 
 SDK::Object* SDK::SDK_Scene::Find(std::string Tag) {
-	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
+	for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 		for (auto const& Object : ObjectList[Layer]) {
 			if (Object->ObjectTag == Tag)
 				return Object;
@@ -252,7 +252,7 @@ SDK::Object* SDK::SDK_Scene::Find(std::string Tag) {
 }
 
 SDK::Object* SDK::SDK_Scene::ReverseFind(std::string Tag) {
-	for (int Layer = SceneLayer - 1; Layer > 0; --Layer) {
+	for (int Layer = SceneLayer - 2; Layer >= 0; --Layer) {
 		for (auto Object = ObjectList[Layer].rbegin(); Object != ObjectList[Layer].rend(); ++Object) {
 			if ((*Object)->ObjectTag == Tag)
 				return *Object;
@@ -263,6 +263,9 @@ SDK::Object* SDK::SDK_Scene::ReverseFind(std::string Tag) {
 }
 
 SDK::Object* SDK::SDK_Scene::FindMulti(std::string Tag, int SearchLayer, int Index) {
+	if (SearchLayer > SceneLayer - 2)
+		return nullptr;
+
 	auto Object = ObjectList[SearchLayer][Index];
 	if(Object->ObjectTag == Tag)
 		return ObjectList[SearchLayer][Index];
@@ -299,6 +302,15 @@ void SDK::SDK_Scene::SetErrorScreen(int ErrorType, std::string Value1, std::stri
 	ErrorOccured = true;
 }
 
+void SDK::SDK_Scene::AddSystemObject(SDK::Object* Object) {
+	if (SystemObjectAdded)
+		return;
+
+	SystemObjectAdded = true;
+
+	ObjectList[EOL].emplace_back(Object);
+}
+
 //////// private ///////////////
 void SDK::SDK_Scene::AddLocation(int Layer, int Position) {
 	DeleteLocation[Layer].emplace_back(Position);
@@ -308,7 +320,7 @@ void SDK::SDK_Scene::AddLocation(int Layer, int Position) {
 void SDK::SDK_Scene::UpdateObjectList() {
 	int Offset{};
 
-	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
+	for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 		size_t Size = DeleteLocation[Layer].size();
 		if (Size == 0)
 			continue;
@@ -338,7 +350,7 @@ void SDK::SDK_Scene::UpdateObjectList() {
 }
 
 void SDK::SDK_Scene::ClearFloatingObject() {
-	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
+	for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 		size_t Size = LayerSize(Layer);
 		for (int i = 0; i < Size; ++i) {
 			if (!ObjectList[Layer][i]->StaticCommand && ObjectList[Layer][i]->FloatingCommand) {
@@ -353,7 +365,7 @@ void SDK::SDK_Scene::ClearFloatingObject() {
 }
 
 void SDK::SDK_Scene::ClearAll() {
-	for (int Layer = 0; Layer < SceneLayer; ++Layer) {
+	for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 		size_t Size = LayerSize(Layer);
 		for (int i = 0; i < Size; ++i) {
 			if (!ObjectList[Layer][i]->StaticCommand) {
@@ -367,21 +379,25 @@ void SDK::SDK_Scene::ClearAll() {
 	LoopEscapeCommand = true;
 }
 
+void ErrorScreenController(unsigned char Key, int X, int Y) {
+	if (Key == NK_ESCAPE || Key == NK_ENTER)
+		SDK::System.Exit();
+}
+
 void SDK::SDK_Scene::SwitchToErrorScreen() {
 	glutMotionFunc(nullptr);
 	glutPassiveMotionFunc(nullptr);
-	glutKeyboardFunc(nullptr);
+	glutKeyboardFunc(ErrorScreenController);
 	glutKeyboardUpFunc(nullptr);
 	glutMouseWheelFunc(nullptr);
 	glutMouseFunc(nullptr);
 	glutSpecialFunc(nullptr);
 	glutSpecialUpFunc(nullptr);
 
-	if(SHOW_FPS && Indicator)
-		Indicator->DisableRender();
+	SystemObjectAdded = false;
 
 	if (Value2Buffer.empty())
-		AddObject(new SDK_ErrorMessage(ErrorTypeBuffer, Value1Buffer), "error_message", EOL - 1);
+		AddSystemObject(new SDK_ErrorMessage(ErrorTypeBuffer, Value1Buffer));
 	else
-		AddObject(new SDK_ErrorMessage(ErrorTypeBuffer, Value1Buffer, Value2Buffer), "error_message", EOL - 1);
+		AddSystemObject(new SDK_ErrorMessage(ErrorTypeBuffer, Value1Buffer));
 }

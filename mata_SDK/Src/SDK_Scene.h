@@ -1,5 +1,6 @@
 #pragma once
 #include "SDK_Object.h"
+#include "SDK_FPSIndicator.h"
 #include <algorithm>
 #include <array>
 #include <deque>
@@ -7,7 +8,7 @@
 
 typedef void(*Function)(void);
 typedef void(*ControllerFunction)(void);
-constexpr int SceneLayer = EOL;
+constexpr int SceneLayer = EOL + 1;
 
 namespace SDK {
 	class SDK_Scene {
@@ -21,8 +22,8 @@ namespace SDK {
 		std::string						  CurrentRunningModeName{};
 		std::string						  PrevRunningModeName{};
 
-		SDK::MODE_PTR                    CurrentRunningModePtr{};
-		SDK::MODE_PTR                    PrevRunningModePtr{};
+		SDK::MODE_PTR                     CurrentRunningModePtr{};
+		SDK::MODE_PTR                     PrevRunningModePtr{};
 
 		bool							  FloatingActivateCommand{};
 		bool                              FloatingFocusCommand{};
@@ -41,7 +42,9 @@ namespace SDK {
 		std::string						  Value1Buffer{};
 		std::string						  Value2Buffer{};
 
-		std::vector<SDK::Object*>*       InputObjectListPtr{};
+		std::vector<SDK::Object*>*        InputObjectListPtr{};
+
+		bool                              SystemObjectAdded{};
 
 	public:
 		// Returns the name of the currently running mode.
@@ -146,6 +149,8 @@ namespace SDK {
 
 		// When an error occurs, it switches to the error screen and stops the system.
 		void SetErrorScreen(int ErrorType, std::string Value1, std::string Value2 = "");
+
+		void AddSystemObject(SDK::Object* Object);
 
 	private:
 		void AddLocation(int Layer, int Position);

@@ -36,7 +36,6 @@ public:
 			SDK::SoundTool.Init();
 
 			SDK::FontLoader.LoadT(SDK::SYSRES.SDK_FONT_DIRECTORY);
-			SDK::ImageTool.LoadImage(SDK::SYSRES.SDK_IMAGE_ERROR, SDK::SYSRES.SDK_ERROR_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 			SDK::ImageTool.LoadImage(SDK::SYSRES.LOADING_SPINNER, SDK::SYSRES.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 			SDK::ImageTool.LoadImage(SDK::SYSRES.MATA_LOGO, SDK::SYSRES.MATA_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 
@@ -59,20 +58,18 @@ public:
 					InitializationEnd = true;
 				}
 
-				if (!ENABLE_INTRO_SCREEN) {
-					if (InitializationEnd) {
-						if (SHOW_FPS)  AddFPSIndicator();
-						SDK::Scene.SwitchMode(SDK::START_MODE);
-					}
-				}
-
 				else {
-					if (InitializationEnd) {
+					if(ENABLE_INTRO_SCREEN) {
 						SpinnerOpacity -= FrameTime * 2.0;
 						if (SDK::EXTool.CheckClampValue(SpinnerOpacity, 0.0, CLAMP_LESS)) {
 							if (SHOW_FPS)  AddFPSIndicator();
 							SDK::Scene.SwitchMode(IntroMode.Start);
 						}
+					}
+
+					else {
+						if (SHOW_FPS)  AddFPSIndicator();
+						SDK::Scene.SwitchMode(SDK::START_MODE);
 					}
 				}
 			}
@@ -93,7 +90,7 @@ public:
 	}
 
 	void AddFPSIndicator() {
-		Indicator = SDK::Scene.AddObject(new SDK_FPS_Indicator, "SDK_OBJECT_FPS_INDICATOR", EOL - 1, OBJECT_TYPE_STATIC);
+		SDK::Scene.AddSystemObject(new SDK_FPS_Indicator);
 	}
 
 	bool LoadResources() {

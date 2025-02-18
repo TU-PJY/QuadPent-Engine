@@ -8,35 +8,35 @@
 namespace SDK {
 	class Text {
 	private:
-		SDK::Vector2                RenderPosition{};
-		SDK::Vector2                CurrentRenderOffset{};
-		float                  Rotation{};
+		SDK::Vector2             RenderPosition{};
+		SDK::Vector2             CurrentRenderOffset{};
+		float					 Rotation{};
 
 		size_t                   TextWordCount{};
-		float                  TextLength{};
-		float                  TextRenderSize{};
-		float                  TextLineGap{};
-		float                  MiddleHeight{};
+		float                    TextLength{};
+		float                    TextRenderSize{};
+		float                    TextLineGap{};
+		float                    MiddleHeight{};
 
-		std::vector<float>     LineLengthBuffer{};
+		std::vector<float>		 LineLengthBuffer{};
 		std::wstring             CurrentText{};
 		std::wstring             PrevText{};
 		int                      CurrentLine{};
 
-		float                  TextOpacity{ 1.0f };
+		float					 TextOpacity{ 1.0f };
 		glm::vec3                TextColor{ glm::vec3(1.0, 1.0, 1.0) };
 
 		bool                     ShadowRenderCommand{};
 		float					 ShadowOpacity{};
-		SDK::Vector2                ShadowOffset{};
+		SDK::Vector2             ShadowOffset{};
 		glm::vec3                ShadowColor{};
 
 		glm::vec3                RenderColor{};
-		float                  RenderOpacity{};
+		float					 RenderOpacity{};
 
 		HDC                      hDC{};
 		HFONT                    Font{};
-		GLuint                   FontBase{};
+		unsigned int             FontBase{};
 		std::unordered_map <wchar_t, GLYPHMETRICSFLOAT> TextGlyph{};
 		std::map <wchar_t, bool> GlyphCache{};
 		std::vector<wchar_t>     TextVec{};

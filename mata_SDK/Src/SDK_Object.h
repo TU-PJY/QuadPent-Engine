@@ -13,7 +13,7 @@ namespace SDK {
 		bool        DeleteCommand{};
 		bool        SwapCommand{};
 
-		// Initialize matrix. Select a rendering type.
+		// Initialize matrix. Select a render type.
 		void Begin(int RenderType = RENDER_TYPE_DEFAULT);
 
 		// Initialize unit matrix.
@@ -60,10 +60,6 @@ namespace SDK {
 
 		// Obtains an BoundingCircle object from a specific object class.
 		virtual SDK::BoundingCircle GetBoundingCircle() { return {}; }
-
-		// FPS indicator function
-		virtual void RenderIndicator() {}
-		virtual void DisableRender() {}
 
 	private:
 		glm::vec4 ViewportPosition();

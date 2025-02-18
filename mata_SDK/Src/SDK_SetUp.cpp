@@ -14,8 +14,6 @@ int SDK::WIDTH = WINDOW_WIDTH;
 int SDK::HEIGHT = WINDOW_HEIGHT;
 int SDK::PREV_WIDTH, SDK::PREV_HEIGHT;
 
-SDK::Object* Indicator;
-
 SDK::SDK_Camera SDK::Camera;
 
 float SDK::ASPECT;

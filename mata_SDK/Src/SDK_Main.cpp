@@ -17,13 +17,10 @@ void SDK::SDK_System::Main() {
 		SDK::Scene.Update();
 		SDK::CameraControl.Update(S_Inst->DeltaTime);
 		SDK::Frustum.Update();
+		SDK::SoundTool.Update();
 		SDK::Scene.Render();
 		SDK::Scene.CompleteCommand();
-		SDK::SoundTool.Update();
 	}
-
-	if (SHOW_FPS && Indicator)
-		Indicator->RenderIndicator();
 
 	if (S_Inst->FPSLimit > 0) {
 		std::chrono::duration<double, std::milli> Duration(S_Inst->DestFPS);

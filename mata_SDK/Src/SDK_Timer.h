@@ -6,7 +6,7 @@ namespace SDK {
 	class Timer {
 	private:
 		float Time{};
-		bool    StopState{};
+		bool  StopState{};
 
 	public:
 		void Update(float FrameTime);
@@ -29,8 +29,8 @@ namespace SDK {
 	private:
 		float BeatInterval{};
 		float Time{};
-		bool     StopState{};
-		bool     BeatState{};
+		bool  StopState{};
+		bool  BeatState{};
 
 	public:
 		void SetBPM(int Value);

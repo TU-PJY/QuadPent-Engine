@@ -8,8 +8,6 @@ private:
 
 	SDK::Text IndicatorText{};
 
-	bool RenderState{ true };
-
 public:
 	SDK_FPS_Indicator() {
 		IndicatorText.Init(SDK::FONT, FW_BOLD);
@@ -25,13 +23,7 @@ public:
 			CurrentDeltaTime = FrameTime;
 	}
 
-	void RenderIndicator() {
-		if(RenderState)
-			IndicatorText.Render(SDK::WindowRect.LeftX + 0.01, SDK::WindowRect.RightY, 0.1, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
-	}
-
-	void DisableRender() {
-		RenderState = false;
+	void RenderFunc() {
+		IndicatorText.Render(SDK::WindowRect.LeftX + 0.01, SDK::WindowRect.RightY, 0.1, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
 	}
 };
-extern SDK::Object* Indicator;
