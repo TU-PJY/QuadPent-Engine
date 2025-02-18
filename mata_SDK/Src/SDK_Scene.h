@@ -43,8 +43,6 @@ namespace MSDK {
 
 		std::vector<MSDK::Object*>*       InputObjectListPtr{};
 
-		int								  CurrentRunningProcess{ SCENE_UPDATE_PROCESS };
-
 	public:
 		// Returns the name of the currently running mode.
 		std::string ModeName();

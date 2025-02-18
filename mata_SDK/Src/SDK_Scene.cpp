@@ -32,8 +32,6 @@ void MSDK::SDK_Scene::Resume() {
 }
 
 void MSDK::SDK_Scene::Update() {
-	CurrentRunningProcess = SCENE_UPDATE_PROCESS;
-
 	if (!ErrorScreenState && ErrorOccured) {
 		MSDK::SoundTool.StopAllSounds();
 		SwitchToErrorScreen();
@@ -72,8 +70,6 @@ void MSDK::SDK_Scene::Update() {
 }
 
 void MSDK::SDK_Scene::Render() {
-	CurrentRunningProcess = SCENE_RENDER_PROCESS;
-
 	if (LoopEscapeCommand) {
 		LoopEscapeCommand = false;
 		return;
@@ -94,9 +90,6 @@ void MSDK::SDK_Scene::Init(MSDK::MODE_PTR ModeFunction) {
 }
 
 void MSDK::SDK_Scene::SwitchMode(MSDK::MODE_PTR ModeFunction) {
-	if (CurrentRunningProcess == SCENE_RENDER_PROCESS)
-		return;
-
 	ClearAll();
 
 	if (DestructorBuffer)

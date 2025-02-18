@@ -171,11 +171,6 @@ enum SDK_ObjectType {
 	OBJECT_TYPE_FLOATING
 };
 
-enum SDK_CurrenSceneRunningProcess {
-	SCENE_UPDATE_PROCESS,
-	SCENE_RENDER_PROCESS
-};
-
 enum DistTypeEnum {
 	RANDOM_TYPE_REAL,
 	RANDOM_TYPE_INT
