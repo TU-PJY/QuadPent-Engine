@@ -5,7 +5,7 @@ void SDK::AABB::Update(float X, float Y, float xScale, float yScale) {
 	aabb.Extents = XMFLOAT3(xScale / 2.0, yScale / 2.0, 0.0);
 }
 
-void SDK::AABB::Update(glm::vec2& Position, float xScale, float yScale) {
+void SDK::AABB::Update(SDK::Vector2& Position, float xScale, float yScale) {
 	aabb.Center = XMFLOAT3(Position.x, Position.y, 0.0);
 	aabb.Extents = XMFLOAT3(xScale / 2.0, yScale / 2.0, 0.0);
 }
@@ -62,7 +62,7 @@ bool SDK::AABB::CheckCollisionPoint(float X, float Y) {
 	return false;
 }
 
-bool SDK::AABB::CheckCollisionPoint(glm::vec2& Position) {
+bool SDK::AABB::CheckCollisionPoint(SDK::Vector2& Position) {
 	XMFLOAT3 Point(Position.x, Position.y, 0.0);
 	if (aabb.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
 		Collide = true;
@@ -113,7 +113,7 @@ void SDK::OOBB::Update(float X, float Y, float BoxWidth, float BoxHeight, float 
 	Rotation = RotationValue;
 }
 
-void SDK::OOBB::Update(glm::vec2& Position, float BoxWidth, float BoxHeight, float RotationValue) {
+void SDK::OOBB::Update(SDK::Vector2& Position, float BoxWidth, float BoxHeight, float RotationValue) {
 	oobb.Center = XMFLOAT3(Position.x, Position.y, 0.0);
 	oobb.Extents = XMFLOAT3(BoxWidth * 0.5, BoxHeight * 0.5, 0.0);
 	XMVECTOR Quaternion = XMQuaternionRotationRollPitchYaw(0.0, 0.0, XMConvertToRadians(-RotationValue));
@@ -173,7 +173,7 @@ bool SDK::OOBB::CheckCollisionPoint(float X, float Y) {
 	return false;
 }
 
-bool SDK::OOBB::CheckCollisionPoint(glm::vec2& Position) {
+bool SDK::OOBB::CheckCollisionPoint(SDK::Vector2& Position) {
 	XMFLOAT3 Point(Position.x, Position.y, 0.0);
 	if (oobb.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
 		Collide = true;
@@ -222,7 +222,7 @@ void SDK::BoundingCircle::Update(float X, float Y, float SizeValue) {
 	sphere.Radius = SizeValue * 0.5;
 }
 
-void SDK::BoundingCircle::Update(glm::vec2& Position, float SizeValue) {
+void SDK::BoundingCircle::Update(SDK::Vector2& Position, float SizeValue) {
 	sphere.Center = XMFLOAT3(Position.x, Position.y, 0.0);
 	sphere.Radius = SizeValue * 0.5;
 }
@@ -279,7 +279,7 @@ bool SDK::BoundingCircle::CheckCollisionPoint(float X, float Y) {
 	return false;
 }
 
-bool SDK::BoundingCircle::CheckCollisionPoint(glm::vec2& Position) {
+bool SDK::BoundingCircle::CheckCollisionPoint(SDK::Vector2& Position) {
 	XMFLOAT3 Point(Position.x, Position.y, 0.0);
 	if (sphere.Contains(XMLoadFloat3(&Point)) == ContainmentType::CONTAINS) {
 		Collide = true;

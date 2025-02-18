@@ -61,7 +61,7 @@ void SDK::Text::DisableShadow() {
 	ShadowRenderCommand = false;
 }
 
-void SDK::Text::SetShadow(float OffsetX, float OffsetY, float Opacity, glm::vec3 Color) {
+void SDK::Text::SetShadow(float OffsetX, float OffsetY, float Opacity, SDK::Color3 Color) {
 	ShadowOffset.x = OffsetX;
 	ShadowOffset.y = OffsetY;
 	ShadowOpacity = Opacity;
@@ -74,7 +74,7 @@ void SDK::Text::SetColor(float R, float G, float B) {
 	TextColor.b = B;
 }
 
-void SDK::Text::SetColor(glm::vec3& Color) {
+void SDK::Text::SetColor(SDK::Color3& Color) {
 	TextColor.r = Color.r;
 	TextColor.g = Color.g;
 	TextColor.b = Color.b;
@@ -94,7 +94,7 @@ void SDK::Text::SetOpacity(float Value) {
 	TextOpacity = Value;
 }
 
-void SDK::Text::Render(glm::vec2& Position, float Size, const wchar_t* Fmt, ...) {
+void SDK::Text::Render(SDK::Vector2& Position, float Size, const wchar_t* Fmt, ...) {
 	if (Fmt == NULL)
 		return;
 
@@ -135,10 +135,10 @@ void SDK::Text::Render(float X, float Y, float Size, const wchar_t* Fmt, ...) {
 
 	va_end(Args);
 
-	InputText(TextVec, glm::vec2(X, Y), Size);
+	InputText(TextVec, SDK::Vector2(X, Y), Size);
 }
 
-void SDK::Text::RenderStr(glm::vec2& Position, float Size, std::string Str) {
+void SDK::Text::RenderStr(SDK::Vector2& Position, float Size, std::string Str) {
 	Render(Position.x, Position.y, Size, SDK::StringTool.Wstring(Str).c_str());
 }
 
@@ -146,7 +146,7 @@ void SDK::Text::RenderStr(float X, float Y, float Size, std::string Str) {
 	Render(X, Y, Size, SDK::StringTool.Wstring(Str).c_str());
 }
 
-void SDK::Text::RenderWStr(glm::vec2& Position, float Size, std::wstring WStr) {
+void SDK::Text::RenderWStr(SDK::Vector2& Position, float Size, std::wstring WStr) {
 	Render(Position.x, Position.y, Size, WStr.c_str());
 }
 
@@ -155,13 +155,13 @@ void SDK::Text::RenderWStr(float X, float Y, float Size, std::wstring WStr) {
 }
 
 ////////////////// private
-void SDK::Text::InputText(std::vector<wchar_t>& Input, glm::vec2& Position, float Size) {
+void SDK::Text::InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, float Size) {
 	CurrentText = std::wstring(Input.data());
 
 	if (ShadowRenderCommand) {
 		RenderColor = ShadowColor;
 		RenderOpacity = TextOpacity * ShadowOpacity;
-		ProcessText((wchar_t*)CurrentText.c_str(), glm::vec2(Position.x + ShadowOffset.x * Size, Position.y + ShadowOffset.y * Size), Size);
+		ProcessText((wchar_t*)CurrentText.c_str(), SDK::Vector2(Position.x + ShadowOffset.x * Size, Position.y + ShadowOffset.y * Size), Size);
 	}
 
 	RenderColor = TextColor;
@@ -169,11 +169,11 @@ void SDK::Text::InputText(std::vector<wchar_t>& Input, glm::vec2& Position, floa
 	ProcessText((wchar_t*)CurrentText.c_str(), Position, Size);
 }
 
-void SDK::Text::ProcessText(wchar_t* Text, glm::vec2& Position, float Size) {
+void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 	CurrentLine = 0;
 	TextRenderSize = Size;
 	RenderPosition = Position;
-	CurrentRenderOffset = glm::vec2(0.0, 0.0);
+	CurrentRenderOffset = SDK::Vector2(0.0, 0.0);
 
 	if (CurrentText != PrevText) {
 		TextWordCount = wcslen(Text);

@@ -19,7 +19,7 @@ void SDK::CircleBrush::SetColor(float R, float G, float B) {
 	Color.b = B;
 }
 
-void SDK::CircleBrush::SetColor(glm::vec3& ColorValue) {
+void SDK::CircleBrush::SetColor(SDK::Color3& ColorValue) {
 	Color.r = ColorValue.r;
 	Color.g = ColorValue.g;
 	Color.b = ColorValue.b;
@@ -73,7 +73,7 @@ void SDK::LineCircleBrush::SetColor(float R, float G, float B) {
 	Color.b = B;
 }
 
-void SDK::LineCircleBrush::SetColor(glm::vec3& ColorValue) {
+void SDK::LineCircleBrush::SetColor(SDK::Color3& ColorValue) {
 	Color.r = ColorValue.r;
 	Color.g = ColorValue.g;
 	Color.b = ColorValue.b;

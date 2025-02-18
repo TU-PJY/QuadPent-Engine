@@ -6,14 +6,14 @@ namespace SDK {
 	public:
 		void Update(float FrameTime);
 		void Move(float X, float Y);
-		void Move(glm::vec2& PositionValue);
+		void Move(SDK::Vector2& PositionValue);
 		void Rotate(float Degree);
 		void Zoom(int ZoomType, float ZoomValue);
 		void SetZoom(float ZoomValue);
 		float ComputeNextZoom(int ZoomType, float ZoomValue);
 
 	private:
-		glm::vec2 Position{};
+		SDK::Vector2 Position{};
 		float Rotation{};
 
 		void ComputeCameraMatrix();

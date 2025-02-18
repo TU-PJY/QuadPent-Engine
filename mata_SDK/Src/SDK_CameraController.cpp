@@ -18,7 +18,7 @@ void SDK::SDK_CameraController::Move(float X, float Y){
 	SDK::Camera.Position.y = Y;
 }
 
-void SDK::SDK_CameraController::Move(glm::vec2& PositionValue){
+void SDK::SDK_CameraController::Move(SDK::Vector2& PositionValue){
 	Position = -PositionValue;
 	SDK::Camera.Position = PositionValue;
 }

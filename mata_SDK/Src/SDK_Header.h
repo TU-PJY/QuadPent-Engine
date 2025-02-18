@@ -22,6 +22,186 @@ using namespace DirectX;
 #include "fmod.hpp"
 #include "fmod_errors.h"
 
+// global shader location
+void ModeAttribute();
+
+namespace SDK {
+	// corner position of display
+	typedef struct {
+		float LeftX, LeftY, RightX, RightY;
+	}ViewportRect;
+	extern ViewportRect WindowRect;
+
+	// key event
+	typedef struct {
+		int Type;
+		unsigned char NormalKey;
+		int SpecialKey;
+	}KeyEvent;
+
+	// ray vector struct
+	typedef struct {
+		XMVECTOR Origin;
+		XMVECTOR Direction;
+		float Distance;
+		float Length;
+	}RayVector;
+
+	// data set struct
+	typedef struct {
+		int         DataType;
+		std::string CategoryName;
+		std::string DataName;
+		float       DigitValue;
+		std::string StringValue;
+	}FileData;
+
+	// image struct
+	typedef struct {
+		unsigned int Texture;
+		int          Width, Height;
+	}Image;
+
+	// sprite sheet struct
+	typedef struct {
+		std::vector<unsigned int> Texture;
+		int                Width, Height;
+		int                Frame;
+	}SpriteSheet;
+
+	// pre load image struct
+	typedef struct {
+		Image* ImagePtr;
+		unsigned char* TextureData;
+		int            ImageType;
+	}PreLoadInfo;
+
+	// pre load sprite sheet struct
+	typedef struct {
+		SpriteSheet* SpriteSheetPtr;
+		std::vector<unsigned char*> TextureData;
+		int            ImageType;
+	}PreLoadSpriteSheetInfo;
+
+	// sound channel struct
+	struct SoundChannel {
+		float Volume = 1.0;
+		float PlaySpeed = 1.0;
+		FMOD::Channel* Channel{};
+	};
+
+	// fast sound channel struct
+	struct FastSoundChannel {
+		float Volume = 1.0;
+		float PlaySpeed = 1.0;
+		int NumChannel{};
+		int PlayChannel = 0;
+		int StopChannel = 1;
+		std::vector<FMOD::Channel*> Channel{};
+	};
+
+	using Matrix4 = glm::mat4;
+	using Color3  = glm::vec3;
+	using Vector4 = glm::vec4;
+	using Vector3 = glm::vec3;
+	using Vector2 = glm::vec2;
+
+	using ShaderLocation = unsigned int;
+	using ShaderResource = unsigned int;
+	using SSBO = unsigned int;
+
+	typedef void(*START_MODE_PTR)(void);
+	typedef void(*MODE_PTR)(void);
+	typedef void(*CONTROLLER_PTR)(void);
+	extern START_MODE_PTR START_MODE;
+
+	using SoundChannelGroup = std::vector <SoundChannel>;
+	using Sound = FMOD::Sound*;
+
+	using StringDataVec = std::vector<std::string>;
+	using DigitDataVec = std::vector<float>;
+	using DataFormat = std::vector<FileData>;
+
+	// SinLoop presets
+	namespace Preset {
+		constexpr float ZeroToPositive = 0.0;
+		constexpr float ZeroToNegative = XM_PI;
+		constexpr float MaxPositive = XM_PI / 2.0;
+		constexpr float MaxNegative = -XM_PI / 2.0;
+		constexpr float HalfPositive = XM_PI / 6.0;
+		constexpr float HalfNegative = -XM_PI / 6.0;
+	}
+
+	// Multiply the value by the window aspect ratio.
+	float ASP(float Value);
+
+	class SDK_System {
+	private:
+		bool  UpdateActivateCommand{};
+		float PrevTime{}, CurrentTime{}, DeltaTime{};
+
+		float DestFPS{};
+		int   FPSLimit{};
+
+		bool  FullscreenState{};
+
+	public:
+		static SDK_System* S_Inst;
+
+		SDK_System() {
+			S_Inst = this;
+		}
+
+		static void Main();
+		static void DisplayReshape(int w, int h);
+		void SwitchScreenState();
+		void ChangeScreenSize(int ScreenWidth, int ScreenHeight);
+		void SetFrameLimit(int FrameLimit);
+		void HideCursor();
+		void ShowCursor();
+		void MoveCursor(int X, int Y);
+		void SetBackColor(float R, float G, float B);
+		void SetBackColor(SDK::Color3& Color);
+		void SetBackColorRGB(int R, int G, int B);
+		void SetupSystem(int argc, char** argv);
+		void InitSystem();
+		void SetGlOption();
+		void SetupWindow();
+		void LoadShader();
+		void Exit();
+	};
+
+	extern SDK_System System;
+	extern glm::vec3 ViewportColor;
+	extern std::wstring LOCALE;
+	extern float ASPECT;
+	extern int WIDTH, HEIGHT;
+	extern int PREV_WIDTH, PREV_HEIGHT;
+	extern const glm::mat4 IdentityMatrix;
+	constexpr wchar_t* FONT = L"Roboto";
+}
+
+// global scope shader
+extern SDK::ShaderResource IMAGE_SHADER;
+extern SDK::ShaderResource TEXT_SHADER;
+extern SDK::ShaderResource SHAPE_SHADER;
+extern SDK::ShaderResource MATRIX_COMPT_SHADER;
+
+// global SSBO I/O
+extern SDK::SSBO SSBO_MATRIX_INPUT, SSBO_MATRIX_OUTPUT;
+
+// global scope shader location
+extern SDK::ShaderLocation IMAGE_OPACITY_LOCATION, IMAGE_COLOR_LOCATION, IMAGE_MODEL_LOCATION;
+extern SDK::ShaderLocation IMAGE_PROJECTION_LOCARION, IMAGE_VIEW_LOCATION, IMAGE_VIEW_POSITION_LOCATION;
+extern SDK::ShaderLocation BLUR_STRENGTH_LOCATION, BLUR_STATE_LOCATION, TEXTURE_SIZE_LOCATION;
+
+extern SDK::ShaderLocation TEXT_OPACITY_LOCATION, TEXT_COLOR_LOCATION, TEXT_MODEL_LOCATION;
+extern SDK::ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VIEW_POSITION_LOCATION;
+
+extern SDK::ShaderLocation SHAPE_OPACITY_LOCATION, SHAPE_COLOR_LOCATION, SHAPE_MODEL_LOCATION;
+extern SDK::ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW_POSITION_LOCATION;
+
+
 enum SDK_KeyState {
 	NORMAL_KEY_DOWN,
 	NORMAL_KEY_UP,
@@ -48,24 +228,24 @@ enum SDK_SpecialKeySet {
 	SK_ARROW_DOWN  = GLUT_KEY_DOWN,
 	SK_ARROW_RIGHT = GLUT_KEY_RIGHT,
 	SK_ARROW_LEFT  = GLUT_KEY_LEFT,
-	SK_PAGE_UP     = GLUT_KEY_PAGE_UP,
+	SK_PAGE_UP	   = GLUT_KEY_PAGE_UP,
 	SK_PAGE_DOWN   = GLUT_KEY_PAGE_DOWN,
-	SK_HOME        = GLUT_KEY_HOME,
-	SK_END         = GLUT_KEY_END,
-	SK_INSERT      = GLUT_KEY_INSERT,
-	SK_DELETE      = GLUT_KEY_DELETE,
-	SK_F1          = GLUT_KEY_F1,
-	SK_F2          = GLUT_KEY_F2,
-	SK_F3          = GLUT_KEY_F3,
-	SK_F4          = GLUT_KEY_F4,
-	SK_F5          = GLUT_KEY_F5,
-	SK_F6          = GLUT_KEY_F6,
-	SK_F7          = GLUT_KEY_F7,
-	SK_F8          = GLUT_KEY_F8,
-	SK_F9          = GLUT_KEY_F9,
-	SK_F10         = GLUT_KEY_F10,
-	SK_F11         = GLUT_KEY_F11,
-	SK_F12         = GLUT_KEY_F12,
+	SK_HOME		   = GLUT_KEY_HOME,
+	SK_END		   = GLUT_KEY_END,
+	SK_INSERT	   = GLUT_KEY_INSERT,
+	SK_DELETE	   = GLUT_KEY_DELETE,
+	SK_F1		   = GLUT_KEY_F1,
+	SK_F2		   = GLUT_KEY_F2,
+	SK_F3		   = GLUT_KEY_F3,
+	SK_F4		   = GLUT_KEY_F4,
+	SK_F5		   = GLUT_KEY_F5,
+	SK_F6		   = GLUT_KEY_F6,
+	SK_F7		   = GLUT_KEY_F7,
+	SK_F8		   = GLUT_KEY_F8,
+	SK_F9		   = GLUT_KEY_F9,
+	SK_F10		   = GLUT_KEY_F10,
+	SK_F11		   = GLUT_KEY_F11,
+	SK_F12		   = GLUT_KEY_F12,
 	SK_SHIFT_RIGHT = GLUT_KEY_SHIFT_R,
 	SK_SHIFT_LEFT  = GLUT_KEY_SHIFT_L,
 	SK_CTRL_RIGHT  = GLUT_KEY_CTRL_R,
@@ -82,8 +262,8 @@ enum SDK_NormalKeySet {
 	NK_BACKSPACE = 8
 };
 
-enum SDK_ZoomType{
-	ZOOM_IN, 
+enum SDK_ZoomType {
+	ZOOM_IN,
 	ZOOM_OUT
 };
 
@@ -194,170 +374,3 @@ enum SDK_SystemErrorType {
 	ERROR_TYPE_DATA_FILE_DATA_WRITE,
 	ERROR_TYPE_DATA_FILE_CATEGORY,
 };
-
-// global scope shader
-extern GLuint IMAGE_SHADER;
-extern GLuint TEXT_SHADER;
-extern GLuint SHAPE_SHADER;
-extern GLuint MATRIX_COMPT_SHADER;
-
-// global SSBO I/O
-extern GLuint SSBO_MATRIX_INPUT, SSBO_MATRIX_OUTPUT;
-
-// global shader location
-using ShaderLocation = unsigned int;
-extern ShaderLocation IMAGE_OPACITY_LOCATION, IMAGE_COLOR_LOCATION, IMAGE_MODEL_LOCATION;
-extern ShaderLocation IMAGE_PROJECTION_LOCARION, IMAGE_VIEW_LOCATION, IMAGE_VIEW_POSITION_LOCATION;
-extern ShaderLocation BLUR_STRENGTH_LOCATION, BLUR_STATE_LOCATION, TEXTURE_SIZE_LOCATION;
-
-extern ShaderLocation TEXT_OPACITY_LOCATION, TEXT_COLOR_LOCATION, TEXT_MODEL_LOCATION;
-extern ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VIEW_POSITION_LOCATION;
-
-extern ShaderLocation SHAPE_OPACITY_LOCATION, SHAPE_COLOR_LOCATION, SHAPE_MODEL_LOCATION;
-extern ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW_POSITION_LOCATION;
-
-void ModeAttribute();
-
-namespace SDK {
-	class SDKSystem {
-	private:
-		bool  UpdateActivateCommand{};
-		float PrevTime{}, CurrentTime{}, DeltaTime{};
-
-		float DestFPS{};
-		int   FPSLimit{};
-
-		bool  FullscreenState{};
-
-
-	public:
-		static SDKSystem* S_Inst;
-
-		SDKSystem() {
-			S_Inst = this;
-		}
-
-		static void Main();
-		static void DisplayReshape(int w, int h);
-		void SwitchScreenState();
-		void ChangeScreenSize(int ScreenWidth, int ScreenHeight);
-		void SetFrameLimit(int FrameLimit);
-		void HideCursor();
-		void ShowCursor();
-		void MoveCursor(int X, int Y);
-		void SetBackColor(float R, float G, float B);
-		void SetBackColorRGB(int R, int G, int B);
-		void SetupSystem(int argc, char** argv);
-		void InitSystem();
-		void SetGlOption();
-		void SetupWindow();
-		void LoadShader();
-		void Exit();
-	};
-
-	typedef void(*START_MODE_PTR)(void);
-	typedef void(*MODE_PTR)(void);
-	typedef void(*CONTROLLER_PTR)(void);
-	extern START_MODE_PTR START_MODE;
-
-	extern SDKSystem System;
-	extern glm::vec3 ViewportColor;
-	extern std::wstring LOCALE;
-	extern float ASPECT;
-	extern int WIDTH, HEIGHT;
-	extern int PREV_WIDTH, PREV_HEIGHT;
-	constexpr wchar_t* FONT = L"Roboto";
-
-	// corner position of display
-	typedef struct {
-		float LeftX, LeftY, RightX, RightY;
-	}ViewportRect;
-	extern ViewportRect WindowRect;
-
-	// key event
-	typedef struct {
-		int Type;
-		unsigned char NormalKey;
-		int SpecialKey;
-	}KeyEvent;
-
-	// ray vector struct
-	typedef struct {
-		XMVECTOR Origin;
-		XMVECTOR Direction;
-		float Distance;
-		float Length;
-	}RayVector;
-
-	// data set struct
-	typedef struct {
-		int         DataType;
-		std::string CategoryName;
-		std::string DataName;
-		float       DigitValue;
-		std::string StringValue;
-	}FileData;
-
-	// image struct
-	typedef struct {
-		unsigned int Texture;
-		int          Width, Height;
-	}Image;
-
-	// sprite sheet struct
-	typedef struct {
-		std::vector<unsigned int> Texture;
-		int                Width, Height;
-		int                Frame;
-	}SpriteSheet;
-
-	// pre load image struct
-	typedef struct {
-		Image* ImagePtr;
-		unsigned char* TextureData;
-		int            ImageType;
-	}PreLoadInfo;
-
-	// pre load sprite sheet struct
-	typedef struct {
-		SpriteSheet* SpriteSheetPtr;
-		std::vector<unsigned char*> TextureData;
-		int            ImageType;
-	}PreLoadSpriteSheetInfo;
-
-	using StringDataVec = std::vector<std::string>;
-	using DigitDataVec = std::vector<float>;
-	using DataFormat = std::vector<FileData>;
-
-	struct SoundChannel {
-		float Volume = 1.0;
-		float PlaySpeed = 1.0;
-		FMOD::Channel* Channel{};
-	};
-
-	struct FastSoundChannel {
-		float Volume = 1.0;
-		float PlaySpeed = 1.0;
-		int NumChannel{};
-		int PlayChannel = 0;
-		int StopChannel = 1;
-		std::vector<FMOD::Channel*> Channel{};
-	};
-
-	using SoundChannelGroup = std::vector <SoundChannel>;
-	using Sound = FMOD::Sound*;
-
-	extern const glm::mat4 IdentityMatrix;
-
-	namespace Preset {
-		constexpr float ZeroToPositive = 0.0;
-		constexpr float ZeroToNegative = XM_PI;
-		constexpr float MaxPositive = XM_PI / 2.0;
-		constexpr float MaxNegative = -XM_PI / 2.0;
-		constexpr float HalfPositive = XM_PI / 6.0;
-		constexpr float HalfNegative = -XM_PI / 6.0;
-	}
-
-	// Multiply the value by the window aspect ratio.
-	float ASP(float Value);
-}

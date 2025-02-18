@@ -5,21 +5,21 @@
 namespace SDK {
 	class SDK_Transform {
 	public:
-		void Identity(glm::mat4& Matrix);
-		void Move(glm::mat4& Matrix, float X, float Y);
-		void Move(glm::mat4& Matrix, glm::vec2& Position);
-		void Rotate(glm::mat4& Matrix, float Degree);
-		void RotateRadians(glm::mat4& Matrix, float Radians);
-		void Scale(glm::mat4& Matrix, float X, float Y);
-		void Scale(glm::mat4& Matrix, glm::vec2& Size);
-		void Tilt(glm::mat4& Matrix, float X, float Y);
-		void Tilt(glm::mat4& Matrix, glm::vec2& Value);
-		void ImageScale(glm::mat4& Matrix, float Width, float Height);
+		void Identity(SDK::Matrix4& Matrix);
+		void Move(SDK::Matrix4& Matrix, float X, float Y);
+		void Move(SDK::Matrix4& Matrix, SDK::Vector2& Position);
+		void Rotate(SDK::Matrix4& Matrix, float Degree);
+		void RotateRadians(SDK::Matrix4& Matrix, float Radians);
+		void Scale(SDK::Matrix4& Matrix, float X, float Y);
+		void Scale(SDK::Matrix4& Matrix, SDK::Vector2& Size);
+		void Tilt(SDK::Matrix4& Matrix, float X, float Y);
+		void Tilt(SDK::Matrix4& Matrix, SDK::Vector2& Value);
+		void ImageScale(SDK::Matrix4& Matrix, float Width, float Height);
 		void Flip(int FlipFlag);
 		void UnitFlip(int FlipFlag);
-		bool CheckIdentity(glm::mat4& Matrix);
-		void RotateV(glm::mat4& Matrix, float Degree);
-		void RotateH(glm::mat4& Matrix, float Degree);
+		bool CheckIdentity(SDK::Matrix4& Matrix);
+		void RotateV(SDK::Matrix4& Matrix, float Degree);
+		void RotateH(SDK::Matrix4& Matrix, float Degree);
 	};
 
 	extern SDK::SDK_Transform Transform;

@@ -37,6 +37,7 @@ public:
 		
 		if (SDK::SYSRES.SDK_IMAGE_ERROR.Texture != 0) {
 			Begin(RENDER_TYPE_STATIC);
+			SDK::ImageTool.SetColor(1.0, 1.0, 1.0);
 			SDK::ImageTool.RenderImage(SDK::SYSRES.SDK_IMAGE_ERROR, 0.3);
 		}
 

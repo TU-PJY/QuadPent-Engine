@@ -9,7 +9,7 @@ void SDK::Object::Begin(int RenderType) {
 
 	ObjectOpacityValue = 1.0f;
 	ObjectBlurValue = 0.0;
-	ObjectColor = glm::vec3(0.0, 0.0, 0.0);
+	ObjectColor = SDK::Color3(0.0, 0.0, 0.0);
 
 	SDK::Camera.SetCamera(RenderType);
 }
@@ -24,22 +24,6 @@ void SDK::Object::IdentityUnitMatrix() {
 	UnitBlurValue = 0.0f;
 }
 
-void SDK::Object::SetColor(float R, float G, float B) {
-	ObjectColor.r = R;
-	ObjectColor.g = G;
-	ObjectColor.b = B;
-}
-
-void SDK::Object::SetColor(glm::vec3 Color) {
-	ObjectColor = Color;
-}
-
-void SDK::Object::SetColorRGB(int R, int G, int B) {
-	ObjectColor.r = (1.0f / 255.0f) * (float)R;
-	ObjectColor.g = (1.0f / 255.0f) * (float)G;
-	ObjectColor.b = (1.0f / 255.0f) * (float)B;
-}
-
 void SDK::Object::ComputeViewportPosition(float& DestX, float& DestY, bool ApplyAspect) {
 	if (ApplyAspect)
 		DestX = ASP(ViewportPosition().x);
@@ -48,7 +32,7 @@ void SDK::Object::ComputeViewportPosition(float& DestX, float& DestY, bool Apply
 	DestY = ViewportPosition().y;
 }
 
-void SDK::Object::ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspect) {
+void SDK::Object::ComputeViewportPosition(SDK::Vector2& DestValue, bool ApplyAspect) {
 	if (ApplyAspect) {
 		DestValue.x = ASP(ViewportPosition().x);
 		DestValue.y = ViewportPosition().y;
@@ -62,7 +46,7 @@ void SDK::Object::ComputeLocalPosition(float& DestX, float& DestY) {
 	DestY = LocalPosition().y;
 }
 
-void SDK::Object::ComputeLocalPosition(glm::vec2& DestPosition) {
+void SDK::Object::ComputeLocalPosition(SDK::Vector2& DestPosition) {
 	DestPosition = LocalPosition();
 }
 
@@ -70,9 +54,9 @@ void SDK::Object::ComputeLocalPosition(glm::vec2& DestPosition) {
 
 glm::vec4 SDK::Object::ViewportPosition() {
 	SDK::ComputeTool.ComputeMatrix(SDK::ViewportPositionMatrix, SDK::Camera.Projection, SDK::Camera.ViewMatrix, ResultMatrix);
-	return SDK::ViewportPositionMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	return SDK::ViewportPositionMatrix * SDK::Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 glm::vec4 SDK::Object::LocalPosition() {
-	return SDK::ResultMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	return SDK::ResultMatrix * SDK::Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 }

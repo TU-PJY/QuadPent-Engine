@@ -23,7 +23,7 @@ void SDK::LineBrush::SetColor(float R, float G, float B) {
 	Color.b = B;
 }
 
-void SDK::LineBrush::SetColor(glm::vec3& ColorValue) {
+void SDK::LineBrush::SetColor(SDK::Color3& ColorValue) {
 	Color.r = ColorValue.r;
 	Color.g = ColorValue.g;
 	Color.b = ColorValue.b;

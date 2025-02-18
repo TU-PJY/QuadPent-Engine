@@ -1,20 +1,19 @@
 #include "SDK_ObjectValue.h"
 
 // Object Value
-glm::mat4 SDK::MoveMatrix	     = glm::mat4(1.0);
-glm::mat4 SDK::RotateMatrix		 = glm::mat4(1.0);
-glm::mat4 SDK::ScaleMatrix		 = glm::mat4(1.0);
-glm::mat4 SDK::FlipMatrix        = glm::mat4(1.0);
-glm::mat4 SDK::ResultMatrix      = glm::mat4(1.0);
+SDK::Matrix4 SDK::MoveMatrix	     = SDK::Matrix4(1.0);
+SDK::Matrix4 SDK::RotateMatrix		 = SDK::Matrix4(1.0);
+SDK::Matrix4 SDK::ScaleMatrix		 = SDK::Matrix4(1.0);
+SDK::Matrix4 SDK::FlipMatrix         = SDK::Matrix4(1.0);
+SDK::Matrix4 SDK::ResultMatrix       = SDK::Matrix4(1.0);
 
-glm::mat4 SDK::UnitMoveMatrix    = glm::mat4(1.0);
-glm::mat4 SDK::UnitRotateMatrix  = glm::mat4(1.0);
-glm::mat4 SDK::UnitScaleMatrix   = glm::mat4(1.0);
-glm::mat4 SDK::UnitFlipMatrix    = glm::mat4(1.0);
+SDK::Matrix4 SDK::UnitMoveMatrix     = SDK::Matrix4(1.0);
+SDK::Matrix4 SDK::UnitRotateMatrix   = SDK::Matrix4(1.0);
+SDK::Matrix4 SDK::UnitScaleMatrix    = SDK::Matrix4(1.0);
+SDK::Matrix4 SDK::UnitFlipMatrix     = SDK::Matrix4(1.0);
 
-glm::mat4 SDK::ViewportPositionMatrix = glm::mat4(1.0);
-
-glm::vec3 SDK::ObjectColor;
+SDK::Matrix4 SDK::ViewportPositionMatrix = SDK::Matrix4(1.0);
+SDK::Color3  SDK::ObjectColor;
 
 float SDK::ObjectOpacityValue;
 float SDK::ObjectBlurValue;

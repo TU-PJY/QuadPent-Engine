@@ -288,7 +288,7 @@ void SDK::SDK_SoundTool::SetListnerPosition(float X, float Y) {
 	SoundSystem->set3DListenerAttributes(0, &ListenerPosition, 0, 0, 0);
 };
 
-void SDK::SDK_SoundTool::SetListnerPosition(glm::vec2 Position) {
+void SDK::SDK_SoundTool::SetListnerPosition(SDK::Vector2& Position) {
 	ListenerPosition.x = Position.x;
 	ListenerPosition.y = Position.y;
 	ListenerPosition.z = 0.0f;
@@ -304,7 +304,7 @@ void SDK::SDK_SoundTool::SetSoundPosition(SDK::SoundChannel& ChannelVar, float X
 	ChannelVar.Channel->set3DAttributes(&SoundPosition, 0);
 }
 
-void SDK::SDK_SoundTool::SetSoundPosition(SDK::SoundChannel& ChannelVar, glm::vec2 Position, float Diff) {
+void SDK::SDK_SoundTool::SetSoundPosition(SDK::SoundChannel& ChannelVar, SDK::Vector2& Position, float Diff) {
 	SoundPosition.x = Position.x;
 	SoundPosition.y = Position.y;
 	SoundPosition.z = Diff;

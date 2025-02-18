@@ -19,24 +19,17 @@ namespace SDK {
 		// Initialize unit matrix.
 		void IdentityUnitMatrix();
 
-		// Add color over image
-		void SetColor(float R, float G, float B);
-
-		void SetColor(glm::vec3 Color);
-
-		void SetColorRGB(int R, int G, int B);
-
 		// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
 		void ComputeViewportPosition(float& DestX, float& DestY, bool ApplyAspect = true);
 
 		// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
-		void ComputeViewportPosition(glm::vec2& DestValue, bool ApplyAspect);
+		void ComputeViewportPosition(SDK::Vector2& DestValue, bool ApplyAspect);
 
 		// Updates the object's position relative to the local coordinate system.
 		void ComputeLocalPosition(float& DestX, float& DestY);
 
 		// Updates the object's position relative to the local coordinate system.
-		void ComputeLocalPosition(glm::vec2& DestPosition);
+		void ComputeLocalPosition(SDK::Vector2& DestPosition);
 
 		// class destructor
 		virtual ~Object() {}

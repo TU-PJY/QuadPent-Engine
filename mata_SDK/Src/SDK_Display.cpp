@@ -1,41 +1,45 @@
 #include "SDK_Header.h"
 
-void SDK::SDKSystem::DisplayReshape(int w, int h) {
+void SDK::SDK_System::DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
 	SDK::WIDTH = w;
 	SDK::HEIGHT = h;
 }
 
-void SDK::SDKSystem::SetBackColor(float R, float G, float B) {
+void SDK::SDK_System::SetBackColor(float R, float G, float B) {
 	SDK::ViewportColor.r = R;
 	SDK::ViewportColor.g = G;
 	SDK::ViewportColor.b = B;
 }
 
-void SDK::SDKSystem::SetBackColorRGB(int R, int G, int B) {
+void SDK::SDK_System::SetBackColor(SDK::Color3& Color) {
+	SDK::ViewportColor = Color;
+}
+
+void SDK::SDK_System::SetBackColorRGB(int R, int G, int B) {
 	SDK::ViewportColor.r = (1.0f / 255.0f) * (float)R;
 	SDK::ViewportColor.g = (1.0f / 255.0f) * (float)G;
 	SDK::ViewportColor.b = (1.0f / 255.0f) * (float)B;
 }
 
-void SDK::SDKSystem::SetFrameLimit(int FrameLimit) {
+void SDK::SDK_System::SetFrameLimit(int FrameLimit) {
 	FPSLimit = FrameLimit;
 	DestFPS = 1000.0 / (float)FPSLimit;
 }
 
-void SDK::SDKSystem::HideCursor() {
+void SDK::SDK_System::HideCursor() {
 	glutSetCursor(GLUT_CURSOR_NONE);
 }
 
-void SDK::SDKSystem::ShowCursor() {
+void SDK::SDK_System::ShowCursor() {
 	glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 }
 
-void SDK::SDKSystem::MoveCursor(int X, int Y) {
+void SDK::SDK_System::MoveCursor(int X, int Y) {
 	glutWarpPointer(X, Y);
 }
 
-void SDK::SDKSystem::SwitchScreenState() {
+void SDK::SDK_System::SwitchScreenState() {
 	if (!FullscreenState) {
 		glutFullScreen();
 		SDK::WIDTH = GetSystemMetrics(SM_CXSCREEN);
@@ -57,7 +61,7 @@ void SDK::SDKSystem::SwitchScreenState() {
 	}
 }
 
-void SDK::SDKSystem::ChangeScreenSize(int ScreenWidth, int ScreenHeight) {
+void SDK::SDK_System::ChangeScreenSize(int ScreenWidth, int ScreenHeight) {
 	SDK::WIDTH = ScreenWidth;
 	SDK::HEIGHT = ScreenHeight;
 	glutReshapeWindow(SDK::WIDTH, SDK::HEIGHT);

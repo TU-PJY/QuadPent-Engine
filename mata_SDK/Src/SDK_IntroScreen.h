@@ -3,7 +3,7 @@
 
 class SDK_IntroScreen : public SDK::Object {
 private:
-	SDK::Timer    timer;
+	SDK::Timer        IntroTimer;
 	SDK::SoundChannel IntroChannel{};
 
 	float      LogoSize        = 1.0;
@@ -11,7 +11,7 @@ private:
 	float      LogoPosition    = -0.3;
 	float      AnimationSpeed  = 4.0;
 
-	int          SceneNumber{}; 
+	int        SceneNumber{}; 
 
 public:
 	void InputKey(SDK::KeyEvent& Event) {
@@ -26,10 +26,10 @@ public:
 	}
 
 	void UpdateFunc(float FrameTime) {
-		timer.Update(FrameTime);
+		IntroTimer.Update(FrameTime);
 		switch (SceneNumber) {
 		case 0:
-			if (timer.CheckMiliSec(1.0, 1, CHECK_AND_INTERPOLATE)) {
+			if (IntroTimer.CheckMiliSec(1.0, 1, CHECK_AND_INTERPOLATE)) {
 				SDK::SoundTool.Play(SDK::SYSRES.INTRO_SOUND, IntroChannel);
 				++SceneNumber;
 			}
@@ -37,17 +37,17 @@ public:
 			
 
 		case 1:
-			if (timer.MiliSec() < 2.5) {
+			if (IntroTimer.MiliSec() < 2.5) {
 				SDK::Math.Lerp(LogoPosition, 0.0, AnimationSpeed, FrameTime);
 				SDK::Math.Lerp(LogoOpacity, 1.0, AnimationSpeed, FrameTime);
 			}
 
-			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
+			if (IntroTimer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
 				LogoOpacity -= FrameTime * 2;
 				SDK::EXTool.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
 			}
 
-			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_INTERPOLATE)) {
+			if (IntroTimer.CheckMiliSec(4.0, 1, CHECK_AND_INTERPOLATE)) {
 				LogoPosition = -0.3;
 				++SceneNumber;
 			}
@@ -55,17 +55,17 @@ public:
 
 
 		case 2:
-			if (timer.MiliSec() < 2.5) {
+			if (IntroTimer.MiliSec() < 2.5) {
 				SDK::Math.Lerp(LogoPosition, 0.0, AnimationSpeed, FrameTime);
 				SDK::Math.Lerp(LogoOpacity, 1.0, AnimationSpeed, FrameTime);
 			}
 
-			if (timer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
+			if (IntroTimer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
 				LogoOpacity -= FrameTime * 2;
 				SDK::EXTool.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
 			}
 
-			if (timer.CheckMiliSec(4.0, 1, CHECK_AND_RESUME))
+			if (IntroTimer.CheckMiliSec(4.0, 1, CHECK_AND_RESUME))
 				SDK::Scene.SwitchMode(SDK::START_MODE);
 			
 			break;
@@ -75,6 +75,7 @@ public:
 	void RenderFunc() {
 		Begin(RENDER_TYPE_STATIC);
 		SDK::Transform.Move(SDK::MoveMatrix, 0.0, LogoPosition);
+		SDK::ImageTool.SetColor(1.0, 1.0, 1.0);
 
 		switch (SceneNumber) {
 		case 1:

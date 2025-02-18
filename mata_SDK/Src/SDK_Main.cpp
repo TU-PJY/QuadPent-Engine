@@ -6,10 +6,10 @@
 #include <thread>
 #include <chrono>
 
-SDK::SDKSystem SDK::System;
-SDK::SDKSystem* SDK::SDKSystem::S_Inst;
+SDK::SDK_System SDK::System;
+SDK::SDK_System* SDK::SDK_System::S_Inst;
 
-void SDK::SDKSystem::Main() {
+void SDK::SDK_System::Main() {
 	glClearColor(SDK::ViewportColor.r, SDK::ViewportColor.g, SDK::ViewportColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
@@ -71,7 +71,7 @@ void main(int argc, char** argv) {
 	glutMainLoop();
 }
 
-void SDK::SDKSystem::Exit() {
+void SDK::SDK_System::Exit() {
 	glutDestroyWindow(1);
 }
 

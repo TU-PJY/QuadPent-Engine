@@ -8,8 +8,8 @@
 namespace SDK {
 	class Text {
 	private:
-		glm::vec2                RenderPosition{};
-		glm::vec2                CurrentRenderOffset{};
+		SDK::Vector2                RenderPosition{};
+		SDK::Vector2                CurrentRenderOffset{};
 		float                  Rotation{};
 
 		size_t                   TextWordCount{};
@@ -28,7 +28,7 @@ namespace SDK {
 
 		bool                     ShadowRenderCommand{};
 		float					 ShadowOpacity{};
-		glm::vec2                ShadowOffset{};
+		SDK::Vector2                ShadowOffset{};
 		glm::vec3                ShadowColor{};
 
 		glm::vec3                RenderColor{};
@@ -49,10 +49,10 @@ namespace SDK {
 
 	public:
 		~Text();
-		void Init(const wchar_t* FontName, int Type, int Italic = FALSE);
+		void Init(const wchar_t* FontName, int Type=FW_DONTCARE, int Italic = FALSE);
 		void Reset(int RenderTypeFlag = RENDER_TYPE_STATIC);
 		void SetColor(float R, float G, float B);
-		void SetColor(glm::vec3& Color);
+		void SetColor(SDK::Color3& Color);
 		void SetColorRGB(int R, int G, int B);
 		void SetAlign(int AlignOpt);
 		void SetLineGap(float Value);
@@ -61,20 +61,20 @@ namespace SDK {
 		void SetHeightAlign(int Type);
 		void EnableShadow();
 		void DisableShadow();
-		void SetShadow(float OffsetX, float OffsetY, float Opacity, glm::vec3 Color = glm::vec3(0.0, 0.0, 0.0));
+		void SetShadow(float OffsetX, float OffsetY, float Opacity, SDK::Color3 Color = SDK::Color3(0.0, 0.0, 0.0));
 		void Rotate(float RotationValue);
 		void SetOpacity(float Value);
-		void Render(glm::vec2& Position, float Size, const wchar_t* Fmt, ...);
+		void Render(SDK::Vector2& Position, float Size, const wchar_t* Fmt, ...);
 		void Render(float X, float Y, float Size, const wchar_t* Fmt, ...);
-		void RenderStr(glm::vec2& Position, float Size, std::string Str);
+		void RenderStr(SDK::Vector2& Position, float Size, std::string Str);
 		void RenderStr(float X, float Y, float Size, std::string Str);
-		void RenderWStr(glm::vec2& Position, float Size, std::wstring Str);
+		void RenderWStr(SDK::Vector2& Position, float Size, std::wstring Str);
 		void RenderWStr(float X, float Y, float Size, std::wstring Str);
 		void SetRenderType(int Type);
 
 	private:
-		void InputText(std::vector<wchar_t>& Input, glm::vec2& Position, float Size);
-		void ProcessText(wchar_t* Text, glm::vec2& Position, float Size);
+		void InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, float Size);
+		void ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size);
 		void GetLineLength(const wchar_t* Text);
 		void CalculateTextLength(const wchar_t* Text);
 		void NextLine();

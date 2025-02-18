@@ -5,16 +5,16 @@
 namespace SDK {
 	class SDK_Shader {
 	private:
-		GLchar* VertexShaderSource{}, *FragmentShaderSource{}, *ComputeShaderSource{};
-		GLuint  VertexShaderBuffer{}, FragmentShaderBuffer{}, CommputeShaderBuffer{};
+		char* VertexShaderSource{}, *FragmentShaderSource{}, *ComputeShaderSource{};
+		unsigned int  VertexShaderBuffer{}, FragmentShaderBuffer{}, CommputeShaderBuffer{};
 
 	public:
 		char* LoadShaderFile(std::string file);
 		void LoadVertexShader(std::string VertexShader);
 		void LoadFragmentShader(std::string FragmentShader);
 		void LoadComputeShader(std::string ComputeShader);
-		void CreateShader(GLuint& Shader);
-		void CreateComputeShader(GLuint& Shader);
+		void CreateShader(SDK::ShaderResource& Shader);
+		void CreateComputeShader(SDK::ShaderResource& Shader);
 		void CreateShaderLocation();
 		void CreateSSBO();
 	};

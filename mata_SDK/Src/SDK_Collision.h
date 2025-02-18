@@ -19,13 +19,13 @@ namespace SDK {
 
 	public:
 		void Update(float X, float Y, float xScale, float yScale);
-		void Update(glm::vec2& Position, float xScale, float yScale);
+		void Update(SDK::Vector2& Position, float xScale, float yScale);
 		void Render();
 		bool CheckCollision(const AABB& Other);
 		bool CheckCollision(const OOBB& Other);
 		bool CheckCollision(const BoundingCircle& Other);
 		bool CheckCollisionPoint(float X, float Y);
-		bool CheckCollisionPoint(glm::vec2& Position);
+		bool CheckCollisionPoint(SDK::Vector2& Position);
 		bool CheckCollisionRay(SDK::RayVector& Ray);
 		bool CheckCollisionLine(SDK::RayVector& Ray);
 		BoundingBox Get() const;
@@ -43,13 +43,13 @@ namespace SDK {
 
 	public:
 		void Update(float X, float Y, float BoxWidth, float BoxHeight, float RotationValue);
-		void Update(glm::vec2& Position, float BoxWidth, float BoxHeight, float RotationValue);
+		void Update(SDK::Vector2& Position, float BoxWidth, float BoxHeight, float RotationValue);
 		void Render();
 		bool CheckCollision(const OOBB& Other);
 		bool CheckCollision(const AABB& Other);
 		bool CheckCollision(const BoundingCircle& Other);
 		bool CheckCollisionPoint(float X, float Y);
-		bool CheckCollisionPoint(glm::vec2& Position);
+		bool CheckCollisionPoint(SDK::Vector2& Position);
 		bool CheckCollisionRay(SDK::RayVector& Ray);
 		bool CheckCollisionLine(SDK::RayVector& Ray);
 		BoundingOrientedBox Get() const;
@@ -70,13 +70,13 @@ namespace SDK {
 
 	public:
 		void Update(float X, float Y, float Diameter);
-		void Update(glm::vec2& Position, float SizeValue);
+		void Update(SDK::Vector2& Position, float SizeValue);
 		void Render();
 		bool CheckCollision(const BoundingCircle& Other);
 		bool CheckCollision(const AABB& Other);
 		bool CheckCollision(const OOBB& Other);
 		bool CheckCollisionPoint(float X, float Y);
-		bool CheckCollisionPoint(glm::vec2& Position);
+		bool CheckCollisionPoint(SDK::Vector2& Position);
 		bool CheckCollisionRay(SDK::RayVector& Ray);
 		bool CheckCollisionLine(SDK::RayVector& Ray);
 		BoundingSphere Get() const;

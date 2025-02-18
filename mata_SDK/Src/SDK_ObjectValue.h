@@ -2,14 +2,14 @@
 #include "SDK_Header.h"
 
 namespace SDK {
-	extern glm::mat4 MoveMatrix, RotateMatrix, ScaleMatrix, FlipMatrix, ResultMatrix;
+	extern SDK::Matrix4 MoveMatrix, RotateMatrix, ScaleMatrix, FlipMatrix, ResultMatrix;
 
-	extern glm::mat4 UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix;
-	extern glm::mat4 UnitFlipMatrix;
+	extern SDK::Matrix4 UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix;
+	extern SDK::Matrix4 UnitFlipMatrix;
 
-	extern glm::mat4 ViewportPositionMatrix;
+	extern SDK::Matrix4 ViewportPositionMatrix;
 
-	extern glm::vec3 ObjectColor;
+	extern SDK::Color3 ObjectColor;
 
 	extern float UnitBlurValue;
 	extern float ObjectBlurValue;

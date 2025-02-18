@@ -58,7 +58,7 @@ bool SDK::Physics::CheckFloorCollision(float& HeightPosition) {
 	return false;
 }
 
-bool SDK::Physics::CheckFloorCollision(glm::vec2& DestPosition) {
+bool SDK::Physics::CheckFloorCollision(SDK::Vector2& DestPosition) {
 	if (DestPosition.y <= FloorHeight + HeightOffset)
 		return true;
 	return false;
@@ -69,7 +69,7 @@ void SDK::Physics::LandOnFloor(float& HeightPosition) {
 	FallingState = false;
 }
 
-void SDK::Physics::LandOnFloor(glm::vec2& DestPosition) {
+void SDK::Physics::LandOnFloor(SDK::Vector2& DestPosition) {
 	DestPosition.y = FloorHeight + HeightOffset;
 	FallingState = false;
 }
@@ -83,7 +83,7 @@ void SDK::Physics::UpdateFalling(float& HeightPosition, float FrameTime) {
 	}
 }
 
-void SDK::Physics::UpdateFalling(glm::vec2& DestPosition, float FrameTime) {
+void SDK::Physics::UpdateFalling(SDK::Vector2& DestPosition, float FrameTime) {
 	if (FallingState) {
 		GravityAcc -= Gravity * FrameTime;
 		DestPosition.y += GravityAcc * FrameTime;
@@ -111,7 +111,7 @@ void SDK::Physics::UpdateBouncing(float& HeightPosition, float FrameTime) {
 	}
 }
 
-void SDK::Physics::UpdateBouncing(glm::vec2& DestPosition, float FrameTime) {
+void SDK::Physics::UpdateBouncing(SDK::Vector2& DestPosition, float FrameTime) {
 	if (FallingState) {
 		GravityAcc -= Gravity * FrameTime;
 		DestPosition.y += GravityAcc * FrameTime;

@@ -57,9 +57,9 @@ namespace SDK {
 		void DisableFreqCutOff(SDK::SoundChannel& ChannelVar);
 		void SetDistance(SDK::SoundChannel& ChannelVar, float MinDist, float MaxDist);
 		void SetListnerPosition(float X, float Y);
-		void SetListnerPosition(glm::vec2 Position);
+		void SetListnerPosition(SDK::Vector2& Position);
 		void SetSoundPosition(SDK::SoundChannel& ChannelVar, float X, float Y, float Diff);
-		void SetSoundPosition(SDK::SoundChannel& ChannelVar, glm::vec2 Position, float Diff);
+		void SetSoundPosition(SDK::SoundChannel& ChannelVar, SDK::Vector2& Position, float Diff);
 		void StopAllSounds();
 	};
 

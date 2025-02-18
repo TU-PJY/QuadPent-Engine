@@ -21,7 +21,7 @@ float ImagePannel[][48] = {  // default size 1.0 * 1.0
 };
 
 void SDK::SDK_ImageTool::Init() {
-	GLuint VBO{};
+	unsigned int VBO{};
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 

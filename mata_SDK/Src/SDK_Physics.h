@@ -31,13 +31,13 @@ namespace SDK {
 		void SetRebounceReduce(float Value);
 		void SetMinimumRebounce(float Value);
 		bool CheckFloorCollision(float& Position);
-		bool CheckFloorCollision(glm::vec2& DestPosition);
+		bool CheckFloorCollision(SDK::Vector2& DestPosition);
 		void LandOnFloor(float& Position);
-		void LandOnFloor(glm::vec2& DestPosition);
+		void LandOnFloor(SDK::Vector2& DestPosition);
 		void UpdateFalling(float& HeightPosition, float FrameTime);
-		void UpdateFalling(glm::vec2& DestPosition, float FrameTime);
+		void UpdateFalling(SDK::Vector2& DestPosition, float FrameTime);
 		void UpdateBouncing(float& HeightPosition, float FrameTime);
-		void UpdateBouncing(glm::vec2& DestPosition, float FrameTime);
+		void UpdateBouncing(SDK::Vector2& DestPosition, float FrameTime);
 		void LerpAcceleratation(float& Speed, float DestSpeed, float AccValue, float FT);
 		void LerpDeceleration(float& Speed, float FT);
 		void LinearAcceleratation(float& Speed, float DestSpeed, float AccValue, float FT);

@@ -6,7 +6,8 @@ namespace SDK {
 	private:
 		float   Rotation{};
 		float   Length{};
-		glm::vec3 Color{};
+
+		SDK::Color3 Color{};
 		float   Opacity{};
 
 		int       RenderType{ RENDER_TYPE_DEFAULT };
@@ -18,7 +19,7 @@ namespace SDK {
 		LineBrush(bool StaticWidthFlag = false);
 		void SetRenderType(int Opt);
 		void SetColor(float R, float G, float B);
-		void SetColor(glm::vec3& ColorValue);
+		void SetColor(SDK::Color3& ColorValue);
 		void SetColorRGB(int R, int G, int B);
 		void SetLineType(int LineTypeOpt);
 		void Draw(float X1, float Y1, float X2, float Y2, float Width, float OpacityValue = 1.0);

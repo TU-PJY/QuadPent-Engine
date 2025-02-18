@@ -17,7 +17,7 @@ void SDK::SDK_Math::LookAt(float& DestRotation, float FromX, float FromY, float 
 	DestRotation = NormalizeDegree(DestRotation + ShortestAngle);
 }
 
-void SDK::SDK_Math::LookAt(float& DestRotation, glm::vec2& Position1, glm::vec2& Position2, float RotationSpeed, float FrameTime) {
+void SDK::SDK_Math::LookAt(float& DestRotation, SDK::Vector2& Position1, SDK::Vector2& Position2, float RotationSpeed, float FrameTime) {
 	float TargetAngle{}, ShortestAngle{};
 	TargetAngle = Computedegree(Position1, Position2) - 90.0;
 	TargetAngle = NormalizeDegree(TargetAngle);
@@ -53,7 +53,7 @@ void SDK::SDK_Math::Lerp(float& DestValue, float Dest, float Speed, float FrameT
 	DestValue = std::lerp(DestValue, Dest, t);
 }
 
-void SDK::SDK_Math::Lerp(glm::vec2& DestValue, glm::vec2& Dest, float Speed, float FrameTime) {
+void SDK::SDK_Math::Lerp(SDK::Vector2& DestValue, SDK::Vector2& Dest, float Speed, float FrameTime) {
 	float t = Speed * FrameTime;
 	SDK::EXTool.ClampValue(t, 1.0, CLAMP_GREATER);
 
@@ -68,7 +68,7 @@ void SDK::SDK_Math::Lerp(glm::vec2& DestValue, glm::vec2& Dest, float Speed, flo
 		DestValue.y = std::lerp(DestValue.y, Dest.y, t);
 }
 
-void SDK::SDK_Math::Lerp(glm::vec3& DestValue, glm::vec3& Dest, float Speed, float FrameTime) {
+void SDK::SDK_Math::Lerp(SDK::Vector3& DestValue, SDK::Vector3& Dest, float Speed, float FrameTime) {
 	float t = Speed * FrameTime;
 	SDK::EXTool.ClampValue(t, 1.0, CLAMP_GREATER);
 
@@ -92,19 +92,19 @@ float SDK::SDK_Math::ComputeDistance(float FromX, float FromY, float ToX, float 
 	return  std::sqrt(std::pow(FromX - ToX, 2) + std::pow(FromY - ToY, 2));
 }
 
-float SDK::SDK_Math::ComputeDistance(glm::vec2& Position1, glm::vec2& Position2) {
+float SDK::SDK_Math::ComputeDistance(SDK::Vector2& Position1, SDK::Vector2& Position2) {
 	return  std::sqrt(std::pow(Position1.x - Position2.x, 2) + std::pow(Position1.y - Position2.y, 2));
 }
 
-glm::vec2 SDK::SDK_Math::ComputeMidPoint(glm::vec2& Position1, glm::vec2& Position2) {
-	return glm::vec2((Position1.x + Position2.x) / 2.0, (Position1.y + Position2.y) / 2.0);
+SDK::Vector2 SDK::SDK_Math::ComputeMidPoint(SDK::Vector2& Position1, SDK::Vector2& Position2) {
+	return SDK::Vector2((Position1.x + Position2.x) / 2.0, (Position1.y + Position2.y) / 2.0);
 }
 
 float SDK::SDK_Math::Computedegree(float FromX, float FromY, float ToX, float ToY) {
 	return atan2(ToY - FromY, ToX - FromX) * (180.0 / 3.1415);
 }
  
-float SDK::SDK_Math::Computedegree(glm::vec2& Position1, glm::vec2& Position2) {
+float SDK::SDK_Math::Computedegree(SDK::Vector2& Position1, SDK::Vector2& Position2) {
 	return atan2(Position2.y - Position1.y, Position2.x - Position1.x) * (180.0 / 3.1415);
 }
 
@@ -112,7 +112,7 @@ float SDK::SDK_Math::ComputeRadians(float FromX, float FromY, float ToX, float T
 	return atan2(ToY - FromY, ToX - FromX);
 }
 
-float SDK::SDK_Math::ComputeRadians(glm::vec2& Position1, glm::vec2& Position2) {
+float SDK::SDK_Math::ComputeRadians(SDK::Vector2& Position1, SDK::Vector2& Position2) {
 	return atan2(Position2.y - Position1.y, Position2.x - Position1.x);
 }
 
@@ -130,7 +130,7 @@ SDK::RayVector SDK::SDK_Math::ComputeRay(float FromX, float FromY, float ToX, fl
 	return { RayOrigin, RayDirection, Distance, RayLength };
 }
 
-SDK::RayVector SDK::SDK_Math::ComputeRay(glm::vec2& From, glm::vec2& To) {
+SDK::RayVector SDK::SDK_Math::ComputeRay(SDK::Vector2& From, SDK::Vector2& To) {
 	XMVECTOR RayOrigin = XMVectorSet(From.x, From.y, 0.0, 0.0);
 	float Angle = ComputeRadians(From.x, From.y, To.x, To.y);
 	float DirectionX = cos(Angle);
@@ -158,7 +158,7 @@ SDK::RayVector SDK::SDK_Math::ComputeRayWithDegree(float OriginX, float OriginY,
 	return { RayOrigin, RayDirection, Distance, RayLength };
 }
 
-SDK::RayVector SDK::SDK_Math::ComputeRayWithDegree(glm::vec2& Origin, float Degree, float LengthValue) {
+SDK::RayVector SDK::SDK_Math::ComputeRayWithDegree(SDK::Vector2& Origin, float Degree, float LengthValue) {
 	XMVECTOR RayOrigin = XMVectorSet(Origin.x, Origin.y, 0.0, 0.0);
 	float Angle = glm::radians(Degree);
 	float DirectionX = cos(Angle);

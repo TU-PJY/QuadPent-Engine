@@ -16,7 +16,7 @@ int SDK::PREV_WIDTH, SDK::PREV_HEIGHT;
 
 SDK::Object* Indicator;
 
-SDK_Camera SDK::Camera;
+SDK::SDK_Camera SDK::Camera;
 
 float SDK::ASPECT;
 SDK::ViewportRect SDK::WindowRect;
@@ -36,7 +36,7 @@ SDK::SDK_MODE_RESOURCE SDK::MODE;
 std::wstring SDK::LOCALE;
 SDK::START_MODE_PTR SDK::START_MODE;
 
-void SDK::SDKSystem::SetupSystem(int argc, char** argv) {
+void SDK::SDK_System::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);
 	SetupWindow();
 	LoadShader();
@@ -44,7 +44,7 @@ void SDK::SDKSystem::SetupSystem(int argc, char** argv) {
 	InitSystem();
 }
 
-void SDK::SDKSystem::SetupWindow() {
+void SDK::SDK_System::SetupWindow() {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
 
 	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - SDK::WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - SDK::HEIGHT / 2);
@@ -72,7 +72,7 @@ void SDK::SDKSystem::SetupWindow() {
 	}
 }
 
-void SDK::SDKSystem::LoadShader() {
+void SDK::SDK_System::LoadShader() {
 	SDK::Shader.LoadVertexShader("SDKResource//GLSL//Vertex.glsl");
 	SDK::Shader.LoadFragmentShader("SDKResource//GLSL//Fragment_Image.glsl");
 	SDK::Shader.CreateShader(IMAGE_SHADER);
@@ -92,7 +92,7 @@ void SDK::SDKSystem::LoadShader() {
 	SDK::Shader.CreateSSBO();
 }
 
-void SDK::SDKSystem::SetGlOption() {
+void SDK::SDK_System::SetGlOption() {
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_ALPHA_TEST);
 	glEnable(GL_BLEND);
@@ -100,7 +100,7 @@ void SDK::SDKSystem::SetGlOption() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void SDK::SDKSystem::InitSystem() {
+void SDK::SDK_System::InitSystem() {
 	FPSLimit = FRAME_LIMITS;
 	if (FPSLimit > 0)
 		DestFPS = 1000.0 / (float)FPSLimit;

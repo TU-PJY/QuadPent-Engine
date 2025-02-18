@@ -6,22 +6,23 @@
 
 SDK::SDK_Shader SDK::Shader;
 
-GLuint IMAGE_SHADER;
-GLuint TEXT_SHADER;
-GLuint SHAPE_SHADER;
-GLuint MATRIX_COMPT_SHADER;
+SDK::ShaderResource IMAGE_SHADER;
+SDK::ShaderResource TEXT_SHADER;
+SDK::ShaderResource SHAPE_SHADER;
+SDK::ShaderResource MATRIX_COMPT_SHADER;
 
-GLuint SSBO_MATRIX_INPUT, SSBO_MATRIX_OUTPUT;
+SDK::SSBO SSBO_MATRIX_INPUT, SSBO_MATRIX_OUTPUT;
 
-ShaderLocation IMAGE_OPACITY_LOCATION, IMAGE_COLOR_LOCATION, IMAGE_MODEL_LOCATION;
-ShaderLocation IMAGE_PROJECTION_LOCARION, IMAGE_VIEW_LOCATION, IMAGE_VIEW_POSITION_LOCATION;
-ShaderLocation BLUR_STRENGTH_LOCATION, BLUR_STATE_LOCATION, TEXTURE_SIZE_LOCATION;
+SDK::ShaderLocation IMAGE_OPACITY_LOCATION, IMAGE_COLOR_LOCATION, IMAGE_MODEL_LOCATION;
+SDK::ShaderLocation IMAGE_PROJECTION_LOCARION, IMAGE_VIEW_LOCATION, IMAGE_VIEW_POSITION_LOCATION;
+SDK::ShaderLocation BLUR_STRENGTH_LOCATION, BLUR_STATE_LOCATION, TEXTURE_SIZE_LOCATION;
 
-ShaderLocation TEXT_OPACITY_LOCATION, TEXT_COLOR_LOCATION, TEXT_MODEL_LOCATION;
-ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VIEW_POSITION_LOCATION;
+SDK::ShaderLocation TEXT_OPACITY_LOCATION, TEXT_COLOR_LOCATION, TEXT_MODEL_LOCATION;
+SDK::ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VIEW_POSITION_LOCATION;
 
-ShaderLocation SHAPE_OPACITY_LOCATION, SHAPE_COLOR_LOCATION, SHAPE_MODEL_LOCATION;
-ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW_POSITION_LOCATION;
+SDK::ShaderLocation SHAPE_OPACITY_LOCATION, SHAPE_COLOR_LOCATION, SHAPE_MODEL_LOCATION;
+SDK::ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW_POSITION_LOCATION;
+
 
 char* SDK::SDK_Shader::LoadShaderFile(std::string FileName) {
 	std::ifstream ShaderFile(FileName, std::ios::in | std::ios::binary | std::ios::ate);
@@ -52,11 +53,11 @@ char* SDK::SDK_Shader::LoadShaderFile(std::string FileName) {
 void SDK::SDK_Shader::LoadVertexShader(std::string VertexShader) {
 	VertexShaderSource = LoadShaderFile(VertexShader);
 	VertexShaderBuffer = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(VertexShaderBuffer, 1, (const GLchar**)&VertexShaderSource, 0);
+	glShaderSource(VertexShaderBuffer, 1, (const char**)&VertexShaderSource, 0);
 	glCompileShader(VertexShaderBuffer);
 
-	GLint Result{};
-	GLchar ErrorLog[512]{};
+	int Result{};
+	char ErrorLog[512]{};
 
 	glGetShaderiv(VertexShaderBuffer, GL_COMPILE_STATUS, &Result);
 
@@ -71,11 +72,11 @@ void SDK::SDK_Shader::LoadVertexShader(std::string VertexShader) {
 void SDK::SDK_Shader::LoadFragmentShader(std::string FragmentShader) {
 	FragmentShaderSource = LoadShaderFile(FragmentShader);
 	FragmentShaderBuffer = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(FragmentShaderBuffer, 1, (const GLchar**)&FragmentShaderSource, 0);
+	glShaderSource(FragmentShaderBuffer, 1, (const char**)&FragmentShaderSource, 0);
 	glCompileShader(FragmentShaderBuffer);
 
-	GLint Result{};
-	GLchar ErrorLog[512]{};
+	int Result{};
+	char ErrorLog[512]{};
 
 	glGetShaderiv(FragmentShaderBuffer, GL_COMPILE_STATUS, &Result);
 
@@ -90,11 +91,11 @@ void SDK::SDK_Shader::LoadFragmentShader(std::string FragmentShader) {
 void SDK::SDK_Shader::LoadComputeShader(std::string ComputeShader) {
 	ComputeShaderSource = LoadShaderFile(ComputeShader);
 	CommputeShaderBuffer = glCreateShader(GL_COMPUTE_SHADER);
-	glShaderSource(CommputeShaderBuffer, 1, (const GLchar**)&ComputeShaderSource, 0);
+	glShaderSource(CommputeShaderBuffer, 1, (const char**)&ComputeShaderSource, 0);
 	glCompileShader(CommputeShaderBuffer);
 
-	GLint Result{};
-	GLchar ErrorLog[512]{};
+	int Result{};
+	char ErrorLog[512]{};
 
 	glGetShaderiv(CommputeShaderBuffer, GL_COMPILE_STATUS, &Result);
 
@@ -106,7 +107,7 @@ void SDK::SDK_Shader::LoadComputeShader(std::string ComputeShader) {
 	}
 }
 
-void SDK::SDK_Shader::CreateShader(GLuint& Shader) {
+void SDK::SDK_Shader::CreateShader(SDK::ShaderResource& Shader) {
 	Shader = glCreateProgram();
 	glAttachShader(Shader, VertexShaderBuffer);
 	glAttachShader(Shader, FragmentShaderBuffer);
@@ -115,7 +116,7 @@ void SDK::SDK_Shader::CreateShader(GLuint& Shader) {
 	glDeleteShader(FragmentShaderBuffer);
 }
 
-void SDK::SDK_Shader::CreateComputeShader(GLuint& Shader) {
+void SDK::SDK_Shader::CreateComputeShader(SDK::ShaderResource& Shader) {
 	Shader = glCreateProgram();
 	glAttachShader(Shader, CommputeShaderBuffer);
 	glLinkProgram(Shader);
