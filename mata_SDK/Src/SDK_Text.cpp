@@ -241,9 +241,12 @@ void SDK::Text::CalculateTextLength(const wchar_t* Text) {
 	MiddleHeight = 0.0;
 	if (FixMiddleCommand) {
 		size_t LineNum = LineLengthBuffer.size();
-		for (int i = 0; i < LineNum; ++i)
-			MiddleHeight += (TextLineGap + TextRenderSize);
-		MiddleHeight /= 2.0;
+
+		if (LineNum > 1) {
+			for (int i = 0; i < LineNum; ++i)
+				MiddleHeight += (TextLineGap + TextRenderSize);
+			MiddleHeight /= 2.0;
+		}
 	}
 }
 
