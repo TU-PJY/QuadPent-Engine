@@ -1,6 +1,7 @@
 #include "SDK_Scene.h"
 #include "SDK_ErrorMessage.h"
 #include "SDK_SoundTool.h"
+#include "SDK_FPSIndicator.h"
 
 SDK::SDK_Scene SDK::Scene;
 
@@ -375,6 +376,9 @@ void SDK::SDK_Scene::SwitchToErrorScreen() {
 	glutMouseFunc(nullptr);
 	glutSpecialFunc(nullptr);
 	glutSpecialUpFunc(nullptr);
+
+	if(SHOW_FPS && Indicator)
+		Indicator->DisableRender();
 
 	if (Value2Buffer.empty())
 		AddObject(new SDK_ErrorMessage(ErrorTypeBuffer, Value1Buffer), "error_message", EOL - 1);

@@ -8,10 +8,12 @@ private:
 
 	SDK::Text IndicatorText{};
 
+	bool RenderState{ true };
+
 public:
 	SDK_FPS_Indicator() {
 		IndicatorText.Init(SDK::FONT, FW_BOLD);
-		IndicatorText.SetColor(0.0, 1.0, 0.0);
+		IndicatorText.SetColor(1.0, 1.0, 0.0);
 		IndicatorText.SetHeightAlign(HEIGHT_ALIGN_UNDER);
 		IndicatorText.EnableShadow();
 		IndicatorText.SetShadow(0.07, -0.07, 1.0);
@@ -24,7 +26,12 @@ public:
 	}
 
 	void RenderIndicator() {
-		IndicatorText.Render(SDK::WindowRect.LeftX + 0.01, SDK::WindowRect.RightY, 0.1, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
+		if(RenderState)
+			IndicatorText.Render(SDK::WindowRect.LeftX + 0.01, SDK::WindowRect.RightY, 0.1, L"FPS: %d", (int)(round((1.0 / CurrentDeltaTime))));
+	}
+
+	void DisableRender() {
+		RenderState = false;
 	}
 };
 extern SDK::Object* Indicator;

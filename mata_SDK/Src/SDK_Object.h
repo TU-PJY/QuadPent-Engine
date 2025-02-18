@@ -63,6 +63,7 @@ namespace SDK {
 
 		// FPS indicator function
 		virtual void RenderIndicator() {}
+		virtual void DisableRender() {}
 
 	private:
 		glm::vec4 ViewportPosition();
