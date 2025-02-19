@@ -6,14 +6,21 @@ private:
 	SDK::Timer        IntroTimer;
 	SDK::SoundChannel IntroChannel{};
 
+	SDK::SinMove      IntroMove{}, OpacityMove{};
+
 	float      LogoSize        = 1.0;
 	float      LogoOpacity     = 0.0;
-	float      LogoPosition    = -0.3;
-	float      AnimationSpeed  = 4.0;
+	float      LogoPosition    = -0.4;
+	float      AnimationSpeed  = 6.0;
 
 	int        SceneNumber{}; 
 
 public:
+	SDK_IntroScreen() {
+		IntroMove.SetMovePoint(LogoPosition, 0.0);
+		OpacityMove.SetMovePoint(0.0, 1.0);
+	}
+
 	void InputKey(SDK::KeyEvent& Event) {
 		if (Event.Type == NORMAL_KEY_DOWN) {
 			switch (Event.NormalKey) {
@@ -38,8 +45,8 @@ public:
 
 		case 1:
 			if (IntroTimer.MiliSec() < 2.5) {
-				SDK::Math.Lerp(LogoPosition, 0.0, AnimationSpeed, FrameTime);
-				SDK::Math.Lerp(LogoOpacity, 1.0, AnimationSpeed, FrameTime);
+				IntroMove.Update(LogoPosition, AnimationSpeed, FrameTime);
+				OpacityMove.Update(LogoOpacity, AnimationSpeed, FrameTime);
 			}
 
 			if (IntroTimer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
@@ -48,7 +55,13 @@ public:
 			}
 
 			if (IntroTimer.CheckMiliSec(4.0, 1, CHECK_AND_INTERPOLATE)) {
-				LogoPosition = -0.3;
+				LogoPosition = -0.4;
+
+				IntroMove.SetMovePoint(LogoPosition, 0.0);
+				OpacityMove.SetMovePoint(0.0, 1.0);
+				IntroMove.Reset();
+				OpacityMove.Reset();
+
 				++SceneNumber;
 			}
 			break;
@@ -56,8 +69,8 @@ public:
 
 		case 2:
 			if (IntroTimer.MiliSec() < 2.5) {
-				SDK::Math.Lerp(LogoPosition, 0.0, AnimationSpeed, FrameTime);
-				SDK::Math.Lerp(LogoOpacity, 1.0, AnimationSpeed, FrameTime);
+				IntroMove.Update(LogoPosition, AnimationSpeed, FrameTime);
+				OpacityMove.Update(LogoOpacity, AnimationSpeed, FrameTime);
 			}
 
 			if (IntroTimer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {

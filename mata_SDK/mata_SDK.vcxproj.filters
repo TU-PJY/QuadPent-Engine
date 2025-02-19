@@ -58,6 +58,21 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Main ]">
       <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Object ]">
+      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Object ]\[ Object Value ]">
+      <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Shader ]">
+      <UniqueIdentifier>{37be597c-421f-49a1-a552-2dfe31eea27a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]">
+      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Pack ]">
+      <UniqueIdentifier>{4ac8fdab-c6e0-4a90-83ec-beeca66a9ba4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Tool ]">
       <UniqueIdentifier>{019278b2-60d4-4cad-b935-d813a31f2c87}</UniqueIdentifier>
     </Filter>
@@ -96,21 +111,6 @@
     </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Tool ]\[ Object Tool ]\[ Collision ]">
       <UniqueIdentifier>{4048cd52-6e69-47f1-ad3d-07de4f88f83e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Object ]">
-      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Object ]\[ Object Value ]">
-      <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Shader ]">
-      <UniqueIdentifier>{37be597c-421f-49a1-a552-2dfe31eea27a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]">
-      <UniqueIdentifier>{4eec4c3d-2375-48d7-85d7-413e0553d75c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Pack ]">
-      <UniqueIdentifier>{4ac8fdab-c6e0-4a90-83ec-beeca66a9ba4}</UniqueIdentifier>
     </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Tool ]\[ Global Tool ]">
       <UniqueIdentifier>{61b7533a-082a-4ffc-915c-ee26f517dcc5}</UniqueIdentifier>

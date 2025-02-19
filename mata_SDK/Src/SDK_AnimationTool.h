@@ -5,11 +5,32 @@
 namespace SDK {
 	class SinLoop {
 	private:
-		float Num{ SDK::Preset::MaxNegative };
+		float Num{ 0.0 };
+		SDK::Vector2 Num2{ 0.0, 0.0 };
 
 	public:
 		void Update(float& Value, float MoveScale, float Speed, float FrameTime);
+		void Update(SDK::Vector2& Value, SDK::Vector2& MoveScale, SDK::Vector2& Speed, float FrameTime);
 		void SetValue(float Value);
+		void SetValue(SDK::Vector2& Value);
+		void Reset();
+	};
+
+	class SinMove {
+	private:
+		float Num{SDK::Preset::MaxNegative};
+		float SingleStartPosition{};
+		float SingleDistance{};
+
+		SDK::Vector2 StartPosition{};
+		SDK::Vector2 Distance{};
+
+	public:
+		void SetMovePoint(float StartPoint, float EndPoint);
+		void SetMovePoint(SDK::Vector2& StartPoint, SDK::Vector2& EndPoint);
+		void SetValue(float Value);
+		void Update(float& Value, float Speed, float FrameTime);
+		void Update(SDK::Vector2& Value, float Speed, float FrameTime);
 		void Reset();
 	};
 
@@ -24,12 +45,15 @@ namespace SDK {
 
 	class ReverseLerp {
 	private:
-		bool    MoveState{ true };
+		bool  MoveState{ true };
 		float Velocity{};
 		float Acc{};
+		float Distance{};
+		float StartPosition{};
 
 	public:
 		void Update(float& Value, float Dest, float Speed, float IncreaseSpeed, float FrameTime);
+		void SetMovePoint(float StartPoint, float EndPoint);
 		void Reset();
 	};
 }
