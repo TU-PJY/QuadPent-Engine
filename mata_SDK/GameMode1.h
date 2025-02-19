@@ -7,19 +7,10 @@ public:
 	std::string ModeName { "GameMode1" };
 	int         ModeType { MODE_TYPE_DEFAULT };
 
-	// type object tag to input device event
-	std::vector<std::string> InputObjectTag
-	{
-
-	};
-
-	/////////////////////////////////////////////////////////////
-
 	static void Start() {
+		SetUp();
 		SDK::System.SetBackColor(0.3, 0.3, 0.3);
 		// Add task here
-
-		SetUp();
 	}
 
 	static void Destructor() {
@@ -34,9 +25,7 @@ public:
 	std::vector<SDK::Object*> InputObject{};
 	static GameMode1* M_Inst;
 
-	GameMode1() {
-		M_Inst = this;
-	}
+	GameMode1() { M_Inst = this; }
 
 	static void Map(SDK::MODE_PTR& Mode) {
 		Mode = Start;
@@ -44,16 +33,10 @@ public:
 
 	static void SetUp() {
 		M_Inst->InputObject.clear();
-
-		for (auto const& Tag : M_Inst->InputObjectTag) {
-			if (auto Object = SDK::Scene.Find(Tag); Object)
-				M_Inst->InputObject.emplace_back(Object);
-		}
-
-		SDK::Scene.RegisterModeName(M_Inst->ModeName);
-		SDK::Scene.RegisterDestructor(Destructor);
 		SDK::Scene.RegisterInputObjectList(M_Inst->InputObject);
+		SDK::Scene.RegisterDestructor(Destructor);
 		SDK::Scene.RegisterController(Controller, M_Inst->ModeType);
+		SDK::Scene.RegisterModeName(M_Inst->ModeName);
 		SDK::Scene.RegisterModePtr(M_Inst->Start);
 	}
 

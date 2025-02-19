@@ -168,7 +168,7 @@ void SDK::SDK_Scene::EndFloatingMode() {
 	FloatingFocusCommand = false;
 }
 
-SDK::Object* SDK::SDK_Scene::AddObject(SDK::Object* Object, std::string Tag, unsigned int AddLayer, int Type1, int Type2) {
+SDK::Object* SDK::SDK_Scene::AddObject(SDK::Object* Object, std::string Tag, unsigned int AddLayer, bool UseController, int Type1, int Type2) {
 	if (AddLayer > SceneLayer - 2) {
 		SetErrorScreen(ERROR_TYPE_OBJECT_ADD_OUT_OF_SCENE_LAYER, CurrentRunningModeName);
 		return nullptr;
@@ -183,6 +183,9 @@ SDK::Object* SDK::SDK_Scene::AddObject(SDK::Object* Object, std::string Tag, uns
 
 	Object->ObjectTag = Tag;
 	Object->ObjectLayer = AddLayer;
+
+	if (UseController)
+		InputObjectListPtr->emplace_back(Object);
 
 	if(Type1 == Type2) {
 		if(Type1 == OBJECT_TYPE_STATIC || Type1 == OBJECT_TYPE_STATIC_SINGLE)
@@ -328,8 +331,10 @@ void SDK::SDK_Scene::SetErrorScreen(int ErrorType, std::string Value1, std::stri
 }
 
 void SDK::SDK_Scene::AddSystemObject(SDK::Object* Object) {
-	if (SystemObjectAdded)
+	if (SystemObjectAdded) {
+		SetErrorScreen(ERROR_TYPE_PERMISSION_VIOLATION_SYSTEM_LAYER_ACCESS, CurrentRunningModeName);
 		return;
+	}
 
 	SystemObjectAdded = true;
 

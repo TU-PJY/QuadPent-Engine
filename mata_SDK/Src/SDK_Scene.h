@@ -106,7 +106,7 @@ namespace SDK {
 		// Add an object to the scene. You can give two options to an object.
 		// OBJECT_TYPE_STATIC: It will not be deleted even if the mode is changed.
 		// OBJECT_TYPE_FLOATING: Specify it as a floating mode object.
-		SDK::Object* AddObject(SDK::Object* Object, std::string Tag, unsigned int AddLayer, int Type1 = OBJECT_TYPE_NONE, int Type2 = OBJECT_TYPE_NONE);
+		SDK::Object* AddObject(SDK::Object* Object, std::string Tag, unsigned int AddLayer, bool UseController=false, int Type1 = OBJECT_TYPE_NONE, int Type2 = OBJECT_TYPE_NONE);
 
 		// Deletes an object from the Scene.
 		// If the object is located on a layer that is not currently being referenced, activates DeleteReserveCommand.

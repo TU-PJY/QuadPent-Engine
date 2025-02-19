@@ -59,7 +59,10 @@ public:
 		Message.SetColor(1.0, 1.0, 1.0);
 		Message.SetLineGap(0.01);
 
-		PlaySoundW(TEXT("SDKResource\\Sound\\sound-error.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		if(ERROR_TYPE_IMAGE_LOAD <= ErrorType && ErrorType <= ERROR_TYPE_DATA_FILE_CATEGORY)
+			PlaySoundW(TEXT("SDKResource\\Sound\\sound-error.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		else
+			PlaySoundW(TEXT("SDKResource\\Sound\\sound-critical-error.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
 		Result = "An error occurred in the mata_SDK system.\n\n";
 
@@ -153,6 +156,12 @@ public:
 				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_RETRIEVE_LAYER_SIZE_OUT_OF_SCENE_LAYER\nWhile running mode: ");
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
 				SDK::StringTool.AddString(Result, "You attempted to retrieve the number of objects at a location that exceeds the maximum layers.\nCheck which part retrieves the number of objects in a location that exceeds the maximum layer.");
+				break;
+
+			case ERROR_TYPE_PERMISSION_VIOLATION_SYSTEM_LAYER_ACCESS:
+				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_PERMISSION_VIOLATION_SYSTEM_LAYER_ACCESS\nWhile running mode: ");
+				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
+				SDK::StringTool.AddString(Result, "You do not have permission to access the system layer.\nTo ensure safe system operation, access to the system interior is prohibited.");
 				break;
 			}
 		}

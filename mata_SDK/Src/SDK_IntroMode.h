@@ -9,18 +9,9 @@ public:
 	std::string ModeName{ "IntroMode" };
 	int         ModeType{ MODE_TYPE_DEFAULT };
 
-	std::vector<std::string> InputObjectTag
-	{
-		"intro_screen"
-	};
-
-	std::vector<SDK::Object*> InputObject{};
-
-	/////////////////////////////////////////////////////////////
-
 	static void Start() {
-		SDK::Scene.AddObject(new SDK_IntroScreen, "intro_screen", LAYER1);
 		SetUp();
+		SDK::Scene.AddObject(new SDK_IntroScreen, "intro_screen", LAYER1, true);
 	}
 
 	static void Destructor() {
@@ -29,23 +20,17 @@ public:
 
 	/////////////////////////////////////////////////////////////
 #pragma region FoldRegion 
+	std::vector<SDK::Object*> InputObject{};
 	static SDK_IntroMode* M_Inst;
 
-	SDK_IntroMode() {
-		M_Inst = this;
-	}
+	SDK_IntroMode() { M_Inst = this; }
 
 	static void SetUp() {
 		M_Inst->InputObject.clear();
-
-		for (auto const& Tag : M_Inst->InputObjectTag) {
-			if (auto Object = SDK::Scene.Find(Tag); Object)
-				M_Inst->InputObject.emplace_back(Object);
-		}
-
-		SDK::Scene.RegisterModeName(M_Inst->ModeName);
+		SDK::Scene.RegisterInputObjectList(M_Inst->InputObject);
 		SDK::Scene.RegisterDestructor(Destructor);
 		SDK::Scene.RegisterController(Controller, M_Inst->ModeType);
+		SDK::Scene.RegisterModeName(M_Inst->ModeName);
 		SDK::Scene.RegisterModePtr(M_Inst->Start);
 	}
 

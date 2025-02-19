@@ -9,19 +9,10 @@ public:
 	std::string ModeName{ "LoadingMode" };
 	int         ModeType{ MODE_TYPE_DEFAULT };
 
-	std::vector<std::string> InputObjectTag
-	{
-		
-	};
-
-	std::vector<SDK::Object*> InputObject{};
-
-	/////////////////////////////////////////////////////////////
-
 	static void Start() {
+		SetUp();
 		SDK::System.SetBackColorRGB(31, 31, 31);
 		SDK::Scene.AddObject(new SDK_LoadingScreen, "loading_screen", LAYER1);
-		SetUp();
 	}
 
 	static void Destructor() {
@@ -30,23 +21,17 @@ public:
 
 	/////////////////////////////////////////////////////////////
 #pragma region FoldRegion 
+	std::vector<SDK::Object*> InputObject{};
 	static SDK_LoadingMode* M_Inst;
 
-	SDK_LoadingMode() {
-		M_Inst = this;
-	}
+	SDK_LoadingMode() { M_Inst = this; }
 
 	static void SetUp() {
 		M_Inst->InputObject.clear();
-
-		for (auto const& Tag : M_Inst->InputObjectTag) {
-			if (auto Object = SDK::Scene.Find(Tag); Object)
-				M_Inst->InputObject.emplace_back(Object);
-		}
-
-		SDK::Scene.RegisterModeName(M_Inst->ModeName);
+		SDK::Scene.RegisterInputObjectList(M_Inst->InputObject);
 		SDK::Scene.RegisterDestructor(Destructor);
 		SDK::Scene.RegisterController(Controller, M_Inst->ModeType);
+		SDK::Scene.RegisterModeName(M_Inst->ModeName);
 		SDK::Scene.RegisterModePtr(M_Inst->Start);
 	}
 
