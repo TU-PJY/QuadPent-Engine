@@ -59,12 +59,16 @@ public:
 		Message.SetColor(1.0, 1.0, 1.0);
 		Message.SetLineGap(0.01);
 
-		if(ERROR_TYPE_IMAGE_LOAD <= ErrorType && ErrorType <= ERROR_TYPE_DATA_FILE_CATEGORY)
+		if (ERROR_TYPE_IMAGE_LOAD <= ErrorType && ErrorType <= ERROR_TYPE_DATA_FILE_CATEGORY) {
 			PlaySoundW(TEXT("SDKResource\\Sound\\sound-error.wav"), NULL, SND_FILENAME | SND_ASYNC);
-		else
+			Result = "An error occurred in the mata_SDK system.\n\n";
+		}
+		else {
 			PlaySoundW(TEXT("SDKResource\\Sound\\sound-critical-error.wav"), NULL, SND_FILENAME | SND_ASYNC);
+			Result = "A critical error occurred in the mata_SDK system.\n\n";
+		}
 
-		Result = "An error occurred in the mata_SDK system.\n\n";
+		
 
 		if (ErrorValue2.empty()) {
 			switch (ErrorType) {
