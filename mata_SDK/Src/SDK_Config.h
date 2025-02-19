@@ -75,7 +75,7 @@ constexpr int FFT_SIZE = 1024;
 //////////////////////////////////// SDK_Math Options
 //When the relevant threshold is reached in SDK_Math::Lerp(), the calculation is stopped immediately to optimize the amount of calculation.
 //When set to 0.0, calculation amount optimization is not performed.
-constexpr double LERP_THRESHOLD = 0.001;
+constexpr float LERP_THRESHOLD = 0.001;
 
 
 
