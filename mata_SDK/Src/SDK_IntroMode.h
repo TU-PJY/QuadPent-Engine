@@ -21,7 +21,7 @@ public:
 	/////////////////////////////////////////////////////////////
 #pragma region FoldRegion 
 	std::vector<SDK::Object*> InputObject{};
-	static SDK_IntroMode* M_Inst;
+	inline static SDK_IntroMode* M_Inst;
 
 	SDK_IntroMode() { M_Inst = this; }
 

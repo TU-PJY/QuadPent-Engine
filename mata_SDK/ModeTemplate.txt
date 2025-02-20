@@ -21,7 +21,7 @@ public:
 	// Fold here
 #pragma region FoldRegion 
 	std::vector<SDK::Object*> InputObject{};
-	static TemplateMode* M_Inst;
+	inline static TemplateMode* M_Inst;
 
 	TemplateMode() { M_Inst = this; }
 
