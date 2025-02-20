@@ -11,38 +11,37 @@ uniform float     Opacity;
 uniform vec3      Color;
 
 uniform bool      BlurState;
+uniform int       BlurExecution;
 uniform float     BlurStrength; 
 uniform vec2      TextureSize;
 
 vec4 ComputeBlur() {
-    vec4 TotalColor = vec4(0.0);
-    float TotalAlpha = 0.0;
+    vec4 ReturnColor = vec4(0.0);
     float TotalWeight = 0.0;
-    int BlurExecution = 4;
-    int KernelSize = (BlurExecution * 2 + 1) * (BlurExecution * 2 + 1);
+    float Sigma = BlurStrength;
+    float TwoSigmaSq = 2.0 * Sigma * Sigma;
 
-    for (int Y = -BlurExecution; Y <= BlurExecution; ++Y) {
-        for (int X = -BlurExecution; X <= BlurExecution; ++X) {
-            vec2 Offset = vec2(float(X), float(Y)) * TextureSize * BlurStrength;
+    for (int y = -BlurExecution; y <= BlurExecution; ++y) {
+        for (int x = -BlurExecution; x <= BlurExecution; ++x) {
+            vec2 Offset = vec2(float(x), float(y)) * TextureSize;
+            float DistanceSq = float(x * x + y * y);
+            float Weight = exp(-DistanceSq / TwoSigmaSq);
             vec4 sample = texture(OutTexture, TextureCoord + Offset);
-            
-            float Weight = sample.a;
-            TotalColor += sample * Weight;
-            TotalAlpha += sample.a;
+            ReturnColor += sample * Weight;
             TotalWeight += Weight;
         }
     }
-
-    return mix(vec4(0.0), vec4(TotalColor.rgb / TotalWeight, TotalAlpha / float(KernelSize)), step(0.0, TotalWeight));
-}
-
-vec4 ComputePixel() {
-    vec4 BlurResult = mix(vec4(0.0), ComputeBlur(), float(BlurState));
-    vec4 DefaultResult = mix(texture(OutTexture, TextureCoord), vec4(0.0), float(BlurState));
-    return mix(DefaultResult, BlurResult, float(BlurState));
+    
+    return ReturnColor / TotalWeight;
 }
 
 void main() {
-    vec4 FinalResult = ComputePixel();
+    vec4 FinalResult = vec4(0.0);
+
+     if (BlurState)
+        FinalResult = ComputeBlur();
+    else
+        FinalResult = texture(OutTexture, TextureCoord);
+
     FragColor = vec4(FinalResult.rgb + Color.rgb, FinalResult.a * Opacity);
 }

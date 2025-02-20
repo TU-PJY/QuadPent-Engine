@@ -454,12 +454,13 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::Image& ImageStruct) {
 	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	if (ObjectBlurValue > 0.0) {
-		glUniform1i(BLUR_STATE_LOCATION, 1);
+		glUniform1i(BLUR_STATE_LOCATION, true);
+		glUniform1i(BLUR_EXECUTION_LOCATION, BLUR_EXECUTION);
 		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlurValue);
 		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (float)ImageStruct.Width, 1.0 / (float)ImageStruct.Height);
 	}
 	else
-		glUniform1i(BLUR_STATE_LOCATION, 0);
+		glUniform1i(BLUR_STATE_LOCATION, false);
 
 	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 }
@@ -472,12 +473,13 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::SpriteSheet& SpriteSheetStruct) {
 	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
 
 	if (ObjectBlurValue > 0.0) {
-		glUniform1i(BLUR_STATE_LOCATION, 1);
+		glUniform1i(BLUR_STATE_LOCATION, true);
+		glUniform1i(BLUR_EXECUTION_LOCATION, BLUR_EXECUTION);
 		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlurValue);
 		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (float)SpriteSheetStruct.Width, 1.0 / (float)SpriteSheetStruct.Height);
 	}
 	else
-		glUniform1i(BLUR_STATE_LOCATION, 0);
+		glUniform1i(BLUR_STATE_LOCATION, false);
 
 	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 }

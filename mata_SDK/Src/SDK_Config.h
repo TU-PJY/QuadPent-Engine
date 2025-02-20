@@ -79,6 +79,12 @@ constexpr float LERP_THRESHOLD = 0.001;
 
 
 
+//////////////////////////////////// Image render Option
+// Set the number of blur filtering times to run when blurring images. The higher the value, the more resources the system consumes.
+constexpr int BLUR_EXECUTION = 10;
+
+
+
 //////////////////////////////////// File security Options
 // Application version
 constexpr float APPLICATION_VERSION = 1.0;
