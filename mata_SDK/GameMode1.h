@@ -18,7 +18,6 @@ public:
 	}
 
 	/////////////////////////////////////////////////////////////
-	// Fold here
 #pragma region FoldRegion 
 	// this is a container that stores object pointers for accessing object controllers.
 	// a pointer to the object corresponding to the tag entered in InputObjectTag is added when the mode starts.
