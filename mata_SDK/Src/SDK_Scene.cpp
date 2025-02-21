@@ -386,16 +386,14 @@ void SDK::SDK_Scene::ClearFloatingObject() {
 			if (!ObjectList[Layer][i]->StaticCommand && ObjectList[Layer][i]->FloatingCommand) {
 				ObjectList[Layer][i]->DeleteCommand = true;
 				ObjectList[Layer][i]->ObjectTag = "";
-				AddLocation(Layer, i);
 			}
 		}
 	}
-
-	LoopEscapeCommand = true;
 }
 
 void SDK::SDK_Scene::ClearAll() {
 	for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
+		DeleteLocation[Layer].clear();
 		size_t Size = LayerSize(Layer);
 		for (int i = 0; i < Size; ++i) {
 			if (!ObjectList[Layer][i]->StaticCommand) {
