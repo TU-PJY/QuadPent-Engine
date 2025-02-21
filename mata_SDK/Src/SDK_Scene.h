@@ -14,7 +14,7 @@ namespace SDK {
 	class SDK_Scene {
 	private:
 		std::array<std::deque<SDK::Object*>, SceneLayer> ObjectList{};
-		std::array<std::vector<int>, SceneLayer>        DeleteLocation{};
+		std::array<std::vector<int>, SceneLayer>        CommandLocation{};
 
 		int                               CurrentReferLocation{};
 		bool                              CommandExist{};

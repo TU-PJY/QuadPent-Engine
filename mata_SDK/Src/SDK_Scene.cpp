@@ -87,7 +87,7 @@ void SDK::SDK_Scene::Render() {
 void SDK::SDK_Scene::Init(SDK::MODE_PTR ModeFunction) {
 	ModeFunction();
 	for (int Layer = 0; Layer < SceneLayer; ++Layer)
-		DeleteLocation[Layer].reserve(DELETE_LOCATION_BUFFER_SIZE);
+		CommandLocation[Layer].reserve(DELETE_LOCATION_BUFFER_SIZE);
 }
 
 void SDK::SDK_Scene::SwitchMode(SDK::MODE_PTR ModeFunction) {
@@ -343,7 +343,7 @@ void SDK::SDK_Scene::AddSystemObject(SDK::Object* Object) {
 
 //////// private ///////////////
 void SDK::SDK_Scene::AddLocation(int Layer, int Position) {
-	DeleteLocation[Layer].emplace_back(Position);
+	CommandLocation[Layer].emplace_back(Position);
 	CommandExist = true;
 }
 
@@ -351,12 +351,12 @@ void SDK::SDK_Scene::UpdateObjectList() {
 	int Offset{};
 
 	for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
-		size_t Size = DeleteLocation[Layer].size();
+		size_t Size = CommandLocation[Layer].size();
 		if (Size == 0)
 			continue;
 
 		for (int i = 0; i < Size; ++i) {
-			auto Object = begin(ObjectList[Layer]) + DeleteLocation[Layer][i] - Offset;
+			auto Object = begin(ObjectList[Layer]) + CommandLocation[Layer][i] - Offset;
 
 			if ((*Object)->DeleteCommand) {
 				delete* Object;
@@ -374,7 +374,7 @@ void SDK::SDK_Scene::UpdateObjectList() {
 			++Offset;
 		}
 
-		DeleteLocation[Layer].clear();
+		CommandLocation[Layer].clear();
 		Offset = 0;
 	}
 }
@@ -393,7 +393,7 @@ void SDK::SDK_Scene::ClearFloatingObject() {
 
 void SDK::SDK_Scene::ClearAll() {
 	for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
-		DeleteLocation[Layer].clear();
+		CommandLocation[Layer].clear();
 		size_t Size = LayerSize(Layer);
 		for (int i = 0; i < Size; ++i) {
 			if (!ObjectList[Layer][i]->StaticCommand) {
