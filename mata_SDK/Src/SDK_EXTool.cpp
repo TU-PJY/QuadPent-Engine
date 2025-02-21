@@ -97,20 +97,26 @@ bool SDK::SDK_EXTool::CheckClampValue(int& Value, int Dest, int Type) {
 	return false;
 }
 
-void SDK::SDK_EXTool::InputBoolSwitch(int SwitchingOption, int EventType, bool& DestBoolValue) {
+void SDK::SDK_EXTool::InputBoolSwitch(int SwitchingOption, SDK::KeyEvent& Event, unsigned char NormalKey, int SpecialKey, bool& DestBoolValue) {
+	if ((Event.Type == NORMAL_KEY_DOWN || Event.Type == NORMAL_KEY_UP) && Event.NormalKey != NormalKey)
+		return;
+
+	else if ((Event.Type == SPECIAL_KEY_DOWN || Event.Type == SPECIAL_KEY_UP) && Event.SpecialKey != SpecialKey)
+		return;
+
 	if (SwitchingOption == TRUE_KEY_DOWN) {
-		if (EventType == NORMAL_KEY_DOWN || EventType == SPECIAL_KEY_DOWN)
+		if (Event.Type == NORMAL_KEY_DOWN || Event.Type == SPECIAL_KEY_DOWN)
 			DestBoolValue = true;
 
-		else if (EventType == NORMAL_KEY_UP || EventType == SPECIAL_KEY_UP)
+		else if (Event.Type == NORMAL_KEY_UP || Event.Type == SPECIAL_KEY_UP)
 			DestBoolValue = false;
 	}
 
 	else if (SwitchingOption == FALSE_KEY_DOWN) {
-		if (EventType == NORMAL_KEY_DOWN || EventType == SPECIAL_KEY_DOWN)
+		if (Event.Type == NORMAL_KEY_DOWN || Event.Type == SPECIAL_KEY_DOWN)
 			DestBoolValue = false;
 
-		else if (EventType == NORMAL_KEY_UP || EventType == SPECIAL_KEY_UP)
+		else if (Event.Type == NORMAL_KEY_UP || Event.Type == SPECIAL_KEY_UP)
 			DestBoolValue = true;
 	}
 }

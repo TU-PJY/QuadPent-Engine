@@ -13,7 +13,7 @@ namespace SDK {
 		void ClampValue(float& Value, float Min, float Max, int Type);
 		bool CheckClampValue(float& Value, float Dest, int Type);
 		bool CheckClampValue(int& Value, int Dest, int Type);
-		void InputBoolSwitch(int SwitchingOption, int EventType, bool& DestBoolValue);
+		void InputBoolSwitch(int SwitchingOption, SDK::KeyEvent& Event, unsigned char NormalKey, int SpecialKey, bool& DestBoolValue);
 	};
 
 	extern SDK::SDK_EXTool EXTool;
