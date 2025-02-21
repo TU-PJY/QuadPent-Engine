@@ -34,6 +34,9 @@ SDK::SDK_MODE_RESOURCE SDK::MODE;
 std::wstring SDK::LOCALE;
 SDK::START_MODE_PTR SDK::START_MODE;
 
+HWND SDK::SystemHWND;
+SUBCLASSPROC SDK::LastControllerProc;
+
 void SDK::SDK_System::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);
 	SetupWindow();
@@ -68,6 +71,8 @@ void SDK::SDK_System::SetupWindow() {
 		RegisterHotKey(NULL, 1, MOD_ALT, VK_MENU);
 		RegisterHotKey(NULL, 2, MOD_ALT | MOD_NOREPEAT, VK_MENU);
 	}
+
+	SDK::SystemHWND = FindWindowA(nullptr, WINDOW_NAME);
 }
 
 void SDK::SDK_System::LoadShader() {

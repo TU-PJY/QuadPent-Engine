@@ -119,6 +119,34 @@ public:
 			if (Object)  Object->InputMouse(ButtonEvent);
 	}
 
+	static LRESULT CALLBACK ExtendedMouseButton(HWND Hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR SubClassID, DWORD_PTR RefData) {
+		int ProcEvent{};
+		int ButtonEvent{};
+
+		if (Message == WM_XBUTTONDOWN) {
+			ProcEvent = GET_XBUTTON_WPARAM(wParam);
+
+			if (ProcEvent == XBUTTON1)
+				ButtonEvent = BACKWARD_BUTTON_DOWN;
+			else if (ProcEvent == XBUTTON2)
+				ButtonEvent = FORWARD_BUTTON_DOWN;
+		}
+
+		else if (Message == WM_XBUTTONUP) {
+			ProcEvent = GET_XBUTTON_WPARAM(wParam);
+
+			if (ProcEvent == XBUTTON1)
+				ButtonEvent = BACKWARD_BUTTON_UP;
+			else if (ProcEvent == XBUTTON2)
+				ButtonEvent = FORWARD_BUTTON_UP;
+		}
+
+		for (auto const& Object : M_Inst->InputObject)
+			if (Object)  Object->InputMouse(ButtonEvent);
+
+		return DefSubclassProc(Hwnd, Message, wParam, lParam);
+	}
+
 	static void Controller() {
 		glutMotionFunc(MouseMotion);
 		glutPassiveMotionFunc(MousePassiveMotion);
@@ -128,6 +156,8 @@ public:
 		glutMouseFunc(MouseButton);
 		glutSpecialFunc(SpecialKeyDown);
 		glutSpecialUpFunc(SpecialKeyUp);
+		SetWindowSubclass(SDK::SystemHWND, ExtendedMouseButton, 1, 0);
+		SDK::LastControllerProc = ExtendedMouseButton;
 	}
 #pragma endregion
 };

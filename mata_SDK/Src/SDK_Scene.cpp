@@ -423,6 +423,7 @@ void SDK::SDK_Scene::SwitchToErrorScreen() {
 	glutMouseFunc(nullptr);
 	glutSpecialFunc(nullptr);
 	glutSpecialUpFunc(nullptr);
+	RemoveWindowSubclass(SDK::SystemHWND, SDK::LastControllerProc, 1);
 
 	SystemObjectAdded = false;
 

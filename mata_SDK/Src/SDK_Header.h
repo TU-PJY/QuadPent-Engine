@@ -2,6 +2,7 @@
 #pragma warning(disable: 4244)
 #pragma warning(disable: 4305)
 #pragma warning(disable: 26444)
+#pragma comment(lib, "Comctl32.lib")
 #pragma comment(lib, "winmm.lib")
 #include "SDK_Config.h"
 #include "glew.h"
@@ -14,6 +15,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <commctrl.h>
 #include <mmsystem.h>
 #include <DirectXMath.h>
 #include <DirectXCollision.h>
@@ -179,6 +181,9 @@ namespace SDK {
 	extern int PREV_WIDTH, PREV_HEIGHT;
 	extern const glm::mat4 IdentityMatrix;
 	constexpr wchar_t* FONT = L"Roboto";
+
+	extern HWND SystemHWND;
+	extern SUBCLASSPROC LastControllerProc;
 }
 
 // global scope shader
@@ -220,7 +225,11 @@ enum SDK_ButtonState {
 	RIGHT_BUTTON_DOWN,
 	RIGHT_BUTTON_UP,
 	MIDDLE_BUTTON_DOWN,
-	MIDDLE_BUTTON_UP
+	MIDDLE_BUTTON_UP,
+	FORWARD_BUTTON_DOWN,
+	FORWARD_BUTTON_UP,
+	BACKWARD_BUTTON_DOWN,
+	BACKWARD_BUTTON_UP
 };
 
 enum SDK_SpecialKeySet {
