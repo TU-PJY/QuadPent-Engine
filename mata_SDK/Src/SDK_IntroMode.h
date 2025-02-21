@@ -83,7 +83,7 @@ public:
 	}
 
 	static void MouseButton(int Button, int State, int X, int Y) {
-		int ButtonEvent{};
+		int ButtonEvent{ BUTTON_NONE };
 
 		switch (State) {
 		case GLUT_DOWN:
@@ -109,14 +109,16 @@ public:
 			break;
 		}
 
+		if (ButtonEvent == BUTTON_NONE)
+			return;
+
 		for (auto const& Object : M_Inst->InputObject)
 			if (Object)  Object->InputMouse(ButtonEvent);
 	}
 
-
-	static LRESULT CALLBACK ExtendedMouseButton(HWND Hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR subclassID, DWORD_PTR refData) {
+	static LRESULT CALLBACK ExtendedMouseButton(HWND Hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR SubClassID, DWORD_PTR RefData) {
 		int ProcEvent{};
-		int ButtonEvent{};
+		int ButtonEvent{ BUTTON_NONE };
 
 		if (Message == WM_XBUTTONDOWN) {
 			ProcEvent = GET_XBUTTON_WPARAM(wParam);
@@ -136,6 +138,9 @@ public:
 				ButtonEvent = FORWARD_BUTTON_UP;
 		}
 
+		if (ButtonEvent == BUTTON_NONE)
+			return DefSubclassProc(Hwnd, Message, wParam, lParam);
+
 		for (auto const& Object : M_Inst->InputObject)
 			if (Object)  Object->InputMouse(ButtonEvent);
 
@@ -152,6 +157,7 @@ public:
 		glutSpecialFunc(SpecialKeyDown);
 		glutSpecialUpFunc(SpecialKeyUp);
 		SetWindowSubclass(SDK::SystemHWND, ExtendedMouseButton, 1, 0);
+		SDK::LastControllerProc = ExtendedMouseButton;
 	}
 #pragma endregion
 };

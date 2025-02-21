@@ -220,6 +220,7 @@ enum SDK_WheelState {
 };
 
 enum SDK_ButtonState {
+	BUTTON_NONE,
 	LEFT_BUTTON_DOWN,
 	LEFT_BUTTON_UP,
 	RIGHT_BUTTON_DOWN,
