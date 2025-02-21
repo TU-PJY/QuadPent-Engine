@@ -83,35 +83,77 @@ void SDK::PopBounce::Reset(){
 }
 
 
-void SDK::ReverseLerp::Update(float& Value, float Dest, float Speed, float IncreaseSpeed, float FrameTime) {
-	float ReturnValue = Value;
 
-	if (MoveState) {
-		ReturnValue += Velocity * Distance * FrameTime;
-		Velocity += Acc * Speed  * FrameTime;
-		Acc += IncreaseSpeed * FrameTime;
+void SDK::ReverseLerp::Update(float& Value, float Speed, float IncreaseSpeed, float FrameTime) {
+	if (SingleMoveState) {
+		Value += SingleVelocity * SingleDistance * FrameTime;
+		SingleVelocity += SingleAcc * Speed  * FrameTime;
+		SingleAcc += IncreaseSpeed * FrameTime;
 
-		if (Dest < StartPosition) {
-			if (SDK::EXTool.CheckClampValue(ReturnValue, Dest, CLAMP_LESS))
-				MoveState = false;
+		if (SingleStartPosition + SingleDistance < SingleStartPosition) {
+			if (SDK::EXTool.CheckClampValue(Value, SingleStartPosition + SingleDistance, CLAMP_LESS))
+				SingleMoveState = false;
 		}
 
-		else if (Dest > StartPosition) {
-			if (SDK::EXTool.CheckClampValue(ReturnValue, Dest, CLAMP_GREATER))
-				MoveState = false;
+		else if (SingleStartPosition + SingleDistance > SingleStartPosition) {
+			if (SDK::EXTool.CheckClampValue(Value, SingleStartPosition + SingleDistance, CLAMP_GREATER))
+				SingleMoveState = false;
+		}
+	}
+}
+
+void SDK::ReverseLerp::Update(SDK::Vector2& Value, float Speed, float IncreaseSpeed, float FrameTime) {
+	if (MoveState[0]) {
+		Value.x += Velocity.x * Distance.x * FrameTime;
+		Velocity.x += Acc.x * Speed * FrameTime;
+		Acc.x += IncreaseSpeed * FrameTime;
+
+		if (StartPosition.x + Distance.x < StartPosition.x) {
+			if (SDK::EXTool.CheckClampValue(Value.x, StartPosition.x + Distance.x, CLAMP_LESS))
+				MoveState[0] = false;
+		}
+
+		if (StartPosition.x + Distance.x > StartPosition.x) {
+			if (SDK::EXTool.CheckClampValue(Value.x, StartPosition.x + Distance.x, CLAMP_GREATER))
+				MoveState[0] = false;
 		}
 	}
 
-	Value = ReturnValue;
+	if (MoveState[1]) {
+		Value.y += Velocity.y * Distance.y * FrameTime;
+		Velocity.y += Acc.y * Speed * FrameTime;
+		Acc.y += IncreaseSpeed * FrameTime;
+
+		if (StartPosition.y + Distance.y < StartPosition.y) {
+			if (SDK::EXTool.CheckClampValue(Value.y, StartPosition.y + Distance.y, CLAMP_LESS))
+				MoveState[1] = false;
+		}
+
+		if (StartPosition.y + Distance.y > StartPosition.y) {
+			if (SDK::EXTool.CheckClampValue(Value.y, StartPosition.y + Distance.y, CLAMP_GREATER))
+				MoveState[1] = false;
+		}
+	}
 }
 
 void SDK::ReverseLerp::SetMovePoint(float StartPoint, float EndPoint) {
+	SingleStartPosition = StartPoint;
+	SingleDistance = EndPoint - StartPoint;
+}
+
+void SDK::ReverseLerp::SetMovePoint(SDK::Vector2& StartPoint, SDK::Vector2& EndPoint) {
 	StartPosition = StartPoint;
-	Distance = EndPoint - StartPoint;
+	Distance.x = EndPoint.x - StartPoint.x;
+	Distance.y = EndPoint.y - StartPoint.y;
 }
 
 void SDK::ReverseLerp::Reset() {
-	Velocity = 0.0;
-	Acc = 0.0;
-	MoveState = true;
+	SingleVelocity = 0.0;
+	SingleAcc = 0.0;
+	SingleMoveState = true;
+
+	Velocity = SDK::Vector2(0.0, 0.0);
+	Acc = SDK::Vector2(0.0, 0.0);
+	for (int i = 0; i < 2; i++)
+		MoveState[i] = true;
 }

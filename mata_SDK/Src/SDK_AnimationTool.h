@@ -45,15 +45,23 @@ namespace SDK {
 
 	class ReverseLerp {
 	private:
-		bool  MoveState{ true };
-		float Velocity{};
-		float Acc{};
-		float Distance{};
-		float StartPosition{};
+		bool  SingleMoveState{ true };
+		float SingleVelocity{};
+		float SingleAcc{};
+		float SingleDistance{};
+		float SingleStartPosition{};
+
+		bool MoveState[2] { true, true };
+		SDK::Vector2 Velocity{};
+		SDK::Vector2 Acc{};
+		SDK::Vector2 Distance{};
+		SDK::Vector2 StartPosition{};
 
 	public:
-		void Update(float& Value, float Dest, float Speed, float IncreaseSpeed, float FrameTime);
+		void Update(float& Value, float Speed, float IncreaseSpeed, float FrameTime);
+		void Update(SDK::Vector2& Value, float Speed, float IncreaseSpeed, float FrameTime);
 		void SetMovePoint(float StartPoint, float EndPoint);
+		void SetMovePoint(SDK::Vector2& StartPoint, SDK::Vector2& EndPoint);
 		void Reset();
 	};
 }
