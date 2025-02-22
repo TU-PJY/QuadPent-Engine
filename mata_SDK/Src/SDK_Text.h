@@ -66,10 +66,10 @@ namespace SDK {
 		void SetOpacity(float Value);
 		void Render(SDK::Vector2& Position, float Size, const wchar_t* Fmt, ...);
 		void Render(float X, float Y, float Size, const wchar_t* Fmt, ...);
-		void RenderStr(SDK::Vector2& Position, float Size, std::string Str);
-		void RenderStr(float X, float Y, float Size, std::string Str);
-		void RenderWStr(SDK::Vector2& Position, float Size, std::wstring Str);
-		void RenderWStr(float X, float Y, float Size, std::wstring Str);
+		void RenderString(SDK::Vector2& Position, float Size, std::string Str);
+		void RenderString(float X, float Y, float Size, std::string Str);
+		void RenderWString(SDK::Vector2& Position, float Size, std::wstring Str);
+		void RenderWString(float X, float Y, float Size, std::wstring Str);
 		void SetRenderType(int Type);
 
 	private:

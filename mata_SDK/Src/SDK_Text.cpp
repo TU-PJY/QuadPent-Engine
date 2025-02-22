@@ -98,14 +98,17 @@ void SDK::Text::Render(SDK::Vector2& Position, float Size, const wchar_t* Fmt, .
 	if (Fmt == NULL)
 		return;
 
+	TextVec.clear();
+
 	va_list Args{};
 	va_start(Args, Fmt);
+
 	int CurrentSize = vswprintf(nullptr, 0, Fmt, Args) + 1;
-	if (CurrentText.compare(PrevText) != 0) {
-		TextVec.clear();
+	if (PrevSize < CurrentSize) {
 		TextVec.resize(CurrentSize);
 		PrevSize = CurrentSize;
 	}
+
 	vswprintf(TextVec.data(), CurrentSize, Fmt, Args);
 	va_end(Args);
 
@@ -116,33 +119,36 @@ void SDK::Text::Render(float X, float Y, float Size, const wchar_t* Fmt, ...) {
 	if (Fmt == NULL)
 		return;
 
+	TextVec.clear();
+
 	va_list Args{};
 	va_start(Args, Fmt);
+
 	int CurrentSize = vswprintf(nullptr, 0, Fmt, Args) + 1;
-	if (CurrentText.compare(PrevText) != 0) {
-		TextVec.clear();
+	if (PrevSize < CurrentSize) {
 		TextVec.resize(CurrentSize);
 		PrevSize = CurrentSize;
 	}
+
 	vswprintf(TextVec.data(), CurrentSize, Fmt, Args);
 	va_end(Args);
 
 	InputText(TextVec, SDK::Vector2(X, Y), Size);
 }
 
-void SDK::Text::RenderStr(SDK::Vector2& Position, float Size, std::string Str) {
+void SDK::Text::RenderString(SDK::Vector2& Position, float Size, std::string Str) {
 	Render(Position.x, Position.y, Size, SDK::StringTool.Wstring(Str).c_str());
 }
 
-void SDK::Text::RenderStr(float X, float Y, float Size, std::string Str) {
+void SDK::Text::RenderString(float X, float Y, float Size, std::string Str) {
 	Render(X, Y, Size, SDK::StringTool.Wstring(Str).c_str());
 }
 
-void SDK::Text::RenderWStr(SDK::Vector2& Position, float Size, std::wstring WStr) {
+void SDK::Text::RenderWString(SDK::Vector2& Position, float Size, std::wstring WStr) {
 	Render(Position.x, Position.y, Size, WStr.c_str());
 }
 
-void SDK::Text::RenderWStr(float X, float Y, float Size, std::wstring WStr) {
+void SDK::Text::RenderWString(float X, float Y, float Size, std::wstring WStr) {
 	Render(X, Y, Size, WStr.c_str());
 }
 
@@ -170,9 +176,10 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 	if (CurrentText.compare(PrevText) != 0) {
 		TextWordCount = wcslen(Text);
 		ComputeGlyphCache(Text);
-		ComputeTextLength(Text);
 		PrevText = CurrentText;
 	}
+
+	ComputeTextLength(Text);
 
 	switch (HeightAlign) {
 	case HEIGHT_ALIGN_MIDDLE:

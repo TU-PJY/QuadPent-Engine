@@ -2,28 +2,26 @@
 
 SDK::SDK_StringTool SDK::StringTool;
 
-void SDK::SDK_StringTool::InputChar(std::string& Str, WPARAM Key, bool UseNewLine) {
-	switch (Key) {
-	case VK_TAB: case VK_ESCAPE:
-		break;
+void SDK::SDK_StringTool::InputWString(std::wstring& Str, SDK::KeyEvent& Event, bool UseNewLine) {
+	if (Event.Type == WM_KEYDOWN) {
+		switch (Event.Key) {
+		case VK_SPACE:
+			AddWString(Str, L" ");
+			break;
 
-	case VK_SPACE:
-		AddString(Str, " ");
-		break;
+		case VK_BACK:
+			EraseWString(Str);
+			break;
 
-	case VK_BACK:
-		EraseString(Str);
-		break;
-
-	case VK_RETURN:
-		if (!UseNewLine) break;
-		AddString(Str, "\n");
-		break;
-
-	default:
-		Str += static_cast<char>(Key);
-		break;
+		case VK_RETURN:
+			if (!UseNewLine) break;
+			AddWString(Str, L"\n");
+			break;
+		}
 	}
+
+	else if(Event.Type == WM_CHAR && iswprint(Event.Key))
+		Str.push_back(static_cast<wchar_t>(Event.Key));
 }
 
 void SDK::SDK_StringTool::AddString(std::string& Str, std::string AddStr) {
@@ -33,12 +31,35 @@ void SDK::SDK_StringTool::AddString(std::string& Str, std::string AddStr) {
 void SDK::SDK_StringTool::EraseString(std::string& Str) {
 	if (!Str.empty()) {
 		Str.pop_back();
-		if (Str.back() == '\n')
+		if (!Str.empty() && Str.back() == L'\n')
 			Str.pop_back();
 	}
 }
 
 void SDK::SDK_StringTool::RemoveString(std::string& Str, std::string RemoveStr) {
+	if (Str.empty())
+		return;
+
+	size_t Pos = Str.find(RemoveStr);
+	while (Pos != std::string::npos) {
+		Str.erase(Pos, RemoveStr.length());
+		Pos = Str.find(RemoveStr);
+	}
+}
+
+void SDK::SDK_StringTool::AddWString(std::wstring& Str, std::wstring AddStr) {
+	Str += AddStr;
+}
+
+void SDK::SDK_StringTool::EraseWString(std::wstring& Str) {
+	if (!Str.empty()) {
+		Str.pop_back();
+		if (!Str.empty() && (Str.back() == L'\n'))
+			Str.pop_back();
+	}
+}
+
+void SDK::SDK_StringTool::RemoveWstring(std::wstring& Str, std::wstring RemoveStr) {
 	if (Str.empty())
 		return;
 

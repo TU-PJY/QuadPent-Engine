@@ -185,7 +185,6 @@ namespace SDK {
 	constexpr FontName SYSTEM_FONT = L"Roboto";
 
 	extern HWND SystemHWND;
-	extern SUBCLASSPROC CurrentMouseController;
 }
 
 // global scope shader

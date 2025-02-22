@@ -86,7 +86,7 @@ public:
 				MouseEvent = WHEEL_DOWN;
 			break;
 
-		case WM_KEYDOWN: case WM_KEYUP:
+		case WM_KEYDOWN: case WM_KEYUP: case WM_CHAR:
 			if (ENABLE_DEV_EXIT && wParam == VK_ESCAPE)
 				SDK::System.Exit();
 

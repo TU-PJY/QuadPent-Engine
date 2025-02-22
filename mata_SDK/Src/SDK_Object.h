@@ -12,6 +12,7 @@ namespace SDK {
 
 		bool        DeleteCommand{};
 		bool        SwapCommand{};
+		bool        ControllerCommand{};
 
 		// Initialize matrix. Select a render type.
 		void Begin(int RenderType = RENDER_TYPE_DEFAULT);

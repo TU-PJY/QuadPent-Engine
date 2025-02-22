@@ -44,7 +44,7 @@ public:
 			Rect.Draw(0.0, -0.65 + HeightOffset, 0.4, 0.3);
 			Rect.Draw(0.0, -0.75 + HeightOffset, 0.7, 0.1);
 
-			Message.RenderStr(SDK::ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);
+			Message.RenderString(SDK::ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);
 			Message.Render(SDK::ASP(-1.0) + 0.01, -1.0 + 0.02, 0.06, L"Press ESC or Enter to terminate system...");
 		}
 	}

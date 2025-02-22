@@ -4,10 +4,13 @@
 namespace SDK {
 	class SDK_StringTool {
 	public:
-		void InputChar(std::string& Str, WPARAM Key, bool UseNewLine);
+		void InputWString(std::wstring& Str, SDK::KeyEvent& Event, bool UseNewLine);
 		void AddString(std::string& Str, std::string AddStr);
 		void EraseString(std::string& Str);
 		void RemoveString(std::string& Str, std::string RemoveStr);
+		void AddWString(std::wstring& Str, std::wstring AddStr);
+		void EraseWString(std::wstring& Str);
+		void RemoveWstring(std::wstring& Str, std::wstring RemoveStr);
 		std::wstring Wstring(const std::string& Str);
 	};
 

@@ -30,6 +30,7 @@ namespace SDK {
 
 		float							  FrameTime{};
 
+		SUBCLASSPROC                      CurrentController{};
 		SUBCLASSPROC				      ControllerBuffer{};
 		SDK::MODE_PTR				      DestructorBuffer{};
 
@@ -66,9 +67,10 @@ namespace SDK {
 		// Initialize the scene and enter start mode.
 		void Init(SDK::MODE_PTR ModeFunction);
 
-		// Register the mode name to run.
+		// Register the mode name.
 		void RegisterModeName(std::string ModeName);
 
+		// Register the mode poiner to run.
 		void RegisterModePtr(SDK::MODE_PTR ModePtr);
 
 		// Register the controller in the scene.
@@ -77,9 +79,6 @@ namespace SDK {
 
 		// Register a mode destructor with the Scene.
 		void RegisterDestructor(SDK::MODE_PTR DestructorFunction);
-
-		// Removes the mode destructor registered with the Scene.
-		void ReleaseDestructor();
 
 		// Register the mode controller input object list in Scene.
 		void RegisterInputObjectList(std::vector<SDK::Object*>& Vec);

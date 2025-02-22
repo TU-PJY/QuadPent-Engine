@@ -124,8 +124,10 @@ void SDK::SDK_Scene::RegisterModePtr(SDK::MODE_PTR ModePtr) {
 }
 
 void SDK::SDK_Scene::RegisterController(SUBCLASSPROC Controller, int Type) {
+	if(CurrentController)
+		RemoveWindowSubclass(SDK::SystemHWND, CurrentController, 1);
 	SetWindowSubclass(SDK::SystemHWND, Controller, 1, 0);
-	SDK::CurrentMouseController = Controller;
+	CurrentController = Controller;
 
 	if(Type == MODE_TYPE_DEFAULT)
 		ControllerBuffer = Controller;
@@ -133,10 +135,6 @@ void SDK::SDK_Scene::RegisterController(SUBCLASSPROC Controller, int Type) {
 
 void SDK::SDK_Scene::RegisterInputObjectList(std::vector<SDK::Object*>& Vec) {
 	InputObjectListPtr = &Vec;
-}
-
-void SDK::SDK_Scene::ReleaseDestructor() {
-	DestructorBuffer = nullptr;
 }
 
 void SDK::SDK_Scene::StartFloatingMode(SDK::MODE_PTR ModeFunction, bool FloatingFocusFlag) {
@@ -163,10 +161,10 @@ void SDK::SDK_Scene::EndFloatingMode() {
 	CurrentRunningModeName = PrevRunningModeName;
 	CurrentRunningModePtr = PrevRunningModePtr;
 
-	if (ControllerBuffer) {
-		SetWindowSubclass(SDK::SystemHWND, ControllerBuffer, 1, 0);
-		SDK::CurrentMouseController = ControllerBuffer;
-	}
+	RemoveWindowSubclass(SDK::SystemHWND, CurrentController, 1);
+	SetWindowSubclass(SDK::SystemHWND, ControllerBuffer, 1, 0);
+	CurrentController = ControllerBuffer;
+	ControllerBuffer = nullptr;
 
 	FloatingActivateCommand = false;
 	FloatingFocusCommand = false;
@@ -188,7 +186,7 @@ SDK::Object* SDK::SDK_Scene::AddObject(SDK::Object* Object, std::string Tag, uns
 	Object->ObjectTag = Tag;
 	Object->ObjectLayer = AddLayer;
 
-	if (UseController)
+	if (UseController) 
 		InputObjectListPtr->emplace_back(Object);
 
 	if(Type1 == Type2) {
@@ -216,7 +214,8 @@ void SDK::SDK_Scene::DeleteObject(SDK::Object* Object) {
 }
 
 void SDK::SDK_Scene::DeleteObject(std::string Tag, int DeleteRange) {
-	if (DeleteRange == DELETE_RANGE_SINGLE) {
+	switch (DeleteRange) {
+	case DELETE_RANGE_SINGLE:
 		for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 			for (auto const& Object : ObjectList[Layer]) {
 				if (Object->ObjectTag.compare(Tag) == 0) {
@@ -226,9 +225,9 @@ void SDK::SDK_Scene::DeleteObject(std::string Tag, int DeleteRange) {
 				}
 			}
 		}
-	}
+		break;
 
-	else if (DeleteRange == DELETE_RANGE_ALL) {
+	case DELETE_RANGE_ALL:
 		for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 			for (auto const& Object : ObjectList[Layer]) {
 				if (Object->ObjectTag.compare(Tag) == 0) {
@@ -237,6 +236,7 @@ void SDK::SDK_Scene::DeleteObject(std::string Tag, int DeleteRange) {
 				}
 			}
 		}
+		break;
 	}
 }
 
@@ -417,7 +417,7 @@ void ErrorScreenController(unsigned char Key, int X, int Y) {
 }
 
 void SDK::SDK_Scene::SwitchToErrorScreen() {
-	RemoveWindowSubclass(SDK::SystemHWND, SDK::CurrentMouseController, 1);
+	RemoveWindowSubclass(SDK::SystemHWND, CurrentController, 1);
 	glutKeyboardFunc(ErrorScreenController);
 
 	SystemObjectAdded = false;
