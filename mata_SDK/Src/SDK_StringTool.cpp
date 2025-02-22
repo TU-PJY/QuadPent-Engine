@@ -2,26 +2,26 @@
 
 SDK::SDK_StringTool SDK::StringTool;
 
-void SDK::SDK_StringTool::InputChar(std::string& Str, unsigned char AddChar, bool UseNewLine) {
-	switch (AddChar) {
-	case NK_TAB: case NK_ESCAPE:
+void SDK::SDK_StringTool::InputChar(std::string& Str, WPARAM Key, bool UseNewLine) {
+	switch (Key) {
+	case VK_TAB: case VK_ESCAPE:
 		break;
 
-	case NK_SPACE:
+	case VK_SPACE:
 		AddString(Str, " ");
 		break;
 
-	case NK_BACKSPACE:
+	case VK_BACK:
 		EraseString(Str);
 		break;
 
-	case NK_ENTER:
+	case VK_RETURN:
 		if (!UseNewLine) break;
 		AddString(Str, "\n");
 		break;
 
 	default:
-		Str += static_cast<char>(AddChar);
+		Str += static_cast<char>(Key);
 		break;
 	}
 }

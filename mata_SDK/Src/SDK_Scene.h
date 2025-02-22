@@ -30,7 +30,7 @@ namespace SDK {
 
 		float							  FrameTime{};
 
-		SDK::CONTROLLER_PTR				  ControllerBuffer{};
+		SUBCLASSPROC				      ControllerBuffer{};
 		SDK::MODE_PTR				      DestructorBuffer{};
 
 		bool                              UpdateActivateCommand{ true };
@@ -71,15 +71,15 @@ namespace SDK {
 
 		void RegisterModePtr(SDK::MODE_PTR ModePtr);
 
+		// Register the controller in the scene.
+		// When MODE_TYPE_FLOATING is specified, the controller is not stored in the controller buffer.
+		void RegisterController(SUBCLASSPROC Controller, int Type);
+
 		// Register a mode destructor with the Scene.
 		void RegisterDestructor(SDK::MODE_PTR DestructorFunction);
 
 		// Removes the mode destructor registered with the Scene.
 		void ReleaseDestructor();
-
-		// Register the controller in the scene.
-		// When MODE_TYPE_FLOATING is specified, the controller is not stored in the controller buffer.
-		void RegisterController(SDK::CONTROLLER_PTR Controller, int Type);
 
 		// Register the mode controller input object list in Scene.
 		void RegisterInputObjectList(std::vector<SDK::Object*>& Vec);

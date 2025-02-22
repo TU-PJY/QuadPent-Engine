@@ -123,9 +123,11 @@ void SDK::SDK_Scene::RegisterModePtr(SDK::MODE_PTR ModePtr) {
 	CurrentRunningModePtr = ModePtr;
 }
 
-void SDK::SDK_Scene::RegisterController(SDK::CONTROLLER_PTR Controller, int Type) {
-	Controller();
-	if (Type == MODE_TYPE_DEFAULT)
+void SDK::SDK_Scene::RegisterController(SUBCLASSPROC Controller, int Type) {
+	SetWindowSubclass(SDK::SystemHWND, Controller, 1, 0);
+	SDK::CurrentMouseController = Controller;
+
+	if(Type == MODE_TYPE_DEFAULT)
 		ControllerBuffer = Controller;
 }
 
@@ -161,8 +163,10 @@ void SDK::SDK_Scene::EndFloatingMode() {
 	CurrentRunningModeName = PrevRunningModeName;
 	CurrentRunningModePtr = PrevRunningModePtr;
 
-	if (ControllerBuffer)  
-		ControllerBuffer();
+	if (ControllerBuffer) {
+		SetWindowSubclass(SDK::SystemHWND, ControllerBuffer, 1, 0);
+		SDK::CurrentMouseController = ControllerBuffer;
+	}
 
 	FloatingActivateCommand = false;
 	FloatingFocusCommand = false;
@@ -408,16 +412,13 @@ void SDK::SDK_Scene::ClearAll() {
 }
 
 void ErrorScreenController(unsigned char Key, int X, int Y) {
-	if (Key == NK_ESCAPE || Key == NK_ENTER)
+	if (Key == 27 || Key == 32)
 		SDK::System.Exit();
 }
 
 void SDK::SDK_Scene::SwitchToErrorScreen() {
-	glutKeyboardFunc(ErrorScreenController);
-	glutKeyboardUpFunc(nullptr);
-	glutSpecialFunc(nullptr);
-	glutSpecialUpFunc(nullptr);
 	RemoveWindowSubclass(SDK::SystemHWND, SDK::CurrentMouseController, 1);
+	glutKeyboardFunc(ErrorScreenController);
 
 	SystemObjectAdded = false;
 

@@ -22,9 +22,9 @@ public:
 	}
 
 	void InputKey(SDK::KeyEvent& Event) {
-		if (Event.Type == NORMAL_KEY_DOWN) {
-			switch (Event.NormalKey) {
-			case NK_ENTER:
+		if (Event.Type == WM_KEYDOWN) {
+			switch (Event.Key) {
+			case VK_RETURN:
 				SDK::SoundTool.Stop(IntroChannel);
 				SDK::Scene.SwitchMode(SDK::START_MODE);
 				break;

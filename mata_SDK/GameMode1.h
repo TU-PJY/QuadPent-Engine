@@ -32,40 +32,12 @@ public:
 		M_Inst->InputObject.clear();
 		SDK::Scene.RegisterInputObjectList(M_Inst->InputObject);
 		SDK::Scene.RegisterDestructor(Destructor);
-		SDK::Scene.RegisterController(Controller, M_Inst->ModeType);
+		SDK::Scene.RegisterController(ModeController, M_Inst->ModeType);
 		SDK::Scene.RegisterModeName(M_Inst->ModeName);
 		SDK::Scene.RegisterModePtr(M_Inst->Start);
 	}
 
-	static void ProcessKeyEvent(SDK::KeyEvent& Event) {
-		for (auto const& Object : M_Inst->InputObject)
-			if (Object)  Object->InputKey(Event);
-
-	}
-	static void KeyDown(unsigned char KEY, int X, int Y) {
-		if (ENABLE_DEV_EXIT && KEY == NK_ESCAPE)
-			SDK::System.Exit();
-
-		SDK::KeyEvent Event{ NORMAL_KEY_DOWN, KEY, NULL };
-		ProcessKeyEvent(Event);
-	}
-
-	static void KeyUp(unsigned char KEY, int X, int Y) {
-		SDK::KeyEvent Event{ NORMAL_KEY_UP, KEY, NULL };
-		ProcessKeyEvent(Event);
-	}
-
-	static void SpecialKeyDown(int KEY, int X, int Y) {
-		SDK::KeyEvent Event{ SPECIAL_KEY_DOWN, NULL, KEY };
-		ProcessKeyEvent(Event);
-	}
-
-	static void SpecialKeyUp(int KEY, int X, int Y) {
-		SDK::KeyEvent Event{ SPECIAL_KEY_UP, NULL, KEY };
-		ProcessKeyEvent(Event);
-	}
-
-	static LRESULT CALLBACK MouseController(HWND Hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR SubClassID, DWORD_PTR RefData) {
+	static LRESULT CALLBACK ModeController(HWND Hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR SubClassID, DWORD_PTR RefData) {
 		int ProcEvent{};
 		int WheelDelta{};
 		int MouseEvent{ EVENT_NONE };
@@ -113,24 +85,26 @@ public:
 			else if (WheelDelta < 0)
 				MouseEvent = WHEEL_DOWN;
 			break;
-		}
 
-		if (MouseEvent == EVENT_NONE)
+		case WM_KEYDOWN: case WM_KEYUP:
+			if (ENABLE_DEV_EXIT && wParam == VK_ESCAPE)
+				SDK::System.Exit();
+
+			SDK::KeyEvent Event{};
+			Event.Type = Message;
+			Event.Key = wParam;
+
+			for (auto const& Object : M_Inst->InputObject)
+				if (Object)  Object->InputKey(Event);
+
 			return DefSubclassProc(Hwnd, Message, wParam, lParam);
+			break;
+		}
 
 		for (auto const& Object : M_Inst->InputObject)
 			if (Object)  Object->InputMouse(MouseEvent);
 
 		return DefSubclassProc(Hwnd, Message, wParam, lParam);
-	}
-
-	static void Controller() {
-		glutKeyboardFunc(KeyDown);
-		glutKeyboardUpFunc(KeyUp);
-		glutSpecialFunc(SpecialKeyDown);
-		glutSpecialUpFunc(SpecialKeyUp);
-		SetWindowSubclass(SDK::SystemHWND, MouseController, 1, 0);
-		SDK::CurrentMouseController = MouseController;
 	}
 #pragma endregion
 };

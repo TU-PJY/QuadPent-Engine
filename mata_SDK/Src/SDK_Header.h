@@ -37,9 +37,8 @@ namespace SDK {
 
 	// key event
 	typedef struct {
-		int Type;
-		unsigned char NormalKey;
-		int SpecialKey;
+		UINT Type;
+		WPARAM Key;
 	}KeyEvent;
 
 	// ray vector struct
@@ -209,14 +208,6 @@ extern SDK::ShaderLocation TEXT_PROJECTION_LOCATION, TEXT_VIEW_LOCATION, TEXT_VI
 extern SDK::ShaderLocation SHAPE_OPACITY_LOCATION, SHAPE_COLOR_LOCATION, SHAPE_MODEL_LOCATION;
 extern SDK::ShaderLocation SHAPE_PROJECTION_LOCATION, SHAPE_VIEW_LOCATION, SHAPE_VIEW_POSITION_LOCATION;
 
-
-enum SDK_KeyState {
-	NORMAL_KEY_DOWN,
-	NORMAL_KEY_UP,
-	SPECIAL_KEY_DOWN,
-	SPECIAL_KEY_UP
-};
-
 enum SDK_MouseState {
 	EVENT_NONE,
 	LEFT_BUTTON_DOWN,
@@ -231,45 +222,6 @@ enum SDK_MouseState {
 	BACKWARD_BUTTON_UP,
 	WHEEL_DOWN,
 	WHEEL_UP
-};
-
-enum SDK_SpecialKeySet {
-	SK_ARROW_UP    = GLUT_KEY_UP,
-	SK_ARROW_DOWN  = GLUT_KEY_DOWN,
-	SK_ARROW_RIGHT = GLUT_KEY_RIGHT,
-	SK_ARROW_LEFT  = GLUT_KEY_LEFT,
-	SK_PAGE_UP	   = GLUT_KEY_PAGE_UP,
-	SK_PAGE_DOWN   = GLUT_KEY_PAGE_DOWN,
-	SK_HOME		   = GLUT_KEY_HOME,
-	SK_END		   = GLUT_KEY_END,
-	SK_INSERT	   = GLUT_KEY_INSERT,
-	SK_DELETE	   = GLUT_KEY_DELETE,
-	SK_F1		   = GLUT_KEY_F1,
-	SK_F2		   = GLUT_KEY_F2,
-	SK_F3		   = GLUT_KEY_F3,
-	SK_F4		   = GLUT_KEY_F4,
-	SK_F5		   = GLUT_KEY_F5,
-	SK_F6		   = GLUT_KEY_F6,
-	SK_F7		   = GLUT_KEY_F7,
-	SK_F8		   = GLUT_KEY_F8,
-	SK_F9		   = GLUT_KEY_F9,
-	SK_F10		   = GLUT_KEY_F10,
-	SK_F11		   = GLUT_KEY_F11,
-	SK_F12		   = GLUT_KEY_F12,
-	SK_SHIFT_RIGHT = GLUT_KEY_SHIFT_R,
-	SK_SHIFT_LEFT  = GLUT_KEY_SHIFT_L,
-	SK_CTRL_RIGHT  = GLUT_KEY_CTRL_R,
-	SK_CTRL_LEFT   = GLUT_KEY_CTRL_L,
-	SK_ALT_RIGHT   = GLUT_KEY_ALT_R,
-	SK_ALT_LEFT    = GLUT_KEY_ALT_L
-};
-
-enum SDK_NormalKeySet {
-	NK_SPACE     = 32,
-	NK_ENTER     = 13,
-	NK_ESCAPE    = 27,
-	NK_TAB       = 9,
-	NK_BACKSPACE = 8
 };
 
 enum SDK_ZoomType {
