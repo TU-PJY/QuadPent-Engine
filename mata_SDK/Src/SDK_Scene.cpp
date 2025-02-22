@@ -55,8 +55,10 @@ void SDK::SDK_Scene::Update() {
 				}
 			}
 
-			if (LoopEscapeCommand || ErrorOccured)
+			if (LoopEscapeCommand || ErrorOccured) {
+				LoopEscapeCommand = false;
 				return;
+			}
 
 			if (Object->DeleteCommand)
 				AddLocation(Layer, CurrentReferLocation);
