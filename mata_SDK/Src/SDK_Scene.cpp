@@ -71,11 +71,6 @@ void SDK::SDK_Scene::Update() {
 }
 
 void SDK::SDK_Scene::Render() {
-	if (LoopEscapeCommand) {
-		LoopEscapeCommand = false;
-		return;
-	}
-
 	for (int i = 0; i < SceneLayer; ++i) {
 		for (auto& Object : ObjectList[i]) {
 			if (!Object->DeleteCommand) 

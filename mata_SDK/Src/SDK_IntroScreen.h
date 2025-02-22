@@ -115,11 +115,11 @@ public:
 
 		switch (SceneNumber) {
 		case 1:
-			SDK::ImageTool.RenderImage(SDK::SYSRES.SDK_LOGO, LogoOpacity);
+			SDK::ImageTool.RenderImage(SDK::SYSRES.SDK_LOGO, LogoOpacity * BackGroundOpacity);
 			break;
 
 		case 2: case 3:
-			SDK::ImageTool.RenderImage(SDK::SYSRES.FMOD_LOGO, LogoOpacity);
+			SDK::ImageTool.RenderImage(SDK::SYSRES.FMOD_LOGO, LogoOpacity * BackGroundOpacity);
 			break;
 		}
 	}
