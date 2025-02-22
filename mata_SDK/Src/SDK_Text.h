@@ -21,7 +21,7 @@ namespace SDK {
 
 		std::vector<float>		 LineLengthBuffer{};
 		std::wstring             CurrentText{};
-		std::wstring             PrevText{L"____PREV_TEXT____"};
+		std::wstring             PrevText{};
 		int                      CurrentLine{};
 
 		float					 TextOpacity{ 1.0f };
