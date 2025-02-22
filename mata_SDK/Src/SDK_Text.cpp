@@ -18,17 +18,6 @@ void SDK::Text::Init(SDK::FontName FontName, int Type, int Italic) {
 	LineLengthBuffer.reserve(20);
 }
 
-void SDK::Text::Reset(int RenderTypeFlag) {
-	RenderType = RenderTypeFlag;
-	TextAlign = ALIGN_DEFAULT;
-	HeightAlign = HEIGHT_ALIGN_DEFAULT;
-	FixMiddleCommand = false;
-	ShadowRenderCommand = false;
-	TextLineGap = 0.0;
-	Rotation = 0.0;
-	TextOpacity = 1.0;
-}
-
 void SDK::Text::SetRenderType(int Type) {
 	RenderType = Type;
 }
