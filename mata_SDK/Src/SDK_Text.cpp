@@ -212,17 +212,29 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 		glCallLists(1, GL_UNSIGNED_SHORT, &Text[i]);
 		glPopAttrib();
 
-		unsigned int CharIndex = Text[i];
-		if (CharIndex < 65536)
-			CurrentRenderOffset.x += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
+		if (Text[i] < 65536)
+			CurrentRenderOffset.x += TextGlyph[Text[i]].gmfCellIncX * (TextRenderSize / 1.0f);
 	}
 }
 
 void SDK::Text::ComputeGlyphCache(wchar_t* Text) {
 	for (int i = 0; i < TextWordCount; ++i) {
-		if (GlyphCache.find(Text[i]) == GlyphCache.end())
+		if (GlyphCache.count(Text[i]) == 0) {
 			CreateNewGlyph(Text[i]);
+			GlyphCache.insert(Text[i]); 
+		}
 	}
+}
+
+void SDK::Text::CreateNewGlyph(wchar_t& Char) {
+	if (Char >= 65536)
+		return;
+
+	HFONT OldFont = (HFONT)SelectObject(hDC, Font);
+	GLYPHMETRICSFLOAT Glyph;
+	wglUseFontOutlinesW(hDC, Char, 1, FontBase + Char, 0.0f, 0.0f, WGL_FONT_POLYGONS, &Glyph);
+	TextGlyph[Char] = Glyph;
+	SelectObject(hDC, OldFont);
 }
 
 void SDK::Text::ComputeTextLength(const wchar_t* Text) {
@@ -286,18 +298,6 @@ void SDK::Text::TransformText() {
 	}
 
 	SDK::Transform.Scale(TextMatrix, TextRenderSize, TextRenderSize);
-}
-
-void SDK::Text::CreateNewGlyph(wchar_t& Char) {
-	if (Char >= 65536)
-		return;
-
-	HFONT OldFont = (HFONT)SelectObject(hDC, Font);
-	GLYPHMETRICSFLOAT Glyph;
-	wglUseFontOutlinesW(hDC, Char, 1, FontBase + Char, 0.0f, 0.0f, WGL_FONT_POLYGONS, &Glyph);
-	TextGlyph[Char] = Glyph;
-	SelectObject(hDC, OldFont);
-	GlyphCache[Char] = true;
 }
 
 void SDK::Text::PrepareRender() {

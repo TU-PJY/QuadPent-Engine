@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <map>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace SDK {
 	class Text {
@@ -38,7 +39,7 @@ namespace SDK {
 		HFONT                    Font{};
 		unsigned int             FontBase{};
 		std::unordered_map <wchar_t, GLYPHMETRICSFLOAT> TextGlyph{};
-		std::map <wchar_t, bool> GlyphCache{};
+		std::unordered_set <wchar_t> GlyphCache{};
 		std::vector<wchar_t>     TextVec{};
 		int                      PrevSize{};
 
