@@ -19,6 +19,7 @@
 #include <mmsystem.h>
 #include <DirectXMath.h>
 #include <DirectXCollision.h>
+#undef SYSTEM_FONT
 using namespace DirectX;
 
 #include "fmod.hpp"
@@ -180,7 +181,7 @@ namespace SDK {
 	extern int WIDTH, HEIGHT;
 	extern int PREV_WIDTH, PREV_HEIGHT;
 	extern const glm::mat4 IdentityMatrix;
-	constexpr wchar_t* FONT = L"Roboto";
+	constexpr wchar_t* SYSTEM_FONT = L"Roboto";
 
 	extern HWND SystemHWND;
 	extern SUBCLASSPROC LastControllerProc;

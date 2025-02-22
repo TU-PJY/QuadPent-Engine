@@ -20,7 +20,7 @@ namespace SDK {
 
 		std::vector<float>		 LineLengthBuffer{};
 		std::wstring             CurrentText{};
-		std::wstring             PrevText{};
+		std::wstring             PrevText{L"____PREV_TEXT____"};
 		int                      CurrentLine{};
 
 		float					 TextOpacity{ 1.0f };
@@ -75,13 +75,10 @@ namespace SDK {
 	private:
 		void InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, float Size);
 		void ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size);
-		void GetLineLength(const wchar_t* Text);
-		void CalculateTextLength(const wchar_t* Text);
-		void NextLine();
+		void ComputeTextLength(const wchar_t* Text);
+		void ComputeGlyphCache(wchar_t* Text);
 		void TransformText();
 		void PrepareRender();
-		void ProcessGlyphCache(wchar_t* Text);
-		bool CheckGlyphCache(wchar_t& Char);
-		void LoadGlyph(wchar_t& Char);
+		void CreateNewGlyph(wchar_t& Char);
 	};
 }

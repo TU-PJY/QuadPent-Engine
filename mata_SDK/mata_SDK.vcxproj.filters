@@ -46,15 +46,6 @@
     <Filter Include="[5]___________[ SDK_System ]\[ System Resource ]">
       <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ TinyXML ]">
-      <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ TinyXML ]\[ Header ]">
-      <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ TinyXML ]\[ CPP ]">
-      <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Main ]">
       <UniqueIdentifier>{0db3b7f8-93be-4b88-bfa5-da8ad252be70}</UniqueIdentifier>
     </Filter>
@@ -160,19 +151,31 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Tool ]\[ Global Tool ]\[ Clipping ]">
       <UniqueIdentifier>{9bceb82f-2ade-4d6d-9360-521458e8d522}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Misc ]">
+      <UniqueIdentifier>{da528397-a6f0-4ef8-bcab-e3ea98bb5f1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]">
+      <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ Header ]">
+      <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ CPP ]">
+      <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Library\tinyxml\tinystr.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\Library\tinyxml\tinyxml.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\Library\tinyxml\tinyxmlerror.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\Library\tinyxml\tinyxmlparser.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SDK_Shader.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Shader ]</Filter>
@@ -288,10 +291,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Library\tinyxml\tinystr.h">
-      <Filter>[5]___________[ SDK_System ]\[ TinyXML ]\[ Header ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\Library\tinyxml\tinyxml.h">
-      <Filter>[5]___________[ SDK_System ]\[ TinyXML ]\[ Header ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="GameMode1.h">
       <Filter>[1]___________[ GameMode ]\[1]_[ Modes ]</Filter>

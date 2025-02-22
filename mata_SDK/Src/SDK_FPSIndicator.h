@@ -10,7 +10,7 @@ private:
 
 public:
 	SDK_FPS_Indicator() {
-		IndicatorText.Init(SDK::FONT, FW_BOLD);
+		IndicatorText.Init(SDK::SYSTEM_FONT, FW_BOLD);
 		IndicatorText.SetColor(1.0, 1.0, 0.0);
 		IndicatorText.SetHeightAlign(HEIGHT_ALIGN_UNDER);
 		IndicatorText.EnableShadow();

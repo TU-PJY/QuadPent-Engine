@@ -55,7 +55,7 @@ public:
 		LineRect.SetRenderType(RENDER_TYPE_STATIC);
 		LineRect.SetColorRGB(45, 45, 45);
 
-		Message.Init(SDK::FONT, FW_DONTCARE);
+		Message.Init(SDK::SYSTEM_FONT, FW_DONTCARE);
 		Message.SetColor(1.0, 1.0, 1.0);
 		Message.SetLineGap(0.01);
 

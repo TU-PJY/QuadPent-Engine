@@ -100,17 +100,13 @@ void SDK::Text::Render(SDK::Vector2& Position, float Size, const wchar_t* Fmt, .
 
 	va_list Args{};
 	va_start(Args, Fmt);
-
-	TextVec.clear();
-
 	int CurrentSize = vswprintf(nullptr, 0, Fmt, Args) + 1;
-	if (PrevSize < CurrentSize) {
+	if (CurrentText.compare(PrevText) != 0) {
+		TextVec.clear();
 		TextVec.resize(CurrentSize);
 		PrevSize = CurrentSize;
 	}
-
 	vswprintf(TextVec.data(), CurrentSize, Fmt, Args);
-
 	va_end(Args);
 
 	InputText(TextVec, Position, Size);
@@ -122,17 +118,13 @@ void SDK::Text::Render(float X, float Y, float Size, const wchar_t* Fmt, ...) {
 
 	va_list Args{};
 	va_start(Args, Fmt);
-
-	TextVec.clear();
-
 	int CurrentSize = vswprintf(nullptr, 0, Fmt, Args) + 1;
-	if (PrevSize < CurrentSize) {
+	if (CurrentText.compare(PrevText) != 0) {
+		TextVec.clear();
 		TextVec.resize(CurrentSize);
 		PrevSize = CurrentSize;
 	}
-
 	vswprintf(TextVec.data(), CurrentSize, Fmt, Args);
-
 	va_end(Args);
 
 	InputText(TextVec, SDK::Vector2(X, Y), Size);
@@ -175,13 +167,12 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 	RenderPosition = Position;
 	CurrentRenderOffset = SDK::Vector2(0.0, 0.0);
 
-	if (CurrentText != PrevText) {
+	if (CurrentText.compare(PrevText) != 0) {
 		TextWordCount = wcslen(Text);
-		ProcessGlyphCache(Text);
+		ComputeGlyphCache(Text);
+		ComputeTextLength(Text);
 		PrevText = CurrentText;
 	}
-
-	CalculateTextLength(Text);
 
 	switch (HeightAlign) {
 	case HEIGHT_ALIGN_MIDDLE:
@@ -195,7 +186,13 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 
 	for (int i = 0; i < TextWordCount; ++i) {
 		if (Text[i] == L'\n') {
-			NextLine();
+			CurrentRenderOffset.x = 0.0;
+			CurrentRenderOffset.y -= (TextLineGap + TextRenderSize);
+
+			if (TextAlign != ALIGN_DEFAULT) {
+				++CurrentLine;
+				TextLength = LineLengthBuffer[CurrentLine];
+			}
 			continue;
 		}
 
@@ -214,29 +211,34 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 	}
 }
 
-void SDK::Text::GetLineLength(const wchar_t* Text) {
+void SDK::Text::ComputeGlyphCache(wchar_t* Text) {
+	for (int i = 0; i < TextWordCount; ++i) {
+		if (GlyphCache.find(Text[i]) == GlyphCache.end())
+			CreateNewGlyph(Text[i]);
+	}
+}
+
+void SDK::Text::ComputeTextLength(const wchar_t* Text) {
 	LineLengthBuffer.clear();
 	float CurrentLineLength{};
 
 	for (int i = 0; i < wcslen(Text); ++i) {
 		if (Text[i] == L'\n') {
 			LineLengthBuffer.emplace_back(CurrentLineLength);
-			CurrentLineLength = 0.0f; 
+			CurrentLineLength = 0.0f;
 			continue;
 		}
 
 		unsigned int CharIndex = Text[i];
-		if (CharIndex < 65536) 
+		if (CharIndex < 65536)
 			CurrentLineLength += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
 	}
 
 	if (CurrentLineLength > 0.0f)
 		LineLengthBuffer.emplace_back(CurrentLineLength);
-}
 
-void SDK::Text::CalculateTextLength(const wchar_t* Text) {
-	GetLineLength(Text);
-	TextLength = LineLengthBuffer[0];
+
+	TextLength = LineLengthBuffer.front();
 
 	MiddleHeight = 0.0;
 	if (FixMiddleCommand) {
@@ -250,34 +252,27 @@ void SDK::Text::CalculateTextLength(const wchar_t* Text) {
 	}
 }
 
-void SDK::Text::NextLine() {
-	CurrentRenderOffset.x = 0.0;
-	CurrentRenderOffset.y -= (TextLineGap + TextRenderSize);
-
-	if (TextAlign != ALIGN_DEFAULT) {
-		++CurrentLine;
-		TextLength = LineLengthBuffer[CurrentLine];
-	}
-}
-
 void SDK::Text::TransformText() {
 	SDK::Transform.Identity(TextMatrix);
 	SDK::Transform.Move(TextMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
 
 	switch (TextAlign) {
 	case ALIGN_DEFAULT:
-		SDK::Transform.Rotate(TextMatrix, Rotation);
+		if(Rotation != 0.0)
+			SDK::Transform.Rotate(TextMatrix, Rotation);
 		SDK::Transform.Move(TextMatrix, CurrentRenderOffset);
 		break;
 
 	case ALIGN_MIDDLE:
-		SDK::Transform.Rotate(TextMatrix, Rotation);
+		if (Rotation != 0.0)
+			SDK::Transform.Rotate(TextMatrix, Rotation);
 		SDK::Transform.Move(TextMatrix, -TextLength * 0.5, 0.0);
 		SDK::Transform.Move(TextMatrix, CurrentRenderOffset);
 		break;
 
 	case ALIGN_LEFT:
-		SDK::Transform.Rotate(TextMatrix, Rotation);
+		if (Rotation != 0.0)
+			SDK::Transform.Rotate(TextMatrix, Rotation);
 		SDK::Transform.Move(TextMatrix, -TextLength, 0.0);
 		SDK::Transform.Move(TextMatrix, CurrentRenderOffset);
 		break;
@@ -286,18 +281,7 @@ void SDK::Text::TransformText() {
 	SDK::Transform.Scale(TextMatrix, TextRenderSize, TextRenderSize);
 }
 
-void SDK::Text::ProcessGlyphCache(wchar_t* Text) {
-	for (int i = 0; i < TextWordCount; ++i) {
-		if (!CheckGlyphCache(Text[i]))
-			LoadGlyph(Text[i]);
-	}
-}
-
-bool SDK::Text::CheckGlyphCache(wchar_t& Char) {
-	return GlyphCache.find(Char) != GlyphCache.end() && GlyphCache[Char];
-}
-
-void SDK::Text::LoadGlyph(wchar_t& Char) {
+void SDK::Text::CreateNewGlyph(wchar_t& Char) {
 	if (Char >= 65536)
 		return;
 
