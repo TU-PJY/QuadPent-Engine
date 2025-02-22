@@ -34,9 +34,6 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Header ]">
       <UniqueIdentifier>{2f35df9f-153e-4b4a-906d-058f259a0979}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Scene ]">
-      <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ System Mode ]">
       <UniqueIdentifier>{9d92d68b-96f8-4a78-90d4-bd16df8b7372}</UniqueIdentifier>
     </Filter>
@@ -162,6 +159,9 @@
     </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ CPP ]">
       <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Scene ]">
+      <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

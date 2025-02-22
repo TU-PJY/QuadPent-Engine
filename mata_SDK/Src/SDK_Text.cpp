@@ -6,7 +6,7 @@
 
 glm::mat4 TextMatrix;
 
-void SDK::Text::Init(const wchar_t* FontName, int Type, int Italic) {
+void SDK::Text::Init(SDK::FontName FontName, int Type, int Italic) {
 	hDC = wglGetCurrentDC();
 	FontBase = glGenLists(65536);
 

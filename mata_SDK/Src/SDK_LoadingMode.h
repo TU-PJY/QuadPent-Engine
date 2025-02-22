@@ -63,102 +63,72 @@ public:
 		ProcessKeyEvent(Event);
 	}
 
-	static void MouseMotion(int X, int Y) {
-		SDK::Mouse.ConvertPosition(X, Y);
-	}
-
-	static void MousePassiveMotion(int X, int Y) {
-		SDK::Mouse.ConvertPosition(X, Y);
-	}
-
-	static void MouseWheel(int Button, int Wheel, int X, int Y) {
-		int WheelEvent{};
-
-		if (Wheel > 0)
-			WheelEvent = WHEEL_UP;
-		else if (Wheel < 0)
-			WheelEvent = WHEEL_DOWN;
-
-		for (auto const& Object : M_Inst->InputObject)
-			if (Object)  Object->InputScroll(WheelEvent);
-	}
-
-	static void MouseButton(int Button, int State, int X, int Y) {
-		int ButtonEvent{ BUTTON_NONE };
-
-		switch (State) {
-		case GLUT_DOWN:
-			switch (Button) {
-			case GLUT_LEFT_BUTTON:
-				ButtonEvent = LEFT_BUTTON_DOWN;   break;
-			case GLUT_RIGHT_BUTTON:
-				ButtonEvent = RIGHT_BUTTON_DOWN;  break;
-			case GLUT_MIDDLE_BUTTON:
-				ButtonEvent = MIDDLE_BUTTON_DOWN; break;
-			}
-			break;
-
-		case GLUT_UP:
-			switch (Button) {
-			case GLUT_LEFT_BUTTON:
-				ButtonEvent = LEFT_BUTTON_UP;   break;
-			case GLUT_RIGHT_BUTTON:
-				ButtonEvent = RIGHT_BUTTON_UP;  break;
-			case GLUT_MIDDLE_BUTTON:
-				ButtonEvent = MIDDLE_BUTTON_UP; break;
-			}
-			break;
-		}
-
-		if (ButtonEvent == BUTTON_NONE)
-			return;
-
-		for (auto const& Object : M_Inst->InputObject)
-			if (Object)  Object->InputMouse(ButtonEvent);
-	}
-
-	static LRESULT CALLBACK ExtendedMouseButton(HWND Hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR SubClassID, DWORD_PTR RefData) {
+	static LRESULT CALLBACK MouseController(HWND Hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR SubClassID, DWORD_PTR RefData) {
 		int ProcEvent{};
-		int ButtonEvent{ BUTTON_NONE };
+		int WheelDelta{};
+		int MouseEvent{ EVENT_NONE };
 
-		if (Message == WM_XBUTTONDOWN) {
-			ProcEvent = GET_XBUTTON_WPARAM(wParam);
-
-			if (ProcEvent == XBUTTON1)
-				ButtonEvent = BACKWARD_BUTTON_DOWN;
-			else if (ProcEvent == XBUTTON2)
-				ButtonEvent = FORWARD_BUTTON_DOWN;
+		POINT CursorPosition;
+		if (GetCursorPos(&CursorPosition)) {
+			ScreenToClient(Hwnd, &CursorPosition);
+			SDK::Mouse.ConvertPosition(CursorPosition.x, CursorPosition.y);
 		}
 
-		else if (Message == WM_XBUTTONUP) {
-			ProcEvent = GET_XBUTTON_WPARAM(wParam);
+		switch (Message) {
+		case WM_LBUTTONDOWN:
+			MouseEvent = LEFT_BUTTON_DOWN; break;
+		case WM_RBUTTONDOWN:
+			MouseEvent = RIGHT_BUTTON_DOWN; break;
+		case WM_MBUTTONDOWN:
+			MouseEvent = MIDDLE_BUTTON_DOWN; break;
+		case WM_LBUTTONUP:
+			MouseEvent = LEFT_BUTTON_UP; break;
+		case WM_RBUTTONUP:
+			MouseEvent = RIGHT_BUTTON_UP; break;
+		case WM_MBUTTONUP:
+			MouseEvent = MIDDLE_BUTTON_UP; break;
 
+		case WM_XBUTTONDOWN:
+			ProcEvent = GET_XBUTTON_WPARAM(wParam);
 			if (ProcEvent == XBUTTON1)
-				ButtonEvent = BACKWARD_BUTTON_UP;
+				MouseEvent = BACKWARD_BUTTON_DOWN;
 			else if (ProcEvent == XBUTTON2)
-				ButtonEvent = FORWARD_BUTTON_UP;
+				MouseEvent = FORWARD_BUTTON_DOWN;
+			break;
+
+		case WM_XBUTTONUP:
+			ProcEvent = GET_XBUTTON_WPARAM(wParam);
+			if (ProcEvent == XBUTTON1)
+				MouseEvent = BACKWARD_BUTTON_UP;
+			else if (ProcEvent == XBUTTON2)
+				MouseEvent = FORWARD_BUTTON_UP;
+			break;
+
+		case WM_MOUSEWHEEL:
+			WheelDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+			if (WheelDelta > 0)
+				MouseEvent = WHEEL_UP;
+			else if (WheelDelta < 0)
+				MouseEvent = WHEEL_DOWN;
+			break;
 		}
 
-		if (ButtonEvent == BUTTON_NONE)
+		if (MouseEvent == EVENT_NONE)
 			return DefSubclassProc(Hwnd, Message, wParam, lParam);
 
 		for (auto const& Object : M_Inst->InputObject)
-			if (Object)  Object->InputMouse(ButtonEvent);
+			if (Object)  Object->InputMouse(MouseEvent);
 
 		return DefSubclassProc(Hwnd, Message, wParam, lParam);
 	}
 
 	static void Controller() {
-		glutMotionFunc(MouseMotion);
-		glutPassiveMotionFunc(MousePassiveMotion);
 		glutKeyboardFunc(KeyDown);
 		glutKeyboardUpFunc(KeyUp);
-		glutMouseWheelFunc(MouseWheel);
-		glutMouseFunc(MouseButton);
 		glutSpecialFunc(SpecialKeyDown);
 		glutSpecialUpFunc(SpecialKeyUp);
-		SetWindowSubclass(SDK::SystemHWND, ExtendedMouseButton, 1, 0);
-		SDK::LastControllerProc = ExtendedMouseButton;
+		SetWindowSubclass(SDK::SystemHWND, MouseController, 1, 0);
+		SDK::CurrentMouseController = MouseController;
 	}
 #pragma endregion
 };

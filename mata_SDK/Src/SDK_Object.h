@@ -46,9 +46,6 @@ namespace SDK {
 		// Sends mouse events to a specific object class.
 		virtual void InputMouse(int Type) {}
 
-		// Sends mouse scroll events to a specific object class.
-		virtual void InputScroll(int Type) {}
-
 		// Initializes the control state for a specific object class.
 		virtual void ResetControlState() {}
 

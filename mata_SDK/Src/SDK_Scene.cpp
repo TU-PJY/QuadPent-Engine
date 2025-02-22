@@ -215,7 +215,7 @@ void SDK::SDK_Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	if (DeleteRange == DELETE_RANGE_SINGLE) {
 		for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 			for (auto const& Object : ObjectList[Layer]) {
-				if (Object->ObjectTag == Tag) {
+				if (Object->ObjectTag.compare(Tag) == 0) {
 					Object->DeleteCommand = true;
 					Object->ObjectTag = "";
 					return;
@@ -227,7 +227,7 @@ void SDK::SDK_Scene::DeleteObject(std::string Tag, int DeleteRange) {
 	else if (DeleteRange == DELETE_RANGE_ALL) {
 		for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 			for (auto const& Object : ObjectList[Layer]) {
-				if (Object->ObjectTag == Tag) {
+				if (Object->ObjectTag.compare(Tag) == 0) {
 					Object->DeleteCommand = true;
 					Object->ObjectTag = "";
 				}
@@ -261,7 +261,7 @@ void SDK::SDK_Scene::SwapLayer(SDK::Object* Object, unsigned int TargetLayer) {
 SDK::Object* SDK::SDK_Scene::Find(std::string Tag) {
 	for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 		for (auto const& Object : ObjectList[Layer]) {
-			if (Object->ObjectTag == Tag)
+			if (Object->ObjectTag.compare(Tag) == 0)
 				return Object;
 		}
 	}
@@ -272,7 +272,7 @@ SDK::Object* SDK::SDK_Scene::Find(std::string Tag) {
 SDK::Object* SDK::SDK_Scene::ReverseFind(std::string Tag) {
 	for (int Layer = SceneLayer - 2; Layer >= 0; --Layer) {
 		for (auto Object = ObjectList[Layer].rbegin(); Object != ObjectList[Layer].rend(); ++Object) {
-			if ((*Object)->ObjectTag == Tag)
+			if ((*Object)->ObjectTag.compare(Tag) == 0)
 				return *Object;
 		}
 	}
@@ -287,7 +287,7 @@ SDK::Object* SDK::SDK_Scene::FindMulti(std::string Tag, unsigned int SearchLayer
 	}
 
 	auto Object = ObjectList[SearchLayer][Index];
-	if(Object->ObjectTag == Tag)
+	if(Object->ObjectTag.compare(Tag) == 0)
 		return ObjectList[SearchLayer][Index];
 	
 	return nullptr;
@@ -413,15 +413,11 @@ void ErrorScreenController(unsigned char Key, int X, int Y) {
 }
 
 void SDK::SDK_Scene::SwitchToErrorScreen() {
-	glutMotionFunc(nullptr);
-	glutPassiveMotionFunc(nullptr);
 	glutKeyboardFunc(ErrorScreenController);
 	glutKeyboardUpFunc(nullptr);
-	glutMouseWheelFunc(nullptr);
-	glutMouseFunc(nullptr);
 	glutSpecialFunc(nullptr);
 	glutSpecialUpFunc(nullptr);
-	RemoveWindowSubclass(SDK::SystemHWND, SDK::LastControllerProc, 1);
+	RemoveWindowSubclass(SDK::SystemHWND, SDK::CurrentMouseController, 1);
 
 	SystemObjectAdded = false;
 

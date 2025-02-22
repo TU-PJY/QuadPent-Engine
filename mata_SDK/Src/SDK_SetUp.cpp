@@ -35,7 +35,7 @@ std::wstring SDK::LOCALE;
 SDK::START_MODE_PTR SDK::START_MODE;
 
 HWND SDK::SystemHWND;
-SUBCLASSPROC SDK::LastControllerProc;
+SUBCLASSPROC SDK::CurrentMouseController;
 
 void SDK::SDK_System::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);

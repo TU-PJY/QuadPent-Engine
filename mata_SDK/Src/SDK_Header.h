@@ -109,6 +109,8 @@ namespace SDK {
 	using Vector3 = glm::vec3;
 	using Vector2 = glm::vec2;
 
+	using FontName = wchar_t*;
+
 	using ShaderLocation = unsigned int;
 	using ShaderResource = unsigned int;
 	using SSBO = unsigned int;
@@ -181,10 +183,10 @@ namespace SDK {
 	extern int WIDTH, HEIGHT;
 	extern int PREV_WIDTH, PREV_HEIGHT;
 	extern const glm::mat4 IdentityMatrix;
-	constexpr wchar_t* SYSTEM_FONT = L"Roboto";
+	constexpr FontName SYSTEM_FONT = L"Roboto";
 
 	extern HWND SystemHWND;
-	extern SUBCLASSPROC LastControllerProc;
+	extern SUBCLASSPROC CurrentMouseController;
 }
 
 // global scope shader
@@ -215,13 +217,8 @@ enum SDK_KeyState {
 	SPECIAL_KEY_UP
 };
 
-enum SDK_WheelState {
-	WHEEL_DOWN,
-	WHEEL_UP
-};
-
-enum SDK_ButtonState {
-	BUTTON_NONE,
+enum SDK_MouseState {
+	EVENT_NONE,
 	LEFT_BUTTON_DOWN,
 	LEFT_BUTTON_UP,
 	RIGHT_BUTTON_DOWN,
@@ -231,7 +228,9 @@ enum SDK_ButtonState {
 	FORWARD_BUTTON_DOWN,
 	FORWARD_BUTTON_UP,
 	BACKWARD_BUTTON_DOWN,
-	BACKWARD_BUTTON_UP
+	BACKWARD_BUTTON_UP,
+	WHEEL_DOWN,
+	WHEEL_UP
 };
 
 enum SDK_SpecialKeySet {
