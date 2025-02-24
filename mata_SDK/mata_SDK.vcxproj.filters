@@ -163,6 +163,18 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Scene ]">
       <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.6 ]">
+      <UniqueIdentifier>{0c238ead-08b4-4271-9e59-c6a7f022ce12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.5 ]">
+      <UniqueIdentifier>{74002c97-6395-4a56-8331-221b0b283cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.4 ]">
+      <UniqueIdentifier>{a96f8cde-b32f-4e31-b2ca-fa1140e0a217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.3 ]">
+      <UniqueIdentifier>{b946cfa6-662b-4943-b67f-28c6badb8c30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Library\tinyxml\tinystr.cpp">
@@ -441,20 +453,65 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SDKResource\GLSL\ComputeMatrix.glsl">
-      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]</Filter>
+    <None Include="SDKResource\GLSL\4.3\Fragment_Shape.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.3 ]</Filter>
     </None>
-    <None Include="SDKResource\GLSL\Fragment_Image.glsl">
-      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]</Filter>
+    <None Include="SDKResource\GLSL\4.3\Fragment_Text.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.3 ]</Filter>
     </None>
-    <None Include="SDKResource\GLSL\Fragment_Shape.glsl">
-      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]</Filter>
+    <None Include="SDKResource\GLSL\4.3\Vertex.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.3 ]</Filter>
     </None>
-    <None Include="SDKResource\GLSL\Fragment_Text.glsl">
-      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]</Filter>
+    <None Include="SDKResource\GLSL\4.3\ComputeMatrix.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.3 ]</Filter>
     </None>
-    <None Include="SDKResource\GLSL\Vertex.glsl">
-      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]</Filter>
+    <None Include="SDKResource\GLSL\4.3\Fragment_Image.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.3 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.4\Fragment_Shape.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.4 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.4\Fragment_Text.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.4 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.4\Vertex.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.4 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.4\ComputeMatrix.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.4 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.4\Fragment_Image.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.4 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.5\Fragment_Shape.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.5 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.5\Fragment_Text.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.5 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.5\Vertex.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.5 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.5\ComputeMatrix.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.5 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.5\Fragment_Image.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.5 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.6\Fragment_Shape.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.6 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.6\Fragment_Text.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.6 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.6\Vertex.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.6 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.6\ComputeMatrix.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.6 ]</Filter>
+    </None>
+    <None Include="SDKResource\GLSL\4.6\Fragment_Image.glsl">
+      <Filter>[5]___________[ SDK_System ]\[ Shader ]\[ GLSL ]\[ 4.6 ]</Filter>
     </None>
   </ItemGroup>
 </Project>
