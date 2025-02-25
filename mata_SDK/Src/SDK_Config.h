@@ -5,6 +5,9 @@
 // window name
 constexpr const char* WINDOW_NAME = "mata_SDK 7";
 
+// window icon file path
+constexpr const wchar_t* WINDOW_ICON_FILE_PATH = L"";
+
 // window size
 constexpr int WINDOW_WIDTH = 1200;
 constexpr int WINDOW_HEIGHT = 800;

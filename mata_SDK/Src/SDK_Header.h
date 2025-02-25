@@ -5,6 +5,7 @@
 #pragma warning(disable: 26444)
 #pragma comment(lib, "Comctl32.lib")
 #pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "Shell32.lib")
 
 #include "SDK_Config.h"
 
