@@ -218,6 +218,7 @@ namespace SDK {
 
 	extern HWND SystemHWND;
 
+	extern bool ComputeShaderEnable;
 	extern bool ClippingState;
 }
 

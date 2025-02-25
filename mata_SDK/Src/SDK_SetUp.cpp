@@ -36,6 +36,7 @@ SDK::START_MODE_PTR SDK::START_MODE;
 HWND SDK::SystemHWND;
 
 bool SDK::ClippingState;
+bool SDK::ComputeShaderEnable;
 
 int MajorVersion, MinorVersion;
 
@@ -50,7 +51,7 @@ void SDK::SDK_System::SetupSystem(int argc, char** argv) {
 void SDK::SDK_System::SetupWindow() {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
 
-	glutInitContextVersion(4, 3); // OpenGL 4.3
+	glutInitContextVersion(OPENGL_MAJOR_VERSION_NUMBER, OPENGL_MINOR_VERSION_NUMBER);
 	glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 
 	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - SDK::WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - SDK::HEIGHT / 2);
@@ -64,8 +65,13 @@ void SDK::SDK_System::SetupWindow() {
 	glGetIntegerv(GL_MINOR_VERSION, &MinorVersion);
 	std::cout << "OpenGL Version: " << MajorVersion << "." << MinorVersion << std::endl;
 
-	if (MajorVersion < 4 || (MajorVersion == 4 && MinorVersion < 3)) {
-		int Result = MessageBox(NULL, L"The OpenGL support version of your graphics card is too low. Must support at least OpenGL 4.3 version.", L"mata_SDK Error", MB_OK | MB_ICONINFORMATION);
+	if (MajorVersion < OPENGL_MAJOR_VERSION_NUMBER || (MajorVersion == OPENGL_MAJOR_VERSION_NUMBER && MinorVersion < OPENGL_MINOR_VERSION_NUMBER)) {
+		std::wstring Str =
+			L"The OpenGL support version of your graphics card is too low. Must support at least OpenGL " +
+			std::to_wstring(OPENGL_MAJOR_VERSION_NUMBER) + L"." + std::to_wstring(OPENGL_MINOR_VERSION_NUMBER) + L" Version.";
+
+		int Result = MessageBox(NULL, Str.c_str(), L"mata_SDK Error", MB_OK | MB_ICONINFORMATION);
+
 		if (Result == IDOK)
 			SDK::System.Exit();
 	}
@@ -114,11 +120,19 @@ void SDK::SDK_System::LoadShader() {
 	SDK::Shader.LoadFragmentShader(std::string(FolderName + "Fragment_Shape.glsl"));
 	SDK::Shader.CreateShader(SHAPE_SHADER);
 
+	if (MajorVersion < 4 || (MajorVersion == 4 && MinorVersion < 3)) {
+		ComputeShaderEnable = false;
+		std::cout << "Compute Shader Disabled." << std::endl;
+		return;
+	}
+
 	SDK::Shader.LoadComputeShader(std::string(FolderName + "ComputeMatrix.glsl"));
 	SDK::Shader.CreateComputeShader(MATRIX_COMPT_SHADER);
 
 	SDK::Shader.CreateShaderLocation();
 	SDK::Shader.CreateSSBO();
+
+	ComputeShaderEnable = true;
 }
 
 void SDK::SDK_System::SetGlOption() {

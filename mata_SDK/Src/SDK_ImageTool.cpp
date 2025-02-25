@@ -497,7 +497,7 @@ void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float Opaci
 
 	SDK::Transform.Identity(ResultMatrix);
 
-	if (USE_COMPUTE_SHADER)
+	if (ComputeShaderEnable && USE_COMPUTE_SHADER)
 		SDK::ComputeTool.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 	else {
 		if (!SDK::Transform.CheckIdentity(MoveMatrix)) { ResultMatrix *= MoveMatrix; }
@@ -510,7 +510,7 @@ void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float Opaci
 	ObjectOpacityValue = OpacityValue;
 
 	if (ApplyUnitTransform) {
-		if (USE_COMPUTE_SHADER)
+		if (ComputeShaderEnable && USE_COMPUTE_SHADER)
 			SDK::ComputeTool.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
 		else {
 			if (!SDK::Transform.CheckIdentity(UnitMoveMatrix)) { ResultMatrix = UnitMoveMatrix * ResultMatrix; }

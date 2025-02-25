@@ -1,5 +1,6 @@
 #pragma once
 // mata_SDK 7
+// OpenGL version 4.6
 
 //////////////////////////////////// Window options
 // window name
@@ -33,6 +34,10 @@ constexpr int FRAME_LIMITS = 0;
 // When enabled, the GPU computes matrices. When disabled, the CPU computes matrices.
 constexpr bool USE_COMPUTE_SHADER = false;
 
+// Sets the minimum version of OpenGL.  
+// If the context is created with a version below version 4.3, ComputeShader is disabled.
+constexpr int OPENGL_MAJOR_VERSION_NUMBER = 4;
+constexpr int OPENGL_MINOR_VERSION_NUMBER = 6;
 
 
 //////////////////////////////////// Development options
