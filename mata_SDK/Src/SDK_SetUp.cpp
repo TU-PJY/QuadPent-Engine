@@ -6,7 +6,6 @@
 #include "SDK_Config.h"
 #include "SDK_Resource.h"
 #include "SDK_ModeResource.h"
-#include <windows.h>
 
 #include "SDK_LoadingMode.h"
 

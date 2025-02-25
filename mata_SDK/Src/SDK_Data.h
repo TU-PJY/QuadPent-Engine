@@ -1,24 +1,6 @@
 #pragma once
-
-#define _CRT_SECURE_NO_WARNINGS
-#include "SDK_Config.h"
-#include "Library/tinyxml/tinyxml.h"
-#include "Library/cryptopp/aes.h"
-#include "Library/cryptopp/filters.h"
-#include "Library/cryptopp/modes.h"
-#include "Library/cryptopp/osrng.h"
-#include "Library/cryptopp/hex.h"
 #include "SDK_Header.h"
-#include <iostream>
-#include <iomanip>
-#include <string>
-#include <sstream>
-#include <fstream>
-#include <filesystem>
-#include <vector>
-#include <string>
-#include <cctype>
-using namespace CryptoPP;
+
 
 // write and read
 namespace SDK {

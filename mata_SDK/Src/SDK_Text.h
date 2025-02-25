@@ -1,10 +1,5 @@
 #pragma once
-#define _CRT_SECURE_NO_WARNINGS
 #include "SDK_Header.h"
-#include <windows.h>
-#include <map>
-#include <unordered_map>
-#include <unordered_set>
 
 namespace SDK {
 	class Text {

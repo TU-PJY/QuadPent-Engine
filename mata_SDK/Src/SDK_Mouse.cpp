@@ -1,5 +1,4 @@
 #include "SDK_Mouse.h"
-#include "SDK_Camera.h"
 
 SDK::SDK_Mouse SDK::Mouse;
 

@@ -2,7 +2,6 @@
 #include "SDK_Header.h"
 #include "SDK_RectBrush.h"
 #include "SDK_CircleBrush.h"
-using namespace DirectX;
 
 
 namespace SDK {

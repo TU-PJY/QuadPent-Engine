@@ -295,7 +295,7 @@ void SDK::Text::PrepareRender() {
 
 	glUniform1f(TEXT_OPACITY_LOCATION, RenderOpacity);
 	glUniform3f(TEXT_COLOR_LOCATION, RenderColor.r, RenderColor.g, RenderColor.b);
-	glUniformMatrix4fv(TEXT_MODEL_LOCATION, 1, GL_FALSE, value_ptr(TextMatrix));
+	glUniformMatrix4fv(TEXT_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(TextMatrix));
 }
 
 SDK::Text::~Text() {

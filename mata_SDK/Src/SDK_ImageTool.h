@@ -1,13 +1,12 @@
 #pragma once
 #include "SDK_Header.h"
-#include <vector>
 
 #undef LoadImage
 
 namespace SDK {
 	class SDK_ImageTool {
 	private:
-		GLuint                   VAO{};
+		GLuint VAO{};
 		std::vector<SDK::PreLoadInfo> LoadBuffer{};
 		std::vector<SDK::PreLoadSpriteSheetInfo> LoadSpriteSheetBuffer{};
 

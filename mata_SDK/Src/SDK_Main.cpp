@@ -3,8 +3,6 @@
 #include "SDK_FPSIndicator.h"
 #include "SDK_Scene.h"
 #include "SDK_Frustum.h"
-#include <thread>
-#include <chrono>
 
 SDK::SDK_System SDK::System;
 SDK::SDK_System* SDK::SDK_System::S_Inst;

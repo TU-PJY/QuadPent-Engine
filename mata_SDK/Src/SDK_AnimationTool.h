@@ -1,6 +1,5 @@
 #pragma once
 #include "SDK_Header.h"
-#include <cmath>
 
 namespace SDK {
 	class SinLoop {

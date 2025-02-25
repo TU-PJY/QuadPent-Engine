@@ -4,7 +4,6 @@
 #include "SDK_Transform.h"
 #include "SDK_SystemResource.h"
 #include "SDK_ComputeTool.h"
-#include <cmath>
 
 glm::mat4 RectMatrix;
 

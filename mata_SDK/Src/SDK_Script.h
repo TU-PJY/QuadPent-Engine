@@ -1,17 +1,5 @@
 #pragma once
-#define _CRT_SECURE_NO_WARNINGS
-#include "Library/tinyxml/tinyxml.h"
-#include "Library/cryptopp/aes.h" 
-#include "Library/cryptopp/filters.h"
-#include "Library/cryptopp/modes.h"
-#include "Library/cryptopp/osrng.h"
-#include "Library/cryptopp/hex.h"
-#include "SDK_Config.h"
 #include "SDK_Header.h"
-#include <iostream>
-#include <string>
-#include <fstream>
-using namespace CryptoPP;
 
 // read only
 

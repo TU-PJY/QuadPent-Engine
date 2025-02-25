@@ -1,5 +1,4 @@
 #include "SDK_Timer.h"
-#include <cmath>
 
 void SDK::Timer::Update(float FrameTime) {
 	if(!StopState)

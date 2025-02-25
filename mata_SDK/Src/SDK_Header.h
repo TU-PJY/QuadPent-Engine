@@ -1,29 +1,60 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable: 4244)
 #pragma warning(disable: 4305)
 #pragma warning(disable: 26444)
 #pragma comment(lib, "Comctl32.lib")
 #pragma comment(lib, "winmm.lib")
+
 #include "SDK_Config.h"
+
 #include "glew.h"
 #include "freeglut.h"
 #include "freeglut_ext.h"
 #include "glm/ext.hpp"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+
+#include "fmod.hpp"
+#include "fmod_errors.h"
+
+#include "Library/tinyxml/tinyxml.h"
+#include "Library/cryptopp/aes.h"
+#include "Library/cryptopp/filters.h"
+#include "Library/cryptopp/modes.h"
+#include "Library/cryptopp/osrng.h"
+#include "Library/cryptopp/hex.h"
+
 #include <locale>
 #include <iostream>
-#include <vector>
 #include <string>
+#include <iomanip>
+#include <sstream>
+#include <fstream>
+#include <filesystem>
+#include <cctype>
+#include <cmath>
+#include <random>
+#include <algorithm>
+#include <unordered_map>
+#include <unordered_set>
+#include <array>
+#include <deque>
+#include <vector>
+#include <map>
+#include <thread>
+#include <chrono>
+
+#include <windows.h>
+#include <shellapi.h>
 #include <commctrl.h>
 #include <mmsystem.h>
 #include <DirectXMath.h>
 #include <DirectXCollision.h>
+
 #undef SYSTEM_FONT
 using namespace DirectX;
-
-#include "fmod.hpp"
-#include "fmod_errors.h"
+using namespace CryptoPP;
 
 // global shader location
 void ModeAttribute();

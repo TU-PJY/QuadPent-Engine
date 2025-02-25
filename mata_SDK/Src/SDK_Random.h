@@ -1,6 +1,5 @@
 #pragma once
 #include "SDK_Header.h"
-#include <random>
 
 namespace SDK {
 	class SDK_Random {

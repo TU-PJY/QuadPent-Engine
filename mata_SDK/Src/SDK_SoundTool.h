@@ -1,7 +1,5 @@
 #pragma once
 #include "SDK_Header.h"
-#include "SDK_Config.h"
-#include <string>
 
 namespace SDK {
 	class SDK_SoundTool {

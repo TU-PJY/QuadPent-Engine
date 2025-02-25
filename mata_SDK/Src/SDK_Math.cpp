@@ -1,6 +1,5 @@
 #include "SDK_Math.h"
 #include "SDK_EXTool.h"
-#include <cmath>
 
 SDK::SDK_Math SDK::Math;
 
