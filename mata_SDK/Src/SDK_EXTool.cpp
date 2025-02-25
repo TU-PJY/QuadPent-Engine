@@ -82,7 +82,7 @@ void SDK::SDK_EXTool::ClampValue(float& Value, float Min, float Max, int Type) {
 }
 
 bool SDK::SDK_EXTool::CheckClampValue(float& Value, float Dest, int Type) {
-	SDK_EXTool::ClampValue(Value, Dest, Type);
+	ClampValue(Value, Dest, Type);
 	if (Value == Dest)
 		return true;
 
@@ -90,7 +90,7 @@ bool SDK::SDK_EXTool::CheckClampValue(float& Value, float Dest, int Type) {
 }
 
 bool SDK::SDK_EXTool::CheckClampValue(int& Value, int Dest, int Type) {
-	SDK_EXTool::ClampValue(Value, Dest, Type);
+	ClampValue(Value, Dest, Type);
 	if (Value == Dest)
 		return true;
 
