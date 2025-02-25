@@ -87,8 +87,8 @@ void SDK::SDK_Scene::Init(SDK::MODE_PTR ModeFunction) {
 		CommandLocation[Layer].reserve(DELETE_LOCATION_BUFFER_SIZE);
 }
 
-void SDK::SDK_Scene::SwitchMode(SDK::MODE_PTR ModeFunction) {
-	if (CurrentRunningModePtr == ModeFunction) {
+void SDK::SDK_Scene::SwitchMode(SDK::MODE_PTR ModeFunction, int SwitchOption) {
+	if (SwitchOption == MODE_SWITCH_DEFAULT && CurrentRunningModePtr == ModeFunction) {
 		SetErrorScreen(ERROR_TYPE_EXECUTED_MODE_EXECUTION, CurrentRunningModeName);
 		return;
 	}

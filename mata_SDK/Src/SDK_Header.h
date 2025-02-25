@@ -307,6 +307,11 @@ enum SDK_ModeType {
 	MODE_TYPE_FLOATING
 };
 
+enum SDK_ModeSwitchOption {
+	MODE_SWITCH_DEFAULT,
+	MODE_SWITCH_IGNORE
+};
+
 enum SDK_ObjectType {
 	OBJECT_TYPE_NONE,
 	OBJECT_TYPE_STATIC,

@@ -93,7 +93,7 @@ namespace SDK {
 		void Render();
 
 		// Switch to a specific mode.
-		void SwitchMode(SDK::MODE_PTR ModeFunction);
+		void SwitchMode(SDK::MODE_PTR ModeFunction, int SwitchOption=MODE_SWITCH_DEFAULT);
 
 		// Start floating mode.Existing objects are not deleted.
 		// When true is specified for FloatingFocus, only floating objects are updated. This state is cleared when floating mode ends.
