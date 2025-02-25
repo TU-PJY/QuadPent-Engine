@@ -62,14 +62,17 @@ public:
 					if(ENABLE_INTRO_SCREEN) {
 						SpinnerOpacity -= FrameTime * 2.0;
 						if (SDK::EXTool.CheckClampValue(SpinnerOpacity, 0.0, CLAMP_LESS)) {
-							if (SHOW_FPS)  AddFPSIndicator();
 							SDK::Scene.SwitchMode(IntroMode.Start);
+							if (SHOW_FPS)  AddFPSIndicator();
+							SDK::Scene.DeleteObject(this);
 						}
 					}
 
 					else {
-						if (SHOW_FPS)  AddFPSIndicator();
 						SDK::Scene.SwitchMode(SDK::START_MODE);
+						if (SHOW_FPS)  AddFPSIndicator();
+						SDK::Scene.DeleteObject(this);
+						SDK::Scene.LockSystemLayer();
 					}
 				}
 			}

@@ -329,17 +329,26 @@ void SDK::SDK_Scene::SetErrorScreen(int ErrorType, std::string Value1, std::stri
 	Value2Buffer = Value2;
 	ErrorTypeBuffer = ErrorType;
 	ErrorOccured = true;
+	SystemLayerLock = false;
 }
 
-void SDK::SDK_Scene::AddSystemObject(SDK::Object* Object) {
-	if (SystemObjectAdded) {
+SDK::Object* SDK::SDK_Scene::AddSystemObject(SDK::Object* Object) {
+	if (SystemLayerLock) {
 		SetErrorScreen(ERROR_TYPE_PERMISSION_VIOLATION_SYSTEM_LAYER_ACCESS, CurrentRunningModeName);
-		return;
+		return nullptr;
 	}
 
-	SystemObjectAdded = true;
-
 	ObjectList[EOL].emplace_back(Object);
+
+	return Object;
+}
+
+void SDK::SDK_Scene::LockSystemLayer() {
+	SystemLayerLock = true;
+}
+
+void SDK::SDK_Scene::UnlockSystemLayer() {
+	SystemLayerLock = false;
 }
 
 //////// private ///////////////
@@ -417,7 +426,7 @@ void SDK::SDK_Scene::SwitchToErrorScreen() {
 	RemoveWindowSubclass(SDK::SystemHWND, CurrentController, 1);
 	glutKeyboardFunc(ErrorScreenController);
 
-	SystemObjectAdded = false;
+	SystemLayerLock = false;
 
 	if (Value2Buffer.empty())
 		AddSystemObject(new SDK_ErrorMessage(ErrorTypeBuffer, Value1Buffer));

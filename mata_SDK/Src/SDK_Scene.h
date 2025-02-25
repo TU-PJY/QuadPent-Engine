@@ -45,7 +45,7 @@ namespace SDK {
 
 		std::vector<SDK::Object*>*        InputObjectListPtr{};
 
-		bool                              SystemObjectAdded{};
+		bool                              SystemLayerLock{};
 
 	public:
 		// Returns the name of the currently running mode.
@@ -134,7 +134,6 @@ namespace SDK {
 		// You need to find the number of objects that exist in a specific layer and then access it using the for statement.
 		SDK::Object* FindMulti(std::string Tag, unsigned int SearchLayer, int Index);
 
-
 		// Removes the object tag for a specific object.
 		void DeleteTag(SDK::Object* Object);
 
@@ -149,7 +148,11 @@ namespace SDK {
 		// When an error occurs, it switches to the error screen and stops the system.
 		void SetErrorScreen(int ErrorType, std::string Value1, std::string Value2 = "");
 
-		void AddSystemObject(SDK::Object* Object);
+		SDK::Object* AddSystemObject(SDK::Object* Object);
+
+		void LockSystemLayer();
+
+		void UnlockSystemLayer();
 
 	private:
 		void AddLocation(int Layer, int Position);

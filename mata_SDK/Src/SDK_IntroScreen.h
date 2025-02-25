@@ -35,6 +35,7 @@ public:
 			case VK_RETURN:
 				SDK::SoundTool.Stop(IntroChannel);
 				SDK::Scene.DeleteInputObject(this);
+				SDK::Scene.LockSystemLayer();
 				SDK::Scene.SwitchMode(SDK::START_MODE);
 				ExitState = true;
 				break;
@@ -91,6 +92,7 @@ public:
 
 				if (IntroTimer.CheckMiliSec(4.0, 1, CHECK_AND_RESUME)) {
 					SDK::Scene.DeleteInputObject(this);
+					SDK::Scene.LockSystemLayer();
 					SDK::Scene.SwitchMode(SDK::START_MODE);
 					ExitState = true;
 				}

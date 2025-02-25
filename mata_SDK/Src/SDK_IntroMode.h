@@ -11,7 +11,8 @@ public:
 
 	static void Start() {
 		SetUp();
-		SDK::Scene.AddObject(new SDK_IntroScreen, "intro_screen", LAYER1, true, OBJECT_TYPE_STATIC);
+		SDK::Object* IntroScr = SDK::Scene.AddSystemObject(new SDK_IntroScreen);
+		SDK::Scene.AddInputObject(IntroScr);
 	}
 
 	static void Destructor() {
