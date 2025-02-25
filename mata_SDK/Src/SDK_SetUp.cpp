@@ -89,10 +89,10 @@ void SDK::SDK_System::SetupWindow() {
 
 	SDK::SystemHWND = FindWindowA(nullptr, WINDOW_NAME);
 
-	std::wstring WINDOW_ICON_PATH = std::wstring(WINDOW_ICON_FILE_PATH);
+	std::wstring WINDOW_ICON_PATH = std::wstring(WINDOW_TITLE_BAR_ICON_FILE_PATH);
 	if (!WINDOW_ICON_PATH.empty() && SDK::SystemHWND) {
 		HICON Icon[1]{};
-		if (ExtractIconEx(WINDOW_ICON_FILE_PATH, 0, &Icon[0], NULL, 1) > 0) {
+		if (ExtractIconEx(WINDOW_TITLE_BAR_ICON_FILE_PATH, 0, &Icon[0], NULL, 1) > 0) {
 			SendMessage(SDK::SystemHWND, WM_SETICON, ICON_SMALL, (LPARAM)Icon[0]);
 			SendMessage(SDK::SystemHWND, WM_SETICON, ICON_BIG, (LPARAM)Icon[0]);
 		}

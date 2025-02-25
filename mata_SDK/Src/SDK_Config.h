@@ -6,7 +6,9 @@
 constexpr const char* WINDOW_NAME = "mata_SDK 7";
 
 // window icon file path
-constexpr const wchar_t* WINDOW_ICON_FILE_PATH = L"";
+// Enter the path to the icon file to use in the Windows title bar. 
+// If you don't enter anything, it will use the default icon.
+constexpr const wchar_t* WINDOW_TITLE_BAR_ICON_FILE_PATH = L"";
 
 // window size
 constexpr int WINDOW_WIDTH = 1200;
