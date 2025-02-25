@@ -1,22 +1,6 @@
 #pragma once
 #include <SDK_ModeHeader.h>
 
-class TestObject : public SDK::Object {
-public:
-	SDK::Text Text{};
-
-	TestObject() {
-		Text.Init(SDK::SYSTEM_FONT);
-		Text.SetAlign(ALIGN_MIDDLE);
-		Text.SetHeightAlign(HEIGHT_ALIGN_MIDDLE);
-		Text.SetColor(1.0, 1.0, 1.0);
-	}
-
-	void RenderFunc() {
-		Text.Render(0.0, 0.0, 0.1, L"Hello World!");
-	}
-};
-
 class GameMode1 {
 public:
 	// define mode name and mode type here
@@ -27,8 +11,6 @@ public:
 		SetUp();
 		SDK::System.SetBackColor(0.3, 0.3, 0.3);
 		// Add task here
-
-		SDK::Scene.AddObject(new TestObject, "test_object", LAYER1);
 	}
 
 	static void Destructor() {
