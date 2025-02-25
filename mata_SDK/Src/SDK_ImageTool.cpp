@@ -465,7 +465,7 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::Image& ImageStruct) {
 	else
 		glUniform1i(BLUR_STATE_LOCATION, false);
 
-	glUniform1i(CLIPPING_STATE_LOCATION, ClippingState);
+	glUniform1i(CLIPPING_STATE_LOCATION, System_ClippingState);
 
 	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 }
@@ -486,7 +486,7 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::SpriteSheet& SpriteSheetStruct) {
 	else
 		glUniform1i(BLUR_STATE_LOCATION, false);
 
-	glUniform1i(CLIPPING_STATE_LOCATION, ClippingState);
+	glUniform1i(CLIPPING_STATE_LOCATION, System_ClippingState);
 
 	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 }
@@ -497,7 +497,7 @@ void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float Opaci
 
 	SDK::Transform.Identity(ResultMatrix);
 
-	if (ComputeShaderEnable && USE_COMPUTE_SHADER)
+	if (System_ComputeShaderEnable && USE_COMPUTE_SHADER)
 		SDK::ComputeTool.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 	else {
 		if (!SDK::Transform.CheckIdentity(MoveMatrix)) { ResultMatrix *= MoveMatrix; }
@@ -510,7 +510,7 @@ void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float Opaci
 	ObjectOpacityValue = OpacityValue;
 
 	if (ApplyUnitTransform) {
-		if (ComputeShaderEnable && USE_COMPUTE_SHADER)
+		if (System_ComputeShaderEnable && USE_COMPUTE_SHADER)
 			SDK::ComputeTool.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
 		else {
 			if (!SDK::Transform.CheckIdentity(UnitMoveMatrix)) { ResultMatrix = UnitMoveMatrix * ResultMatrix; }

@@ -181,6 +181,8 @@ namespace SDK {
 
 		bool  FullscreenState{};
 
+		glm::vec3 ViewportColor{};
+
 	public:
 		static SDK_System* S_Inst;
 
@@ -208,18 +210,18 @@ namespace SDK {
 	};
 
 	extern SDK_System System;
-	extern glm::vec3 ViewportColor;
-	extern std::wstring LOCALE;
+
 	extern float ASPECT;
 	extern int WIDTH, HEIGHT;
 	extern int PREV_WIDTH, PREV_HEIGHT;
-	extern const glm::mat4 IdentityMatrix;
+	extern std::wstring LOCALE;
+
+	extern const glm::mat4 System_IDENTITY_MATRIX;
+	extern HWND System_HWND;
+	extern bool System_ComputeShaderEnable;
+	extern bool System_ClippingState;
+
 	constexpr FontName SYSTEM_FONT = L"Roboto";
-
-	extern HWND SystemHWND;
-
-	extern bool ComputeShaderEnable;
-	extern bool ClippingState;
 }
 
 // global scope shader

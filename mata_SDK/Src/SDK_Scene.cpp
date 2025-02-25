@@ -122,8 +122,8 @@ void SDK::SDK_Scene::RegisterModePtr(SDK::MODE_PTR ModePtr) {
 
 void SDK::SDK_Scene::RegisterController(SUBCLASSPROC Controller, int Type) {
 	if(CurrentController)
-		RemoveWindowSubclass(SDK::SystemHWND, CurrentController, 1);
-	SetWindowSubclass(SDK::SystemHWND, Controller, 1, 0);
+		RemoveWindowSubclass(SDK::System_HWND, CurrentController, 1);
+	SetWindowSubclass(SDK::System_HWND, Controller, 1, 0);
 	CurrentController = Controller;
 
 	if(Type == MODE_TYPE_DEFAULT)
@@ -158,8 +158,8 @@ void SDK::SDK_Scene::EndFloatingMode() {
 	CurrentRunningModeName = PrevRunningModeName;
 	CurrentRunningModePtr = PrevRunningModePtr;
 
-	RemoveWindowSubclass(SDK::SystemHWND, CurrentController, 1);
-	SetWindowSubclass(SDK::SystemHWND, ControllerBuffer, 1, 0);
+	RemoveWindowSubclass(SDK::System_HWND, CurrentController, 1);
+	SetWindowSubclass(SDK::System_HWND, ControllerBuffer, 1, 0);
 	CurrentController = ControllerBuffer;
 	ControllerBuffer = nullptr;
 
@@ -423,7 +423,7 @@ void ErrorScreenController(unsigned char Key, int X, int Y) {
 }
 
 void SDK::SDK_Scene::SwitchToErrorScreen() {
-	RemoveWindowSubclass(SDK::SystemHWND, CurrentController, 1);
+	RemoveWindowSubclass(SDK::System_HWND, CurrentController, 1);
 	glutKeyboardFunc(ErrorScreenController);
 
 	SystemLayerLock = false;

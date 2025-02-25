@@ -4,7 +4,7 @@ SDK::SDK_ColorClipping SDK::ColorClip;
 SDK::SDK_AlphaClipping SDK::AlphaClip;
 
 void SDK::SDK_ColorClipping::First() {
-	ClippingState = true;
+	System_ClippingState = true;
 	glEnable(GL_STENCIL_TEST);
 	glClear(GL_STENCIL_BUFFER_BIT);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -23,11 +23,11 @@ void SDK::SDK_ColorClipping::End() {
 	glClear(GL_STENCIL_BUFFER_BIT);
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	glDisable(GL_STENCIL_TEST);
-	ClippingState = false;
+	System_ClippingState = false;
 }
 
 void SDK::SDK_AlphaClipping::First() {
-	ClippingState = true;
+	System_ClippingState = true;
 	glEnable(GL_STENCIL_TEST);
 	glClear(GL_STENCIL_BUFFER_BIT);
 	glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -43,5 +43,5 @@ void SDK::SDK_AlphaClipping::Second() {
 
 void SDK::SDK_AlphaClipping::End() {
 	glDisable(GL_STENCIL_TEST);
-	ClippingState = false;
+	System_ClippingState = false;
 }

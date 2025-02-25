@@ -3,7 +3,7 @@
 SDK::SDK_ComputeTool SDK::ComputeTool;
 
 void SDK::SDK_ComputeTool::ComputeMatrix(SDK::Matrix4& Dest, SDK::Matrix4& Matrix1, SDK::Matrix4& Matrix2, SDK::Matrix4& Matrix3, SDK::Matrix4& Matrix4, SDK::Matrix4& Matrix5) {
-	if (!ComputeShaderEnable)
+	if (!System_ComputeShaderEnable)
 		return;
 	
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO_MATRIX_INPUT);

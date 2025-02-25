@@ -8,7 +8,7 @@ SDK::SDK_System SDK::System;
 SDK::SDK_System* SDK::SDK_System::S_Inst;
 
 void SDK::SDK_System::Main() {
-	glClearColor(SDK::ViewportColor.r, SDK::ViewportColor.g, SDK::ViewportColor.b, 1.0f);
+	glClearColor(S_Inst->ViewportColor.r, S_Inst->ViewportColor.g, S_Inst->ViewportColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	if (S_Inst->UpdateActivateCommand) {

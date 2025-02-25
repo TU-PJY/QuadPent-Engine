@@ -53,7 +53,7 @@ void SDK::Object::ComputeLocalPosition(SDK::Vector2& DestPosition) {
 ////////////////////////// private
 
 glm::vec4 SDK::Object::ViewportPosition() {
-	if (ComputeShaderEnable)
+	if (System_ComputeShaderEnable)
 		SDK::ComputeTool.ComputeMatrix(SDK::ViewportPositionMatrix, SDK::Camera.Projection, SDK::Camera.ViewMatrix, ResultMatrix);
 	else
 		SDK::ViewportPositionMatrix = SDK::Camera.Projection * SDK::Camera.ViewMatrix * ResultMatrix;

@@ -127,7 +127,7 @@ void SDK::SDK_Shader::CreateShaderLocation() {
 	BLUR_STRENGTH_LOCATION       = glGetUniformLocation(IMAGE_SHADER, "BlurStrength");
 	BLUR_STATE_LOCATION          = glGetUniformLocation(IMAGE_SHADER, "BlurState");
 	BLUR_EXECUTION_LOCATION      = glGetUniformLocation(IMAGE_SHADER, "BlurExecution");
-	CLIPPING_STATE_LOCATION		 = glGetUniformLocation(IMAGE_SHADER, "ClippingState");
+	CLIPPING_STATE_LOCATION		 = glGetUniformLocation(IMAGE_SHADER, "System_ClippingState");
 	TEXTURE_SIZE_LOCATION        = glGetUniformLocation(IMAGE_SHADER, "TextureSize");
 
 	// Text Shader

@@ -17,8 +17,7 @@ SDK::SDK_Camera SDK::Camera;
 
 float SDK::ASPECT;
 SDK::ViewportRect SDK::WindowRect;
-glm::vec3 SDK::ViewportColor;
-const glm::mat4 SDK::IdentityMatrix = glm::mat4(1.0f);
+const glm::mat4 SDK::System_IDENTITY_MATRIX = glm::mat4(1.0f);
 
 SDK::SDK_SYSTEM_RESOURCE SDK::SYSRES;
 SDK::SDK_IMAGE_RESOURCE SDK::IMAGE;
@@ -33,10 +32,10 @@ SDK::SDK_MODE_RESOURCE SDK::MODE;
 std::wstring SDK::LOCALE;
 SDK::START_MODE_PTR SDK::START_MODE;
 
-HWND SDK::SystemHWND;
+HWND SDK::System_HWND;
 
-bool SDK::ClippingState;
-bool SDK::ComputeShaderEnable;
+bool SDK::System_ClippingState;
+bool SDK::System_ComputeShaderEnable;
 
 int MajorVersion, MinorVersion;
 
@@ -93,14 +92,14 @@ void SDK::SDK_System::SetupWindow() {
 		RegisterHotKey(NULL, 2, MOD_ALT | MOD_NOREPEAT, VK_MENU);
 	}
 
-	SDK::SystemHWND = FindWindowA(nullptr, WINDOW_NAME);
+	SDK::System_HWND = FindWindowA(nullptr, WINDOW_NAME);
 
 	std::wstring WINDOW_ICON_PATH = std::wstring(WINDOW_TITLE_BAR_ICON_FILE_PATH);
-	if (!WINDOW_ICON_PATH.empty() && SDK::SystemHWND) {
+	if (!WINDOW_ICON_PATH.empty() && SDK::System_HWND) {
 		HICON Icon[1]{};
 		if (ExtractIconEx(WINDOW_TITLE_BAR_ICON_FILE_PATH, 0, &Icon[0], NULL, 1) > 0) {
-			SendMessage(SDK::SystemHWND, WM_SETICON, ICON_SMALL, (LPARAM)Icon[0]);
-			SendMessage(SDK::SystemHWND, WM_SETICON, ICON_BIG, (LPARAM)Icon[0]);
+			SendMessage(SDK::System_HWND, WM_SETICON, ICON_SMALL, (LPARAM)Icon[0]);
+			SendMessage(SDK::System_HWND, WM_SETICON, ICON_BIG, (LPARAM)Icon[0]);
 		}
 	}
 }
@@ -121,7 +120,7 @@ void SDK::SDK_System::LoadShader() {
 	SDK::Shader.CreateShader(SHAPE_SHADER);
 
 	if (MajorVersion < 4 || (MajorVersion == 4 && MinorVersion < 3)) {
-		ComputeShaderEnable = false;
+		System_ComputeShaderEnable = false;
 		std::cout << "Compute Shader Disabled." << std::endl;
 		return;
 	}
@@ -132,7 +131,7 @@ void SDK::SDK_System::LoadShader() {
 	SDK::Shader.CreateShaderLocation();
 	SDK::Shader.CreateSSBO();
 
-	ComputeShaderEnable = true;
+	System_ComputeShaderEnable = true;
 }
 
 void SDK::SDK_System::SetGlOption() {

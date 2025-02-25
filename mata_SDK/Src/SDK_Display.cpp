@@ -7,19 +7,19 @@ void SDK::SDK_System::DisplayReshape(int w, int h) {
 }
 
 void SDK::SDK_System::SetBackColor(float R, float G, float B) {
-	SDK::ViewportColor.r = R;
-	SDK::ViewportColor.g = G;
-	SDK::ViewportColor.b = B;
+	ViewportColor.r = R;
+	ViewportColor.g = G;
+	ViewportColor.b = B;
 }
 
 void SDK::SDK_System::SetBackColor(SDK::Color3& Color) {
-	SDK::ViewportColor = Color;
+	ViewportColor = Color;
 }
 
 void SDK::SDK_System::SetBackColorRGB(int R, int G, int B) {
-	SDK::ViewportColor.r = (1.0f / 255.0f) * (float)R;
-	SDK::ViewportColor.g = (1.0f / 255.0f) * (float)G;
-	SDK::ViewportColor.b = (1.0f / 255.0f) * (float)B;
+	ViewportColor.r = (1.0f / 255.0f) * (float)R;
+	ViewportColor.g = (1.0f / 255.0f) * (float)G;
+	ViewportColor.b = (1.0f / 255.0f) * (float)B;
 }
 
 void SDK::SDK_System::SetFrameLimit(int FrameLimit) {
