@@ -56,8 +56,8 @@ void main(int argc, char** argv) {
 
 	wchar_t LocaleName[LOCALE_NAME_MAX_LENGTH];
 	if (GetUserDefaultLocaleName(LocaleName, LOCALE_NAME_MAX_LENGTH)) {
-		SDK::LOCALE = LocaleName;
-		std::wcout << L"Windows System Locale: " << SDK::LOCALE << std::endl;
+		SDK::SYSTEM_LOCALE = LocaleName;
+		std::wcout << L"Windows System Locale: " << SDK::SYSTEM_LOCALE << std::endl;
 	}
 		
 	SDK::System.SetupSystem(argc, argv);
@@ -71,5 +71,5 @@ void SDK::SDK_System::Exit() {
 }
 
 float SDK::ASP(float Value) {
-	return Value * SDK::ASPECT;
+	return Value * SDK::Aspect;
 }

@@ -2,14 +2,14 @@
 #include "SDK_Transform.h"
 
 void SDK::SDK_Camera::CalculateASPECT() {
-	SDK::ASPECT = (float)SDK::WIDTH / (float)SDK::HEIGHT;
-	SDK::WindowRect.LeftX = -1.0 * SDK::ASPECT;
+	SDK::Aspect = (float)SDK::WindowWidth / (float)SDK::WindowHeight;
+	SDK::WindowRect.LeftX = -1.0 * SDK::Aspect;
 	SDK::WindowRect.LeftY = -1.0;
-	SDK::WindowRect.RightX = 1.0 * SDK::ASPECT;
+	SDK::WindowRect.RightX = 1.0 * SDK::Aspect;
 	SDK::WindowRect.RightY = 1.0;
 
-	SDK::PREV_WIDTH = SDK::WIDTH;
-	SDK::PREV_HEIGHT = SDK::HEIGHT;
+	SDK::PrevWindowWidth = SDK::WindowWidth;
+	SDK::PrevWindowHeight = SDK::WindowHeight;
 }
 
 void SDK::SDK_Camera::Init() {
@@ -23,7 +23,7 @@ void SDK::SDK_Camera::Init() {
 }
 
 void SDK::SDK_Camera::SetCamera(int RenderType) {
-	if(SDK::PREV_WIDTH != SDK::WIDTH || SDK::PREV_HEIGHT != SDK::HEIGHT)
+	if(SDK::PrevWindowWidth != SDK::WindowWidth || SDK::PrevWindowHeight != SDK::WindowHeight)
 		CalculateASPECT();
 
 	CamPos = SDK::Vector3(0.0f, 0.0f, 1.0f);
@@ -40,11 +40,11 @@ void SDK::SDK_Camera::PrepareRender(int ShaderType) {
 	if (!StaticRenderCommand) {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
 		ViewMatrix = ViewMatrix * CameraMatrix;
-		Projection = glm::ortho((SDK::ASPECT * -1.0f) / Zoom, (SDK::ASPECT * 1.0f) / Zoom, -1.0f / Zoom, 1.0f / Zoom, -10.0f, 10.0f);
+		Projection = glm::ortho((SDK::Aspect * -1.0f) / Zoom, (SDK::Aspect * 1.0f) / Zoom, -1.0f / Zoom, 1.0f / Zoom, -10.0f, 10.0f);
 	}
 	else {
 		ViewMatrix = lookAt(CamPos, CamDirection, CamUp);
-		Projection = glm::ortho((SDK::ASPECT * -1.0f), (SDK::ASPECT * 1.0f), -1.0f, 1.0f, -10.0f, 10.0f);
+		Projection = glm::ortho((SDK::Aspect * -1.0f), (SDK::Aspect * 1.0f), -1.0f, 1.0f, -10.0f, 10.0f);
 	}
 
 	switch (ShaderType) {

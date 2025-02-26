@@ -2,8 +2,8 @@
 
 void SDK::SDK_System::DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
-	SDK::WIDTH = w;
-	SDK::HEIGHT = h;
+	SDK::WindowWidth = w;
+	SDK::WindowHeight = h;
 }
 
 void SDK::SDK_System::SetBackColor(float R, float G, float B) {
@@ -42,8 +42,8 @@ void SDK::SDK_System::MoveCursor(int X, int Y) {
 void SDK::SDK_System::SwitchScreenState() {
 	if (!FullscreenState) {
 		glutFullScreen();
-		SDK::WIDTH = GetSystemMetrics(SM_CXSCREEN);
-		SDK::HEIGHT = GetSystemMetrics(SM_CYSCREEN);
+		SDK::WindowWidth = GetSystemMetrics(SM_CXSCREEN);
+		SDK::WindowHeight = GetSystemMetrics(SM_CYSCREEN);
 		FullscreenState = true;
 	}
 	else {
@@ -52,9 +52,9 @@ void SDK::SDK_System::SwitchScreenState() {
 		if (SystemParametersInfo(SPI_GETWORKAREA, 0, &DisplayArea, 0)) {
 			int DisplayWidth = DisplayArea.right - DisplayArea.left;
 			int DisplayHeight = DisplayArea.bottom - DisplayArea.top;
-			SDK::WIDTH = DisplayWidth;
-			SDK::HEIGHT = DisplayHeight;
-			glutReshapeWindow(SDK::WIDTH, SDK::HEIGHT);
+			SDK::WindowWidth = DisplayWidth;
+			SDK::WindowHeight = DisplayHeight;
+			glutReshapeWindow(SDK::WindowWidth, SDK::WindowHeight);
 			glutPositionWindow(0, 0);
 			FullscreenState = false;
 		}
@@ -62,9 +62,9 @@ void SDK::SDK_System::SwitchScreenState() {
 }
 
 void SDK::SDK_System::ChangeScreenSize(int ScreenWidth, int ScreenHeight) {
-	SDK::WIDTH = ScreenWidth;
-	SDK::HEIGHT = ScreenHeight;
-	glutReshapeWindow(SDK::WIDTH, SDK::HEIGHT);
+	SDK::WindowWidth = ScreenWidth;
+	SDK::WindowHeight = ScreenHeight;
+	glutReshapeWindow(SDK::WindowWidth, SDK::WindowHeight);
 	glutPositionWindow(0, 0);
 	FullscreenState = false;
 }

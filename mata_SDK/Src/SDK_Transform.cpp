@@ -99,7 +99,7 @@ void SDK::SDK_Transform::UnitFlip(int FlipFlag) {
 }
 
 bool SDK::SDK_Transform::CheckIdentity(SDK::Matrix4& Matrix) {
-	if (std::memcmp(&Matrix, &SDK::System_IDENTITY_MATRIX, sizeof(SDK::Matrix4)) != 0)
+	if (std::memcmp(&Matrix, &SDK::IDENTITY_MATRIX, sizeof(SDK::Matrix4)) != 0)
 		return false;
 	
 	return true;

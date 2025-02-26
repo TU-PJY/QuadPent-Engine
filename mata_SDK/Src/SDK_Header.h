@@ -211,17 +211,16 @@ namespace SDK {
 
 	extern SDK_System System;
 
-	extern float ASPECT;
-	extern int WIDTH, HEIGHT;
-	extern int PREV_WIDTH, PREV_HEIGHT;
+	extern float Aspect;
+	extern int WindowWidth, WindowHeight;
+	extern int PrevWindowWidth, PrevWindowHeight;
 
-	extern std::wstring LOCALE;
-
-	extern const glm::mat4 System_IDENTITY_MATRIX;
 	extern HWND System_HWND;
 	extern bool System_ComputeShaderEnable;
 	extern bool System_ClippingState;
 
+	extern const glm::mat4 IDENTITY_MATRIX;
+	extern std::wstring SYSTEM_LOCALE;
 	constexpr FontName SYSTEM_FONT = L"Roboto";
 }
 

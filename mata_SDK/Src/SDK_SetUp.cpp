@@ -9,15 +9,15 @@
 
 #include "SDK_LoadingMode.h"
 
-int SDK::WIDTH = WINDOW_WIDTH;
-int SDK::HEIGHT = WINDOW_HEIGHT;
-int SDK::PREV_WIDTH, SDK::PREV_HEIGHT;
+int SDK::WindowWidth = WINDOW_WIDTH;
+int SDK::WindowHeight = WINDOW_HEIGHT;
+int SDK::PrevWindowWidth, SDK::PrevWindowHeight;
 
 SDK::SDK_Camera SDK::Camera;
 
-float SDK::ASPECT;
+float SDK::Aspect;
 SDK::ViewportRect SDK::WindowRect;
-const glm::mat4 SDK::System_IDENTITY_MATRIX = glm::mat4(1.0f);
+const glm::mat4 SDK::IDENTITY_MATRIX = glm::mat4(1.0f);
 
 SDK::SDK_SYSTEM_RESOURCE SDK::SYSRES;
 SDK::SDK_IMAGE_RESOURCE SDK::IMAGE;
@@ -29,7 +29,7 @@ SDK::SDK_FILE_RESOURCE SDK::FILE;
 SDK::SDK_FONT_NAME_RESOURCE SDK::FONTNAME;
 SDK::SDK_MODE_RESOURCE SDK::MODE;
 
-std::wstring SDK::LOCALE;
+std::wstring SDK::SYSTEM_LOCALE;
 SDK::START_MODE_PTR SDK::START_MODE;
 
 HWND SDK::System_HWND;
@@ -53,8 +53,8 @@ void SDK::SDK_System::SetupWindow() {
 	glutInitContextVersion(4, 3);
 	glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 
-	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - SDK::WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - SDK::HEIGHT / 2);
-	glutInitWindowSize(SDK::WIDTH, SDK::HEIGHT);
+	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - SDK::WindowWidth / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - SDK::WindowHeight / 2);
+	glutInitWindowSize(SDK::WindowWidth, SDK::WindowHeight);
 	glutCreateWindow(WINDOW_NAME);
 
 	const unsigned char* Version = glGetString(GL_VERSION);
@@ -73,8 +73,8 @@ void SDK::SDK_System::SetupWindow() {
 
 	if (FULL_SCREEN_OPTION) {
 		glutFullScreen();
-		SDK::WIDTH = GetSystemMetrics(SM_CXSCREEN);
-		SDK::HEIGHT = GetSystemMetrics(SM_CYSCREEN);
+		SDK::WindowWidth = GetSystemMetrics(SM_CXSCREEN);
+		SDK::WindowHeight = GetSystemMetrics(SM_CYSCREEN);
 	}
 
 	glewExperimental = GL_TRUE;
