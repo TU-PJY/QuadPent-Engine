@@ -214,6 +214,7 @@ namespace SDK {
 	extern float ASPECT;
 	extern int WIDTH, HEIGHT;
 	extern int PREV_WIDTH, PREV_HEIGHT;
+
 	extern std::wstring LOCALE;
 
 	extern const glm::mat4 System_IDENTITY_MATRIX;
