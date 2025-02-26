@@ -183,7 +183,6 @@ void SDK::SDK_ImageTool::LoadSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, st
 
 			glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, ClipWidth, ClipHeight);
 			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, ClipWidth, ClipHeight, GL_RGBA, GL_UNSIGNED_BYTE, ClippedTextureData);
-			stbi_image_free(TextureData);
 			stbi_image_free(ClippedTextureData);
 
 			CurrentXPosition += ClipWidth;
