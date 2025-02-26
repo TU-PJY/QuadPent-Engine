@@ -424,6 +424,9 @@ void SDK::SDK_ImageTool::RenderSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, 
 }
 
 void SDK::SDK_ImageTool::RenderStaticSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, int Frame, float OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+	if (Frame > SpriteSheetStruct.Frame)
+		return;
+	
 	float Width = (float)SpriteSheetStruct.Width;
 	float Height = (float)SpriteSheetStruct.Height;
 
