@@ -3,9 +3,6 @@
 SDK::SDK_ComputeTool SDK::ComputeTool;
 
 void SDK::SDK_ComputeTool::ComputeMatrix(SDK::Matrix4& Dest, SDK::Matrix4& Matrix1, SDK::Matrix4& Matrix2, SDK::Matrix4& Matrix3, SDK::Matrix4& Matrix4, SDK::Matrix4& Matrix5) {
-	if (!System_ComputeShaderEnable)
-		return;
-	
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO_MATRIX_INPUT);
 	glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(SDK::Matrix4), glm::value_ptr(Matrix1));
 	glBufferSubData(GL_SHADER_STORAGE_BUFFER, sizeof(SDK::Matrix4), sizeof(SDK::Matrix4), glm::value_ptr(Matrix2));

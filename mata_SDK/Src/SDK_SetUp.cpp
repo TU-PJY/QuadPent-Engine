@@ -33,9 +33,7 @@ std::wstring SDK::SYSTEM_LOCALE;
 SDK::START_MODE_PTR SDK::START_MODE;
 
 HWND SDK::System_HWND;
-
 bool SDK::System_ClippingState;
-bool SDK::System_ComputeShaderEnable;
 
 int InitializedMajorVersion, InitializedMinorVersion;
 
@@ -115,19 +113,11 @@ void SDK::SDK_System::LoadShader() {
 	SDK::Shader.LoadFragmentShader(std::string(FolderName + "Fragment_Shape.glsl"));
 	SDK::Shader.CreateShader(SHAPE_SHADER);
 
-	if (InitializedMajorVersion < 4 || (InitializedMajorVersion == 4 && InitializedMinorVersion < 3)) {
-		System_ComputeShaderEnable = false;
-		std::cout << "Compute Shader Disabled." << std::endl;
-		return;
-	}
-
 	SDK::Shader.LoadComputeShader(std::string(FolderName + "ComputeMatrix.glsl"));
 	SDK::Shader.CreateComputeShader(MATRIX_COMPT_SHADER);
 
 	SDK::Shader.CreateShaderLocation();
 	SDK::Shader.CreateSSBO();
-
-	System_ComputeShaderEnable = true;
 }
 
 void SDK::SDK_System::SetGlOption() {

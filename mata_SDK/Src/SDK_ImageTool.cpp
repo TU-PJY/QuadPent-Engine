@@ -116,7 +116,7 @@ void SDK::SDK_ImageTool::LoadClip(SDK::Image& ImageStruct, std::string FilePath,
 		memcpy(ClippedTextureData + Row * ClipWidth * Channel, TextureData + ((Y + Row) * Width + X) * Channel, ClipWidth * Channel);
 
 	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, ClipWidth, ClipHeight);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, ClipWidth, ClipHeight, GL_RGBA, GL_UNSIGNED_BYTE, TextureData);
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, ClipWidth, ClipHeight, GL_RGBA, GL_UNSIGNED_BYTE, ClippedTextureData);
 	stbi_image_free(TextureData);
 	stbi_image_free(ClippedTextureData);
 
@@ -182,7 +182,8 @@ void SDK::SDK_ImageTool::LoadSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, st
 				memcpy(ClippedTextureData + i * ClipWidth * Channel, TextureData + ((CurrentYPosition + i) * Width + CurrentXPosition) * Channel, ClipWidth * Channel);
 
 			glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, ClipWidth, ClipHeight);
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, ClipWidth, ClipHeight, GL_RGBA, GL_UNSIGNED_BYTE, TextureData);
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, ClipWidth, ClipHeight, GL_RGBA, GL_UNSIGNED_BYTE, ClippedTextureData);
+			stbi_image_free(TextureData);
 			stbi_image_free(ClippedTextureData);
 
 			CurrentXPosition += ClipWidth;
@@ -497,7 +498,7 @@ void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float Opaci
 
 	SDK::Transform.Identity(ResultMatrix);
 
-	if (System_ComputeShaderEnable && USE_COMPUTE_SHADER)
+	if (USE_COMPUTE_SHADER)
 		SDK::ComputeTool.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
 	else {
 		if (!SDK::Transform.CheckIdentity(MoveMatrix)) { ResultMatrix *= MoveMatrix; }
@@ -510,7 +511,7 @@ void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float Opaci
 	ObjectOpacityValue = OpacityValue;
 
 	if (ApplyUnitTransform) {
-		if (System_ComputeShaderEnable && USE_COMPUTE_SHADER)
+		if (USE_COMPUTE_SHADER)
 			SDK::ComputeTool.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
 		else {
 			if (!SDK::Transform.CheckIdentity(UnitMoveMatrix)) { ResultMatrix = UnitMoveMatrix * ResultMatrix; }

@@ -216,7 +216,6 @@ namespace SDK {
 	extern int PrevWindowWidth, PrevWindowHeight;
 
 	extern HWND System_HWND;
-	extern bool System_ComputeShaderEnable;
 	extern bool System_ClippingState;
 
 	extern const glm::mat4 IDENTITY_MATRIX;
