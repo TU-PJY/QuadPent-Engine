@@ -24,6 +24,11 @@ namespace SDK {
 
 	};
 
+	// Declare the global value here.
+	struct SDK_GLOBAL_RESOURCE {
+
+	};
+
 	// Data Format list
 	// Write your data format here.
 	// {  Data Type, Category Name, Data Name, Digit Value, String Value }
@@ -36,15 +41,42 @@ namespace SDK {
 
 	};
 
-	// Declare the global value here.
-	struct SDK_GLOBAL_RESOURCE {
-
-	};
-
 	// Declare the global font name here.
 	struct SDK_FONT_NAME_RESOURCE {
 
 	};
+
+	////////////////////////////////////////////////////////////////////////////////////////
+
+	// Use LoadImageT(), LoadClipT(), and LoadSpriteSheetT() to load image files and sprite sheets in this thread.
+	inline DWORD WINAPI ImageResourceLoader(LPVOID lpParam) {
+		// load image resources here
+
+		return 0;
+	}
+
+	inline DWORD WINAPI SoundResourceLoader(LPVOID lpParam) {
+		// load sound resources here
+
+		return 0;
+	}
+
+	inline DWORD WINAPI FileResourceLoader(LPVOID lpParam) {
+		// load data resources here
+
+		return 0;
+	}
+
+	inline DWORD WINAPI FontResourceLoader(LPVOID lpParam) {
+		// Load font resources here
+
+		return 0;
+	}
+
+	inline void ResourcePreLoader() {
+		// Pre load resources here
+		
+	}
 
 	extern SDK_IMAGE_RESOURCE IMAGE;
 	extern SDK_SOUND_RESOURCE SOUND;
@@ -54,8 +86,3 @@ namespace SDK {
 	extern SDK_FILE_RESOURCE FILE;
 	extern SDK_FONT_NAME_RESOURCE FONTNAME;
 }
-
-DWORD WINAPI ImageResourceLoader(LPVOID lpParam);
-DWORD WINAPI SoundResourceLoader(LPVOID lpParam);
-DWORD WINAPI FileResourceLoader(LPVOID lpParam);
-DWORD WINAPI FontResourceLoader(LPVOID lpParam);

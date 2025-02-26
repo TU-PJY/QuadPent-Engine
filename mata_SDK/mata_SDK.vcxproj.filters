@@ -267,9 +267,6 @@
     <ClCompile Include="Src\SDK_RectBrush.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Tool ]\[ Object Tool ]\[ Shape ]\[ Rect ]</Filter>
     </ClCompile>
-    <ClCompile Include="Src\SDK_ResourceLoader.cpp">
-      <Filter>[4]___________[ Resource ]</Filter>
-    </ClCompile>
     <ClCompile Include="Src\SDK_Script.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Tool ]\[ Object Tool ]\[ Script ]</Filter>
     </ClCompile>

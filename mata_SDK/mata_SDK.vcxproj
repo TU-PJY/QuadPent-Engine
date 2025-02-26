@@ -158,7 +158,6 @@
     <ClCompile Include="Src\Library\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="Src\Library\tinyxml\tinyxmlparser.cpp" />
     <ClCompile Include="Src\SDK_ObjectValue.cpp" />
-    <ClCompile Include="Src\SDK_ResourceLoader.cpp" />
     <ClCompile Include="Src\SDK_Scene.cpp" />
     <ClCompile Include="Src\SDK_LineBrush.cpp" />
     <ClCompile Include="Src\SDK_Math.cpp" />

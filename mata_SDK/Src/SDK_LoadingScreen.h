@@ -38,6 +38,7 @@ public:
 			SDK::FontLoader.LoadT(SDK::SYSRES.SDK_FONT_DIRECTORY);
 			SDK::ImageTool.LoadImage(SDK::SYSRES.LOADING_SPINNER, SDK::SYSRES.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 			SDK::ImageTool.LoadImage(SDK::SYSRES.MATA_LOGO, SDK::SYSRES.MATA_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+			SDK::ResourcePreLoader();
 
 			SDK::ThreadTool.Create(SystemResourceLoadHandle, SystemResourceLoader);
 
@@ -99,10 +100,10 @@ public:
 	bool LoadResources() {
 		if (!SDK::ThreadTool.CheckAlive(SystemResourceLoadHandle) && !SystemResourceLoadEnd) {
 			SDK::ThreadTool.Close(SystemResourceLoadHandle);
-			SDK::ThreadTool.Create(ImageResourceLoadHandle, ImageResourceLoader);
-			SDK::ThreadTool.Create(SoundResourceLoadHandle, SoundResourceLoader);
-			SDK::ThreadTool.Create(DataResourceLoadHandle, FileResourceLoader);
-			SDK::ThreadTool.Create(FontResourceLoadHandle, FontResourceLoader);
+			SDK::ThreadTool.Create(ImageResourceLoadHandle, SDK::ImageResourceLoader);
+			SDK::ThreadTool.Create(SoundResourceLoadHandle, SDK::SoundResourceLoader);
+			SDK::ThreadTool.Create(DataResourceLoadHandle, SDK::FileResourceLoader);
+			SDK::ThreadTool.Create(FontResourceLoadHandle, SDK::FontResourceLoader);
 			std::cout << "System resource load completed." << std::endl;
 
 			SystemResourceLoadEnd = true;
