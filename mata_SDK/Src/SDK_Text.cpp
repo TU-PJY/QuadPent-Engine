@@ -15,7 +15,7 @@ void SDK::Text::Init(SDK::FontName FontName, int Type, int Italic) {
 		NONANTIALIASED_QUALITY, FF_DONTCARE | DEFAULT_PITCH, FontName
 	);
 
-	LineLengthBuffer.reserve(20);
+	LineLengthList.reserve(5);
 }
 
 void SDK::Text::SetRenderType(int Type) {
@@ -87,35 +87,41 @@ void SDK::Text::Render(SDK::Vector2& Position, float Size, const wchar_t* Fmt, .
 	if (Fmt == NULL)
 		return;
 
-	TextVec.clear();
+		va_list Args{};
+		va_start(Args, Fmt);
+		int CurrentSize = vswprintf(nullptr, 0, Fmt, Args) + 1;
 
-	va_list Args{};
-	va_start(Args, Fmt);
+		if (PrevSize < CurrentSize) {
+			TextVec.resize(CurrentSize);
+			PrevSize = CurrentSize;
+		}
 
-	int CurrentSize = vswprintf(nullptr, 0, Fmt, Args) + 1;
-	if (PrevSize < CurrentSize) {
-		TextVec.resize(CurrentSize);
-		PrevSize = CurrentSize;
-	}
+		else if (PrevSize > CurrentSize) {
+			TextVec.clear();
+			PrevSize = CurrentSize;
+		}
 
-	vswprintf(TextVec.data(), CurrentSize, Fmt, Args);
-	va_end(Args);
+		vswprintf(TextVec.data(), CurrentSize, Fmt, Args);
+		va_end(Args);
 
-	InputText(TextVec, Position, Size);
+		InputText(TextVec, Position, Size);
 }
 
 void SDK::Text::Render(float X, float Y, float Size, const wchar_t* Fmt, ...) {
 	if (Fmt == NULL)
 		return;
 
-	TextVec.clear();
-
 	va_list Args{};
 	va_start(Args, Fmt);
-
 	int CurrentSize = vswprintf(nullptr, 0, Fmt, Args) + 1;
+
 	if (PrevSize < CurrentSize) {
 		TextVec.resize(CurrentSize);
+		PrevSize = CurrentSize;
+	}
+
+	else if (PrevSize > CurrentSize) {
+		TextVec.clear();
 		PrevSize = CurrentSize;
 	}
 
@@ -143,7 +149,7 @@ void SDK::Text::RenderWString(float X, float Y, float Size, std::wstring WStr) {
 
 ////////////////// private
 void SDK::Text::InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, float Size) {
-	CurrentText = std::wstring(Input.data());
+	CurrentText = Input.data();
 
 	if (ShadowRenderCommand) {
 		RenderColor = ShadowColor;
@@ -165,11 +171,17 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 	if (CurrentText.compare(PrevText) != 0) {
 		TextWordCount = wcslen(Text);
 		ComputeGlyphCache(Text);
+		ComputeTextLength(Text);
 		PrevText = CurrentText;
 	}
 
-	ComputeTextLength(Text);
+	if (FixMiddleCommand && NumLine > 1) 
+		FixMiddleOffset = ((TextLineGap + TextRenderSize) * (NumLine - 1)) * 0.5;
+	else
+		FixMiddleOffset = 0.0;
 
+	TextLength = LineLengthList[0];
+	
 	switch (HeightAlign) {
 	case HEIGHT_ALIGN_MIDDLE:
 		RenderPosition.y -= TextRenderSize * 0.5;
@@ -187,7 +199,7 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 
 			if (TextAlign != ALIGN_DEFAULT) {
 				++CurrentLine;
-				TextLength = LineLengthBuffer[CurrentLine];
+				TextLength = LineLengthList[CurrentLine];
 			}
 			continue;
 		}
@@ -227,12 +239,12 @@ void SDK::Text::CreateNewGlyph(wchar_t& Char) {
 }
 
 void SDK::Text::ComputeTextLength(const wchar_t* Text) {
-	LineLengthBuffer.clear();
+	LineLengthList.clear();
 	float CurrentLineLength{};
 
 	for (int i = 0; i < wcslen(Text); ++i) {
 		if (Text[i] == L'\n') {
-			LineLengthBuffer.emplace_back(CurrentLineLength);
+			LineLengthList.emplace_back(CurrentLineLength);
 			CurrentLineLength = 0.0f;
 			continue;
 		}
@@ -243,44 +255,30 @@ void SDK::Text::ComputeTextLength(const wchar_t* Text) {
 	}
 
 	if (CurrentLineLength > 0.0f)
-		LineLengthBuffer.emplace_back(CurrentLineLength);
+		LineLengthList.emplace_back(CurrentLineLength);
 
-
-	TextLength = LineLengthBuffer.front();
-
-	MiddleHeight = 0.0;
-	if (FixMiddleCommand) {
-		size_t LineNum = LineLengthBuffer.size();
-
-		if (LineNum > 1) {
-			for (int i = 0; i < LineNum; ++i)
-				MiddleHeight += (TextLineGap + TextRenderSize);
-			MiddleHeight /= 2.0;
-		}
-	}
+	NumLine = LineLengthList.size();
 }
 
 void SDK::Text::TransformText() {
 	SDK::Transform.Identity(TextMatrix);
-	SDK::Transform.Move(TextMatrix, RenderPosition.x, RenderPosition.y + MiddleHeight);
+	SDK::Transform.Move(TextMatrix, RenderPosition.x, RenderPosition.y);
+	if (Rotation != 0.0)
+		SDK::Transform.Rotate(TextMatrix, Rotation);
+	if (FixMiddleCommand && NumLine > 1)
+		SDK::Transform.Move(TextMatrix, 0.0, FixMiddleOffset);
 
 	switch (TextAlign) {
 	case ALIGN_DEFAULT:
-		if(Rotation != 0.0)
-			SDK::Transform.Rotate(TextMatrix, Rotation);
 		SDK::Transform.Move(TextMatrix, CurrentRenderOffset);
 		break;
 
 	case ALIGN_MIDDLE:
-		if (Rotation != 0.0)
-			SDK::Transform.Rotate(TextMatrix, Rotation);
 		SDK::Transform.Move(TextMatrix, -TextLength * 0.5, 0.0);
 		SDK::Transform.Move(TextMatrix, CurrentRenderOffset);
 		break;
 
 	case ALIGN_LEFT:
-		if (Rotation != 0.0)
-			SDK::Transform.Rotate(TextMatrix, Rotation);
 		SDK::Transform.Move(TextMatrix, -TextLength, 0.0);
 		SDK::Transform.Move(TextMatrix, CurrentRenderOffset);
 		break;

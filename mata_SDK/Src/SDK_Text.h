@@ -12,12 +12,13 @@ namespace SDK {
 		float                    TextLength{};
 		float                    TextRenderSize{};
 		float                    TextLineGap{};
-		float                    MiddleHeight{};
+		float                    FixMiddleOffset{};
 
-		std::vector<float>		 LineLengthBuffer{};
+		std::vector<float>		 LineLengthList{};
 		std::wstring             CurrentText{};
 		std::wstring             PrevText{};
 		int                      CurrentLine{};
+		int                      NumLine{};
 
 		float					 TextOpacity{ 1.0f };
 		glm::vec3                TextColor{ glm::vec3(1.0, 1.0, 1.0) };

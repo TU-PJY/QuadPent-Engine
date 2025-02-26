@@ -6,7 +6,7 @@ void SDK::SDK_StringTool::InputWString(std::wstring& Str, SDK::KeyEvent& Event, 
 	if (Event.Type == WM_KEYDOWN) {
 		switch (Event.Key) {
 		case VK_SPACE:
-			AddWString(Str, L" ");
+			AddWString(Str, L"");
 			break;
 
 		case VK_BACK:

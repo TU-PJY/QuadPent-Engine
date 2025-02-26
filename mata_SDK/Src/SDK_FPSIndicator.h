@@ -19,7 +19,7 @@ public:
 
 	void UpdateFunc(float FrameTime) {
 		FPS_IND_REFRESH_TIMER.Update(FrameTime);
-		if (FPS_IND_REFRESH_TIMER.CheckMiliSec(0.5, 1, CHECK_AND_INTERPOLATE))
+		if (FPS_IND_REFRESH_TIMER.CheckMiliSec(0.1, 1, CHECK_AND_INTERPOLATE))
 			CurrentDeltaTime = FrameTime;
 	}
 
