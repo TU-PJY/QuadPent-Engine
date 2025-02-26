@@ -25,7 +25,7 @@ constexpr bool DISABLE_ALT_EVENT = true;
 
 //////////////////////////////////// SDK options
 // intro screen option
-constexpr bool ENABLE_INTRO_SCREEN = false;
+constexpr bool ENABLE_INTRO_SCREEN = true;
 
 // frame limits option
 // If this option is set to 0, the system will run at maximum framerate.
@@ -34,10 +34,6 @@ constexpr int FRAME_LIMITS = 0;
 // When enabled, the GPU computes matrices. When disabled, the CPU computes matrices.
 constexpr bool USE_COMPUTE_SHADER = false;
 
-// Sets the minimum version of OpenGL.  
-// If the context is created with a version below version 4.3, ComputeShader is disabled.
-constexpr int OPENGL_MAJOR_VERSION_NUMBER = 4;
-constexpr int OPENGL_MINOR_VERSION_NUMBER = 6;
 
 
 //////////////////////////////////// Development options

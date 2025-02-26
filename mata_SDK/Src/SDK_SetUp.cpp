@@ -37,7 +37,7 @@ HWND SDK::System_HWND;
 bool SDK::System_ClippingState;
 bool SDK::System_ComputeShaderEnable;
 
-int MajorVersion, MinorVersion;
+int InitializedMajorVersion, InitializedMinorVersion;
 
 void SDK::SDK_System::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);
@@ -50,7 +50,7 @@ void SDK::SDK_System::SetupSystem(int argc, char** argv) {
 void SDK::SDK_System::SetupWindow() {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
 
-	glutInitContextVersion(OPENGL_MAJOR_VERSION_NUMBER, OPENGL_MINOR_VERSION_NUMBER);
+	glutInitContextVersion(4, 3);
 	glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 
 	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - SDK::WIDTH / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - SDK::HEIGHT / 2);
@@ -60,17 +60,13 @@ void SDK::SDK_System::SetupWindow() {
 	const unsigned char* Version = glGetString(GL_VERSION);
 	std::cout << Version << std::endl;
 
-	glGetIntegerv(GL_MAJOR_VERSION, &MajorVersion);
-	glGetIntegerv(GL_MINOR_VERSION, &MinorVersion);
-	std::cout << "OpenGL Version: " << MajorVersion << "." << MinorVersion << std::endl;
+	glGetIntegerv(GL_MAJOR_VERSION, &InitializedMajorVersion);
+	glGetIntegerv(GL_MINOR_VERSION, &InitializedMinorVersion);
+	std::cout << "Initialized OpenGL Version: " << InitializedMajorVersion << "." << InitializedMinorVersion << std::endl;
 
-	if (MajorVersion < OPENGL_MAJOR_VERSION_NUMBER || (MajorVersion == OPENGL_MAJOR_VERSION_NUMBER && MinorVersion < OPENGL_MINOR_VERSION_NUMBER)) {
-		std::wstring Str =
-			L"The OpenGL support version of your graphics card is too low. Must support at least OpenGL " +
-			std::to_wstring(OPENGL_MAJOR_VERSION_NUMBER) + L"." + std::to_wstring(OPENGL_MINOR_VERSION_NUMBER) + L" Version.";
-
+	if (InitializedMajorVersion < 4 || (InitializedMajorVersion == 4 && InitializedMinorVersion < 3)) {
+		std::wstring Str = L"The OpenGL support version of your graphics card is too low. Must support at least OpenGL 4.3 Version.";
 		int Result = MessageBox(NULL, Str.c_str(), L"mata_SDK Error", MB_OK | MB_ICONINFORMATION);
-
 		if (Result == IDOK)
 			SDK::System.Exit();
 	}
@@ -105,7 +101,7 @@ void SDK::SDK_System::SetupWindow() {
 }
 
 void SDK::SDK_System::LoadShader() {
-	std::string FolderName = "SDKResource//GLSL//" + std::to_string(MajorVersion) + "." + std::to_string(MinorVersion) + "//";
+	std::string FolderName = "SDKResource//GLSL//" + std::to_string(InitializedMajorVersion) + "." + std::to_string(InitializedMinorVersion) + "//";
 
 	SDK::Shader.LoadVertexShader(std::string(FolderName + "Vertex.glsl"));
 	SDK::Shader.LoadFragmentShader(std::string(FolderName + "Fragment_Image.glsl"));
@@ -119,7 +115,7 @@ void SDK::SDK_System::LoadShader() {
 	SDK::Shader.LoadFragmentShader(std::string(FolderName + "Fragment_Shape.glsl"));
 	SDK::Shader.CreateShader(SHAPE_SHADER);
 
-	if (MajorVersion < 4 || (MajorVersion == 4 && MinorVersion < 3)) {
+	if (InitializedMajorVersion < 4 || (InitializedMajorVersion == 4 && InitializedMinorVersion < 3)) {
 		System_ComputeShaderEnable = false;
 		std::cout << "Compute Shader Disabled." << std::endl;
 		return;

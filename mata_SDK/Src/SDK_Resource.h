@@ -46,6 +46,14 @@ namespace SDK {
 
 	};
 
+	extern SDK_IMAGE_RESOURCE IMAGE;
+	extern SDK_SOUND_RESOURCE SOUND;
+	extern SDK_SOUND_CHANNEL_RESOURCE CHANNEL;
+	extern SDK_GLOBAL_RESOURCE GLOBAL;
+	extern SDK_FORMAT_RESOURCE FORMAT;
+	extern SDK_FILE_RESOURCE FILE;
+	extern SDK_FONT_NAME_RESOURCE FONTNAME;
+
 	////////////////////////////////////////////////////////////////////////////////////////
 
 	// Use LoadImageT(), LoadClipT(), and LoadSpriteSheetT() to load image files and sprite sheets in this thread.
@@ -77,12 +85,4 @@ namespace SDK {
 		// Pre load resources here
 		
 	}
-
-	extern SDK_IMAGE_RESOURCE IMAGE;
-	extern SDK_SOUND_RESOURCE SOUND;
-	extern SDK_SOUND_CHANNEL_RESOURCE CHANNEL;
-	extern SDK_GLOBAL_RESOURCE GLOBAL;
-	extern SDK_FORMAT_RESOURCE FORMAT;
-	extern SDK_FILE_RESOURCE FILE;
-	extern SDK_FONT_NAME_RESOURCE FONTNAME;
 }
