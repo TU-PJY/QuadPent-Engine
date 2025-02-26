@@ -1,7 +1,6 @@
 #pragma once
 #include "SDK_Header.h"
 #include "SDK_EnumValue.h"
-#include "SDK_EnumValue.h"
 #include "SDK_ImageTool.h"
 #include "SDK_SoundTool.h"
 #include "SDK_Script.h"
