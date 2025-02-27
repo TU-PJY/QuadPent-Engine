@@ -203,6 +203,58 @@ void SDK::SDK_ImageTool::LoadSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, st
 	SpriteSheetStruct.Height = ClipHeight;
 }
 
+void SDK::SDK_ImageTool::LoadImageT(SDK::Image& ImageStruct, std::string FilePath, int Type) {
+	SDK::PreLoadInfo PLI{};
+	int Width{}, Height{}, Channel{};
+	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
+	if (!TextureData) {
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		return;
+	}
+
+	ImageStruct.Width = Width;
+	ImageStruct.Height = Height;
+	PLI.ImagePtr = &ImageStruct;
+	PLI.ImageType = Type;
+	PLI.TextureData = TextureData;
+
+	LoadBuffer.emplace_back(PLI);
+}
+
+void SDK::SDK_ImageTool::LoadClipT(SDK::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
+	SDK::PreLoadInfo PLI{};
+	int Width{}, Height{}, Channel{};
+	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
+	if (!TextureData) {
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		return;
+	}
+
+	if (X + ClipWidth > Width || Y + ClipHeight > Height) {
+		stbi_image_free(TextureData);
+		return;
+	}
+
+	unsigned char* ClippedTextureData = (unsigned char*)malloc(ClipWidth * ClipHeight * Channel);
+	if (!ClippedTextureData) {
+		stbi_image_free(TextureData);
+		return;
+	}
+
+	for (int Row = 0; Row < ClipHeight; ++Row)
+		memcpy(ClippedTextureData + Row * ClipWidth * Channel, TextureData + ((Y + Row) * Width + X) * Channel, ClipWidth * Channel);
+
+	ImageStruct.Width = ClipWidth;
+	ImageStruct.Height = ClipHeight;
+	PLI.ImagePtr = &ImageStruct;
+	PLI.ImageType = Type;
+	PLI.TextureData = ClippedTextureData;
+
+	stbi_image_free(TextureData);
+
+	LoadBuffer.emplace_back(PLI);
+}
+
 void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
 	SDK::PreLoadSpriteSheetInfo PLSS{};
 	int Width{}, Height{}, Channel{};
@@ -255,58 +307,6 @@ void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, s
 	LoadSpriteSheetBuffer.emplace_back(PLSS);
 
 	stbi_image_free(TextureData);
-}
-
-void SDK::SDK_ImageTool::LoadImageT(SDK::Image& ImageStruct, std::string FilePath, int Type) {
-	SDK::PreLoadInfo PLI{};
-	int Width{}, Height{}, Channel{};
-	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
-	if (!TextureData) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
-		return;
-	}
-
-	ImageStruct.Width = Width;
-	ImageStruct.Height = Height;
-	PLI.ImagePtr = &ImageStruct;
-	PLI.ImageType = Type;
-	PLI.TextureData = TextureData;
-
-	LoadBuffer.emplace_back(PLI);
-}
-
-void SDK::SDK_ImageTool::LoadClipT(SDK::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
-	SDK::PreLoadInfo PLI{};
-	int Width{}, Height{}, Channel{};
-	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
-	if (!TextureData) {
-		SDK::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
-		return;
-	}
-
-	if (X + ClipWidth > Width || Y + ClipHeight > Height) {
-		stbi_image_free(TextureData);
-		return;
-	}
-
-	unsigned char* ClippedTextureData = (unsigned char*)malloc(ClipWidth * ClipHeight * Channel);
-	if (!ClippedTextureData) {
-		stbi_image_free(TextureData);
-		return;
-	}
-
-	for (int Row = 0; Row < ClipHeight; ++Row)
-		memcpy(ClippedTextureData + Row * ClipWidth * Channel, TextureData + ((Y + Row) * Width + X) * Channel, ClipWidth * Channel);
-
-	ImageStruct.Width = ClipWidth;
-	ImageStruct.Height = ClipHeight;
-	PLI.ImagePtr = &ImageStruct;
-	PLI.ImageType = Type;
-	PLI.TextureData = ClippedTextureData;
-
-	stbi_image_free(TextureData);
-
-	LoadBuffer.emplace_back(PLI);
 }
 
 void SDK::SDK_ImageTool::Map() {
