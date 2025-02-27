@@ -8,8 +8,8 @@ SDK::SDK_Frustum SDK::Frustum;
 void SDK::SDK_Frustum::Update() {
 	FrustumOOBB.Update(SDK::Camera.Position, (2.0 * SDK::Aspect) / SDK::Camera.Zoom, 2.0 / SDK::Camera.Zoom, SDK::Camera.Rotation);
 
-if(SHOW_FRUSTUM_BOUND)
-	LineRect.Draw(SDK::Camera.Position.x, SDK::Camera.Position.y, (2.0 * SDK::Aspect) / SDK::Camera.Zoom, 2.0 / SDK::Camera.Zoom, BOUND_BOX_THICKNESS, SDK::Camera.Rotation);
+	if(SHOW_FRUSTUM_BOUND)
+		LineRect.Draw(SDK::Camera.Position.x, SDK::Camera.Position.y, (2.0 * SDK::Aspect) / SDK::Camera.Zoom, 2.0 / SDK::Camera.Zoom, BOUND_BOX_THICKNESS, SDK::Camera.Rotation);
 }
 
 bool SDK::SDK_Frustum::Check(SDK::AABB& aabb) {
