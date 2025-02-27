@@ -1,8 +1,13 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
+#pragma warning(disable: 4099)
 #pragma warning(disable: 4244)
 #pragma warning(disable: 4305)
 #pragma warning(disable: 26444)
+#pragma comment(lib, "freeglut.lib")
+#pragma comment(lib, "glew32.lib")
+#pragma comment(lib, "fmod_vc.lib")
+#pragma comment(lib, "cryptlib.lib")
 #pragma comment(lib, "Comctl32.lib")
 #pragma comment(lib, "winmm.lib")
 #pragma comment(lib, "Shell32.lib")
