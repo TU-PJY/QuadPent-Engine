@@ -162,6 +162,23 @@ void SDK::Text::InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, f
 	ProcessText((wchar_t*)CurrentText.c_str(), Position, Size);
 }
 
+void SDK::Text::ComputeTextGlyph(wchar_t* Text) {
+	for (int i = 0; i < TextWordCount; ++i) {
+		if (GlyphCache.count(Text[i]) == 0) {
+			GlyphCache.insert(Text[i]);
+
+			if (Text[i] >= 65536)
+				continue;
+
+			HFONT OldFont = (HFONT)SelectObject(hDC, Font);
+			GLYPHMETRICSFLOAT Glyph;
+			wglUseFontOutlinesW(hDC, Text[i], 1, FontBase + Text[i], 0.0f, 0.0f, WGL_FONT_POLYGONS, &Glyph);
+			TextGlyph.emplace(Text[i], Glyph);
+			SelectObject(hDC, OldFont);
+		}
+	}
+}
+
 void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 	CurrentLine = 0;
 	TextRenderSize = Size;
@@ -170,7 +187,7 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 
 	if (CurrentText.compare(PrevText) != 0) {
 		TextWordCount = wcslen(Text);
-		ComputeGlyphCache(Text);
+		ComputeTextGlyph(Text);
 		ComputeTextLength(Text);
 		PrevText = CurrentText;
 	}
@@ -216,26 +233,6 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 		if (Text[i] < 65536)
 			CurrentRenderOffset.x += TextGlyph[Text[i]].gmfCellIncX * (TextRenderSize / 1.0f);
 	}
-}
-
-void SDK::Text::ComputeGlyphCache(wchar_t* Text) {
-	for (int i = 0; i < TextWordCount; ++i) {
-		if (GlyphCache.count(Text[i]) == 0) {
-			CreateNewGlyph(Text[i]);
-			GlyphCache.insert(Text[i]); 
-		}
-	}
-}
-
-void SDK::Text::CreateNewGlyph(wchar_t& Char) {
-	if (Char >= 65536)
-		return;
-
-	HFONT OldFont = (HFONT)SelectObject(hDC, Font);
-	GLYPHMETRICSFLOAT Glyph;
-	wglUseFontOutlinesW(hDC, Char, 1, FontBase + Char, 0.0f, 0.0f, WGL_FONT_POLYGONS, &Glyph);
-	TextGlyph.emplace(Char, Glyph);
-	SelectObject(hDC, OldFont);
 }
 
 void SDK::Text::ComputeTextLength(const wchar_t* Text) {

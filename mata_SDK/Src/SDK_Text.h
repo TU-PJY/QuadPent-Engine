@@ -60,21 +60,20 @@ namespace SDK {
 		void SetShadow(float OffsetX, float OffsetY, float Opacity, SDK::Color3 Color = SDK::Color3(0.0, 0.0, 0.0));
 		void Rotate(float RotationValue);
 		void SetOpacity(float Value);
+		void SetRenderType(int Type);
 		void Render(SDK::Vector2& Position, float Size, const wchar_t* Fmt, ...);
 		void Render(float X, float Y, float Size, const wchar_t* Fmt, ...);
 		void RenderString(SDK::Vector2& Position, float Size, std::string Str);
 		void RenderString(float X, float Y, float Size, std::string Str);
 		void RenderWString(SDK::Vector2& Position, float Size, std::wstring Str);
 		void RenderWString(float X, float Y, float Size, std::wstring Str);
-		void SetRenderType(int Type);
 
 	private:
-		void InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, float Size);
-		void ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size);
 		void ComputeTextLength(const wchar_t* Text);
-		void ComputeGlyphCache(wchar_t* Text);
+		void InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, float Size);
+		void ComputeTextGlyph(wchar_t* Text);
+		void ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size);
 		void TransformText();
 		void PrepareRender();
-		void CreateNewGlyph(wchar_t& Char);
 	};
 }
