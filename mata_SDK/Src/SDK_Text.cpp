@@ -234,7 +234,7 @@ void SDK::Text::CreateNewGlyph(wchar_t& Char) {
 	HFONT OldFont = (HFONT)SelectObject(hDC, Font);
 	GLYPHMETRICSFLOAT Glyph;
 	wglUseFontOutlinesW(hDC, Char, 1, FontBase + Char, 0.0f, 0.0f, WGL_FONT_POLYGONS, &Glyph);
-	TextGlyph[Char] = Glyph;
+	TextGlyph.emplace(Char, Glyph);
 	SelectObject(hDC, OldFont);
 }
 
