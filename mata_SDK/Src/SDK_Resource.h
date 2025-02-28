@@ -70,7 +70,7 @@ namespace SDK {
 	}
 
 	inline DWORD WINAPI FileResourceLoader(LPVOID lpParam) {
-		// load data resources here
+		// load file resources here
 
 		return 0;
 	}
@@ -81,6 +81,7 @@ namespace SDK {
 		return 0;
 	}
 
+	// Use LoadImage(), LoadClip(), and LoadSpriteSheet() to load image files and sprite sheets in this thread.
 	inline void ResourcePreLoader() {
 		// Pre load resources here
 		
