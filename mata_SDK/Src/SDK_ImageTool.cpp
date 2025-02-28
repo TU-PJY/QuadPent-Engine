@@ -204,7 +204,7 @@ void SDK::SDK_ImageTool::LoadSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, st
 }
 
 void SDK::SDK_ImageTool::LoadImageT(SDK::Image& ImageStruct, std::string FilePath, int Type) {
-	SDK::PreLoadInfo PLI{};
+	SDK::ImageLoadBufferData PLI{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
@@ -218,11 +218,11 @@ void SDK::SDK_ImageTool::LoadImageT(SDK::Image& ImageStruct, std::string FilePat
 	PLI.ImageType = Type;
 	PLI.TextureData = TextureData;
 
-	LoadBuffer.emplace_back(PLI);
+	ImageLoadBuffer.emplace_back(PLI);
 }
 
 void SDK::SDK_ImageTool::LoadClipT(SDK::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
-	SDK::PreLoadInfo PLI{};
+	SDK::ImageLoadBufferData ILBD{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
@@ -246,17 +246,17 @@ void SDK::SDK_ImageTool::LoadClipT(SDK::Image& ImageStruct, std::string FilePath
 
 	ImageStruct.Width = ClipWidth;
 	ImageStruct.Height = ClipHeight;
-	PLI.ImagePtr = &ImageStruct;
-	PLI.ImageType = Type;
-	PLI.TextureData = ClippedTextureData;
+	ILBD.ImagePtr = &ImageStruct;
+	ILBD.ImageType = Type;
+	ILBD.TextureData = ClippedTextureData;
 
 	stbi_image_free(TextureData);
 
-	LoadBuffer.emplace_back(PLI);
+	ImageLoadBuffer.emplace_back(ILBD);
 }
 
 void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
-	SDK::PreLoadSpriteSheetInfo PLSS{};
+	SDK::SpriteSheetLoadBufferData SLBD{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
@@ -286,7 +286,7 @@ void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, s
 			for (int i = 0; i < ClipHeight; ++i)
 				memcpy(ClippedTextureData + i * ClipWidth * Channel, TextureData + ((CurrentYPosition + i) * Width + CurrentXPosition) * Channel, ClipWidth * Channel);
 
-			PLSS.TextureData.emplace_back(ClippedTextureData);
+			SLBD.TextureData.emplace_back(ClippedTextureData);
 
 			CurrentXPosition += ClipWidth;
 			SDK::EXTool.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
@@ -301,19 +301,45 @@ void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, s
 	SpriteSheetStruct.Width = ClipWidth;
 	SpriteSheetStruct.Height = ClipHeight;
 
-	PLSS.SpriteSheetPtr = &SpriteSheetStruct;
-	PLSS.ImageType = Type;
+	SLBD.SpriteSheetPtr = &SpriteSheetStruct;
+	SLBD.ImageType = Type;
 
-	LoadSpriteSheetBuffer.emplace_back(PLSS);
+	SpriteSheetLoadBuffer.emplace_back(SLBD);
 
 	stbi_image_free(TextureData);
 }
 
 void SDK::SDK_ImageTool::Map() {
-	if (!LoadBuffer.empty()) {
-		for (auto& B : LoadBuffer) {
-			glGenTextures(1, &B.ImagePtr->Texture);
-			glBindTexture(GL_TEXTURE_2D, B.ImagePtr->Texture);
+	for (auto& B : ImageLoadBuffer) {
+		glGenTextures(1, &B.ImagePtr->Texture);
+		glBindTexture(GL_TEXTURE_2D, B.ImagePtr->Texture);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+		switch (B.ImageType) {
+		case IMAGE_TYPE_LINEAR:
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			break;
+
+		case IMAGE_TYPE_NEAREST:
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			break;
+		}
+
+		glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, B.ImagePtr->Width, B.ImagePtr->Height);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, B.ImagePtr->Width, B.ImagePtr->Height, GL_RGBA, GL_UNSIGNED_BYTE, B.TextureData);
+		stbi_image_free(B.TextureData);
+	}
+
+	ImageLoadBuffer.clear();
+	
+	for (auto& B : SpriteSheetLoadBuffer) {
+		size_t SheetSize = B.SpriteSheetPtr->Texture.size();
+		for (int i = 0; i < SheetSize; ++i) {
+			glGenTextures(1, &B.SpriteSheetPtr->Texture[i]);
+			glBindTexture(GL_TEXTURE_2D, B.SpriteSheetPtr->Texture[i]);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
@@ -329,43 +355,13 @@ void SDK::SDK_ImageTool::Map() {
 				break;
 			}
 
-			glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, B.ImagePtr->Width, B.ImagePtr->Height);
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, B.ImagePtr->Width, B.ImagePtr->Height, GL_RGBA, GL_UNSIGNED_BYTE, B.TextureData);
-			stbi_image_free(B.TextureData);
+			glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, B.SpriteSheetPtr->Width, B.SpriteSheetPtr->Height);
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, B.SpriteSheetPtr->Width, B.SpriteSheetPtr->Height, GL_RGBA, GL_UNSIGNED_BYTE, B.TextureData[i]);
+			stbi_image_free(B.TextureData[i]);
 		}
-
-		LoadBuffer.clear();
 	}
 
-	if (!LoadSpriteSheetBuffer.empty()) {
-		for (auto& B : LoadSpriteSheetBuffer) {
-			size_t SheetSize = B.SpriteSheetPtr->Texture.size();
-			for (int i = 0; i < SheetSize; ++i) {
-				glGenTextures(1, &B.SpriteSheetPtr->Texture[i]);
-				glBindTexture(GL_TEXTURE_2D, B.SpriteSheetPtr->Texture[i]);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-				switch (B.ImageType) {
-				case IMAGE_TYPE_LINEAR:
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-					break;
-
-				case IMAGE_TYPE_NEAREST:
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-					glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-					break;
-				}
-
-				glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, B.SpriteSheetPtr->Width, B.SpriteSheetPtr->Height);
-				glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, B.SpriteSheetPtr->Width, B.SpriteSheetPtr->Height, GL_RGBA, GL_UNSIGNED_BYTE, B.TextureData[i]);
-				stbi_image_free(B.TextureData[i]);
-			}
-		}
-
-		LoadSpriteSheetBuffer.clear();
-	}
+	SpriteSheetLoadBuffer.clear();
 }
 
 void SDK::SDK_ImageTool::Blur(float BlurStrength) {

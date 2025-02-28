@@ -113,14 +113,14 @@ namespace SDK {
 		Image* ImagePtr;
 		unsigned char* TextureData;
 		int            ImageType;
-	}PreLoadInfo;
+	}ImageLoadBufferData;
 
 	// pre load sprite sheet struct
 	typedef struct {
 		SpriteSheet* SpriteSheetPtr;
 		std::vector<unsigned char*> TextureData;
 		int            ImageType;
-	}PreLoadSpriteSheetInfo;
+	}SpriteSheetLoadBufferData;
 
 	// sound channel struct
 	struct SoundChannel {

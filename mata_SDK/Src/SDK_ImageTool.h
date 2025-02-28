@@ -7,8 +7,8 @@ namespace SDK {
 	class SDK_ImageTool {
 	private:
 		GLuint VAO{};
-		std::vector<SDK::PreLoadInfo> LoadBuffer{};
-		std::vector<SDK::PreLoadSpriteSheetInfo> LoadSpriteSheetBuffer{};
+		std::vector<SDK::ImageLoadBufferData> ImageLoadBuffer{};
+		std::vector<SDK::SpriteSheetLoadBufferData> SpriteSheetLoadBuffer{};
 
 		glm::mat4 ImageAspectMatrix{ glm::mat4(1.0) };
 
