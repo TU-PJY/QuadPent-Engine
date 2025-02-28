@@ -120,6 +120,12 @@ public:
 				SDK::StringTool.AddString(Result, "The category may be missed.\nMake sure the data file's category is correct.");
 				break;
 
+			case ERROR_TYPE_UNMAPPED_MODE_EXECUTION:
+				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_UNMAPPED_MODE_EXECUTION\nWhile running mode: ");
+				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
+				SDK::StringTool.AddString(Result, "You have run an unmapped mode. Make sure the mode is mapped.");
+				break;
+
 			case ERROR_TYPE_EXECUTED_MODE_EXECUTION:
 				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_EXECUTED_MODE_EXECUTION\nWhile running mode: ");
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
@@ -166,12 +172,6 @@ public:
 				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_PERMISSION_VIOLATION_SYSTEM_LAYER_ACCESS\nWhile running mode: ");
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
 				SDK::StringTool.AddString(Result, "You do not have permission to access the system layer.\nTo ensure safe system operation, access to the system interior is prohibited.");
-				break;
-
-			case ERROR_TYPE_UNMAPPED_MODE_EXECUTION:
-				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_UNMAPPED_MODE_EXECUTION\nWhile running mode: ");
-				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
-				SDK::StringTool.AddString(Result, "You have run an unmapped mode. Make sure the mode is mapped.");
 				break;
 			}
 		}
