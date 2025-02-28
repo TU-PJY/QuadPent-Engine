@@ -61,7 +61,7 @@ namespace SDK {
 		void Resume();
 
 		// Initialize the scene and enter start mode.
-		void Init(SDK::MODE_PTR ModeFunction);
+		void Init(SDK::MODE_PTR ModePtr);
 
 		// Register the mode name.
 		void RegisterModeName(std::string ModeName);
@@ -74,7 +74,7 @@ namespace SDK {
 		void RegisterController(SUBCLASSPROC Controller, int Type);
 
 		// Register a mode destructor with the Scene.
-		void RegisterDestructor(SDK::MODE_PTR DestructorFunction);
+		void RegisterDestructor(SDK::MODE_PTR ModeDestructorPtr);
 
 		// Register the mode controller input object list in Scene.
 		void RegisterInputObjectList(std::vector<SDK::Object*>& Vec);
@@ -89,11 +89,11 @@ namespace SDK {
 		void Render();
 
 		// Switch to a specific mode.
-		void SwitchMode(SDK::MODE_PTR ModeFunction, int SwitchOption=MODE_SWITCH_DEFAULT);
+		void SwitchMode(SDK::MODE_PTR ModePtr, int SwitchOption=MODE_SWITCH_DEFAULT);
 
 		// Start floating mode.Existing objects are not deleted.
 		// When true is specified for FloatingFocus, only floating objects are updated. This state is cleared when floating mode ends.
-		void StartFloatingMode(SDK::MODE_PTR ModeFunction, bool FloatingFocusFlag = false);
+		void StartFloatingMode(SDK::MODE_PTR ModePtr, bool FloatingFocusFlag = false);
 
 		// Exit floating mode.Floating objects are deleted, and regular objects are not deleted.
 		void EndFloatingMode();

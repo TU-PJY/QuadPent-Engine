@@ -81,14 +81,14 @@ void SDK::SDK_Scene::Render() {
 	}
 }
 
-void SDK::SDK_Scene::Init(SDK::MODE_PTR ModeFunction) {
-	ModeFunction();
+void SDK::SDK_Scene::Init(SDK::MODE_PTR ModePtr) {
+	ModePtr();
 	for (int Layer = 0; Layer < SceneLayer; ++Layer)
 		CommandLocation[Layer].reserve(DELETE_LOCATION_BUFFER_SIZE);
 }
 
-void SDK::SDK_Scene::SwitchMode(SDK::MODE_PTR ModeFunction, int SwitchOption) {
-	if (SwitchOption == MODE_SWITCH_DEFAULT && CurrentRunningModePtr == ModeFunction) {
+void SDK::SDK_Scene::SwitchMode(SDK::MODE_PTR ModePtr, int SwitchOption) {
+	if (SwitchOption == MODE_SWITCH_DEFAULT && CurrentRunningModePtr == ModePtr) {
 		SetErrorScreen(ERROR_TYPE_EXECUTED_MODE_EXECUTION, CurrentRunningModeName);
 		return;
 	}
@@ -98,7 +98,11 @@ void SDK::SDK_Scene::SwitchMode(SDK::MODE_PTR ModeFunction, int SwitchOption) {
 	if (DestructorBuffer)
 		DestructorBuffer();
 
-	ModeFunction();
+	if (!ModePtr) {
+		SetErrorScreen(ERROR_TYPE_UNMAPPED_MODE_EXECUTION, CurrentRunningModeName);
+		return;
+	}
+	ModePtr();
 
 	if (FloatingActivateCommand) {
 		FloatingActivateCommand = false;
@@ -108,8 +112,8 @@ void SDK::SDK_Scene::SwitchMode(SDK::MODE_PTR ModeFunction, int SwitchOption) {
 	LoopEscapeCommand = true;
 }
 
-void SDK::SDK_Scene::RegisterDestructor(SDK::MODE_PTR DestructorFunction) {
-	DestructorBuffer = DestructorFunction;
+void SDK::SDK_Scene::RegisterDestructor(SDK::MODE_PTR ModeDestructorPtr) {
+	DestructorBuffer = ModeDestructorPtr;
 }
 
 void SDK::SDK_Scene::RegisterModeName(std::string ModeName) {
@@ -134,15 +138,21 @@ void SDK::SDK_Scene::RegisterInputObjectList(std::vector<SDK::Object*>& Vec) {
 	InputObjectListPtr = &Vec;
 }
 
-void SDK::SDK_Scene::StartFloatingMode(SDK::MODE_PTR ModeFunction, bool FloatingFocusFlag) {
+void SDK::SDK_Scene::StartFloatingMode(SDK::MODE_PTR ModePtr, bool FloatingFocusFlag) {
 	if (FloatingActivateCommand) {
 		SetErrorScreen(ERROR_TYPE_EXECUTED_FLOATING_MODE_EXECUTUION, CurrentRunningModeName);
 		return;
 	}
 
+	if (!ModePtr) {
+		SetErrorScreen(ERROR_TYPE_UNMAPPED_MODE_EXECUTION, CurrentRunningModeName);
+		return;
+	}
+
+	ModePtr();
+
 	PrevRunningModeName = CurrentRunningModeName;
 	PrevRunningModePtr = CurrentRunningModePtr;
-	ModeFunction();
 	FloatingFocusCommand = FloatingFocusFlag;
 
 	FloatingActivateCommand = true;
@@ -418,7 +428,7 @@ void SDK::SDK_Scene::ClearAll() {
 }
 
 void ErrorScreenController(unsigned char Key, int X, int Y) {
-	if (Key == 27 || Key == 32)
+	if (Key == 27 || Key == 13)
 		SDK::System.Exit();
 }
 
