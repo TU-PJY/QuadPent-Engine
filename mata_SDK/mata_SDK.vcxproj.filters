@@ -538,6 +538,8 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="SDKResource\Icon\icon-mata.ico" />
+    <Image Include="SDKResource\Icon\icon-mata.ico">
+      <Filter>[7[___________[ API Resource ]</Filter>
+    </Image>
   </ItemGroup>
 </Project>
