@@ -3,18 +3,12 @@
 #include "SDK_Transform.h"
 #include "SDK_ComputeTool.h"
 #include "SDK_StringTool.h"
+#include "SDK_Scene.h"
 
 glm::mat4 TextMatrix;
 
-void SDK::Text::Init(SDK::FontName FontName, int Type, int Italic) {
-	hDC = wglGetCurrentDC();
-	FontBase = glGenLists(65536);
-
-	Font = CreateFont(
-		-1, 0, 0, 0, Type, Italic, FALSE, FALSE, DEFAULT_CHARSET, OUT_RASTER_PRECIS, CLIP_DEFAULT_PRECIS,
-		NONANTIALIASED_QUALITY, FF_DONTCARE | DEFAULT_PITCH, FontName
-	);
-
+void SDK::Text::Init(SDK::Font& FontResource) {
+	FontPtr = &FontResource;
 	LineLengthList.reserve(5);
 }
 
@@ -84,6 +78,11 @@ void SDK::Text::SetOpacity(float Value) {
 }
 
 void SDK::Text::Render(SDK::Vector2& Position, float Size, const wchar_t* Fmt, ...) {
+	if (!FontPtr || !FontPtr->Created) {
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_NOT_CREATED_FONT_RENDER, SDK::Scene.ModeName());
+		return;
+	}
+
 	if (Fmt == NULL)
 		return;
 
@@ -108,6 +107,11 @@ void SDK::Text::Render(SDK::Vector2& Position, float Size, const wchar_t* Fmt, .
 }
 
 void SDK::Text::Render(float X, float Y, float Size, const wchar_t* Fmt, ...) {
+	if (!FontPtr || !FontPtr->Created) {
+		SDK::Scene.SetErrorScreen(ERROR_TYPE_NOT_CREATED_FONT_RENDER, SDK::Scene.ModeName());
+		return;
+	}
+
 	if (Fmt == NULL)
 		return;
 
@@ -162,23 +166,6 @@ void SDK::Text::InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, f
 	ProcessText((wchar_t*)CurrentText.c_str(), Position, Size);
 }
 
-void SDK::Text::ComputeTextGlyph(wchar_t* Text) {
-	for (int i = 0; i < TextWordCount; ++i) {
-		if (GlyphCache.count(Text[i]) == 0) {
-			GlyphCache.insert(Text[i]);
-
-			if (Text[i] >= 65536)
-				continue;
-
-			HFONT OldFont = (HFONT)SelectObject(hDC, Font);
-			GLYPHMETRICSFLOAT Glyph;
-			wglUseFontOutlinesW(hDC, Text[i], 1, FontBase + Text[i], 0.0f, 0.0f, WGL_FONT_POLYGONS, &Glyph);
-			TextGlyph.emplace(Text[i], Glyph);
-			SelectObject(hDC, OldFont);
-		}
-	}
-}
-
 void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 	CurrentLine = 0;
 	TextRenderSize = Size;
@@ -187,7 +174,7 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 
 	if (CurrentText.compare(PrevText) != 0) {
 		TextWordCount = wcslen(Text);
-		ComputeTextGlyph(Text);
+		FontPtr->UpdateGlyph(Text, TextWordCount);
 		ComputeTextLength(Text);
 		PrevText = CurrentText;
 	}
@@ -226,12 +213,12 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 		PrepareRender();
 
 		glPushAttrib(GL_LIST_BIT);
-		glListBase(FontBase);
+		glListBase(FontPtr->FontList);
 		glCallLists(1, GL_UNSIGNED_SHORT, &Text[i]);
 		glPopAttrib();
 
-		if (Text[i] < 65536)
-			CurrentRenderOffset.x += TextGlyph[Text[i]].gmfCellIncX * (TextRenderSize / 1.0f);
+		if (Text[i] < FONT_LIST_GENERATE_SIZE)
+			CurrentRenderOffset.x += FontPtr->TextGlyph[Text[i]].gmfCellIncX * (TextRenderSize / 1.0f);
 	}
 }
 
@@ -247,8 +234,8 @@ void SDK::Text::ComputeTextLength(const wchar_t* Text) {
 		}
 
 		unsigned int CharIndex = Text[i];
-		if (CharIndex < 65536)
-			CurrentLineLength += TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
+		if (CharIndex < FONT_LIST_GENERATE_SIZE)
+			CurrentLineLength += FontPtr->TextGlyph[CharIndex].gmfCellIncX * (TextRenderSize / 1.0f);
 	}
 
 	if (CurrentLineLength > 0.0f)
@@ -291,12 +278,4 @@ void SDK::Text::PrepareRender() {
 	glUniform1f(TEXT_OPACITY_LOCATION, RenderOpacity);
 	glUniform3f(TEXT_COLOR_LOCATION, RenderColor.r, RenderColor.g, RenderColor.b);
 	glUniformMatrix4fv(TEXT_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(TextMatrix));
-}
-
-SDK::Text::~Text() {
-	HFONT OldFont = (HFONT)SelectObject(hDC, Font);
-	SelectObject(hDC, OldFont);
-	DeleteObject(Font);
-	glDeleteLists(FontBase, 65536);
-	DeleteDC(hDC);
 }

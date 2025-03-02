@@ -1,9 +1,17 @@
 #pragma once
 #include "SDK_Header.h"
+#include "SDK_Font.h"
 
 namespace SDK {
 	class Text {
 	private:
+		SDK::Font*               FontPtr{};
+
+		std::vector<wchar_t>     TextVec{};
+		int                      PrevSize{};
+		std::wstring             CurrentText{};
+		std::wstring             PrevText{};
+
 		SDK::Vector2             RenderPosition{};
 		SDK::Vector2             CurrentRenderOffset{};
 		float					 Rotation{};
@@ -15,8 +23,6 @@ namespace SDK {
 		float                    FixMiddleOffset{};
 
 		std::vector<float>		 LineLengthList{};
-		std::wstring             CurrentText{};
-		std::wstring             PrevText{};
 		int                      CurrentLine{};
 		int                      NumLine{};
 
@@ -31,22 +37,13 @@ namespace SDK {
 		glm::vec3                RenderColor{};
 		float					 RenderOpacity{};
 
-		HDC                      hDC{};
-		HFONT                    Font{};
-		unsigned int             FontBase{};
-		std::unordered_map <wchar_t, GLYPHMETRICSFLOAT> TextGlyph{};
-		std::unordered_set <wchar_t> GlyphCache{};
-		std::vector<wchar_t>     TextVec{};
-		int                      PrevSize{};
-
 		int                      TextAlign{ ALIGN_DEFAULT };
 		int                      RenderType{ RENDER_TYPE_STATIC };
 		int                      HeightAlign{ HEIGHT_ALIGN_DEFAULT };
 		bool                     FixMiddleCommand{};
 
 	public:
-		~Text();
-		void Init(SDK::FontName FontName, int Type=FW_DONTCARE, int Italic = FALSE);
+		void Init(SDK::Font& FontResource);
 		void SetColor(float R, float G, float B);
 		void SetColor(SDK::Color3& Color);
 		void SetColorRGB(int R, int G, int B);
@@ -71,7 +68,6 @@ namespace SDK {
 	private:
 		void ComputeTextLength(const wchar_t* Text);
 		void InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, float Size);
-		void ComputeTextGlyph(wchar_t* Text);
 		void ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size);
 		void TransformText();
 		void PrepareRender();

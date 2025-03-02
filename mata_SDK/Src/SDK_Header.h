@@ -224,7 +224,6 @@ namespace SDK {
 
 	extern const glm::mat4 IDENTITY_MATRIX;
 	extern std::wstring SYSTEM_LOCALE;
-	constexpr FontName SYSTEM_FONT = L"Roboto";
 }
 
 // global scope shader
@@ -380,6 +379,7 @@ enum SDK_SystemErrorType {
 	ERROR_TYPE_DATA_FILE_DATA_LOAD,
 	ERROR_TYPE_DATA_FILE_DATA_WRITE,
 	ERROR_TYPE_DATA_FILE_CATEGORY,
+	ERROR_TYPE_NOT_CREATED_FONT_RENDER,
 
 	// critical error types
 	ERROR_TYPE_UNMAPPED_MODE_EXECUTION,

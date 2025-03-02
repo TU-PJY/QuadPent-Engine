@@ -36,9 +36,13 @@ public:
 			SDK::SoundTool.Init();
 
 			SDK::FontLoader.Load(SDK::SYSRES.SDK_FONT_DIRECTORY);
+			SDK::SYSRES.SYSTEM_FONT_REGULAR.Create(L"Roboto");
+			SDK::SYSRES.SYSTEM_FONT_BOLD.Create(L"Roboto", FW_BOLD);
+
 			SDK::ImageTool.LoadImage(SDK::SYSRES.LOADING_SPINNER, SDK::SYSRES.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 			SDK::ImageTool.LoadImage(SDK::SYSRES.MATA_LOGO, SDK::SYSRES.MATA_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 			SDK::ResourcePreLoader();
+			std::cout << "Resources pre-loaded." << std::endl;
 
 			SDK::ThreadTool.Create(SystemResourceLoadHandle, SystemResourceLoader);
 
@@ -130,6 +134,10 @@ public:
 		if (!FontResourceLoadEnd && !SDK::ThreadTool.CheckAlive(FontResourceLoadHandle)) {
 			SDK::ThreadTool.Close(FontResourceLoadHandle);
 			std::cout << "Font resource load completed." << std::endl;
+
+			SDK::FontResourceCreator();
+			std::cout << "Font resources created." << std::endl;
+
 			FontResourceLoadEnd = true;
 		}
 

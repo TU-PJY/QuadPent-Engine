@@ -1,5 +1,6 @@
 #pragma once
 #include "SDK_Header.h"
+#include "SDK_Font.h"
 namespace SDK {
 	struct SDK_SYSTEM_RESOURCE {
 		const char* SDK_LOGO_SOUND_DIRECTORY = "SDKResource//Sound//sound-logo.wav";
@@ -20,6 +21,9 @@ namespace SDK {
 		GLUquadric* GLU_LINE_CIRCLE{};
 
 		SDK::Sound INTRO_SOUND{};
+
+		SDK::Font SYSTEM_FONT_REGULAR{};
+		SDK::Font SYSTEM_FONT_BOLD{};
 	};
 
 	extern SDK_SYSTEM_RESOURCE SYSRES;

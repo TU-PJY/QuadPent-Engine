@@ -55,11 +55,11 @@ public:
 		LineRect.SetRenderType(RENDER_TYPE_STATIC);
 		LineRect.SetColorRGB(45, 45, 45);
 
-		Message.Init(SDK::SYSTEM_FONT, FW_DONTCARE);
+		Message.Init(SDK::SYSRES.SYSTEM_FONT_REGULAR);
 		Message.SetColor(1.0, 1.0, 1.0);
 		Message.SetLineGap(0.01);
 
-		if (ERROR_TYPE_IMAGE_LOAD <= ErrorType && ErrorType <= ERROR_TYPE_DATA_FILE_CATEGORY) {
+		if (ERROR_TYPE_IMAGE_LOAD <= ErrorType && ErrorType <= ERROR_TYPE_NOT_CREATED_FONT_RENDER) {
 			PlaySoundW(TEXT("SDKResource\\Sound\\sound-error.wav"), NULL, SND_FILENAME | SND_ASYNC);
 			Result = "An error occurred in the mata_SDK system.\n\n";
 		}
@@ -119,6 +119,14 @@ public:
 				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
 				SDK::StringTool.AddString(Result, "The category may be missed.\nMake sure the data file's category is correct.");
 				break;
+
+			case ERROR_TYPE_NOT_CREATED_FONT_RENDER:
+				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_NOT_CREATED_FONT_RENDER\nWhile running mode: ");
+				SDK::StringTool.AddString(Result, ErrorValue1 + "\n\n");
+				SDK::StringTool.AddString(Result, "Make sure the font was created.\nMake sure you have mapped the font in your text object.");
+				break;
+
+				/////////////////////////////////////////////////////
 
 			case ERROR_TYPE_UNMAPPED_MODE_EXECUTION:
 				SDK::StringTool.AddString(Result, "Error Type: ERROR_TYPE_UNMAPPED_MODE_EXECUTION\nWhile running mode: ");

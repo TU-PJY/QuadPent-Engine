@@ -34,6 +34,9 @@ constexpr int FRAME_LIMITS = 0;
 // When enabled, the GPU computes matrices. When disabled, the CPU computes matrices.
 constexpr bool USE_COMPUTE_SHADER = false;
 
+// Set the size of the list to be created from the font object.
+constexpr int FONT_LIST_GENERATE_SIZE = 65536;
+
 
 
 //////////////////////////////////// Development options

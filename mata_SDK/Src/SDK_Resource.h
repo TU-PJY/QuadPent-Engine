@@ -42,7 +42,7 @@ namespace SDK {
 	};
 
 	// Declare the global font name here.
-	struct SDK_FONT_NAME_RESOURCE {
+	struct SDK_FONT_RESOURCE {
 
 	};
 
@@ -52,9 +52,15 @@ namespace SDK {
 	extern SDK_GLOBAL_RESOURCE GLOBAL;
 	extern SDK_FORMAT_RESOURCE FORMAT;
 	extern SDK_FILE_RESOURCE FILE;
-	extern SDK_FONT_NAME_RESOURCE FONTNAME;
+	extern SDK_FONT_RESOURCE FONT;
 
 	////////////////////////////////////////////////////////////////////////////////////////
+	// 
+	// Use LoadImage(), LoadClip(), and LoadSpriteSheet() to load image files and sprite sheets in this thread.
+	inline void ResourcePreLoader() {
+		// Pre load resources here
+
+	}
 
 	// Use LoadImageT(), LoadClipT(), and LoadSpriteSheetT() to load image files and sprite sheets in this thread.
 	inline DWORD WINAPI ImageResourceLoader(LPVOID lpParam) {
@@ -81,9 +87,8 @@ namespace SDK {
 		return 0;
 	}
 
-	// Use LoadImage(), LoadClip(), and LoadSpriteSheet() to load image files and sprite sheets in this thread.
-	inline void ResourcePreLoader() {
-		// Pre load resources here
-		
+	inline void FontResourceCreator() {
+		// create font resources here
+
 	}
 }

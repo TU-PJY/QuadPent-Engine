@@ -151,6 +151,7 @@
     <ClCompile Include="Src\SDK_ComputeTool.cpp" />
     <ClCompile Include="Src\SDK_Data.cpp" />
     <ClCompile Include="Src\SDK_EXTool.cpp" />
+    <ClCompile Include="Src\SDK_Font.cpp" />
     <ClCompile Include="Src\SDK_FontLoader.cpp" />
     <ClCompile Include="Src\SDK_Frustum.cpp" />
     <ClCompile Include="Src\Library\tinyxml\tinystr.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Src\SDK_ComputeTool.h" />
     <ClInclude Include="Src\SDK_EnumValue.h" />
     <ClInclude Include="Src\SDK_ErrorMessage.h" />
+    <ClInclude Include="Src\SDK_Font.h" />
     <ClInclude Include="Src\SDK_FPSIndicator.h" />
     <ClInclude Include="Src\SDK_Data.h" />
     <ClInclude Include="Src\SDK_EXTool.h" />
