@@ -26,15 +26,17 @@ namespace SDK {
 		int                      CurrentLine{};
 		int                      NumLine{};
 
+		bool                     ShadowRenderState{};
 		float					 TextOpacity{ 1.0f };
-		glm::vec3                TextColor{ glm::vec3(1.0, 1.0, 1.0) };
+		SDK::Color3              TextColor{ SDK::Color3(1.0, 1.0, 1.0) };
+		SDK::Color3				 MacroColor{ SDK::Color3(1.0, 1.0, 1.0) };
 
 		bool                     ShadowRenderCommand{};
 		float					 ShadowOpacity{};
 		SDK::Vector2             ShadowOffset{};
-		glm::vec3                ShadowColor{};
+		SDK::Color3              ShadowColor{};
 
-		glm::vec3                RenderColor{};
+		SDK::Color3              RenderColor{};
 		float					 RenderOpacity{};
 
 		int                      TextAlign{ ALIGN_DEFAULT };
@@ -47,6 +49,9 @@ namespace SDK {
 		void SetColor(float R, float G, float B);
 		void SetColor(SDK::Color3& Color);
 		void SetColorRGB(int R, int G, int B);
+		void SetMacroColor(SDK::Color3& Color);
+		void SetMacroColor(float R, float G, float B);
+		void SetMacroColorRGB(int R, int G, int B);
 		void SetAlign(int AlignOpt);
 		void SetLineGap(float Value);
 		void EnableFixMiddle();
@@ -69,6 +74,7 @@ namespace SDK {
 		void ComputeTextLength(const wchar_t* Text);
 		void InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, float Size);
 		void ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size);
+		bool CheckMacro(wchar_t*& Text, int& IndexValue);
 		void TransformText();
 		void PrepareRender();
 	};

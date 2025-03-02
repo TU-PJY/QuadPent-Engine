@@ -69,6 +69,22 @@ void SDK::Text::SetColorRGB(int R, int G, int B) {
 	TextColor.b = (1.0f / 255.0f) * (float)B;
 }
 
+void SDK::Text::SetMacroColor(SDK::Color3& Color) {
+	MacroColor = Color;
+}
+
+void SDK::Text::SetMacroColor(float R, float G, float B) {
+	MacroColor.r = R;
+	MacroColor.g = G;
+	MacroColor.b = B;
+}
+
+void SDK::Text::SetMacroColorRGB(int R, int G, int B) {
+	MacroColor.r = (1.0f / 255.0f) * (float)R;
+	MacroColor.g = (1.0f / 255.0f) * (float)G;
+	MacroColor.b = (1.0f / 255.0f) * (float)B;
+}
+
 void SDK::Text::Rotate(float RotationValue) {
 	Rotation = RotationValue;
 }
@@ -156,10 +172,13 @@ void SDK::Text::InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, f
 	CurrentText = Input.data();
 
 	if (ShadowRenderCommand) {
+		ShadowRenderState = true;
 		RenderColor = ShadowColor;
 		RenderOpacity = TextOpacity * ShadowOpacity;
 		ProcessText((wchar_t*)CurrentText.c_str(), SDK::Vector2(Position.x + ShadowOffset.x * Size, Position.y + ShadowOffset.y * Size), Size);
 	}
+
+	ShadowRenderState = false;
 
 	RenderColor = TextColor;
 	RenderOpacity = TextOpacity;
@@ -197,16 +216,8 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 	}
 
 	for (int i = 0; i < TextWordCount; ++i) {
-		if (Text[i] == L'\n') {
-			CurrentRenderOffset.x = 0.0;
-			CurrentRenderOffset.y -= (TextLineGap + TextRenderSize);
-
-			if (TextAlign != ALIGN_DEFAULT) {
-				++CurrentLine;
-				TextLength = LineLengthList[CurrentLine];
-			}
+		if (CheckMacro(Text, i)) 
 			continue;
-		}
 
 		TransformText();
 		Camera.SetCamera(RenderType);
@@ -220,6 +231,146 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 		if (Text[i] < FONT_LIST_GENERATE_SIZE)
 			CurrentRenderOffset.x += FontPtr->TextGlyph[Text[i]].gmfCellIncX * (TextRenderSize / 1.0f);
 	}
+}
+
+bool SDK::Text::CheckMacro(wchar_t*& Text, int& Index) {
+	if (Text[Index] == L'\n') {
+		CurrentRenderOffset.x = 0.0;
+		CurrentRenderOffset.y -= (TextLineGap + TextRenderSize);
+
+		if (TextAlign != ALIGN_DEFAULT) {
+			++CurrentLine;
+			TextLength = LineLengthList[CurrentLine];
+		}
+
+		return true;
+	}
+
+	else if (Text[Index] == L'\\' && Index + 1 < TextWordCount) {
+		switch (Text[Index + 1]) {
+		case L'P':
+			if (ShadowRenderState) {
+				Index += 1;
+				return true;
+			}
+			else {
+				RenderColor = MacroColor;
+				Index += 1;
+				return true;
+			}
+			break;
+
+		case L'R':
+			if (ShadowRenderState) {
+				Index += 1;
+				return true;
+			}
+			else {
+				RenderColor = SDK::Color3(1.0, 0.0, 0.0);
+				Index += 1;
+				return true;
+			}
+			break;
+
+		case L'G':
+			if (ShadowRenderState) {
+				Index += 1;
+				return true;
+			}
+			else {
+				RenderColor = SDK::Color3(0.0, 1.0, 0.0);
+				Index += 1;
+				return true;
+			}
+			break;
+
+		case L'B':
+			if (ShadowRenderState) {
+				Index += 1;
+				return true;
+			}
+			else {
+				RenderColor = SDK::Color3(0.0, 0.0, 1.0);
+				Index += 1;
+				return true;
+			}
+			break;
+
+		case L'Y':
+			if (ShadowRenderState) {
+				Index += 1;
+				return true;
+			}
+			else {
+				RenderColor = SDK::Color3(1.0, 1.0, 0.0);
+				Index += 1;
+				return true;
+			}
+			break;
+
+		case L'C':
+			if (ShadowRenderState) {
+				Index += 1;
+				return true;
+			}
+			else {
+				RenderColor = SDK::Color3(0.0, 1.0, 1.0);
+				Index += 1;
+				return true;
+			}
+			break;
+
+		case L'M':
+			if (ShadowRenderState) {
+				Index += 1;
+				return true;
+			}
+			else {
+				RenderColor = SDK::Color3(1.0, 0.0, 1.0);
+				Index += 1;
+				return true;
+			}
+			break;
+
+		case L'K':
+			if (ShadowRenderState) {
+				Index += 1;
+				return true;
+			}
+			else {
+				RenderColor = SDK::Color3(0.0, 0.0, 0.0);
+				Index += 1;
+				return true;
+			}
+			break;
+
+		case L'W':
+			if (ShadowRenderState) {
+				Index += 1;
+				return true;
+			}
+			else {
+				RenderColor = SDK::Color3(1.0, 1.0, 1.0);
+				Index += 1;
+				return true;
+			}
+			break;
+
+		case L'E':
+			if (ShadowRenderState) {
+				Index += 1;
+				return true;
+			}
+			else {
+				RenderColor = TextColor;
+				Index += 1;
+				return true;
+			}
+			break;
+		}
+	}
+
+	return false;
 }
 
 void SDK::Text::ComputeTextLength(const wchar_t* Text) {
