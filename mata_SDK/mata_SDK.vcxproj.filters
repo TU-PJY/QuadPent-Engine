@@ -184,6 +184,9 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Text ]\[ Font ]">
       <UniqueIdentifier>{7a0197c5-b554-41ed-8f0c-cd00a83ce428}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[7[___________[ API Resource ]">
+      <UniqueIdentifier>{dd4071a8-b834-4a09-86b3-ada6ee4f3823}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Library\tinyxml\tinystr.cpp">
@@ -458,6 +461,9 @@
     <ClInclude Include="Src\SDK_Font.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Text ]\[ Font ]</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>[7[___________[ API Resource ]</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ModeTemplate.txt">
@@ -525,5 +531,13 @@
     <None Include="SDKResource\GLSL\4.6\Fragment_Image.glsl">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.6 ]</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>[7[___________[ API Resource ]</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="SDKResource\Icon\icon-mata.ico" />
   </ItemGroup>
 </Project>

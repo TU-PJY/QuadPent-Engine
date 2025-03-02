@@ -92,8 +92,8 @@ void SDK::SDK_System::SetupWindow() {
 	if (!WINDOW_ICON_PATH.empty() && SDK::System_HWND) {
 		HICON Icon[1]{};
 		if (ExtractIconEx(WINDOW_TITLE_BAR_ICON_FILE_PATH, 0, &Icon[0], NULL, 1) > 0) {
-			SendMessage(SDK::System_HWND, WM_SETICON, ICON_SMALL, (LPARAM)Icon[0]);
-			SendMessage(SDK::System_HWND, WM_SETICON, ICON_BIG, (LPARAM)Icon[0]);
+			PostMessage(SDK::System_HWND, WM_SETICON, ICON_SMALL, (LPARAM)Icon[0]);
+			PostMessage(SDK::System_HWND, WM_SETICON, ICON_BIG, (LPARAM)Icon[0]);
 		}
 	}
 }
