@@ -17,7 +17,6 @@ SDK::SDK_Camera SDK::Camera;
 
 float SDK::Aspect;
 SDK::ViewportRect SDK::WindowRect;
-const glm::mat4 SDK::IDENTITY_MATRIX = glm::mat4(1.0f);
 
 SDK::SDK_SYSTEM_RESOURCE SDK::SYSRES;
 SDK::SDK_IMAGE_RESOURCE SDK::IMAGE;
@@ -29,11 +28,12 @@ SDK::SDK_FILE_RESOURCE SDK::FILE;
 SDK::SDK_FONT_RESOURCE SDK::FONT;
 SDK::SDK_MODE_RESOURCE SDK::MODE;
 
-std::wstring SDK::SYSTEM_LOCALE;
 SDK::START_MODE_PTR SDK::START_MODE;
 
 HWND SDK::System_HWND;
 bool SDK::System_ClippingState;
+std::wstring SDK::SYSTEM_LOCALE;
+std::string SDK::USER_DOCUMENT_PATH = std::filesystem::path(std::getenv("USERPROFILE")).string();
 
 int InitializedMajorVersion, InitializedMinorVersion;
 

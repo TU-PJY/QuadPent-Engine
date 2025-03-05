@@ -221,11 +221,13 @@ namespace SDK {
 	extern int WindowWidth, WindowHeight;
 	extern int PrevWindowWidth, PrevWindowHeight;
 
+	constexpr glm::mat4 IDENTITY_MATRIX = glm::mat4(1.0f);
+
 	extern HWND System_HWND;
 	extern bool System_ClippingState;
 
-	extern const glm::mat4 IDENTITY_MATRIX;
 	extern std::wstring SYSTEM_LOCALE;
+	extern std::string USER_DOCUMENT_PATH;
 }
 
 // global scope shader
