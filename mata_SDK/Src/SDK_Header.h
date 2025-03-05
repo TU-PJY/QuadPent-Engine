@@ -162,6 +162,8 @@ namespace SDK {
 	using DigitDataVec = std::vector<float>;
 	using DataFormat = std::vector<FileData>;
 
+	using ThreadHandle = HANDLE;
+
 	// SinLoop presets
 	namespace Preset {
 		constexpr float ZeroToPositive = 0.0;

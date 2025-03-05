@@ -12,8 +12,8 @@ constexpr const char* WINDOW_NAME = "mata_SDK 7";
 constexpr const wchar_t* WINDOW_TITLE_BAR_ICON_FILE_PATH = L"SDKResource//Icon//icon-mata.ico";
 
 // window size
-constexpr int WINDOW_WIDTH = 1200;
-constexpr int WINDOW_HEIGHT = 800;
+constexpr int WINDOW_WIDTH = 1000;
+constexpr int WINDOW_HEIGHT = 500;
 
 // fullscreen option
 constexpr bool FULL_SCREEN_OPTION = false;

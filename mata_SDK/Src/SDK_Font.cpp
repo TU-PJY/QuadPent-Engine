@@ -1,6 +1,6 @@
 #include "SDK_Font.h"
 
-void SDK::Font::Create(wchar_t* FontName, int FontType, int Italic) {
+void SDK::Font::Init(wchar_t* FontName, int FontType, int Italic) {
 	hDC = wglGetCurrentDC();
 	FontList = glGenLists(FONT_LIST_GENERATE_SIZE);
 

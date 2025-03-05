@@ -40,13 +40,17 @@ public:
 		int WheelDelta{};
 		int MouseEvent{ EVENT_NONE };
 
-		POINT CursorPosition;
-		if (GetCursorPos(&CursorPosition)) {
-			ScreenToClient(Hwnd, &CursorPosition);
-			SDK::Mouse.ConvertPosition(CursorPosition.x, CursorPosition.y);
-		}
-
 		switch (Message) {
+		case WM_MOUSEMOVE: 
+		{
+			POINT CursorPosition;
+			if (GetCursorPos(&CursorPosition)) {
+				ScreenToClient(Hwnd, &CursorPosition);
+				SDK::Mouse.ConvertPosition(CursorPosition.x, CursorPosition.y);
+			}
+		}
+			break;
+
 		case WM_LBUTTONDOWN:
 			MouseEvent = LEFT_BUTTON_DOWN; break;
 		case WM_RBUTTONDOWN:
@@ -99,8 +103,10 @@ public:
 			break;
 		}
 
-		for (auto const& Object : M_Inst->InputObject)
-			if (Object)  Object->InputMouse(MouseEvent);
+		if (MouseEvent != EVENT_NONE) {
+			for (auto const& Object : M_Inst->InputObject)
+				if (Object)  Object->InputMouse(MouseEvent);
+		}
 
 		return DefSubclassProc(Hwnd, Message, wParam, lParam);
 	}

@@ -313,11 +313,11 @@ size_t SDK::SDK_Scene::LayerSize(unsigned int TargetLayer) {
 	return ObjectList[TargetLayer].size();
 }
 
-void SDK::SDK_Scene::DeleteTag(SDK::Object* Object) {
+void SDK::SDK_Scene::EraseTag(SDK::Object* Object) {
 	Object->ObjectTag = "";
 }
 
-void SDK::SDK_Scene::DeleteTag(std::string Tag) {
+void SDK::SDK_Scene::EraseTag(std::string Tag) {
 	auto Object = Find(Tag);
 	if (Object)
 		Object->ObjectTag = "";
@@ -372,9 +372,6 @@ void SDK::SDK_Scene::UpdateObjectList() {
 
 	for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 		size_t Size = CommandLocation[Layer].size();
-		if (Size == 0)
-			continue;
-
 		for (int i = 0; i < Size; ++i) {
 			auto Object = begin(ObjectList[Layer]) + CommandLocation[Layer][i] - Offset;
 

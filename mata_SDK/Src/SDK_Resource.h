@@ -6,7 +6,7 @@
 #include "SDK_Script.h"
 #include "SDK_Data.h"
 #include "SDK_FontLoader.h"
-#include "SDK_Text.h"
+#include "SDK_Font.h"
 
 namespace SDK {
 	// Declare the sprite resource here. 
@@ -41,18 +41,18 @@ namespace SDK {
 
 	};
 
-	// Declare the global font name here.
+	// Declare the font here.
 	struct SDK_FONT_RESOURCE {
 
 	};
 
-	extern SDK_IMAGE_RESOURCE IMAGE;
-	extern SDK_SOUND_RESOURCE SOUND;
+	extern SDK_IMAGE_RESOURCE         IMAGE;
+	extern SDK_SOUND_RESOURCE         SOUND;
 	extern SDK_SOUND_CHANNEL_RESOURCE CHANNEL;
-	extern SDK_GLOBAL_RESOURCE GLOBAL;
-	extern SDK_FORMAT_RESOURCE FORMAT;
-	extern SDK_FILE_RESOURCE FILE;
-	extern SDK_FONT_RESOURCE FONT;
+	extern SDK_GLOBAL_RESOURCE        GLOBAL;
+	extern SDK_FORMAT_RESOURCE        FORMAT;
+	extern SDK_FILE_RESOURCE          FILE;
+	extern SDK_FONT_RESOURCE          FONT;
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	// 
@@ -87,8 +87,8 @@ namespace SDK {
 		return 0;
 	}
 
-	inline void FontResourceCreator() {
-		// create font resources here
+	inline void FontResourceInitializer() {
+		// initialize font objects here
 
 	}
 }

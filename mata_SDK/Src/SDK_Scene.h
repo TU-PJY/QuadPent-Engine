@@ -53,7 +53,7 @@ namespace SDK {
 		// Return current running mode's pointer.
 		SDK::MODE_PTR Mode();
 
-		//  Stop updating the scene.
+		// Stop updating the scene.
 		void Stop();
 
 		// Resume scene updates.
@@ -131,23 +131,16 @@ namespace SDK {
 		SDK::Object* FindMulti(std::string Tag, unsigned int SearchLayer, int Index);
 
 		// Removes the object tag for a specific object.
-		void DeleteTag(SDK::Object* Object);
-
-		void DeleteTag(std::string Tag);
+		void EraseTag(SDK::Object* Object);
+		void EraseTag(std::string Tag);
 
 		// 	Returns the number of objects present in a specific Scene layer.
 		size_t LayerSize(unsigned int TargetLayer);
 
-		// Checks the state of an object and takes action appropriate to the state.
 		void CompleteCommand();
-
-		// When an error occurs, it switches to the error screen and stops the system.
 		void SetErrorScreen(int ErrorType, std::string Value1, std::string Value2 = "");
-
 		SDK::Object* AddSystemObject(SDK::Object* Object);
-
 		void LockSystemLayer();
-
 		void UnlockSystemLayer();
 
 	private:

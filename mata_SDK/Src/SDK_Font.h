@@ -4,8 +4,8 @@
 namespace SDK {
 	class Font {
 	private:
-		HDC                      hDC{};
-		HFONT                    FontData{};
+		HDC                          hDC{};
+		HFONT                        FontData{};
 		std::unordered_set <wchar_t> GlyphCache{};
 
 	public:
@@ -13,7 +13,7 @@ namespace SDK {
 		unsigned int             FontList{};
 		std::unordered_map <wchar_t, GLYPHMETRICSFLOAT> TextGlyph{};
 
-		void Create(wchar_t* FontName, int FontType = FW_DONTCARE, int Italic = FALSE);
+		void Init(wchar_t* FontName, int FontType = FW_DONTCARE, int Italic = FALSE);
 		void UpdateGlyph(wchar_t*& Text, int TextWordCount);
 	};
 }

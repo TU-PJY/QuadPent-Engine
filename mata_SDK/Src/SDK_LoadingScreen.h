@@ -9,15 +9,15 @@
 
 class SDK_LoadingScreen : public SDK::Object {
 private:
-	HANDLE  SystemResourceLoadHandle{};
 	bool    LoadStart{};
+
+	SDK::ThreadHandle  SystemResourceLoadHandle{};
+	SDK::ThreadHandle  ImageResourceLoadHandle{};
+	SDK::ThreadHandle  SoundResourceLoadHandle{};
+	SDK::ThreadHandle  DataResourceLoadHandle{};
+	SDK::ThreadHandle  FontResourceLoadHandle{};
+
 	bool    SystemResourceLoadEnd{};
-
-	HANDLE  ImageResourceLoadHandle{};
-	HANDLE  SoundResourceLoadHandle{};
-	HANDLE  DataResourceLoadHandle{};
-	HANDLE  FontResourceLoadHandle{};
-
 	bool    ImageResourceLoadEnd{};
 	bool    SoundResourceLoadEnd{};
 	bool    DataResourceLoadEnd{};
@@ -36,8 +36,8 @@ public:
 			SDK::SoundTool.Init();
 
 			SDK::FontLoader.Load(SDK::SYSRES.SDK_FONT_DIRECTORY);
-			SDK::SYSRES.SYSTEM_FONT_REGULAR.Create(L"Roboto");
-			SDK::SYSRES.SYSTEM_FONT_BOLD.Create(L"Roboto", FW_BOLD);
+			SDK::SYSRES.SYSTEM_FONT_REGULAR.Init(L"Roboto");
+			SDK::SYSRES.SYSTEM_FONT_BOLD.Init(L"Roboto", FW_BOLD);
 
 			SDK::ImageTool.LoadImage(SDK::SYSRES.LOADING_SPINNER, SDK::SYSRES.SDK_LOADING_SPINNER_DIRECTORY, IMAGE_TYPE_LINEAR);
 			SDK::ImageTool.LoadImage(SDK::SYSRES.MATA_LOGO, SDK::SYSRES.MATA_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
@@ -102,7 +102,7 @@ public:
 	}
 
 	bool LoadResources() {
-		if (!SDK::ThreadTool.CheckAlive(SystemResourceLoadHandle) && !SystemResourceLoadEnd) {
+		if (!SystemResourceLoadEnd && !SDK::ThreadTool.CheckRunning(SystemResourceLoadHandle)) {
 			SDK::ThreadTool.Close(SystemResourceLoadHandle);
 			SDK::ThreadTool.Create(ImageResourceLoadHandle, SDK::ImageResourceLoader);
 			SDK::ThreadTool.Create(SoundResourceLoadHandle, SDK::SoundResourceLoader);
@@ -113,29 +113,29 @@ public:
 			SystemResourceLoadEnd = true;
 		}
 
-		if (!ImageResourceLoadEnd && !SDK::ThreadTool.CheckAlive(ImageResourceLoadHandle)) {
+		if (!ImageResourceLoadEnd && !SDK::ThreadTool.CheckRunning(ImageResourceLoadHandle)) {
 			SDK::ThreadTool.Close(ImageResourceLoadHandle);
 			std::cout << "Image resource load completed." << std::endl;
 			ImageResourceLoadEnd = true;
 		}
 
-		if (!SoundResourceLoadEnd && !SDK::ThreadTool.CheckAlive(SoundResourceLoadHandle)) {
+		if (!SoundResourceLoadEnd && !SDK::ThreadTool.CheckRunning(SoundResourceLoadHandle)) {
 			SDK::ThreadTool.Close(SoundResourceLoadHandle);
 			std::cout << "Sound resource load completed." << std::endl;
 			SoundResourceLoadEnd = true;
 		}
 
-		if (!DataResourceLoadEnd && !SDK::ThreadTool.CheckAlive(DataResourceLoadHandle)) {
+		if (!DataResourceLoadEnd && !SDK::ThreadTool.CheckRunning(DataResourceLoadHandle)) {
 			SDK::ThreadTool.Close(DataResourceLoadHandle);
 			std::cout << "Data resource load completed." << std::endl;
 			DataResourceLoadEnd = true;
 		}
 
-		if (!FontResourceLoadEnd && !SDK::ThreadTool.CheckAlive(FontResourceLoadHandle)) {
+		if (!FontResourceLoadEnd && !SDK::ThreadTool.CheckRunning(FontResourceLoadHandle)) {
 			SDK::ThreadTool.Close(FontResourceLoadHandle);
 			std::cout << "Font resource load completed." << std::endl;
 
-			SDK::FontResourceCreator();
+			SDK::FontResourceInitializer();
 			std::cout << "Font resources created." << std::endl;
 
 			FontResourceLoadEnd = true;

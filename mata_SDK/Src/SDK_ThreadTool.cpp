@@ -2,11 +2,14 @@
 
 SDK::SDK_ThreadTool SDK::ThreadTool;
 
-void SDK::SDK_ThreadTool::Create(HANDLE& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param) {
+void SDK::SDK_ThreadTool::Create(SDK::ThreadHandle& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param) {
 	HandleValue = CreateThread(NULL, 0, ThreadFunction, Param, 0, NULL);
 }
 
-bool SDK::SDK_ThreadTool::CheckAlive(HANDLE& HandleValue) {
+bool SDK::SDK_ThreadTool::CheckRunning(SDK::ThreadHandle& HandleValue) {
+	if (!HandleValue)
+		return false;
+
 	DWORD Result;
 	GetExitCodeThread(HandleValue, &Result);
 
@@ -16,7 +19,7 @@ bool SDK::SDK_ThreadTool::CheckAlive(HANDLE& HandleValue) {
 	return false;
 }
 
-void SDK::SDK_ThreadTool::Close(HANDLE& HandleValue) {
+void SDK::SDK_ThreadTool::Close(SDK::ThreadHandle& HandleValue) {
 	if(HandleValue)
 		CloseHandle(HandleValue);
 }
