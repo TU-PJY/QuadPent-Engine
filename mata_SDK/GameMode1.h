@@ -1,7 +1,6 @@
 #pragma once
 #include <SDK_ModeHeader.h>
 
-
 class GameMode1 {
 public:
 	// define mode name and mode type here

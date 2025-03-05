@@ -1,10 +1,10 @@
 #pragma once
-// mata_SDK 7.5
+// mata_SDK 7.6
 // OpenGL version 4.3 ~ 4.6
 
 //////////////////////////////////// Window options
 // window name
-constexpr const char* WINDOW_NAME = "mata_SDK 7";
+constexpr const char* WINDOW_NAME = "mata_SDK 7.6";
 
 // window icon file path
 // Enter the path to the icon file to use in the Windows title bar. 
@@ -24,6 +24,12 @@ constexpr bool DISABLE_ALT_EVENT = true;
 
 
 //////////////////////////////////// SDK options
+// Application version
+// Example:
+// APPLICATION_MAJOR_VERSION = 1; APPLICATION_MINOR_VERSION = 0; --> 1.0
+constexpr int APPLICATION_MAJOR_VERSION = 1;
+constexpr int APPLICATION_MINOR_VERSION = 0;
+
 // intro screen option
 constexpr bool ENABLE_INTRO_SCREEN = true;
 
@@ -95,9 +101,6 @@ constexpr int BLUR_EXECUTION = 10;
 
 
 //////////////////////////////////// File security Options
-// Application version
-constexpr float APPLICATION_VERSION = 1.0;
-
 // Data file security option
 // When this option is activated, the data file is saved as an encrypted file.
 // When this option is disabled, the data file is saved as an xml file.

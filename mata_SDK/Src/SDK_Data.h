@@ -1,7 +1,6 @@
 #pragma once
 #include "SDK_Header.h"
 
-
 // write and read
 namespace SDK {
 	class Data {
@@ -11,11 +10,12 @@ namespace SDK {
 		TiXmlElement* Root{};
 
 		DataFormat    DataFormatInfo{};
-
-		bool          FileExist{};
+		std::vector<FileData> Buffer{};
 
 		std::string   CategorySearch{};
 		std::string   DataSearch{};
+
+		bool          FileExist{};
 
 	public:
 		Data() {}
@@ -33,9 +33,9 @@ namespace SDK {
 
 	private:
 		void SetupData();
-		void CheckDataVersion();
-		void UpdateDataVersion(float VersionValue);
-		void CreateDec(float VersionValue);
+		void CheckVersion();
+		void UpdateVersion();
+		void CreateDec();
 		void AddRoot(std::string RootName);
 		void AddCategory(std::string CategoryName);
 		void AddDigitData(std::string CategoryName, std::string DataName, float Value);
@@ -49,7 +49,7 @@ namespace SDK {
 		bool CheckCategoryExist(std::string CategoryName);
 		bool Data::CheckDataExist(std::string CategoryName, std::string DataName);
 		bool LoadDataFile(std::string FileName);
-		void UpdateDataFile();
+		void SaveDataChanges();
 		std::string Encrypt(const std::string& PlainText, const byte Key[], const byte IV[]);
 		std::string Decrypt(const std::string& CipherText, const byte Key[], const byte IV[]);
 		std::string GetFileName(const std::string& FileDirectory);

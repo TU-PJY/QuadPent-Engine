@@ -22,7 +22,7 @@ void SDK::Data::Load(std::string FileDirectory, DataFormat Fmt) {
 	}
 
 	Root = FindRoot();
-	CheckDataVersion();
+	CheckVersion();
 	std::cout << "File util opened file: " << FilePath << std::endl;
 	FileExist = true;
 }
@@ -31,14 +31,14 @@ void SDK::Data::UpdateDigitData(std::string CategoryName, std::string DataName, 
 	CategorySearch = CategoryName;
 	DataSearch = DataName;
 	WriteDigitData(FindCategory(CategoryName), DataName, Value);
-	UpdateDataFile();
+	SaveDataChanges();
 }
 
 void SDK::Data::UpdateStringData(std::string CategoryName, std::string DataName, std::string Value) {
 	CategorySearch = CategoryName;
 	DataSearch = DataName;
 	WriteStringData(FindCategory(CategoryName), DataName, Value);
-	UpdateDataFile();
+	SaveDataChanges();
 }
 
 float SDK::Data::LoadDigitData(std::string CategoryName, std::string DataName) {
@@ -107,7 +107,7 @@ void SDK::Data::Release() {
 //////////////////////////////// private
 void SDK::Data::SetupData() {
 	if (!FileExist) {
-		CreateDec(APPLICATION_VERSION);
+		CreateDec();
 		AddRoot("Data");
 	}
 
@@ -130,7 +130,7 @@ void SDK::Data::SetupData() {
 		}
 	}
 
-	UpdateDataFile();
+	SaveDataChanges();
 
 	if (!FileExist) {
 		std::cout << "Created new data file: " << FilePath << std::endl;
@@ -138,14 +138,21 @@ void SDK::Data::SetupData() {
 	}
 }
 
-void SDK::Data::CheckDataVersion() {
+void SDK::Data::CheckVersion() {
 	TiXmlNode* DeclNode = Doc.FirstChild();
 	TiXmlDeclaration* Decl = DeclNode->ToDeclaration();
 
 	if (Decl) {
 		const char* Version = Decl->Version();
-		if (std::stof(Version) < APPLICATION_VERSION)
-			UpdateDataVersion(APPLICATION_VERSION);
+		float VersionValue = std::stof(Version);
+
+		float IntPart{};
+		float FracPart = modf(VersionValue, &IntPart);
+		int CurrentMajorVersion = static_cast<int>(IntPart);
+		int CurrentMinorVersion = static_cast<int>(FracPart * 10);
+
+		if(CurrentMajorVersion < APPLICATION_MAJOR_VERSION || (CurrentMajorVersion == APPLICATION_MAJOR_VERSION && CurrentMinorVersion < APPLICATION_MINOR_VERSION))
+			UpdateVersion();
 	}
 	else {
 		std::cout << "Failed to find data version" << std::endl;
@@ -153,32 +160,36 @@ void SDK::Data::CheckDataVersion() {
 	}
 }
 
-void SDK::Data::UpdateDataVersion(float VersionValue) {
-	TiXmlNode* DeclNode = Doc.FirstChild();
-	TiXmlDeclaration* Decl = DeclNode->ToDeclaration();
-
-	std::string Version = Decl->Version();
-	std::string Encoding = Decl->Encoding();
-	std::string StandAlone = Decl->Standalone();
-
-	if (std::stof(Version) < VersionValue) {
-		std::ostringstream OSS;
-		OSS << std::fixed << std::setprecision(1) << VersionValue;
-		std::string NewVersionStr = OSS.str();
-
-		TiXmlDeclaration NewDecl(NewVersionStr.c_str(), Encoding.c_str() ? Encoding.c_str() : "", StandAlone.c_str() ? StandAlone.c_str() : "");
-
-		Doc.ReplaceChild(DeclNode, NewDecl);
-
-		SetupData();
+void SDK::Data::UpdateVersion() {
+	for (auto& D : DataFormatInfo) {
+		if (CheckCategoryExist(D.CategoryName)) {
+			if (D.DataType == DATA_TYPE_DIGIT) {
+				float Value = LoadDigitData(D.CategoryName, D.DataName);
+				Buffer.emplace_back(D.DataType, D.CategoryName, D.DataName, Value, "");
+			}
+			else if (D.DataType == DATA_TYPE_STRING) {
+				std::string Value = LoadStringData(D.CategoryName, D.DataName);
+				Buffer.emplace_back(D.DataType, D.CategoryName, D.DataName, 0.0, Value);
+			}
+		}
 	}
+
+	Release();
+	SetupData();
+
+	for (auto& B : Buffer) {
+		if(B.DataType == DATA_TYPE_DIGIT)
+			UpdateDigitData(B.CategoryName, B.DataName, B.DigitValue);
+		else if(B.DataType == DATA_TYPE_STRING)
+			UpdateStringData(B.CategoryName, B.DataName, B.StringValue);
+	}
+
+	Buffer.clear();
 }
 
-void SDK::Data::CreateDec(float VersionValue) {
-	std::ostringstream OSS;
-	OSS << std::fixed << std::setprecision(1) << VersionValue;
-	std::string NewVersionStr = OSS.str();
-	Doc.LinkEndChild(new TiXmlDeclaration(NewVersionStr.c_str(), "", ""));
+void SDK::Data::CreateDec() {
+	std::string NewVersionStr = std::to_string(APPLICATION_MAJOR_VERSION) + "." + std::to_string(APPLICATION_MINOR_VERSION);
+	Doc.LinkEndChild(new TiXmlDeclaration(NewVersionStr.c_str(), "UTF-8", ""));
 }
 
 void SDK::Data::AddRoot(std::string RootName) {
@@ -302,7 +313,7 @@ bool SDK::Data::LoadDataFile(std::string FileName) {
 		return Doc.LoadFile(FileName.c_str(), TIXML_ENCODING_UTF8);
 }
 
-void SDK::Data::UpdateDataFile() {
+void SDK::Data::SaveDataChanges() {
 	if (USE_FILE_SECURITY) {
 		TiXmlPrinter Printer;
 		Doc.Accept(&Printer);
