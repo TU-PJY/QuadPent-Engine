@@ -82,18 +82,6 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Pack ]">
       <UniqueIdentifier>{4ac8fdab-c6e0-4a90-83ec-beeca66a9ba4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ System Component ]">
-      <UniqueIdentifier>{3103bdf2-3542-4796-9d68-f89a4c3ce52b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ System Component ]\[ System Mode ]">
-      <UniqueIdentifier>{9d92d68b-96f8-4a78-90d4-bd16df8b7372}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ System Component ]\[ System Object ]">
-      <UniqueIdentifier>{c8dde2fb-f4fd-4595-9cdf-614100ed40cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ System Component ]\[ System Resource ]">
-      <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]">
       <UniqueIdentifier>{019278b2-60d4-4cad-b935-d813a31f2c87}</UniqueIdentifier>
     </Filter>
@@ -186,6 +174,18 @@
     </Filter>
     <Filter Include="[7[___________[ API Resource ]">
       <UniqueIdentifier>{dd4071a8-b834-4a09-86b3-ada6ee4f3823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]">
+      <UniqueIdentifier>{3103bdf2-3542-4796-9d68-f89a4c3ce52b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Mode ]">
+      <UniqueIdentifier>{9d92d68b-96f8-4a78-90d4-bd16df8b7372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]">
+      <UniqueIdentifier>{c8dde2fb-f4fd-4595-9cdf-614100ed40cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Resource ]">
+      <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -289,7 +289,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ String ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SDK_SystemMode.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ System Component ]\[ System Mode ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Mode ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SDK_Text.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Text ]</Filter>
@@ -363,7 +363,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ EX ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_ErrorMessage.h">
-      <Filter>[5]___________[ SDK_System ]\[ System Component ]\[ System Object ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_FontLoader.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Font ]</Filter>
@@ -372,7 +372,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Frustum ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_FPSIndicator.h">
-      <Filter>[5]___________[ SDK_System ]\[ System Component ]\[ System Object ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Header.h">
       <Filter>[5]___________[ SDK_System ]\[ Header ]</Filter>
@@ -381,19 +381,19 @@
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Image ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_IntroMode.h">
-      <Filter>[5]___________[ SDK_System ]\[ System Component ]\[ System Mode ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Mode ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_IntroScreen.h">
-      <Filter>[5]___________[ SDK_System ]\[ System Component ]\[ System Object ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_LineBrush.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Shape ]\[ Line ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_LoadingScreen.h">
-      <Filter>[5]___________[ SDK_System ]\[ System Component ]\[ System Object ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_LoadingMode.h">
-      <Filter>[5]___________[ SDK_System ]\[ System Component ]\[ System Mode ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Mode ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Math.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Math ]</Filter>
@@ -435,7 +435,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ String ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_SystemResource.h">
-      <Filter>[5]___________[ SDK_System ]\[ System Component ]\[ System Resource ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Resource ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Text.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Text ]</Filter>
