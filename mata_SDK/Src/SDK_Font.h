@@ -9,7 +9,7 @@ namespace SDK {
 		std::unordered_set <wchar_t> GlyphCache{};
 
 	public:
-		bool                     Created{};
+		bool                     InitializedState{};
 		unsigned int             FontList{};
 		std::unordered_map <wchar_t, GLYPHMETRICSFLOAT> TextGlyph{};
 

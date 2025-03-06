@@ -9,7 +9,7 @@ void SDK::Font::Init(wchar_t* FontName, int FontType, int Italic) {
 		NONANTIALIASED_QUALITY, FF_DONTCARE | DEFAULT_PITCH, FontName
 	);
 
-	Created = true;
+	InitializedState = true;
 }
 
 void SDK::Font::UpdateGlyph(wchar_t*& Text, int TextWordCount) {

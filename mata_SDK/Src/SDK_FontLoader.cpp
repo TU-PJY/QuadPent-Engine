@@ -14,10 +14,9 @@ bool SDK::SDK_FontLoader::Load(const std::string& FontFilePath) {
         SDK::Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
         return false;
     }
-    else
-        std::cout << "Loaded Font " << FontFilePath << std::endl;
 
     PostMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
 
+    std::cout << "Loaded Font " << FontFilePath << std::endl;
     return true;
 }

@@ -94,7 +94,7 @@ void SDK::Text::SetOpacity(float Value) {
 }
 
 void SDK::Text::Render(SDK::Vector2& Position, float Size, const wchar_t* Fmt, ...) {
-	if (!FontPtr || !FontPtr->Created) {
+	if (!FontPtr || !FontPtr->InitializedState) {
 		SDK::Scene.SetErrorScreen(ERROR_TYPE_NOT_CREATED_FONT_RENDER, SDK::Scene.ModeName());
 		return;
 	}
@@ -123,7 +123,7 @@ void SDK::Text::Render(SDK::Vector2& Position, float Size, const wchar_t* Fmt, .
 }
 
 void SDK::Text::Render(float X, float Y, float Size, const wchar_t* Fmt, ...) {
-	if (!FontPtr || !FontPtr->Created) {
+	if (!FontPtr || !FontPtr->InitializedState) {
 		SDK::Scene.SetErrorScreen(ERROR_TYPE_NOT_CREATED_FONT_RENDER, SDK::Scene.ModeName());
 		return;
 	}
