@@ -47,7 +47,7 @@ namespace SDK {
 	private:
 		void PrepareRender(SDK::Image& ImageStruct);
 		void PrepareRender(SDK::SpriteSheet& SpriteSheetStruct);
-		void ProcessTransform(float Width, float Height, float OpacityValue, bool DisableAdjustAspect, bool ApplyUnitTransform);
+		void ProcessTransform(float Width, float Height, float OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect);
 	};
 
 	extern SDK::SDK_ImageTool ImageTool;

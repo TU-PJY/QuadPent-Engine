@@ -504,7 +504,7 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::SpriteSheet& SpriteSheetStruct) {
 	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 }
 
-void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float OpacityValue, bool DisableAdjustAspect, bool ApplyUnitTransform) {
+void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
 	SDK::Transform.Identity(ResultMatrix);
 
 	ResultMatrix = LocalMatrix;
