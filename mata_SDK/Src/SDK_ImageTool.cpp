@@ -408,39 +408,39 @@ void SDK::SDK_ImageTool::SetLocalColorRGB(int R, int G, int B) {
 	LocalColorValue.b = (1.0f / 255.0f) * (float)B;
 }
 
-void SDK::SDK_ImageTool::RenderImage(SDK::Image& ImageStruct, float OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void SDK::SDK_ImageTool::RenderImage(SDK::Image& ImageStruct, float OpacityValue, bool ApplyGlobalAttribute, bool DisableAdjustAspect) {
 	float Width = (float)ImageStruct.Width;
 	float Height = (float)ImageStruct.Height;
 
-	ProcessTransform(Width, Height, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
+	ProcessTransform(Width, Height, OpacityValue, ApplyGlobalAttribute, DisableAdjustAspect);
 	PrepareRender(ImageStruct);
 
 	glBindTexture(GL_TEXTURE_2D, ImageStruct.Texture);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void SDK::SDK_ImageTool::RenderSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, float& Frame, float OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void SDK::SDK_ImageTool::RenderSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, float& Frame, float OpacityValue, bool ApplyGlobalAttribute, bool DisableAdjustAspect) {
 	if ((int)Frame >= SpriteSheetStruct.Frame)
 		Frame = 0.0;
 
 	float Width = (float)SpriteSheetStruct.Width;
 	float Height = (float)SpriteSheetStruct.Height;
 
-	ProcessTransform(Width, Height, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
+	ProcessTransform(Width, Height, OpacityValue, ApplyGlobalAttribute, DisableAdjustAspect);
 	PrepareRender(SpriteSheetStruct);
 
 	glBindTexture(GL_TEXTURE_2D, SpriteSheetStruct.Texture[(int)Frame]);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void SDK::SDK_ImageTool::RenderStaticSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, int Frame, float OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void SDK::SDK_ImageTool::RenderStaticSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, int Frame, float OpacityValue, bool ApplyGlobalAttribute, bool DisableAdjustAspect) {
 	if (Frame > SpriteSheetStruct.Frame)
 		return;
 	
 	float Width = (float)SpriteSheetStruct.Width;
 	float Height = (float)SpriteSheetStruct.Height;
 
-	ProcessTransform(Width, Height, OpacityValue, ApplyUnitTransform, DisableAdjustAspect);
+	ProcessTransform(Width, Height, OpacityValue, ApplyGlobalAttribute, DisableAdjustAspect);
 	PrepareRender(SpriteSheetStruct);
 
 	glBindTexture(GL_TEXTURE_2D, SpriteSheetStruct.Texture[Frame]);
@@ -504,7 +504,7 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::SpriteSheet& SpriteSheetStruct) {
 	glUniformMatrix4fv(IMAGE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(ResultMatrix));
 }
 
-void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
+void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float OpacityValue, bool ApplyGlobalAttribute, bool DisableAdjustAspect) {
 	SDK::Transform.Identity(ResultMatrix);
 
 	ResultMatrix = LocalMatrix;
@@ -525,7 +525,7 @@ void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float Opaci
 
 	LocalOpacityValue = OpacityValue;
 
-	if (ApplyUnitTransform) {
+	if (ApplyGlobalAttribute) {
 		if (!SDK::Transform.CheckIdentity(GlobalMatrix))
 			ResultMatrix = GlobalMatrix * ResultMatrix;
 		if (!SDK::Transform.CheckIdentity(GlobalFlipMatrix))

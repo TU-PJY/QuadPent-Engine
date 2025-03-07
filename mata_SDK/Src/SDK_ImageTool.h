@@ -24,9 +24,9 @@ namespace SDK {
 		void LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type = IMAGE_TYPE_NEAREST);
 		void LoadImageT(SDK::Image& ImageStruct, std::string FilePath, int Type = IMAGE_TYPE_NEAREST);
 		void LoadClipT(SDK::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type = IMAGE_TYPE_NEAREST);
-		void RenderImage(SDK::Image& ImageStruct, float OpacityValue = 1.0, bool ApplyUnitTransform = false, bool DisableAdjustAspect = false);
-		void RenderSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, float& Frame, float OpacityValue = 1.0, bool ApplyUnitTransform = false, bool DisableAdjustAspect = false);
-		void RenderStaticSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, int Frame, float OpacityValue = 1.0, bool ApplyUnitTransform = false, bool DisableAdjustAspect = false);
+		void RenderImage(SDK::Image& ImageStruct, float OpacityValue = 1.0, bool ApplyGlobalAttribute = false, bool DisableAdjustAspect = false);
+		void RenderSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, float& Frame, float OpacityValue = 1.0, bool ApplyGlobalAttribute = false, bool DisableAdjustAspect = false);
+		void RenderStaticSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, int Frame, float OpacityValue = 1.0, bool ApplyGlobalAttribute = false, bool DisableAdjustAspect = false);
 		void RenderRaw();
 		void UnmapImage(SDK::Image& ImageStruct);
 		void UnmapSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct);
@@ -47,7 +47,7 @@ namespace SDK {
 	private:
 		void PrepareRender(SDK::Image& ImageStruct);
 		void PrepareRender(SDK::SpriteSheet& SpriteSheetStruct);
-		void ProcessTransform(float Width, float Height, float OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect);
+		void ProcessTransform(float Width, float Height, float OpacityValue, bool ApplyGlobalAttribute, bool DisableAdjustAspect);
 	};
 
 	extern SDK::SDK_ImageTool ImageTool;
