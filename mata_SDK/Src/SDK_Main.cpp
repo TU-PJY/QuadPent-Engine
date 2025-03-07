@@ -17,6 +17,7 @@ void SDK::SDK_System::Main() {
 		SDK::Frustum.Update();
 		SDK::SoundTool.Update();
 		SDK::Scene.Render();
+		SDK::Frustum.Render();
 		SDK::Scene.CompleteCommand();
 	}
 

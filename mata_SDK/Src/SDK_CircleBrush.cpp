@@ -35,7 +35,7 @@ void SDK::CircleBrush::Draw(float X, float Y, float Diameter, float OpacityValue
 	Transform.Identity(CircleMatrix);
 	Opacity = 1.0f;
 
-	Transform.Move(CircleMatrix, X, Y);
+	CircleMatrix = translate(CircleMatrix, SDK::Vector3(X, Y, 0.0));
 	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 
@@ -85,18 +85,18 @@ void SDK::LineCircleBrush::SetColorRGB(int R, int G, int B) {
 	Color.b = (1.0f / 255.0f) * (float)B;
 }
 
-void SDK::LineCircleBrush::Draw(float X, float Y, float Diameter, float Width, float OpacityValue) {
+void SDK::LineCircleBrush::Draw(float X, float Y, float Diameter, float Thickness, float OpacityValue) {
 	Transform.Identity(CircleMatrix);
 	Opacity = 1.0f;
 
-	Transform.Move(CircleMatrix, X, Y);
+	CircleMatrix = translate(CircleMatrix, SDK::Vector3(X, Y, 0.0));
 	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 
 	if(RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		WidthValue = Width / Camera.Zoom;
+		WidthValue = Thickness / Camera.Zoom;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
-		WidthValue = Width;
+		WidthValue = Thickness;
 
 	Render();
 }

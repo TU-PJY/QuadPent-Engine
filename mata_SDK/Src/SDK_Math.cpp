@@ -29,16 +29,16 @@ void SDK::SDK_Math::LookAt(float& DestRotation, SDK::Vector2& Position1, SDK::Ve
 	DestRotation = NormalizeDegree(DestRotation + ShortestAngle);
 }
 
-void SDK::SDK_Math::LookAt(float& RotationDest, float Rotation, float RotationSpeed, float FrameTime) {
+void SDK::SDK_Math::LookAt(float& DestRotation, float Degree, float RotationSpeed, float FrameTime) {
 	float TargetAngle{}, ShortestAngle{};
-	TargetAngle = NormalizeDegree(Rotation);
+	TargetAngle = NormalizeDegree(Degree);
 
 	if (RotationSpeed > 0)
-		ShortestAngle = std::lerp(ShortestAngle, ComputeShortestRotation(RotationDest, TargetAngle), FrameTime * RotationSpeed);
+		ShortestAngle = std::lerp(ShortestAngle, ComputeShortestRotation(DestRotation, TargetAngle), FrameTime * RotationSpeed);
 	else
-		ShortestAngle = ComputeShortestRotation(RotationDest, TargetAngle);
+		ShortestAngle = ComputeShortestRotation(DestRotation, TargetAngle);
 
-	RotationDest = NormalizeDegree(RotationDest + ShortestAngle);
+	DestRotation = NormalizeDegree(DestRotation + ShortestAngle);
 }
 
 void SDK::SDK_Math::Lerp(float& DestValue, float Dest, float Speed, float FrameTime) {
@@ -100,75 +100,87 @@ SDK::Vector2 SDK::SDK_Math::ComputeMidPoint(SDK::Vector2& Position1, SDK::Vector
 }
 
 float SDK::SDK_Math::Computedegree(float FromX, float FromY, float ToX, float ToY) {
-	return atan2(ToY - FromY, ToX - FromX) * (180.0 / 3.1415);
+	return -atan2(ToY - FromY, ToX - FromX) * (180.0 / 3.1415);
 }
  
 float SDK::SDK_Math::Computedegree(SDK::Vector2& Position1, SDK::Vector2& Position2) {
-	return atan2(Position2.y - Position1.y, Position2.x - Position1.x) * (180.0 / 3.1415);
+	return -atan2(Position2.y - Position1.y, Position2.x - Position1.x) * (180.0 / 3.1415);
 }
 
 float SDK::SDK_Math::ComputeRadians(float FromX, float FromY, float ToX, float ToY) {
-	return atan2(ToY - FromY, ToX - FromX);
+	return -atan2(ToY - FromY, ToX - FromX);
 }
 
 float SDK::SDK_Math::ComputeRadians(SDK::Vector2& Position1, SDK::Vector2& Position2) {
-	return atan2(Position2.y - Position1.y, Position2.x - Position1.x);
+	return -atan2(Position2.y - Position1.y, Position2.x - Position1.x);
 }
 
-SDK::RayVector SDK::SDK_Math::ComputeRay(float FromX, float FromY, float ToX, float ToY) {
+void SDK::SDK_Math::ComputeRay(SDK::RayVector& RayVec, float FromX, float FromY, float ToX, float ToY) {
 	XMVECTOR RayOrigin = XMVectorSet(FromX, FromY, 0.0, 0.0);
-	float Angle = ComputeRadians(FromX, FromY, ToX, ToY);
+	float Angle = -ComputeRadians(FromX, FromY, ToX, ToY);
 	float DirectionX = cos(Angle);
 	float DirectionY = sin(Angle);
 
 	XMVECTOR RayDirection = XMVectorSet(DirectionX, DirectionY, 0.0f, 0.0f);
 	RayDirection = XMVector2Normalize(RayDirection);
 	float RayLength = ComputeDistance(FromX, FromY, ToX, ToY);
-	float Distance = 0.0;
+	float RayDistance = 0.0;
 
-	return { RayOrigin, RayDirection, Distance, RayLength };
+	RayVec.Origin = RayOrigin;
+	RayVec.Direction = RayDirection;
+	RayVec.Distance = RayDistance;
+	RayVec.Length = RayLength;
 }
 
-SDK::RayVector SDK::SDK_Math::ComputeRay(SDK::Vector2& From, SDK::Vector2& To) {
+void SDK::SDK_Math::ComputeRay(SDK::RayVector& RayVec, SDK::Vector2& From, SDK::Vector2& To) {
 	XMVECTOR RayOrigin = XMVectorSet(From.x, From.y, 0.0, 0.0);
-	float Angle = ComputeRadians(From.x, From.y, To.x, To.y);
+	float Angle = -ComputeRadians(From.x, From.y, To.x, To.y);
 	float DirectionX = cos(Angle);
 	float DirectionY = sin(Angle);
 
 	XMVECTOR RayDirection = XMVectorSet(DirectionX, DirectionY, 0.0f, 0.0f);
 	RayDirection = XMVector2Normalize(RayDirection);
 	float RayLength = ComputeDistance(From.x, From.y, To.x, To.y);
-	float Distance = 0.0;
+	float RayDistance = 0.0;
 
-	return { RayOrigin, RayDirection, Distance, RayLength };
+	RayVec.Origin = RayOrigin;
+	RayVec.Direction = RayDirection;
+	RayVec.Distance = RayDistance;
+	RayVec.Length = RayLength;
 }
 
-SDK::RayVector SDK::SDK_Math::ComputeRayWithDegree(float OriginX, float OriginY, float Degree, float LengthValue) {
+void SDK::SDK_Math::ComputeRayWithDegree(SDK::RayVector& RayVec, float OriginX, float OriginY, float Degree, float LengthValue) {
 	XMVECTOR RayOrigin = XMVectorSet(OriginX, OriginY, 0.0, 0.0);
-	float Angle = glm::radians(Degree);
+	float Angle = -glm::radians(Degree);
 	float DirectionX = cos(Angle);
 	float DirectionY = sin(Angle);
 
 	XMVECTOR RayDirection = XMVectorSet(DirectionX, DirectionY, 0.0f, 0.0f);
 	RayDirection = XMVector2Normalize(RayDirection);
 	float RayLength = LengthValue;
-	float Distance = 0.0;
+	float RayDistance = 0.0;
 
-	return { RayOrigin, RayDirection, Distance, RayLength };
+	RayVec.Origin = RayOrigin;
+	RayVec.Direction = RayDirection;
+	RayVec.Distance = RayDistance;
+	RayVec.Length = RayLength;
 }
 
-SDK::RayVector SDK::SDK_Math::ComputeRayWithDegree(SDK::Vector2& Origin, float Degree, float LengthValue) {
+void SDK::SDK_Math::ComputeRayWithDegree(SDK::RayVector& RayVec, SDK::Vector2& Origin, float Degree, float LengthValue) {
 	XMVECTOR RayOrigin = XMVectorSet(Origin.x, Origin.y, 0.0, 0.0);
-	float Angle = glm::radians(Degree);
+	float Angle = -glm::radians(Degree);
 	float DirectionX = cos(Angle);
 	float DirectionY = sin(Angle);
 
 	XMVECTOR RayDirection = XMVectorSet(DirectionX, DirectionY, 0.0f, 0.0f);
 	RayDirection = XMVector2Normalize(RayDirection);
 	float RayLength = LengthValue;
-	float Distance = 0.0;
+	float RayDistance = 0.0;
 
-	return { RayOrigin, RayDirection, Distance, RayLength };
+	RayVec.Origin = RayOrigin;
+	RayVec.Direction = RayDirection;
+	RayVec.Distance = RayDistance;
+	RayVec.Length = RayLength;
 }
 
 ////////////////////////////////// private

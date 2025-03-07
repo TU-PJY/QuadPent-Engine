@@ -34,27 +34,27 @@ void SDK::LineRectBrush::SetColorRGB(int R, int G, int B) {
 	Color.b = (1.0f / 255.0f) * (float)B;
 }
 
-void SDK::LineRectBrush::Draw(float X, float Y, float SizeX, float SizeY, float Width, float RotationValue, float OpacityValue) {
+void SDK::LineRectBrush::Draw(float X, float Y, float SizeX, float SizeY, float Thickness, float Degree, float OpacityValue) {
 	Opacity = OpacityValue;
 	float DrawWidth{};
 	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		DrawWidth = Width / Camera.Zoom;
+		DrawWidth = Thickness / Camera.Zoom;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
-		DrawWidth = Width;
+		DrawWidth = Thickness;
 
-	DrawLine(X, Y, 0.0, SizeY / 2.0, SizeX + DrawWidth, DrawWidth, RotationValue);
-	DrawLine(X, Y, 0.0, -SizeY / 2.0, SizeX + DrawWidth, DrawWidth, RotationValue);
-	DrawLine(X, Y, -SizeX / 2.0, 0.0, DrawWidth, SizeY + DrawWidth, RotationValue);
-	DrawLine(X, Y, SizeX / 2.0, 0.0, DrawWidth, SizeY + DrawWidth, RotationValue);
+	DrawLine(X, Y, 0.0, SizeY / 2.0, SizeX + DrawWidth, DrawWidth, Degree);
+	DrawLine(X, Y, 0.0, -SizeY / 2.0, SizeX + DrawWidth, DrawWidth, Degree);
+	DrawLine(X, Y, -SizeX / 2.0, 0.0, DrawWidth, SizeY + DrawWidth, Degree);
+	DrawLine(X, Y, SizeX / 2.0, 0.0, DrawWidth, SizeY + DrawWidth, Degree);
 }
 
-void SDK::LineRectBrush::DrawLine(float X, float Y, float OffsetX, float OffsetY, float Width, float Height, float RotationValue) {
+void SDK::LineRectBrush::DrawLine(float X, float Y, float OffsetX, float OffsetY, float Width, float Height, float Degree) {
 	Transform.Identity(RectMatrix);
 
-	Transform.Move(RectMatrix, X, Y);
-	Transform.Rotate(RectMatrix, RotationValue);
-	Transform.Move(RectMatrix, OffsetX, OffsetY);
-	Transform.Scale(RectMatrix, Width, Height);
+	RectMatrix = translate(RectMatrix, SDK::Vector3(X, Y, 0.0));
+	RectMatrix = rotate(RectMatrix, glm::radians(-Degree), SDK::Vector3(0.0, 0.0, 1.0));
+	RectMatrix = translate(RectMatrix, SDK::Vector3(OffsetX, OffsetY, 0.0));
+	RectMatrix = scale(RectMatrix, SDK::Vector3(Width, Height, 0.0));
 	Render();
 }
 
@@ -100,13 +100,13 @@ void SDK::RectBrush::SetColorRGB(int R, int G, int B) {
 	Color.b = (1.0f / 255.0f) * (float)B;
 }
 
-void SDK::RectBrush::Draw(float X, float Y, float SizeX, float SizeY, float RotationValue, float OpacityValue) {
+void SDK::RectBrush::Draw(float X, float Y, float SizeX, float SizeY, float Degree, float OpacityValue) {
 	Transform.Identity(RectMatrix);
 	Opacity = OpacityValue;
 
-	Transform.Move(RectMatrix, X, Y);
-	Transform.Rotate(RectMatrix, RotationValue);
-	Transform.Scale(RectMatrix, SizeX, SizeY);
+	RectMatrix = translate(RectMatrix, SDK::Vector3(X, Y, 0.0));
+	RectMatrix = rotate(RectMatrix, glm::radians(-Degree), SDK::Vector3(0.0, 0.0, 1.0));
+	RectMatrix = scale(RectMatrix, SDK::Vector3(SizeX, SizeY, 1.0));
 
 	Render();
 }

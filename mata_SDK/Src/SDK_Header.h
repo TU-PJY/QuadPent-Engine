@@ -299,6 +299,11 @@ enum SDK_ImageFlip {
 	FLIP_TYPE_HV
 };
 
+enum SDK_MatrixType {
+	MATRIX_LOCAL,
+	MATRIX_GLOBAL
+};
+
 enum SDK_TextAlign {
 	ALIGN_DEFAULT,
 	ALIGN_MIDDLE,

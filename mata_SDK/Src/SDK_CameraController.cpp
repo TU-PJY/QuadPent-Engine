@@ -7,7 +7,6 @@ SDK::SDK_CameraController SDK::CameraControl;
 
 void SDK::SDK_CameraController::Update(float FrameTime){
 	// add logic here
-
 	ComputeCameraMatrix();
 }
 
@@ -24,7 +23,7 @@ void SDK::SDK_CameraController::Move(SDK::Vector2& PositionValue){
 }
 
 void SDK::SDK_CameraController::Rotate(float Degree){
-	Rotation = -Degree;
+	Rotation = Degree;
 	SDK::Camera.Rotation = Degree;
 }
 
@@ -57,6 +56,6 @@ float SDK::SDK_CameraController::ComputeNextZoom(int ZoomType, float ZoomValue) 
 
 void SDK::SDK_CameraController::ComputeCameraMatrix(){
 	SDK::Transform.Identity(SDK::Camera.CameraMatrix);
-	SDK::Transform.Rotate(SDK::Camera.CameraMatrix, Rotation);
-	SDK::Transform.Move(SDK::Camera.CameraMatrix, Position);
+	SDK::Camera.CameraMatrix = rotate(SDK::Camera.CameraMatrix, glm::radians(Rotation), SDK::Vector3(0.0, 0.0, 1.0));
+	SDK::Camera.CameraMatrix = translate(SDK::Camera.CameraMatrix, SDK::Vector3(Position.x, Position.y, 0.0));
 }

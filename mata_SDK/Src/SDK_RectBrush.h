@@ -18,7 +18,7 @@ namespace SDK {
 		void SetColor(SDK::Color3& ColorValue);
 		void SetColorRGB(int R, int G, int B);
 		void SetRenderType(int Opt);
-		void Draw(float X, float Y, float SizeX, float SizeY, float Width, float RotationValue = 0.0f, float OpacityValue = 1.0f);
+		void Draw(float X, float Y, float SizeX, float SizeY, float Thickness, float Degree = 0.0f, float OpacityValue = 1.0f);
 
 	private:
 		void DrawLine(float X, float Y, float OffsetX, float OffsetY, float Width, float Height, float RotationValue);
@@ -41,7 +41,7 @@ namespace SDK {
 		void SetColor(SDK::Color3& ColorValue);
 		void SetColorRGB(int R, int G, int B);
 		void SetRenderType(int Opt);
-		void Draw(float X, float Y, float SizeX, float SizeY, float RotationValue = 0.0f, float OpacityValue = 1.0f);
+		void Draw(float X, float Y, float SizeX, float SizeY, float Degree = 0.0f, float OpacityValue = 1.0f);
 
 	private:
 		void Render();

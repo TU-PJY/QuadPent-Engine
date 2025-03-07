@@ -2,26 +2,23 @@
 #include "SDK_Camera.h"
 
 void SDK::Object::Begin(int RenderType) {
-	SDK::Transform.Identity(MoveMatrix);
-	SDK::Transform.Identity(RotateMatrix);
-	SDK::Transform.Identity(ScaleMatrix);
-	SDK::Transform.Identity(FlipMatrix);
+	SDK::Transform.Identity(LocalMatrix);
+	SDK::Transform.Identity(LocalFlipMatrix);
 
-	ObjectOpacityValue = 1.0f;
-	ObjectBlurValue = 0.0;
-	ObjectColor = SDK::Color3(0.0, 0.0, 0.0);
+	LocalOpacityValue = 1.0f;
+	LocalBlurValue = 0.0;
+	LocalColorValue = SDK::Color3(0.0, 0.0, 0.0);
 
 	SDK::Camera.SetCamera(RenderType);
 }
 
-void SDK::Object::IdentityUnitMatrix() {
-	SDK::Transform.Identity(UnitMoveMatrix);
-	SDK::Transform.Identity(UnitRotateMatrix);
-	SDK::Transform.Identity(UnitScaleMatrix);
-	SDK::Transform.Identity(UnitFlipMatrix);
+void SDK::Object::ResetGlobalAttribute() {
+	SDK::Transform.Identity(GlobalMatrix);
+	SDK::Transform.Identity(GlobalFlipMatrix);
 
-	UnitOpacityValue = 1.0f;
-	UnitBlurValue = 0.0f;
+	GlobalOpacityValue = 1.0f;
+	GlobalBlurValue = 0.0f;
+	GlobalColorValue = SDK::Vector3(0.0, 0.0, 0.0);
 }
 
 void SDK::Object::ComputeViewportPosition(float& DestX, float& DestY, bool ApplyAspect) {

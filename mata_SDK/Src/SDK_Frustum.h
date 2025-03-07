@@ -10,6 +10,7 @@ namespace SDK {
 	public:
 		SDK_Frustum();
 		void Update();
+		void Render();
 		bool Check(SDK::AABB& aabb);
 		bool Check(SDK::OOBB& oobb);
 		bool Check(SDK::BoundingCircle& circle);

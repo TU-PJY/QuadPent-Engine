@@ -85,8 +85,8 @@ void SDK::Text::SetMacroColorRGB(int R, int G, int B) {
 	MacroColor.b = (1.0f / 255.0f) * (float)B;
 }
 
-void SDK::Text::Rotate(float RotationValue) {
-	Rotation = RotationValue;
+void SDK::Text::Rotate(float Degree) {
+	Rotation = -Degree;
 }
 
 void SDK::Text::SetOpacity(float Value) {
@@ -216,7 +216,7 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 	}
 
 	for (int i = 0; i < TextWordCount; ++i) {
-		if (CheckMacro(Text, i)) 
+		if (CheckCarrigeReturn(Text, i) || CheckColorMacro(Text, i)) 
 			continue;
 
 		TransformText();
@@ -233,7 +233,85 @@ void SDK::Text::ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size) {
 	}
 }
 
-bool SDK::Text::CheckMacro(wchar_t*& Text, int& Index) {
+bool SDK::Text::CheckColorMacro(wchar_t*& Text, int& Index) {
+	if (Text[Index] == L'\\' && Index + 1 < TextWordCount) {
+		switch (Text[Index + 1]) {
+		case L'P':
+			if (!ShadowRenderState)
+				RenderColor = MacroColor;
+			Index += 1;
+			return true;
+			break;
+
+		case L'R':
+			if (!ShadowRenderState)
+				RenderColor = SDK::Color3(1.0, 0.0, 0.0);
+			Index += 1;
+			return true;
+			break;
+
+		case L'G':
+			if (!ShadowRenderState)
+				RenderColor = SDK::Color3(0.0, 1.0, 0.0);
+			Index += 1;
+			return true;
+			break;
+
+		case L'B':
+			if (!ShadowRenderState)
+				RenderColor = SDK::Color3(0.0, 0.0, 1.0);
+			Index += 1;
+			return true;
+			break;
+
+		case L'Y':
+			if (!ShadowRenderState)
+				RenderColor = SDK::Color3(1.0, 1.0, 0.0);
+			Index += 1;
+			return true;
+			break;
+
+		case L'C':
+			if (!ShadowRenderState)
+				RenderColor = SDK::Color3(0.0, 1.0, 1.0);
+			Index += 1;
+			return true;
+			break;
+
+		case L'M':
+			if (!ShadowRenderState)
+				RenderColor = SDK::Color3(1.0, 0.0, 1.0);
+			Index += 1;
+			return true;
+			break;
+
+		case L'K':
+			if (!ShadowRenderState)
+				RenderColor = SDK::Color3(0.0, 0.0, 0.0);
+			Index += 1;
+			return true;
+			break;
+
+		case L'W':
+			if (!ShadowRenderState)
+				RenderColor = SDK::Color3(1.0, 1.0, 1.0);
+			Index += 1;
+			return true;
+			break;
+
+		case L'E':
+			if (!ShadowRenderState)
+				RenderColor = TextColor;
+			Index += 1;
+			return true;
+			break;
+		}
+	}
+
+		return false;
+}
+
+bool SDK::Text::CheckCarrigeReturn(wchar_t*& Text, int& Index) {
 	if (Text[Index] == L'\n') {
 		CurrentRenderOffset.x = 0.0;
 		CurrentRenderOffset.y -= (TextLineGap + TextRenderSize);
@@ -246,134 +324,10 @@ bool SDK::Text::CheckMacro(wchar_t*& Text, int& Index) {
 		return true;
 	}
 
-	else if (Text[Index] == L'\\' && Index + 1 < TextWordCount) {
-		switch (Text[Index + 1]) {
-		case L'P':
-			if (ShadowRenderState) {
-				Index += 1;
-				return true;
-			}
-			else {
-				RenderColor = MacroColor;
-				Index += 1;
-				return true;
-			}
-			break;
-
-		case L'R':
-			if (ShadowRenderState) {
-				Index += 1;
-				return true;
-			}
-			else {
-				RenderColor = SDK::Color3(1.0, 0.0, 0.0);
-				Index += 1;
-				return true;
-			}
-			break;
-
-		case L'G':
-			if (ShadowRenderState) {
-				Index += 1;
-				return true;
-			}
-			else {
-				RenderColor = SDK::Color3(0.0, 1.0, 0.0);
-				Index += 1;
-				return true;
-			}
-			break;
-
-		case L'B':
-			if (ShadowRenderState) {
-				Index += 1;
-				return true;
-			}
-			else {
-				RenderColor = SDK::Color3(0.0, 0.0, 1.0);
-				Index += 1;
-				return true;
-			}
-			break;
-
-		case L'Y':
-			if (ShadowRenderState) {
-				Index += 1;
-				return true;
-			}
-			else {
-				RenderColor = SDK::Color3(1.0, 1.0, 0.0);
-				Index += 1;
-				return true;
-			}
-			break;
-
-		case L'C':
-			if (ShadowRenderState) {
-				Index += 1;
-				return true;
-			}
-			else {
-				RenderColor = SDK::Color3(0.0, 1.0, 1.0);
-				Index += 1;
-				return true;
-			}
-			break;
-
-		case L'M':
-			if (ShadowRenderState) {
-				Index += 1;
-				return true;
-			}
-			else {
-				RenderColor = SDK::Color3(1.0, 0.0, 1.0);
-				Index += 1;
-				return true;
-			}
-			break;
-
-		case L'K':
-			if (ShadowRenderState) {
-				Index += 1;
-				return true;
-			}
-			else {
-				RenderColor = SDK::Color3(0.0, 0.0, 0.0);
-				Index += 1;
-				return true;
-			}
-			break;
-
-		case L'W':
-			if (ShadowRenderState) {
-				Index += 1;
-				return true;
-			}
-			else {
-				RenderColor = SDK::Color3(1.0, 1.0, 1.0);
-				Index += 1;
-				return true;
-			}
-			break;
-
-		case L'E':
-			if (ShadowRenderState) {
-				Index += 1;
-				return true;
-			}
-			else {
-				RenderColor = TextColor;
-				Index += 1;
-				return true;
-			}
-			break;
-		}
-	}
-
 	return false;
 }
 
-void SDK::Text::ComputeTextLength(const wchar_t* Text) {
+void SDK::Text::ComputeTextLength(wchar_t* Text) {
 	LineLengthList.clear();
 	float CurrentLineLength{};
 
@@ -383,6 +337,9 @@ void SDK::Text::ComputeTextLength(const wchar_t* Text) {
 			CurrentLineLength = 0.0f;
 			continue;
 		}
+
+		else if (CheckColorMacro(Text, i))
+			continue;
 
 		unsigned int CharIndex = Text[i];
 		if (CharIndex < FONT_LIST_GENERATE_SIZE)
@@ -397,29 +354,30 @@ void SDK::Text::ComputeTextLength(const wchar_t* Text) {
 
 void SDK::Text::TransformText() {
 	SDK::Transform.Identity(TextMatrix);
-	SDK::Transform.Move(TextMatrix, RenderPosition.x, RenderPosition.y);
+	TextMatrix = translate(TextMatrix, SDK::Vector3(RenderPosition.x, RenderPosition.y, 0.0));
+
 	if (Rotation != 0.0)
-		SDK::Transform.Rotate(TextMatrix, Rotation);
+		TextMatrix = rotate(TextMatrix, glm::radians(Rotation), SDK::Vector3(0.0, 0.0, 1.0));
 	if (FixMiddleCommand && NumLine > 1)
-		SDK::Transform.Move(TextMatrix, 0.0, FixMiddleOffset);
+		TextMatrix = translate(TextMatrix, SDK::Vector3(0.0, FixMiddleOffset, 0.0));
 
 	switch (TextAlign) {
 	case ALIGN_DEFAULT:
-		SDK::Transform.Move(TextMatrix, CurrentRenderOffset);
+		TextMatrix = translate(TextMatrix, SDK::Vector3(CurrentRenderOffset.x, CurrentRenderOffset.y, 0.0));
 		break;
 
 	case ALIGN_MIDDLE:
-		SDK::Transform.Move(TextMatrix, -TextLength * 0.5, 0.0);
-		SDK::Transform.Move(TextMatrix, CurrentRenderOffset);
+		TextMatrix = translate(TextMatrix, SDK::Vector3(-TextLength * 0.5, 0.0, 0.0));
+		TextMatrix = translate(TextMatrix, SDK::Vector3(CurrentRenderOffset.x, CurrentRenderOffset.y, 0.0));
 		break;
 
 	case ALIGN_LEFT:
-		SDK::Transform.Move(TextMatrix, -TextLength, 0.0);
-		SDK::Transform.Move(TextMatrix, CurrentRenderOffset);
+		TextMatrix = translate(TextMatrix, SDK::Vector3(-TextLength, 0.0, 0.0));
+		TextMatrix = translate(TextMatrix, SDK::Vector3(CurrentRenderOffset.x, CurrentRenderOffset.y, 0.0));
 		break;
 	}
 
-	SDK::Transform.Scale(TextMatrix, TextRenderSize, TextRenderSize);
+	TextMatrix = scale(TextMatrix, SDK::Vector3(TextRenderSize, TextRenderSize, 1.0));
 }
 
 void SDK::Text::PrepareRender() {

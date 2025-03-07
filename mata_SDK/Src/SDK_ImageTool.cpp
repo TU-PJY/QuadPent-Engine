@@ -364,34 +364,48 @@ void SDK::SDK_ImageTool::Map() {
 	SpriteSheetLoadBuffer.clear();
 }
 
-void SDK::SDK_ImageTool::Blur(float BlurStrength) {
-	ObjectBlurValue = BlurStrength;
+void SDK::SDK_ImageTool::SetLocalBlur(float BlurStrength) {
+	LocalBlurValue = BlurStrength;
 }
 
-void SDK::SDK_ImageTool::UnitBlur(float BlurStrength) {
-	UnitBlurValue = BlurStrength;
+void SDK::SDK_ImageTool::SetGlobalBlur(float BlurStrength) {
+	GlobalBlurValue = BlurStrength;
 }
 
-void SDK::SDK_ImageTool::UnitOpacity(float Value) {
-	UnitOpacityValue = Value;
+void SDK::SDK_ImageTool::SetGlobalOpacity(float Value) {
+	GlobalOpacityValue = Value;
 }
 
-void SDK::SDK_ImageTool::SetColor(float R, float G, float B) {
-	ObjectColor.r = R;
-	ObjectColor.g = G;
-	ObjectColor.b = B;
+void SDK::SDK_ImageTool::SetGlobalColor(float R, float G, float B) {
+	GlobalColorValue.r = R;
+	GlobalColorValue.g = G;
+	GlobalColorValue.b = B;
 }
 
-void SDK::SDK_ImageTool::SetColor(glm::vec3& Color) {
-	ObjectColor.r = Color.r;
-	ObjectColor.g = Color.g;
-	ObjectColor.b = Color.b;
+void SDK::SDK_ImageTool::SetGlobalColor(SDK::Color3& Color) {
+	GlobalColorValue = Color;
 }
 
-void SDK::SDK_ImageTool::SetColorRGB(int R, int G, int B) {
-	ObjectColor.r = (1.0f / 255.0f) * (float)R;
-	ObjectColor.g = (1.0f / 255.0f) * (float)G;
-	ObjectColor.b = (1.0f / 255.0f) * (float)B;
+void SDK::SDK_ImageTool::SetGlobalColorRGB(int R, int G, int B) {
+	GlobalColorValue.r = (1.0f / 255.0f) * (float)R;
+	GlobalColorValue.g = (1.0f / 255.0f) * (float)G;
+	GlobalColorValue.b = (1.0f / 255.0f) * (float)B;
+}
+
+void SDK::SDK_ImageTool::SetLocalColor(float R, float G, float B) {
+	LocalColorValue.r = R;
+	LocalColorValue.g = G;
+	LocalColorValue.b = B;
+}
+
+void SDK::SDK_ImageTool::SetLocalColor(SDK::Color3& Color) {
+	LocalColorValue = Color;
+}
+
+void SDK::SDK_ImageTool::SetLocalColorRGB(int R, int G, int B) {
+	LocalColorValue.r = (1.0f / 255.0f) * (float)R;
+	LocalColorValue.g = (1.0f / 255.0f) * (float)G;
+	LocalColorValue.b = (1.0f / 255.0f) * (float)B;
 }
 
 void SDK::SDK_ImageTool::RenderImage(SDK::Image& ImageStruct, float OpacityValue, bool ApplyUnitTransform, bool DisableAdjustAspect) {
@@ -452,13 +466,13 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::Image& ImageStruct) {
 	glUseProgram(IMAGE_SHADER);
 	SDK::Camera.PrepareRender(SHADER_TYPE_IMAGE);
 
-	glUniform1f(IMAGE_OPACITY_LOCATION, ObjectOpacityValue);
-	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
+	glUniform1f(IMAGE_OPACITY_LOCATION, LocalOpacityValue);
+	glUniform3f(IMAGE_COLOR_LOCATION, LocalColorValue.r, LocalColorValue.g, LocalColorValue.b);
 
-	if (ObjectBlurValue > 0.0) {
+	if (LocalBlurValue > 0.0) {
 		glUniform1i(BLUR_STATE_LOCATION, true);
 		glUniform1i(BLUR_EXECUTION_LOCATION, BLUR_EXECUTION);
-		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlurValue);
+		glUniform1f(BLUR_STRENGTH_LOCATION, LocalBlurValue);
 		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (float)ImageStruct.Width, 1.0 / (float)ImageStruct.Height);
 	}
 	else
@@ -473,13 +487,13 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::SpriteSheet& SpriteSheetStruct) {
 	glUseProgram(IMAGE_SHADER);
 	SDK::Camera.PrepareRender(SHADER_TYPE_IMAGE);
 
-	glUniform1f(IMAGE_OPACITY_LOCATION, ObjectOpacityValue);
-	glUniform3f(IMAGE_COLOR_LOCATION, ObjectColor.r, ObjectColor.g, ObjectColor.b);
+	glUniform1f(IMAGE_OPACITY_LOCATION, LocalOpacityValue);
+	glUniform3f(IMAGE_COLOR_LOCATION, LocalColorValue.r, LocalColorValue.g, LocalColorValue.b);
 
-	if (ObjectBlurValue > 0.0) {
+	if (LocalBlurValue > 0.0) {
 		glUniform1i(BLUR_STATE_LOCATION, true);
 		glUniform1i(BLUR_EXECUTION_LOCATION, BLUR_EXECUTION);
-		glUniform1f(BLUR_STRENGTH_LOCATION, ObjectBlurValue);
+		glUniform1f(BLUR_STRENGTH_LOCATION, LocalBlurValue);
 		glUniform2f(TEXTURE_SIZE_LOCATION, 1.0 / (float)SpriteSheetStruct.Width, 1.0 / (float)SpriteSheetStruct.Height);
 	}
 	else
@@ -491,34 +505,35 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::SpriteSheet& SpriteSheetStruct) {
 }
 
 void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float OpacityValue, bool DisableAdjustAspect, bool ApplyUnitTransform) {
-	if (!DisableAdjustAspect)
-		SDK::Transform.ImageScale(ImageAspectMatrix, Width, Height);
-
 	SDK::Transform.Identity(ResultMatrix);
 
-	if (USE_COMPUTE_SHADER)
-		SDK::ComputeTool.ComputeMatrix(ResultMatrix, MoveMatrix, RotateMatrix, ScaleMatrix, ImageAspectMatrix, FlipMatrix);
-	else {
-		if (!SDK::Transform.CheckIdentity(MoveMatrix)) { ResultMatrix *= MoveMatrix; }
-		if (!SDK::Transform.CheckIdentity(RotateMatrix)) { ResultMatrix *= RotateMatrix; }
-		if (!SDK::Transform.CheckIdentity(ScaleMatrix)) { ResultMatrix *= ScaleMatrix; }
-		if (!SDK::Transform.CheckIdentity(ImageAspectMatrix)) { ResultMatrix *= ImageAspectMatrix; }
-		if (!SDK::Transform.CheckIdentity(FlipMatrix)) { ResultMatrix *= FlipMatrix; }
+	ResultMatrix = LocalMatrix;
+
+	if (!DisableAdjustAspect) {
+		if (Width > Height) {
+			ImageAspectMatrix = scale(ImageAspectMatrix, SDK::Vector3(1.0, Height / Width, 1.0));
+			ResultMatrix *= ImageAspectMatrix;
+		}
+		else if (Width < Height) {
+			ImageAspectMatrix = scale(ImageAspectMatrix, SDK::Vector3(Width / Height, 1.0, 1.0));
+			ResultMatrix *= ImageAspectMatrix;
+		}
 	}
 
-	ObjectOpacityValue = OpacityValue;
+	if (!SDK::Transform.CheckIdentity(LocalFlipMatrix))
+		ResultMatrix *= LocalFlipMatrix;
+
+	LocalOpacityValue = OpacityValue;
 
 	if (ApplyUnitTransform) {
-		if (USE_COMPUTE_SHADER)
-			SDK::ComputeTool.ComputeMatrix(ResultMatrix, UnitMoveMatrix, UnitRotateMatrix, UnitScaleMatrix, UnitFlipMatrix, ResultMatrix);
-		else {
-			if (!SDK::Transform.CheckIdentity(UnitMoveMatrix)) { ResultMatrix = UnitMoveMatrix * ResultMatrix; }
-			if (!SDK::Transform.CheckIdentity(UnitRotateMatrix)) { ResultMatrix = UnitRotateMatrix * ResultMatrix; }
-			if (!SDK::Transform.CheckIdentity(UnitScaleMatrix)) { ResultMatrix = UnitScaleMatrix * ResultMatrix; }
-			if (!SDK::Transform.CheckIdentity(UnitFlipMatrix)) { ResultMatrix *= UnitFlipMatrix; }
-		}
-		ObjectOpacityValue = ObjectOpacityValue * UnitOpacityValue;
-		ObjectBlurValue = ObjectBlurValue * UnitBlurValue;
+		if (!SDK::Transform.CheckIdentity(GlobalMatrix))
+			ResultMatrix = GlobalMatrix * ResultMatrix;
+		if (!SDK::Transform.CheckIdentity(GlobalFlipMatrix))
+			ResultMatrix *= GlobalFlipMatrix;
+
+		LocalColorValue += GlobalColorValue;
+		LocalOpacityValue *= GlobalOpacityValue;
+		LocalBlurValue *= GlobalBlurValue;
 	}
 
 	SDK::Transform.Identity(ImageAspectMatrix);

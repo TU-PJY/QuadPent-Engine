@@ -157,9 +157,6 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Frustum ]">
       <UniqueIdentifier>{c0d402a3-6a02-46a7-9a5d-b38ba1216622}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Font ]">
-      <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ EX ]">
       <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
     </Filter>
@@ -186,6 +183,9 @@
     </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Resource ]">
       <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Font Loader ]">
+      <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -238,7 +238,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Main ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SDK_FontLoader.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Font ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Font Loader ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SDK_Frustum.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Frustum ]</Filter>
@@ -366,7 +366,7 @@
       <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_FontLoader.h">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Font ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Font Loader ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Frustum.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Frustum ]</Filter>

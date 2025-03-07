@@ -1,10 +1,10 @@
 #pragma once
-// mata_SDK 7.6
+// mata_SDK 7.7
 // OpenGL version 4.3 ~ 4.6
 
 //////////////////////////////////// Window options
 // window name
-constexpr const char* WINDOW_NAME = "mata_SDK 7.6";
+constexpr const char* WINDOW_NAME = "mata_SDK 7.7";
 
 // window icon file path
 // Enter the path to the icon file to use in the Windows title bar. 

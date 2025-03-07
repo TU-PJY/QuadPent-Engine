@@ -32,13 +32,17 @@ namespace SDK {
 		void UnmapSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct);
 		void Map();
 
-		void Blur(float BlurStrength);
-		void UnitBlur(float BlurStrength);
-		void UnitOpacity(float Value);
+		void SetLocalBlur(float BlurStrength);
+		void SetGlobalBlur(float BlurStrength);
+		void SetGlobalOpacity(float Value);
 
-		void SetColor(float R, float G, float B);
-		void SetColor(glm::vec3& Color);
-		void SetColorRGB(int R, int G, int B);
+		void SetGlobalColor(float R, float G, float B);
+		void SetGlobalColor(SDK::Color3& Color);
+		void SetGlobalColorRGB(int R, int G, int B);
+
+		void SetLocalColor(float R, float G, float B);
+		void SetLocalColor(SDK::Color3& Color);
+		void SetLocalColorRGB(int R, int G, int B);
 
 	private:
 		void PrepareRender(SDK::Image& ImageStruct);

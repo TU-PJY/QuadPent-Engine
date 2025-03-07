@@ -60,7 +60,7 @@ namespace SDK {
 		void EnableShadow();
 		void DisableShadow();
 		void SetShadow(float OffsetX, float OffsetY, float Opacity, SDK::Color3 Color = SDK::Color3(0.0, 0.0, 0.0));
-		void Rotate(float RotationValue);
+		void Rotate(float Degree);
 		void SetOpacity(float Value);
 		void SetRenderType(int Type);
 		void Render(SDK::Vector2& Position, float Size, const wchar_t* Fmt, ...);
@@ -71,10 +71,11 @@ namespace SDK {
 		void RenderWString(float X, float Y, float Size, std::wstring Str);
 
 	private:
-		void ComputeTextLength(const wchar_t* Text);
+		void ComputeTextLength(wchar_t* Text);
 		void InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, float Size);
 		void ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size);
-		bool CheckMacro(wchar_t*& Text, int& IndexValue);
+		bool CheckColorMacro(wchar_t*& Text, int& Index);
+		bool CheckCarrigeReturn(wchar_t*& Text, int& Index);
 		void TransformText();
 		void PrepareRender();
 	};

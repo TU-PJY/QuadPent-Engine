@@ -42,76 +42,32 @@ void SDK::LineBrush::SetLineType(int LineTypeOpt) {
 	LineType = LineTypeOpt;
 }
 
-void SDK::LineBrush::Draw(float X1, float Y1, float X2, float Y2, float Width, float OpacityValue) {
+void SDK::LineBrush::Draw(float X1, float Y1, float X2, float Y2, float Thickness, float OpacityValue) {
 	Transform.Identity(LineMatrix);
 	Opacity = OpacityValue;
 
 	Length = Math.ComputeDistance(X1, Y1, X2, Y2);
 	Rotation = Math.ComputeRadians(X1, Y1, X2, Y2);
 
-	Transform.Move(LineMatrix, X1, Y1);
-	Transform.RotateRadians(LineMatrix, Rotation);
-	Transform.Move(LineMatrix, Length / 2.0, 0.0);
+	LineMatrix = translate(LineMatrix, SDK::Vector3(X1, Y1, 0.0));
+	LineMatrix = rotate(LineMatrix, -Rotation, SDK::Vector3(0.0, 0.0, 1.0));
+	LineMatrix = translate(LineMatrix, SDK::Vector3(Length / 2.0, 0.0, 0.0));
 
 	float DrawWidth{};
 	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		DrawWidth = Width / Camera.Zoom;
+		DrawWidth = Thickness / Camera.Zoom;
 	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
-		DrawWidth = Width;
+		DrawWidth = Thickness;
 
 	if (LineType == LINE_TYPE_RECT)
-		Transform.Scale(LineMatrix, Length + DrawWidth, DrawWidth);
+		LineMatrix = scale(LineMatrix, SDK::Vector3(Length + DrawWidth, DrawWidth, 1.0));
 	else if (LineType == LINE_TYPE_ROUND) 
-		Transform.Scale(LineMatrix, Length, DrawWidth);
+		LineMatrix = scale(LineMatrix, SDK::Vector3(Length, DrawWidth, 1.0));
 
 	Render();
 
 	if (LineType == LINE_TYPE_ROUND)
 		DrawCircle(X1, Y1, X2, Y2, DrawWidth);
-}
-
-void SDK::LineBrush::DrawLineX(float X1, float X2, float Y, float Width, float OpacityValue) {
-	Transform.Identity(LineMatrix);
-	Opacity = OpacityValue;
-
-	float DrawWidth{};
-	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		DrawWidth = Width / Camera.Zoom;
-	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
-		DrawWidth = Width;
-
-	Transform.Move(LineMatrix, (X1 + X2) / 2.0, Y);
-	if (LineType == LINE_TYPE_RECT)
-		Transform.Scale(LineMatrix, fabs(X1 - X2) + DrawWidth, DrawWidth);
-	else if (LineType == LINE_TYPE_ROUND) 
-		Transform.Scale(LineMatrix, fabs(X1 - X2), DrawWidth);
-
-	Render();
-
-	if (LineType == LINE_TYPE_ROUND)
-		DrawCircle(X1, Y, X2, Y, DrawWidth);
-}
-
-void SDK::LineBrush::DrawLineY(float Y1, float Y2, float X, float Width, float OpacityValue) {
-	Transform.Identity(LineMatrix);
-	Opacity = OpacityValue;
-
-	float DrawWidth{};
-	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
-		DrawWidth = Width / Camera.Zoom;
-	else if ((RenderType == RENDER_TYPE_DEFAULT && !StaticWidthCommand) || RenderType == RENDER_TYPE_STATIC)
-		DrawWidth = Width;
-
-	Transform.Move(LineMatrix, X, (Y1 + Y2) / 2.0);
-	if (LineType == LINE_TYPE_RECT)
-		Transform.Scale(LineMatrix, DrawWidth, fabs(Y1 - Y2) + DrawWidth);
-	else if (LineType == LINE_TYPE_ROUND)
-		Transform.Scale(LineMatrix, fabs(Y1 - Y2), DrawWidth);
-
-	Render();
-
-	if (LineType == LINE_TYPE_ROUND)
-		DrawCircle(X, Y1, X, Y2, DrawWidth);
 }
 
 void SDK::LineBrush::Render() {
@@ -127,17 +83,17 @@ void SDK::LineBrush::Render() {
 	SDK::ImageTool.RenderRaw();
 }
 
-void SDK::LineBrush::DrawCircle(float X1, float Y1, float X2, float Y2, float Width) {
+void SDK::LineBrush::DrawCircle(float X1, float Y1, float X2, float Y2, float Thickness) {
 	Transform.Identity(LineMatrix);
-	Transform.Move(LineMatrix, X1, Y1);
-	RenderCircle(Width);
+	LineMatrix = translate(LineMatrix, SDK::Vector3(X1, Y1, 0.0));
+	RenderCircle(Thickness);
 
 	Transform.Identity(LineMatrix);
-	Transform.Move(LineMatrix, X2, Y2);
-	RenderCircle(Width);
+	LineMatrix = translate(LineMatrix, SDK::Vector3(X2, Y2, 0.0));
+	RenderCircle(Thickness);
 }
 
-void SDK::LineBrush::RenderCircle(float Width) {
+void SDK::LineBrush::RenderCircle(float Thickness) {
 	Camera.SetCamera(RenderType);
 
 	glUseProgram(SHAPE_SHADER);
@@ -147,5 +103,5 @@ void SDK::LineBrush::RenderCircle(float Width) {
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(LineMatrix));
 
-	gluDisk(SDK::SYSRES.GLU_CIRCLE, 0.0, Width * 0.5, 80, 1);
+	gluDisk(SDK::SYSRES.GLU_CIRCLE, 0.0, Thickness * 0.5, 80, 1);
 }

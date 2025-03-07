@@ -17,8 +17,8 @@ namespace SDK {
 		// Initialize matrix. Select a render type.
 		void Begin(int RenderType = RENDER_TYPE_DEFAULT);
 
-		// Initialize unit matrix.
-		void IdentityUnitMatrix();
+		// Initialize global matrix and global attributes.
+		void ResetGlobalAttribute();
 
 		// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
 		void ComputeViewportPosition(float& DestX, float& DestY, bool ApplyAspect = true);

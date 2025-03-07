@@ -86,14 +86,14 @@ public:
 
 	void RenderFunc() {
 		Begin(RENDER_TYPE_STATIC);
-		SDK::Transform.Scale(SDK::MoveMatrix, 0.6, 0.6);
-		SDK::ImageTool.SetColor(1.0, 1.0, 1.0);
+		SDK::Transform.Scale(0.6, 0.6);
+		SDK::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
 		SDK::ImageTool.RenderImage(SDK::SYSRES.MATA_LOGO, SpinnerOpacity);
 
 		Begin(RENDER_TYPE_STATIC);
-		SDK::Transform.Scale(SDK::MoveMatrix, 1.0, 1.0);
-		SDK::Transform.Rotate(SDK::MoveMatrix, Rotation);
-		SDK::ImageTool.SetColor(1.0, 1.0, 1.0);
+		SDK::Transform.Scale(1.0, 1.0);
+		SDK::Transform.Rotate(Rotation);
+		SDK::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
 		SDK::ImageTool.RenderImage(SDK::SYSRES.LOADING_SPINNER, SpinnerOpacity);
 	}
 

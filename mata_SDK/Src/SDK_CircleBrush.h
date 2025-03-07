@@ -43,7 +43,7 @@ namespace SDK {
 		void SetColor(SDK::Color3& ColorValue);
 		void SetColorRGB(int R, int G, int B);
 		void SetRenderType(int Opt);
-		void Draw(float X, float Y, float Diameter, float Width, float OpacityValue = 1.0f);
+		void Draw(float X, float Y, float Diameter, float Thickness, float OpacityValue = 1.0f);
 
 	private:
 		void Render();

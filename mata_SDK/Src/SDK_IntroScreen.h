@@ -112,8 +112,8 @@ public:
 		BackGround.Draw(0.0, 0.0, SDK::ASP(2.0), 2.0, 0.0, BackGroundOpacity);
 
 		Begin(RENDER_TYPE_STATIC);
-		SDK::Transform.Move(SDK::MoveMatrix, 0.0, LogoPosition);
-		SDK::ImageTool.SetColor(1.0, 1.0, 1.0);
+		SDK::Transform.Move(0.0, LogoPosition);
+		SDK::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
 
 		switch (SceneNumber) {
 		case 1:
