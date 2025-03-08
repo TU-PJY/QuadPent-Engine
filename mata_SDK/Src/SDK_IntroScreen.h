@@ -111,7 +111,7 @@ public:
 	void RenderFunc() {
 		BackGround.Draw(0.0, 0.0, SDK::ViewportWidth, SDK::ViewportHeight, 0.0, BackGroundOpacity);
 
-		Begin(RENDER_TYPE_STATIC);
+		SDK::Begin(RENDER_TYPE_STATIC);
 		SDK::Transform.Move(0.0, LogoPosition);
 		SDK::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
 

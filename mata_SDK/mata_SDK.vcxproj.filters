@@ -4,9 +4,6 @@
     <Filter Include="[6]___________[ Template ]">
       <UniqueIdentifier>{a0f3d2c9-d45e-42c5-ac1f-c1a53d8811ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[1]___________[ GameMode ]">
-      <UniqueIdentifier>{824d0f24-8e5b-4c58-99e5-e019f51ea99a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[2]___________[ Object ]">
       <UniqueIdentifier>{56801dea-cc93-4de6-be84-193b881c5076}</UniqueIdentifier>
     </Filter>
@@ -15,12 +12,6 @@
     </Filter>
     <Filter Include="[0]___________[ Config ]">
       <UniqueIdentifier>{c229d7fb-288d-4e48-b8b0-7e7dbd38a78d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[1]___________[ GameMode ]\[1]_[ Modes ]">
-      <UniqueIdentifier>{8f517fc9-5b73-4fde-859b-a7d4c4bad5e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[1]___________[ GameMode ]\[0]_[ Mode  Attributes ]">
-      <UniqueIdentifier>{e5570cb2-8557-4f05-9d45-ce94e1bf6e24}</UniqueIdentifier>
     </Filter>
     <Filter Include="[4]___________[ Resource ]">
       <UniqueIdentifier>{a23e0c3a-d6ca-4199-bc98-de8c1d7c55be}</UniqueIdentifier>
@@ -60,12 +51,6 @@
     </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Scene ]">
       <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object ]">
-      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object ]\[ Object Value ]">
-      <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
     </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Misc ]">
       <UniqueIdentifier>{da528397-a6f0-4ef8-bcab-e3ea98bb5f1a}</UniqueIdentifier>
@@ -187,6 +172,27 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Font Loader ]">
       <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]">
+      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Value ]">
+      <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Function ]">
+      <UniqueIdentifier>{cf323af4-23d4-4c71-8465-343a3c3f46e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Header ]">
+      <UniqueIdentifier>{05628533-00de-4351-ac40-125726e22dc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ Mode ]">
+      <UniqueIdentifier>{824d0f24-8e5b-4c58-99e5-e019f51ea99a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ Mode ]\[1]_[ Modes ]">
+      <UniqueIdentifier>{8f517fc9-5b73-4fde-859b-a7d4c4bad5e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ Mode ]\[0]_[ Mode  Attributes ]">
+      <UniqueIdentifier>{e5570cb2-8557-4f05-9d45-ce94e1bf6e24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Library\tinyxml\tinystr.cpp">
@@ -256,7 +262,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Main ]</Filter>
     </ClCompile>
     <ClCompile Include="SDK_ModeAttribute.cpp">
-      <Filter>[1]___________[ GameMode ]\[0]_[ Mode  Attributes ]</Filter>
+      <Filter>[1]___________[ Mode ]\[0]_[ Mode  Attributes ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SDK_Mouse.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Mouse ]</Filter>
@@ -264,11 +270,8 @@
     <ClCompile Include="Src\SDK_MoveTool.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Move ]</Filter>
     </ClCompile>
-    <ClCompile Include="Src\SDK_Object.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object ]</Filter>
-    </ClCompile>
     <ClCompile Include="Src\SDK_ObjectValue.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object ]\[ Object Value ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Value ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SDK_Physics.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Physics ]</Filter>
@@ -312,6 +315,9 @@
     <ClCompile Include="Src\SDK_Font.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Text ]\[ Font ]</Filter>
     </ClCompile>
+    <ClCompile Include="Src\SDK_ObjectFunction.cpp">
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Function ]</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Library\tinyxml\tinystr.h">
@@ -321,7 +327,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="GameMode1.h">
-      <Filter>[1]___________[ GameMode ]\[1]_[ Modes ]</Filter>
+      <Filter>[1]___________[ Mode ]\[1]_[ Modes ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Shader.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]</Filter>
@@ -402,7 +408,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_ModeResource.h">
-      <Filter>[1]___________[ GameMode ]\[0]_[ Mode  Attributes ]</Filter>
+      <Filter>[1]___________[ Mode ]\[0]_[ Mode  Attributes ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Mouse.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Mouse ]</Filter>
@@ -410,11 +416,8 @@
     <ClInclude Include="Src\SDK_MoveTool.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Move ]</Filter>
     </ClInclude>
-    <ClInclude Include="Src\SDK_Object.h">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object ]</Filter>
-    </ClInclude>
     <ClInclude Include="Src\SDK_ObjectValue.h">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object ]\[ Object Value ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Value ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Physics.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Physics ]</Filter>
@@ -466,6 +469,12 @@
     </ClInclude>
     <ClInclude Include="Src\SDK_DefaultValue.h">
       <Filter>[5]___________[ SDK_System ]\[ Misc ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SDK_ObjectFunction.h">
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Function ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SDK_Object.h">
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Header ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

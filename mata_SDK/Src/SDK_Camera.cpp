@@ -9,7 +9,6 @@ void SDK::SDK_Camera::CalculateASPECT() {
 	SDK::WindowRect.LeftY = -1.0;
 	SDK::WindowRect.RightX = 1.0 * SDK::Aspect;
 	SDK::WindowRect.RightY = 1.0;
-
 	SDK::PrevWindowWidth = SDK::WindowWidth;
 	SDK::PrevWindowHeight = SDK::WindowHeight;
 }

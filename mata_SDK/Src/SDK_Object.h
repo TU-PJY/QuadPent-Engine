@@ -9,29 +9,10 @@ namespace SDK {
 
 		bool        FloatingCommand{};
 		bool        StaticCommand{};
-
 		bool        DeleteCommand{};
 		bool        SwapCommand{};
-		bool        ControllerCommand{};
 
-		// Initialize matrix. Select a render type.
-		void Begin(int RenderType = RENDER_TYPE_DEFAULT);
-
-		// Initialize global matrix and global attributes.
-		void ResetGlobalAttribute();
-
-		// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
-		void ComputeViewportPosition(float& DestX, float& DestY, bool ApplyAspect = true);
-
-		// Updates the object's position relative to the viewport. Choose whether to apply aspect ratio.
-		void ComputeViewportPosition(SDK::Vector2& DestValue, bool ApplyAspect);
-
-		// Updates the object's position relative to the local coordinate system.
-		void ComputeLocalPosition(float& DestX, float& DestY);
-
-		// Updates the object's position relative to the local coordinate system.
-		void ComputeLocalPosition(SDK::Vector2& DestPosition);
-
+		////////////////////////////////////////////// Built-in functions
 		// class destructor
 		virtual ~Object() {}
 
@@ -59,8 +40,10 @@ namespace SDK {
 		// Obtains an BoundingCircle object from a specific object class.
 		virtual SDK::BoundingCircle GetBoundingCircle() { return {}; }
 
-	private:
-		glm::vec4 ViewportPosition();
-		glm::vec4 LocalPosition();
+		// Obtains an RayVector from a specific object class.
+		virtual SDK::RayVector GetRayVector() { return {}; }
+
+		////////////////////////////////////////////// Define user functions below
+
 	};
 }

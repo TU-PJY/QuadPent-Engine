@@ -158,6 +158,7 @@
     <ClCompile Include="Src\Library\tinyxml\tinyxml.cpp" />
     <ClCompile Include="Src\Library\tinyxml\tinyxmlerror.cpp" />
     <ClCompile Include="Src\Library\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="Src\SDK_ObjectFunction.cpp" />
     <ClCompile Include="Src\SDK_ObjectValue.cpp" />
     <ClCompile Include="Src\SDK_Scene.cpp" />
     <ClCompile Include="Src\SDK_LineBrush.cpp" />
@@ -165,7 +166,6 @@
     <ClCompile Include="Src\SDK_Main.cpp" />
     <ClCompile Include="Src\SDK_ImageTool.cpp" />
     <ClCompile Include="Src\SDK_Mouse.cpp" />
-    <ClCompile Include="Src\SDK_Object.cpp" />
     <ClCompile Include="Src\SDK_MoveTool.cpp" />
     <ClCompile Include="Src\SDK_Physics.cpp" />
     <ClCompile Include="Src\SDK_Random.cpp" />
@@ -202,6 +202,7 @@
     <ClInclude Include="Src\SDK_EXTool.h" />
     <ClInclude Include="Src\SDK_FontLoader.h" />
     <ClInclude Include="Src\SDK_Frustum.h" />
+    <ClInclude Include="Src\SDK_ObjectFunction.h" />
     <ClInclude Include="Src\SDK_ModeHeader.h" />
     <ClInclude Include="Src\SDK_Header.h" />
     <ClInclude Include="Src\Library\tinyxml\tinystr.h" />

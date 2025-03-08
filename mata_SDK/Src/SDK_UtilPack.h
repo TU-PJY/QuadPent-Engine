@@ -24,6 +24,7 @@
 #include "SDK_Script.h"
 #include "SDK_Data.h"
 #include "SDK_Frustum.h"
+#include "SDK_ObjectFunction.h"
 #include "SDK_Resource.h"
 #include "SDK_SystemResource.h"
 #include "SDK_ModeResource.h"

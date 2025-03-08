@@ -237,78 +237,39 @@ bool SDK::Text::CheckColorMacro(wchar_t*& Text, int& Index) {
 	if (Text[Index] == L'\\' && Index + 1 < TextWordCount) {
 		switch (Text[Index + 1]) {
 		case L'P':
-			if (!ShadowRenderState)
-				RenderColor = MacroColor;
-			Index += 1;
-			return true;
-			break;
-
+			if (!ShadowRenderState) RenderColor = MacroColor;
+			Index += 1; return true;
 		case L'R':
-			if (!ShadowRenderState)
-				RenderColor = SDK::Color3(1.0, 0.0, 0.0);
-			Index += 1;
-			return true;
-			break;
-
+			if (!ShadowRenderState) RenderColor = SDK::Color3(1.0, 0.0, 0.0);
+			Index += 1; return true;
 		case L'G':
-			if (!ShadowRenderState)
-				RenderColor = SDK::Color3(0.0, 1.0, 0.0);
-			Index += 1;
-			return true;
-			break;
-
+			if (!ShadowRenderState) RenderColor = SDK::Color3(0.0, 1.0, 0.0);
+			Index += 1; return true;
 		case L'B':
-			if (!ShadowRenderState)
-				RenderColor = SDK::Color3(0.0, 0.0, 1.0);
-			Index += 1;
-			return true;
-			break;
-
+			if (!ShadowRenderState) RenderColor = SDK::Color3(0.0, 0.0, 1.0);
+			Index += 1; return true;
 		case L'Y':
-			if (!ShadowRenderState)
-				RenderColor = SDK::Color3(1.0, 1.0, 0.0);
-			Index += 1;
-			return true;
-			break;
-
+			if (!ShadowRenderState) RenderColor = SDK::Color3(1.0, 1.0, 0.0);
+			Index += 1; return true;
 		case L'C':
-			if (!ShadowRenderState)
-				RenderColor = SDK::Color3(0.0, 1.0, 1.0);
-			Index += 1;
-			return true;
-			break;
-
+			if (!ShadowRenderState) RenderColor = SDK::Color3(0.0, 1.0, 1.0);
+			Index += 1; return true;
 		case L'M':
-			if (!ShadowRenderState)
-				RenderColor = SDK::Color3(1.0, 0.0, 1.0);
-			Index += 1;
-			return true;
-			break;
-
+			if (!ShadowRenderState) RenderColor = SDK::Color3(1.0, 0.0, 1.0);
+			Index += 1; return true;
 		case L'K':
-			if (!ShadowRenderState)
-				RenderColor = SDK::Color3(0.0, 0.0, 0.0);
-			Index += 1;
-			return true;
-			break;
-
+			if (!ShadowRenderState) RenderColor = SDK::Color3(0.0, 0.0, 0.0);
+			Index += 1; return true;
 		case L'W':
-			if (!ShadowRenderState)
-				RenderColor = SDK::Color3(1.0, 1.0, 1.0);
-			Index += 1;
-			return true;
-			break;
-
+			if (!ShadowRenderState) RenderColor = SDK::Color3(1.0, 1.0, 1.0);
+			Index += 1; return true;
 		case L'E':
-			if (!ShadowRenderState)
-				RenderColor = TextColor;
-			Index += 1;
-			return true;
-			break;
+			if (!ShadowRenderState) RenderColor = TextColor;
+			Index += 1; return true;
 		}
 	}
 
-		return false;
+	return false;
 }
 
 bool SDK::Text::CheckCarrigeReturn(wchar_t*& Text, int& Index) {
@@ -327,7 +288,7 @@ bool SDK::Text::CheckCarrigeReturn(wchar_t*& Text, int& Index) {
 	return false;
 }
 
-void SDK::Text::ComputeTextLength(wchar_t* Text) {
+void SDK::Text::ComputeTextLength(wchar_t*& Text) {
 	LineLengthList.clear();
 	float CurrentLineLength{};
 

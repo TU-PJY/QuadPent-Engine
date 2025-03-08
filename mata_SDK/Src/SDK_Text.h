@@ -71,7 +71,7 @@ namespace SDK {
 		void RenderWString(float X, float Y, float Size, std::wstring Str);
 
 	private:
-		void ComputeTextLength(wchar_t* Text);
+		void ComputeTextLength(wchar_t*& Text);
 		void InputText(std::vector<wchar_t>& Input, SDK::Vector2& Position, float Size);
 		void ProcessText(wchar_t* Text, SDK::Vector2& Position, float Size);
 		bool CheckColorMacro(wchar_t*& Text, int& Index);

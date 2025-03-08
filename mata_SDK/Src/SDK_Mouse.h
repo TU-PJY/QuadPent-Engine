@@ -5,6 +5,7 @@ namespace SDK {
 	class SDK_Mouse {
 	public:
 		float x{}, y{};
+		float LocalX{}, LocalY{};
 		void ConvertPosition(int X, int Y);
 	};
 
