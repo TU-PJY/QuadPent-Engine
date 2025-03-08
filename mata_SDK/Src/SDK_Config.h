@@ -1,6 +1,6 @@
 #pragma once
 #include "SDK_DefaultValue.h"
-// mata_SDK 7.7
+// mata_SDK 7.8
 // OpenGL version 4.3 ~ 4.6
 
 //////////////////////////////////// Window options
