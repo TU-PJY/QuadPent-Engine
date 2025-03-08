@@ -218,6 +218,7 @@ namespace SDK {
 	extern SDK_System System;
 
 	extern float Aspect;
+	extern float ViewportWidth, ViewportHeight;
 	extern int WindowWidth, WindowHeight;
 	extern int PrevWindowWidth, PrevWindowHeight;
 

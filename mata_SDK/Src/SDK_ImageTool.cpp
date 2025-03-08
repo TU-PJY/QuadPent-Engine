@@ -506,6 +506,7 @@ void SDK::SDK_ImageTool::PrepareRender(SDK::SpriteSheet& SpriteSheetStruct) {
 
 void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float OpacityValue, bool ApplyGlobalAttribute, bool DisableAdjustAspect) {
 	SDK::Transform.Identity(ResultMatrix);
+	SDK::Transform.Identity(ImageAspectMatrix);
 
 	ResultMatrix = LocalMatrix;
 
@@ -520,21 +521,39 @@ void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float Opaci
 		}
 	}
 
-	if (!SDK::Transform.CheckIdentity(LocalFlipMatrix))
-		ResultMatrix *= LocalFlipMatrix;
+	switch (LocalFlipFlag) {
+	case FLIP_TYPE_H:
+		ResultMatrix = rotate(ResultMatrix, glm::radians(180.0f), SDK::Vector3(0.0, 1.0, 0.0));
+		break;
+	case FLIP_TYPE_V:
+		ResultMatrix = rotate(ResultMatrix, glm::radians(180.0f), SDK::Vector3(1.0, 0.0, 0.0));
+		break;
+	case FLIP_TYPE_HV:
+		ResultMatrix = rotate(ResultMatrix, glm::radians(180.0f), SDK::Vector3(1.0, 0.0, 0.0));
+		ResultMatrix = rotate(ResultMatrix, glm::radians(180.0f), SDK::Vector3(0.0, 1.0, 0.0));
+		break;
+	}
 
 	LocalOpacityValue = OpacityValue;
 
 	if (ApplyGlobalAttribute) {
-		if (!SDK::Transform.CheckIdentity(GlobalMatrix))
-			ResultMatrix = GlobalMatrix * ResultMatrix;
-		if (!SDK::Transform.CheckIdentity(GlobalFlipMatrix))
-			ResultMatrix *= GlobalFlipMatrix;
+		ResultMatrix = GlobalMatrix * ResultMatrix;
+
+		switch (GlobalFlipFlag) {
+		case FLIP_TYPE_H:
+			ResultMatrix = rotate(ResultMatrix, glm::radians(180.0f), SDK::Vector3(0.0, 1.0, 0.0));
+			break;
+		case FLIP_TYPE_V:
+			ResultMatrix = rotate(ResultMatrix, glm::radians(180.0f), SDK::Vector3(1.0, 0.0, 0.0));
+			break;
+		case FLIP_TYPE_HV:
+			ResultMatrix = rotate(ResultMatrix, glm::radians(180.0f), SDK::Vector3(1.0, 0.0, 0.0));
+			ResultMatrix = rotate(ResultMatrix, glm::radians(180.0f), SDK::Vector3(0.0, 1.0, 0.0));
+			break;
+		}
 
 		LocalColorValue += GlobalColorValue;
 		LocalOpacityValue *= GlobalOpacityValue;
 		LocalBlurValue *= GlobalBlurValue;
 	}
-
-	SDK::Transform.Identity(ImageAspectMatrix);
 }

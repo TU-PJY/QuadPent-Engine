@@ -85,16 +85,19 @@ public:
 	}
 
 	void RenderFunc() {
-		Begin(RENDER_TYPE_STATIC);
-		SDK::Transform.Scale(0.6, 0.6);
-		SDK::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
-		SDK::ImageTool.RenderImage(SDK::SYSRES.MATA_LOGO, SpinnerOpacity);
+		ResetGlobalAttribute();
+		SDK::ImageTool.SetGlobalColor(1.0, 1.0, 1.0);
+		{
+			Begin(RENDER_TYPE_STATIC);
+			SDK::Transform.Scale(0.6, 0.6);
+			SDK::ImageTool.RenderImage(SDK::SYSRES.MATA_LOGO, SpinnerOpacity, true);
 
-		Begin(RENDER_TYPE_STATIC);
-		SDK::Transform.Scale(1.0, 1.0);
-		SDK::Transform.Rotate(Rotation);
-		SDK::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
-		SDK::ImageTool.RenderImage(SDK::SYSRES.LOADING_SPINNER, SpinnerOpacity);
+			Begin(RENDER_TYPE_STATIC);
+			SDK::Transform.Scale(1.0, 1.0);
+			SDK::Transform.Rotate(Rotation);
+			SDK::ImageTool.RenderImage(SDK::SYSRES.LOADING_SPINNER, SpinnerOpacity, true);
+		} 
+		ResetGlobalAttribute();
 	}
 
 	void AddFPSIndicator() {

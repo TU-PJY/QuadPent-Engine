@@ -464,6 +464,9 @@
     <ClInclude Include="resource.h">
       <Filter>[7[___________[ API Resource ]</Filter>
     </ClInclude>
+    <ClInclude Include="Src\SDK_DefaultValue.h">
+      <Filter>[5]___________[ SDK_System ]\[ Misc ]</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ModeTemplate.txt">

@@ -9,13 +9,14 @@
 
 #include "SDK_LoadingMode.h"
 
+float SDK::Aspect;
+float SDK::ViewportWidth, SDK::ViewportHeight;
 int SDK::WindowWidth = WINDOW_WIDTH;
 int SDK::WindowHeight = WINDOW_HEIGHT;
 int SDK::PrevWindowWidth, SDK::PrevWindowHeight;
 
 SDK::SDK_Camera SDK::Camera;
 
-float SDK::Aspect;
 SDK::ViewportRect SDK::WindowRect;
 
 SDK::SDK_SYSTEM_RESOURCE SDK::SYSRES;

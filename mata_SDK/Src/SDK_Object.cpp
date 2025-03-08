@@ -3,7 +3,7 @@
 
 void SDK::Object::Begin(int RenderType) {
 	SDK::Transform.Identity(LocalMatrix);
-	SDK::Transform.Identity(LocalFlipMatrix);
+	LocalFlipFlag = FLIP_TYPE_NONE;
 
 	LocalOpacityValue = 1.0f;
 	LocalBlurValue = 0.0;
@@ -14,7 +14,7 @@ void SDK::Object::Begin(int RenderType) {
 
 void SDK::Object::ResetGlobalAttribute() {
 	SDK::Transform.Identity(GlobalMatrix);
-	SDK::Transform.Identity(GlobalFlipMatrix);
+	GlobalFlipFlag = FLIP_TYPE_NONE;
 
 	GlobalOpacityValue = 1.0f;
 	GlobalBlurValue = 0.0f;

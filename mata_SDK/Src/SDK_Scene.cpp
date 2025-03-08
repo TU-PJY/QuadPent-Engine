@@ -84,7 +84,7 @@ void SDK::SDK_Scene::Render() {
 void SDK::SDK_Scene::Init(SDK::MODE_PTR ModePtr) {
 	ModePtr();
 	for (int Layer = 0; Layer < SceneLayer; ++Layer)
-		CommandLocation[Layer].reserve(DELETE_LOCATION_BUFFER_SIZE);
+		CommandLocation[Layer].reserve(COMMAND_LOCATION_BUFFER_SIZE);
 }
 
 void SDK::SDK_Scene::SwitchMode(SDK::MODE_PTR ModePtr, int SwitchOption) {

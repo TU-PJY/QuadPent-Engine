@@ -109,7 +109,7 @@ public:
 	}
 
 	void RenderFunc() {
-		BackGround.Draw(0.0, 0.0, SDK::ASP(2.0), 2.0, 0.0, BackGroundOpacity);
+		BackGround.Draw(0.0, 0.0, SDK::ViewportWidth, SDK::ViewportHeight, 0.0, BackGroundOpacity);
 
 		Begin(RENDER_TYPE_STATIC);
 		SDK::Transform.Move(0.0, LogoPosition);

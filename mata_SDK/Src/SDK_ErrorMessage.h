@@ -34,7 +34,7 @@ public:
 
 		else {
 			Rect.SetColorRGB(31, 31, 31);
-			Rect.Draw(0.0, 0.0, SDK::ASP(2.0), 2.0);
+			Rect.Draw(0.0, 0.0, SDK::ViewportWidth, SDK::ViewportHeight);
 
 			Rect.SetColorRGB(45, 45, 45);
 			Rect.Draw(0.0, HeightOffset, 0.8, 0.2, -45.0f);
@@ -44,8 +44,8 @@ public:
 			Rect.Draw(0.0, -0.65 + HeightOffset, 0.4, 0.3);
 			Rect.Draw(0.0, -0.75 + HeightOffset, 0.7, 0.1);
 
-			Message.RenderString(SDK::ASP(-1.0) + 0.01, 1.0 - 0.06, 0.06, Result);
-			Message.Render(SDK::ASP(-1.0) + 0.01, -1.0 + 0.02, 0.06, L"Press \\YESC\\E or \\YEnter\\E to terminate system...");
+			Message.RenderString(SDK::WindowRect.LeftX + 0.01, 1.0 - 0.06, 0.06, Result);
+			Message.Render(SDK::WindowRect.LeftX + 0.01, -1.0 + 0.02, 0.06, L"Press \\YESC\\E or \\YEnter\\E to terminate system...");
 		}
 	}
 

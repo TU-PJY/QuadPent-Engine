@@ -15,6 +15,7 @@ namespace SDK {
 	private:
 		SDK::Vector2 Position{};
 		float Rotation{};
+		float ControllerZoom{ 1.0 };
 
 		void ComputeCameraMatrix();
 	};

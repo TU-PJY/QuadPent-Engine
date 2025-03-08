@@ -93,22 +93,8 @@ void SDK::SDK_Transform::Tilt(SDK::Vector2& Value, int MatrixType) {
 }
 
 void SDK::SDK_Transform::Flip(int FlipFlag, int MatrixType) {
-	switch (FlipFlag) {
-	case FLIP_TYPE_NONE:
-		Identity(LocalFlipMatrix);
-		break;
-
-	case FLIP_TYPE_H:
-		RotateH(180.0f, MatrixType);
-		break;
-
-	case FLIP_TYPE_V:
-		RotateV(180.0f, MatrixType);
-		break;
-
-	case FLIP_TYPE_HV:
-		RotateH(180.0f, MatrixType);
-		RotateV(180.0f, MatrixType);
-		break;
-	}
+	if (MatrixType == MATRIX_LOCAL)
+		LocalFlipFlag = FlipFlag;
+	else if (MatrixType == MATRIX_GLOBAL)
+		GlobalFlipFlag = FlipFlag;
 }

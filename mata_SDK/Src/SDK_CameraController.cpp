@@ -30,32 +30,33 @@ void SDK::SDK_CameraController::Rotate(float Degree){
 void SDK::SDK_CameraController::Zoom(int ZoomType, float ZoomValue){
 	switch (ZoomType) {
 	case ZOOM_IN:
-		SDK::Camera.Zoom = SDK::Camera.Zoom / (1.0f - ZoomValue);
+		ControllerZoom = ControllerZoom / (1.0f - ZoomValue);
 		break;
 
 	case ZOOM_OUT:
-		SDK::Camera.Zoom = SDK::Camera.Zoom * (1.0f - ZoomValue);
+		ControllerZoom = ControllerZoom * (1.0f - ZoomValue);
 		break;
 	}
 }
 
 void SDK::SDK_CameraController::SetZoom(float ZoomValue){
-	SDK::Camera.Zoom = ZoomValue;
+	ControllerZoom = ZoomValue;
 }
 
 float SDK::SDK_CameraController::ComputeNextZoom(int ZoomType, float ZoomValue) {
 	if (ZoomType == ZOOM_IN)
-		return 	SDK::Camera.Zoom / (1.0f - ZoomValue);
+		return 	ControllerZoom / (1.0f - ZoomValue);
 	else if (ZoomType == ZOOM_OUT)
-		return 	SDK::Camera.Zoom * (1.0f - ZoomValue);
+		return 	ControllerZoom * (1.0f - ZoomValue);
 	else
-		return 	SDK::Camera.Zoom;
+		return 	ControllerZoom;
 }
 
 ///////////////////////////////////////// private
 
 void SDK::SDK_CameraController::ComputeCameraMatrix(){
 	SDK::Transform.Identity(SDK::Camera.CameraMatrix);
+	SDK::Camera.Zoom = ControllerZoom;
 	SDK::Camera.CameraMatrix = rotate(SDK::Camera.CameraMatrix, glm::radians(Rotation), SDK::Vector3(0.0, 0.0, 1.0));
 	SDK::Camera.CameraMatrix = translate(SDK::Camera.CameraMatrix, SDK::Vector3(Position.x, Position.y, 0.0));
 }
