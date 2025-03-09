@@ -35,7 +35,7 @@ namespace SDK {
 	private:
 		BoundingOrientedBox oobb;
 		float             Rotation{};
-		bool                Collide{};
+		bool              Collide{};
 
 		SDK::LineRectBrush       LineRect{ true, true };
 		SDK::RectBrush           RECT{ true };

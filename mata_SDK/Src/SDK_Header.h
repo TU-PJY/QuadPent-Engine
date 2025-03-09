@@ -235,10 +235,6 @@ namespace SDK {
 extern SDK::ShaderResource IMAGE_SHADER;
 extern SDK::ShaderResource TEXT_SHADER;
 extern SDK::ShaderResource SHAPE_SHADER;
-extern SDK::ShaderResource MATRIX_COMPT_SHADER;
-
-// global SSBO I/O
-extern SDK::SSBO SSBO_MATRIX_INPUT, SSBO_MATRIX_OUTPUT;
 
 // global scope shader location
 extern SDK::ShaderLocation IMAGE_OPACITY_LOCATION, IMAGE_COLOR_LOCATION, IMAGE_MODEL_LOCATION;

@@ -84,25 +84,6 @@ void SDK::SDK_Shader::LoadFragmentShader(std::string FragmentShader) {
 	}
 }
 
-void SDK::SDK_Shader::LoadComputeShader(std::string ComputeShader) {
-	ComputeShaderSource = LoadShaderFile(ComputeShader);
-	CommputeShaderBuffer = glCreateShader(GL_COMPUTE_SHADER);
-	glShaderSource(CommputeShaderBuffer, 1, (const char**)&ComputeShaderSource, 0);
-	glCompileShader(CommputeShaderBuffer);
-
-	int Result{};
-	char ErrorLog[512]{};
-
-	glGetShaderiv(CommputeShaderBuffer, GL_COMPILE_STATUS, &Result);
-
-	if (!Result) {
-		glGetShaderInfoLog(CommputeShaderBuffer, 512, NULL, ErrorLog);
-		std::cout << "ERROR: compute shader error\n" << ErrorLog << std::endl;
-
-		return;
-	}
-}
-
 void SDK::SDK_Shader::CreateShader(SDK::ShaderResource& Shader) {
 	Shader = glCreateProgram();
 	glAttachShader(Shader, VertexShaderBuffer);
@@ -110,13 +91,6 @@ void SDK::SDK_Shader::CreateShader(SDK::ShaderResource& Shader) {
 	glLinkProgram(Shader);
 	glDeleteShader(VertexShaderBuffer);
 	glDeleteShader(FragmentShaderBuffer);
-}
-
-void SDK::SDK_Shader::CreateComputeShader(SDK::ShaderResource& Shader) {
-	Shader = glCreateProgram();
-	glAttachShader(Shader, CommputeShaderBuffer);
-	glLinkProgram(Shader);
-	glDeleteShader(CommputeShaderBuffer);
 }
 
 void SDK::SDK_Shader::CreateShaderLocation() {
@@ -154,16 +128,4 @@ void SDK::SDK_Shader::CreateShaderLocation() {
 	SHAPE_PROJECTION_LOCATION    = glGetUniformLocation(SHAPE_SHADER, "ProjectionMatrix");
 	SHAPE_VIEW_LOCATION          = glGetUniformLocation(SHAPE_SHADER, "ViewMatrix");
 	SHAPE_VIEW_POSITION_LOCATION = glGetUniformLocation(SHAPE_SHADER, "ViewPosition");
-}
-
-void SDK::SDK_Shader::CreateSSBO() {
-	glGenBuffers(1, &SSBO_MATRIX_INPUT);
-	glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO_MATRIX_INPUT);
-	glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(glm::mat4) * 5, nullptr, GL_STATIC_DRAW);
-	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, SSBO_MATRIX_INPUT);
-
-	glGenBuffers(1, &SSBO_MATRIX_OUTPUT);
-	glBindBuffer(GL_SHADER_STORAGE_BUFFER, SSBO_MATRIX_OUTPUT);
-	glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(glm::mat4), nullptr, GL_STATIC_DRAW);
-	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, SSBO_MATRIX_OUTPUT);
 }

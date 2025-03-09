@@ -2,7 +2,6 @@
 #include "SDK_Camera.h"
 #include "SDK_ObjectValue.h"
 #include "SDK_Transform.h"
-#include "SDK_ComputeTool.h"
 
 void SDK::Begin(int RenderType) {
 	SDK::Transform.Identity(LocalMatrix);

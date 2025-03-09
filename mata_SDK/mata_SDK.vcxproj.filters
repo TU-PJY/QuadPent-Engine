@@ -106,6 +106,45 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Collision ]">
       <UniqueIdentifier>{4048cd52-6e69-47f1-ad3d-07de4f88f83e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Text ]\[ Font ]">
+      <UniqueIdentifier>{7a0197c5-b554-41ed-8f0c-cd00a83ce428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[7[___________[ API Resource ]">
+      <UniqueIdentifier>{dd4071a8-b834-4a09-86b3-ada6ee4f3823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]">
+      <UniqueIdentifier>{3103bdf2-3542-4796-9d68-f89a4c3ce52b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Mode ]">
+      <UniqueIdentifier>{9d92d68b-96f8-4a78-90d4-bd16df8b7372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]">
+      <UniqueIdentifier>{c8dde2fb-f4fd-4595-9cdf-614100ed40cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Resource ]">
+      <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ Mode ]">
+      <UniqueIdentifier>{824d0f24-8e5b-4c58-99e5-e019f51ea99a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ Mode ]\[1]_[ Modes ]">
+      <UniqueIdentifier>{8f517fc9-5b73-4fde-859b-a7d4c4bad5e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[1]___________[ Mode ]\[0]_[ Mode  Attributes ]">
+      <UniqueIdentifier>{e5570cb2-8557-4f05-9d45-ce94e1bf6e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object Component ]">
+      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object Component ]\[ Object Value ]">
+      <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object Component ]\[ Object Function ]">
+      <UniqueIdentifier>{cf323af4-23d4-4c71-8465-343a3c3f46e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object Component ]\[ Object Header ]">
+      <UniqueIdentifier>{05628533-00de-4351-ac40-125726e22dc0}</UniqueIdentifier>
+    </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]">
       <UniqueIdentifier>{61b7533a-082a-4ffc-915c-ee26f517dcc5}</UniqueIdentifier>
     </Filter>
@@ -145,53 +184,11 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ EX ]">
       <UniqueIdentifier>{7143f403-e5d1-41d0-946b-ebb32ffaf2ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Compute ]">
-      <UniqueIdentifier>{f7456d94-6103-44fc-b1c5-33fe9e736f54}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Clipping ]">
       <UniqueIdentifier>{9bceb82f-2ade-4d6d-9360-521458e8d522}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Text ]\[ Font ]">
-      <UniqueIdentifier>{7a0197c5-b554-41ed-8f0c-cd00a83ce428}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[7[___________[ API Resource ]">
-      <UniqueIdentifier>{dd4071a8-b834-4a09-86b3-ada6ee4f3823}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]">
-      <UniqueIdentifier>{3103bdf2-3542-4796-9d68-f89a4c3ce52b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Mode ]">
-      <UniqueIdentifier>{9d92d68b-96f8-4a78-90d4-bd16df8b7372}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]">
-      <UniqueIdentifier>{c8dde2fb-f4fd-4595-9cdf-614100ed40cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Resource ]">
-      <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Font Loader ]">
       <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]">
-      <UniqueIdentifier>{f67944b9-c91f-464e-976e-0b8958cf7ab9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Value ]">
-      <UniqueIdentifier>{8b8a436e-7668-404f-9fa0-864c2eec418e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Function ]">
-      <UniqueIdentifier>{cf323af4-23d4-4c71-8465-343a3c3f46e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Header ]">
-      <UniqueIdentifier>{05628533-00de-4351-ac40-125726e22dc0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[1]___________[ Mode ]">
-      <UniqueIdentifier>{824d0f24-8e5b-4c58-99e5-e019f51ea99a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[1]___________[ Mode ]\[1]_[ Modes ]">
-      <UniqueIdentifier>{8f517fc9-5b73-4fde-859b-a7d4c4bad5e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[1]___________[ Mode ]\[0]_[ Mode  Attributes ]">
-      <UniqueIdentifier>{e5570cb2-8557-4f05-9d45-ce94e1bf6e24}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -234,9 +231,6 @@
     <ClCompile Include="Src\SDK_Collision.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Collision ]</Filter>
     </ClCompile>
-    <ClCompile Include="Src\SDK_ComputeTool.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Compute ]</Filter>
-    </ClCompile>
     <ClCompile Include="Src\SDK_Data.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Data ]</Filter>
     </ClCompile>
@@ -271,7 +265,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Move ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SDK_ObjectValue.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Value ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Component ]\[ Object Value ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SDK_Physics.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Physics ]</Filter>
@@ -316,7 +310,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Text ]\[ Font ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SDK_ObjectFunction.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Function ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Component ]\[ Object Function ]</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -355,9 +349,6 @@
     </ClInclude>
     <ClInclude Include="Src\SDK_Collision.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Collision ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\SDK_ComputeTool.h">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Compute ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Config.h">
       <Filter>[0]___________[ Config ]</Filter>
@@ -417,7 +408,7 @@
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Move ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_ObjectValue.h">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Value ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Component ]\[ Object Value ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Physics.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Physics ]</Filter>
@@ -471,10 +462,10 @@
       <Filter>[5]___________[ SDK_System ]\[ Misc ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_ObjectFunction.h">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Function ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Component ]\[ Object Function ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Object.h">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Template ]\[ Object Header ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Component ]\[ Object Header ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -492,9 +483,6 @@
     <None Include="SDKResource\GLSL\4.3\Vertex.glsl">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.3 ]</Filter>
     </None>
-    <None Include="SDKResource\GLSL\4.3\ComputeMatrix.glsl">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.3 ]</Filter>
-    </None>
     <None Include="SDKResource\GLSL\4.3\Fragment_Image.glsl">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.3 ]</Filter>
     </None>
@@ -505,9 +493,6 @@
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.4 ]</Filter>
     </None>
     <None Include="SDKResource\GLSL\4.4\Vertex.glsl">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.4 ]</Filter>
-    </None>
-    <None Include="SDKResource\GLSL\4.4\ComputeMatrix.glsl">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.4 ]</Filter>
     </None>
     <None Include="SDKResource\GLSL\4.4\Fragment_Image.glsl">
@@ -522,9 +507,6 @@
     <None Include="SDKResource\GLSL\4.5\Vertex.glsl">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.5 ]</Filter>
     </None>
-    <None Include="SDKResource\GLSL\4.5\ComputeMatrix.glsl">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.5 ]</Filter>
-    </None>
     <None Include="SDKResource\GLSL\4.5\Fragment_Image.glsl">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.5 ]</Filter>
     </None>
@@ -535,9 +517,6 @@
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.6 ]</Filter>
     </None>
     <None Include="SDKResource\GLSL\4.6\Vertex.glsl">
-      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.6 ]</Filter>
-    </None>
-    <None Include="SDKResource\GLSL\4.6\ComputeMatrix.glsl">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]\[ GLSL ]\[ 4.6 ]</Filter>
     </None>
     <None Include="SDKResource\GLSL\4.6\Fragment_Image.glsl">

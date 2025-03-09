@@ -5,7 +5,6 @@
 #include "SDK_Shader.h"
 #include "SDK_Camera.h"
 #include "SDK_SystemResource.h"
-#include "SDK_ComputeTool.h"
 
 glm::mat4 LineMatrix;
 

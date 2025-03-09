@@ -11,11 +11,8 @@ namespace SDK {
 		char* LoadShaderFile(std::string file);
 		void LoadVertexShader(std::string VertexShader);
 		void LoadFragmentShader(std::string FragmentShader);
-		void LoadComputeShader(std::string ComputeShader);
 		void CreateShader(SDK::ShaderResource& Shader);
-		void CreateComputeShader(SDK::ShaderResource& Shader);
 		void CreateShaderLocation();
-		void CreateSSBO();
 	};
 
 	extern SDK_Shader Shader;

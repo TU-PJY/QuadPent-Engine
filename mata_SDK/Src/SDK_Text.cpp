@@ -1,7 +1,6 @@
 #include "SDK_Text.h"
 #include "SDK_Camera.h"
 #include "SDK_Transform.h"
-#include "SDK_ComputeTool.h"
 #include "SDK_StringTool.h"
 #include "SDK_Scene.h"
 

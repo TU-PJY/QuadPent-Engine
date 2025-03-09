@@ -98,7 +98,7 @@ bool SDK::SDK_EXTool::CheckClampValue(int& Value, int Dest, int Type) {
 }
 
 void SDK::SDK_EXTool::InputBoolSwitch(int SwitchingOption, SDK::KeyEvent& Event, WPARAM Key, bool& DestBoolValue) {
-	if (Event.Type == WM_KEYDOWN && Event.Key != Key)
+	if ((Event.Type == WM_KEYDOWN || Event.Type == WM_KEYUP) && Event.Key != Key)
 		return;
 
 	if (SwitchingOption == TRUE_KEY_DOWN) {

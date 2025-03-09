@@ -114,11 +114,7 @@ void SDK::SDK_System::LoadShader() {
 	SDK::Shader.LoadFragmentShader(std::string(FolderName + "Fragment_Shape.glsl"));
 	SDK::Shader.CreateShader(SHAPE_SHADER);
 
-	SDK::Shader.LoadComputeShader(std::string(FolderName + "ComputeMatrix.glsl"));
-	SDK::Shader.CreateComputeShader(MATRIX_COMPT_SHADER);
-
 	SDK::Shader.CreateShaderLocation();
-	SDK::Shader.CreateSSBO();
 }
 
 void SDK::SDK_System::SetGlOption() {

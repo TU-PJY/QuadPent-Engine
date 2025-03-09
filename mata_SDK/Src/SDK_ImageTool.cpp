@@ -6,7 +6,6 @@
 
 #include "SDK_ObjectValue.h"
 #include "SDK_Transform.h"
-#include "SDK_ComputeTool.h"
 
 
 SDK::SDK_ImageTool SDK::ImageTool;

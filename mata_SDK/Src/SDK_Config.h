@@ -1,6 +1,6 @@
 #pragma once
 #include "SDK_DefaultValue.h"
-// mata_SDK 7.8
+// mata_SDK 7.9
 // OpenGL version 4.3 ~ 4.6
 
 //////////////////////////////////// Window options
@@ -37,9 +37,6 @@ constexpr bool ENABLE_INTRO_SCREEN = true;
 // frame limits option
 // If this option is set to SDK::MAX_FRAMERATE, the system will run at maximum framerate.
 constexpr int FRAME_LIMITS = SDK::MAX_FRAMERATE;
-
-// When enabled, the GPU computes matrices. When disabled, the CPU computes matrices.
-constexpr bool USE_COMPUTE_SHADER = false;
 
 // Set the size of the list to be created from the font object.
 constexpr int FONT_LIST_GENERATE_SIZE = SDK::DEFAULT_FONT_LIST_GENERATE_SIZE;

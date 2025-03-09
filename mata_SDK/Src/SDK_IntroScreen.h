@@ -6,15 +6,13 @@ private:
 	SDK::Timer        IntroTimer;
 	SDK::SoundChannel IntroChannel{};
 
-	SDK::SinMove      IntroMove{}, OpacityMove{};
-
 	SDK::RectBrush    BackGround{};
 	float             BackGroundOpacity{ 1.0 };
 
-	float      LogoSize        = 1.0;
+	float      LogoSize        = 2.0;
 	float      LogoOpacity     = 0.0;
-	float      LogoPosition    = -0.4;
-	float      AnimationSpeed  = 6.0;
+	float      AnimationSpeed  = 5.0;
+	float      HorizontalRotation = 180.0;
 
 	int        SceneNumber{}; 
 
@@ -22,9 +20,6 @@ private:
 
 public:
 	SDK_IntroScreen() {
-		IntroMove.SetMovePoint(LogoPosition, 0.0);
-		OpacityMove.SetMovePoint(0.0, 1.0);
-
 		BackGround.SetColorRGB(31, 31, 31);
 		BackGround.SetRenderType(RENDER_TYPE_STATIC);
 	}
@@ -57,23 +52,18 @@ public:
 
 			case 1:
 				if (IntroTimer.MiliSec() < 2.5) {
-					IntroMove.Update(LogoPosition, AnimationSpeed, FrameTime);
-					OpacityMove.Update(LogoOpacity, AnimationSpeed, FrameTime);
+					SDK::Math.Lerp(LogoSize, 1.0, AnimationSpeed, FrameTime);
+					SDK::Math.Lerp(LogoOpacity, 1.0, AnimationSpeed * 0.5, FrameTime);
+					SDK::Math.Lerp(HorizontalRotation, 0.0, AnimationSpeed * 0.5, FrameTime);
 				}
 
 				if (IntroTimer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
-					LogoOpacity -= FrameTime * 2;
+					LogoOpacity -= FrameTime * 1.5;
 					SDK::EXTool.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
 				}
 
 				if (IntroTimer.CheckMiliSec(4.0, 1, CHECK_AND_INTERPOLATE)) {
-					LogoPosition = -0.4;
-
-					IntroMove.SetMovePoint(LogoPosition, 0.0);
-					OpacityMove.SetMovePoint(0.0, 1.0);
-					IntroMove.Reset();
-					OpacityMove.Reset();
-
+					LogoSize = 3.0;
 					++SceneNumber;
 				}
 				break;
@@ -81,18 +71,17 @@ public:
 
 			case 2:
 				if (IntroTimer.MiliSec() < 2.5) {
-					IntroMove.Update(LogoPosition, AnimationSpeed, FrameTime);
-					OpacityMove.Update(LogoOpacity, AnimationSpeed, FrameTime);
+					SDK::Math.Lerp(LogoSize, 1.0, AnimationSpeed, FrameTime);
+					SDK::Math.Lerp(LogoOpacity, 1.0, AnimationSpeed * 0.5, FrameTime);
 				}
 
 				if (IntroTimer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
-					LogoOpacity -= FrameTime * 2;
+					LogoOpacity -= FrameTime * 1.5;
 					SDK::EXTool.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
 				}
 
 				if (IntroTimer.CheckMiliSec(4.0, 1, CHECK_AND_RESUME)) {
 					SDK::Scene.DeleteInputObject(this);
-					SDK::Scene.LockSystemLayer();
 					SDK::Scene.SwitchMode(SDK::START_MODE);
 					ExitState = true;
 				}
@@ -112,7 +101,8 @@ public:
 		BackGround.Draw(0.0, 0.0, SDK::ViewportWidth, SDK::ViewportHeight, 0.0, BackGroundOpacity);
 
 		SDK::Begin(RENDER_TYPE_STATIC);
-		SDK::Transform.Move(0.0, LogoPosition);
+		SDK::Transform.RotateH(HorizontalRotation);
+		SDK::Transform.Scale(LogoSize, LogoSize);
 		SDK::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
 
 		switch (SceneNumber) {

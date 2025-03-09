@@ -4,7 +4,6 @@
 #include "SDK_CameraController.h"
 #include "SDK_ClippingTool.h"
 #include "SDK_Collision.h"
-#include "SDK_ComputeTool.h"
 #include "SDK_EXTool.h"
 #include "SDK_ImageTool.h"
 #include "SDK_LineBrush.h"

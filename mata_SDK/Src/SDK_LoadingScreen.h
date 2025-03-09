@@ -69,6 +69,7 @@ public:
 						if (SDK::EXTool.CheckClampValue(SpinnerOpacity, 0.0, CLAMP_LESS)) {
 							SDK::Scene.SwitchMode(IntroMode.Start);
 							if (SHOW_FPS)  AddFPSIndicator();
+							SDK::Scene.LockSystemLayer();
 							SDK::Scene.DeleteObject(this);
 						}
 					}
@@ -76,8 +77,8 @@ public:
 					else {
 						SDK::Scene.SwitchMode(SDK::START_MODE);
 						if (SHOW_FPS)  AddFPSIndicator();
-						SDK::Scene.DeleteObject(this);
 						SDK::Scene.LockSystemLayer();
+						SDK::Scene.DeleteObject(this);
 					}
 				}
 			}

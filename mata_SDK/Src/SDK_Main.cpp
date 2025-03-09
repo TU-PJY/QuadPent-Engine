@@ -3,6 +3,7 @@
 #include "SDK_FPSIndicator.h"
 #include "SDK_Scene.h"
 #include "SDK_Frustum.h"
+#include "SDK_Mouse.h"
 
 SDK::SDK_System SDK::System;
 SDK::SDK_System* SDK::SDK_System::S_Inst;
@@ -10,6 +11,12 @@ SDK::SDK_System* SDK::SDK_System::S_Inst;
 void SDK::SDK_System::Main() {
 	glClearColor(S_Inst->ViewportColor.r, S_Inst->ViewportColor.g, S_Inst->ViewportColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	POINT CursorPosition;
+	if (GetCursorPos(&CursorPosition)) {
+		ScreenToClient(SDK::System_HWND, &CursorPosition);
+		SDK::Mouse.ConvertPosition(CursorPosition.x, CursorPosition.y);
+	}
 	
 	if (S_Inst->UpdateActivateCommand) {
 		SDK::Scene.Update();

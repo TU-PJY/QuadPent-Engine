@@ -41,16 +41,6 @@ public:
 		int MouseEvent{ EVENT_NONE };
 
 		switch (Message) {
-		case WM_MOUSEMOVE: 
-		{
-			POINT CursorPosition;
-			if (GetCursorPos(&CursorPosition)) {
-				ScreenToClient(Hwnd, &CursorPosition);
-				SDK::Mouse.ConvertPosition(CursorPosition.x, CursorPosition.y);
-			}
-		}
-			break;
-
 		case WM_LBUTTONDOWN:
 			MouseEvent = LEFT_BUTTON_DOWN; break;
 		case WM_RBUTTONDOWN:

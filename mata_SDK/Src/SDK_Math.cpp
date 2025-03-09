@@ -5,7 +5,7 @@ SDK::SDK_Math SDK::Math;
 
 void SDK::SDK_Math::LookAt(float& DestRotation, float FromX, float FromY, float ToX, float ToY, float RotationSpeed, float FrameTime) {
 	float TargetAngle{}, ShortestAngle{};
-	TargetAngle = Computedegree(FromX, FromY, ToX, ToY) - 90.0;
+	TargetAngle = Computedegree(FromX, FromY, ToX, ToY);
 	TargetAngle = NormalizeDegree(TargetAngle);
 
 	if (RotationSpeed > 0)
@@ -18,7 +18,7 @@ void SDK::SDK_Math::LookAt(float& DestRotation, float FromX, float FromY, float 
 
 void SDK::SDK_Math::LookAt(float& DestRotation, SDK::Vector2& Position1, SDK::Vector2& Position2, float RotationSpeed, float FrameTime) {
 	float TargetAngle{}, ShortestAngle{};
-	TargetAngle = Computedegree(Position1, Position2) - 90.0;
+	TargetAngle = Computedegree(Position1, Position2);
 	TargetAngle = NormalizeDegree(TargetAngle);
 
 	if (RotationSpeed > 0)
@@ -100,11 +100,11 @@ SDK::Vector2 SDK::SDK_Math::ComputeMidPoint(SDK::Vector2& Position1, SDK::Vector
 }
 
 float SDK::SDK_Math::Computedegree(float FromX, float FromY, float ToX, float ToY) {
-	return -atan2(ToY - FromY, ToX - FromX) * (180.0 / 3.1415);
+	return -NormalizeDegree(atan2(ToY - FromY, ToX - FromX) * (180.0 / XM_PI));
 }
  
 float SDK::SDK_Math::Computedegree(SDK::Vector2& Position1, SDK::Vector2& Position2) {
-	return -atan2(Position2.y - Position1.y, Position2.x - Position1.x) * (180.0 / 3.1415);
+	return -NormalizeDegree(atan2(Position2.y - Position1.y, Position2.x - Position1.x) * (180.0 / XM_PI));
 }
 
 float SDK::SDK_Math::ComputeRadians(float FromX, float FromY, float ToX, float ToY) {
