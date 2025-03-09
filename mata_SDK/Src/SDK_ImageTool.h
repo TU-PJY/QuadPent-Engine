@@ -44,6 +44,9 @@ namespace SDK {
 		void SetLocalColor(SDK::Color3& Color);
 		void SetLocalColorRGB(int R, int G, int B);
 
+		SDK::Vector2 RealSize(SDK::Image& ImageStruct);
+		SDK::Vector2 RealSize(SDK::SpriteSheet& SpriteShetStruct);
+
 	private:
 		void PrepareRender(SDK::Image& ImageStruct);
 		void PrepareRender(SDK::SpriteSheet& SpriteSheetStruct);

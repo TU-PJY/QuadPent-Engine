@@ -72,6 +72,19 @@ void SDK::SDK_ImageTool::LoadImage(SDK::Image& ImageStruct, std::string FilePath
 
 	ImageStruct.Width = Width;
 	ImageStruct.Height = Height;
+
+	if (Width > Height) {
+		ImageStruct.RealWidth = 1.0;
+		ImageStruct.RealHeight = (float)Height / (float)Width;
+	}
+	else if (Width < Height) {
+		ImageStruct.RealWidth = (float)Width / (float)Height;
+		ImageStruct.RealHeight = 1.0;
+	}
+	else {
+		ImageStruct.RealWidth = 1.0;
+		ImageStruct.RealHeight = 1.0;
+	}
 }
 
 void SDK::SDK_ImageTool::LoadClip(SDK::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
@@ -121,6 +134,19 @@ void SDK::SDK_ImageTool::LoadClip(SDK::Image& ImageStruct, std::string FilePath,
 
 	ImageStruct.Width = ClipWidth;
 	ImageStruct.Height = ClipHeight;
+
+	if (ClipWidth > ClipHeight) {
+		ImageStruct.RealWidth = 1.0;
+		ImageStruct.RealHeight = (float)ClipHeight / (float)ClipWidth;
+	}
+	else if (ClipWidth < ClipHeight) {
+		ImageStruct.RealWidth = (float)ClipWidth / (float)ClipHeight;
+		ImageStruct.RealHeight = 1.0;
+	}
+	else {
+		ImageStruct.RealWidth = 1.0;
+		ImageStruct.RealHeight = 1.0;
+	}
 }
 
 void SDK::SDK_ImageTool::SetSpriteSheetSize(int ValueClipWidth, int ValueClipHeight, int ValueNumRow, int ValueNumCol, int ValueStartCol, int ValueNumBlank) {
@@ -200,6 +226,19 @@ void SDK::SDK_ImageTool::LoadSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, st
 
 	SpriteSheetStruct.Width = ClipWidth;
 	SpriteSheetStruct.Height = ClipHeight;
+
+	if (ClipWidth > ClipHeight) {
+		SpriteSheetStruct.RealWidth = 1.0;
+		SpriteSheetStruct.RealHeight = (float)ClipHeight / (float)ClipWidth;
+	}
+	else if (ClipWidth < ClipHeight) {
+		SpriteSheetStruct.RealWidth = (float)ClipWidth / (float)ClipHeight;
+		SpriteSheetStruct.RealHeight = 1.0;
+	}
+	else {
+		SpriteSheetStruct.RealWidth = 1.0;
+		SpriteSheetStruct.RealHeight = 1.0;
+	}
 }
 
 void SDK::SDK_ImageTool::LoadImageT(SDK::Image& ImageStruct, std::string FilePath, int Type) {
@@ -213,6 +252,20 @@ void SDK::SDK_ImageTool::LoadImageT(SDK::Image& ImageStruct, std::string FilePat
 
 	ImageStruct.Width = Width;
 	ImageStruct.Height = Height;
+
+	if (Width > Height) {
+		ImageStruct.RealWidth = 1.0;
+		ImageStruct.RealHeight = (float)Height / (float)Width;
+	}
+	else if (Width < Height) {
+		ImageStruct.RealWidth = (float)Width / (float)Height;
+		ImageStruct.RealHeight = 1.0;
+	}
+	else {
+		ImageStruct.RealWidth = 1.0;
+		ImageStruct.RealHeight = 1.0;
+	}
+
 	PLI.ImagePtr = &ImageStruct;
 	PLI.ImageType = Type;
 	PLI.TextureData = TextureData;
@@ -245,6 +298,20 @@ void SDK::SDK_ImageTool::LoadClipT(SDK::Image& ImageStruct, std::string FilePath
 
 	ImageStruct.Width = ClipWidth;
 	ImageStruct.Height = ClipHeight;
+
+	if (ClipWidth > ClipHeight) {
+		ImageStruct.RealWidth = 1.0;
+		ImageStruct.RealHeight = (float)ClipHeight / (float)ClipWidth;
+	}
+	else if (ClipWidth < ClipHeight) {
+		ImageStruct.RealWidth = (float)ClipWidth / (float)ClipHeight;
+		ImageStruct.RealHeight = 1.0;
+	}
+	else {
+		ImageStruct.RealWidth = 1.0;
+		ImageStruct.RealHeight = 1.0;
+	}
+
 	ILBD.ImagePtr = &ImageStruct;
 	ILBD.ImageType = Type;
 	ILBD.TextureData = ClippedTextureData;
@@ -299,6 +366,19 @@ void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, s
 
 	SpriteSheetStruct.Width = ClipWidth;
 	SpriteSheetStruct.Height = ClipHeight;
+
+	if (ClipWidth > ClipHeight) {
+		SpriteSheetStruct.RealWidth = 1.0;
+		SpriteSheetStruct.RealHeight = (float)ClipHeight / (float)ClipWidth;
+	}
+	else if (ClipWidth < ClipHeight) {
+		SpriteSheetStruct.RealWidth = (float)ClipWidth / (float)ClipHeight;
+		SpriteSheetStruct.RealHeight = 1.0;
+	}
+	else {
+		SpriteSheetStruct.RealWidth = 1.0;
+		SpriteSheetStruct.RealHeight = 1.0;
+	}
 
 	SLBD.SpriteSheetPtr = &SpriteSheetStruct;
 	SLBD.ImageType = Type;
@@ -407,11 +487,16 @@ void SDK::SDK_ImageTool::SetLocalColorRGB(int R, int G, int B) {
 	LocalColorValue.b = (1.0f / 255.0f) * (float)B;
 }
 
-void SDK::SDK_ImageTool::RenderImage(SDK::Image& ImageStruct, float OpacityValue, bool ApplyGlobalAttribute, bool DisableAdjustAspect) {
-	float Width = (float)ImageStruct.Width;
-	float Height = (float)ImageStruct.Height;
+SDK::Vector2 SDK::SDK_ImageTool::RealSize(SDK::Image& ImageStruct) {
+	return SDK::Vector2(ImageStruct.RealWidth, ImageStruct.RealHeight);
+}
 
-	ProcessTransform(Width, Height, OpacityValue, ApplyGlobalAttribute, DisableAdjustAspect);
+SDK::Vector2 SDK::SDK_ImageTool::RealSize(SDK::SpriteSheet& SpriteShetStruct) {
+	return SDK::Vector2(SpriteShetStruct.RealWidth, SpriteShetStruct.RealHeight);
+}
+
+void SDK::SDK_ImageTool::RenderImage(SDK::Image& ImageStruct, float OpacityValue, bool ApplyGlobalAttribute, bool DisableAdjustAspect) {
+	ProcessTransform(ImageStruct.RealWidth, ImageStruct.RealHeight, OpacityValue, ApplyGlobalAttribute, DisableAdjustAspect);
 	PrepareRender(ImageStruct);
 
 	glBindTexture(GL_TEXTURE_2D, ImageStruct.Texture);
@@ -419,13 +504,13 @@ void SDK::SDK_ImageTool::RenderImage(SDK::Image& ImageStruct, float OpacityValue
 }
 
 void SDK::SDK_ImageTool::RenderSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, float& Frame, float OpacityValue, bool ApplyGlobalAttribute, bool DisableAdjustAspect) {
+	if (Frame <= 0.0)
+		return;
+	
 	if ((int)Frame >= SpriteSheetStruct.Frame)
 		Frame = 0.0;
 
-	float Width = (float)SpriteSheetStruct.Width;
-	float Height = (float)SpriteSheetStruct.Height;
-
-	ProcessTransform(Width, Height, OpacityValue, ApplyGlobalAttribute, DisableAdjustAspect);
+	ProcessTransform(SpriteSheetStruct.RealWidth, SpriteSheetStruct.RealHeight, OpacityValue, ApplyGlobalAttribute, DisableAdjustAspect);
 	PrepareRender(SpriteSheetStruct);
 
 	glBindTexture(GL_TEXTURE_2D, SpriteSheetStruct.Texture[(int)Frame]);
@@ -433,13 +518,10 @@ void SDK::SDK_ImageTool::RenderSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, 
 }
 
 void SDK::SDK_ImageTool::RenderStaticSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, int Frame, float OpacityValue, bool ApplyGlobalAttribute, bool DisableAdjustAspect) {
-	if (Frame > SpriteSheetStruct.Frame)
+	if (Frame > SpriteSheetStruct.Frame || Frame < 0)
 		return;
-	
-	float Width = (float)SpriteSheetStruct.Width;
-	float Height = (float)SpriteSheetStruct.Height;
 
-	ProcessTransform(Width, Height, OpacityValue, ApplyGlobalAttribute, DisableAdjustAspect);
+	ProcessTransform(SpriteSheetStruct.RealWidth, SpriteSheetStruct.RealHeight, OpacityValue, ApplyGlobalAttribute, DisableAdjustAspect);
 	PrepareRender(SpriteSheetStruct);
 
 	glBindTexture(GL_TEXTURE_2D, SpriteSheetStruct.Texture[Frame]);
@@ -509,15 +591,9 @@ void SDK::SDK_ImageTool::ProcessTransform(float Width, float Height, float Opaci
 
 	ResultMatrix = LocalMatrix;
 
-	if (!DisableAdjustAspect) {
-		if (Width > Height) {
-			ImageAspectMatrix = scale(ImageAspectMatrix, SDK::Vector3(1.0, Height / Width, 1.0));
-			ResultMatrix *= ImageAspectMatrix;
-		}
-		else if (Width < Height) {
-			ImageAspectMatrix = scale(ImageAspectMatrix, SDK::Vector3(Width / Height, 1.0, 1.0));
-			ResultMatrix *= ImageAspectMatrix;
-		}
+	if (!DisableAdjustAspect && (Width != 1.0 || Height != 1.0)) {
+		ImageAspectMatrix = scale(ImageAspectMatrix, SDK::Vector3(Width, Height, 1.0));
+		ResultMatrix *= ImageAspectMatrix;
 	}
 
 	switch (LocalFlipFlag) {

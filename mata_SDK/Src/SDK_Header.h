@@ -98,12 +98,14 @@ namespace SDK {
 	typedef struct {
 		unsigned int Texture;
 		int          Width, Height;
+		float        RealWidth, RealHeight;
 	}Image;
 
 	// sprite sheet struct
 	typedef struct {
 		std::vector<unsigned int> Texture;
 		int                Width, Height;
+		float              RealWidth, RealHeight;
 		int                Frame;
 	}SpriteSheet;
 
