@@ -3,9 +3,9 @@
 
 SDK::SDK_Mouse SDK::Mouse;
 
-void SDK::SDK_Mouse::ConvertPosition(int X, int Y) {
-	x = (float)((X - (float)SDK::WindowWidth / 2.0) * (float)(1.0 / (float)(SDK::WindowWidth / 2.0))) * SDK::Aspect;
-	y = -(float)(Y - (float)SDK::WindowHeight / 2.0) * (float)(1.0 / (float)(SDK::WindowHeight / 2.0));
-	DynamicX = (x + SDK::Camera.Position.x) / SDK::Camera.Zoom;
-	DynamicY = (y + SDK::Camera.Position.y) / SDK::Camera.Zoom;
+void SDK::SDK_Mouse::ConvertPosition(int CursorX, int CursorY) {
+	X = (float)((CursorX - (float)SDK::WindowWidth / 2.0) * (float)(1.0 / (float)(SDK::WindowWidth / 2.0))) * SDK::Aspect;
+	Y = -(float)(CursorY - (float)SDK::WindowHeight / 2.0) * (float)(1.0 / (float)(SDK::WindowHeight / 2.0));
+	DynamicX = (X + SDK::Camera.Position.x) / SDK::Camera.Zoom;
+	DynamicY = (Y + SDK::Camera.Position.y) / SDK::Camera.Zoom;
 }

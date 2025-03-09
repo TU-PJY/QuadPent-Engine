@@ -4,9 +4,9 @@
 namespace SDK {
 	class SDK_Mouse {
 	public:
-		float x{}, y{};
+		float X{}, Y{};
 		float DynamicX{}, DynamicY{};
-		void ConvertPosition(int X, int Y);
+		void ConvertPosition(int CursorX, int CursorY);
 	};
 
 	extern SDK::SDK_Mouse Mouse;
