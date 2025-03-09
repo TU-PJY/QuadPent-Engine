@@ -9,10 +9,9 @@ private:
 	SDK::RectBrush    BackGround{};
 	float             BackGroundOpacity{ 1.0 };
 
-	float      LogoSize        = 2.0;
+	float      LogoSize        = 3.0;
 	float      LogoOpacity     = 0.0;
 	float      AnimationSpeed  = 5.0;
-	float      HorizontalRotation = 180.0;
 
 	int        SceneNumber{}; 
 
@@ -54,15 +53,14 @@ public:
 				if (IntroTimer.MiliSec() < 2.5) {
 					SDK::Math.Lerp(LogoSize, 1.0, AnimationSpeed, FrameTime);
 					SDK::Math.Lerp(LogoOpacity, 1.0, AnimationSpeed * 0.5, FrameTime);
-					SDK::Math.Lerp(HorizontalRotation, 0.0, AnimationSpeed * 0.5, FrameTime);
 				}
 
 				if (IntroTimer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
-					LogoOpacity -= FrameTime * 1.5;
+					LogoOpacity -= FrameTime;
 					SDK::EXTool.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
 				}
 
-				if (IntroTimer.CheckMiliSec(4.0, 1, CHECK_AND_INTERPOLATE)) {
+				if (IntroTimer.CheckMiliSec(4.5, 1, CHECK_AND_INTERPOLATE)) {
 					LogoSize = 3.0;
 					++SceneNumber;
 				}
@@ -76,11 +74,11 @@ public:
 				}
 
 				if (IntroTimer.CheckMiliSec(2.5, 1, CHECK_AND_RESUME)) {
-					LogoOpacity -= FrameTime * 1.5;
+					LogoOpacity -= FrameTime;
 					SDK::EXTool.ClampValue(LogoOpacity, 0.0, CLAMP_LESS);
 				}
 
-				if (IntroTimer.CheckMiliSec(4.0, 1, CHECK_AND_RESUME)) {
+				if (IntroTimer.CheckMiliSec(4.5, 1, CHECK_AND_RESUME)) {
 					SDK::Scene.DeleteInputObject(this);
 					SDK::Scene.SwitchMode(SDK::START_MODE);
 					ExitState = true;
@@ -101,7 +99,6 @@ public:
 		BackGround.Draw(0.0, 0.0, SDK::ViewportWidth, SDK::ViewportHeight, 0.0, BackGroundOpacity);
 
 		SDK::Begin(RENDER_TYPE_STATIC);
-		SDK::Transform.RotateH(HorizontalRotation);
 		SDK::Transform.Scale(LogoSize, LogoSize);
 		SDK::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
 
