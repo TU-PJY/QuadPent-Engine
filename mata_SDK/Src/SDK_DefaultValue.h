@@ -1,9 +1,9 @@
 #pragma once
 namespace SDK {
-	constexpr const char* DEFAULT_WINDOW_NAME          = "mata_SDK 7.9";
+	constexpr const char* DEFAULT_WINDOW_NAME          = "mata_SDK 8";
 	constexpr const wchar_t* DEFAULT_ICON_PATH		   = L"SDKResource//Icon//icon-mata.ico";
-	constexpr int DEFAULT_WINDOW_WIDTH				   = 1000;
-	constexpr int DEFAULT_WINDOW_HEIGHT				   = 500;
+	constexpr int DEFAULT_WINDOW_WIDTH				   = 1300;
+	constexpr int DEFAULT_WINDOW_HEIGHT				   = 800;
 	constexpr int MAX_FRAMERATE                        = 0;
 	constexpr int DEFAULT_FONT_LIST_GENERATE_SIZE	   = 65536;
 	constexpr float DEFAULT_BOUNDBOX_THICKNESS         = 0.01;

@@ -1,6 +1,6 @@
 #pragma once
 #include "SDK_DefaultValue.h"
-// mata_SDK 7.9
+// mata_SDK 8.0
 // OpenGL version 4.3 ~ 4.6
 
 //////////////////////////////////// Window options
@@ -31,8 +31,8 @@ constexpr bool DISABLE_ALT_EVENT = true;
 constexpr int APPLICATION_MAJOR_VERSION = 1;
 constexpr int APPLICATION_MINOR_VERSION = 0;
 
-// intro screen option
-constexpr bool ENABLE_INTRO_SCREEN = true;
+// loading screen option
+constexpr bool ENABLE_LOADING_SCREEN = true;
 
 // frame limits option
 // If this option is set to SDK::MAX_FRAMERATE, the system will run at maximum framerate.

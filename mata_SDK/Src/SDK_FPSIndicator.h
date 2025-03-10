@@ -21,10 +21,14 @@ public:
 		ZeroMemory(&DevMode, sizeof(DEVMODE));
 		DevMode.dmSize = sizeof(DEVMODE);
 
-		if (EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &DevMode)) {
-			std::cout << "Monitor Refresh Rate: " << DevMode.dmDisplayFrequency << " Hz" << std::endl;
-			MaxFPS = static_cast<int>(DevMode.dmDisplayFrequency);
+		if (FRAME_LIMITS == SDK::MAX_FRAMERATE) {
+			if (EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &DevMode)) {
+				std::cout << "Monitor Refresh Rate: " << DevMode.dmDisplayFrequency << " Hz" << std::endl;
+				MaxFPS = static_cast<int>(DevMode.dmDisplayFrequency);
+			}
 		}
+		else
+			MaxFPS = FRAME_LIMITS;
 	}
 
 	void UpdateFunc(float FrameTime) {
@@ -47,6 +51,6 @@ public:
 			IndicatorText.SetMacroColor(0.0, 1.0, 0.0);
 
 		SDK::EXTool.ClampValue(FPS, 0, MaxFPS, CLAMP_FIXED);
-		IndicatorText.Render(SDK::WindowRect.LeftX + 0.01, SDK::WindowRect.RightY, 0.1, L"\\WFPS\\E \\P%d\\E", FPS);
+		IndicatorText.Render(SDK::WindowRect.LeftX + 0.01, SDK::WindowRect.RightY + 0.02, 0.1, L"\\WFPS\\E \\P%d\\E", FPS);
 	}
 };

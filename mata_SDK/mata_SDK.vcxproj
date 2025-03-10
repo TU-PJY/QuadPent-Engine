@@ -175,7 +175,6 @@
     <ClCompile Include="Src\SDK_SoundTool.cpp" />
     <ClCompile Include="Src\SDK_Display.cpp" />
     <ClCompile Include="Src\SDK_StringTool.cpp" />
-    <ClCompile Include="Src\SDK_SystemMode.cpp" />
     <ClCompile Include="Src\SDK_Text.cpp" />
     <ClCompile Include="Src\SDK_ThreadTool.cpp" />
     <ClCompile Include="Src\SDK_Timer.cpp" />
@@ -209,8 +208,6 @@
     <ClInclude Include="Src\SDK_Scene.h" />
     <ClInclude Include="Src\SDK_ImageTool.h" />
     <ClInclude Include="Src\SDK_Resource.h" />
-    <ClInclude Include="Src\SDK_IntroMode.h" />
-    <ClInclude Include="Src\SDK_IntroScreen.h" />
     <ClInclude Include="Src\SDK_LineBrush.h" />
     <ClInclude Include="Src\SDK_LoadingMode.h" />
     <ClInclude Include="Src\SDK_LoadingScreen.h" />

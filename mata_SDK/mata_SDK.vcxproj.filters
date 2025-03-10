@@ -52,18 +52,6 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Scene ]">
       <UniqueIdentifier>{f7b86d35-cb50-4352-9482-a8fb321f19f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Misc ]">
-      <UniqueIdentifier>{da528397-a6f0-4ef8-bcab-e3ea98bb5f1a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]">
-      <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ Header ]">
-      <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ CPP ]">
-      <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Pack ]">
       <UniqueIdentifier>{4ac8fdab-c6e0-4a90-83ec-beeca66a9ba4}</UniqueIdentifier>
     </Filter>
@@ -111,18 +99,6 @@
     </Filter>
     <Filter Include="[7[___________[ API Resource ]">
       <UniqueIdentifier>{dd4071a8-b834-4a09-86b3-ada6ee4f3823}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]">
-      <UniqueIdentifier>{3103bdf2-3542-4796-9d68-f89a4c3ce52b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Mode ]">
-      <UniqueIdentifier>{9d92d68b-96f8-4a78-90d4-bd16df8b7372}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]">
-      <UniqueIdentifier>{c8dde2fb-f4fd-4595-9cdf-614100ed40cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ SDK_System ]\[ SDK Component ]\[ System Resource ]">
-      <UniqueIdentifier>{60990a8d-71aa-447d-aab7-dfa6b035b3b2}</UniqueIdentifier>
     </Filter>
     <Filter Include="[1]___________[ Mode ]">
       <UniqueIdentifier>{824d0f24-8e5b-4c58-99e5-e019f51ea99a}</UniqueIdentifier>
@@ -190,19 +166,43 @@
     <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Font Loader ]">
       <UniqueIdentifier>{f2cdada2-a380-46fd-8cf3-b9ff333dcc11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ System ]">
+      <UniqueIdentifier>{70ed2b80-52cf-4994-be3f-bc0ec919945a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ System ]\[ Loading Screen ]">
+      <UniqueIdentifier>{a4749d85-5f45-4c15-a9cd-08a1ef45352d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ System ]\[ System Object ]">
+      <UniqueIdentifier>{57050332-3d29-4055-88b0-c73c659f16cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ System ]\[ System Resource ]">
+      <UniqueIdentifier>{b2a227f6-1c45-48dc-a52d-aa18ff6adf09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Misc ]">
+      <UniqueIdentifier>{da528397-a6f0-4ef8-bcab-e3ea98bb5f1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Misc ]\[ TinyXML ]">
+      <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ Header ]">
+      <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ SDK_System ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ CPP ]">
+      <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Library\tinyxml\tinystr.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\Library\tinyxml\tinyxml.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\Library\tinyxml\tinyxmlerror.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\Library\tinyxml\tinyxmlparser.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="Src\SDK_Shader.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Shader ]</Filter>
@@ -285,9 +285,6 @@
     <ClCompile Include="Src\SDK_StringTool.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ String ]</Filter>
     </ClCompile>
-    <ClCompile Include="Src\SDK_SystemMode.cpp">
-      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Mode ]</Filter>
-    </ClCompile>
     <ClCompile Include="Src\SDK_Text.cpp">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Text ]</Filter>
     </ClCompile>
@@ -315,10 +312,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Library\tinyxml\tinystr.h">
-      <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ Header ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\Library\tinyxml\tinyxml.h">
-      <Filter>[5]___________[ SDK_System ]\[ Misc ]\[ TinyXML ]\[ Header ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="GameMode1.h">
       <Filter>[1]___________[ Mode ]\[1]_[ Modes ]</Filter>
@@ -359,17 +356,11 @@
     <ClInclude Include="Src\SDK_EXTool.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ EX ]</Filter>
     </ClInclude>
-    <ClInclude Include="Src\SDK_ErrorMessage.h">
-      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]</Filter>
-    </ClInclude>
     <ClInclude Include="Src\SDK_FontLoader.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Font Loader ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Frustum.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Frustum ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\SDK_FPSIndicator.h">
-      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Header.h">
       <Filter>[5]___________[ SDK_System ]\[ Header ]</Filter>
@@ -377,20 +368,8 @@
     <ClInclude Include="Src\SDK_ImageTool.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Image ]</Filter>
     </ClInclude>
-    <ClInclude Include="Src\SDK_IntroMode.h">
-      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Mode ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\SDK_IntroScreen.h">
-      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]</Filter>
-    </ClInclude>
     <ClInclude Include="Src\SDK_LineBrush.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Shape ]\[ Line ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\SDK_LoadingScreen.h">
-      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Object ]</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\SDK_LoadingMode.h">
-      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Mode ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Math.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ Math ]</Filter>
@@ -428,9 +407,6 @@
     <ClInclude Include="Src\SDK_StringTool.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Global Tool ]\[ String ]</Filter>
     </ClInclude>
-    <ClInclude Include="Src\SDK_SystemResource.h">
-      <Filter>[5]___________[ SDK_System ]\[ SDK Component ]\[ System Resource ]</Filter>
-    </ClInclude>
     <ClInclude Include="Src\SDK_Text.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Tool ]\[ Object Tool ]\[ Text ]</Filter>
     </ClInclude>
@@ -459,13 +435,28 @@
       <Filter>[7[___________[ API Resource ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_DefaultValue.h">
-      <Filter>[5]___________[ SDK_System ]\[ Misc ]</Filter>
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Misc ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_ObjectFunction.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Component ]\[ Object Function ]</Filter>
     </ClInclude>
     <ClInclude Include="Src\SDK_Object.h">
       <Filter>[5]___________[ SDK_System ]\[ Component ]\[ Object Component ]\[ Object Header ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SDK_LoadingScreen.h">
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ System ]\[ Loading Screen ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SDK_LoadingMode.h">
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ System ]\[ Loading Screen ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SDK_ErrorMessage.h">
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ System ]\[ System Object ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SDK_FPSIndicator.h">
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ System ]\[ System Object ]</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SDK_SystemResource.h">
+      <Filter>[5]___________[ SDK_System ]\[ Component ]\[ System ]\[ System Resource ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

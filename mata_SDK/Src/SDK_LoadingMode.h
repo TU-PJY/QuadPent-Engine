@@ -11,7 +11,7 @@ public:
 
 	static void Start() {
 		SetUp();
-		SDK::System.SetBackColorRGB(31, 31, 31);
+		SDK::System.SetBackColor(0.0, 0.0, 0.0);
 		SDK::Object* LoadingScr = SDK::Scene.AddSystemObject(new SDK_LoadingScreen);
 		SDK::Scene.AddInputObject(LoadingScr);
 	}
@@ -103,4 +103,3 @@ public:
 	}
 #pragma endregion
 };
-extern SDK_LoadingMode LoadingMode;

@@ -242,7 +242,7 @@ void SDK::SDK_ImageTool::LoadSpriteSheet(SDK::SpriteSheet& SpriteSheetStruct, st
 }
 
 void SDK::SDK_ImageTool::LoadImageT(SDK::Image& ImageStruct, std::string FilePath, int Type) {
-	SDK::ImageLoadBufferData PLI{};
+	SDK::ImageLoadBufferData Buffer{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
@@ -266,15 +266,15 @@ void SDK::SDK_ImageTool::LoadImageT(SDK::Image& ImageStruct, std::string FilePat
 		ImageStruct.RealHeight = 1.0;
 	}
 
-	PLI.ImagePtr = &ImageStruct;
-	PLI.ImageType = Type;
-	PLI.TextureData = TextureData;
+	Buffer.ImagePtr = &ImageStruct;
+	Buffer.ImageType = Type;
+	Buffer.TextureData = TextureData;
 
-	ImageLoadBuffer.emplace_back(PLI);
+	ImageLoadBuffer.emplace_back(Buffer);
 }
 
 void SDK::SDK_ImageTool::LoadClipT(SDK::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
-	SDK::ImageLoadBufferData ILBD{};
+	SDK::ImageLoadBufferData Buffer{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
@@ -312,17 +312,17 @@ void SDK::SDK_ImageTool::LoadClipT(SDK::Image& ImageStruct, std::string FilePath
 		ImageStruct.RealHeight = 1.0;
 	}
 
-	ILBD.ImagePtr = &ImageStruct;
-	ILBD.ImageType = Type;
-	ILBD.TextureData = ClippedTextureData;
+	Buffer.ImagePtr = &ImageStruct;
+	Buffer.ImageType = Type;
+	Buffer.TextureData = ClippedTextureData;
 
 	stbi_image_free(TextureData);
 
-	ImageLoadBuffer.emplace_back(ILBD);
+	ImageLoadBuffer.emplace_back(Buffer);
 }
 
 void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
-	SDK::SpriteSheetLoadBufferData SLBD{};
+	SDK::SpriteSheetLoadBufferData Buffer{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
@@ -352,7 +352,7 @@ void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, s
 			for (int i = 0; i < ClipHeight; ++i)
 				memcpy(ClippedTextureData + i * ClipWidth * Channel, TextureData + ((CurrentYPosition + i) * Width + CurrentXPosition) * Channel, ClipWidth * Channel);
 
-			SLBD.TextureData.emplace_back(ClippedTextureData);
+			Buffer.TextureData.emplace_back(ClippedTextureData);
 
 			CurrentXPosition += ClipWidth;
 			SDK::EXTool.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
@@ -380,10 +380,10 @@ void SDK::SDK_ImageTool::LoadSpriteSheetT(SDK::SpriteSheet& SpriteSheetStruct, s
 		SpriteSheetStruct.RealHeight = 1.0;
 	}
 
-	SLBD.SpriteSheetPtr = &SpriteSheetStruct;
-	SLBD.ImageType = Type;
+	Buffer.SpriteSheetPtr = &SpriteSheetStruct;
+	Buffer.ImageType = Type;
 
-	SpriteSheetLoadBuffer.emplace_back(SLBD);
+	SpriteSheetLoadBuffer.emplace_back(Buffer);
 
 	stbi_image_free(TextureData);
 }
