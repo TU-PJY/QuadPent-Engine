@@ -8,7 +8,7 @@
 #include "SDK_FontLoader.h"
 #include "SDK_Font.h"
 
-namespace SDK {
+namespace ASSET {
 	// Declare the sprite resource here. 
 	struct SDK_IMAGE_RESOURCE {
 
