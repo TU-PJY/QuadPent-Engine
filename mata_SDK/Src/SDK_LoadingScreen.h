@@ -76,7 +76,7 @@ public:
 					SDK::SoundTool.PlayOnce(SDK::SYSRES.INTRO_SOUND, SndChannel, LogoSoundPlayed);
 				}
 
-				if (LoadingTimer.CheckSec(6, CHECK_AND_STOP)) {
+				if (LoadingTimer.CheckSec(4, CHECK_AND_STOP)) {
 					SDK::Math.Lerp(ProgressBarOpacity, 1.0, 5.0, FrameTime);
 					SDK::Math.Lerp(LoadingProgressLength, (float)LoadingProgress, 5.0, FrameTime);
 
