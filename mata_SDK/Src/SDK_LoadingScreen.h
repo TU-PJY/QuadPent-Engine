@@ -59,7 +59,6 @@ public:
 			SDK::SoundTool.Init();
 
 			SDK::ImageTool.LoadImage(SDK::SYSRES.MATA_LOGO, SDK::SYSRES.MATA_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-			SDK::ImageTool.LoadImage(SDK::SYSRES.SDK_LOGO, SDK::SYSRES.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 
 			ASSET::ResourcePreLoader();
 			std::cout << "Resources pre-loaded." << std::endl;
@@ -134,24 +133,14 @@ public:
 
 	void RenderFunc() {
 		ScreenRect.Draw(0.0, 0.0, SDK::ViewportWidth, SDK::ViewportHeight, 0.0, ScreenOpacity);
-
-		if (ENABLE_LOADING_SCREEN) {
+		if (RenderLogo) {
 			SDK::Begin(RENDER_TYPE_STATIC);
-			SDK::Vector2 ImageSize = SDK::ImageTool.RealSize(SDK::SYSRES.SDK_LOGO);
-			SDK::Transform.Move(SDK::WindowRect.LeftX, SDK::WindowRect.LeftY);
-			SDK::Transform.Scale(0.4, 0.4);
-			SDK::Transform.Move(ImageSize.x * 0.5, ImageSize.y * 0.5);
-			SDK::ImageTool.SetLocalColor(0.2, 0.2, 0.2);
-			SDK::ImageTool.RenderImage(SDK::SYSRES.SDK_LOGO, ScreenOpacity);
+			SDK::Transform.Scale(0.5, 0.5);
+			SDK::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
+			SDK::ImageTool.RenderImage(SDK::SYSRES.MATA_LOGO, ScreenOpacity);
 
-			if (RenderLogo) {
-				SDK::Begin(RENDER_TYPE_STATIC);
-				SDK::Transform.Scale(0.8, 0.8);
-				SDK::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
-				SDK::ImageTool.RenderImage(SDK::SYSRES.MATA_LOGO, ScreenOpacity);
-
-				ProgressLine.Draw(-0.6, -0.4, -0.6 + (LoadingProgressLength / 5.0) * 1.2, -0.4, 0.02, ScreenOpacity * ProgressBarOpacity);
-			}
+			ProgressLine.Draw(-0.4, -0.3, 0.4, -0.3, 0.015, ScreenOpacity * ProgressBarOpacity * 0.3);
+			ProgressLine.Draw(-0.4, -0.3, -0.4 + (LoadingProgressLength / 5.0) * 0.8, -0.3, 0.015, ScreenOpacity * ProgressBarOpacity);
 		}
 	}
 
@@ -219,6 +208,7 @@ public:
 	static DWORD WINAPI SystemResourceLoader(LPVOID Param) {
 		SDK::ImageTool.LoadImageT(SDK::SYSRES.FMOD_LOGO, SDK::SYSRES.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
 		SDK::ImageTool.LoadImageT(SDK::SYSRES.COLOR_TEXTURE, SDK::SYSRES.COLOR_TEXTURE_DIRECTORY);
+		SDK::ImageTool.LoadImageT(SDK::SYSRES.SDK_LOGO, SDK::SYSRES.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 		SDK::SoundTool.Load(SDK::SYSRES.INTRO_SOUND, SDK::SYSRES.SDK_LOGO_SOUND_DIRECTORY);
 		SDK::FontLoader.Load(SDK::SYSRES.SDK_FONT_DIRECTORY);
 
