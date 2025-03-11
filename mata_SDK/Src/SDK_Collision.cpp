@@ -15,10 +15,16 @@ void SDK::AABB::Render() {
 		LineRect.SetColor(1.0, 0.0, 0.0);
 		RECT.SetColor(1.0, 0.0, 0.0);
 
-		LineRect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, BOUND_BOX_THICKNESS, 0.0);
+		LineRect.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, Thickness, 0.0);
 		if (Collide)
 			RECT.Draw(aabb.Center.x, aabb.Center.y, aabb.Extents.x * 2.0, aabb.Extents.y * 2.0, 0.0, 0.3);
 	}
+}
+
+void SDK::AABB::SetThickness(float Value) {
+	if (Value <= 0.0)
+		return;
+	Thickness = Value;
 }
 
 bool SDK::AABB::CheckCollision(const AABB& Other) {
@@ -126,10 +132,17 @@ void SDK::OOBB::Render() {
 		LineRect.SetColor(1.0, 0.0, 0.0);
 		RECT.SetColor(1.0, 0.0, 0.0);
 
-		LineRect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, BOUND_BOX_THICKNESS, Rotation);
+		LineRect.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, Thickness, Rotation);
 		if (Collide)
 			RECT.Draw(oobb.Center.x, oobb.Center.y, oobb.Extents.x * 2.0, oobb.Extents.y * 2.0, Rotation, 0.3);
 	}
+}
+
+
+void SDK::OOBB::SetThickness(float Value) {
+	if (Value <= 0.0)
+		return;
+	Thickness = Value;
 }
 
 bool SDK::OOBB::CheckCollision(const OOBB& Other) {
@@ -232,10 +245,16 @@ void SDK::BoundingCircle::Render() {
 		Circle.SetColor(1.0, 0.0, 0.0);
 		LineCircle.SetColor(1.0, 0.0, 0.0);
 
-		LineCircle.Draw(sphere.Center.x, sphere.Center.y, sphere.Radius * 2.0 - BOUND_BOX_THICKNESS, 0.01);
+		LineCircle.Draw(sphere.Center.x, sphere.Center.y, sphere.Radius * 2.0 - Thickness, 0.01);
 		if (Collide)
 			Circle.Draw(sphere.Center.x, sphere.Center.y, sphere.Radius * 2.0, 0.3);
 	}
+}
+
+void SDK::BoundingCircle::SetThickness(float Value) {
+	if (Value <= 0.0)
+		return;
+	Thickness = Value;
 }
 
 bool SDK::BoundingCircle::CheckCollision(const BoundingCircle& Other) {

@@ -15,11 +15,13 @@ namespace SDK {
 
 		SDK::LineRectBrush LineRect{ true, true };
 		SDK::RectBrush     RECT{ true };
+		float			   Thickness{ BOUND_BOX_THICKNESS };
 
 	public:
 		void Update(float X, float Y, float xScale, float yScale);
 		void Update(SDK::Vector2& Position, float xScale, float yScale);
 		void Render();
+		void SetThickness(float Value);
 		bool CheckCollision(const AABB& Other);
 		bool CheckCollision(const OOBB& Other);
 		bool CheckCollision(const BoundingCircle& Other);
@@ -37,13 +39,15 @@ namespace SDK {
 		float             Rotation{};
 		bool              Collide{};
 
-		SDK::LineRectBrush       LineRect{ true, true };
-		SDK::RectBrush           RECT{ true };
+		SDK::LineRectBrush     LineRect{ true, true };
+		SDK::RectBrush         RECT{ true };
+		float				   Thickness{ BOUND_BOX_THICKNESS };
 
 	public:
 		void Update(float X, float Y, float BoxWidth, float BoxHeight, float RotationValue);
 		void Update(SDK::Vector2& Position, float BoxWidth, float BoxHeight, float RotationValue);
 		void Render();
+		void SetThickness(float Value);
 		bool CheckCollision(const OOBB& Other);
 		bool CheckCollision(const AABB& Other);
 		bool CheckCollision(const BoundingCircle& Other);
@@ -59,18 +63,20 @@ namespace SDK {
 	private:
 		BoundingSphere  sphere;
 		glm::vec2       Center{};
-		float         Radius{};
-		float         Size{};
+		float           Radius{};
+		float           Size{};
 
 		bool            Collide{};
 
 		SDK::LineCircleBrush LineCircle{ true, true };
 		SDK::CircleBrush     Circle{ true };
+		float                Thickness{ BOUND_BOX_THICKNESS };
 
 	public:
 		void Update(float X, float Y, float Diameter);
 		void Update(SDK::Vector2& Position, float SizeValue);
 		void Render();
+		void SetThickness(float Value);
 		bool CheckCollision(const BoundingCircle& Other);
 		bool CheckCollision(const AABB& Other);
 		bool CheckCollision(const OOBB& Other);
