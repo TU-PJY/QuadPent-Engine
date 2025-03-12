@@ -1,0 +1,135 @@
+#include "QuadPent_Header.h"
+#include "QuadPent_Scene.h"
+#include "QuadPent_Camera.h"
+#include "QuadPent_CameraController.h"
+#include "QuadPent_Shader.h"
+#include "QuadPent_Config.h"
+#include "QuadPent_Resource.h"
+#include "QuadPent_ModeResource.h"
+
+#include "QuadPent_StartUpMode.h"
+
+float QP::Aspect;
+float QP::ViewportWidth, QP::ViewportHeight;
+int QP::WindowWidth = WINDOW_WIDTH;
+int QP::WindowHeight = WINDOW_HEIGHT;
+int QP::PrevWindowWidth, QP::PrevWindowHeight;
+
+QP::QuadPent_Camera QP::Camera;
+
+QP::ViewportRect QP::WindowRect;
+
+QP::QuadPent_SYSTEM_RESOURCE QP::SYSRES;
+ASSET::QuadPent_MODE_RESOURCE ASSET::MODE;
+ASSET::QuadPent_IMAGE_RESOURCE ASSET::IMAGE;
+ASSET::QuadPent_SOUND_RESOURCE ASSET::SOUND;
+ASSET::QuadPent_SOUND_CHANNEL_RESOURCE ASSET::CHANNEL;
+ASSET::QuadPent_GLOBAL_RESOURCE ASSET::GLOBAL;
+ASSET::QuadPent_FORMAT_RESOURCE ASSET::FORMAT;
+ASSET::QuadPent_FILE_RESOURCE ASSET::FILE;
+ASSET::QuadPent_FONT_RESOURCE ASSET::FONT;
+
+QP::START_MODE_PTR QP::START_MODE;
+
+HWND QP::System_HWND;
+bool QP::System_ClippingState;
+std::wstring QP::SYSTEM_LOCALE;
+std::string QP::USER_DOCUMENT_PATH = std::filesystem::path(std::getenv("USERPROFILE")).string();
+
+int InitializedMajorVersion, InitializedMinorVersion;
+
+void QP::SDK_System::SetupSystem(int argc, char** argv) {
+	glutInit(&argc, argv);
+	SetupWindow();
+	LoadShader();
+	SetGlOption();
+	InitSystem();
+}
+
+void QP::SDK_System::SetupWindow() {
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
+
+	glutInitContextVersion(4, 3);
+	glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
+
+	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - QP::WindowWidth / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - QP::WindowHeight / 2);
+	glutInitWindowSize(QP::WindowWidth, QP::WindowHeight);
+	glutCreateWindow(WINDOW_NAME);
+
+	const unsigned char* Version = glGetString(GL_VERSION);
+	std::cout << Version << std::endl;
+
+	glGetIntegerv(GL_MAJOR_VERSION, &InitializedMajorVersion);
+	glGetIntegerv(GL_MINOR_VERSION, &InitializedMinorVersion);
+	std::cout << "Initialized OpenGL Version: " << InitializedMajorVersion << "." << InitializedMinorVersion << std::endl;
+
+	if (InitializedMajorVersion < 4 || (InitializedMajorVersion == 4 && InitializedMinorVersion < 3)) {
+		std::wstring Str = L"The OpenGL support version of your graphics card is too low. Must support at least OpenGL 4.3 Version.";
+		int Result = MessageBox(NULL, Str.c_str(), L"mata_SDK Error", MB_OK | MB_ICONINFORMATION);
+		if (Result == IDOK)
+			QP::System.Exit();
+	}
+
+	if (FULL_SCREEN_OPTION) {
+		glutFullScreen();
+		QP::WindowWidth = GetSystemMetrics(SM_CXSCREEN);
+		QP::WindowHeight = GetSystemMetrics(SM_CYSCREEN);
+	}
+
+	glewExperimental = GL_TRUE;
+	if (glewInit() != GLEW_OK) {
+		std::cout << "Unable to initialize GLEW\n\n";
+		exit(EXIT_FAILURE);
+	}
+
+	if (DISABLE_ALT_EVENT) {
+		RegisterHotKey(NULL, 1, MOD_ALT, VK_MENU);
+		RegisterHotKey(NULL, 2, MOD_ALT | MOD_NOREPEAT, VK_MENU);
+	}
+
+	QP::System_HWND = FindWindowA(nullptr, WINDOW_NAME);
+
+	std::wstring WINDOW_ICON_PATH = std::wstring(WINDOW_TITLE_BAR_ICON_FILE_PATH);
+	if (!WINDOW_ICON_PATH.empty() && QP::System_HWND) {
+		HICON Icon[1]{};
+		if (ExtractIconEx(WINDOW_TITLE_BAR_ICON_FILE_PATH, 0, &Icon[0], NULL, 1) > 0) {
+			PostMessage(QP::System_HWND, WM_SETICON, ICON_SMALL, (LPARAM)Icon[0]);
+			PostMessage(QP::System_HWND, WM_SETICON, ICON_BIG, (LPARAM)Icon[0]);
+		}
+	}
+}
+
+void QP::SDK_System::LoadShader() {
+	std::string FolderName = "SystemComponent//GLSL//" + std::to_string(InitializedMajorVersion) + "." + std::to_string(InitializedMinorVersion) + "//";
+
+	QP::Shader.LoadVertexShader(std::string(FolderName + "Vertex.glsl"));
+	QP::Shader.LoadFragmentShader(std::string(FolderName + "Fragment_Image.glsl"));
+	QP::Shader.CreateShader(IMAGE_SHADER);
+
+	QP::Shader.LoadVertexShader(std::string(FolderName + "Vertex.glsl"));
+	QP::Shader.LoadFragmentShader(std::string(FolderName + "Fragment_Text.glsl"));
+	QP::Shader.CreateShader(TEXT_SHADER);
+
+	QP::Shader.LoadVertexShader(std::string(FolderName + "Vertex.glsl"));
+	QP::Shader.LoadFragmentShader(std::string(FolderName + "Fragment_Shape.glsl"));
+	QP::Shader.CreateShader(SHAPE_SHADER);
+
+	QP::Shader.CreateShaderLocation();
+}
+
+void QP::SDK_System::SetGlOption() {
+	glEnable(GL_MULTISAMPLE);
+	glEnable(GL_ALPHA_TEST);
+	glEnable(GL_BLEND);
+	glEnable(GL_SMOOTH);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+void QP::SDK_System::InitSystem() {
+	FPSLimit = FRAME_LIMITS;
+	if (FPSLimit > 0)
+		DestFPS = 1000.0 / (float)FPSLimit;
+
+	QuadPent_StartUpMode LoadingMode;
+	QP::Scene.Init(LoadingMode.Start);
+}

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{65f9b162-c676-4993-a470-e1df72114fdb}</ProjectGuid>
+    <RootNamespace>GL2D</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>QuadPent_Engine</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>SystemSource\Library\FMOD\api\core\inc;SystemSource\Library\OpenGL\freeglut\include\GL;SystemSource\Library\OpenGL\glew\include\GL;SystemSource\Library\OpenGL;SystemSource;$(IncludePath)</IncludePath>
+    <LibraryPath>SystemSource\Library\FMOD\api\core\lib\x64;SystemSource\Library\OpenGL\freeglut\lib\x64;SystemSource\Library\OpenGL\glew\lib\Release\x64;SystemSource\Library\cryptopp\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <OpenMPSupport>true</OpenMPSupport>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <Manifest>
+      <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
+    </Manifest>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="SystemSource\QuadPent_AnimationTool.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_CameraController.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Camera.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_CircleBrush.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_ClippingTool.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Collision.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Data.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_EXTool.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Font.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_FontLoader.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Frustum.cpp" />
+    <ClCompile Include="SystemSource\Library\tinyxml\tinystr.cpp" />
+    <ClCompile Include="SystemSource\Library\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="SystemSource\Library\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="SystemSource\Library\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_ObjectFunction.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_ObjectValue.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Scene.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_LineBrush.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Math.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Main.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_ImageTool.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Mouse.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_MoveTool.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Physics.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Random.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_RectBrush.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Script.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_SetUp.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Shader.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_SoundTool.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Display.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_StringTool.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Text.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_ThreadTool.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Timer.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_Transform.cpp" />
+    <ClCompile Include="SystemSource\QuadPent_UITool.cpp" />
+    <ClCompile Include="WorkSpace\QuadPent_ModeAttribute.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SystemSource\QuadPent_AnimationTool.h" />
+    <ClInclude Include="SystemSource\QuadPent_CameraController.h" />
+    <ClInclude Include="SystemSource\QuadPent_Camera.h" />
+    <ClInclude Include="SystemSource\QuadPent_CircleBrush.h" />
+    <ClInclude Include="SystemSource\QuadPent_ClippingTool.h" />
+    <ClInclude Include="SystemSource\QuadPent_Collision.h" />
+    <ClInclude Include="SystemSource\QuadPent_DefaultValue.h" />
+    <ClInclude Include="SystemSource\QuadPent_EnumValue.h" />
+    <ClInclude Include="SystemSource\QuadPent_ErrorMessage.h" />
+    <ClInclude Include="SystemSource\QuadPent_Font.h" />
+    <ClInclude Include="SystemSource\QuadPent_FPSIndicator.h" />
+    <ClInclude Include="SystemSource\QuadPent_Data.h" />
+    <ClInclude Include="SystemSource\QuadPent_EXTool.h" />
+    <ClInclude Include="SystemSource\QuadPent_FontLoader.h" />
+    <ClInclude Include="SystemSource\QuadPent_Frustum.h" />
+    <ClInclude Include="SystemSource\QuadPent_ObjectFunction.h" />
+    <ClInclude Include="SystemSource\QuadPent_ModeHeader.h" />
+    <ClInclude Include="SystemSource\QuadPent_Header.h" />
+    <ClInclude Include="SystemSource\Library\tinyxml\tinystr.h" />
+    <ClInclude Include="SystemSource\Library\tinyxml\tinyxml.h" />
+    <ClInclude Include="SystemSource\QuadPent_ObjectValue.h" />
+    <ClInclude Include="SystemSource\QuadPent_Scene.h" />
+    <ClInclude Include="SystemSource\QuadPent_ImageTool.h" />
+    <ClInclude Include="SystemSource\QuadPent_Resource.h" />
+    <ClInclude Include="SystemSource\QuadPent_LineBrush.h" />
+    <ClInclude Include="SystemSource\QuadPent_StartUpMode.h" />
+    <ClInclude Include="SystemSource\QuadPent_StartUp.h" />
+    <ClInclude Include="SystemSource\QuadPent_Math.h" />
+    <ClInclude Include="SystemSource\QuadPent_Mouse.h" />
+    <ClInclude Include="SystemSource\QuadPent_Object.h" />
+    <ClInclude Include="SystemSource\QuadPent_MoveTool.h" />
+    <ClInclude Include="SystemSource\QuadPent_Physics.h" />
+    <ClInclude Include="SystemSource\QuadPent_Random.h" />
+    <ClInclude Include="SystemSource\QuadPent_RectBrush.h" />
+    <ClInclude Include="SystemSource\QuadPent_Script.h" />
+    <ClInclude Include="SystemSource\QuadPent_Shader.h" />
+    <ClInclude Include="SystemSource\QuadPent_SoundTool.h" />
+    <ClInclude Include="SystemSource\QuadPent_Config.h" />
+    <ClInclude Include="SystemSource\QuadPent_StringTool.h" />
+    <ClInclude Include="SystemSource\QuadPent_SystemResource.h" />
+    <ClInclude Include="SystemSource\QuadPent_Text.h" />
+    <ClInclude Include="SystemSource\QuadPent_ThreadTool.h" />
+    <ClInclude Include="SystemSource\QuadPent_Timer.h" />
+    <ClInclude Include="SystemSource\QuadPent_Transform.h" />
+    <ClInclude Include="SystemSource\QuadPent_UITool.h" />
+    <ClInclude Include="SystemSource\QuadPent_UtilPack.h" />
+    <ClInclude Include="SystemSource\QuadPent_ModeResource.h" />
+    <ClInclude Include="WorkSpace\GameMode1.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ModeTemplate.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SystemComponent\GLSL\4.3\Fragment_Image.glsl" />
+    <None Include="SystemComponent\GLSL\4.3\Fragment_Shape.glsl" />
+    <None Include="SystemComponent\GLSL\4.3\Fragment_Text.glsl" />
+    <None Include="SystemComponent\GLSL\4.3\Vertex.glsl" />
+    <None Include="SystemComponent\GLSL\4.4\Fragment_Image.glsl" />
+    <None Include="SystemComponent\GLSL\4.4\Fragment_Shape.glsl" />
+    <None Include="SystemComponent\GLSL\4.4\Fragment_Text.glsl" />
+    <None Include="SystemComponent\GLSL\4.4\Vertex.glsl" />
+    <None Include="SystemComponent\GLSL\4.5\Fragment_Image.glsl" />
+    <None Include="SystemComponent\GLSL\4.5\Fragment_Shape.glsl" />
+    <None Include="SystemComponent\GLSL\4.5\Fragment_Text.glsl" />
+    <None Include="SystemComponent\GLSL\4.5\Vertex.glsl" />
+    <None Include="SystemComponent\GLSL\4.6\Fragment_Image.glsl" />
+    <None Include="SystemComponent\GLSL\4.6\Fragment_Shape.glsl" />
+    <None Include="SystemComponent\GLSL\4.6\Fragment_Text.glsl" />
+    <None Include="SystemComponent\GLSL\4.6\Vertex.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="SystemComponent\Icon\icon-mata.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

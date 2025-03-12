@@ -1,0 +1,222 @@
+#pragma once
+#include "QuadPent_Scene.h"
+#include "QuadPent_FPSIndicator.h"
+
+// Set work while loading here
+void LoadingWork() {
+
+}
+
+#pragma region FoldRegion
+class QuadPent_StartUp : public QP::Object {
+private:
+	bool    LoadStart{};
+
+	QP::ThreadHandle  SystemResourceLoadHandle{};
+	QP::ThreadHandle  ImageResourceLoadHandle{};
+	QP::ThreadHandle  SoundResourceLoadHandle{};
+	QP::ThreadHandle  DataResourceLoadHandle{};
+	QP::ThreadHandle  FontResourceLoadHandle{};
+
+	bool    SystemResourceLoadEnd{};
+	bool    ImageResourceLoadEnd{};
+	bool    SoundResourceLoadEnd{};
+	bool    DataResourceLoadEnd{};
+	bool    FontResourceLoadEnd{};
+	bool    InitializationEnd{};
+
+	QP::Timer        LoadingTimer{};
+	QP::Timer        StartTimer{};
+	QP::RectBrush    ScreenRect{};
+	QP::LineBrush    ProgressLine{};
+
+	QP::SoundChannel SndChannel{};
+	bool              LogoSoundPlayed{};
+
+	std::atomic<int>  LoadingProgress{};
+	float             LoadingProgressLength{};
+	float             ProgressBarOpacity{};
+
+	float			  ScreenOpacity{ 1.0 };
+
+	bool			  RenderLogo{};
+	bool			  ExitState{};
+
+public:
+	QuadPent_StartUp() {
+		ScreenRect.SetColor(0.0, 0.0, 0.0);
+		ScreenRect.SetRenderType(RENDER_TYPE_STATIC);
+		ProgressLine.SetColor(1.0, 1.0, 1.0);
+		ProgressLine.SetRenderType(RENDER_TYPE_STATIC);
+	}
+
+	void UpdateFunc(float FrameTime) {
+		if (!LoadStart) {
+			LoadingWork();
+
+			QP::Camera.Init();
+			QP::ImageTool.Init();
+			QP::SoundTool.Init();
+
+			QP::ImageTool.LoadImage(QP::SYSRES.MATA_LOGO, QP::SYSRES.MATA_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+
+			ASSET::ResourcePreLoader();
+			std::cout << "Resources pre-loaded." << std::endl;
+
+			QP::ThreadTool.Create(SystemResourceLoadHandle, SystemResourceLoader);
+
+			LoadStart = true;
+		}
+
+		else {
+			if (ENABLE_LOADING_SCREEN) {
+				LoadingTimer.Update(FrameTime);
+				if (LoadingTimer.CheckSec(1, CHECK_AND_RESUME)) {
+					RenderLogo = true;
+					QP::SoundTool.PlayOnce(QP::SYSRES.INTRO_SOUND, SndChannel, LogoSoundPlayed);
+				}
+
+				if (LoadingTimer.CheckSec(6, CHECK_AND_STOP)) {
+					QP::Math.Lerp(ProgressBarOpacity, 1.0, 5.0, FrameTime);
+					QP::Math.Lerp(LoadingProgressLength, (float)LoadingProgress, 5.0, FrameTime);
+
+					if (LoadResources()) {
+						if (!InitializationEnd) {
+							QP::ImageTool.Map();
+							std::cout << "All of Image resources mapped." << std::endl;
+
+							ModeAttribute();
+							std::cout << "All of Mode pointers mapped." << std::endl;
+
+							InitializationEnd = true;
+						}
+
+						else {
+							if (LoadingProgress == 5) {
+								if(StartTimer.UpdateAndCheckSec(1, CHECK_AND_STOP, FrameTime) && LoadingProgressLength >= 5.0) {
+									if (!ExitState) {
+										if (SHOW_FPS)  AddFPSIndicator();
+										QP::Scene.SwitchMode(QP::START_MODE);
+										ExitState = true;
+									}
+
+									else {
+										ScreenOpacity -= FrameTime * 0.7;
+										if (QP::EXTool.CheckClampValue(ScreenOpacity, 0.0, CLAMP_LESS))
+											QP::Scene.DeleteObject(this);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			else {
+				if (LoadResources()) {
+					if (!InitializationEnd) {
+						QP::ImageTool.Map();
+						std::cout << "All of Image resources mapped." << std::endl;
+
+						ModeAttribute();
+						std::cout << "All of Mode pointers mapped." << std::endl;
+
+						if (SHOW_FPS)  AddFPSIndicator();
+						QP::Scene.SwitchMode(QP::START_MODE);
+						QP::Scene.DeleteObject(this);
+						InitializationEnd = true;
+					}
+				}
+			}
+		}
+	}
+
+	void RenderFunc() {
+		ScreenRect.Draw(0.0, 0.0, QP::ViewportWidth, QP::ViewportHeight, 0.0, ScreenOpacity);
+		if (RenderLogo) {
+			QP::Begin(RENDER_TYPE_STATIC);
+			QP::Transform.Scale(0.5, 0.5);
+			QP::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
+			QP::ImageTool.RenderImage(QP::SYSRES.MATA_LOGO, ScreenOpacity);
+
+			ProgressLine.Draw(-0.4, -0.3, 0.4, -0.3, 0.015, ScreenOpacity * ProgressBarOpacity * 0.3);
+			ProgressLine.Draw(-0.4, -0.3, -0.4 + (LoadingProgressLength / 5.0) * 0.8, -0.3, 0.015, ScreenOpacity * ProgressBarOpacity);
+		}
+	}
+
+	void AddFPSIndicator() {
+		QP::Scene.AddSystemObject(new SDK_FPS_Indicator);
+	}
+
+	bool LoadResources() {
+		if (!SystemResourceLoadEnd && !QP::ThreadTool.CheckRunning(SystemResourceLoadHandle)) {
+			QP::ThreadTool.Close(SystemResourceLoadHandle);
+			QP::ThreadTool.Create(ImageResourceLoadHandle, ASSET::ImageResourceLoader);
+			QP::ThreadTool.Create(SoundResourceLoadHandle, ASSET::SoundResourceLoader);
+			QP::ThreadTool.Create(DataResourceLoadHandle, ASSET::FileResourceLoader);
+			QP::ThreadTool.Create(FontResourceLoadHandle, ASSET::FontResourceLoader);
+			std::cout << "System resource load completed." << std::endl;
+
+			LoadingProgress.fetch_add(1);
+			SystemResourceLoadEnd = true;
+		}
+
+		if (!ImageResourceLoadEnd && !QP::ThreadTool.CheckRunning(ImageResourceLoadHandle)) {
+			QP::ThreadTool.Close(ImageResourceLoadHandle);
+			std::cout << "Image resource load completed." << std::endl;
+
+			LoadingProgress.fetch_add(1);
+			ImageResourceLoadEnd = true;
+		}
+
+		if (!SoundResourceLoadEnd && !QP::ThreadTool.CheckRunning(SoundResourceLoadHandle)) {
+			QP::ThreadTool.Close(SoundResourceLoadHandle);
+			std::cout << "Sound resource load completed." << std::endl;
+
+			LoadingProgress.fetch_add(1);
+			SoundResourceLoadEnd = true;
+		}
+
+		if (!DataResourceLoadEnd && !QP::ThreadTool.CheckRunning(DataResourceLoadHandle)) {
+			QP::ThreadTool.Close(DataResourceLoadHandle);
+			std::cout << "Data resource load completed." << std::endl;
+
+			LoadingProgress.fetch_add(1);
+			DataResourceLoadEnd = true;
+		}
+
+		if (!FontResourceLoadEnd && !QP::ThreadTool.CheckRunning(FontResourceLoadHandle)) {
+			QP::ThreadTool.Close(FontResourceLoadHandle);
+			std::cout << "Font resource load completed." << std::endl;
+
+			QP::SYSRES.SYSTEM_FONT_REGULAR.Init(L"Space Grotesk");
+			QP::SYSRES.SYSTEM_FONT_BOLD.Init(L"Space Grotesk", FW_BOLD);
+
+			ASSET::FontResourceInitializer();
+			std::cout << "Font resources created." << std::endl;
+
+			LoadingProgress.fetch_add(1);
+			FontResourceLoadEnd = true;
+		}
+
+		if (SystemResourceLoadEnd && ImageResourceLoadEnd && SoundResourceLoadEnd && DataResourceLoadEnd && FontResourceLoadEnd)
+			return true;
+
+		return false;
+	}
+
+	static DWORD WINAPI SystemResourceLoader(LPVOID Param) {
+		QP::ImageTool.LoadImageT(QP::SYSRES.FMOD_LOGO, QP::SYSRES.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
+		QP::ImageTool.LoadImageT(QP::SYSRES.COLOR_TEXTURE, QP::SYSRES.COLOR_TEXTURE_DIRECTORY);
+		QP::ImageTool.LoadImageT(QP::SYSRES.QUADPENT_LOGO, QP::SYSRES.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+		QP::SoundTool.Load(QP::SYSRES.INTRO_SOUND, QP::SYSRES.SDK_LOGO_SOUND_DIRECTORY);
+		QP::FontLoader.Load(QP::SYSRES.SDK_FONT_DIRECTORY);
+
+		QP::SYSRES.GLU_CIRCLE = gluNewQuadric();
+		QP::SYSRES.GLU_LINE_CIRCLE = gluNewQuadric();
+		gluQuadricDrawStyle(QP::SYSRES.GLU_CIRCLE, GLU_FILL);
+		gluQuadricDrawStyle(QP::SYSRES.GLU_LINE_CIRCLE, GLU_FILL);
+		return 0;
+	}
+};
+#pragma endregion
