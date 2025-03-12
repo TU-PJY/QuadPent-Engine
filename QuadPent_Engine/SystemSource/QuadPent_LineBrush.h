@@ -22,11 +22,11 @@ namespace QP {
 		void SetColor(QP::Color3& ColorValue);
 		void SetColorRGB(int R, int G, int B);
 		void SetLineType(int LineTypeOpt);
-		void Draw(float X1, float Y1, float X2, float Y2, float Thickness, float OpacityValue = 1.0);
+		void Render(float X1, float Y1, float X2, float Y2, float Thickness, float OpacityValue = 1.0);
 
 	private:
-		void Render();
-		void DrawCircle(float X1, float Y1, float X2, float Y2, float Thickness);
-		void RenderCircle(float Thickness);
+		void ProcessTransform();
+		void RenderCircle(float X1, float Y1, float X2, float Y2, float Thickness);
+		void ProcessCircleTransform(float Thickness);
 	};
 }

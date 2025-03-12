@@ -1,6 +1,6 @@
 #pragma once
 #include "QuadPent_DefaultValue.h"
-// QuadPent 8.0
+// QuadPent 8.1
 // OpenGL version 4.3 ~ 4.6
 
 //////////////////////////////////// Window options
@@ -17,7 +17,7 @@ constexpr int WINDOW_WIDTH = QP::DEFAULT_WINDOW_WIDTH;
 constexpr int WINDOW_HEIGHT = QP::DEFAULT_WINDOW_HEIGHT;
 
 // fullscreen option
-constexpr bool FULL_SCREEN_OPTION = false;
+constexpr bool START_WITH_FULLSCREEN = false;
 
 // When enabled, the window do not react to ALT key press event.
 constexpr bool DISABLE_ALT_EVENT = true;

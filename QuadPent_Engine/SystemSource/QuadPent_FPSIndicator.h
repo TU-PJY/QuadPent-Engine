@@ -1,7 +1,7 @@
 #pragma once
 #include "QuadPent_Object.h"
 
-class SDK_FPS_Indicator : public QP::Object {
+class QuadPent_FPS_Indicator : public QP::Object {
 private:
 	QP::Timer FPS_IND_REFRESH_TIMER{};
 	float CurrentDeltaTime = 1.0;
@@ -10,25 +10,28 @@ private:
 	QP::Text IndicatorText{};
 
 public:
-	SDK_FPS_Indicator() {
+	QuadPent_FPS_Indicator() {
 		IndicatorText.Init(QP::SYSRES.SYSTEM_FONT_BOLD);
 		IndicatorText.SetColor(1.0, 1.0, 1.0);
 		IndicatorText.SetHeightAlign(HEIGHT_ALIGN_UNDER);
 		IndicatorText.EnableShadow();
 		IndicatorText.SetShadow(0.07, -0.07, 1.0);
 
-		DEVMODE DevMode;
-		ZeroMemory(&DevMode, sizeof(DEVMODE));
-		DevMode.dmSize = sizeof(DEVMODE);
-
 		if (FRAME_LIMITS == QP::MAX_FRAMERATE) {
+			DEVMODE DevMode;
+			ZeroMemory(&DevMode, sizeof(DEVMODE));
+			DevMode.dmSize = sizeof(DEVMODE);
+
 			if (EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &DevMode)) {
 				std::cout << "Monitor Refresh Rate: " << DevMode.dmDisplayFrequency << " Hz" << std::endl;
 				MaxFPS = static_cast<int>(DevMode.dmDisplayFrequency);
 			}
 		}
-		else
+
+		else {
 			MaxFPS = FRAME_LIMITS;
+			std::cout << "Limited Monitor Refresh Rate: " << MaxFPS << " Hz" << std::endl;
+		}
 	}
 
 	void UpdateFunc(float FrameTime) {

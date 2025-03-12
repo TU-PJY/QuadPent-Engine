@@ -4,7 +4,7 @@
 
 QP::QuadPent_FontLoader QP::FontLoader;
 
-bool QP::QuadPent_FontLoader::Load(const std::string& FontFilePath) {
+void QP::QuadPent_FontLoader::Load(const std::string& FontFilePath) {
     std::wstring Path = StringTool.Wstring(FontFilePath);
     DWORD NumFonts{};
 
@@ -12,11 +12,22 @@ bool QP::QuadPent_FontLoader::Load(const std::string& FontFilePath) {
 
     if (NumFonts == 0) {
         QP::Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
-        return false;
+        return;
     }
 
-    PostMessage(HWND_BROADCAST, WM_FONTCHANGE, 0, 0);
+    SendMessage(QP::System_HWND, WM_FONTCHANGE, 0, 0);
+}
 
-    std::cout << "Loaded Font " << FontFilePath << std::endl;
-    return true;
+void QP::QuadPent_FontLoader::LoadT(const std::string& FontFilePath) {
+    std::wstring Path = StringTool.Wstring(FontFilePath);
+    DWORD NumFonts{};
+
+    NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);
+
+    if (NumFonts == 0) {
+        QP::Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
+        return;
+    }
+
+    PostMessage(QP::System_HWND, WM_FONTCHANGE, 0, 0);
 }

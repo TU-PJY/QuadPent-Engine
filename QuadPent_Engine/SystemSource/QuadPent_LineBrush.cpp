@@ -41,7 +41,7 @@ void QP::LineBrush::SetLineType(int LineTypeOpt) {
 	LineType = LineTypeOpt;
 }
 
-void QP::LineBrush::Draw(float X1, float Y1, float X2, float Y2, float Thickness, float OpacityValue) {
+void QP::LineBrush::Render(float X1, float Y1, float X2, float Y2, float Thickness, float OpacityValue) {
 	Transform.Identity(LineMatrix);
 	Opacity = OpacityValue;
 
@@ -63,13 +63,13 @@ void QP::LineBrush::Draw(float X1, float Y1, float X2, float Y2, float Thickness
 	else if (LineType == LINE_TYPE_ROUND) 
 		LineMatrix = scale(LineMatrix, QP::Vector3(Length, DrawWidth, 1.0));
 
-	Render();
+	ProcessTransform();
 
 	if (LineType == LINE_TYPE_ROUND)
-		DrawCircle(X1, Y1, X2, Y2, DrawWidth);
+		RenderCircle(X1, Y1, X2, Y2, DrawWidth);
 }
 
-void QP::LineBrush::Render() {
+void QP::LineBrush::ProcessTransform() {
 	Camera.SetCamera(RenderType);
 
 	glUseProgram(SHAPE_SHADER);
@@ -82,17 +82,17 @@ void QP::LineBrush::Render() {
 	QP::ImageTool.RenderRaw();
 }
 
-void QP::LineBrush::DrawCircle(float X1, float Y1, float X2, float Y2, float Thickness) {
+void QP::LineBrush::RenderCircle(float X1, float Y1, float X2, float Y2, float Thickness) {
 	Transform.Identity(LineMatrix);
 	LineMatrix = translate(LineMatrix, QP::Vector3(X1, Y1, 0.0));
-	RenderCircle(Thickness);
+	ProcessCircleTransform(Thickness);
 
 	Transform.Identity(LineMatrix);
 	LineMatrix = translate(LineMatrix, QP::Vector3(X2, Y2, 0.0));
-	RenderCircle(Thickness);
+	ProcessCircleTransform(Thickness);
 }
 
-void QP::LineBrush::RenderCircle(float Thickness) {
+void QP::LineBrush::ProcessCircleTransform(float Thickness) {
 	Camera.SetCamera(RenderType);
 
 	glUseProgram(SHAPE_SHADER);

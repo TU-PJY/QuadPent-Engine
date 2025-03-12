@@ -1,7 +1,7 @@
 #include "QuadPent_ObjectValue.h"
 
 // Object Value
-QP::Matrix4 QP::LocalMatrix	         = QP::Matrix4(1.0);
+QP::Matrix4 QP::LocalMatrix	           = QP::Matrix4(1.0);
 QP::Matrix4 QP::GlobalMatrix           = QP::Matrix4(1.0);
 QP::Matrix4 QP::ResultMatrix           = QP::Matrix4(1.0);
 

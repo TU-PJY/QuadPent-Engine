@@ -4,7 +4,7 @@
 #include "QuadPent_StringTool.h"
 #include "QuadPent_Scene.h"
 
-glm::mat4 TextMatrix;
+QP::Matrix4 TextMatrix;
 
 void QP::Text::Init(QP::Font& FontResource) {
 	FontPtr = &FontResource;
@@ -94,7 +94,7 @@ void QP::Text::SetOpacity(float Value) {
 
 void QP::Text::Render(QP::Vector2& Position, float Size, const wchar_t* Fmt, ...) {
 	if (!FontPtr || !FontPtr->InitializedState) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_NOT_CREATED_FONT_RENDER, QP::Scene.ModeName());
+		QP::Scene.SetErrorScreen(ERROR_TYPE_NOT_CREATED_FONT_RENDER, QP::Scene.CurrentModeName());
 		return;
 	}
 
@@ -123,7 +123,7 @@ void QP::Text::Render(QP::Vector2& Position, float Size, const wchar_t* Fmt, ...
 
 void QP::Text::Render(float X, float Y, float Size, const wchar_t* Fmt, ...) {
 	if (!FontPtr || !FontPtr->InitializedState) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_NOT_CREATED_FONT_RENDER, QP::Scene.ModeName());
+		QP::Scene.SetErrorScreen(ERROR_TYPE_NOT_CREATED_FONT_RENDER, QP::Scene.CurrentModeName());
 		return;
 	}
 

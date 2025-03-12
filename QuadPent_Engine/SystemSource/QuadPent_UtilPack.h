@@ -24,6 +24,6 @@
 #include "QuadPent_Data.h"
 #include "QuadPent_Frustum.h"
 #include "QuadPent_ObjectFunction.h"
-#include "QuadPent_Resource.h"
 #include "QuadPent_SystemResource.h"
-#include "QuadPent_ModeResource.h"
+#include "../WorkSpace/Resource/QuadPent_Resource.h"
+#include "../WorkSpace/Resource/QuadPent_ModeResource.h"

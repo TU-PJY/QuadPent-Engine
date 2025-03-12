@@ -11,7 +11,7 @@ void QP::QuadPent_Frustum::Update() {
 
 void QP::QuadPent_Frustum::Render() {
 	if (SHOW_FRUSTUM_BOUND)
-		LineRect.Draw(QP::Camera.Position.x, QP::Camera.Position.y, ViewportWidth / QP::Camera.Zoom, 2.0 / QP::Camera.Zoom, BOUND_BOX_THICKNESS, QP::Camera.Rotation);
+		LineRect.Render(QP::Camera.Position.x, QP::Camera.Position.y, ViewportWidth / QP::Camera.Zoom, 2.0 / QP::Camera.Zoom, BOUND_BOX_THICKNESS, QP::Camera.Rotation);
 }
 
 bool QP::QuadPent_Frustum::Check(QP::AABB& aabb) {

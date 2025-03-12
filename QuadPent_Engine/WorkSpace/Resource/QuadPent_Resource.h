@@ -55,7 +55,12 @@ namespace ASSET {
 	extern QuadPent_FONT_RESOURCE          FONT;
 
 	////////////////////////////////////////////////////////////////////////////////////////
-	// 
+	
+	inline void StartUpBehavior() {
+		// add behavior here
+
+	}
+
 	// Use LoadImage(), LoadClip(), and LoadSpriteSheet() to load image files and sprite sheets in this thread.
 	inline void ResourcePreLoader() {
 		// Pre load resources here
@@ -81,6 +86,7 @@ namespace ASSET {
 		return 0;
 	}
 
+	// Use LoadT() to load font files in this thread.
 	inline DWORD WINAPI FontResourceLoader(LPVOID lpParam) {
 		// Load font resources here
 

@@ -1,5 +1,5 @@
 # mata_ScriptMaker
-mata_ScriptMaker is a tool for creating the structure of script files for read-only use in MGK applications.
+mata_ScriptMaker is a tool for creating the structure of script files for read-only use in QuadPent applications.
 
 After creating the script file structure, you need to write data inside "" (number or string).
 
@@ -17,7 +17,7 @@ Example:
 
 # mata_ScriptConverter
 mata_ScriptConverter is a tool that encrypts or decrypts script files. 
-Encrypted script files can only be used in MGK applications using the same password.
+Encrypted script files can only be used in QuadPent applications using the same password.
 
 To encrypt or decrypt a script file, you need a password file that follows the structure below.
 

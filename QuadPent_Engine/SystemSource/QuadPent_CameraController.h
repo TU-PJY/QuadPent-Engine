@@ -4,7 +4,7 @@
 namespace QP {
 	class QuadPent_CameraController {
 	public:
-		void Update(float FrameTime);
+		void Update();
 		void Move(float X, float Y);
 		void Move(QP::Vector2& PositionValue);
 		void Rotate(float Degree);

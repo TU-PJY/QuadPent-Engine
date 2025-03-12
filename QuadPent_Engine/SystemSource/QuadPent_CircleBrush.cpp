@@ -31,7 +31,7 @@ void QP::CircleBrush::SetColorRGB(int R, int G, int B) {
 	Color.b = (1.0f / 255.0f) * (float)B;
 }
 
-void QP::CircleBrush::Draw(float X, float Y, float Diameter, float OpacityValue) {
+void QP::CircleBrush::Render(float X, float Y, float Diameter, float OpacityValue) {
 	Transform.Identity(CircleMatrix);
 	Opacity = 1.0f;
 
@@ -39,10 +39,10 @@ void QP::CircleBrush::Draw(float X, float Y, float Diameter, float OpacityValue)
 	Opacity = OpacityValue;
 	Radius = Diameter * 0.5;
 
-	Render();
+	ProcessTransform();
 }
 
-void QP::CircleBrush::Render() {
+void QP::CircleBrush::ProcessTransform() {
 	if (!CamInheritanceCommand)
 		Camera.SetCamera(RenderType);
 

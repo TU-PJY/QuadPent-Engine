@@ -5,8 +5,7 @@
 
 QP::QuadPent_CameraController QP::CameraControl;
 
-void QP::QuadPent_CameraController::Update(float FrameTime){
-	// add logic here
+void QP::QuadPent_CameraController::Update(){
 	ComputeCameraMatrix();
 }
 

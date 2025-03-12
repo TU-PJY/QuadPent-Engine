@@ -8,17 +8,17 @@ void QP::QuadPent_Scene::InputFrameTime(float ElapsedTime) {
 	FrameTime = ElapsedTime;
 }
 
-std::string QP::QuadPent_Scene::ModeName() {
+std::string QP::QuadPent_Scene::CurrentModeName() {
 	return CurrentRunningModeName;
 }
 
-bool QP::QuadPent_Scene::CheckCurrentMode(QP::MODE_PTR ModePtr) {
+bool QP::QuadPent_Scene::CheckCurrentMode(QP::Mode ModePtr) {
 	if (ModePtr == CurrentRunningModePtr)
 		return true;
 	return false;
 }
 
-QP::MODE_PTR QP::QuadPent_Scene::Mode() {
+QP::Mode QP::QuadPent_Scene::CurrentMode() {
 	return CurrentRunningModePtr;
 }
 
@@ -80,13 +80,16 @@ void QP::QuadPent_Scene::Render() {
 	}
 }
 
-void QP::QuadPent_Scene::Init(QP::MODE_PTR ModePtr) {
+void QP::QuadPent_Scene::Init(QP::Mode ModePtr) {
 	ModePtr();
+
 	for (int Layer = 0; Layer < SceneLayer; ++Layer)
 		CommandLocation[Layer].reserve(COMMAND_LOCATION_BUFFER_SIZE);
+
+	SetWindowSubclass(QP::System_HWND, Controller, 1, 0);
 }
 
-void QP::QuadPent_Scene::SwitchMode(QP::MODE_PTR ModePtr, int SwitchOption) {
+void QP::QuadPent_Scene::SwitchMode(QP::Mode ModePtr, int SwitchOption) {
 	if (SwitchOption == MODE_SWITCH_DEFAULT && CurrentRunningModePtr == ModePtr) {
 		SetErrorScreen(ERROR_TYPE_EXECUTED_MODE_EXECUTION, CurrentRunningModeName);
 		return;
@@ -101,6 +104,7 @@ void QP::QuadPent_Scene::SwitchMode(QP::MODE_PTR ModePtr, int SwitchOption) {
 		SetErrorScreen(ERROR_TYPE_UNMAPPED_MODE_EXECUTION, CurrentRunningModeName);
 		return;
 	}
+
 	ModePtr();
 
 	if (FloatingActivateCommand) {
@@ -111,7 +115,7 @@ void QP::QuadPent_Scene::SwitchMode(QP::MODE_PTR ModePtr, int SwitchOption) {
 	LoopEscapeCommand = true;
 }
 
-void QP::QuadPent_Scene::RegisterDestructor(QP::MODE_PTR ModeDestructorPtr) {
+void QP::QuadPent_Scene::RegisterDestructor(QP::Mode ModeDestructorPtr) {
 	DestructorBuffer = ModeDestructorPtr;
 }
 
@@ -119,25 +123,17 @@ void QP::QuadPent_Scene::RegisterModeName(std::string ModeName) {
 	CurrentRunningModeName = ModeName;
 }
 
-void QP::QuadPent_Scene::RegisterModePtr(QP::MODE_PTR ModePtr) {
+void QP::QuadPent_Scene::RegisterModePtr(QP::Mode ModePtr) {
 	CurrentRunningModePtr = ModePtr;
 }
 
-void QP::QuadPent_Scene::RegisterController(SUBCLASSPROC Controller, int Type) {
-	if(CurrentController)
-		RemoveWindowSubclass(QP::System_HWND, CurrentController, 1);
-	SetWindowSubclass(QP::System_HWND, Controller, 1, 0);
-	CurrentController = Controller;
-
-	if(Type == MODE_TYPE_DEFAULT)
-		ControllerBuffer = Controller;
+void QP::QuadPent_Scene::RegisterInputObjectList(std::vector<QP::Object*>& List, int ModeType) {
+	InputObjectListPtr = &List;
+	if (ModeType == MODE_TYPE_DEFAULT)
+		InputObjectListPtrBuffer = InputObjectListPtr;
 }
 
-void QP::QuadPent_Scene::RegisterInputObjectList(std::vector<QP::Object*>& Vec) {
-	InputObjectListPtr = &Vec;
-}
-
-void QP::QuadPent_Scene::StartFloatingMode(QP::MODE_PTR ModePtr, bool FloatingFocusFlag) {
+void QP::QuadPent_Scene::StartFloatingMode(QP::Mode ModePtr, bool FloatingFocusFlag) {
 	if (FloatingActivateCommand) {
 		SetErrorScreen(ERROR_TYPE_EXECUTED_FLOATING_MODE_EXECUTUION, CurrentRunningModeName);
 		return;
@@ -167,10 +163,8 @@ void QP::QuadPent_Scene::EndFloatingMode() {
 	CurrentRunningModeName = PrevRunningModeName;
 	CurrentRunningModePtr = PrevRunningModePtr;
 
-	RemoveWindowSubclass(QP::System_HWND, CurrentController, 1);
-	SetWindowSubclass(QP::System_HWND, ControllerBuffer, 1, 0);
-	CurrentController = ControllerBuffer;
-	ControllerBuffer = nullptr;
+	if(InputObjectListPtr)
+		InputObjectListPtr = InputObjectListPtrBuffer;
 
 	FloatingActivateCommand = false;
 	FloatingFocusCommand = false;
@@ -192,8 +186,10 @@ QP::Object* QP::QuadPent_Scene::AddObject(QP::Object* Object, std::string Tag, u
 	Object->ObjectTag = Tag;
 	Object->ObjectLayer = AddLayer;
 
-	if (UseController) 
+	if (UseController) {
+		Object->HasController = true;
 		InputObjectListPtr->emplace_back(Object);
+	}
 
 	if(Type1 == Type2) {
 		if(Type1 == OBJECT_TYPE_STATIC || Type1 == OBJECT_TYPE_STATIC_SINGLE)
@@ -215,6 +211,7 @@ QP::Object* QP::QuadPent_Scene::AddObject(QP::Object* Object, std::string Tag, u
 }
 
 void QP::QuadPent_Scene::DeleteObject(QP::Object* Object) {
+	CheckObjectHasController(Object);
 	Object->DeleteCommand = true;
 	Object->ObjectTag = "";
 }
@@ -225,6 +222,7 @@ void QP::QuadPent_Scene::DeleteObject(std::string Tag, int DeleteRange) {
 		for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 			for (auto const& Object : ObjectList[Layer]) {
 				if (Object->ObjectTag.compare(Tag) == 0) {
+					CheckObjectHasController(Object);
 					Object->DeleteCommand = true;
 					Object->ObjectTag = "";
 					return;
@@ -237,6 +235,7 @@ void QP::QuadPent_Scene::DeleteObject(std::string Tag, int DeleteRange) {
 		for (int Layer = 0; Layer < SceneLayer - 1; ++Layer) {
 			for (auto const& Object : ObjectList[Layer]) {
 				if (Object->ObjectTag.compare(Tag) == 0) {
+					CheckObjectHasController(Object);
 					Object->DeleteCommand = true;
 					Object->ObjectTag = "";
 				}
@@ -349,7 +348,7 @@ QP::Object* QP::QuadPent_Scene::AddSystemObject(QP::Object* Object) {
 
 	ObjectList[EOL].emplace_back(Object);
 
-	return Object;
+	return ObjectList[EOL].back();
 }
 
 void QP::QuadPent_Scene::LockSystemLayer() {
@@ -400,6 +399,7 @@ void QP::QuadPent_Scene::ClearFloatingObject() {
 		size_t Size = LayerSize(Layer);
 		for (int i = 0; i < Size; ++i) {
 			if (!ObjectList[Layer][i]->StaticCommand && ObjectList[Layer][i]->FloatingCommand) {
+				CheckObjectHasController(ObjectList[Layer][i]);
 				ObjectList[Layer][i]->DeleteCommand = true;
 				ObjectList[Layer][i]->ObjectTag = "";
 			}
@@ -413,6 +413,7 @@ void QP::QuadPent_Scene::ClearAll() {
 		size_t Size = LayerSize(Layer);
 		for (int i = 0; i < Size; ++i) {
 			if (!ObjectList[Layer][i]->StaticCommand) {
+				CheckObjectHasController(ObjectList[Layer][i]);
 				ObjectList[Layer][i]->DeleteCommand = true;
 				ObjectList[Layer][i]->ObjectTag = "";
 				AddLocation(Layer, i);
@@ -429,7 +430,7 @@ void ErrorScreenController(unsigned char Key, int X, int Y) {
 }
 
 void QP::QuadPent_Scene::SwitchToErrorScreen() {
-	RemoveWindowSubclass(QP::System_HWND, CurrentController, 1);
+	RemoveWindowSubclass(QP::System_HWND, Controller, 1);
 	glutKeyboardFunc(ErrorScreenController);
 
 	SystemLayerLock = false;
@@ -438,4 +439,78 @@ void QP::QuadPent_Scene::SwitchToErrorScreen() {
 		AddSystemObject(new QuadPent_ErrorMessage(ErrorTypeBuffer, Value1Buffer));
 	else
 		AddSystemObject(new QuadPent_ErrorMessage(ErrorTypeBuffer, Value1Buffer));
+}
+
+void QP::QuadPent_Scene::CheckObjectHasController(QP::Object* Object) {
+	if (Object->HasController)
+		DeleteInputObject(Object);
+}
+
+LRESULT CALLBACK QP::QuadPent_Scene::Controller(HWND Hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR SubClassID, DWORD_PTR RefData) {
+	if (!Scene.InputObjectListPtr)
+		return DefSubclassProc(Hwnd, Message, wParam, lParam);
+
+	int ProcEvent{};
+	int WheelDelta{};
+	int MouseEvent{ EVENT_NONE };
+
+	switch (Message) {
+	case WM_LBUTTONDOWN:
+		MouseEvent = LEFT_BUTTON_DOWN; break;
+	case WM_RBUTTONDOWN:
+		MouseEvent = RIGHT_BUTTON_DOWN; break;
+	case WM_MBUTTONDOWN:
+		MouseEvent = MIDDLE_BUTTON_DOWN; break;
+	case WM_LBUTTONUP:
+		MouseEvent = LEFT_BUTTON_UP; break;
+	case WM_RBUTTONUP:
+		MouseEvent = RIGHT_BUTTON_UP; break;
+	case WM_MBUTTONUP:
+		MouseEvent = MIDDLE_BUTTON_UP; break;
+
+	case WM_XBUTTONDOWN:
+		ProcEvent = GET_XBUTTON_WPARAM(wParam);
+		if (ProcEvent == XBUTTON1)
+			MouseEvent = BACKWARD_BUTTON_DOWN;
+		else if (ProcEvent == XBUTTON2)
+			MouseEvent = FORWARD_BUTTON_DOWN;
+		break;
+
+	case WM_XBUTTONUP:
+		ProcEvent = GET_XBUTTON_WPARAM(wParam);
+		if (ProcEvent == XBUTTON1)
+			MouseEvent = BACKWARD_BUTTON_UP;
+		else if (ProcEvent == XBUTTON2)
+			MouseEvent = FORWARD_BUTTON_UP;
+		break;
+
+	case WM_MOUSEWHEEL:
+		WheelDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+		if (WheelDelta > 0)
+			MouseEvent = WHEEL_UP;
+		else if (WheelDelta < 0)
+			MouseEvent = WHEEL_DOWN;
+		break;
+
+	case WM_KEYDOWN: case WM_KEYUP: case WM_CHAR:
+		if (ENABLE_DEV_EXIT && wParam == VK_ESCAPE)
+			QP::System.Exit();
+
+		QP::KeyEvent Event{};
+		Event.Type = Message;
+		Event.Key = wParam;
+
+		for (auto const& Object : *Scene.InputObjectListPtr)
+			if (Object)  Object->InputKey(Event);
+		
+		return DefSubclassProc(Hwnd, Message, wParam, lParam);
+		break;
+	}
+
+	if (MouseEvent != EVENT_NONE) {
+		for (auto const& Object : *Scene.InputObjectListPtr)
+			if (Object)  Object->InputMouse(MouseEvent);
+	}
+
+	return DefSubclassProc(Hwnd, Message, wParam, lParam);
 }

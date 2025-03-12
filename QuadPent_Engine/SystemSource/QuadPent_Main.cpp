@@ -5,10 +5,10 @@
 #include "QuadPent_Frustum.h"
 #include "QuadPent_Mouse.h"
 
-QP::SDK_System QP::System;
-QP::SDK_System* QP::SDK_System::S_Inst;
+QP::QuadPent_System QP::System;
+QP::QuadPent_System* QP::QuadPent_System::S_Inst;
 
-void QP::SDK_System::Main() {
+void QP::QuadPent_System::Main() {
 	glClearColor(S_Inst->ViewportColor.r, S_Inst->ViewportColor.g, S_Inst->ViewportColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -20,7 +20,7 @@ void QP::SDK_System::Main() {
 	
 	if (S_Inst->UpdateActivateCommand) {
 		QP::Scene.Update();
-		QP::CameraControl.Update(S_Inst->DeltaTime);
+		QP::CameraControl.Update();
 		QP::Frustum.Update();
 		QP::SoundTool.Update();
 		QP::Scene.Render();
@@ -67,6 +67,24 @@ void main(int argc, char** argv) {
 		QP::SYSTEM_LOCALE = LocaleName;
 		std::wcout << L"Windows System Locale: " << QP::SYSTEM_LOCALE << std::endl;
 	}
+
+	QP::System_HWND = FindWindowA(nullptr, WINDOW_NAME);
+	if (QP::System_HWND) {
+		std::wstring Str{}, MsgBoxStr{};
+
+		if (QP::SYSTEM_LOCALE == L"ko-KR") {
+			MsgBoxStr = L"QuadPent 실행 오류";
+			Str = L"이미 하나 이상의 앱이 실행 중입니다.";
+		}
+		else {
+			MsgBoxStr = L"QuadPent execution error";
+			Str = L"One or more apps are already running.";
+		}
+
+		int Result = MessageBox(NULL, Str.c_str(), MsgBoxStr.c_str(), MB_OK | MB_ICONINFORMATION);
+		if (Result == IDOK)
+			return;
+	}
 		
 	QP::System.SetupSystem(argc, argv);
 	glutDisplayFunc(QP::System.Main);
@@ -74,7 +92,7 @@ void main(int argc, char** argv) {
 	glutMainLoop();
 }
 
-void QP::SDK_System::Exit() {
+void QP::QuadPent_System::Exit() {
 	glutDestroyWindow(1);
 }
 

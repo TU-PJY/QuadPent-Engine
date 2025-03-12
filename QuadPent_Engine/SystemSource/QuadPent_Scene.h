@@ -11,23 +11,24 @@ namespace QP {
 		std::array<std::deque<QP::Object*>, SceneLayer> ObjectList{};
 		std::array<std::vector<int>, SceneLayer>        CommandLocation{};
 
+		std::vector<QP::Object*>*		  InputObjectListPtr{};
+		std::vector<QP::Object*>*		  InputObjectListPtrBuffer{};
+
 		int                               CurrentReferLocation{};
 		bool                              CommandExist{};
 
 		std::string						  CurrentRunningModeName{};
 		std::string						  PrevRunningModeName{};
 
-		QP::MODE_PTR                     CurrentRunningModePtr{};
-		QP::MODE_PTR                     PrevRunningModePtr{};
+		QP::Mode						  CurrentRunningModePtr{};
+		QP::Mode					   	  PrevRunningModePtr{};
 
 		bool							  FloatingActivateCommand{};
 		bool                              FloatingFocusCommand{};
 
 		float							  FrameTime{};
 
-		SUBCLASSPROC                      CurrentController{};
-		SUBCLASSPROC				      ControllerBuffer{};
-		QP::MODE_PTR				      DestructorBuffer{};
+		QP::Mode				          DestructorBuffer{};
 
 		bool                              UpdateActivateCommand{ true };
 		bool                              LoopEscapeCommand{};
@@ -38,19 +39,17 @@ namespace QP {
 		std::string						  Value1Buffer{};
 		std::string						  Value2Buffer{};
 
-		std::vector<QP::Object*>*        InputObjectListPtr{};
-
 		bool                              SystemLayerLock{};
 
 	public:
 		// Returns the name of the currently running mode.
-		std::string ModeName();
+		std::string CurrentModeName();
 
 		// Check whether the mode pointer is the current running mode. Returns true if there is a match.
-		bool CheckCurrentMode(QP::MODE_PTR ModePtr);
+		bool CheckCurrentMode(QP::Mode ModePtr);
 
 		// Return current running mode's pointer.
-		QP::MODE_PTR Mode();
+		QP::Mode CurrentMode();
 
 		// Stop updating the scene.
 		void Stop();
@@ -60,23 +59,20 @@ namespace QP {
 		void Resume();
 
 		// Initialize the scene and enter start mode.
-		void Init(QP::MODE_PTR ModePtr);
+		void Init(QP::Mode ModePtr);
 
 		// Register the mode name.
 		void RegisterModeName(std::string ModeName);
 
 		// Register the mode poiner to run.
-		void RegisterModePtr(QP::MODE_PTR ModePtr);
-
-		// Register the controller in the scene.
-		// When MODE_TYPE_FLOATING is specified, the controller is not stored in the controller buffer.
-		void RegisterController(SUBCLASSPROC Controller, int Type);
+		void RegisterModePtr(QP::Mode ModePtr);
 
 		// Register a mode destructor with the Scene.
-		void RegisterDestructor(QP::MODE_PTR ModeDestructorPtr);
+		void RegisterDestructor(QP::Mode ModeDestructorPtr);
 
 		// Register the mode controller input object list in Scene.
-		void RegisterInputObjectList(std::vector<QP::Object*>& Vec);
+		// If ModeType is MODE_TYPE_DEFAULT, input object buffer is saved.
+		void RegisterInputObjectList(std::vector<QP::Object*>& List, int ModeType);
 
 		// Enter the frame time in Scene.
 		void InputFrameTime(float ElapsedTime);
@@ -88,11 +84,11 @@ namespace QP {
 		void Render();
 
 		// Switch to a specific mode.
-		void SwitchMode(QP::MODE_PTR ModePtr, int SwitchOption=MODE_SWITCH_DEFAULT);
+		void SwitchMode(QP::Mode ModePtr, int SwitchOption=MODE_SWITCH_DEFAULT);
 
 		// Start floating mode.Existing objects are not deleted.
 		// When true is specified for FloatingFocus, only floating objects are updated. This state is cleared when floating mode ends.
-		void StartFloatingMode(QP::MODE_PTR ModePtr, bool FloatingFocusFlag = false);
+		void StartFloatingMode(QP::Mode ModePtr, bool FloatingFocusFlag = false);
 
 		// Exit floating mode.Floating objects are deleted, and regular objects are not deleted.
 		void EndFloatingMode();
@@ -142,12 +138,15 @@ namespace QP {
 		void LockSystemLayer();
 		void UnlockSystemLayer();
 
+		static LRESULT Controller(HWND Hwnd, UINT Message, WPARAM wParam, LPARAM lParam, UINT_PTR SubClassID, DWORD_PTR RefData);
+
 	private:
 		void AddLocation(int Layer, int Position);
 		void UpdateObjectList();
 		void ClearFloatingObject();
 		void ClearAll();
 		void SwitchToErrorScreen();
+		void CheckObjectHasController(QP::Object* Object);
 	};
 
 	extern QuadPent_Scene Scene;

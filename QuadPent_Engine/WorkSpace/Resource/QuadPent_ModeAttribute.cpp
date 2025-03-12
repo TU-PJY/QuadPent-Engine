@@ -1,4 +1,4 @@
-#include "GameMode1.h"
+#include "../Mode/GameMode1.h"
 //////////////////////////////////// Start Mode Option
 // Specifies the mode to run first when the program starts.
 //You must include the mode header file, and declare the mode class.
@@ -6,7 +6,7 @@
 GameMode1 Mode1;
 
 // Map modes' Start() function pointer here
-void ModeAttribute() {
+void QP::ModeMapper() {
 	Mode1.Map(ASSET::MODE.Mode1);
 
 	// Set start mode

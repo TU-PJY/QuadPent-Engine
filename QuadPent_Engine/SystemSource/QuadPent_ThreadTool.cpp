@@ -2,16 +2,16 @@
 
 QP::QuadPent_ThreadTool QP::ThreadTool;
 
-void QP::QuadPent_ThreadTool::Create(QP::ThreadHandle& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param) {
-	HandleValue = CreateThread(NULL, 0, ThreadFunction, Param, 0, NULL);
+void QP::QuadPent_ThreadTool::Create(QP::ThreadHandle& Handle, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param) {
+	Handle = CreateThread(NULL, 0, ThreadFunction, Param, 0, NULL);
 }
 
-bool QP::QuadPent_ThreadTool::CheckRunning(QP::ThreadHandle& HandleValue) {
-	if (!HandleValue)
+bool QP::QuadPent_ThreadTool::CheckRunning(QP::ThreadHandle& Handle) {
+	if (!Handle)
 		return false;
 
 	DWORD Result;
-	GetExitCodeThread(HandleValue, &Result);
+	GetExitCodeThread(Handle, &Result);
 
 	if (Result == STILL_ACTIVE)
 		return true;
@@ -19,9 +19,9 @@ bool QP::QuadPent_ThreadTool::CheckRunning(QP::ThreadHandle& HandleValue) {
 	return false;
 }
 
-void QP::QuadPent_ThreadTool::Close(QP::ThreadHandle& HandleValue) {
-	if(HandleValue)
-		CloseHandle(HandleValue);
+void QP::QuadPent_ThreadTool::Close(QP::ThreadHandle& Handle) {
+	if(Handle)
+		CloseHandle(Handle);
 }
 
 void QP::QuadPent_ThreadTool::InitSection(CRITICAL_SECTION& Section) {

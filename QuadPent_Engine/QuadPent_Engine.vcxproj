@@ -179,7 +179,7 @@
     <ClCompile Include="SystemSource\QuadPent_Timer.cpp" />
     <ClCompile Include="SystemSource\QuadPent_Transform.cpp" />
     <ClCompile Include="SystemSource\QuadPent_UITool.cpp" />
-    <ClCompile Include="WorkSpace\QuadPent_ModeAttribute.cpp" />
+    <ClCompile Include="WorkSpace\Resource\QuadPent_ModeAttribute.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -190,7 +190,6 @@
     <ClInclude Include="SystemSource\QuadPent_ClippingTool.h" />
     <ClInclude Include="SystemSource\QuadPent_Collision.h" />
     <ClInclude Include="SystemSource\QuadPent_DefaultValue.h" />
-    <ClInclude Include="SystemSource\QuadPent_EnumValue.h" />
     <ClInclude Include="SystemSource\QuadPent_ErrorMessage.h" />
     <ClInclude Include="SystemSource\QuadPent_Font.h" />
     <ClInclude Include="SystemSource\QuadPent_FPSIndicator.h" />
@@ -206,7 +205,6 @@
     <ClInclude Include="SystemSource\QuadPent_ObjectValue.h" />
     <ClInclude Include="SystemSource\QuadPent_Scene.h" />
     <ClInclude Include="SystemSource\QuadPent_ImageTool.h" />
-    <ClInclude Include="SystemSource\QuadPent_Resource.h" />
     <ClInclude Include="SystemSource\QuadPent_LineBrush.h" />
     <ClInclude Include="SystemSource\QuadPent_StartUpMode.h" />
     <ClInclude Include="SystemSource\QuadPent_StartUp.h" />
@@ -229,11 +227,10 @@
     <ClInclude Include="SystemSource\QuadPent_Transform.h" />
     <ClInclude Include="SystemSource\QuadPent_UITool.h" />
     <ClInclude Include="SystemSource\QuadPent_UtilPack.h" />
-    <ClInclude Include="SystemSource\QuadPent_ModeResource.h" />
-    <ClInclude Include="WorkSpace\GameMode1.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ModeTemplate.txt" />
+    <ClInclude Include="WorkSpace\Mode\GameMode1.h" />
+    <ClInclude Include="WorkSpace\Resource\QuadPent_EnumValue.h" />
+    <ClInclude Include="WorkSpace\Resource\QuadPent_ModeResource.h" />
+    <ClInclude Include="WorkSpace\Resource\QuadPent_Resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SystemComponent\GLSL\4.3\Fragment_Image.glsl" />
@@ -258,6 +255,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="SystemComponent\Icon\icon-mata.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Misc\ModeTemplate.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

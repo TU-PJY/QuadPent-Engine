@@ -12,6 +12,8 @@ namespace QP {
 		bool        DeleteCommand{};
 		bool        SwapCommand{};
 
+		bool        HasController{};
+
 		////////////////////////////////////////////// Built-in functions
 		// class destructor
 		virtual ~Object() {}

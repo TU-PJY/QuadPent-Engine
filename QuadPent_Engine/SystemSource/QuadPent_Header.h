@@ -61,8 +61,6 @@
 using namespace DirectX;
 using namespace CryptoPP;
 
-void ModeAttribute();
-
 namespace QP {
 	// corner position of display
 	typedef struct {
@@ -152,7 +150,7 @@ namespace QP {
 	using SSBO = unsigned int;
 
 	typedef void(*START_MODE_PTR)(void);
-	typedef void(*MODE_PTR)(void);
+	typedef void(*Mode)(void);
 	typedef void(*CONTROLLER_PTR)(void);
 	extern START_MODE_PTR START_MODE;
 
@@ -177,23 +175,23 @@ namespace QP {
 
 	// Multiply the value by the window aspect ratio.
 	float ASP(float Value);
+	void ModeMapper();
 
-	class SDK_System {
+	class QuadPent_System {
 	private:
 		bool  UpdateActivateCommand{};
-		float PrevTime{}, CurrentTime{}, DeltaTime{};
+		bool  FullscreenState{};
 
+		float PrevTime{}, CurrentTime{}, DeltaTime{};
 		float DestFPS{};
 		int   FPSLimit{};
-
-		bool  FullscreenState{};
 
 		glm::vec3 ViewportColor{};
 
 	public:
-		static SDK_System* S_Inst;
+		static QuadPent_System* S_Inst;
 
-		SDK_System() {
+		QuadPent_System() {
 			S_Inst = this;
 		}
 
@@ -216,7 +214,7 @@ namespace QP {
 		void Exit();
 	};
 
-	extern SDK_System System;
+	extern QuadPent_System System;
 
 	extern float Aspect;
 	extern float ViewportWidth, ViewportHeight;

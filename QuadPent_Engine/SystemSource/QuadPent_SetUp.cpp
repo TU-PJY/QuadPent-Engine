@@ -4,8 +4,8 @@
 #include "QuadPent_CameraController.h"
 #include "QuadPent_Shader.h"
 #include "QuadPent_Config.h"
-#include "QuadPent_Resource.h"
-#include "QuadPent_ModeResource.h"
+#include "../WorkSpace/Resource/QuadPent_Resource.h"
+#include "../WorkSpace/Resource/QuadPent_ModeResource.h"
 
 #include "QuadPent_StartUpMode.h"
 
@@ -30,6 +30,7 @@ ASSET::QuadPent_FILE_RESOURCE ASSET::FILE;
 ASSET::QuadPent_FONT_RESOURCE ASSET::FONT;
 
 QP::START_MODE_PTR QP::START_MODE;
+QuadPent_StartUpMode StartUpMode;
 
 HWND QP::System_HWND;
 bool QP::System_ClippingState;
@@ -38,7 +39,7 @@ std::string QP::USER_DOCUMENT_PATH = std::filesystem::path(std::getenv("USERPROF
 
 int InitializedMajorVersion, InitializedMinorVersion;
 
-void QP::SDK_System::SetupSystem(int argc, char** argv) {
+void QP::QuadPent_System::SetupSystem(int argc, char** argv) {
 	glutInit(&argc, argv);
 	SetupWindow();
 	LoadShader();
@@ -46,7 +47,7 @@ void QP::SDK_System::SetupSystem(int argc, char** argv) {
 	InitSystem();
 }
 
-void QP::SDK_System::SetupWindow() {
+void QP::QuadPent_System::SetupWindow() {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
 
 	glutInitContextVersion(4, 3);
@@ -64,13 +65,23 @@ void QP::SDK_System::SetupWindow() {
 	std::cout << "Initialized OpenGL Version: " << InitializedMajorVersion << "." << InitializedMinorVersion << std::endl;
 
 	if (InitializedMajorVersion < 4 || (InitializedMajorVersion == 4 && InitializedMinorVersion < 3)) {
-		std::wstring Str = L"The OpenGL support version of your graphics card is too low. Must support at least OpenGL 4.3 Version.";
-		int Result = MessageBox(NULL, Str.c_str(), L"mata_SDK Error", MB_OK | MB_ICONINFORMATION);
+		std::wstring Str{}, MsgBoxStr{};
+
+		if (QP::SYSTEM_LOCALE == L"ko-KR") {
+			MsgBoxStr = L"QuadPent 실행 오류";
+			Str = L"그래픽카드가 지원하는 OpenGL 버전이 너무 낮습니다. 최소 OpenGL 4.3 버전 이상을 지원해야 합니다.";
+		}
+		else {
+			MsgBoxStr = L"QuadPent execution error";
+			Str = L"The OpenGL support version of your graphics card is too low. Must support at least OpenGL 4.3 Version.";
+		}
+
+		int Result = MessageBox(NULL, Str.c_str(), MsgBoxStr.c_str(), MB_OK | MB_ICONINFORMATION);
 		if (Result == IDOK)
 			QP::System.Exit();
 	}
 
-	if (FULL_SCREEN_OPTION) {
+	if (START_WITH_FULLSCREEN) {
 		glutFullScreen();
 		QP::WindowWidth = GetSystemMetrics(SM_CXSCREEN);
 		QP::WindowHeight = GetSystemMetrics(SM_CYSCREEN);
@@ -99,7 +110,7 @@ void QP::SDK_System::SetupWindow() {
 	}
 }
 
-void QP::SDK_System::LoadShader() {
+void QP::QuadPent_System::LoadShader() {
 	std::string FolderName = "SystemComponent//GLSL//" + std::to_string(InitializedMajorVersion) + "." + std::to_string(InitializedMinorVersion) + "//";
 
 	QP::Shader.LoadVertexShader(std::string(FolderName + "Vertex.glsl"));
@@ -117,7 +128,7 @@ void QP::SDK_System::LoadShader() {
 	QP::Shader.CreateShaderLocation();
 }
 
-void QP::SDK_System::SetGlOption() {
+void QP::QuadPent_System::SetGlOption() {
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_ALPHA_TEST);
 	glEnable(GL_BLEND);
@@ -125,11 +136,10 @@ void QP::SDK_System::SetGlOption() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void QP::SDK_System::InitSystem() {
+void QP::QuadPent_System::InitSystem() {
 	FPSLimit = FRAME_LIMITS;
 	if (FPSLimit > 0)
 		DestFPS = 1000.0 / (float)FPSLimit;
 
-	QuadPent_StartUpMode LoadingMode;
-	QP::Scene.Init(LoadingMode.Start);
+	QP::Scene.Init(StartUpMode.Start);
 }

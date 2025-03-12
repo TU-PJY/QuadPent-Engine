@@ -1,26 +1,28 @@
 #pragma once
 #include <QuadPent_ModeHeader.h>
 
-class TemplateMode {
+class GameMode1 {
 public:
-	int ModeType{ MODE_TYPE_DEFAULT };
+	int ModeType { MODE_TYPE_DEFAULT };
 
 	static void Start() {
 		SetUp();
-
+		QP::System.SetBackColor(0.3, 0.3, 0.3);
+		// Add task here
 	}
 
 	static void Destructor() {
+		// Add task here
 	}
 
 #pragma region FoldRegion 
 	std::vector<QP::Object*> InputObject{};
-	inline static TemplateMode* M_Inst;
+	inline static GameMode1* M_Inst;
 
-	TemplateMode() { M_Inst = this; }
+	GameMode1() { M_Inst = this; }
 
-	static void Map(QP::Mode& Mode) {
-		Mode = Start;
+	void Map(QP::Mode& ModePtr) {
+		ModePtr = Start;
 	}
 
 	static void SetUp() {

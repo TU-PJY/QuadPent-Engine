@@ -2,11 +2,6 @@
 #include "QuadPent_Scene.h"
 #include "QuadPent_FPSIndicator.h"
 
-// Set work while loading here
-void LoadingWork() {
-
-}
-
 #pragma region FoldRegion
 class QuadPent_StartUp : public QP::Object {
 private:
@@ -31,7 +26,7 @@ private:
 	QP::LineBrush    ProgressLine{};
 
 	QP::SoundChannel SndChannel{};
-	bool              LogoSoundPlayed{};
+	bool             LogoSoundPlayed{};
 
 	std::atomic<int>  LoadingProgress{};
 	float             LoadingProgressLength{};
@@ -52,13 +47,17 @@ public:
 
 	void UpdateFunc(float FrameTime) {
 		if (!LoadStart) {
-			LoadingWork();
+			ASSET::StartUpBehavior();
 
 			QP::Camera.Init();
 			QP::ImageTool.Init();
 			QP::SoundTool.Init();
 
 			QP::ImageTool.LoadImage(QP::SYSRES.MATA_LOGO, QP::SYSRES.MATA_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+
+			QP::FontLoader.Load(QP::SYSRES.SYSTEM_FONT_DIRECTORY);
+			QP::SYSRES.SYSTEM_FONT_REGULAR.Init(L"Space Grotesk");
+			QP::SYSRES.SYSTEM_FONT_BOLD.Init(L"Space Grotesk", FW_BOLD);
 
 			ASSET::ResourcePreLoader();
 			std::cout << "Resources pre-loaded." << std::endl;
@@ -77,15 +76,16 @@ public:
 				}
 
 				if (LoadingTimer.CheckSec(6, CHECK_AND_STOP)) {
-					QP::Math.Lerp(ProgressBarOpacity, 1.0, 5.0, FrameTime);
-					QP::Math.Lerp(LoadingProgressLength, (float)LoadingProgress, 5.0, FrameTime);
+					if(!ExitState)
+						QP::Math.Lerp(ProgressBarOpacity, 1.0, 5.0, FrameTime);
+					QP::Math.Lerp(LoadingProgressLength, (float)LoadingProgress, 8.0, FrameTime);
 
 					if (LoadResources()) {
 						if (!InitializationEnd) {
 							QP::ImageTool.Map();
 							std::cout << "All of Image resources mapped." << std::endl;
 
-							ModeAttribute();
+							QP::ModeMapper();
 							std::cout << "All of Mode pointers mapped." << std::endl;
 
 							InitializationEnd = true;
@@ -93,18 +93,21 @@ public:
 
 						else {
 							if (LoadingProgress == 5) {
-								if(StartTimer.UpdateAndCheckSec(1, CHECK_AND_STOP, FrameTime) && LoadingProgressLength >= 5.0) {
+								if(StartTimer.UpdateAndCheckSec(1, CHECK_AND_STOP, FrameTime)) {
 									if (!ExitState) {
-										if (SHOW_FPS)  AddFPSIndicator();
+										if (SHOW_FPS) QP::Scene.AddSystemObject(new QuadPent_FPS_Indicator);
 										QP::Scene.SwitchMode(QP::START_MODE);
 										ExitState = true;
 									}
-
 									else {
-										ScreenOpacity -= FrameTime * 0.7;
-										if (QP::EXTool.CheckClampValue(ScreenOpacity, 0.0, CLAMP_LESS))
-											QP::Scene.DeleteObject(this);
+										ProgressBarOpacity -= FrameTime;
+										if (QP::EXTool.CheckClampValue(ProgressBarOpacity, 0.0, CLAMP_LESS)) {
+											ScreenOpacity -= FrameTime * 0.7;
+											if (QP::EXTool.CheckClampValue(ScreenOpacity, 0.0, CLAMP_LESS))
+												QP::Scene.DeleteObject(this);
+										}
 									}
+									
 								}
 							}
 						}
@@ -118,10 +121,10 @@ public:
 						QP::ImageTool.Map();
 						std::cout << "All of Image resources mapped." << std::endl;
 
-						ModeAttribute();
+						QP::ModeMapper();
 						std::cout << "All of Mode pointers mapped." << std::endl;
 
-						if (SHOW_FPS)  AddFPSIndicator();
+						if (SHOW_FPS)  QP::Scene.AddSystemObject(new QuadPent_FPS_Indicator);
 						QP::Scene.SwitchMode(QP::START_MODE);
 						QP::Scene.DeleteObject(this);
 						InitializationEnd = true;
@@ -132,20 +135,16 @@ public:
 	}
 
 	void RenderFunc() {
-		ScreenRect.Draw(0.0, 0.0, QP::ViewportWidth, QP::ViewportHeight, 0.0, ScreenOpacity);
+		ScreenRect.Render(0.0, 0.0, QP::ViewportWidth, QP::ViewportHeight, 0.0, ScreenOpacity);
 		if (RenderLogo) {
 			QP::Begin(RENDER_TYPE_STATIC);
 			QP::Transform.Scale(0.5, 0.5);
 			QP::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
 			QP::ImageTool.RenderImage(QP::SYSRES.MATA_LOGO, ScreenOpacity);
 
-			ProgressLine.Draw(-0.4, -0.3, 0.4, -0.3, 0.015, ScreenOpacity * ProgressBarOpacity * 0.3);
-			ProgressLine.Draw(-0.4, -0.3, -0.4 + (LoadingProgressLength / 5.0) * 0.8, -0.3, 0.015, ScreenOpacity * ProgressBarOpacity);
+			ProgressLine.Render(-0.4, -0.3, 0.4, -0.3, 0.015, ScreenOpacity * ProgressBarOpacity * 0.3);
+			ProgressLine.Render(-0.4, -0.3, -0.4 + (LoadingProgressLength / 5.0) * 0.8, -0.3, 0.015, ScreenOpacity * ProgressBarOpacity);
 		}
-	}
-
-	void AddFPSIndicator() {
-		QP::Scene.AddSystemObject(new SDK_FPS_Indicator);
 	}
 
 	bool LoadResources() {
@@ -189,9 +188,6 @@ public:
 			QP::ThreadTool.Close(FontResourceLoadHandle);
 			std::cout << "Font resource load completed." << std::endl;
 
-			QP::SYSRES.SYSTEM_FONT_REGULAR.Init(L"Space Grotesk");
-			QP::SYSRES.SYSTEM_FONT_BOLD.Init(L"Space Grotesk", FW_BOLD);
-
 			ASSET::FontResourceInitializer();
 			std::cout << "Font resources created." << std::endl;
 
@@ -208,9 +204,8 @@ public:
 	static DWORD WINAPI SystemResourceLoader(LPVOID Param) {
 		QP::ImageTool.LoadImageT(QP::SYSRES.FMOD_LOGO, QP::SYSRES.FMOD_LOGO_DIRECTORY, IMAGE_TYPE_LINEAR);
 		QP::ImageTool.LoadImageT(QP::SYSRES.COLOR_TEXTURE, QP::SYSRES.COLOR_TEXTURE_DIRECTORY);
-		QP::ImageTool.LoadImageT(QP::SYSRES.QUADPENT_LOGO, QP::SYSRES.SDK_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
-		QP::SoundTool.Load(QP::SYSRES.INTRO_SOUND, QP::SYSRES.SDK_LOGO_SOUND_DIRECTORY);
-		QP::FontLoader.Load(QP::SYSRES.SDK_FONT_DIRECTORY);
+		QP::ImageTool.LoadImageT(QP::SYSRES.QUADPENT_LOGO, QP::SYSRES.QUADPENT_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
+		QP::SoundTool.Load(QP::SYSRES.INTRO_SOUND, QP::SYSRES.QUADPENT_LOGO_SOUND_DIRECTORY);
 
 		QP::SYSRES.GLU_CIRCLE = gluNewQuadric();
 		QP::SYSRES.GLU_LINE_CIRCLE = gluNewQuadric();

@@ -34,15 +34,15 @@ public:
 
 		else {
 			Rect.SetColorRGB(31, 31, 31);
-			Rect.Draw(0.0, 0.0, QP::ViewportWidth, QP::ViewportHeight);
+			Rect.Render(0.0, 0.0, QP::ViewportWidth, QP::ViewportHeight);
 
 			Rect.SetColorRGB(45, 45, 45);
-			Rect.Draw(0.0, HeightOffset, 0.8, 0.2, -45.0f);
-			Rect.Draw(0.0, HeightOffset, 0.8, 0.2, 45.0f);
+			Rect.Render(0.0, HeightOffset, 0.8, 0.2, -45.0f);
+			Rect.Render(0.0, HeightOffset, 0.8, 0.2, 45.0f);
 
-			LineRect.Draw(0.0, HeightOffset, 1.5, 1.0, 0.1);
-			Rect.Draw(0.0, -0.65 + HeightOffset, 0.4, 0.3);
-			Rect.Draw(0.0, -0.75 + HeightOffset, 0.7, 0.1);
+			LineRect.Render(0.0, HeightOffset, 1.5, 1.0, 0.1);
+			Rect.Render(0.0, -0.65 + HeightOffset, 0.4, 0.3);
+			Rect.Render(0.0, -0.75 + HeightOffset, 0.7, 0.1);
 
 			Message.RenderString(QP::WindowRect.LeftX + 0.01, 1.0 - 0.06, 0.06, Result);
 			Message.Render(QP::WindowRect.LeftX + 0.01, -1.0 + 0.02, 0.06, L"Press \\YESC\\E or \\YEnter\\E to terminate system...");
@@ -75,62 +75,62 @@ public:
 			case ERROR_TYPE_IMAGE_LOAD:
 				QP::StringTool.AddString(Result, "Error Type: ERROR_TYPE_IMAGE_LOAD\n\\YFile with problem: ");
 				QP::StringTool.AddString(Result, ErrorValue1 + "\n\\E");
-				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.ModeName() + "\n\n");
+				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.CurrentModeName() + "\n\n");
 				QP::StringTool.AddString(Result, "The file may be missing or damaged.\nMake sure the image file is correct.");
 				break;
 
 			case ERROR_TYPE_SOUND_LOAD:
 				QP::StringTool.AddString(Result, "Error Type: ERROR_TYPE_SOUND_LOAD\n\\YFile with problem: ");
 				QP::StringTool.AddString(Result, ErrorValue1 + "\n\\E");
-				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.ModeName() + "\n\n");
+				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.CurrentModeName() + "\n\n");
 				QP::StringTool.AddString(Result, "The file may be missing or damaged.\nMake sure the audio file is correct.");
 				break;
 
 			case ERROR_TYPE_FONT_LOAD:
 				QP::StringTool.AddString(Result, "Error Type : ERROR_TYPE_FONT_LOAD\n\\YFile with problem: ");
 				QP::StringTool.AddString(Result, ErrorValue1 + "\n\\E");
-				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.ModeName() + "\n\n");
+				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.CurrentModeName() + "\n\n");
 				QP::StringTool.AddString(Result, "The file may be missing or damaged.\nMake sure the font file is correct.");
 				break;
 
 			case ERROR_TYPE_SCRIPT_LOAD:
 				QP::StringTool.AddString(Result, "Error Type: ERROR_TYPE_SCRIPT_LOAD\n\\YFile with problem: ");
 				QP::StringTool.AddString(Result, ErrorValue1 + "\n\\E");
-				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.ModeName() + "\n\n");
+				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.CurrentModeName() + "\n\n");
 				QP::StringTool.AddString(Result, "The file may be missing or damaged.\nMake sure the script file is correct.");
 				break;
 
 			case ERROR_TYPE_SCRIPT_PARSE:
 				QP::StringTool.AddString(Result, "Error Type: ERROR_TYPE_SCRIPT_PARSE\n\\YFile with problem: ");
 				QP::StringTool.AddString(Result, ErrorValue1 + "\n\\E");
-				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.ModeName() + "\n\n");
+				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.CurrentModeName() + "\n\n");
 				QP::StringTool.AddString(Result, "The file may be damaged or have an incorrect structure.\nMake sure the script file is correct.");
 				break;
 
 			case ERROR_TYPE_SCRIPT_CATEGORY:
 				QP::StringTool.AddString(Result, "Error Type: ERROR_TYPE_SCRIPT_CATEGORY\n\\YCategory with problem: ");
 				QP::StringTool.AddString(Result, ErrorValue1 + "\n\\E");
-				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.ModeName() + "\n\n");
+				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.CurrentModeName() + "\n\n");
 				QP::StringTool.AddString(Result, "The category may be missed.\nMake sure the script file's category is correct.");
 				break;
 
 			case ERROR_TYPE_DATA_FILE_PARSE:
 				QP::StringTool.AddString(Result, "Error Type: ERROR_TYPE_DATA_FILE_PARSE\n\\YFile with problem: ");
 				QP::StringTool.AddString(Result, ErrorValue1 + "\n\\E");
-				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.ModeName() + "\n\n");
+				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.CurrentModeName() + "\n\n");
 				QP::StringTool.AddString(Result, "The file may be damaged or have an incorrect structure.\nMake sure the data file is correct.");
 				break;
 
 			case ERROR_TYPE_DATA_FILE_CATEGORY:
 				QP::StringTool.AddString(Result, "Error Type: ERROR_TYPE_DATA_FILE_CATEGORY\n\\YCategory with problem: ");
 				QP::StringTool.AddString(Result, ErrorValue1 + "\n\\E");
-				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.ModeName() + "\n\n");
+				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.CurrentModeName() + "\n\n");
 				QP::StringTool.AddString(Result, "The category may be missed.\nMake sure the data file's category is correct.");
 				break;
 
 			case ERROR_TYPE_NOT_CREATED_FONT_RENDER:
 				QP::StringTool.AddString(Result, "Error Type: ERROR_TYPE_NOT_CREATED_FONT_RENDER\n");
-				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.ModeName() + "\n\n");
+				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.CurrentModeName() + "\n\n");
 				QP::StringTool.AddString(Result, "Make sure the font was created.\nMake sure you have mapped the font in your text object.");
 				break;
 
@@ -197,21 +197,21 @@ public:
 			case ERROR_TYPE_SCRIPT_DATA:
 				QP::StringTool.AddString(Result, "Error Type: ERROR_TYPE_SCRIPT_DATA\n\\YData with problem: ");
 				QP::StringTool.AddString(Result, "Category: " + ErrorValue1 + " | Data Name: " + ErrorValue2 + "\n\\E");
-				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.ModeName() + "\n\n");
+				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.CurrentModeName() + "\n\n");
 				QP::StringTool.AddString(Result, "Data may be missing.\nMake sure the category's data is correct.");
 				break;
 
 			case ERROR_TYPE_DATA_FILE_DATA_LOAD:
 				QP::StringTool.AddString(Result, "Error Type: ERROR_TYPE_DATA_FILE_DATA_LOAD\n\\YData with problem: ");
 				QP::StringTool.AddString(Result, "Category: " + ErrorValue1 + " | Data Name: " + ErrorValue2 + "\n\\E");
-				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.ModeName() + "\n\n");
+				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.CurrentModeName() + "\n\n");
 				QP::StringTool.AddString(Result, "Data may be missing.\nMake sure the category's data is correct.");
 				break;
 
 			case ERROR_TYPE_DATA_FILE_DATA_WRITE:
 				QP::StringTool.AddString(Result, "Error Type: ERROR_TYPE_DATA_FILE_DATA_WRITE\n\\YData with problem: ");
 				QP::StringTool.AddString(Result, "Category: " + ErrorValue1 + " | Data Name: " + ErrorValue2 + "\n\\E");
-				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.ModeName() + "\n\n");
+				QP::StringTool.AddString(Result, "While running mode: " + QP::Scene.CurrentModeName() + "\n\n");
 				QP::StringTool.AddString(Result, "Data may be missing.\nMake sure the category's data is correct.");
 				break;
 			}

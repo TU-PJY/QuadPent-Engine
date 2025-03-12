@@ -4,9 +4,9 @@
 namespace QP {
 	class QuadPent_ThreadTool {
 	public:
-		void Create(QP::ThreadHandle& HandleValue, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param = NULL);
-		bool CheckRunning(QP::ThreadHandle& HandleValue);
-		void Close(QP::ThreadHandle& HandleValue);
+		void Create(QP::ThreadHandle& Handle, LPTHREAD_START_ROUTINE ThreadFunction, LPVOID Param = NULL);
+		bool CheckRunning(QP::ThreadHandle& Handle);
+		void Close(QP::ThreadHandle& Handle);
 		void InitSection(CRITICAL_SECTION& Section);
 		bool InitSectionAndCount(CRITICAL_SECTION& Section, int SpinCount);
 		void DeleteSection(CRITICAL_SECTION& Section);
