@@ -7,5 +7,5 @@ After completing this process, your project will run.
 * All settings (library paths, etc.) for the project are stored in Release mode, so it is recommended to build in Release mode.
   When building in Debug mode, you must set all necessary settings and library paths.
 
-* When distributing an executable file, it must be distributed along with the "SDKResource" folder and other necessary resources. 
-  The "SDKResource" folder contains files required to run mata_SDK program.
+* When distributing an executable file, it must be distributed along with the "SystemComponent" folder and other necessary resources. 
+  The "SystemComponent" folder contains files required to run QuadPent program.
