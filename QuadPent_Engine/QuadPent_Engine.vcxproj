@@ -74,6 +74,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>SystemSource\Library\FMOD\api\core\inc;SystemSource\Library\OpenGL\freeglut\include\GL;SystemSource\Library\OpenGL\glew\include\GL;SystemSource\Library\OpenGL;SystemSource;$(IncludePath)</IncludePath>
     <LibraryPath>SystemSource\Library\FMOD\api\core\lib\x64;SystemSource\Library\OpenGL\freeglut\lib\x64;SystemSource\Library\OpenGL\glew\lib\Release\x64;SystemSource\Library\cryptopp\lib;$(LibraryPath)</LibraryPath>
+    <TargetName>QuadPent App</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

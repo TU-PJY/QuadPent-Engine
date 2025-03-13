@@ -1,7 +1,6 @@
 #pragma once
 namespace QP {
-	constexpr const char* DEFAULT_WINDOW_NAME          = "QuadPent 8";
-	constexpr const wchar_t* DEFAULT_ICON_PATH		   = L"SystemComponent//Icon//icon-mata.ico";
+	constexpr const char* DEFAULT_WINDOW_NAME          = "QuadPent App";
 	constexpr int DEFAULT_WINDOW_WIDTH				   = 1300;
 	constexpr int DEFAULT_WINDOW_HEIGHT				   = 800;
 	constexpr int MAX_FRAMERATE                        = 0;

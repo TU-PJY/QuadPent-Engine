@@ -1,9 +1,7 @@
+#include "../resource.h"
 #include "QuadPent_Header.h"
 #include "QuadPent_Scene.h"
-#include "QuadPent_Camera.h"
-#include "QuadPent_CameraController.h"
 #include "QuadPent_Shader.h"
-#include "QuadPent_Config.h"
 #include "../WorkSpace/Resource/QuadPent_Resource.h"
 #include "../WorkSpace/Resource/QuadPent_ModeResource.h"
 
@@ -14,10 +12,8 @@ float QP::ViewportWidth, QP::ViewportHeight;
 int QP::WindowWidth = WINDOW_WIDTH;
 int QP::WindowHeight = WINDOW_HEIGHT;
 int QP::PrevWindowWidth, QP::PrevWindowHeight;
-
-QP::QuadPent_Camera QP::Camera;
-
 QP::ViewportRect QP::WindowRect;
+QP::QuadPent_Camera QP::Camera;
 
 QP::QuadPent_SYSTEM_RESOURCE QP::SYSRES;
 ASSET::QuadPent_MODE_RESOURCE ASSET::MODE;
@@ -33,7 +29,10 @@ QP::START_MODE_PTR QP::START_MODE;
 QuadPent_StartUpMode StartUpMode;
 
 HWND QP::System_HWND;
+HINSTANCE QP::System_INSTANCE;
+
 bool QP::System_ClippingState;
+
 std::wstring QP::SYSTEM_LOCALE;
 std::string QP::USER_DOCUMENT_PATH = std::filesystem::path(std::getenv("USERPROFILE")).string();
 
@@ -65,6 +64,8 @@ void QP::QuadPent_System::SetupWindow() {
 	std::cout << "Initialized OpenGL Version: " << InitializedMajorVersion << "." << InitializedMinorVersion << std::endl;
 
 	if (InitializedMajorVersion < 4 || (InitializedMajorVersion == 4 && InitializedMinorVersion < 3)) {
+		PlaySoundW(TEXT("SystemComponent\\Sound\\alert.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
 		std::wstring Str{}, MsgBoxStr{};
 
 		if (QP::SYSTEM_LOCALE == L"ko-KR") {
@@ -76,8 +77,8 @@ void QP::QuadPent_System::SetupWindow() {
 			Str = L"The OpenGL support version of your graphics card is too low. Must support at least OpenGL 4.3 Version.";
 		}
 
-		int Result = MessageBox(NULL, Str.c_str(), MsgBoxStr.c_str(), MB_OK | MB_ICONINFORMATION);
-		if (Result == IDOK)
+		int Result = MessageBox(NULL, Str.c_str(), MsgBoxStr.c_str(), MB_OK);
+		if (Result == IDOK || Result == IDCLOSE)
 			QP::System.Exit();
 	}
 
@@ -99,14 +100,12 @@ void QP::QuadPent_System::SetupWindow() {
 	}
 
 	QP::System_HWND = FindWindowA(nullptr, WINDOW_NAME);
+	QP::System_INSTANCE = (HINSTANCE)GetWindowLongPtr(QP::System_HWND, GWLP_HINSTANCE);
 
-	std::wstring WINDOW_ICON_PATH = std::wstring(WINDOW_TITLE_BAR_ICON_FILE_PATH);
-	if (!WINDOW_ICON_PATH.empty() && QP::System_HWND) {
-		HICON Icon[1]{};
-		if (ExtractIconEx(WINDOW_TITLE_BAR_ICON_FILE_PATH, 0, &Icon[0], NULL, 1) > 0) {
-			PostMessage(QP::System_HWND, WM_SETICON, ICON_SMALL, (LPARAM)Icon[0]);
-			PostMessage(QP::System_HWND, WM_SETICON, ICON_BIG, (LPARAM)Icon[0]);
-		}
+	HICON Icon = LoadIcon(QP::System_INSTANCE, MAKEINTRESOURCE(IDI_ICON1));
+	if (Icon) {
+		PostMessage(QP::System_HWND, WM_SETICON, ICON_SMALL, (LPARAM)Icon);
+		PostMessage(QP::System_HWND, WM_SETICON, ICON_BIG, (LPARAM)Icon);
 	}
 }
 

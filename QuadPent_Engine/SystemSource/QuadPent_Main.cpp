@@ -46,22 +46,6 @@ void QP::QuadPent_System::Main() {
 }
 
 void main(int argc, char** argv) {
-	std::locale::global(std::locale(""));
-	std::wcout.imbue(std::locale());
-	std::cout.imbue(std::locale());
-
-	if (SHOW_CONSOLE) {
-		if (AllocConsole()) {
-			FILE* FP{};
-
-			freopen_s(&FP, "CONOUT$", "w", stdout);
-			freopen_s(&FP, "CONIN$", "r", stdin);
-			freopen_s(&FP, "CONERR$", "w", stderr);
-
-			std::cout << "Console initialized successfully." << std::endl;
-		}
-	}
-
 	wchar_t LocaleName[LOCALE_NAME_MAX_LENGTH];
 	if (GetUserDefaultLocaleName(LocaleName, LOCALE_NAME_MAX_LENGTH)) {
 		QP::SYSTEM_LOCALE = LocaleName;
@@ -70,6 +54,8 @@ void main(int argc, char** argv) {
 
 	QP::System_HWND = FindWindowA(nullptr, WINDOW_NAME);
 	if (QP::System_HWND) {
+		PlaySoundW(TEXT("SystemComponent\\Sound\\alert.wav"), NULL, SND_FILENAME | SND_ASYNC);
+
 		std::wstring Str{}, MsgBoxStr{};
 
 		if (QP::SYSTEM_LOCALE == L"ko-KR") {
@@ -81,11 +67,25 @@ void main(int argc, char** argv) {
 			Str = L"One or more apps are already running.";
 		}
 
-		int Result = MessageBox(NULL, Str.c_str(), MsgBoxStr.c_str(), MB_OK | MB_ICONINFORMATION);
-		if (Result == IDOK)
+		int Result = MessageBox(NULL, Str.c_str(), MsgBoxStr.c_str(), MB_OK);
+		if (Result == IDOK || Result == IDCLOSE)
 			return;
 	}
-		
+
+	std::locale::global(std::locale(""));
+	std::wcout.imbue(std::locale());
+	std::cout.imbue(std::locale());
+
+	if (SHOW_CONSOLE && AllocConsole()) {
+		FILE* FP{};
+
+		freopen_s(&FP, "CONOUT$", "w", stdout);
+		freopen_s(&FP, "CONIN$", "r", stdin);
+		freopen_s(&FP, "CONERR$", "w", stderr);
+
+		std::cout << "Console initialized successfully." << std::endl;
+	}
+	
 	QP::System.SetupSystem(argc, argv);
 	glutDisplayFunc(QP::System.Main);
 	glutReshapeFunc(QP::System.DisplayReshape);

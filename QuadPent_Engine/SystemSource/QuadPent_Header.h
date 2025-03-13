@@ -224,6 +224,7 @@ namespace QP {
 	constexpr glm::mat4 IDENTITY_MATRIX = glm::mat4(1.0f);
 
 	extern HWND System_HWND;
+	extern HINSTANCE System_INSTANCE;
 	extern bool System_ClippingState;
 
 	extern std::wstring SYSTEM_LOCALE;

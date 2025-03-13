@@ -175,34 +175,31 @@
     <Filter Include="[5]___________[ QuadPent ]\[ Component ]\[ System ]\[ System Resource ]">
       <UniqueIdentifier>{b2a227f6-1c45-48dc-a52d-aa18ff6adf09}</UniqueIdentifier>
     </Filter>
-    <Filter Include="[5]___________[ QuadPent ]\[ Component ]\[ Misc ]">
-      <UniqueIdentifier>{da528397-a6f0-4ef8-bcab-e3ea98bb5f1a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ QuadPent ]\[ Component ]\[ Misc ]\[ TinyXML ]">
-      <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ QuadPent ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ Header ]">
-      <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="[5]___________[ QuadPent ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ CPP ]">
-      <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="[5]___________[ QuadPent ]\[ Component ]\[ System ]\[ Start Up ]">
       <UniqueIdentifier>{a4749d85-5f45-4c15-a9cd-08a1ef45352d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ QuadPent ]\[ Component ]\[ TinyXML ]">
+      <UniqueIdentifier>{b411906d-dba6-43b2-9fb9-8fdc86ab615a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ QuadPent ]\[ Component ]\[ TinyXML ]\[ Header ]">
+      <UniqueIdentifier>{0e3bd161-f85a-4c63-9fec-ca808700d64f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="[5]___________[ QuadPent ]\[ Component ]\[ TinyXML ]\[ CPP ]">
+      <UniqueIdentifier>{8687cc53-1f7c-47a2-a2ed-4388623b0fa3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SystemSource\Library\tinyxml\tinystr.cpp">
-      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="SystemSource\Library\tinyxml\tinyxml.cpp">
-      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="SystemSource\Library\tinyxml\tinyxmlerror.cpp">
-      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="SystemSource\Library\tinyxml\tinyxmlparser.cpp">
-      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ CPP ]</Filter>
+      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ TinyXML ]\[ CPP ]</Filter>
     </ClCompile>
     <ClCompile Include="SystemSource\QuadPent_Shader.cpp">
       <Filter>[5]___________[ QuadPent ]\[ Component ]\[ Shader ]</Filter>
@@ -312,10 +309,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SystemSource\Library\tinyxml\tinystr.h">
-      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ Header ]</Filter>
+      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="SystemSource\Library\tinyxml\tinyxml.h">
-      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ Misc ]\[ TinyXML ]\[ Header ]</Filter>
+      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ TinyXML ]\[ Header ]</Filter>
     </ClInclude>
     <ClInclude Include="SystemSource\QuadPent_Shader.h">
       <Filter>[5]___________[ QuadPent ]\[ Component ]\[ Shader ]</Filter>
@@ -422,9 +419,6 @@
     <ClInclude Include="resource.h">
       <Filter>[7[___________[ API Resource ]</Filter>
     </ClInclude>
-    <ClInclude Include="SystemSource\QuadPent_DefaultValue.h">
-      <Filter>[5]___________[ QuadPent ]\[ Component ]\[ Misc ]</Filter>
-    </ClInclude>
     <ClInclude Include="SystemSource\QuadPent_ObjectFunction.h">
       <Filter>[5]___________[ QuadPent ]\[ Component ]\[ Object Component ]\[ Object Function ]</Filter>
     </ClInclude>
@@ -457,6 +451,9 @@
     </ClInclude>
     <ClInclude Include="WorkSpace\Resource\QuadPent_ModeResource.h">
       <Filter>[1]___________[ Mode ]\[0]_[ Mode  Attributes ]</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemSource\QuadPent_DefaultValue.h">
+      <Filter>[5]___________[ QuadPent ]\[ Header ]</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

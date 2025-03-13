@@ -7,11 +7,6 @@
 // window name
 constexpr const char* WINDOW_NAME = QP::DEFAULT_WINDOW_NAME;
 
-// window icon file path
-// Enter the path to the icon file to use in the Windows title bar. 
-// If you don't enter anything, it will use the windows default icon.
-constexpr const wchar_t* WINDOW_TITLE_BAR_ICON_FILE_PATH = QP::DEFAULT_ICON_PATH;
-
 // window size
 constexpr int WINDOW_WIDTH = QP::DEFAULT_WINDOW_WIDTH;
 constexpr int WINDOW_HEIGHT = QP::DEFAULT_WINDOW_HEIGHT;
@@ -65,10 +60,10 @@ constexpr bool ENABLE_DEV_EXIT = true;
 
 
 
-//////////////////////////////////// Scene Options
+//////////////////////////////////// Scene options
 // scene layer option
 // 'EOL' should be typed at last
-enum SDK_LAYER
+enum Scene_LAYER
 { LAYER1, LAYER2, LAYER3, EOL };
 
 // Specifies the size of the deletion location buffer
@@ -76,7 +71,7 @@ constexpr int COMMAND_LOCATION_BUFFER_SIZE = QP::DEFAULT_COMMAND_LOCATION_BUFFER
 
 
 
-//////////////////////////////////// Sound Options
+//////////////////////////////////// Sound options
 // Max sound channel option
 constexpr int MAX_CHANNEL_SIZE = QP::DEFAULT_MAX_CHANNEL_SIZE;
 
@@ -85,20 +80,20 @@ constexpr int FFT_SIZE = QP::DEFAULT_FFT_SIZE;
 
 
 
-//////////////////////////////////// SDK_Math Options
+//////////////////////////////////// QuadPent_Math options
 //When the relevant threshold is reached in SDK_Math::Lerp(), the calculation is stopped immediately to optimize the amount of calculation.
 //When set to 0.0, calculation amount optimization is not performed.
 constexpr float LERP_THRESHOLD = QP::DEFAULT_LERP_THRESHOLD;
 
 
 
-//////////////////////////////////// Image render Option
+//////////////////////////////////// Image render option
 // Set the number of blur filtering times to run when blurring images. The higher the value, the more resources the system consumes.
 constexpr int BLUR_EXECUTION = QP::DEFAULT_BLUR_EXECUTION;
 
 
 
-//////////////////////////////////// File security Options
+//////////////////////////////////// File security options
 // Data file security option
 // When this option is activated, the data file is saved as an encrypted file.
 // When this option is disabled, the data file is saved as an xml file.
