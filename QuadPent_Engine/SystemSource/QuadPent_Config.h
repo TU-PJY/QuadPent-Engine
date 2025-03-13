@@ -1,6 +1,6 @@
 #pragma once
 #include "QuadPent_DefaultValue.h"
-// QuadPent 8.1
+// QuadPent 8.2
 // OpenGL version 4.3 ~ 4.6
 
 //////////////////////////////////// Window options
