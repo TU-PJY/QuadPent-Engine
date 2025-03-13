@@ -13,8 +13,14 @@ void QP::QuadPent_SoundTool::Init() {
 	SoundSystem->init(MAX_CHANNEL_SIZE, FMOD_INIT_NORMAL, ExtDvData);
 	SoundSystem->createDSPByType(FMOD_DSP_TYPE_LOWPASS, &LowPass);
 	SoundSystem->set3DSettings(1.0, 1.0, 2.0); 
-
 	FFTdata.reserve(FFT_SIZE);
+
+	FMOD::ChannelGroup* MasterGroup;
+	SoundSystem->getMasterChannelGroup(&MasterGroup);
+	float Volume;
+	MasterGroup->getVolume(&Volume);
+	if (Volume == 0.0f)
+		MasterGroup->setVolume(1.0f);
 }
 
 void QP::QuadPent_SoundTool::Load(QP::Sound& Sound, std::string FileName, FMOD_MODE Option) {
