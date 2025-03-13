@@ -7,6 +7,7 @@ class QuadPent_StartUp : public QP::Object {
 private:
 	bool    LoadStart{};
 	bool    SplashState{};
+	bool    SwitchingState{};
 
 	QP::ThreadHandle  SystemResourceLoadHandle{};
 	QP::ThreadHandle  ImageResourceLoadHandle{};
@@ -29,6 +30,10 @@ private:
 
 	QP::SoundChannel SndChannel{};
 	bool             LogoSoundPlayed{};
+
+	float            LogoRotation{ -180.0 };
+	float            LogoSize{ 2.5 };
+	float            LogoOpacity{};
 
 	std::atomic<int>  LoadingProgress{};
 	float             LoadingProgressLength{};
@@ -54,6 +59,7 @@ public:
 
 	void UpdateSplashScreen(float FrameTime);
 	void RenderSplashScreen();
+	void SwitchToStartUp();
 
 	void UpdateFunc(float FrameTime) {
 		if (!LoadStart) {
@@ -81,10 +87,12 @@ public:
 		else {
 			if (ENABLE_START_UP) {
 				if (START_WITH_SPLASH) {
-					if(SplashState)
+					if (SplashState)
 						UpdateSplashScreen(FrameTime);
-					else
+					else {
+						if (SwitchingState)  SwitchToStartUp();
 						UpdateStartUp(FrameTime);
+					}
 				}
 				else 
 					UpdateStartUp(FrameTime);
@@ -109,33 +117,17 @@ public:
 		}
 	}
 
-	void RenderFunc() {
-		ScreenRect.Render(0.0, 0.0, QP::ViewportWidth, QP::ViewportHeight, 0.0, ScreenOpacity);
-
-		if (SplashState) 
-			RenderSplashScreen();
-
-		else {
-			if (RenderLogo) {
-				QP::Begin(RENDER_TYPE_STATIC);
-				QP::Transform.Scale(0.5, 0.5);
-				QP::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
-				QP::ImageTool.RenderImage(QP::SYSRES.MATA_LOGO, ScreenOpacity);
-
-				ProgressLine.Render(-0.4, -0.3, 0.4, -0.3, 0.015, ScreenOpacity * ProgressBarOpacity * 0.3);
-				ProgressLine.Render(-0.4, -0.3, -0.4 + (LoadingProgressLength / 5.0) * 0.8, -0.3, 0.015, ScreenOpacity * ProgressBarOpacity);
-			}
-		}
-	}
-
 	void UpdateStartUp(float FrameTime) {
 		StartUpTimer.Update(FrameTime);
 		if (StartUpTimer.CheckSec(1, CHECK_AND_RESUME)) {
 			RenderLogo = true;
+			QP::Math.Lerp(LogoSize, 0.6, 3.0, FrameTime);
+			QP::Math.Lerp(LogoRotation, 0.0, 3.0, FrameTime);
+			QP::Math.Lerp(LogoOpacity, 1.0, 3.0, FrameTime);
 			QP::SoundTool.PlayOnce(QP::SYSRES.INTRO_SOUND, SndChannel, LogoSoundPlayed);
 		}
 
-		if (StartUpTimer.CheckSec(3, CHECK_AND_STOP)) {
+		if (StartUpTimer.CheckSec(6, CHECK_AND_STOP)) {
 			if (!ExitState)
 				QP::Math.Lerp(ProgressBarOpacity, 1.0, 5.0, FrameTime);
 			QP::Math.Lerp(LoadingProgressLength, (float)LoadingProgress, 8.0, FrameTime);
@@ -171,6 +163,26 @@ public:
 						}
 					}
 				}
+			}
+		}
+	}
+
+	void RenderFunc() {
+		ScreenRect.Render(0.0, 0.0, QP::ViewportWidth, QP::ViewportHeight, 0.0, ScreenOpacity);
+
+		if (SplashState)
+			RenderSplashScreen();
+
+		else {
+			if (RenderLogo) {
+				QP::Begin(RENDER_TYPE_STATIC);
+				QP::Transform.RotateH(LogoRotation);
+				QP::Transform.Scale(LogoSize, LogoSize);
+				QP::ImageTool.SetLocalColor(1.0, 1.0, 1.0);
+				QP::ImageTool.RenderImage(QP::SYSRES.MATA_LOGO, ScreenOpacity * LogoOpacity);
+
+				ProgressLine.Render(-0.4, -0.3, 0.4, -0.3, 0.015, ScreenOpacity * ProgressBarOpacity * 0.3);
+				ProgressLine.Render(-0.4, -0.3, -0.4 + (LoadingProgressLength / 5.0) * 0.8, -0.3, 0.015, ScreenOpacity * ProgressBarOpacity);
 			}
 		}
 	}
@@ -250,6 +262,7 @@ public:
 		int ResolutionY = GetSystemMetrics(SM_CYSCREEN);
 
 		SetWindowPos(QP::System_HWND, NULL, 0, 0, ResolutionX, ResolutionY, SWP_NOZORDER | SWP_FRAMECHANGED);
+		ShowWindow(QP::System_HWND, SW_MAXIMIZE);
 	}
 };
 #pragma endregion

@@ -52,8 +52,8 @@ void QP::QuadPent_System::SetupWindow() {
 	glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 
 	if (START_WITH_SPLASH && ENABLE_START_UP) {
-		QP::WindowWidth = SPLASH_WIDTH;
-		QP::WindowHeight = SPLASH_HEIGHT;
+		QP::WindowWidth = GetSystemMetrics(SM_CXSCREEN) / SPLASH_WIDTH_RATIO;
+		QP::WindowHeight = GetSystemMetrics(SM_CYSCREEN) / SPLASH_HEIGHT_RATIO;
 	}
 	else {
 		QP::WindowWidth = START_WINDOW_WIDTH;
@@ -72,13 +72,24 @@ void QP::QuadPent_System::SetupWindow() {
 		Style &= ~(WS_OVERLAPPEDWINDOW);
 		SetWindowLong(QP::System_HWND, GWL_STYLE, Style);
 		SetWindowPos(QP::System_HWND, NULL, 
-			GetSystemMetrics(SM_CXSCREEN) / 2 - SPLASH_WIDTH / 2, 
-			GetSystemMetrics(SM_CYSCREEN) / 2 - SPLASH_HEIGHT / 2,
-			SPLASH_WIDTH, SPLASH_HEIGHT, SWP_NOZORDER | SWP_FRAMECHANGED);
+			GetSystemMetrics(SM_CXSCREEN) / 2 - QP::WindowWidth / 2,
+			GetSystemMetrics(SM_CYSCREEN) / 2 - QP::WindowHeight / 2,
+			QP::WindowWidth, QP::WindowHeight, SWP_NOZORDER | SWP_FRAMECHANGED);
 	}
 
-	else if (!START_WITH_SPLASH && START_WITH_FULLSCREEN)
+	else if (!START_WITH_SPLASH && START_WITH_FULLSCREEN) {
+		LONG Style = GetWindowLong(QP::System_HWND, GWL_STYLE);
+		Style |= (WS_OVERLAPPEDWINDOW);
+		SetWindowLong(QP::System_HWND, GWL_STYLE, Style);
+
+		int ResolutionX = GetSystemMetrics(SM_CXSCREEN);
+		int ResolutionY = GetSystemMetrics(SM_CYSCREEN);
+
+		SetWindowPos(QP::System_HWND, NULL, 0, 0, ResolutionX, ResolutionY, SWP_NOZORDER | SWP_FRAMECHANGED);
+		ShowWindow(QP::System_HWND, SW_MAXIMIZE);
+
 		SwitchScreenState();
+	}
 
 	HICON Icon = LoadIcon(QP::System_INSTANCE, MAKEINTRESOURCE(IDI_ICON1));
 	if (Icon) {

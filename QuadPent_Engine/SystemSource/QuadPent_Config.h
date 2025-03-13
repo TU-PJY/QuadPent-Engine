@@ -31,9 +31,9 @@ constexpr bool ENABLE_START_UP = false;
 
 // Splash option
 // If ENABLE_START_UP is false, splash screen will not appeared.
-constexpr bool START_WITH_SPLASH = true;
-constexpr int SPLASH_WIDTH = QP::DEFAULT_SPLASH_WIDTH;
-constexpr int SPLASH_HEIGHT = QP::DEFAULT_SPLASH_HEIGHT;
+constexpr bool START_WITH_SPLASH = false;
+constexpr int SPLASH_WIDTH_RATIO = QP::DEFAULT_SPLASH_WIDTH_RATIO;
+constexpr int SPLASH_HEIGHT_RATIO = QP::DEFAULT_SPLASH_HEIGHT_RATIO;
 
 // frame limits option
 // If this option is set to SDK::MAX_FRAMERATE, the system will run at maximum framerate.
