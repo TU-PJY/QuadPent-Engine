@@ -9,9 +9,8 @@
 
 float QP::Aspect;
 float QP::ViewportWidth, QP::ViewportHeight;
-int QP::WindowWidth = WINDOW_WIDTH;
-int QP::WindowHeight = WINDOW_HEIGHT;
-int QP::PrevWindowWidth, QP::PrevWindowHeight;
+int QP::WindowWidth, QP::WindowHeight;
+
 QP::ViewportRect QP::WindowRect;
 QP::QuadPent_Camera QP::Camera;
 
@@ -52,9 +51,15 @@ void QP::QuadPent_System::SetupWindow() {
 	glutInitContextVersion(4, 3);
 	glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 
-	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - QP::WindowWidth / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - QP::WindowHeight / 2);
+	QP::WindowWidth = START_WINDOW_WIDTH;
+	QP::WindowHeight = START_WINDOW_HEIGHT;
+
 	glutInitWindowSize(QP::WindowWidth, QP::WindowHeight);
+	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - QP::WindowWidth / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - QP::WindowHeight / 2);
 	glutCreateWindow(WINDOW_NAME);
+
+	if (START_WITH_FULLSCREEN)
+		SwitchScreenState();
 
 	const unsigned char* Version = glGetString(GL_VERSION);
 	std::cout << Version << std::endl;
@@ -80,12 +85,6 @@ void QP::QuadPent_System::SetupWindow() {
 		int Result = MessageBox(NULL, Str.c_str(), MsgBoxStr.c_str(), MB_OK);
 		if (Result == IDOK || Result == IDCLOSE)
 			QP::System.Exit();
-	}
-
-	if (START_WITH_FULLSCREEN) {
-		glutFullScreen();
-		QP::WindowWidth = GetSystemMetrics(SM_CXSCREEN);
-		QP::WindowHeight = GetSystemMetrics(SM_CYSCREEN);
 	}
 
 	glewExperimental = GL_TRUE;

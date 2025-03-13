@@ -1,21 +1,7 @@
 #include "QuadPent_Camera.h"
 #include "QuadPent_Transform.h"
 
-void QP::QuadPent_Camera::CalculateASPECT() {
-	QP::Aspect = (float)QP::WindowWidth / (float)QP::WindowHeight;
-	QP::ViewportWidth = 2.0 * QP::Aspect;
-	QP::ViewportHeight = 2.0;
-	QP::WindowRect.LeftX = -1.0 * QP::Aspect;
-	QP::WindowRect.LeftY = -1.0;
-	QP::WindowRect.RightX = 1.0 * QP::Aspect;
-	QP::WindowRect.RightY = 1.0;
-	QP::PrevWindowWidth = QP::WindowWidth;
-	QP::PrevWindowHeight = QP::WindowHeight;
-}
-
 void QP::QuadPent_Camera::Init() {
-	CalculateASPECT();
-
 	QP::Transform.Identity(ViewMatrix);
 	QP::Transform.Identity(Projection);
 	QP::Transform.Identity(CameraMatrix);
@@ -24,9 +10,6 @@ void QP::QuadPent_Camera::Init() {
 }
 
 void QP::QuadPent_Camera::SetCamera(int RenderType) {
-	if(QP::PrevWindowWidth != QP::WindowWidth || QP::PrevWindowHeight != QP::WindowHeight)
-		CalculateASPECT();
-
 	CamPos = QP::Vector3(0.0f, 0.0f, 1.0f);
 	CamDirection = QP::Vector3(0.0f, 0.0f, -1.0f);
 	CamUp = QP::Vector3(0.0f, 1.0f, 0.0f);

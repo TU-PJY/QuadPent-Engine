@@ -2,8 +2,18 @@
 
 void QP::QuadPent_System::DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
+
 	QP::WindowWidth = w;
 	QP::WindowHeight = h;
+
+	QP::Aspect = (float)QP::WindowWidth / (float)QP::WindowHeight;
+	QP::ViewportWidth = 2.0 * QP::Aspect;
+	QP::ViewportHeight = 2.0;
+
+	QP::WindowRect.LeftX = -1.0 * QP::Aspect;
+	QP::WindowRect.LeftY = -1.0;
+	QP::WindowRect.RightX = 1.0 * QP::Aspect;
+	QP::WindowRect.RightY = 1.0;
 }
 
 void QP::QuadPent_System::SetBackColor(float R, float G, float B) {
@@ -42,29 +52,18 @@ void QP::QuadPent_System::MoveCursor(int X, int Y) {
 void QP::QuadPent_System::SwitchScreenState() {
 	if (!FullscreenState) {
 		glutFullScreen();
-		QP::WindowWidth = GetSystemMetrics(SM_CXSCREEN);
-		QP::WindowHeight = GetSystemMetrics(SM_CYSCREEN);
 		FullscreenState = true;
 	}
 	else {
-		RECT DisplayArea{};
-
-		if (SystemParametersInfo(SPI_GETWORKAREA, 0, &DisplayArea, 0)) {
-			int DisplayWidth = DisplayArea.right - DisplayArea.left;
-			int DisplayHeight = DisplayArea.bottom - DisplayArea.top;
-			QP::WindowWidth = DisplayWidth;
-			QP::WindowHeight = DisplayHeight;
-			glutReshapeWindow(QP::WindowWidth, QP::WindowHeight);
-			glutPositionWindow(0, 0);
-			FullscreenState = false;
-		}
+		glutLeaveFullScreen();
+		FullscreenState = false;
 	}
 }
 
-void QP::QuadPent_System::ChangeScreenSize(int ScreenWidth, int ScreenHeight) {
+void QP::QuadPent_System::ChangeScreenSize(int ScreenWidth, int ScreenHeight, int PositionX, int PositionY) {
 	QP::WindowWidth = ScreenWidth;
 	QP::WindowHeight = ScreenHeight;
 	glutReshapeWindow(QP::WindowWidth, QP::WindowHeight);
-	glutPositionWindow(0, 0);
+	glutPositionWindow(PositionX, PositionY);
 	FullscreenState = false;
 }

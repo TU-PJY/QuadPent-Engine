@@ -198,7 +198,7 @@ namespace QP {
 		static void Main();
 		static void DisplayReshape(int w, int h);
 		void SwitchScreenState();
-		void ChangeScreenSize(int ScreenWidth, int ScreenHeight);
+		void ChangeScreenSize(int ScreenWidth, int ScreenHeight, int PositionX, int PositionY);
 		void SetFrameLimit(int FrameLimit);
 		void HideCursor();
 		void ShowCursor();
@@ -219,7 +219,6 @@ namespace QP {
 	extern float Aspect;
 	extern float ViewportWidth, ViewportHeight;
 	extern int WindowWidth, WindowHeight;
-	extern int PrevWindowWidth, PrevWindowHeight;
 
 	constexpr glm::mat4 IDENTITY_MATRIX = glm::mat4(1.0f);
 

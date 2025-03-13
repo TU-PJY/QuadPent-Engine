@@ -14,7 +14,6 @@ namespace QP {
 		float   Rotation{};
 		float   Zoom{ 1.0f };
 
-		void CalculateASPECT();
 		void Init();
 		void SetCamera(int RenderType);
 		void PrepareRender(int ShaderType);

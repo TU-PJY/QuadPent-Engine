@@ -4,14 +4,14 @@
 // OpenGL version 4.3 ~ 4.6
 
 //////////////////////////////////// Window options
-// window name
+// Window name
 constexpr const char* WINDOW_NAME = QP::DEFAULT_WINDOW_NAME;
 
-// window size
-constexpr int WINDOW_WIDTH = QP::DEFAULT_WINDOW_WIDTH;
-constexpr int WINDOW_HEIGHT = QP::DEFAULT_WINDOW_HEIGHT;
+// Window size when start
+constexpr int START_WINDOW_WIDTH = QP::DEFAULT_WINDOW_WIDTH;
+constexpr int START_WINDOW_HEIGHT = QP::DEFAULT_WINDOW_HEIGHT;
 
-// fullscreen option
+// Fullscreen option
 constexpr bool START_WITH_FULLSCREEN = false;
 
 // When enabled, the window do not react to ALT key press event.
