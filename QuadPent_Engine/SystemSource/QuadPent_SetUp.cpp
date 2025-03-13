@@ -51,15 +51,40 @@ void QP::QuadPent_System::SetupWindow() {
 	glutInitContextVersion(4, 3);
 	glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 
-	QP::WindowWidth = START_WINDOW_WIDTH;
-	QP::WindowHeight = START_WINDOW_HEIGHT;
+	if (START_WITH_SPLASH && ENABLE_START_UP) {
+		QP::WindowWidth = SPLASH_WIDTH;
+		QP::WindowHeight = SPLASH_HEIGHT;
+	}
+	else {
+		QP::WindowWidth = START_WINDOW_WIDTH;
+		QP::WindowHeight = START_WINDOW_HEIGHT;
+	}
 
 	glutInitWindowSize(QP::WindowWidth, QP::WindowHeight);
 	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - QP::WindowWidth / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - QP::WindowHeight / 2);
 	glutCreateWindow(WINDOW_NAME);
 
-	if (START_WITH_FULLSCREEN)
+	QP::System_HWND = FindWindowA(nullptr, WINDOW_NAME);
+	QP::System_INSTANCE = (HINSTANCE)GetWindowLongPtr(QP::System_HWND, GWLP_HINSTANCE);
+
+	if (START_WITH_SPLASH && ENABLE_START_UP) {
+		LONG Style = GetWindowLong(QP::System_HWND, GWL_STYLE);
+		Style &= ~(WS_OVERLAPPEDWINDOW);
+		SetWindowLong(QP::System_HWND, GWL_STYLE, Style);
+		SetWindowPos(QP::System_HWND, NULL, 
+			GetSystemMetrics(SM_CXSCREEN) / 2 - SPLASH_WIDTH / 2, 
+			GetSystemMetrics(SM_CYSCREEN) / 2 - SPLASH_HEIGHT / 2,
+			SPLASH_WIDTH, SPLASH_HEIGHT, SWP_NOZORDER | SWP_FRAMECHANGED);
+	}
+
+	else if (!START_WITH_SPLASH && START_WITH_FULLSCREEN)
 		SwitchScreenState();
+
+	HICON Icon = LoadIcon(QP::System_INSTANCE, MAKEINTRESOURCE(IDI_ICON1));
+	if (Icon) {
+		PostMessage(QP::System_HWND, WM_SETICON, ICON_SMALL, (LPARAM)Icon);
+		PostMessage(QP::System_HWND, WM_SETICON, ICON_BIG, (LPARAM)Icon);
+	}
 
 	const unsigned char* Version = glGetString(GL_VERSION);
 	std::cout << Version << std::endl;
@@ -96,15 +121,6 @@ void QP::QuadPent_System::SetupWindow() {
 	if (DISABLE_ALT_EVENT) {
 		RegisterHotKey(NULL, 1, MOD_ALT, VK_MENU);
 		RegisterHotKey(NULL, 2, MOD_ALT | MOD_NOREPEAT, VK_MENU);
-	}
-
-	QP::System_HWND = FindWindowA(nullptr, WINDOW_NAME);
-	QP::System_INSTANCE = (HINSTANCE)GetWindowLongPtr(QP::System_HWND, GWLP_HINSTANCE);
-
-	HICON Icon = LoadIcon(QP::System_INSTANCE, MAKEINTRESOURCE(IDI_ICON1));
-	if (Icon) {
-		PostMessage(QP::System_HWND, WM_SETICON, ICON_SMALL, (LPARAM)Icon);
-		PostMessage(QP::System_HWND, WM_SETICON, ICON_BIG, (LPARAM)Icon);
 	}
 }
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "QuadPent_DefaultValue.h"
-// QuadPent 8.2
+// QuadPent 8.3
 // OpenGL version 4.3 ~ 4.6
 
 //////////////////////////////////// Window options
@@ -26,8 +26,14 @@ constexpr bool DISABLE_ALT_EVENT = true;
 constexpr int APPLICATION_MAJOR_VERSION = 1;
 constexpr int APPLICATION_MINOR_VERSION = 0;
 
-// loading screen option
-constexpr bool ENABLE_LOADING_SCREEN = true;
+// Start Up option
+constexpr bool ENABLE_START_UP = false;
+
+// Splash option
+// If ENABLE_START_UP is false, splash screen will not appeared.
+constexpr bool START_WITH_SPLASH = true;
+constexpr int SPLASH_WIDTH = QP::DEFAULT_SPLASH_WIDTH;
+constexpr int SPLASH_HEIGHT = QP::DEFAULT_SPLASH_HEIGHT;
 
 // frame limits option
 // If this option is set to SDK::MAX_FRAMERATE, the system will run at maximum framerate.

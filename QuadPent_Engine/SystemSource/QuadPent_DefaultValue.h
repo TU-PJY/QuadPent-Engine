@@ -3,6 +3,8 @@ namespace QP {
 	constexpr const char* DEFAULT_WINDOW_NAME          = "QuadPent App";
 	constexpr int DEFAULT_WINDOW_WIDTH				   = 1300;
 	constexpr int DEFAULT_WINDOW_HEIGHT				   = 800;
+	constexpr int DEFAULT_SPLASH_WIDTH				   = 800;
+	constexpr int DEFAULT_SPLASH_HEIGHT				   = 400;
 	constexpr int MAX_FRAMERATE                        = 0;
 	constexpr int DEFAULT_FONT_LIST_GENERATE_SIZE	   = 65536;
 	constexpr float DEFAULT_BOUNDBOX_THICKNESS         = 0.01;

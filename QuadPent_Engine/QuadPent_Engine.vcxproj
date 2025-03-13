@@ -181,6 +181,7 @@
     <ClCompile Include="SystemSource\QuadPent_Transform.cpp" />
     <ClCompile Include="SystemSource\QuadPent_UITool.cpp" />
     <ClCompile Include="WorkSpace\Resource\QuadPent_ModeAttribute.cpp" />
+    <ClCompile Include="WorkSpace\Resource\QuadPent_SplashScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
