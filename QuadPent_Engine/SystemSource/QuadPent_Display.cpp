@@ -68,6 +68,7 @@ void QP::QuadPent_System::ChangeScreenSize(int ScreenWidth, int ScreenHeight, in
 	FullscreenState = false;
 }
 
+////////////////////////////////////////////// private
 void QP::QuadPent_System::SwitchToMaximizedWindow() {
 	LONG Style = GetWindowLong(QP::System_HWND, GWL_STYLE);
 	Style |= (WS_OVERLAPPEDWINDOW);
