@@ -11,7 +11,7 @@ void QP::AABB::Update(QP::Vector2& Position, float xScale, float yScale) {
 }
 
 void QP::AABB::Render() {
-	if (SHOW_BOUND_BOX) {
+	if (ENABLE_RENDER_BOUND_BOX) {
 		LineRect.SetColor(1.0, 0.0, 0.0);
 		RECT.SetColor(1.0, 0.0, 0.0);
 
@@ -128,7 +128,7 @@ void QP::OOBB::Update(QP::Vector2& Position, float BoxWidth, float BoxHeight, fl
 }
 
 void QP::OOBB::Render() {
-	if (SHOW_BOUND_BOX) {
+	if (ENABLE_RENDER_BOUND_BOX) {
 		LineRect.SetColor(1.0, 0.0, 0.0);
 		RECT.SetColor(1.0, 0.0, 0.0);
 
@@ -241,7 +241,7 @@ void QP::BoundingCircle::Update(QP::Vector2& Position, float SizeValue) {
 }
 
 void QP::BoundingCircle::Render() {
-	if (SHOW_BOUND_BOX) {
+	if (ENABLE_RENDER_BOUND_BOX) {
 		Circle.SetColor(1.0, 0.0, 0.0);
 		LineCircle.SetColor(1.0, 0.0, 0.0);
 

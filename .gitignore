@@ -364,6 +364,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Not ignored files
-!mata_SDK/Src/Library/**
-!mata_SDK/SDKResource/**
+!QuadPent_Engine/SystemSource/Library/**
+!QuadPent_Engine/SystemComponent/**
+!WorkSpace/**
 !Tools/**

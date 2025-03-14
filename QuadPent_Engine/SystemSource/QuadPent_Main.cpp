@@ -76,7 +76,7 @@ void main(int argc, char** argv) {
 	std::wcout.imbue(std::locale());
 	std::cout.imbue(std::locale());
 
-	if (SHOW_CONSOLE && AllocConsole()) {
+	if (ENABLE_DEBUG_CONSOLE && AllocConsole()) {
 		FILE* FP{};
 
 		freopen_s(&FP, "CONOUT$", "w", stdout);

@@ -212,6 +212,10 @@ namespace QP {
 		void SetupWindow();
 		void LoadShader();
 		void Exit();
+
+	private:
+		void SwitchToMaximizedWindow();
+		void SwitchToSplashWindow();
 	};
 
 	extern QuadPent_System System;

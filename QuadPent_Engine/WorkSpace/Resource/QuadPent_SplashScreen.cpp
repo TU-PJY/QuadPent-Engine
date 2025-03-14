@@ -23,14 +23,10 @@ void QuadPent_StartUp::RenderSplashScreen() {
 
 void QuadPent_StartUp::SwitchToStartUp() {
 	// Do not erase this
-	SetWindowDefault();
+	SetWindowDefaultStyle();
 	///////////////////////////////////
-	if (START_WITH_FULLSCREEN)
+	if (ENABLE_FULL_SCREEN)
 		QP::System.SwitchScreenState();
-
-
-
-
 	///////////////////////////////////
 	// Do not erase this
 	SwitchingState = false;

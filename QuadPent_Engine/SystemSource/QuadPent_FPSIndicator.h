@@ -17,7 +17,7 @@ public:
 		IndicatorText.EnableShadow();
 		IndicatorText.SetShadow(0.07, -0.07, 1.0);
 
-		if (FRAME_LIMITS == QP::MAX_FRAMERATE) {
+		if (FRAMERATE_LIMIT == QP::MAX_FRAMERATE) {
 			DEVMODE DevMode;
 			ZeroMemory(&DevMode, sizeof(DEVMODE));
 			DevMode.dmSize = sizeof(DEVMODE);
@@ -29,7 +29,7 @@ public:
 		}
 
 		else {
-			MaxFPS = FRAME_LIMITS;
+			MaxFPS = FRAMERATE_LIMIT;
 			std::cout << "Limited Monitor Refresh Rate: " << MaxFPS << " Hz" << std::endl;
 		}
 	}

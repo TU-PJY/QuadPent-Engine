@@ -67,3 +67,25 @@ void QP::QuadPent_System::ChangeScreenSize(int ScreenWidth, int ScreenHeight, in
 	glutPositionWindow(PositionX, PositionY);
 	FullscreenState = false;
 }
+
+void QP::QuadPent_System::SwitchToMaximizedWindow() {
+	LONG Style = GetWindowLong(QP::System_HWND, GWL_STYLE);
+	Style |= (WS_OVERLAPPEDWINDOW);
+	SetWindowLong(QP::System_HWND, GWL_STYLE, Style);
+	SetWindowPos(
+		QP::System_HWND, NULL, 0, 0,
+		GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),
+		SWP_NOZORDER | SWP_FRAMECHANGED
+	);
+	ShowWindow(QP::System_HWND, SW_MAXIMIZE);
+}
+
+void QP::QuadPent_System::SwitchToSplashWindow() {
+	LONG Style = GetWindowLong(QP::System_HWND, GWL_STYLE);
+	Style &= ~(WS_OVERLAPPEDWINDOW);
+	SetWindowLong(QP::System_HWND, GWL_STYLE, Style);
+	SetWindowPos(QP::System_HWND, NULL,
+		GetSystemMetrics(SM_CXSCREEN) / 2 - QP::WindowWidth / 2,
+		GetSystemMetrics(SM_CYSCREEN) / 2 - QP::WindowHeight / 2,
+		QP::WindowWidth, QP::WindowHeight, SWP_NOZORDER | SWP_FRAMECHANGED);
+}

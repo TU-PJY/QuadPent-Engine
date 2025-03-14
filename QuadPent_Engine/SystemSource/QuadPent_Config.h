@@ -1,68 +1,72 @@
 #pragma once
 #include "QuadPent_DefaultValue.h"
-// QuadPent 8.3
+// QuadPent 8.4
 // OpenGL version 4.3 ~ 4.6
 
-//////////////////////////////////// Window options
-// Window name
-constexpr const char* WINDOW_NAME = QP::DEFAULT_WINDOW_NAME;
+//////////////////////////////////// Development options
+// Dev mode option
+constexpr bool ENABLE_DEV_MODE = true;
 
-// Window size when start
-constexpr int START_WINDOW_WIDTH = QP::DEFAULT_WINDOW_WIDTH;
-constexpr int START_WINDOW_HEIGHT = QP::DEFAULT_WINDOW_HEIGHT;
+// Window size when dev mode enabled
+// if ENABLE_DEV_MODE is false, these option values will not be used.
+constexpr int DEV_SCREEN_WIDTH = QP::DEFAULT_DEV_SCREEN_WIDTH;
+constexpr int DEV_SCREEN_HEIGHT = QP::DEFAULT_DEV_SCREEN_HEIGHT;
 
-// Fullscreen option
-constexpr bool START_WITH_FULLSCREEN = false;
+// Program termination options when developing a program
+// When this option is activated, pressing ESC will immediately terminate the program.
+constexpr bool ENABLE_DEV_EXIT = true;
 
-// When enabled, the window do not react to ALT key press event.
-constexpr bool DISABLE_ALT_EVENT = true;
+// console window option
+constexpr bool ENABLE_DEBUG_CONSOLE = true;
+
+// FPS indicator option
+constexpr bool ENABLE_FPS_INDICATOR = true;
+
+// boundbox option
+constexpr bool ENABLE_RENDER_BOUND_BOX = true;
+
+// frustum bound option
+constexpr bool ENABLE_RENDER_FRUSTUM_BOUND = false;
+
+// bound box thickness option
+constexpr float BOUND_BOX_THICKNESS = QP::DEFAULT_BOUNDBOX_THICKNESS;
 
 
 
 //////////////////////////////////// Engine options
+// Window name
+constexpr const char* WINDOW_NAME = QP::DEFAULT_WINDOW_NAME;
+
 // Application version
 // Example:
 // APPLICATION_MAJOR_VERSION = 1; APPLICATION_MINOR_VERSION = 0; --> 1.0
 constexpr int APPLICATION_MAJOR_VERSION = 1;
 constexpr int APPLICATION_MINOR_VERSION = 0;
 
-// Start Up option
-constexpr bool ENABLE_START_UP = false;
-
 // Splash option
-// If ENABLE_START_UP is false, splash screen will not appeared.
-constexpr bool START_WITH_SPLASH = false;
-constexpr int SPLASH_WIDTH_RATIO = QP::DEFAULT_SPLASH_WIDTH_RATIO;
-constexpr int SPLASH_HEIGHT_RATIO = QP::DEFAULT_SPLASH_HEIGHT_RATIO;
+// If ENABLE_START_UP_SCREEN is false, splash screen will not appeared.
+// If ENABLE_DEV_MODE is true, splash screen will not appear.
+constexpr bool ENABLE_SPLASH_SCREEN = true;
+constexpr int SPLASH_SCREEN_WIDTH = QP::DEFAULT_SPLASH_SCREEN_WIDTH;
+constexpr int SPLASH_SCREEN_HEIGHT = QP::DEFAULT_SPLASH_SCREEN_HEIGHT;
+
+// Start Up option
+// If ENABLE_DEV_MODE is true, start up screen will not appear.
+constexpr bool ENABLE_START_UP_SCREEN = true;
+
+// Fullscreen option
+// If ENABLE_DEV_MODE is true, fullscreen switching on start will not work.
+constexpr bool ENABLE_FULL_SCREEN = false;
 
 // frame limits option
 // If this option is set to SDK::MAX_FRAMERATE, the system will run at maximum framerate.
-constexpr int FRAME_LIMITS = QP::MAX_FRAMERATE;
+constexpr int FRAMERATE_LIMIT = QP::MAX_FRAMERATE;
 
 // Set the size of the list to be created from the font object.
 constexpr int FONT_LIST_GENERATE_SIZE = QP::DEFAULT_FONT_LIST_GENERATE_SIZE;
 
-
-
-//////////////////////////////////// Development options
-// console window option
-constexpr bool SHOW_CONSOLE = true;
-
-// FPS indicator option
-constexpr bool SHOW_FPS = true;
-
-// show boundbox option
-constexpr bool SHOW_BOUND_BOX = true;
-
-// show frustum bound option
-constexpr bool SHOW_FRUSTUM_BOUND = false;
-
-// bound box thickness option
-constexpr float BOUND_BOX_THICKNESS = QP::DEFAULT_BOUNDBOX_THICKNESS;
-
-// Program termination options when developing a program
-// When this option is activated, pressing ESC will immediately terminate the program.
-constexpr bool ENABLE_DEV_EXIT = true;
+// When enabled, the window do not react to ALT key press event.
+constexpr bool DISABLE_ALT_EVENT = true;
 
 
 

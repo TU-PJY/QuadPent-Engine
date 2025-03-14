@@ -46,57 +46,38 @@ void QP::QuadPent_System::SetupSystem(int argc, char** argv) {
 }
 
 void QP::QuadPent_System::SetupWindow() {
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
-
-	glutInitContextVersion(4, 3);
-	glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
-
-	if (START_WITH_SPLASH && ENABLE_START_UP) {
-		QP::WindowWidth = GetSystemMetrics(SM_CXSCREEN) / SPLASH_WIDTH_RATIO;
-		QP::WindowHeight = GetSystemMetrics(SM_CYSCREEN) / SPLASH_HEIGHT_RATIO;
+	if (ENABLE_DEV_MODE) {
+		QP::WindowWidth = DEV_SCREEN_WIDTH;
+		QP::WindowHeight = DEV_SCREEN_HEIGHT;
 	}
 	else {
-		QP::WindowWidth = START_WINDOW_WIDTH;
-		QP::WindowHeight = START_WINDOW_HEIGHT;
+		if (ENABLE_START_UP_SCREEN && ENABLE_SPLASH_SCREEN) {
+			QP::WindowWidth = SPLASH_SCREEN_WIDTH;
+			QP::WindowHeight = SPLASH_SCREEN_HEIGHT;
+		}
+		else {
+			QP::WindowWidth = GetSystemMetrics(SM_CXSCREEN);
+			QP::WindowHeight = GetSystemMetrics(SM_CYSCREEN);
+		}
 	}
 
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
+	glutInitContextVersion(4, 3);
+	glutInitContextProfile(GLUT_COMPATIBILITY_PROFILE);
 	glutInitWindowSize(QP::WindowWidth, QP::WindowHeight);
-	glutInitWindowPosition(GetSystemMetrics(SM_CXSCREEN) / 2 - QP::WindowWidth / 2, GetSystemMetrics(SM_CYSCREEN) / 2 - QP::WindowHeight / 2);
+	glutInitWindowPosition(
+		GetSystemMetrics(SM_CXSCREEN) / 2 - QP::WindowWidth / 2, 
+		GetSystemMetrics(SM_CYSCREEN) / 2 - QP::WindowHeight / 2
+	);
 	glutCreateWindow(WINDOW_NAME);
 
-	QP::System_HWND = FindWindowA(nullptr, WINDOW_NAME);
-	QP::System_INSTANCE = (HINSTANCE)GetWindowLongPtr(QP::System_HWND, GWLP_HINSTANCE);
-
-	if (START_WITH_SPLASH && ENABLE_START_UP) {
-		LONG Style = GetWindowLong(QP::System_HWND, GWL_STYLE);
-		Style &= ~(WS_OVERLAPPEDWINDOW);
-		SetWindowLong(QP::System_HWND, GWL_STYLE, Style);
-		SetWindowPos(QP::System_HWND, NULL, 
-			GetSystemMetrics(SM_CXSCREEN) / 2 - QP::WindowWidth / 2,
-			GetSystemMetrics(SM_CYSCREEN) / 2 - QP::WindowHeight / 2,
-			QP::WindowWidth, QP::WindowHeight, SWP_NOZORDER | SWP_FRAMECHANGED);
+	glewExperimental = GL_TRUE;
+	if (glewInit() != GLEW_OK) {
+		std::cout << "Unable to initialize GLEW\n\n";
+		exit(EXIT_FAILURE);
 	}
 
-	else if (!START_WITH_SPLASH && START_WITH_FULLSCREEN) {
-		LONG Style = GetWindowLong(QP::System_HWND, GWL_STYLE);
-		Style |= (WS_OVERLAPPEDWINDOW);
-		SetWindowLong(QP::System_HWND, GWL_STYLE, Style);
-
-		int ResolutionX = GetSystemMetrics(SM_CXSCREEN);
-		int ResolutionY = GetSystemMetrics(SM_CYSCREEN);
-
-		SetWindowPos(QP::System_HWND, NULL, 0, 0, ResolutionX, ResolutionY, SWP_NOZORDER | SWP_FRAMECHANGED);
-		ShowWindow(QP::System_HWND, SW_MAXIMIZE);
-
-		SwitchScreenState();
-	}
-
-	HICON Icon = LoadIcon(QP::System_INSTANCE, MAKEINTRESOURCE(IDI_ICON1));
-	if (Icon) {
-		PostMessage(QP::System_HWND, WM_SETICON, ICON_SMALL, (LPARAM)Icon);
-		PostMessage(QP::System_HWND, WM_SETICON, ICON_BIG, (LPARAM)Icon);
-	}
-
+	// OpenGL version check
 	const unsigned char* Version = glGetString(GL_VERSION);
 	std::cout << Version << std::endl;
 
@@ -123,10 +104,23 @@ void QP::QuadPent_System::SetupWindow() {
 			QP::System.Exit();
 	}
 
-	glewExperimental = GL_TRUE;
-	if (glewInit() != GLEW_OK) {
-		std::cout << "Unable to initialize GLEW\n\n";
-		exit(EXIT_FAILURE);
+	QP::System_HWND = FindWindowA(nullptr, WINDOW_NAME);
+	QP::System_INSTANCE = (HINSTANCE)GetWindowLongPtr(QP::System_HWND, GWLP_HINSTANCE);
+
+	HICON Icon = LoadIcon(QP::System_INSTANCE, MAKEINTRESOURCE(IDI_ICON1));
+	if (Icon) {
+		PostMessage(QP::System_HWND, WM_SETICON, ICON_SMALL, (LPARAM)Icon);
+		PostMessage(QP::System_HWND, WM_SETICON, ICON_BIG, (LPARAM)Icon);
+	}
+
+	if (!ENABLE_DEV_MODE) {
+		if (ENABLE_START_UP_SCREEN && ENABLE_SPLASH_SCREEN)
+			QP::System.SwitchToSplashWindow();
+		else {
+			QP::System.SwitchToMaximizedWindow();
+			if (ENABLE_FULL_SCREEN)
+				SwitchScreenState();
+		}
 	}
 
 	if (DISABLE_ALT_EVENT) {
@@ -162,7 +156,7 @@ void QP::QuadPent_System::SetGlOption() {
 }
 
 void QP::QuadPent_System::InitSystem() {
-	FPSLimit = FRAME_LIMITS;
+	FPSLimit = FRAMERATE_LIMIT;
 	if (FPSLimit > 0)
 		DestFPS = 1000.0 / (float)FPSLimit;
 
