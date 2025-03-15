@@ -1,11 +1,12 @@
 #pragma once
 #include "QuadPent_DefaultValue.h"
-// QuadPent 8.5
+#include "../resource.h"
+// QuadPent 8.6
 // OpenGL version 4.3 ~ 4.6
 
 //////////////////////////////////// Development options
 // Dev mode option
-constexpr bool ENABLE_DEV_MODE = true;
+constexpr bool ENABLE_DEV_MODE = false;
 
 // Window size when dev mode enabled
 // if ENABLE_DEV_MODE is false, these option values will not be used.
@@ -43,8 +44,8 @@ constexpr float BOUND_BOX_THICKNESS = QP::DEFAULT_BOUNDBOX_THICKNESS;
 constexpr const char* WINDOW_NAME = QP::DEFAULT_WINDOW_NAME;
 
 // Window Icon
-// Check the icon allocation ID in resource.h and enter it.
-constexpr int QUADPENT_WINDOW_ICON = QP::DEFAULT_QUADPENT_WINDOW_ICON;
+// Enter icon resource from resource.h.
+constexpr int WINDOW_ICON = IDI_DEFAULT_ICON;
 
 // Application version
 // Example:
@@ -55,6 +56,7 @@ constexpr int APPLICATION_MINOR_VERSION = 0;
 // Splash option
 // If ENABLE_START_UP_SCREEN is false, splash screen will not appeared.
 // If ENABLE_DEV_MODE is true, splash screen will not appear.
+// These values are based on DPI 100%.
 constexpr bool ENABLE_SPLASH_SCREEN = true;
 constexpr int SPLASH_SCREEN_WIDTH = QP::DEFAULT_SPLASH_SCREEN_WIDTH;
 constexpr int SPLASH_SCREEN_HEIGHT = QP::DEFAULT_SPLASH_SCREEN_HEIGHT;
@@ -65,7 +67,7 @@ constexpr bool ENABLE_START_UP_SCREEN = true;
 
 // Fullscreen option
 // If ENABLE_DEV_MODE is true, fullscreen switching on start will not work.
-constexpr bool ENABLE_FULL_SCREEN = false;
+constexpr bool ENABLE_FULL_SCREEN = true;
 
 // frame limits option
 // If this option is set to SDK::MAX_FRAMERATE, the system will run at maximum framerate.

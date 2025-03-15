@@ -2,7 +2,7 @@
 // Microsoft Visual C++에서 생성한 포함 파일입니다.
 // Resource.rc에서 사용되고 있습니다.
 //
-#define IDI_ICON1                       102
+#define IDI_DEFAULT_ICON                       102
 
 // Next default values for new objects
 // 

@@ -53,8 +53,9 @@ void QP::QuadPent_System::SetupWindow() {
 	}
 	else {
 		if (ENABLE_START_UP_SCREEN && ENABLE_SPLASH_SCREEN) {
-			WindowWidth = SPLASH_SCREEN_WIDTH;
-			WindowHeight = SPLASH_SCREEN_HEIGHT;
+			float Scale = (float)GetDpiForSystem() / 96.0f;
+			WindowWidth = (int)(SPLASH_SCREEN_WIDTH * Scale);
+			WindowHeight = (int)(SPLASH_SCREEN_HEIGHT * Scale);
 		}
 		else {
 			WindowWidth = GetSystemMetrics(SM_CXSCREEN);
@@ -87,38 +88,16 @@ void QP::QuadPent_System::SetupWindow() {
 	std::cout << "Initialized OpenGL Version: " << InitializedMajorVersion << "." << InitializedMinorVersion << std::endl;
 
 	if (InitializedMajorVersion < 4 || (InitializedMajorVersion == 4 && InitializedMinorVersion < 3)) {
-		PlaySoundW(TEXT("SystemComponent\\Sound\\sound-alert.wav"), NULL, SND_FILENAME | SND_ASYNC);
-
-		std::wstring MessageStr{}, MsgBoxStr{};
-
-		if (QP::SYSTEM_LOCALE == L"ko-KR") {
-			MsgBoxStr = L"QuadPent 실행 오류";
-			MessageStr = L"그래픽카드가 지원하는 OpenGL 버전이 너무 낮습니다. 최소 OpenGL 4.3 버전 이상을 지원해야 합니다.";
-		}
-		else {
-			MsgBoxStr = L"QuadPent execution error";
-			MessageStr = L"The OpenGL support version of your graphics card is too low. Must support at least OpenGL 4.3 Version.";
-		}
-
-		HICON Icon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
-
-		MSGBOXPARAMS MsgBox = { sizeof(MSGBOXPARAMS) };
-		MsgBox.hwndOwner = NULL;
-		MsgBox.hInstance = GetModuleHandle(NULL);
-		MsgBox.lpszCaption = MsgBoxStr.c_str();
-		MsgBox.lpszText = MessageStr.c_str();
-		MsgBox.dwStyle = MB_OK | MB_USERICON;
-		MsgBox.lpszIcon = MAKEINTRESOURCE(IDI_ICON1);
-
-		int Result = MessageBoxIndirect(&MsgBox);
-		if (Result == IDOK || Result == IDCLOSE)
-			System.Exit();
+		if (QP::SYSTEM_LOCALE == L"ko-KR")
+			MessageBoxOut(L"QuadPent 실행 오류", L"그래픽카드가 지원하는 OpenGL 버전이 너무 낮습니다. 최소 OpenGL 4.3 버전 이상을 지원해야 합니다.");
+		else
+			MessageBoxOut(L"QuadPent execution error", L"The OpenGL support version of your graphics card is too low. Must support at least OpenGL 4.3 Version.");
 	}
 
 	System_HWND = FindWindowA(nullptr, WINDOW_NAME);
 	System_INSTANCE = (HINSTANCE)GetWindowLongPtr(System_HWND, GWLP_HINSTANCE);
 
-	SYSTEM_TITLE_ICON = LoadIcon(System_INSTANCE, MAKEINTRESOURCE(QUADPENT_WINDOW_ICON));
+	SYSTEM_TITLE_ICON = LoadIcon(System_INSTANCE, MAKEINTRESOURCE(WINDOW_ICON));
 	if (SYSTEM_TITLE_ICON) {
 		SendMessage(System_HWND, WM_SETICON, ICON_SMALL, (LPARAM)SYSTEM_TITLE_ICON);
 		SendMessage(System_HWND, WM_SETICON, ICON_BIG, (LPARAM)SYSTEM_TITLE_ICON);

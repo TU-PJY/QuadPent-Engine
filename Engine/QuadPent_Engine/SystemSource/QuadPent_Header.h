@@ -12,6 +12,7 @@
 #pragma comment(lib, "Comctl32.lib")
 #pragma comment(lib, "winmm.lib")
 #pragma comment(lib, "Shell32.lib")
+#pragma comment(lib, "Shcore.lib")
 
 #include "QuadPent_Config.h"
 
@@ -53,6 +54,7 @@
 #include <chrono>
 
 #include <windows.h>
+#include <shellscalingapi.h>
 #include <shellapi.h>
 #include <commctrl.h>
 #include <mmsystem.h>
@@ -214,6 +216,7 @@ namespace QP {
 		void SetupWindow();
 		void LoadShader();
 		void Exit();
+		void MessageBoxOut(std::wstring Caption, std::wstring Message);
 
 	private:
 		void SwitchToMaximizedWindow();

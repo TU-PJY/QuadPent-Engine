@@ -47,40 +47,21 @@ void QP::QuadPent_System::Main() {
 }
 
 void main(int argc, char** argv) {
+	SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
+
 	wchar_t LocaleName[LOCALE_NAME_MAX_LENGTH];
 	if (GetUserDefaultLocaleName(LocaleName, LOCALE_NAME_MAX_LENGTH)) {
 		QP::SYSTEM_LOCALE = LocaleName;
 		std::wcout << L"Windows System Locale: " << QP::SYSTEM_LOCALE << std::endl;
 	}
 
-	QP::System_HWND = FindWindowA(nullptr, WINDOW_NAME);
-	if (QP::System_HWND) {
-		PlaySoundW(TEXT("SystemComponent\\Sound\\sound-alert.wav"), NULL, SND_FILENAME | SND_ASYNC);
-
-		std::wstring MessageStr{}, MsgBoxStr{};
-
-		if (QP::SYSTEM_LOCALE == L"ko-KR") {
-			MsgBoxStr = L"QuadPent 실행 오류";
-			MessageStr = L"이미 하나 이상의 앱이 실행 중입니다.";
-		}
-		else {
-			MsgBoxStr = L"QuadPent execution error";
-			MessageStr = L"One or more apps are already running.";
-		}
-
-		HICON Icon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
-
-		MSGBOXPARAMS MsgBox = { sizeof(MSGBOXPARAMS) };
-		MsgBox.hwndOwner = NULL;
-		MsgBox.hInstance = GetModuleHandle(NULL);
-		MsgBox.lpszCaption = MsgBoxStr.c_str();
-		MsgBox.lpszText = MessageStr.c_str();
-		MsgBox.dwStyle = MB_OK | MB_USERICON;
-		MsgBox.lpszIcon = MAKEINTRESOURCE(IDI_ICON1);
-
-		int Result = MessageBoxIndirect(&MsgBox);
-		if (Result == IDOK || Result == IDCLOSE)
-			return;
+	if (FindWindowA(nullptr, WINDOW_NAME)) {
+		if (QP::SYSTEM_LOCALE == L"ko-KR") 
+			QP::System.MessageBoxOut(L"QuadPent 실행 오류", L"이미 하나 이상의 앱이 실행 중입니다.");
+		else 
+			QP::System.MessageBoxOut(L"QuadPent execution error", L"One or more apps are already running.");
+		
+		return;
 	}
 
 	std::locale::global(std::locale(""));
@@ -111,4 +92,21 @@ void QP::QuadPent_System::Exit() {
 
 float QP::ASP(float Value) {
 	return Value * Aspect;
+}
+
+void QP::QuadPent_System::MessageBoxOut(std::wstring Caption, std::wstring Message) {
+	PlaySoundW(TEXT("SystemComponent\\Sound\\sound-alert.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	HICON Icon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_DEFAULT_ICON));
+
+	MSGBOXPARAMS MsgBox = { sizeof(MSGBOXPARAMS) };
+	MsgBox.hwndOwner = NULL;
+	MsgBox.hInstance = GetModuleHandle(NULL);
+	MsgBox.lpszCaption = Caption.c_str();
+	MsgBox.lpszText = Message.c_str();
+	MsgBox.dwStyle = MB_OK | MB_USERICON;
+	MsgBox.lpszIcon = MAKEINTRESOURCE(IDI_DEFAULT_ICON);
+
+	int Result = MessageBoxIndirect(&MsgBox);
+	if (Result == IDOK || Result == IDCLOSE)
+		Exit();
 }
