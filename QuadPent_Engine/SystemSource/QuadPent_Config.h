@@ -5,7 +5,7 @@
 
 //////////////////////////////////// Development options
 // Dev mode option
-constexpr bool ENABLE_DEV_MODE = false;
+constexpr bool ENABLE_DEV_MODE = true;
 
 // Window size when dev mode enabled
 // if ENABLE_DEV_MODE is false, these option values will not be used.
@@ -44,7 +44,7 @@ constexpr const char* WINDOW_NAME = QP::DEFAULT_WINDOW_NAME;
 
 // Window Icon
 // Check the icon allocation ID in resource.h and enter it.
-#define QUADPENT_WINDOW_ICON QP::DEFAULT_QUADPENT_WINDOW_ICON
+constexpr int QUADPENT_WINDOW_ICON = QP::DEFAULT_QUADPENT_WINDOW_ICON;
 
 // Application version
 // Example:
