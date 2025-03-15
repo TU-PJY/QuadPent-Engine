@@ -62,7 +62,7 @@ void QP::QuadPent_ImageTool::LoadImage(QP::Image& ImageStruct, std::string FileP
 
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -109,7 +109,7 @@ void QP::QuadPent_ImageTool::LoadClip(QP::Image& ImageStruct, std::string FilePa
 
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -162,7 +162,7 @@ void QP::QuadPent_ImageTool::LoadSpriteSheet(QP::SpriteSheet& SpriteSheetStruct,
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -176,7 +176,7 @@ void QP::QuadPent_ImageTool::LoadSpriteSheet(QP::SpriteSheet& SpriteSheetStruct,
 	int CurrentIndex{};
 	int CurrentXPosition = 0;
 	int CurrentYPosition = Height - ClipHeight * StartLocation;
-	QP::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+	EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 	for (int C = 0; C < NumCol; ++C) {
 		for (int R = 0; R < NumRow; ++R) {
@@ -211,13 +211,13 @@ void QP::QuadPent_ImageTool::LoadSpriteSheet(QP::SpriteSheet& SpriteSheetStruct,
 			stbi_image_free(ClippedTextureData);
 
 			CurrentXPosition += ClipWidth;
-			QP::EXTool.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
+			EXTool.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
 
 			++CurrentIndex;
 		}
 
 		CurrentYPosition -= ClipHeight;
-		QP::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+		EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 		CurrentXPosition = 0;
 	}
@@ -246,7 +246,7 @@ void QP::QuadPent_ImageTool::LoadImageT(QP::Image& ImageStruct, std::string File
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -274,11 +274,11 @@ void QP::QuadPent_ImageTool::LoadImageT(QP::Image& ImageStruct, std::string File
 }
 
 void QP::QuadPent_ImageTool::LoadClipT(QP::Image& ImageStruct, std::string FilePath, int X, int Y, int ClipWidth, int ClipHeight, int Type) {
-	QP::ImageLoadBufferData Buffer{};
+	ImageLoadBufferData Buffer{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -322,11 +322,11 @@ void QP::QuadPent_ImageTool::LoadClipT(QP::Image& ImageStruct, std::string FileP
 }
 
 void QP::QuadPent_ImageTool::LoadSpriteSheetT(QP::SpriteSheet& SpriteSheetStruct, std::string FilePath, int Type) {
-	QP::SpriteSheetLoadBufferData Buffer{};
+	SpriteSheetLoadBufferData Buffer{};
 	int Width{}, Height{}, Channel{};
 	unsigned char* TextureData = stbi_load(FilePath.c_str(), &Width, &Height, &Channel, 4);
 	if (!TextureData) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
+		Scene.SetErrorScreen(ERROR_TYPE_IMAGE_LOAD, FilePath);
 		return;
 	}
 
@@ -339,7 +339,7 @@ void QP::QuadPent_ImageTool::LoadSpriteSheetT(QP::SpriteSheet& SpriteSheetStruct
 
 	int CurrentXPosition = 0;
 	int CurrentYPosition = Height - ClipHeight * StartLocation;
-	QP::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+	EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 	for (int C = 0; C < NumCol; ++C) {
 		for (int R = 0; R < NumRow; ++R) {
@@ -355,11 +355,11 @@ void QP::QuadPent_ImageTool::LoadSpriteSheetT(QP::SpriteSheet& SpriteSheetStruct
 			Buffer.TextureData.emplace_back(ClippedTextureData);
 
 			CurrentXPosition += ClipWidth;
-			QP::EXTool.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
+			EXTool.ClampValue(CurrentXPosition, Width, CLAMP_GREATER);
 		}
 
 		CurrentYPosition -= ClipHeight;
-		QP::EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
+		EXTool.ClampValue(CurrentYPosition, 0, CLAMP_LESS);
 
 		CurrentXPosition = 0;
 	}
