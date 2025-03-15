@@ -6,7 +6,7 @@
 
 //////////////////////////////////// Development options
 // Dev mode option
-constexpr bool ENABLE_DEV_MODE = false;
+constexpr bool ENABLE_DEV_MODE = true;
 
 // Window size when dev mode enabled
 // if ENABLE_DEV_MODE is false, these option values will not be used.
