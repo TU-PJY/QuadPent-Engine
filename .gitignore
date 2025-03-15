@@ -364,7 +364,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Not ignored files
-!QuadPent_Engine/SystemSource/Library/**
-!QuadPent_Engine/SystemComponent/**
-!WorkSpace/**
-!Tools/**
+!Engine/QuadPent_Engine/SystemSource/Library/**
+!Engine/QuadPent_Engine/SystemComponent/**
+!Engine/WorkSpace/**
+!Engine/Tools/**
