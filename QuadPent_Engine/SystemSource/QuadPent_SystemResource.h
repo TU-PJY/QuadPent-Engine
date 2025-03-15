@@ -11,18 +11,18 @@ namespace QP {
 		const char* QUADPENT_LOGO_SOUND_DIRECTORY = "SystemComponent//Sound//sound-logo.wav";
 		const char* SYSTEM_FONT_DIRECTORY		  = "SystemComponent//Font//SpaceGrotesk-Regular.ttf";
 
-		QP::Image QUADPENT_LOGO{};
-		QP::Image MATA_LOGO{};
-		QP::Image FMOD_LOGO{};
-		QP::Image COLOR_TEXTURE{};
+		Image QUADPENT_LOGO{};
+		Image MATA_LOGO{};
+		Image FMOD_LOGO{};
+		Image COLOR_TEXTURE{};
 
 		GLUquadric* GLU_CIRCLE{};
 		GLUquadric* GLU_LINE_CIRCLE{};
 
-		QP::Sound INTRO_SOUND{};
+		Sound INTRO_SOUND{};
 
-		QP::Font SYSTEM_FONT_REGULAR{};
-		QP::Font SYSTEM_FONT_BOLD{};
+		Font SYSTEM_FONT_REGULAR{};
+		Font SYSTEM_FONT_BOLD{};
 	};
 
 	extern QuadPent_SYSTEM_RESOURCE SYSRES;

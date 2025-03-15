@@ -15,5 +15,5 @@ namespace QP {
 		void Unlock(CRITICAL_SECTION& Section);
 	};
 
-	extern QP::QuadPent_ThreadTool ThreadTool;
+	extern QuadPent_ThreadTool ThreadTool;
 }

@@ -26,5 +26,5 @@ namespace QP {
 		float ComputeShortestRotation(float CurrentDegree, float DegreeDest);
 	};
 
-	extern QP::QuadPent_Math Math;
+	extern QuadPent_Math Math;
 }

@@ -4,28 +4,28 @@
 #include "QuadPent_Transform.h"
 
 void QP::Begin(int RenderType) {
-	QP::Transform.Identity(LocalMatrix);
+	Transform.Identity(LocalMatrix);
 	LocalFlipFlag = FLIP_TYPE_NONE;
 
 	LocalOpacityValue = 1.0f;
 	LocalBlurValue = 0.0;
 	LocalColorValue = QP::Color3(0.0, 0.0, 0.0);
 
-	QP::Camera.SetCamera(RenderType);
+	Camera.SetCamera(RenderType);
 }
 
 void QP::ResetGlobalAttribute() {
-	QP::Transform.Identity(GlobalMatrix);
+	Transform.Identity(GlobalMatrix);
 	GlobalFlipFlag = FLIP_TYPE_NONE;
 
 	GlobalOpacityValue = 1.0f;
 	GlobalBlurValue = 0.0f;
-	GlobalColorValue = QP::Color3(0.0, 0.0, 0.0);
+	GlobalColorValue = Color3(0.0, 0.0, 0.0);
 }
 
 void QP::GetViewportPosition(QP::Vector2& DestPosition) {
-	QP::ViewportPositionMatrix = QP::Camera.Projection * QP::Camera.ViewMatrix * ResultMatrix;
-	QP::Vector4 ViewportPositionVec = QP::ViewportPositionMatrix * QP::Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+	ViewportPositionMatrix = Camera.Projection * Camera.ViewMatrix * ResultMatrix;
+	Vector4 ViewportPositionVec = ViewportPositionMatrix * Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 	DestPosition.x = ViewportPositionVec.x * Aspect;
 	DestPosition.y = ViewportPositionVec.y;
 }

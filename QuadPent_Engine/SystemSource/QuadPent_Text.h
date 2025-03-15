@@ -5,15 +5,15 @@
 namespace QP {
 	class Text {
 	private:
-		QP::Font*                FontPtr{};
+		Font*                    FontPtr{};
 
 		std::vector<wchar_t>     TextVec{};
 		int                      PrevSize{};
 		std::wstring             CurrentText{};
 		std::wstring             PrevText{};
 
-		QP::Vector2              RenderPosition{};
-		QP::Vector2              CurrentRenderOffset{};
+		Vector2                  RenderPosition{};
+		Vector2                  CurrentRenderOffset{};
 		float					 Rotation{};
 
 		size_t                   TextWordCount{};
@@ -28,15 +28,15 @@ namespace QP {
 
 		bool                     ShadowRenderState{};
 		float					 TextOpacity{ 1.0f };
-		QP::Color3               TextColor{ QP::Color3(1.0, 1.0, 1.0) };
-		QP::Color3				 MacroColor{ QP::Color3(1.0, 1.0, 1.0) };
+		Color3                   TextColor{ Color3(1.0, 1.0, 1.0) };
+		Color3				     MacroColor{ Color3(1.0, 1.0, 1.0) };
 
 		bool                     ShadowRenderCommand{};
 		float					 ShadowOpacity{};
-		QP::Vector2              ShadowOffset{};
-		QP::Color3               ShadowColor{};
+		Vector2                  ShadowOffset{};
+		Color3                   ShadowColor{};
 
-		QP::Color3               RenderColor{};
+		Color3                   RenderColor{};
 		float					 RenderOpacity{};
 
 		int                      TextAlign{ ALIGN_DEFAULT };

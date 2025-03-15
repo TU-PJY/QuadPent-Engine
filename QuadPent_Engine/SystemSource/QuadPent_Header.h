@@ -232,6 +232,7 @@ namespace QP {
 
 	extern std::wstring SYSTEM_LOCALE;
 	extern std::string USER_DOCUMENT_PATH;
+	extern HICON SYSTEM_TITLE_ICON;
 }
 
 // global scope shader

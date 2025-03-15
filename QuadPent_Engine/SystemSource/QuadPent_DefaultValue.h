@@ -1,6 +1,7 @@
 #pragma once
 namespace QP {
 	constexpr const char* DEFAULT_WINDOW_NAME          = "QuadPent App";
+	constexpr int DEFAULT_QUADPENT_WINDOW_ICON		   = 102;
 	constexpr int DEFAULT_DEV_SCREEN_WIDTH			   = 1300;
 	constexpr int DEFAULT_DEV_SCREEN_HEIGHT			   = 800;
 	constexpr int DEFAULT_SPLASH_SCREEN_WIDTH		   = 800;

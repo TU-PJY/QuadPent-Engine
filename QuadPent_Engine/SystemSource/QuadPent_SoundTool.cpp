@@ -26,7 +26,7 @@ void QP::QuadPent_SoundTool::Init() {
 void QP::QuadPent_SoundTool::Load(QP::Sound& Sound, std::string FileName, FMOD_MODE Option) {
 	HRESULT Result = SoundSystem->createSound(FileName.c_str(), Option, 0, &Sound);
 	if (Result != FMOD_OK)
-		QP::Scene.SetErrorScreen(ERROR_TYPE_SOUND_LOAD, FileName);
+		Scene.SetErrorScreen(ERROR_TYPE_SOUND_LOAD, FileName);
 }
 
 void QP::QuadPent_SoundTool::Release(QP::Sound& Sound) {
@@ -106,8 +106,8 @@ void QP::QuadPent_SoundTool::Play(QP::Sound& Sound, QP::FastSoundChannel& Channe
 	ChannelVar.Channel[ChannelVar.PlayChannel++]->setPitch(ChannelVar.PlaySpeed);
 	ChannelVar.Channel[ChannelVar.StopChannel++]->stop();
 
-	QP::EXTool.ClampValue(ChannelVar.PlayChannel, 0, ChannelVar.NumChannel, CLAMP_RETURN);
-	QP::EXTool.ClampValue(ChannelVar.StopChannel, 0, ChannelVar.NumChannel, CLAMP_RETURN);
+	EXTool.ClampValue(ChannelVar.PlayChannel, 0, ChannelVar.NumChannel, CLAMP_RETURN);
+	EXTool.ClampValue(ChannelVar.StopChannel, 0, ChannelVar.NumChannel, CLAMP_RETURN);
 }
 
 void QP::QuadPent_SoundTool::PlayOnce(QP::Sound& Sound, QP::SoundChannel& ChannelVar, bool& BoolValue, float Time) {
@@ -130,13 +130,13 @@ void QP::QuadPent_SoundTool::Stop(QP::SoundChannel& ChannelVar) {
 
 void QP::QuadPent_SoundTool::FadeOut(QP::SoundChannel& ChannelVar, float Speed, float FrameTime) {
 	ChannelVar.Volume -= Speed * FrameTime;
-	QP::EXTool.ClampValue(ChannelVar.Volume, 0.0, CLAMP_LESS);
+	EXTool.ClampValue(ChannelVar.Volume, 0.0, CLAMP_LESS);
 	ChannelVar.Channel->setVolume(ChannelVar.Volume);
 }
 
 void QP::QuadPent_SoundTool::FadeIn(QP::SoundChannel& ChannelVar, float Speed, float FrameTime, float DestVolume) {
 	ChannelVar.Volume += Speed * FrameTime;
-	QP::EXTool.ClampValue(ChannelVar.Volume, DestVolume, CLAMP_GREATER);
+	EXTool.ClampValue(ChannelVar.Volume, DestVolume, CLAMP_GREATER);
 	ChannelVar.Channel->setVolume(ChannelVar.Volume);
 }
 

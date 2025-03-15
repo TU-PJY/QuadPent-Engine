@@ -11,5 +11,5 @@ namespace QP {
 		bool Probability(int Percent);
 	};
 
-	extern QP::QuadPent_Random Random;
+	extern QuadPent_Random Random;
 }

@@ -7,7 +7,7 @@ namespace QP {
 		float   Rotation{};
 		float   Length{};
 
-		QP::Color3 Color{};
+		Color3  Color{};
 		float   Opacity{};
 
 		int       RenderType{ RENDER_TYPE_DEFAULT };

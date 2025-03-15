@@ -6,7 +6,7 @@
 #include "QuadPent_Camera.h"
 #include "QuadPent_SystemResource.h"
 
-glm::mat4 LineMatrix;
+QP::Matrix4 LineMatrix;
 
 QP::LineBrush::LineBrush(bool StaticWidthFlag) {
 	StaticWidthCommand = StaticWidthFlag;
@@ -48,9 +48,9 @@ void QP::LineBrush::Render(float X1, float Y1, float X2, float Y2, float Thickne
 	Length = Math.ComputeDistance(X1, Y1, X2, Y2);
 	Rotation = Math.ComputeRadians(X1, Y1, X2, Y2);
 
-	LineMatrix = translate(LineMatrix, QP::Vector3(X1, Y1, 0.0));
-	LineMatrix = rotate(LineMatrix, -Rotation, QP::Vector3(0.0, 0.0, 1.0));
-	LineMatrix = translate(LineMatrix, QP::Vector3(Length / 2.0, 0.0, 0.0));
+	LineMatrix = translate(LineMatrix, Vector3(X1, Y1, 0.0));
+	LineMatrix = rotate(LineMatrix, -Rotation, Vector3(0.0, 0.0, 1.0));
+	LineMatrix = translate(LineMatrix, Vector3(Length / 2.0, 0.0, 0.0));
 
 	float DrawWidth{};
 	if (RenderType == RENDER_TYPE_DEFAULT && StaticWidthCommand)
@@ -59,9 +59,9 @@ void QP::LineBrush::Render(float X1, float Y1, float X2, float Y2, float Thickne
 		DrawWidth = Thickness;
 
 	if (LineType == LINE_TYPE_RECT)
-		LineMatrix = scale(LineMatrix, QP::Vector3(Length + DrawWidth, DrawWidth, 1.0));
+		LineMatrix = scale(LineMatrix, Vector3(Length + DrawWidth, DrawWidth, 1.0));
 	else if (LineType == LINE_TYPE_ROUND) 
-		LineMatrix = scale(LineMatrix, QP::Vector3(Length, DrawWidth, 1.0));
+		LineMatrix = scale(LineMatrix, Vector3(Length, DrawWidth, 1.0));
 
 	ProcessTransform();
 
@@ -79,16 +79,16 @@ void QP::LineBrush::ProcessTransform() {
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(LineMatrix));
 
-	QP::ImageTool.RenderRaw();
+	ImageTool.RenderRaw();
 }
 
 void QP::LineBrush::RenderCircle(float X1, float Y1, float X2, float Y2, float Thickness) {
 	Transform.Identity(LineMatrix);
-	LineMatrix = translate(LineMatrix, QP::Vector3(X1, Y1, 0.0));
+	LineMatrix = translate(LineMatrix, Vector3(X1, Y1, 0.0));
 	ProcessCircleTransform(Thickness);
 
 	Transform.Identity(LineMatrix);
-	LineMatrix = translate(LineMatrix, QP::Vector3(X2, Y2, 0.0));
+	LineMatrix = translate(LineMatrix, Vector3(X2, Y2, 0.0));
 	ProcessCircleTransform(Thickness);
 }
 
@@ -102,5 +102,5 @@ void QP::LineBrush::ProcessCircleTransform(float Thickness) {
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(LineMatrix));
 
-	gluDisk(QP::SYSRES.GLU_CIRCLE, 0.0, Thickness * 0.5, 80, 1);
+	gluDisk(SYSRES.GLU_CIRCLE, 0.0, Thickness * 0.5, 80, 1);
 }

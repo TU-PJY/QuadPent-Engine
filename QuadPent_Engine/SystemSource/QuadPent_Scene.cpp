@@ -33,7 +33,7 @@ void QP::QuadPent_Scene::Resume() {
 
 void QP::QuadPent_Scene::Update() {
 	if (!ErrorScreenState && ErrorOccured) {
-		QP::SoundTool.StopAllSounds();
+		SoundTool.StopAllSounds();
 		SwitchToErrorScreen();
 		ErrorScreenState = true;
 	}
@@ -86,7 +86,7 @@ void QP::QuadPent_Scene::Init(QP::Mode ModePtr) {
 	for (int Layer = 0; Layer < SceneLayer; ++Layer)
 		CommandLocation[Layer].reserve(COMMAND_LOCATION_BUFFER_SIZE);
 
-	SetWindowSubclass(QP::System_HWND, Controller, 1, 0);
+	SetWindowSubclass(System_HWND, Controller, 1, 0);
 }
 
 void QP::QuadPent_Scene::SwitchMode(QP::Mode ModePtr, int SwitchOption) {
@@ -430,7 +430,7 @@ void ErrorScreenController(unsigned char Key, int X, int Y) {
 }
 
 void QP::QuadPent_Scene::SwitchToErrorScreen() {
-	RemoveWindowSubclass(QP::System_HWND, Controller, 1);
+	RemoveWindowSubclass(System_HWND, Controller, 1);
 	glutKeyboardFunc(ErrorScreenController);
 
 	SystemLayerLock = false;
@@ -493,10 +493,10 @@ LRESULT CALLBACK QP::QuadPent_Scene::Controller(HWND Hwnd, UINT Message, WPARAM 
 		break;
 
 	case WM_KEYDOWN: case WM_KEYUP: case WM_CHAR:
-		if (ENABLE_DEV_EXIT && wParam == VK_ESCAPE)
-			QP::System.Exit();
+		if (ENABLE_DEV_MODE && ENABLE_DEV_EXIT)
+			if (wParam == VK_ESCAPE)  System.Exit();
 
-		QP::KeyEvent Event{};
+		KeyEvent Event{};
 		Event.Type = Message;
 		Event.Key = wParam;
 

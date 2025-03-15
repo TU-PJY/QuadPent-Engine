@@ -7,7 +7,7 @@ void QP::Script::Load(std::string FileName) {
 		return;
 
 	if (!Doc.LoadFile(FileName.c_str(), TIXML_ENCODING_UTF8)) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
+		Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
 		return;
 	}
 
@@ -19,7 +19,7 @@ void QP::Script::Load(std::string FileName) {
 void QP::Script::LoadSecure(std::string FileName) {
 	std::ifstream EncryptedFile(FileName, std::ios::binary);
 	if (!EncryptedFile) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
+		Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_LOAD, FileName);
 		return;
 	}
 
@@ -30,7 +30,7 @@ void QP::Script::LoadSecure(std::string FileName) {
 	Doc.Parse(DecryptedXML.c_str(), nullptr, TIXML_ENCODING_UTF8);
 
 	if (Doc.Error()) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_PARSE, FileName);
+		Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_PARSE, FileName);
 		return;
 	}
 
@@ -64,7 +64,7 @@ std::string QP::Script::LoadStringData(std::string CategoryName, std::string Dat
 }
 
 std::wstring QP::Script::LoadWstringData(std::string CategoryName, std::string DataName) {
-	return QP::StringTool.Wstring(LoadStringData(CategoryName, DataName));
+	return StringTool.Wstring(LoadStringData(CategoryName, DataName));
 }
 
 QP::DigitDataVec QP::Script::LoadCategoryDigitData(std::string CategoryName) {
@@ -72,7 +72,7 @@ QP::DigitDataVec QP::Script::LoadCategoryDigitData(std::string CategoryName) {
 	TiXmlElement* Category = FindCategory(CategoryName);
 
 	if (!Category) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
+		Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
 		return {};
 	}
 
@@ -90,7 +90,7 @@ QP::StringDataVec QP::Script::LoadCategoryStringData(std::string CategoryName) {
 	TiXmlElement* Category = FindCategory(CategoryName);
 
 	if (!Category) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
+		Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategoryName);
 		return {};
 	}
 
@@ -106,7 +106,7 @@ QP::StringDataVec QP::Script::LoadCategoryStringData(std::string CategoryName) {
 //////////////////////////////// private
 float QP::Script::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) {
 	if (!CategoryVar) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
+		Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
 		return 0.0;
 	}
 
@@ -114,14 +114,14 @@ float QP::Script::GetDigitData(TiXmlElement* CategoryVar, std::string DataName) 
 	if (DataValue)
 		return std::stof(DataValue);
 	else {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
+		Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
 		return 0.0;
 	}
 }
 
 std::string QP::Script::GetStringData(TiXmlElement* CategoryVar, std::string DataName) {
 	if (!CategoryVar) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
+		Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_CATEGORY, CategorySearch);
 		return "";
 	}
 
@@ -129,7 +129,7 @@ std::string QP::Script::GetStringData(TiXmlElement* CategoryVar, std::string Dat
 	if (DataValue)
 		return (std::string)DataValue;
 	else {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
+		Scene.SetErrorScreen(ERROR_TYPE_SCRIPT_DATA, CategorySearch, DataSearch);
 		return "";
 	}
 }

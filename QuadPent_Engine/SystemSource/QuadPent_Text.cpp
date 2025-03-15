@@ -94,7 +94,7 @@ void QP::Text::SetOpacity(float Value) {
 
 void QP::Text::Render(QP::Vector2& Position, float Size, const wchar_t* Fmt, ...) {
 	if (!FontPtr || !FontPtr->InitializedState) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_NOT_CREATED_FONT_RENDER, QP::Scene.CurrentModeName());
+		QP::Scene.SetErrorScreen(ERROR_TYPE_NOT_CREATED_FONT_RENDER, Scene.CurrentModeName());
 		return;
 	}
 
@@ -123,7 +123,7 @@ void QP::Text::Render(QP::Vector2& Position, float Size, const wchar_t* Fmt, ...
 
 void QP::Text::Render(float X, float Y, float Size, const wchar_t* Fmt, ...) {
 	if (!FontPtr || !FontPtr->InitializedState) {
-		QP::Scene.SetErrorScreen(ERROR_TYPE_NOT_CREATED_FONT_RENDER, QP::Scene.CurrentModeName());
+		Scene.SetErrorScreen(ERROR_TYPE_NOT_CREATED_FONT_RENDER, Scene.CurrentModeName());
 		return;
 	}
 
@@ -147,15 +147,15 @@ void QP::Text::Render(float X, float Y, float Size, const wchar_t* Fmt, ...) {
 	vswprintf(TextVec.data(), CurrentSize, Fmt, Args);
 	va_end(Args);
 
-	InputText(TextVec, QP::Vector2(X, Y), Size);
+	InputText(TextVec, Vector2(X, Y), Size);
 }
 
 void QP::Text::RenderString(QP::Vector2& Position, float Size, std::string Str) {
-	Render(Position.x, Position.y, Size, QP::StringTool.Wstring(Str).c_str());
+	Render(Position.x, Position.y, Size, StringTool.Wstring(Str).c_str());
 }
 
 void QP::Text::RenderString(float X, float Y, float Size, std::string Str) {
-	Render(X, Y, Size, QP::StringTool.Wstring(Str).c_str());
+	Render(X, Y, Size, StringTool.Wstring(Str).c_str());
 }
 
 void QP::Text::RenderWString(QP::Vector2& Position, float Size, std::wstring WStr) {
@@ -174,7 +174,7 @@ void QP::Text::InputText(std::vector<wchar_t>& Input, QP::Vector2& Position, flo
 		ShadowRenderState = true;
 		RenderColor = ShadowColor;
 		RenderOpacity = TextOpacity * ShadowOpacity;
-		ProcessText((wchar_t*)CurrentText.c_str(), QP::Vector2(Position.x + ShadowOffset.x * Size, Position.y + ShadowOffset.y * Size), Size);
+		ProcessText((wchar_t*)CurrentText.c_str(), Vector2(Position.x + ShadowOffset.x * Size, Position.y + ShadowOffset.y * Size), Size);
 	}
 
 	ShadowRenderState = false;
@@ -188,7 +188,7 @@ void QP::Text::ProcessText(wchar_t* Text, QP::Vector2& Position, float Size) {
 	CurrentLine = 0;
 	TextRenderSize = Size;
 	RenderPosition = Position;
-	CurrentRenderOffset = QP::Vector2(0.0, 0.0);
+	CurrentRenderOffset = Vector2(0.0, 0.0);
 
 	if (CurrentText.compare(PrevText) != 0) {
 		TextWordCount = wcslen(Text);
@@ -239,28 +239,28 @@ bool QP::Text::CheckColorMacro(wchar_t*& Text, int& Index) {
 			if (!ShadowRenderState) RenderColor = MacroColor;
 			Index += 1; return true;
 		case L'R':
-			if (!ShadowRenderState) RenderColor = QP::Color3(1.0, 0.0, 0.0);
+			if (!ShadowRenderState) RenderColor = Color3(1.0, 0.0, 0.0);
 			Index += 1; return true;
 		case L'G':
-			if (!ShadowRenderState) RenderColor = QP::Color3(0.0, 1.0, 0.0);
+			if (!ShadowRenderState) RenderColor = Color3(0.0, 1.0, 0.0);
 			Index += 1; return true;
 		case L'B':
-			if (!ShadowRenderState) RenderColor = QP::Color3(0.0, 0.0, 1.0);
+			if (!ShadowRenderState) RenderColor = Color3(0.0, 0.0, 1.0);
 			Index += 1; return true;
 		case L'Y':
-			if (!ShadowRenderState) RenderColor = QP::Color3(1.0, 1.0, 0.0);
+			if (!ShadowRenderState) RenderColor = Color3(1.0, 1.0, 0.0);
 			Index += 1; return true;
 		case L'C':
-			if (!ShadowRenderState) RenderColor = QP::Color3(0.0, 1.0, 1.0);
+			if (!ShadowRenderState) RenderColor = Color3(0.0, 1.0, 1.0);
 			Index += 1; return true;
 		case L'M':
-			if (!ShadowRenderState) RenderColor = QP::Color3(1.0, 0.0, 1.0);
+			if (!ShadowRenderState) RenderColor = Color3(1.0, 0.0, 1.0);
 			Index += 1; return true;
 		case L'K':
-			if (!ShadowRenderState) RenderColor = QP::Color3(0.0, 0.0, 0.0);
+			if (!ShadowRenderState) RenderColor = Color3(0.0, 0.0, 0.0);
 			Index += 1; return true;
 		case L'W':
-			if (!ShadowRenderState) RenderColor = QP::Color3(1.0, 1.0, 1.0);
+			if (!ShadowRenderState) RenderColor = Color3(1.0, 1.0, 1.0);
 			Index += 1; return true;
 		case L'E':
 			if (!ShadowRenderState) RenderColor = TextColor;
@@ -314,30 +314,30 @@ void QP::Text::ComputeTextLength(wchar_t*& Text) {
 
 void QP::Text::TransformText() {
 	QP::Transform.Identity(TextMatrix);
-	TextMatrix = translate(TextMatrix, QP::Vector3(RenderPosition.x, RenderPosition.y, 0.0));
+	TextMatrix = translate(TextMatrix, Vector3(RenderPosition.x, RenderPosition.y, 0.0));
 
 	if (Rotation != 0.0)
-		TextMatrix = rotate(TextMatrix, glm::radians(Rotation), QP::Vector3(0.0, 0.0, 1.0));
+		TextMatrix = rotate(TextMatrix, glm::radians(Rotation), Vector3(0.0, 0.0, 1.0));
 	if (FixMiddleCommand && NumLine > 1)
-		TextMatrix = translate(TextMatrix, QP::Vector3(0.0, FixMiddleOffset, 0.0));
+		TextMatrix = translate(TextMatrix, Vector3(0.0, FixMiddleOffset, 0.0));
 
 	switch (TextAlign) {
 	case ALIGN_DEFAULT:
-		TextMatrix = translate(TextMatrix, QP::Vector3(CurrentRenderOffset.x, CurrentRenderOffset.y, 0.0));
+		TextMatrix = translate(TextMatrix, Vector3(CurrentRenderOffset.x, CurrentRenderOffset.y, 0.0));
 		break;
 
 	case ALIGN_MIDDLE:
-		TextMatrix = translate(TextMatrix, QP::Vector3(-TextLength * 0.5, 0.0, 0.0));
-		TextMatrix = translate(TextMatrix, QP::Vector3(CurrentRenderOffset.x, CurrentRenderOffset.y, 0.0));
+		TextMatrix = translate(TextMatrix, Vector3(-TextLength * 0.5, 0.0, 0.0));
+		TextMatrix = translate(TextMatrix, Vector3(CurrentRenderOffset.x, CurrentRenderOffset.y, 0.0));
 		break;
 
 	case ALIGN_LEFT:
-		TextMatrix = translate(TextMatrix, QP::Vector3(-TextLength, 0.0, 0.0));
-		TextMatrix = translate(TextMatrix, QP::Vector3(CurrentRenderOffset.x, CurrentRenderOffset.y, 0.0));
+		TextMatrix = translate(TextMatrix, Vector3(-TextLength, 0.0, 0.0));
+		TextMatrix = translate(TextMatrix, Vector3(CurrentRenderOffset.x, CurrentRenderOffset.y, 0.0));
 		break;
 	}
 
-	TextMatrix = scale(TextMatrix, QP::Vector3(TextRenderSize, TextRenderSize, 1.0));
+	TextMatrix = scale(TextMatrix, Vector3(TextRenderSize, TextRenderSize, 1.0));
 }
 
 void QP::Text::PrepareRender() {

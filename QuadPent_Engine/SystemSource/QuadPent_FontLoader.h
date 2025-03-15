@@ -7,5 +7,5 @@ namespace QP {
 		void LoadT(const std::string& FontFilePath);
 	};
 
-	extern QP::QuadPent_FontLoader FontLoader;
+	extern QuadPent_FontLoader FontLoader;
 }

@@ -22,18 +22,18 @@ private:
 	bool    FontResourceLoadEnd{};
 	bool    InitializationEnd{};
 
-	QP::Timer        SplashTimer{};
-	QP::Timer        StartUpTimer{};
-	QP::Timer        StartTimer{};
-	QP::RectBrush    ScreenRect{};
-	QP::LineBrush    ProgressLine{};
+	QP::Timer         SplashTimer{};
+	QP::Timer         StartUpTimer{};
+	QP::Timer         StartTimer{};
+	QP::RectBrush     ScreenRect{};
+	QP::LineBrush     ProgressLine{};
 
-	QP::SoundChannel SndChannel{};
-	bool             LogoSoundPlayed{};
+	QP::SoundChannel  SndChannel{};
+	bool              LogoSoundPlayed{};
 
-	float            LogoRotation{ -180.0 };
-	float            LogoSize{ 2.5 };
-	float            LogoOpacity{};
+	float             LogoRotation{ -180.0 };
+	float             LogoSize{ 2.5 };
+	float             LogoOpacity{};
 
 	std::atomic<int>  LoadingProgress{};
 	float             LoadingProgressLength{};
@@ -87,28 +87,6 @@ public:
 		}
 	}
 
-	void SkipStartUp() {
-		if (!ComponentLoadThreadCreated) {
-			QP::ThreadTool.Create(SystemResourceLoadHandle, SystemResourceLoader);
-			ComponentLoadThreadCreated = true;
-		}
-
-		if (LoadResources()) {
-			if (!InitializationEnd) {
-				QP::ImageTool.Map();
-				std::cout << "All of Image resources mapped." << std::endl;
-
-				QP::ModeMapper();
-				std::cout << "All of Mode pointers mapped." << std::endl;
-
-				if (ENABLE_FPS_INDICATOR)  QP::Scene.AddSystemObject(new QuadPent_FPS_Indicator);
-				QP::Scene.SwitchMode(QP::START_MODE);
-				QP::Scene.DeleteObject(this);
-				InitializationEnd = true;
-			}
-		}
-	}
-
 	void PrepareStartUp() {
 		QP::Camera.Init();
 		QP::ImageTool.Init();
@@ -122,8 +100,8 @@ public:
 		QP::ImageTool.LoadImage(QP::SYSRES.QUADPENT_LOGO, QP::SYSRES.QUADPENT_LOGO_IMAGE_DIRECTORY, IMAGE_TYPE_LINEAR);
 		QP::SoundTool.Load(QP::SYSRES.INTRO_SOUND, QP::SYSRES.QUADPENT_LOGO_SOUND_DIRECTORY);
 
-		ASSET::StartUpBehavior();
 		ASSET::ResourcePreLoader();
+		ASSET::StartUpBehavior();
 		std::cout << "Resources pre-loaded." << std::endl;
 
 		StartUpPrepared = true;
@@ -147,6 +125,7 @@ public:
 
 			if (!ExitState)
 				QP::Math.Lerp(ProgressBarOpacity, 1.0, 5.0, FrameTime);
+
 			QP::Math.Lerp(LoadingProgressLength, (float)LoadingProgress, 8.0, FrameTime);
 
 			if (LoadResources()) {
@@ -161,25 +140,46 @@ public:
 				}
 
 				else {
-					if (LoadingProgress == 5) {
-						if (StartTimer.UpdateAndCheckSec(1, CHECK_AND_STOP, FrameTime)) {
-							if (!ExitState) {
-								if (ENABLE_FPS_INDICATOR) QP::Scene.AddSystemObject(new QuadPent_FPS_Indicator);
-								QP::Scene.SwitchMode(QP::START_MODE);
-								ExitState = true;
+					if (LoadingProgress == 5 && StartTimer.UpdateAndCheckSec(1, CHECK_AND_STOP, FrameTime)) {
+						if (!ExitState) {
+							if (ENABLE_DEV_MODE && ENABLE_FPS_INDICATOR)
+								QP::Scene.AddSystemObject(new QuadPent_FPS_Indicator);
+							QP::Scene.SwitchMode(QP::START_MODE);
+							ExitState = true;
+						}
+						else {
+							ProgressBarOpacity -= FrameTime;
+							if (QP::EXTool.CheckClampValue(ProgressBarOpacity, 0.0, CLAMP_LESS)) {
+								ScreenOpacity -= FrameTime * 0.7;
+								if (QP::EXTool.CheckClampValue(ScreenOpacity, 0.0, CLAMP_LESS))
+									QP::Scene.DeleteObject(this);
 							}
-							else {
-								ProgressBarOpacity -= FrameTime;
-								if (QP::EXTool.CheckClampValue(ProgressBarOpacity, 0.0, CLAMP_LESS)) {
-									ScreenOpacity -= FrameTime * 0.7;
-									if (QP::EXTool.CheckClampValue(ScreenOpacity, 0.0, CLAMP_LESS))
-										QP::Scene.DeleteObject(this);
-								}
-							}
-
 						}
 					}
 				}
+			}
+		}
+	}
+
+	void SkipStartUp() {
+		if (!ComponentLoadThreadCreated) {
+			QP::ThreadTool.Create(SystemResourceLoadHandle, SystemResourceLoader);
+			ComponentLoadThreadCreated = true;
+		}
+
+		if (LoadResources()) {
+			if (!InitializationEnd) {
+				QP::ImageTool.Map();
+				std::cout << "All of Image resources mapped." << std::endl;
+
+				QP::ModeMapper();
+				std::cout << "All of Mode pointers mapped." << std::endl;
+
+				if (ENABLE_DEV_MODE && ENABLE_FPS_INDICATOR)
+					QP::Scene.AddSystemObject(new QuadPent_FPS_Indicator);
+				QP::Scene.SwitchMode(QP::START_MODE);
+				QP::Scene.DeleteObject(this);
+				InitializationEnd = true;
 			}
 		}
 	}
@@ -241,6 +241,11 @@ public:
 	}
 
 	void SetWindowDefaultStyle() {
+		if (QP::SYSTEM_TITLE_ICON) {
+			SendMessage(QP::System_HWND, WM_SETICON, ICON_SMALL, (LPARAM)QP::SYSTEM_TITLE_ICON);
+			SendMessage(QP::System_HWND, WM_SETICON, ICON_BIG, (LPARAM)QP::SYSTEM_TITLE_ICON);
+		}
+
 		LONG Style = GetWindowLong(QP::System_HWND, GWL_STYLE);
 		Style |= (WS_OVERLAPPEDWINDOW);
 		SetWindowLong(QP::System_HWND, GWL_STYLE, Style);
@@ -249,6 +254,7 @@ public:
 			GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), 
 			SWP_NOZORDER | SWP_FRAMECHANGED
 		);
+		RedrawWindow(QP::System_HWND, NULL, NULL, RDW_FRAME | RDW_INVALIDATE | RDW_UPDATENOW);
 		ShowWindow(QP::System_HWND, SW_MAXIMIZE);
 	}
 

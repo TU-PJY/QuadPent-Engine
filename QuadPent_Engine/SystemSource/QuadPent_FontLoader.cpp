@@ -11,7 +11,7 @@ void QP::QuadPent_FontLoader::Load(const std::string& FontFilePath) {
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);
 
     if (NumFonts == 0) {
-        QP::Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
+        Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
         return;
     }
 
@@ -25,7 +25,7 @@ void QP::QuadPent_FontLoader::LoadT(const std::string& FontFilePath) {
     NumFonts = AddFontResourceEx(Path.c_str(), FR_PRIVATE, 0);
 
     if (NumFonts == 0) {
-        QP::Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
+        Scene.SetErrorScreen(ERROR_TYPE_FONT_LOAD, FontFilePath);
         return;
     }
 

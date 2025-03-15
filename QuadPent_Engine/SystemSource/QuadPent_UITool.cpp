@@ -5,19 +5,19 @@ QP::QuadPent_UITool QP::UITool;
 void QP::QuadPent_UITool::ClampMatrixToCorner(int EdgePosition, QP::Matrix4& Matrix, float Width, float Height, float GapX, float GapY) {
 	switch (EdgePosition) {
 	case EDGE_LEFT_DOWN:
-		Matrix = translate(Matrix, QP::Vector3(QP::WindowRect.LeftX + Width / 2.0 + GapX, QP::WindowRect.LeftY + Height / 2.0 + GapY, 0.0));
+		Matrix = translate(Matrix, Vector3(WindowRect.LeftX + Width / 2.0 + GapX, WindowRect.LeftY + Height / 2.0 + GapY, 0.0));
 		break;
 
 	case EDGE_LEFT_UP:
-		Matrix = translate(Matrix, QP::Vector3(QP::WindowRect.LeftX + Width / 2.0 + GapX, QP::WindowRect.RightY - Height / 2.0 - GapY, 0.0));
+		Matrix = translate(Matrix, Vector3(WindowRect.LeftX + Width / 2.0 + GapX, WindowRect.RightY - Height / 2.0 - GapY, 0.0));
 		break;
 
 	case EDGE_RIGHT_DOWN:
-		Matrix = translate(Matrix, QP::Vector3(QP::WindowRect.RightX - Width / 2.0 - GapX, QP::WindowRect.LeftY + Height / 2.0 + GapY, 0.0));
+		Matrix = translate(Matrix, Vector3(WindowRect.RightX - Width / 2.0 - GapX, WindowRect.LeftY + Height / 2.0 + GapY, 0.0));
 		break;
 
 	case EDGE_RIGHT_UP:
-		Matrix = translate(Matrix, QP::Vector3(QP::WindowRect.RightX - Width / 2.0 - GapX, QP::WindowRect.RightY - Height / 2.0 - GapY, 0.0));
+		Matrix = translate(Matrix, Vector3(WindowRect.RightX - Width / 2.0 - GapX, WindowRect.RightY - Height / 2.0 - GapY, 0.0));
 		break;
 	}
 }
@@ -29,23 +29,23 @@ void QP::QuadPent_UITool::ClampMatrixToPosition(QP::Matrix4& Matrix, float Posit
 void QP::QuadPent_UITool::ClampPositionToCorner(int EdgePosition, float& PositionX, float& PositionY, float Width, float Height, float GapX, float GapY) {
 	switch (EdgePosition) {
 	case EDGE_LEFT_DOWN:
-		PositionX = QP::WindowRect.LeftX + Width / 2.0 + GapX;
-		PositionY = QP::WindowRect.LeftY + Height / 2.0 + GapY;
+		PositionX = WindowRect.LeftX + Width / 2.0 + GapX;
+		PositionY = WindowRect.LeftY + Height / 2.0 + GapY;
 		break;
 
 	case EDGE_LEFT_UP:
-		PositionX = QP::WindowRect.LeftX + Width / 2.0 + GapX;
-		PositionY = QP::WindowRect.RightY - Height / 2.0 - GapY;
+		PositionX = WindowRect.LeftX + Width / 2.0 + GapX;
+		PositionY = WindowRect.RightY - Height / 2.0 - GapY;
 		break;
 
 	case EDGE_RIGHT_DOWN:
-		PositionX = QP::WindowRect.RightX - Width / 2.0 - GapX;
-		PositionY = QP::WindowRect.LeftY + Height / 2.0 + GapY;
+		PositionX = WindowRect.RightX - Width / 2.0 - GapX;
+		PositionY = WindowRect.LeftY + Height / 2.0 + GapY;
 		break;
 
 	case EDGE_RIGHT_UP:
-		PositionX = QP::WindowRect.RightX - Width / 2.0 - GapX;
-		PositionY = QP::WindowRect.RightY - Height / 2.0 - GapY;
+		PositionX = WindowRect.RightX - Width / 2.0 - GapX;
+		PositionY = WindowRect.RightY - Height / 2.0 - GapY;
 		break;
 	}
 }

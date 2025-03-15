@@ -3,17 +3,17 @@
 void QP::QuadPent_System::DisplayReshape(int w, int h) {
 	glViewport(0, 0, w, h);
 
-	QP::WindowWidth = w;
-	QP::WindowHeight = h;
+	WindowWidth = w;
+	WindowHeight = h;
 
-	QP::Aspect = (float)QP::WindowWidth / (float)QP::WindowHeight;
-	QP::ViewportWidth = 2.0 * QP::Aspect;
-	QP::ViewportHeight = 2.0;
+	Aspect = (float)WindowWidth / (float)WindowHeight;
+	ViewportWidth = 2.0 * Aspect;
+	ViewportHeight = 2.0;
 
-	QP::WindowRect.LeftX = -1.0 * QP::Aspect;
-	QP::WindowRect.LeftY = -1.0;
-	QP::WindowRect.RightX = 1.0 * QP::Aspect;
-	QP::WindowRect.RightY = 1.0;
+	WindowRect.LeftX = -1.0 * Aspect;
+	WindowRect.LeftY = -1.0;
+	WindowRect.RightX = 1.0 * Aspect;
+	WindowRect.RightY = 1.0;
 }
 
 void QP::QuadPent_System::SetBackColor(float R, float G, float B) {
@@ -61,32 +61,36 @@ void QP::QuadPent_System::SwitchScreenState() {
 }
 
 void QP::QuadPent_System::ChangeScreenSize(int ScreenWidth, int ScreenHeight, int PositionX, int PositionY) {
-	QP::WindowWidth = ScreenWidth;
-	QP::WindowHeight = ScreenHeight;
-	glutReshapeWindow(QP::WindowWidth, QP::WindowHeight);
+	WindowWidth = ScreenWidth;
+	WindowHeight = ScreenHeight;
+	glutReshapeWindow(WindowWidth, WindowHeight);
 	glutPositionWindow(PositionX, PositionY);
 	FullscreenState = false;
 }
 
 ////////////////////////////////////////////// private
 void QP::QuadPent_System::SwitchToMaximizedWindow() {
-	LONG Style = GetWindowLong(QP::System_HWND, GWL_STYLE);
+	LONG Style = GetWindowLong(System_HWND, GWL_STYLE);
 	Style |= (WS_OVERLAPPEDWINDOW);
-	SetWindowLong(QP::System_HWND, GWL_STYLE, Style);
+	SetWindowLong(System_HWND, GWL_STYLE, Style);
 	SetWindowPos(
-		QP::System_HWND, NULL, 0, 0,
+		System_HWND, NULL, 0, 0,
 		GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),
-		SWP_NOZORDER | SWP_FRAMECHANGED
+		SWP_NOZORDER | SWP_NOREDRAW
 	);
-	ShowWindow(QP::System_HWND, SW_MAXIMIZE);
+	RedrawWindow(System_HWND, NULL, NULL, RDW_FRAME | RDW_INVALIDATE | RDW_UPDATENOW);
+	ShowWindow(System_HWND, SW_MAXIMIZE);
 }
 
 void QP::QuadPent_System::SwitchToSplashWindow() {
-	LONG Style = GetWindowLong(QP::System_HWND, GWL_STYLE);
+	LONG Style = GetWindowLong(System_HWND, GWL_STYLE);
 	Style &= ~(WS_OVERLAPPEDWINDOW);
-	SetWindowLong(QP::System_HWND, GWL_STYLE, Style);
-	SetWindowPos(QP::System_HWND, NULL,
-		GetSystemMetrics(SM_CXSCREEN) / 2 - QP::WindowWidth / 2,
-		GetSystemMetrics(SM_CYSCREEN) / 2 - QP::WindowHeight / 2,
-		QP::WindowWidth, QP::WindowHeight, SWP_NOZORDER | SWP_FRAMECHANGED);
+	SetWindowLong(System_HWND, GWL_STYLE, Style);
+	SetWindowPos(
+		QP::System_HWND, NULL,
+		GetSystemMetrics(SM_CXSCREEN) / 2 - WindowWidth / 2,
+		GetSystemMetrics(SM_CYSCREEN) / 2 - WindowHeight / 2,
+		WindowWidth, WindowHeight, SWP_NOZORDER | SWP_NOREDRAW
+	);
+	RedrawWindow(System_HWND, NULL, NULL, RDW_FRAME | RDW_INVALIDATE | RDW_UPDATENOW);
 }

@@ -1,11 +1,11 @@
 #pragma once
 #include "QuadPent_DefaultValue.h"
-// QuadPent 8.4
+// QuadPent 8.5
 // OpenGL version 4.3 ~ 4.6
 
 //////////////////////////////////// Development options
 // Dev mode option
-constexpr bool ENABLE_DEV_MODE = true;
+constexpr bool ENABLE_DEV_MODE = false;
 
 // Window size when dev mode enabled
 // if ENABLE_DEV_MODE is false, these option values will not be used.
@@ -14,18 +14,23 @@ constexpr int DEV_SCREEN_HEIGHT = QP::DEFAULT_DEV_SCREEN_HEIGHT;
 
 // Program termination options when developing a program
 // When this option is activated, pressing ESC will immediately terminate the program.
+// Used only when ENABLE_DEV_MODE is true.
 constexpr bool ENABLE_DEV_EXIT = true;
 
 // console window option
+// Used only when ENABLE_DEV_MODE is true.
 constexpr bool ENABLE_DEBUG_CONSOLE = true;
 
 // FPS indicator option
+// Used only when ENABLE_DEV_MODE is true.
 constexpr bool ENABLE_FPS_INDICATOR = true;
 
 // boundbox option
+// Used only when ENABLE_DEV_MODE is true.
 constexpr bool ENABLE_RENDER_BOUND_BOX = true;
 
 // frustum bound option
+// Used only when ENABLE_DEV_MODE is true.
 constexpr bool ENABLE_RENDER_FRUSTUM_BOUND = false;
 
 // bound box thickness option
@@ -36,6 +41,10 @@ constexpr float BOUND_BOX_THICKNESS = QP::DEFAULT_BOUNDBOX_THICKNESS;
 //////////////////////////////////// Engine options
 // Window name
 constexpr const char* WINDOW_NAME = QP::DEFAULT_WINDOW_NAME;
+
+// Window Icon
+// Check the icon allocation ID in resource.h and enter it.
+#define QUADPENT_WINDOW_ICON QP::DEFAULT_QUADPENT_WINDOW_ICON
 
 // Application version
 // Example:

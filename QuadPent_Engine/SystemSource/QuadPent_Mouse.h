@@ -9,5 +9,5 @@ namespace QP {
 		void ConvertPosition(int CursorX, int CursorY);
 	};
 
-	extern QP::QuadPent_Mouse Mouse;
+	extern QuadPent_Mouse Mouse;
 }

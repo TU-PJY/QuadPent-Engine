@@ -10,5 +10,5 @@ namespace QP {
 		void ClampPositionToCoord(float& ThisPositionX, float& ThisPositionY, float OtherPositionX, float OtherPositionY, float Width, float Height, float GapX, float GapY);
 	};
 
-	extern QP::QuadPent_UITool UITool;
+	extern QuadPent_UITool UITool;
 }

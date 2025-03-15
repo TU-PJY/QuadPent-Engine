@@ -4,7 +4,7 @@
 namespace QP {
 	class LineRectBrush {
 	private:
-		QP::Color3 Color{};
+		Color3  Color{};
 		float   Length{};
 		float   Opacity{};
 		int       RenderType{ RENDER_TYPE_DEFAULT };
@@ -28,7 +28,7 @@ namespace QP {
 
 	class RectBrush {
 	private:
-		QP::Color3 Color{};
+		Color3  Color{};
 		float   Length{};
 		float   Opacity{};
 		int       RenderType{ RENDER_TYPE_DEFAULT };

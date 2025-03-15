@@ -4,11 +4,11 @@
 QP::QuadPent_Transform QP::Transform;
 
 void QP::QuadPent_Transform::Identity(QP::Matrix4& Matrix) {
-	Matrix = QP::Matrix4(1.0f);
+	Matrix = Matrix4(1.0f);
 }
 
 bool QP::QuadPent_Transform::CheckIdentity(QP::Matrix4& Matrix) {
-	if (std::memcmp(&Matrix, &QP::IDENTITY_MATRIX, sizeof(QP::Matrix4)) != 0)
+	if (std::memcmp(&Matrix, &QP::IDENTITY_MATRIX, sizeof(Matrix4)) != 0)
 		return false;
 
 	return true;
@@ -16,58 +16,58 @@ bool QP::QuadPent_Transform::CheckIdentity(QP::Matrix4& Matrix) {
 
 void QP::QuadPent_Transform::Move(float X, float Y, int MatrixType) {
 	if (MatrixType == MATRIX_LOCAL)
-		LocalMatrix = translate(LocalMatrix, QP::Vector3(X, Y, 0.0));
+		LocalMatrix = translate(LocalMatrix, Vector3(X, Y, 0.0));
 	else if(MatrixType == MATRIX_GLOBAL)
-		GlobalMatrix = translate(GlobalMatrix, QP::Vector3(X, Y, 0.0));
+		GlobalMatrix = translate(GlobalMatrix, Vector3(X, Y, 0.0));
 }
 
 void QP::QuadPent_Transform::Move(QP::Vector2& Position, int MatrixType) {
 	if (MatrixType == MATRIX_LOCAL)
-		LocalMatrix = translate(LocalMatrix, QP::Vector3(Position.x, Position.y, 0.0));
+		LocalMatrix = translate(LocalMatrix, Vector3(Position.x, Position.y, 0.0));
 	else if (MatrixType == MATRIX_GLOBAL)
-		GlobalMatrix = translate(GlobalMatrix, QP::Vector3(Position.x, Position.y, 0.0));
+		GlobalMatrix = translate(GlobalMatrix, Vector3(Position.x, Position.y, 0.0));
 }
 
 void QP::QuadPent_Transform::Rotate(float Degree, int MatrixType) {
 	if(MatrixType == MATRIX_LOCAL)
-		LocalMatrix = rotate(LocalMatrix, glm::radians(-Degree), QP::Vector3(0.0, 0.0, 1.0));
+		LocalMatrix = rotate(LocalMatrix, glm::radians(-Degree), Vector3(0.0, 0.0, 1.0));
 	else if (MatrixType == MATRIX_GLOBAL)
-		GlobalMatrix = rotate(GlobalMatrix, glm::radians(-Degree), QP::Vector3(0.0, 0.0, 1.0));
+		GlobalMatrix = rotate(GlobalMatrix, glm::radians(-Degree), Vector3(0.0, 0.0, 1.0));
 }
 
 void QP::QuadPent_Transform::RotateRadians(float Radians, int MatrixType) {
 	if (MatrixType == MATRIX_LOCAL)
-		LocalMatrix = rotate(LocalMatrix, -Radians, QP::Vector3(0.0, 0.0, 1.0));
+		LocalMatrix = rotate(LocalMatrix, -Radians, Vector3(0.0, 0.0, 1.0));
 	else if (MatrixType == MATRIX_GLOBAL)
-		GlobalMatrix = rotate(GlobalMatrix, -Radians, QP::Vector3(0.0, 0.0, 1.0));
+		GlobalMatrix = rotate(GlobalMatrix, -Radians, Vector3(0.0, 0.0, 1.0));
 }
 
 void QP::QuadPent_Transform::RotateV(float Degree, int MatrixType) {
 	if(MatrixType == MATRIX_LOCAL)
-		LocalMatrix = rotate(LocalMatrix, glm::radians(Degree), QP::Vector3(1.0, 0.0, 0.0));
+		LocalMatrix = rotate(LocalMatrix, glm::radians(Degree), Vector3(1.0, 0.0, 0.0));
 	else if(MatrixType == MATRIX_GLOBAL)
-		GlobalMatrix = rotate(GlobalMatrix, glm::radians(Degree), QP::Vector3(1.0, 0.0, 0.0));
+		GlobalMatrix = rotate(GlobalMatrix, glm::radians(Degree), Vector3(1.0, 0.0, 0.0));
 }
 
 void QP::QuadPent_Transform::RotateH(float Degree, int MatrixType) {
 	if (MatrixType == MATRIX_LOCAL)
-		LocalMatrix = rotate(LocalMatrix, glm::radians(Degree), QP::Vector3(0.0, 1.0, 0.0));
+		LocalMatrix = rotate(LocalMatrix, glm::radians(Degree), Vector3(0.0, 1.0, 0.0));
 	else if (MatrixType == MATRIX_GLOBAL)
-		GlobalMatrix = rotate(GlobalMatrix, glm::radians(Degree), QP::Vector3(0.0, 1.0, 0.0));
+		GlobalMatrix = rotate(GlobalMatrix, glm::radians(Degree), Vector3(0.0, 1.0, 0.0));
 }
 
 void QP::QuadPent_Transform::Scale(float SizeX, float SizeY, int MatrixType) {
 	if(MatrixType == MATRIX_LOCAL)
-		LocalMatrix = scale(LocalMatrix, QP::Vector3(SizeX, SizeY, 1.0));
+		LocalMatrix = scale(LocalMatrix, Vector3(SizeX, SizeY, 1.0));
 	else if(MatrixType == MATRIX_GLOBAL)
-		GlobalMatrix = scale(GlobalMatrix, QP::Vector3(SizeX, SizeY, 1.0));
+		GlobalMatrix = scale(GlobalMatrix, Vector3(SizeX, SizeY, 1.0));
 }
 
 void QP::QuadPent_Transform::Scale(QP::Vector2& Size, int MatrixType) {
 	if (MatrixType == MATRIX_LOCAL)
-		LocalMatrix = scale(LocalMatrix, QP::Vector3(Size.x, Size.y, 1.0));
+		LocalMatrix = scale(LocalMatrix, Vector3(Size.x, Size.y, 1.0));
 	else if (MatrixType == MATRIX_GLOBAL)
-		GlobalMatrix = scale(GlobalMatrix, QP::Vector3(Size.x, Size.y, 1.0));
+		GlobalMatrix = scale(GlobalMatrix, Vector3(Size.x, Size.y, 1.0));
 }
 
 void QP::QuadPent_Transform::Tilt(float X, float Y, int MatrixType) {

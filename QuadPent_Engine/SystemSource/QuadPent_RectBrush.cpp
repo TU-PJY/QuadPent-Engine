@@ -50,10 +50,10 @@ void QP::LineRectBrush::Render(float X, float Y, float SizeX, float SizeY, float
 void QP::LineRectBrush::RenderLine(float X, float Y, float OffsetX, float OffsetY, float Width, float Height, float Degree) {
 	Transform.Identity(RectMatrix);
 
-	RectMatrix = translate(RectMatrix, QP::Vector3(X, Y, 0.0));
-	RectMatrix = rotate(RectMatrix, glm::radians(-Degree), QP::Vector3(0.0, 0.0, 1.0));
-	RectMatrix = translate(RectMatrix, QP::Vector3(OffsetX, OffsetY, 0.0));
-	RectMatrix = scale(RectMatrix, QP::Vector3(Width, Height, 0.0));
+	RectMatrix = translate(RectMatrix, Vector3(X, Y, 0.0));
+	RectMatrix = rotate(RectMatrix, glm::radians(-Degree), Vector3(0.0, 0.0, 1.0));
+	RectMatrix = translate(RectMatrix, Vector3(OffsetX, OffsetY, 0.0));
+	RectMatrix = scale(RectMatrix, Vector3(Width, Height, 0.0));
 	ProcessTransform();
 }
 
@@ -68,7 +68,7 @@ void QP::LineRectBrush::ProcessTransform() {
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(RectMatrix));
 
-	QP::ImageTool.RenderRaw();
+	ImageTool.RenderRaw();
 }
 
 
@@ -103,9 +103,9 @@ void QP::RectBrush::Render(float X, float Y, float SizeX, float SizeY, float Deg
 	Transform.Identity(RectMatrix);
 	Opacity = OpacityValue;
 
-	RectMatrix = translate(RectMatrix, QP::Vector3(X, Y, 0.0));
+	RectMatrix = translate(RectMatrix, Vector3(X, Y, 0.0));
 	RectMatrix = rotate(RectMatrix, glm::radians(-Degree), QP::Vector3(0.0, 0.0, 1.0));
-	RectMatrix = scale(RectMatrix, QP::Vector3(SizeX, SizeY, 1.0));
+	RectMatrix = scale(RectMatrix, Vector3(SizeX, SizeY, 1.0));
 
 	ProcessTransform();
 }
@@ -121,5 +121,5 @@ void QP::RectBrush::ProcessTransform() {
 	glUniform3f(SHAPE_COLOR_LOCATION, Color.r, Color.g, Color.b);
 	glUniformMatrix4fv(SHAPE_MODEL_LOCATION, 1, GL_FALSE, glm::value_ptr(RectMatrix));
 
-	QP::ImageTool.RenderRaw();
+	ImageTool.RenderRaw();
 }

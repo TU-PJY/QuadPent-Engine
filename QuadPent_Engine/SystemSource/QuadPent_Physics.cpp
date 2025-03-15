@@ -132,11 +132,11 @@ void QP::Physics::UpdateBouncing(QP::Vector2& DestPosition, float FrameTime) {
 
 
 void QP::Physics::LerpAcceleratation(float& Speed, float DestSpeed, float AccValue, float FT) {
-	QP::Math.Lerp(Speed, DestSpeed, AccValue * (1.0 - Friction), FT);
+	Math.Lerp(Speed, DestSpeed, AccValue * (1.0 - Friction), FT);
 }
 
 void QP::Physics::LerpDeceleration(float& Speed, float FT) {
-	QP::Math.Lerp(Speed, 0.0, Friction, FT);
+	Math.Lerp(Speed, 0.0, Friction, FT);
 }
 
 void QP::Physics::LinearAcceleratation(float& Speed, float DestSpeed, float AccValue, float FT) {

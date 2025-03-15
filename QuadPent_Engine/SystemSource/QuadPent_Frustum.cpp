@@ -6,12 +6,12 @@
 QP::QuadPent_Frustum QP::Frustum;
 
 void QP::QuadPent_Frustum::Update() {
-	FrustumOOBB.Update(QP::Camera.Position, ViewportWidth / QP::Camera.Zoom, 2.0 / QP::Camera.Zoom, QP::Camera.Rotation);
+	FrustumOOBB.Update(Camera.Position, ViewportWidth / Camera.Zoom, 2.0 / Camera.Zoom, Camera.Rotation);
 }
 
 void QP::QuadPent_Frustum::Render() {
-	if (ENABLE_RENDER_FRUSTUM_BOUND)
-		LineRect.Render(QP::Camera.Position.x, QP::Camera.Position.y, ViewportWidth / QP::Camera.Zoom, 2.0 / QP::Camera.Zoom, BOUND_BOX_THICKNESS, QP::Camera.Rotation);
+	if (ENABLE_DEV_MODE && ENABLE_RENDER_FRUSTUM_BOUND)
+		LineRect.Render(Camera.Position.x, Camera.Position.y, ViewportWidth / Camera.Zoom, 2.0 / Camera.Zoom, BOUND_BOX_THICKNESS, Camera.Rotation);
 }
 
 bool QP::QuadPent_Frustum::Check(QP::AABB& aabb) {

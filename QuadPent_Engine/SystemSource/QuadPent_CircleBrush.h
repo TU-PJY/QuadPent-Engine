@@ -6,7 +6,7 @@ namespace QP {
 	private:
 		float   Radius{};
 
-		QP::Color3 Color{};
+		Color3    Color{};
 		float     Opacity{};
 
 		int       RenderType{ RENDER_TYPE_DEFAULT };
@@ -29,7 +29,7 @@ namespace QP {
 	private:
 		float   Radius{}, WidthValue{};
 
-		QP::Color3 Color{};
+		Color3    Color{};
 		float     Opacity{};
 
 		int       RenderType{ RENDER_TYPE_DEFAULT };

@@ -488,11 +488,11 @@ void QP::QuadPent_ImageTool::SetLocalColorRGB(int R, int G, int B) {
 }
 
 QP::Vector2 QP::QuadPent_ImageTool::RealSize(QP::Image& ImageStruct) {
-	return QP::Vector2(ImageStruct.RealWidth, ImageStruct.RealHeight);
+	return Vector2(ImageStruct.RealWidth, ImageStruct.RealHeight);
 }
 
 QP::Vector2 QP::QuadPent_ImageTool::RealSize(QP::SpriteSheet& SpriteShetStruct) {
-	return QP::Vector2(SpriteShetStruct.RealWidth, SpriteShetStruct.RealHeight);
+	return Vector2(SpriteShetStruct.RealWidth, SpriteShetStruct.RealHeight);
 }
 
 void QP::QuadPent_ImageTool::RenderImage(QP::Image& ImageStruct, float OpacityValue, bool ApplyGlobalAttribute, bool DisableAdjustAspect) {

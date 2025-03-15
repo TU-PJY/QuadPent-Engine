@@ -4,8 +4,8 @@
 QP::QuadPent_Mouse QP::Mouse;
 
 void QP::QuadPent_Mouse::ConvertPosition(int CursorX, int CursorY) {
-	X = (float)((CursorX - (float)QP::WindowWidth / 2.0) * (float)(1.0 / (float)(QP::WindowWidth / 2.0))) * QP::Aspect;
-	Y = -(float)(CursorY - (float)QP::WindowHeight / 2.0) * (float)(1.0 / (float)(QP::WindowHeight / 2.0));
-	DynamicX = (X + QP::Camera.Position.x) / QP::Camera.Zoom;
-	DynamicY = (Y + QP::Camera.Position.y) / QP::Camera.Zoom;
+	X = (float)((CursorX - (float)WindowWidth / 2.0) * (float)(1.0 / (float)(WindowWidth / 2.0))) * Aspect;
+	Y = -(float)(CursorY - (float)WindowHeight / 2.0) * (float)(1.0 / (float)(WindowHeight / 2.0));
+	DynamicX = (X + Camera.Position.x) / Camera.Zoom;
+	DynamicY = (Y + Camera.Position.y) / Camera.Zoom;
 }

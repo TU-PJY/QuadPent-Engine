@@ -12,5 +12,5 @@ namespace QP {
 		void MoveForward(QP::Vector2& Position, float Speed, float RotationValue, float FrameTime, bool Plus90Option);
 	};
 
-	extern QP::QuadPent_MoveTool MoveTool;
+	extern QuadPent_MoveTool MoveTool;
 }

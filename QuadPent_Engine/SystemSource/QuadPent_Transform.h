@@ -20,5 +20,5 @@ namespace QP {
 		void Flip(int FlipFlag, int MatrixType = MATRIX_LOCAL);
 	};
 
-	extern QP::QuadPent_Transform Transform;
+	extern QuadPent_Transform Transform;
 }

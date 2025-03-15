@@ -61,5 +61,5 @@ namespace QP {
 		void StopAllSounds();
 	};
 
-	extern QP::QuadPent_SoundTool SoundTool;
+	extern QuadPent_SoundTool SoundTool;
 }

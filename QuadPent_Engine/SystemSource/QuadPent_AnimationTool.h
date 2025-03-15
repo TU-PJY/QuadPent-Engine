@@ -5,7 +5,7 @@ namespace QP {
 	class SinLoop {
 	private:
 		float Num{ 0.0 };
-		QP::Vector2 Num2{ 0.0, 0.0 };
+		Vector2 Num2{ 0.0, 0.0 };
 
 	public:
 		void Update(float& Value, float MoveScale, float Speed, float FrameTime);
@@ -21,8 +21,8 @@ namespace QP {
 		float SingleStartPosition{};
 		float SingleDistance{};
 
-		QP::Vector2 StartPosition{};
-		QP::Vector2 Distance{};
+		Vector2 StartPosition{};
+		Vector2 Distance{};
 
 	public:
 		void SetMovePoint(float StartPoint, float EndPoint);

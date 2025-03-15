@@ -13,9 +13,9 @@ namespace QP {
 		BoundingBox   aabb;
 		bool          Collide{};
 
-		QP::LineRectBrush LineRect{ true, true };
-		QP::RectBrush     RECT{ true };
-		float			   Thickness{ BOUND_BOX_THICKNESS };
+		LineRectBrush LineRect{ true, true };
+		RectBrush     RECT{ true };
+		float		  Thickness{ BOUND_BOX_THICKNESS };
 
 	public:
 		void Update(float X, float Y, float xScale, float yScale);
@@ -39,9 +39,9 @@ namespace QP {
 		float             Rotation{};
 		bool              Collide{};
 
-		QP::LineRectBrush     LineRect{ true, true };
-		QP::RectBrush         RECT{ true };
-		float				   Thickness{ BOUND_BOX_THICKNESS };
+		LineRectBrush     LineRect{ true, true };
+		RectBrush         RECT{ true };
+		float			  Thickness{ BOUND_BOX_THICKNESS };
 
 	public:
 		void Update(float X, float Y, float BoxWidth, float BoxHeight, float RotationValue);
@@ -62,15 +62,15 @@ namespace QP {
 	class BoundingCircle {
 	private:
 		BoundingSphere  sphere;
-		glm::vec2       Center{};
+		Vector2         Center{};
 		float           Radius{};
 		float           Size{};
 
 		bool            Collide{};
 
-		QP::LineCircleBrush LineCircle{ true, true };
-		QP::CircleBrush     Circle{ true };
-		float                Thickness{ BOUND_BOX_THICKNESS };
+		LineCircleBrush LineCircle{ true, true };
+		CircleBrush     Circle{ true };
+		float           Thickness{ BOUND_BOX_THICKNESS };
 
 	public:
 		void Update(float X, float Y, float Diameter);

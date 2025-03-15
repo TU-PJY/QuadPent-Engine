@@ -4,6 +4,7 @@
 #include "QuadPent_Scene.h"
 #include "QuadPent_Frustum.h"
 #include "QuadPent_Mouse.h"
+#include "../resource.h"
 
 QP::QuadPent_System QP::System;
 QP::QuadPent_System* QP::QuadPent_System::S_Inst;
@@ -15,17 +16,17 @@ void QP::QuadPent_System::Main() {
 	POINT CursorPosition;
 	if (GetCursorPos(&CursorPosition)) {
 		ScreenToClient(QP::System_HWND, &CursorPosition);
-		QP::Mouse.ConvertPosition(CursorPosition.x, CursorPosition.y);
+		Mouse.ConvertPosition(CursorPosition.x, CursorPosition.y);
 	}
 	
 	if (S_Inst->UpdateActivateCommand) {
-		QP::Scene.Update();
-		QP::CameraControl.Update();
-		QP::Frustum.Update();
-		QP::SoundTool.Update();
-		QP::Scene.Render();
-		QP::Frustum.Render();
-		QP::Scene.CompleteCommand();
+		Scene.Update();
+		CameraControl.Update();
+		Frustum.Update();
+		SoundTool.Update();
+		Scene.Render();
+		Frustum.Render();
+		Scene.CompleteCommand();
 	}
 
 	if (S_Inst->FPSLimit > 0) {
@@ -54,20 +55,30 @@ void main(int argc, char** argv) {
 
 	QP::System_HWND = FindWindowA(nullptr, WINDOW_NAME);
 	if (QP::System_HWND) {
-		PlaySoundW(TEXT("SystemComponent\\Sound\\alert.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		PlaySoundW(TEXT("SystemComponent\\Sound\\sound-alert.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
-		std::wstring Str{}, MsgBoxStr{};
+		std::wstring MessageStr{}, MsgBoxStr{};
 
 		if (QP::SYSTEM_LOCALE == L"ko-KR") {
 			MsgBoxStr = L"QuadPent 실행 오류";
-			Str = L"이미 하나 이상의 앱이 실행 중입니다.";
+			MessageStr = L"이미 하나 이상의 앱이 실행 중입니다.";
 		}
 		else {
 			MsgBoxStr = L"QuadPent execution error";
-			Str = L"One or more apps are already running.";
+			MessageStr = L"One or more apps are already running.";
 		}
 
-		int Result = MessageBox(NULL, Str.c_str(), MsgBoxStr.c_str(), MB_OK);
+		HICON Icon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_ICON1));
+
+		MSGBOXPARAMS MsgBox = { sizeof(MSGBOXPARAMS) };
+		MsgBox.hwndOwner = NULL;
+		MsgBox.hInstance = GetModuleHandle(NULL);
+		MsgBox.lpszCaption = MsgBoxStr.c_str();
+		MsgBox.lpszText = MessageStr.c_str();
+		MsgBox.dwStyle = MB_OK | MB_USERICON;
+		MsgBox.lpszIcon = MAKEINTRESOURCE(IDI_ICON1);
+
+		int Result = MessageBoxIndirect(&MsgBox);
 		if (Result == IDOK || Result == IDCLOSE)
 			return;
 	}
@@ -76,14 +87,16 @@ void main(int argc, char** argv) {
 	std::wcout.imbue(std::locale());
 	std::cout.imbue(std::locale());
 
-	if (ENABLE_DEBUG_CONSOLE && AllocConsole()) {
-		FILE* FP{};
+	if (ENABLE_DEV_MODE && ENABLE_DEBUG_CONSOLE) {
+		if (AllocConsole()) {
+			FILE* FP{};
 
-		freopen_s(&FP, "CONOUT$", "w", stdout);
-		freopen_s(&FP, "CONIN$", "r", stdin);
-		freopen_s(&FP, "CONERR$", "w", stderr);
+			freopen_s(&FP, "CONOUT$", "w", stdout);
+			freopen_s(&FP, "CONIN$", "r", stdin);
+			freopen_s(&FP, "CONERR$", "w", stderr);
 
-		std::cout << "Console initialized successfully." << std::endl;
+			std::cout << "Console initialized successfully." << std::endl;
+		}
 	}
 	
 	QP::System.SetupSystem(argc, argv);
@@ -97,5 +110,5 @@ void QP::QuadPent_System::Exit() {
 }
 
 float QP::ASP(float Value) {
-	return Value * QP::Aspect;
+	return Value * Aspect;
 }

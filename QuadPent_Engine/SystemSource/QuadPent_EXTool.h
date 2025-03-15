@@ -16,5 +16,5 @@ namespace QP {
 		void InputBoolSwitch(int SwitchingOption, QP::KeyEvent& Event, WPARAM Key, bool& DestBoolValue);
 	};
 
-	extern QP::QuadPent_EXTool EXTool;
+	extern QuadPent_EXTool EXTool;
 }

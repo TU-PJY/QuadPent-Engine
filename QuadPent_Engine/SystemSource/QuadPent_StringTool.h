@@ -14,5 +14,5 @@ namespace QP {
 		std::wstring Wstring(const std::string& Str);
 	};
 
-	extern QP::QuadPent_StringTool StringTool;
+	extern QuadPent_StringTool StringTool;
 }

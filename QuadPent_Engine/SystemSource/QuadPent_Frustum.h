@@ -4,8 +4,8 @@
 namespace QP {
 	class QuadPent_Frustum {
 	private:
-		QP::OOBB FrustumOOBB{};
-		QP::LineRectBrush LineRect{ false, true };
+		OOBB FrustumOOBB{};
+		LineRectBrush LineRect{ false, true };
 
 	public:
 		QuadPent_Frustum();
@@ -16,5 +16,5 @@ namespace QP {
 		bool Check(QP::BoundingCircle& circle);
 	};
 
-	extern QP::QuadPent_Frustum Frustum;
+	extern QuadPent_Frustum Frustum;
 }
